@@ -1,0 +1,15 @@
+<!-- <link rel="import" 
+  href="../external-libs/bower_components/paper-shadow/paper-shadow.html"> -->
+<div id="home">
+	<paper-shadow z="1" class="snippet" ng-repeat="app in appsInfo.apps">
+		<!-- <a href="{{app.href}}" style="display:block">{{app.name}}</a> -->
+		<h1>{{app.name}}</h1>
+		<div class="info">
+		<paper-shadow z="2" class="thumb-container" >
+		<a href="{{app.href}}"><img src="{{app.thumb}}" class="thumbnail"></a>
+		</paper-shadow>
+		<p>{{app.desc}}</p>
+		</div>
+	</paper-shadow>
+	
+</div>

@@ -1,0 +1,14 @@
+<script>require(['app']);</script>
+<div id="pitch-dial" ng-controller="PitchDialCtrl">
+<div class="container-toplevel">
+
+    <div class="container">
+        <button ng-click="startMic()">Start Mic</button>
+        <button id="setRoot" ng-click="setRoot()">Set Root</button>
+        <button id="playRoot" ng-click="playRoot()">Play Root</button>
+        <div id="dial-container">
+        	<ng-dial ></ng-dial>
+    	</div>
+    </div>
+</div>
+</div>

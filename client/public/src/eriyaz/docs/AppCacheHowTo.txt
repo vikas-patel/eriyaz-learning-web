@@ -1,0 +1,4 @@
+1.To include appcache <html manifest="eriyaz.appcache">
+2.Each file has to be individually included in cache, use gulp/grunt to manage appcache generation.
+3.Once app is cached on browser it continues to serve from cache even if files are updated on server. To get updated files change version on .appcache commented portion.
+4.To remove cache, delete appcache file. Just removing the manifest from html tag does not work.

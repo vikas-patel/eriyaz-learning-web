@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Singing Graph</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <script data-main="app" src="../lib/require.js"></script>
+		<link rel="stylesheet" href="exercise.css" type="text/css"/>
+    </head>
+    <body>
+		<div id="game-over-overlay"></div>
+		<div class="counter" id="counter"></div>
+
+		<div id="game-over">
+		  <h1>EXERCISE ENDS</h1>
+		  <h2>YOUR SCORE: <span id="overlay-score"></span></h2>
+		  <button id="close-overlay">Close</button>
+		  <button id="play-again">Replay</button>
+		  <button id="next-exercise">Next</button>
+		</div>
+            <div class="container">
+				<label for="chartType">Chart type:</label>
+                <select id="chartType"">
+					<option value="reference chart">reference chart</option>
+                    <option value="lineChart">line chart</option>
+                </select>
+                <label for="labelsystem">Style:</label>
+                <select id="labelsystem" onchange="switchLabels(this.value);">
+                    <option value="indian">Indian</option>
+                    <option value="western">Western</option>
+                </select>
+                <button id="setRoot">Set Root</button>
+                <button id="playRoot">Play Root</button>
+				<label for="exerciseId">Exercises:</label>
+                <select id="exerciseId">
+                </select>
+            </div>
+            <div id="containerId" class='container'>
+				<div style="float: left;">
+					<button id="start">Start</button>
+					<button id="pause">Pause</button>
+					<button id="resume">Resume</button>
+					<button id="stop">Stop</button>
+					<button id="play">Play Instrument</button>
+					<input type = "checkbox" checked = "checked" id = "instrumentEnabled" />
+             		<label for = "instrumentEnabled">Play Instrument</label>
+				</div>
+				<div style="float: right;">
+					<span>Last Score: </span><span id='lastScore'>0</span>
+					<span>Total Score: </span><span id='totalScore'>0</span>
+				</div>
+				<div  class='svg-container' id="chart-box">
+				</div>
+			</div>
+    </body>
+</html>

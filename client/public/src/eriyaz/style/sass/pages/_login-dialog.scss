@@ -1,0 +1,80 @@
+#loginDialog {
+	// width : 500px;
+	// height : 300px;
+	border-radius: 5px;
+	background-color : white;
+	// @include container;
+
+	// input {
+	// 	@include span(8 of 12);
+	// 	margin-top : gutter();
+	// }
+	/deep/ {
+		
+
+		h4 {
+			color : #F16236;
+			text-align:center;
+			font-weight: 800;
+			font-size:x-large;
+		}	
+
+		#scroller {
+			border-radius: 5px;
+			margin:0px;
+			border:0px;
+		}
+
+		input {
+			display:block;
+			height : 40px;
+			margin-top:gutter();
+
+			&[type="submit"] {
+				@include span(3 of 4);
+				background-color:#F16236;
+				color:white;
+				font-size:16px;
+				border:none;
+			}
+
+			&:-webkit-autofill {
+    			-webkit-box-shadow: 0 0 0px 1000px white inset;
+			}
+
+			@include breakpoint($extra-narrow-height) {
+				height:20px;
+				margin-top:none;
+				&[type="submit"] {
+					height:40px;
+				}
+			}
+		}
+
+		.or {
+			@include span(1 of 4 last);
+			margin-top:gutter();
+		}
+
+		.close-button {
+			position:absolute;
+			top:0px;
+			right:0px;
+			width:20px;
+			height:20px;
+			text-align:center;
+			color : black;
+			text-decoration : none;
+			&:hover {
+				cursor:pointer;
+				cursor:hand;
+			}
+		}
+		
+		a {
+			color : #652218;
+		}
+	}
+}
+
+

@@ -1,0 +1,37 @@
+core-header-panel {
+  background: white;
+}
+core-toolbar {
+  // background-color: #cc000b;
+  background-color: #F16236;
+}
+#navheader {
+  // background-color: #cc000b;
+  background-color: #F16236;
+}
+.content {
+  padding: 20px;
+}
+
+#drawer /deep/  #mainContainer {
+	// background-color: #F8BA53;
+	background-color: #F4F4F4;
+
+}
+
+#drawer /deep/  #side-menu {
+	// background-color: #F8BA53;
+	background-color: white;
+	// height:800px;
+}
+
+#main-panel /deep/  #mainContainer {
+	// background-color: #F8BA53;
+	background-color: #F4F4F4;
+
+}
+/* drawer is always visible on a wide screen
+   so menu button isn't required */
+core-drawer-panel:not([narrow]) #navicon {
+  display: none;
+}

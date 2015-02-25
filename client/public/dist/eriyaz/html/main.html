@@ -1,0 +1,43 @@
+<div ng-controller="AppCtrl">
+  <div ng-include="'eriyaz/html/front.html'"  ng-show="uiModel.showFront"></div>
+  <div ng-include="'eriyaz/html/login.html'"></div>
+  <core-drawer-panel id="drawerPanel" ng-show="uiModel.showMenu">
+
+    <core-header-panel id="drawer" drawer>
+      <core-toolbar id="navheader">
+        <span>Menu</span>
+      </core-toolbar>
+
+      <core-menu>
+        <core-submenu label="Apps">
+          <core-item label="{{app.name}}" ng-repeat="app in appsInfo.apps">
+            <a href="{{app.href}}" target="_self"></a>
+          </core-item>
+        </core-submenu>
+        <core-submenu label="User">
+          <core-item label="logout"><a href="#logout" target="_self"></a></core-item>
+        </core-submenu>
+      </core-menu>
+
+    </core-header-panel>
+
+    <core-header-panel id="main-panel" main>
+      <core-toolbar id="mainheader">
+        <paper-icon-button id="navicon" icon="menu" onclick="document.getElementById('drawerPanel').togglePanel();"></paper-icon-button>
+        <span flex>Home</span>
+      </core-toolbar>
+      <div ng-include="uiModel.contentUrl"></div>
+    </core-header-panel>
+   
+
+  </core-drawer-panel>
+
+  <paper-dialog backdrop autoCloseDisabled layered="false" opened={{uiModel.showAppDialog}} id="appDialog">
+    <paper-shadow id="app-container" z="1" ng-style="style()" ng-resize>
+       <div ng-include="appsInfo.getSelectedUrl()"></div>
+     </paper-shadow>
+     <!-- <paper-button ng-click="uiModel.showAppDialog='false'" >Tap me to close</paper-button> -->
+     <a class="close-button" href="#home">x</a>
+   </paper-dialog>
+  <div ui-view class="dummy"></div>
+</div>

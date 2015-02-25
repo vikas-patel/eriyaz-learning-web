@@ -1,0 +1,132 @@
+#front {
+  font-family: sans-serif;
+
+  background-image: image-url("fort.jpg"),radial-gradient(closest-side at 35% 45%, #E02006,#F16236,#E02006);
+
+  /* Background image is centered vertically and horizontally at all times */
+  background-position: center center;
+  
+  /* Background image doesn't tile */
+  background-repeat: no-repeat;
+  
+  /* Background image is fixed in the viewport so that it doesn't move when 
+     the content's height is greater than the image's height */
+  background-attachment: fixed;
+  
+  /* This is what makes the background image rescale based
+     on the container's size */
+  background-size: cover;
+  
+  /* Set a background color that will be displayed
+     while the background image is loading */
+  // background-color: #F16236;
+
+  position:absolute;
+  height : 100%;
+  width:100%;
+  
+  color : white;
+}
+
+
+#front #header {
+  margin-right:30px;
+  margin-top:20px;
+  height:20%;
+
+  @include breakpoint($extra-narrow-height) {
+    height:10%;
+  }
+}
+
+#front #intro {
+  background-color: rgba(241,98,54,0.5);
+  border-radius: 5px;
+  box-shadow : 0 0 5px 2px rgba(0,0,0,0.2);
+  height:70%;
+  width:50%;
+  position : absolute;
+  top: 40%;
+  left:30%;
+  transform: translate(-40%, -40%);
+
+  @include breakpoint($narrow-width) {
+    width:70%;
+    transform:translate(-20%,-40%);
+  }
+
+  @include breakpoint($narrow-height) {
+    height:90%;
+  }
+}
+
+
+
+#front [href='#login'],[href='#signup'] {
+  color : white;
+  float:right;
+  text-align : right;
+  width : 50px;
+  text-decoration :none;
+  // margin:10px;
+}
+
+#front [href='#login']:hover,[href='#signup']:hover {
+  text-decoration : underline;
+}
+
+
+#front #try, #try a {
+  color : black;
+  margin-top:10px;
+}
+
+
+#front #desc,#eriyaz,#join,#try {
+  // position : absolute;
+  display : block;
+  // left: 50%;
+  text-align : center;
+  margin : 10px;
+}
+
+#front #desc {
+  color : black;
+}
+
+#front #join {
+  color : white;
+  background-color : #652218;
+  line-height : 60px;
+  width : 200px;
+  margin:auto;
+  text-decoration: none;
+  border-radius: 10px;
+  // border-color:#A53F26;
+  border-color:#983923;
+  border-width:1px;
+  border-style:solid;
+  font-size : 120%;
+  box-shadow: 0 0 28px 5px #652218;
+
+  @include breakpoint(($narrow-width, $narrow-height)) {
+    line-height:40px;
+    width:150px;
+  }
+}
+
+#front #join:hover {
+  box-shadow: 0 0 28px 6px #652218;
+  text-shadow: 0 0 15px #FFFFFF;
+
+}
+
+#front #eriyaz {
+  font-size : 500%;
+  // text-shadow: 0 0 30px #FFFFFF;
+  color : #652218;
+   @include breakpoint(($narrow-width, $narrow-height)) {
+    font-size:300%;
+  }
+}
+

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<testsuites>
+  <testsuite name="Chrome 40.0.2214 (Windows 7)" package="" timestamp="2015-02-07T04:46:37" id="0" hostname="ashwin-PC">
+    <properties>
+      <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.111 Safari/537.36"/>
+    </properties>
+  </testsuite>
+  <testsuite name="Chrome 40.0.2214 (Windows 7)" package="" timestamp="2015-02-07T04:46:37" id="0" hostname="ashwin-PC" tests="11" errors="0" failures="0" time="11.024">
+    <properties>
+      <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.111 Safari/537.36"/>
+    </properties>
+    <testcase name="should callback and return player on load" time="3.006" classname="Chrome 40.0.2214 (Windows 7).MidiPlayer"/>
+    <testcase name="can play a note" time="4.013" classname="Chrome 40.0.2214 (Windows 7).MidiPlayer"/>
+    <testcase name="can play a melody" time="4.005" classname="Chrome 40.0.2214 (Windows 7).MidiPlayer"/>
+    <system-out><![CDATA[
+]]></system-out>
+    <system-err/>
+  </testsuite>
+</testsuites>

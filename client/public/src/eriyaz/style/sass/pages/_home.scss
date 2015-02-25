@@ -1,0 +1,34 @@
+.snippet {
+	height : 300px;
+	// background-color: #E84F26;
+	background-color: white;
+	margin : 20px;
+	color : black;
+	// @include container(4);
+
+	h1 {
+		display:block;
+		margin-left:30px;
+		padding-top:10px;
+		// font-weight: bold;
+	}
+
+	p {
+		padding-top:10px;
+	}
+
+	.info {
+		margin:20px;
+	}
+
+	.thumbnail {
+		width:200px;
+		height:200px;
+	}
+
+	.thumb-container {
+		float: left;
+		margin-right:40px;
+	}
+}
+

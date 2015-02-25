@@ -1,0 +1,39 @@
+/* line 6, ../PitchDialAngular/main.scss */
+#pitch-dial .container-toplevel {
+  position: relative;
+  border-radius: 5px;
+  border-width: 3px;
+  border-color: #CCCCCC;
+  width: 100%;
+}
+/* line 16, ../PitchDialAngular/main.scss */
+#pitch-dial .container-toplevel::before {
+  display: block;
+  padding-top: 120%;
+  content: '';
+}
+/* line 21, ../PitchDialAngular/main.scss */
+#pitch-dial .container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: 5px;
+  padding: 5px;
+}
+/* line 35, ../PitchDialAngular/main.scss */
+#pitch-dial #dial-container {
+  position: absolute;
+  top: 10%;
+  width: 100%;
+}
+/* line 39, ../PitchDialAngular/main.scss */
+#pitch-dial #dial-container canvas {
+  width: 100%;
+}
+/* line 55, ../PitchDialAngular/main.scss */
+#pitch-dial button {
+  width: 25%;
+  height: 7%;
+}

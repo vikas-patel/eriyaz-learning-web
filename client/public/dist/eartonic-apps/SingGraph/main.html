@@ -1,0 +1,25 @@
+<div id="sing-graph" ng-controller="SingGraphCtrl">
+	<div>
+		<div style="float: left;">
+			<label for="exerciseId">Exercises:</label>
+		    <select id="exerciseId">
+		    </select>
+			<button ng-click="startOrPause()" ng-class="{start:operation==='start', pause:operation==='pause', resume:operation==='resume'}"></button>
+			<button ng-click="stop()" ng-disabled="isDisabled()">Reset</button>
+			<button id="play">Play Instrument</button>
+			<input type = "checkbox" checked = "checked" id = "instrumentEnabled" />
+	 		<label for = "instrumentEnabled">Play Instrument</label>
+	 		<button id="setRoot">Set Root</button>
+		    <button id="playRoot">Play Root</button>
+			
+		</div>
+		<div style="float: right;">
+			<span>Last Score: </span><span id='lastScore'>0</span>
+			<span>Total Score: </span><span id='totalScore'>0</span>
+		</div>
+	</div>
+	<div id="containerId">
+		<div  class='svg-container' id="chart-box">
+		</div>
+	</div>
+</div>

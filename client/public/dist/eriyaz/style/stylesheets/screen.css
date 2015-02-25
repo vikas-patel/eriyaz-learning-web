@@ -1,0 +1,569 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+/* line 5, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 1, ../sass/pages/_common.scss */
+[ng-cloak] {
+  display: none;
+}
+
+/* line 11, ../sass/pages/_common.scss */
+body /deep/ {
+  font-size: 100%;
+}
+
+/* line 1, ../sass/pages/_front.scss */
+#front {
+  font-family: sans-serif;
+  background-image: url('../../images/fort.jpg?1421579740');
+  /* Background image is centered vertically and horizontally at all times */
+  background-position: center center;
+  /* Background image doesn't tile */
+  background-repeat: no-repeat;
+  /* Background image is fixed in the viewport so that it doesn't move when 
+     the content's height is greater than the image's height */
+  background-attachment: fixed;
+  /* This is what makes the background image rescale based
+     on the container's size */
+  background-size: cover;
+  /* Set a background color that will be displayed
+     while the background image is loading */
+  background-color: #464646;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  color: white;
+}
+
+/* line 33, ../sass/pages/_front.scss */
+#front #header {
+  margin-right: 30px;
+  margin-top: 20px;
+  height: 20%;
+}
+@media (max-height: 280px) {
+  /* line 33, ../sass/pages/_front.scss */
+  #front #header {
+    height: 10%;
+  }
+}
+
+/* line 43, ../sass/pages/_front.scss */
+#front #intro {
+  background-color: rgba(241, 98, 54, 0.5);
+  border-radius: 5px;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
+  height: 70%;
+  width: 50%;
+  position: absolute;
+  top: 40%;
+  left: 30%;
+  transform: translate(-40%, -40%);
+}
+@media (max-width: 640px) {
+  /* line 43, ../sass/pages/_front.scss */
+  #front #intro {
+    width: 70%;
+    transform: translate(-20%, -40%);
+  }
+}
+@media (max-height: 420px) {
+  /* line 43, ../sass/pages/_front.scss */
+  #front #intro {
+    height: 90%;
+  }
+}
+
+/* line 66, ../sass/pages/_front.scss */
+#front [href='#login'], [href='#signup'] {
+  color: white;
+  float: right;
+  text-align: right;
+  width: 50px;
+  text-decoration: none;
+}
+
+/* line 75, ../sass/pages/_front.scss */
+#front [href='#login']:hover, [href='#signup']:hover {
+  text-decoration: underline;
+}
+
+/* line 80, ../sass/pages/_front.scss */
+#front #try, #try a {
+  color: black;
+  margin-top: 10px;
+}
+
+/* line 86, ../sass/pages/_front.scss */
+#front #desc, #eriyaz, #join, #try {
+  display: block;
+  text-align: center;
+  margin: 10px;
+}
+
+/* line 94, ../sass/pages/_front.scss */
+#front #desc {
+  color: black;
+}
+
+/* line 98, ../sass/pages/_front.scss */
+#front #join {
+  color: white;
+  background-color: #652218;
+  line-height: 60px;
+  width: 200px;
+  margin: auto;
+  text-decoration: none;
+  border-radius: 10px;
+  border-color: #983923;
+  border-width: 1px;
+  border-style: solid;
+  font-size: 120%;
+  box-shadow: 0 0 28px 5px #652218;
+}
+@media (max-width: 640px), (max-height: 420px) {
+  /* line 98, ../sass/pages/_front.scss */
+  #front #join {
+    line-height: 40px;
+    width: 150px;
+  }
+}
+
+/* line 119, ../sass/pages/_front.scss */
+#front #join:hover {
+  box-shadow: 0 0 28px 6px #652218;
+  text-shadow: 0 0 15px #FFFFFF;
+}
+
+/* line 125, ../sass/pages/_front.scss */
+#front #eriyaz {
+  font-size: 500%;
+  color: #652218;
+}
+@media (max-width: 640px), (max-height: 420px) {
+  /* line 125, ../sass/pages/_front.scss */
+  #front #eriyaz {
+    font-size: 300%;
+  }
+}
+
+/* line 1, ../sass/pages/_login-dialog.scss */
+#loginDialog {
+  border-radius: 5px;
+  background-color: white;
+}
+/* line 15, ../sass/pages/_login-dialog.scss */
+#loginDialog /deep/ h4 {
+  color: #F16236;
+  text-align: center;
+  font-weight: 800;
+  font-size: x-large;
+}
+/* line 22, ../sass/pages/_login-dialog.scss */
+#loginDialog /deep/ #scroller {
+  border-radius: 5px;
+  margin: 0px;
+  border: 0px;
+}
+/* line 28, ../sass/pages/_login-dialog.scss */
+#loginDialog /deep/ input {
+  display: block;
+  height: 40px;
+  margin-top: 5.26316%;
+}
+/* line 33, ../sass/pages/_login-dialog.scss */
+#loginDialog /deep/ input[type="submit"] {
+  width: 73.68421%;
+  float: left;
+  margin-right: 5.26316%;
+  background-color: #F16236;
+  color: white;
+  font-size: 16px;
+  border: none;
+}
+/* line 41, ../sass/pages/_login-dialog.scss */
+#loginDialog /deep/ input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+@media (max-height: 280px) {
+  /* line 28, ../sass/pages/_login-dialog.scss */
+  #loginDialog /deep/ input {
+    height: 20px;
+    margin-top: none;
+  }
+  /* line 48, ../sass/pages/_login-dialog.scss */
+  #loginDialog /deep/ input[type="submit"] {
+    height: 40px;
+  }
+}
+/* line 54, ../sass/pages/_login-dialog.scss */
+#loginDialog /deep/ .or {
+  width: 21.05263%;
+  float: right;
+  margin-right: 0;
+  margin-top: 5.26316%;
+}
+/* line 59, ../sass/pages/_login-dialog.scss */
+#loginDialog /deep/ .close-button {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  color: black;
+  text-decoration: none;
+}
+/* line 68, ../sass/pages/_login-dialog.scss */
+#loginDialog /deep/ .close-button:hover {
+  cursor: pointer;
+  cursor: hand;
+}
+/* line 74, ../sass/pages/_login-dialog.scss */
+#loginDialog /deep/ a {
+  color: #652218;
+}
+
+/* line 1, ../sass/pages/_home.scss */
+.snippet {
+  height: 300px;
+  background-color: white;
+  margin: 20px;
+  color: black;
+}
+/* line 9, ../sass/pages/_home.scss */
+.snippet h1 {
+  display: block;
+  margin-left: 30px;
+  padding-top: 10px;
+}
+/* line 16, ../sass/pages/_home.scss */
+.snippet p {
+  padding-top: 10px;
+}
+/* line 20, ../sass/pages/_home.scss */
+.snippet .info {
+  margin: 20px;
+}
+/* line 24, ../sass/pages/_home.scss */
+.snippet .thumbnail {
+  width: 200px;
+  height: 200px;
+}
+/* line 29, ../sass/pages/_home.scss */
+.snippet .thumb-container {
+  float: left;
+  margin-right: 40px;
+}
+
+/* line 1, ../sass/pages/_scaffold.scss */
+core-header-panel {
+  background: white;
+}
+
+/* line 4, ../sass/pages/_scaffold.scss */
+core-toolbar {
+  background-color: #F16236;
+}
+
+/* line 8, ../sass/pages/_scaffold.scss */
+#navheader {
+  background-color: #F16236;
+}
+
+/* line 12, ../sass/pages/_scaffold.scss */
+.content {
+  padding: 20px;
+}
+
+/* line 16, ../sass/pages/_scaffold.scss */
+#drawer /deep/ #mainContainer {
+  background-color: #F4F4F4;
+}
+
+/* line 22, ../sass/pages/_scaffold.scss */
+#drawer /deep/ #side-menu {
+  background-color: white;
+}
+
+/* line 28, ../sass/pages/_scaffold.scss */
+#main-panel /deep/ #mainContainer {
+  background-color: #F4F4F4;
+}
+
+/* drawer is always visible on a wide screen
+   so menu button isn't required */
+/* line 35, ../sass/pages/_scaffold.scss */
+core-drawer-panel:not([narrow]) #navicon {
+  display: none;
+}
+
+/* line 1, ../sass/pages/_app-modal.scss */
+#appDialog {
+  width: 90%;
+  height: 90%;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+}
+/* line 8, ../sass/pages/_app-modal.scss */
+#appDialog /deep/ #scroller {
+  min-width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-conent: center;
+}
+/* line 21, ../sass/pages/_app-modal.scss */
+#appDialog .close-button {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 300;
+}
+/* line 32, ../sass/pages/_app-modal.scss */
+#appDialog .close-button:hover {
+  cursor: pointer;
+  cursor: hand;
+}
+@media (max-width: 640px) {
+  /* line 1, ../sass/pages/_app-modal.scss */
+  #appDialog {
+    width: 100%;
+    height: 100%;
+  }
+  /* line 42, ../sass/pages/_app-modal.scss */
+  #appDialog .close-button {
+    color: black;
+  }
+}
+
+/* line 1, ../sass/etapps/_app1.scss */
+body /deep/ #app1 {
+  height: 400px;
+  width: 500px;
+  /*border-4style : solid;*/
+  /*border-width: 1px;*/
+  margin: 20px;
+}
+
+/* line 1, ../sass/etapps/_app2.scss */
+body /deep/ #app2 {
+  height: 300px;
+  width: 300px;
+  /*border-style : solid;*/
+  /*border-width: 1px;*/
+  background-color: white;
+  margin: 20px;
+}
+
+/* line 6, ../../../eartonic-apps/PitchDialAngular/main.scss */
+#pitch-dial .container-toplevel {
+  position: relative;
+  border-radius: 5px;
+  border-width: 3px;
+  border-color: #CCCCCC;
+  width: 100%;
+}
+/* line 16, ../../../eartonic-apps/PitchDialAngular/main.scss */
+#pitch-dial .container-toplevel::before {
+  display: block;
+  padding-top: 120%;
+  content: '';
+}
+/* line 21, ../../../eartonic-apps/PitchDialAngular/main.scss */
+#pitch-dial .container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: 5px;
+  padding: 5px;
+}
+/* line 35, ../../../eartonic-apps/PitchDialAngular/main.scss */
+#pitch-dial #dial-container {
+  position: absolute;
+  top: 10%;
+  width: 100%;
+}
+/* line 39, ../../../eartonic-apps/PitchDialAngular/main.scss */
+#pitch-dial #dial-container canvas {
+  width: 100%;
+}
+/* line 55, ../../../eartonic-apps/PitchDialAngular/main.scss */
+#pitch-dial button {
+  width: 25%;
+  height: 7%;
+}
+
+/* line 2, ../../../eartonic-apps/SingGraph/main.scss */
+#sing-graph {
+  /* Resize Window */
+  /* Overlay */
+  /* Indicator line */
+}
+/* line 4, ../../../eartonic-apps/SingGraph/main.scss */
+#sing-graph .start::before {
+  content: "Start";
+}
+/* line 8, ../../../eartonic-apps/SingGraph/main.scss */
+#sing-graph .pause::before {
+  content: "Pause";
+}
+/* line 12, ../../../eartonic-apps/SingGraph/main.scss */
+#sing-graph .resume::before {
+  content: "Resume";
+}
+/* line 16, ../../../eartonic-apps/SingGraph/main.scss */
+#sing-graph .container {
+  margin: 5px;
+  padding: 5px;
+}
+/* line 25, ../../../eartonic-apps/SingGraph/main.scss */
+#sing-graph .svg-container {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  padding-bottom: 46%;
+  vertical-align: middle;
+  overflow: hidden;
+  /* Axis */
+}
+/* line 37, ../../../eartonic-apps/SingGraph/main.scss */
+#sing-graph .svg-container .axis .tick text {
+  fill: black;
+  font-size: 0.7em;
+}
+/* line 42, ../../../eartonic-apps/SingGraph/main.scss */
+#sing-graph .svg-container .axis path, #sing-graph .svg-container .axis line {
+  fill: none;
+  stroke: black;
+  shape-rendering: crispEdges;
+  stroke-width: 1px;
+}
+/* line 51, ../../../eartonic-apps/SingGraph/main.scss */
+#sing-graph .svg-content {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+/* line 59, ../../../eartonic-apps/SingGraph/main.scss */
+#sing-graph #game-over, #sing-graph #game-over-overlay {
+  margin: auto;
+  width: 1000px;
+  height: 500px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  display: none;
+}
+/* line 72, ../../../eartonic-apps/SingGraph/main.scss */
+#sing-graph #game-over-overlay {
+  background-color: black;
+  opacity: .5;
+}
+/* line 77, ../../../eartonic-apps/SingGraph/main.scss */
+#sing-graph #game-over {
+  height: 200px;
+  text-align: center;
+  color: white;
+}
+/* line 83, ../../../eartonic-apps/SingGraph/main.scss */
+#sing-graph #counter {
+  margin: auto;
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  color: red;
+  font-size: 3em;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+/* line 98, ../../../eartonic-apps/SingGraph/main.scss */
+#sing-graph .indicatorLine {
+  stroke-width: 1;
+}
+/* line 102, ../../../eartonic-apps/SingGraph/main.scss */
+#sing-graph .exercise {
+  fill: #A8A8A8;
+}
