@@ -3,17 +3,17 @@
       var appsInfo = {};
       appsInfo.apps = [{
         name: 'Sing Dial',
-        thumb: 'eriyaz/images/singdial.jpg',
+        thumb: 'er-shell/images/singdial.jpg',
         desc: 'Get immediate feedback on your singing with Sing Dial',
         href: '#singdial',
-        appUrl: 'eartonic-apps/PitchDialAngular/main.html',
+        appUrl: 'er-apps/PitchDialAngular/main.html',
         aspectRatio: 5/6
       }, {
         name: 'Sing Graph',
-        thumb: 'eriyaz/images/singgraph.jpg',
+        thumb: 'er-shell/images/singgraph.jpg',
         desc: 'Practice singing exercises',
         href: '#singgraph',
-        appUrl: 'eartonic-apps/SingGraph/main.html',
+        appUrl: 'er-apps/SingGraph/main.html',
         aspectRatio : 41/20
       }];
       appsInfo.selectedIndex = 0;

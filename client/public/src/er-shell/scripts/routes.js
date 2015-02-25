@@ -68,7 +68,7 @@
              onEnter: function(UIModel) {
                  UIModel.uiModel.showFront = false;
                  UIModel.uiModel.showMenu = true;
-                 UIModel.uiModel.contentUrl = 'eriyaz/html/home.html';
+                 UIModel.uiModel.contentUrl = 'er-shell/html/home.html';
                  UIModel.uiModel.showLoginDialog = false;
                  UIModel.uiModel.showAppDialog = false;
              },

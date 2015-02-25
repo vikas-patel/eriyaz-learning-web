@@ -1,3 +1,3 @@
 define(['./require-config'], function() {
-	require(['eriyaz']);
+	require(['er-shell']);
 });

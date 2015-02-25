@@ -6,23 +6,23 @@
 requirejs.config({
     baseUrl: '/',
     paths: {
-        'polymer-wecomponents': 'external-libs/bower_components/webcomponentsjs/webcomponents.min',
-        'domReady': 'external-libs/bower_components/requirejs-domready/domready',
-        'angular': 'external-libs/bower_components/angular/angular',
-        'angular-ui-router': 'external-libs/bower_components/angular-ui-router/release/angular-ui-router.min',
+        'polymer-wecomponents': 'ext-libs/bower_components/webcomponentsjs/webcomponents.min',
+        'domReady': 'ext-libs/bower_components/requirejs-domready/domready',
+        'angular': 'ext-libs/bower_components/angular/angular',
+        'angular-ui-router': 'ext-libs/bower_components/angular-ui-router/release/angular-ui-router.min',
 
 
-        'mic': 'eartonic-libs/mic',
-        'audiobuffer': 'eartonic-libs/audiobuffer',
-        'fft-pitch' : 'external-libs/pitchjs/pitch',
-        'jquery' : 'external-libs/jquery/jquery',
-        'webaudio-tools' : 'external-libs/webaudio/webaudio-tools',
-        'webaudioplayer' : 'eartonic-libs/webaudioplayer',
-        'melody' : 'eartonic-libs/melody',
-        'note' : 'eartonic-libs/note',
-        'waveletpitch' : 'external-libs/waveletPitch',
-        'd3' : 'external-libs/d3.min'
-        //'countdown' : "external-libs/countdown"
+        'mic': 'er-libs/mic',
+        'audiobuffer': 'er-libs/audiobuffer',
+        'fft-pitch' : 'ext-libs/pitchjs/pitch',
+        'jquery' : 'ext-libs/jquery/jquery',
+        'webaudio-tools' : 'ext-libs/webaudio/webaudio-tools',
+        'webaudioplayer' : 'er-libs/webaudioplayer',
+        'melody' : 'er-libs/melody',
+        'note' : 'er-libs/note',
+        'waveletpitch' : 'ext-libs/waveletPitch',
+        'd3' : 'ext-libs/d3.min'
+        //'countdown' : "ext-libs/countdown"
     },
 
     // Add modules that do not support AMD
@@ -34,7 +34,7 @@ requirejs.config({
             deps: ['angular']
         },
         'fft-pitch': {
-            deps: ['external-libs/pitchjs/complex']
+            deps: ['ext-libs/pitchjs/complex']
                 // exports : 'PitchAnalyzer'
         },
         'jquery': {
@@ -42,16 +42,16 @@ requirejs.config({
         }
     },
     packages: [{
-        name: 'eriyaz',
-        location: 'eriyaz/scripts',
+        name: 'er-shell',
+        location: 'er-shell/scripts',
         main: 'main'
     }, {
         name: 'pitch-dial',
-        location: 'eartonic-apps/PitchDialAngular',
+        location: 'er-apps/PitchDialAngular',
         main: 'index'
     }, {
         name: 'sing-graph',
-        location: 'eartonic-apps/SingGraph',
+        location: 'er-apps/SingGraph',
         main: 'index'
     }]
 });
