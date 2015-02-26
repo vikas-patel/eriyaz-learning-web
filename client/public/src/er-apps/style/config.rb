@@ -12,9 +12,10 @@ javascripts_dir = "javascripts"
 relative_assets = true
 
 add_import_path ".."
-add_import_path "../eartonic-apps/PitchDial"
-
+# add_import_path "../er-apps/PitchDial"
 # add_import_path "../bower_components/bootstrap-material-design/sass"
+
+
 
 # You can select your preferred output style here (can be overridden via the command line):
 # output_style = :expanded or :nested or :compact or :compressed

@@ -9,33 +9,34 @@ var vulcanize = require('gulp-vulcanize');
 var rename = require('gulp-rename');
 var concat = require('gulp-concat');
 var del = require('del');
+var htmlreplace = require('gulp-html-replace');
 
 gulp.task('eriyaz-compass', function() {
-  gulp.src('./public/eriyaz/style/sass/*.scss')
+  gulp.src('./client/public/src/er-shell/style/sass/*.scss')
     .pipe(compass({
-      config_file: './public/eriyaz/style/config.rb',
-      css: './public/eriyaz/style/stylesheets',
-      sass: './public/eriyaz/style/sass',
-      image: './public/eriyaz/images',
-      import_path: ['./public']
+      config_file: './client/public/src/er-shell/style/config.rb',
+      css: './client/public/src/er-shell/style/stylesheets',
+      sass: './client/public/src/er-shell/style/sass',
+      image: './client/public/src/er-shell/images',
+      import_path: ['.client/public/src']
     }))
     .pipe(debug({
       title: "generated css:"
     }));
-  // .pipe(gulp.dest('./public/eriyaz/style/stylesheets/temp'));
+  // .pipe(gulp.dest('./client/public/src/er-shell/style/stylesheets/temp'));
 });
 
 gulp.task('testshell-compass', function() {
-  gulp.src('./public/eartonic-apps/style/all.scss')
+  gulp.src('./client/public/src/er-apps/style/all.scss')
     .pipe(debug({
       title: 'sasfile'
     }))
     .pipe(compass({
-      config_file: './public/eartonic-apps/style/config.rb',
-      css: './public/eartonic-apps/style',
-      sass: './public/eartonic-apps/style',
-      image: './public/eriyaz/images',
-      import_path: ['./public/eartonic-apps']
+      config_file: './client/public/src/er-apps/style/config.rb',
+      css: './client/public/src/er-apps/style',
+      sass: './client/public/src/er-apps/style',
+      image: './client/public/src/er-app/images',
+      import_path: ['./client/public/src/er-apps']
     }))
     .pipe(debug({
       title: "generated css:"
@@ -52,69 +53,78 @@ gulp.task('compass', ['testshell-compass', 'eriyaz-compass']);
 // Watch Files For Changes
 gulp.task('watch', function() {
   livereload.listen();
-  gulp.watch(['**/*.css', '**/*.html', 'public/**/*.js'], ['reload']);
-  gulp.watch('public/**/*.scss', ['compass']);
+  gulp.watch(['**/*.css', '**/*.html', 'client/**/*.js'], ['reload']);
+  gulp.watch('client/**/*.scss', ['compass']);
 });
 
 gulp.task('fast-reload', function() {
   livereload.listen();
-  gulp.watch(['**/*.css', '**/*.html', 'public/**/*.js'], ['reload']);
+  gulp.watch(['**/*.css', '**/*.html', 'client/**/*.js'], ['reload']);
 });
 
 
 
 gulp.task('rjs', function(cb) {
   rjs({
-      baseUrl: "public",
+      baseUrl: "client/public/src",
       name: "main",
       out: "app.js",
-      mainConfigFile: 'public/require-config.js',
+      mainConfigFile: 'client/public/src/require-config.js',
       optimize: 'none',
       findNestedDependencies: true,
       insertRequire: ['main']
     })
     .pipe(ngAnnotate())
     .pipe(uglify())
-    .pipe(gulp.dest('./public/dist/')); // pipe it to the output DIR 
+    .pipe(gulp.dest('./client/public/dist/')); // pipe it to the output DIR 
     cb();
 });
 
 
 gulp.task('buildjs',['rjs'], function() {
-  return gulp.src(['public/external-libs/bower_components/webcomponentsjs/webcomponents.min.js',
-    'public/external-libs/require.min.js',
-    'public/dist/app.js'])
+  return gulp.src(['client/public/src/ext-libs/bower_components/webcomponentsjs/webcomponents.min.js',
+    'client/public/src/ext-libs/require.min.js',
+    'client/public/dist/app.js'])
     .pipe(concat('build.js'))
     // .pipe(ngAnnotate())
     // .pipe(uglify())
-    .pipe(gulp.dest('public/dist'));
+    .pipe(gulp.dest('client/public/dist'));
+});
+
+gulp.task('htmlreplace',function() {
+  gulp.src('client/public/src/index.html')
+    .pipe(htmlreplace({
+      'js':'build.js'
+    }))
+    .pipe(gulp.dest('client/public/dist'));
 });
 
 gulp.task('vulcanize', function() {
-  var DEST_DIR = 'public/dist';
-  return gulp.src('public/index-dist.html')
+  var DEST_DIR = 'client/public/dist';
+  return gulp.src('client/public/src/imports.html')
     .pipe(vulcanize({
       dest: DEST_DIR,
+      inline:true,
       strip: true
     }))
-    .pipe(rename("index.html"))
+    // .pipe(rename("index.html"))
     .pipe(gulp.dest(DEST_DIR));
 });
 
 gulp.task('copy',function() {
-  return gulp.src(['public/**/*.{html,jpg,css}','!**/{external-libs,dist}/**'],{base:'./public'})
-    .pipe(gulp.dest('public/dist'));
+  return gulp.src(['client/public/src/**/*.{html,jpg,css}','!**/{ext-libs,dist}/**','!**/{imports,index}.html'],{base:'./client/public/src'})
+    .pipe(gulp.dest('client/public/dist'));
 });
 
 gulp.task('del-temp',['buildjs'],function(cb) {
-  del(['public/dist/app.js'],cb);
+  del(['client/public/dist/app.js'],cb);
 });
 
 gulp.task('clean',function(cb) {
-  del(['public/dist/*'],cb);
+  del(['client/public/dist/*'],cb);
 });
 
-gulp.task('build',['buildjs','vulcanize','copy']);
+gulp.task('build',['buildjs','vulcanize','htmlreplace','copy']);
 
 
 gulp.task('default', ['compass', 'watch']);
