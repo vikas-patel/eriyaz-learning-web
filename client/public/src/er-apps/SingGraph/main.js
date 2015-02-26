@@ -1,7 +1,7 @@
-define(['./module', 'jquery', './referencechart', 'mic', 'audiobuffer', './intensityfilter', './score', './framecontroller',
+define(['./module', 'jquery', 'require', './referencechart', 'mic', 'audiobuffer', './intensityfilter', './score', './framecontroller',
 	  //'countdown', 
 	  'webaudio-tools', './tone', 'waveletpitch'],
-	function(app, $, ReferenceChart, MicUtil, AudioBuffer, IntensityFilter, Score, Controller) {
+	function(app, $, Require, ReferenceChart, MicUtil, AudioBuffer, IntensityFilter, Score, Controller) {
 		//constants
 		var adjustment = 1.088; //pitch adjustment to pitch.js determined pitch(incorrect by itself.)
 		var labels1 = ["P1", "m2", "M2", "m3", "M3", "P4", "TR", "P5", "m6", "M6", "m7", "M7", "P1"];
@@ -131,8 +131,9 @@ define(['./module', 'jquery', './referencechart', 'mic', 'audiobuffer', './inten
 		
 		function exerciseWidget() {
 			var select = $('#exerciseId');
+			var url = Require.toUrl("./exercises.json");
 			select.append($('<option />').text("Select one...").val(""));
-			var jqxhr = $.getJSON( "/eartonic-apps/SingGraph/exercises.json", function(data) {
+			var jqxhr = $.getJSON(url, function(data) {
 				exercises = data;
 				$.each(data, function(idx, exercise) {
 					select.append($('<option />').text(exercise.name).val(exercise.name));
