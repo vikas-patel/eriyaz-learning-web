@@ -10,16 +10,17 @@ define([], function() {
 	Controller.prototype.setExercise = function(exercise) {
 		this.exercise = exercise;
 		this.currentNoteIndex = 0;
+		this.partNumber = 0;
 		this.drawExercise();
 	};
 
 	Controller.prototype.drawExercise = function() {
-		var sequences = this.getExercisePart();
+		var sequences = this.getExercisePart(this.partNumber++, this.maxNotes);
 		var control = this;
 		this.chart.setExercise(sequences);
 		this.$scope.$on('chartOver',function() {
-			if (control.currentNoteIndex < control.exercise.sequence.length) {
-				control.chart.setExercise(control.getExercisePart());
+			if (control.partNumber*control.maxNotes < control.exercise.sequence.length) {
+				control.chart.setExercise(control.getExercisePart(control.partNumber++, control.maxNotes));
 			} else {
 				control.$scope.$broadcast('exerciseOver');
 			}
@@ -33,12 +34,11 @@ define([], function() {
 		this.drawExercise();
 	}
 
-	Controller.prototype.getExercisePart = function () {
+	Controller.prototype.getExercisePart = function (partNumber, maxNotes) {
 		var sequences = this.exercise.sequence;
 		var subSequences = [];
-		for (i = 0; i < this.maxNotes && this.currentNoteIndex < sequences.length; i++) {
-			subSequences.push(sequences[this.currentNoteIndex]);
-			this.currentNoteIndex++;
+		for (i = partNumber*maxNotes; i < (partNumber+1)*maxNotes && i < sequences.length; i++) {
+			subSequences.push(sequences[i]);
 		}
 		return subSequences;
 	};

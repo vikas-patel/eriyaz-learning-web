@@ -1,7 +1,7 @@
-define(['./module', 'jquery', './referencechart', 'mic', 'audiobuffer', './intensityfilter', './score', './framecontroller',
+define(['./module', 'jquery', 'require', './referencechart', 'mic', 'audiobuffer', './intensityfilter', './score', './framecontroller',
 	  //'countdown', 
 	  'webaudio-tools', './tone', 'waveletpitch'],
-	function(app, $, ReferenceChart, MicUtil, AudioBuffer, IntensityFilter, Score, Controller) {
+	function(app, $, Require, ReferenceChart, MicUtil, AudioBuffer, IntensityFilter, Score, Controller) {
 		//constants
 		var adjustment = 1.088; //pitch adjustment to pitch.js determined pitch(incorrect by itself.)
 		var labels1 = ["P1", "m2", "M2", "m3", "M3", "P4", "TR", "P5", "m6", "M6", "m7", "M7", "P1"];
@@ -31,11 +31,13 @@ define(['./module', 'jquery', './referencechart', 'mic', 'audiobuffer', './inten
 		var countDownProgress = false;
 		app.controller('SingGraphCtrl', function($scope, PitchModel, DialModel) {
 			init($scope);
+			loadExercises($scope);
 			$scope.operation = 'start';
 			$scope.showOverlay = false;
 			$scope.lastScore = 0;
 			$scope.totalScore = 0;
 			$scope.scoreCount = 0;
+			$scope.partNumber = 0;
 			$scope.startOrPause = function(){
 				if (!chart.exercise) {
 					alert("Please select exercise.");
@@ -47,7 +49,13 @@ define(['./module', 'jquery', './referencechart', 'mic', 'audiobuffer', './inten
 					case 'resume': resume();
 				}
 			    $scope.operation = ($scope.operation === 'start' || $scope.operation === 'resume') ? 'pause' : 'resume';
-			  }
+			}
+
+			$scope.selectExercise = function () {
+				setExercise($scope.myExercise);
+				score.reset();
+				countDownDisplayed = false;
+			}
 
 			 $scope.stop = function() {
 			 	$scope.operation = 'start';
@@ -62,10 +70,9 @@ define(['./module', 'jquery', './referencechart', 'mic', 'audiobuffer', './inten
 			 $scope.next = function() {
 			 	$scope.showOverlay = false;
 				score.reset();
-				var index = $("#exerciseId")[0].selectedIndex;
-				$('#exerciseId option')[++index].selected = true;
-				var val = $('#exerciseId').val();
-				setExercise(val);
+				var index = $scope.exercises.indexOf($scope.myExercise);
+				$scope.myExercise = $scope.exercises[index+1];
+				setExercise($scope.myExercise);
 				// start again
 				countDownDisplayed = false;
 				stopped = true;
@@ -80,6 +87,8 @@ define(['./module', 'jquery', './referencechart', 'mic', 'audiobuffer', './inten
 			 	reset();
 				start();
 			 }
+
+
 
 			 $scope.$on('exerciseOver',function() {
                	stopped = true;
@@ -119,7 +128,7 @@ define(['./module', 'jquery', './referencechart', 'mic', 'audiobuffer', './inten
 			//$('#play-again').click(restart);
 			//$('#next-exercise').click(next);
 			//$('#close-overlay').click(closeOverlay);
-			exerciseWidget();
+			//exerciseWidget($scope);
 
 		};
 		
@@ -128,35 +137,52 @@ define(['./module', 'jquery', './referencechart', 'mic', 'audiobuffer', './inten
 			//GameCountDown = new jQuery.GameCountDown();
 			countDown.Add({control: '#counter', seconds: 4});
 		};
-		
-		function exerciseWidget() {
-			var select = $('#exerciseId');
-			select.append($('<option />').text("Select one...").val(""));
-			var jqxhr = $.getJSON( "/eartonic-apps/SingGraph/exercises.json", function(data) {
-				exercises = data;
-				$.each(data, function(idx, exercise) {
-					select.append($('<option />').text(exercise.name).val(exercise.name));
-				});
-				})
-			  .fail(function(jqXHR, textStatus, errorThrown) { 
+
+		function loadExercises($scope) {
+			var url = Require.toUrl("./exercises.json");
+			var jqxhr = $.getJSON(url, function(data) {
+				console.log(data);
+				$scope.exercises = data;
+			})
+			.fail(function(jqXHR, textStatus, errorThrown) { 
 					alert('getJSON request failed! ' + textStatus);
 					console.log(errorThrown);
-			  });
-			$('#exerciseId').on('change', function() {
-				var val = $(this).val();
-				if (!val) return;
-				setExercise(val);
-				score.reset();
-				countDownDisplayed = false;
 			});
-		};
+		}
+		
+		// function exerciseWidget($scope) {
+		// 	var select = $('#exerciseId');
+		// 	var url = Require.toUrl("./exercises.json");
+		// 	select.append($('<option />').text("Select one...").val(""));
+		// 	var jqxhr = $.getJSON(url, function(data) {
+		// 		exercises = data;
+		// 		console.log(exercises);
+		// 		$scope.exercises = exercises;
+		// 		$.each(data, function(idx, exercise) {
+		// 			select.append($('<option />').text(exercise.name).val(exercise.name));
+		// 		});
+		// 		})
+		// 	  .fail(function(jqXHR, textStatus, errorThrown) { 
+		// 			alert('getJSON request failed! ' + textStatus);
+		// 			console.log(errorThrown);
+		// 	  });
+		// 	$('#exerciseId').on('change', function() {
+		// 		var val = $(this).val();
+		// 		if (!val) return;
+		// 		setExercise(val);
+		// 		score.reset();
+		// 		countDownDisplayed = false;
+		// 	});
+		// };
 
 		function setExercise(val) {
-			$.each(exercises, function(idx, exercise) {
-				if (val == exercise.name) {
-					controller.setExercise(exercise);
-				}
-			});
+			controller.setExercise(val);
+			// $.each(exercises, function(idx, exercise) {
+			// 	if (val == exercise.name) {
+			// 		controller.setExercise(exercise);
+
+			// 	}
+			// });
 		}
 
 		function play() {

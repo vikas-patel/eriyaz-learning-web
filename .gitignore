@@ -1,3 +1,6 @@
 *node_modules
 *soundfont
+*sublime-project
+*sublime-workspace
+*bower_components
 .sass-cache
