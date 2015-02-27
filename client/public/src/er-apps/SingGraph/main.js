@@ -20,7 +20,6 @@ define(['./module', 'jquery', 'require', './referencechart', 'mic', 'audiobuffer
 		var context;
 		var chart;
 		var buffer;
-		var exercises;
 		// reset variables
 		var stopped = true;
 
@@ -29,6 +28,7 @@ define(['./module', 'jquery', 'require', './referencechart', 'mic', 'audiobuffer
 		var countDown;
 		var countDownDisplayed = false;
 		var countDownProgress = false;
+		var maxNotes = 5;
 		app.controller('SingGraphCtrl', function($scope, PitchModel, DialModel) {
 			init($scope);
 			loadExercises($scope);
@@ -39,7 +39,7 @@ define(['./module', 'jquery', 'require', './referencechart', 'mic', 'audiobuffer
 			$scope.scoreCount = 0;
 			$scope.partNumber = 0;
 			$scope.startOrPause = function(){
-				if (!chart.exercise) {
+				if (!$scope.myExercise) {
 					alert("Please select exercise.");
 					return;
 				}
@@ -52,14 +52,14 @@ define(['./module', 'jquery', 'require', './referencechart', 'mic', 'audiobuffer
 			}
 
 			$scope.selectExercise = function () {
-				setExercise($scope.myExercise);
+				setExercise($scope);
 				score.reset();
 				countDownDisplayed = false;
 			}
 
 			 $scope.stop = function() {
 			 	$scope.operation = 'start';
-			 	reset();
+			 	reset($scope);
 			 }
 
 			 $scope.isDisabled = function () {
@@ -72,7 +72,7 @@ define(['./module', 'jquery', 'require', './referencechart', 'mic', 'audiobuffer
 				score.reset();
 				var index = $scope.exercises.indexOf($scope.myExercise);
 				$scope.myExercise = $scope.exercises[index+1];
-				setExercise($scope.myExercise);
+				setExercise($scope);
 				// start again
 				countDownDisplayed = false;
 				stopped = true;
@@ -84,18 +84,20 @@ define(['./module', 'jquery', 'require', './referencechart', 'mic', 'audiobuffer
 
 			 $scope.restart = function() {
 			 	$scope.showOverlay = false;
-			 	reset();
+			 	reset($scope);
 				start();
 			 }
 
-
-
-			 $scope.$on('exerciseOver',function() {
-               	stopped = true;
-               	$scope.showOverlay = true;
-               	$scope.$apply();
-				//showOverlay();
-           	});
+			 $scope.$on('chartOver',function() {
+			 	++$scope.partNumber;
+			 	if ($scope.partNumber*maxNotes < $scope.myExercise.sequence.length) {
+					chart.setExercise(controller.getExercisePart($scope.myExercise, $scope.partNumber, maxNotes));
+				} else {
+					stopped = true;
+	               	$scope.showOverlay = true;
+	               	$scope.$apply();
+				}
+			 });
 		});
 
 		function init($scope) {
@@ -124,7 +126,7 @@ define(['./module', 'jquery', 'require', './referencechart', 'mic', 'audiobuffer
 			};
 			chart = ReferenceChart.getChart("chart-box", $scope, chartSettings);
 			score = Score.getScore($scope);
-			controller = Controller.getController(chart, $scope);
+			controller = Controller.getController();
 			//$('#play-again').click(restart);
 			//$('#next-exercise').click(next);
 			//$('#close-overlay').click(closeOverlay);
@@ -149,40 +151,11 @@ define(['./module', 'jquery', 'require', './referencechart', 'mic', 'audiobuffer
 					console.log(errorThrown);
 			});
 		}
-		
-		// function exerciseWidget($scope) {
-		// 	var select = $('#exerciseId');
-		// 	var url = Require.toUrl("./exercises.json");
-		// 	select.append($('<option />').text("Select one...").val(""));
-		// 	var jqxhr = $.getJSON(url, function(data) {
-		// 		exercises = data;
-		// 		console.log(exercises);
-		// 		$scope.exercises = exercises;
-		// 		$.each(data, function(idx, exercise) {
-		// 			select.append($('<option />').text(exercise.name).val(exercise.name));
-		// 		});
-		// 		})
-		// 	  .fail(function(jqXHR, textStatus, errorThrown) { 
-		// 			alert('getJSON request failed! ' + textStatus);
-		// 			console.log(errorThrown);
-		// 	  });
-		// 	$('#exerciseId').on('change', function() {
-		// 		var val = $(this).val();
-		// 		if (!val) return;
-		// 		setExercise(val);
-		// 		score.reset();
-		// 		countDownDisplayed = false;
-		// 	});
-		// };
 
-		function setExercise(val) {
-			controller.setExercise(val);
-			// $.each(exercises, function(idx, exercise) {
-			// 	if (val == exercise.name) {
-			// 		controller.setExercise(exercise);
-
-			// 	}
-			// });
+		function setExercise($scope) {
+			$scope.partNumber = 0;
+			var sequences = controller.getExercisePart($scope.myExercise, $scope.partNumber, maxNotes);
+			chart.setExercise(sequences);
 		}
 
 		function play() {
@@ -251,50 +224,20 @@ define(['./module', 'jquery', 'require', './referencechart', 'mic', 'audiobuffer
 			var d = new Date();
 			return d.getTime();
 		}
-		// Exercise over
-		// function onEnd() {
-		// 	stopped = true;
-		// 	showOverlay();
-		// }
+
 
 		// Reset game to original state
-		function reset() {
+		function reset($scope) {
 			score.reset();
-			controller.reset();
+			// Destroy html element doesn't cancel timeout event.
+			chart.pauseIndicatorLine();
+			setExercise($scope);
+			//controller.reset();
 			//chart.drawExercise();
 			// start again
 			countDownDisplayed = false;
 			stopped = true;
 		}
-
-		// function showOverlay() {
-		// 	$('#overlay-score').text(score.formatScore(score.totalScore));
-		// 	$('#overlay-content').show();
-		// 	$('#overlay').show();
-		// }
-
-		// function closeOverlay() {
-		// 	$('#overlay-content').hide();
-		// 	$('#overlay').hide();
-		// 	$('#overlay-score').text("");
-		// }
-
-		// function next() {
-		// 	closeOverlay();
-		// 	score.reset();
-		// 	var index = $("#exerciseId")[0].selectedIndex;
-		// 	$('#exerciseId option')[++index].selected = true;
-		// 	var val = $('#exerciseId').val();
-		// 	setExercise(val);
-		// 	// start again
-		// 	countDownDisplayed = false;
-		// 	stopped = true;
-		// }
-		
-		// function restart() {
-		// 	reset();
-		// 	start();
-		// }
 
 		// Control Panel Events
 		function pause() {
@@ -304,10 +247,6 @@ define(['./module', 'jquery', 'require', './referencechart', 'mic', 'audiobuffer
 		function resume() {
 			chart.resume();
 		}
-
-		// function stop() {
-		// 	reset();
-		// }
 		
 		function setRoot() {
 			rootFreq = currFreq;
