@@ -6,7 +6,7 @@
         thumb: 'er-shell/images/singdial.jpg',
         desc: 'Get immediate feedback on your singing with Sing Dial',
         href: '#singdial',
-        appUrl: 'er-apps/PitchDialAngular/main.html',
+        appUrl: 'er-apps/PitchDial/main.html',
         aspectRatio: 5/6
       }, {
         name: 'Sing Graph',

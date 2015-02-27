@@ -409,7 +409,7 @@ core-drawer-panel:not([narrow]) #navicon {
   }
 }
 
-/* line 6, ../../../er-apps/PitchDialAngular/main.scss */
+/* line 6, ../../../er-apps/PitchDial/main.scss */
 #pitch-dial .container-toplevel {
   position: relative;
   border-radius: 5px;
@@ -417,13 +417,13 @@ core-drawer-panel:not([narrow]) #navicon {
   border-color: #CCCCCC;
   width: 100%;
 }
-/* line 16, ../../../er-apps/PitchDialAngular/main.scss */
+/* line 16, ../../../er-apps/PitchDial/main.scss */
 #pitch-dial .container-toplevel::before {
   display: block;
   padding-top: 120%;
   content: '';
 }
-/* line 21, ../../../er-apps/PitchDialAngular/main.scss */
+/* line 21, ../../../er-apps/PitchDial/main.scss */
 #pitch-dial .container {
   position: absolute;
   top: 0;
@@ -433,17 +433,17 @@ core-drawer-panel:not([narrow]) #navicon {
   margin: 5px;
   padding: 5px;
 }
-/* line 35, ../../../er-apps/PitchDialAngular/main.scss */
+/* line 35, ../../../er-apps/PitchDial/main.scss */
 #pitch-dial #dial-container {
   position: absolute;
   top: 10%;
   width: 100%;
 }
-/* line 39, ../../../er-apps/PitchDialAngular/main.scss */
+/* line 39, ../../../er-apps/PitchDial/main.scss */
 #pitch-dial #dial-container canvas {
   width: 100%;
 }
-/* line 55, ../../../er-apps/PitchDialAngular/main.scss */
+/* line 55, ../../../er-apps/PitchDial/main.scss */
 #pitch-dial button {
   width: 30%;
   height: 7%;
@@ -454,15 +454,15 @@ core-drawer-panel:not([narrow]) #navicon {
   border-color: #eeeeee;
   background-color: #ffffff;
 }
-/* line 66, ../../../er-apps/PitchDialAngular/main.scss */
+/* line 66, ../../../er-apps/PitchDial/main.scss */
 #pitch-dial button:focus {
   outline: 0;
 }
-/* line 71, ../../../er-apps/PitchDialAngular/main.scss */
+/* line 71, ../../../er-apps/PitchDial/main.scss */
 #pitch-dial button:hover {
   cursor: pointer;
 }
-/* line 75, ../../../er-apps/PitchDialAngular/main.scss */
+/* line 75, ../../../er-apps/PitchDial/main.scss */
 #pitch-dial button:active {
   border-bottom: solid;
 }

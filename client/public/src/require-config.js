@@ -47,7 +47,7 @@ requirejs.config({
         main: 'main'
     }, {
         name: 'pitch-dial',
-        location: 'er-apps/PitchDialAngular',
+        location: 'er-apps/PitchDial',
         main: 'index'
     }, {
         name: 'sing-graph',
