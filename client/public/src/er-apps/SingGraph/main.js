@@ -49,10 +49,15 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './intensityfilte
 			    $scope.operation = ($scope.operation === 'start' || $scope.operation === 'resume') ? 'pause' : 'resume';
 			}
 
+			$scope.$watch(function(scope) { return scope.myExercise },
+              function() {if(!$scope.myExercise) return; setExercise($scope)}
+             );
+
 			$scope.selectExercise = function () {
-				setExercise($scope);
-				score.reset();
-				countDownDisplayed = false;
+				// setExercise($scope);
+				// score.reset();
+				// countDownDisplayed = false;
+				console.log('select exercise');
 			}
 
 			 $scope.stop = function() {
