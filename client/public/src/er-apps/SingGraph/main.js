@@ -25,7 +25,9 @@ define(['./module', 'jquery', 'require', './referencechart', 'mic', 'audiobuffer
 		var countDownDisplayed = false;
 		var countDownProgress = false;
 		var maxNotes = 5;
+		var scope;
 		app.controller('SingGraphCtrl', function($scope, PitchModel, DialModel) {
+			scope = $scope;
 			init($scope);
 			loadExercises($scope);
 			$scope.operation = 'start';
@@ -40,9 +42,9 @@ define(['./module', 'jquery', 'require', './referencechart', 'mic', 'audiobuffer
 					return;
 				}
 				switch($scope.operation) {
-					case 'start': start();break;
-					case 'pause': pause();break;
-					case 'resume': resume();
+					case 'start': start($scope);break;
+					case 'pause': pause($scope);break;
+					case 'resume': resume($scope);
 				}
 			    $scope.operation = ($scope.operation === 'start' || $scope.operation === 'resume') ? 'pause' : 'resume';
 			}
@@ -87,7 +89,7 @@ define(['./module', 'jquery', 'require', './referencechart', 'mic', 'audiobuffer
 			 $scope.$on('chartOver',function() {
 			 	++$scope.partNumber;
 			 	if ($scope.partNumber*maxNotes < $scope.myExercise.sequence.length) {
-					chart.setExercise(controller.getExercisePart($scope.myExercise, $scope.partNumber, maxNotes));
+					$scope.chart.setExercise(controller.getExercisePart($scope.myExercise, $scope.partNumber, maxNotes));
 				} else {
 					stopped = true;
 	               	$scope.showOverlay = true;
@@ -100,27 +102,6 @@ define(['./module', 'jquery', 'require', './referencechart', 'mic', 'audiobuffer
 			initAudio();
 			audioContext = window.AudioContext || window.webkitAudioContext;
 			context = new audioContext();
-			
-			var w = window,
-				d = document,
-				e = d.documentElement,
-				g = d.getElementsByTagName('body')[0],
-				x = w.innerWidth || e.clientWidth || g.clientWidth,
-				y = w.innerHeight|| e.clientHeight|| g.clientHeight;
-			//x = 1000;
-			var chartSettings = {
-				width: x,
-				height: 0.46*x,
-				marginTop:20,
-				marginRight:20,
-				marginBottom:20,
-				marginLeft:30,
-				labels: labelsIndian,
-				yTicks: 38,
-				timeSpan:10000,
-				precision: 0
-			};
-			chart = ReferenceChart.getChart("chart-box", $scope, chartSettings);
 			score = Score.getScore($scope);
 			controller = Controller.getController();
 		};
@@ -134,7 +115,6 @@ define(['./module', 'jquery', 'require', './referencechart', 'mic', 'audiobuffer
 		function loadExercises($scope) {
 			var url = Require.toUrl("./exercises.json");
 			var jqxhr = $.getJSON(url, function(data) {
-				console.log(data);
 				$scope.exercises = data;
 			})
 			.fail(function(jqXHR, textStatus, errorThrown) { 
@@ -146,14 +126,14 @@ define(['./module', 'jquery', 'require', './referencechart', 'mic', 'audiobuffer
 		function setExercise($scope) {
 			$scope.partNumber = 0;
 			var sequences = controller.getExercisePart($scope.myExercise, $scope.partNumber, maxNotes);
-			chart.setExercise(sequences);
+			$scope.chart.setExercise(sequences);
 		}
 
 		function play() {
 			chart.play(context, root);
 		}
 		
-		function start() {
+		function start($scope) {
 			stopped = false;
 			if (!buffer) {
 				MicUtil.getMicAudioStream(
@@ -166,13 +146,13 @@ define(['./module', 'jquery', 'require', './referencechart', 'mic', 'audiobuffer
 		};
 
 		function processSignal(data) {
-			if (chart.isPaused || stopped) return;
+			if (scope.chart.isPaused || stopped) return;
 			//if (!displayCountDown()) return;
 			
 			if (!playInstrument()) return;
 
-			if (!chart.started) {
-				chart.start();
+			if (!scope.chart.started) {
+				scope.chart.start();
 			}
 			updatePitch(data);
 		}
@@ -186,8 +166,8 @@ define(['./module', 'jquery', 'require', './referencechart', 'mic', 'audiobuffer
 			// no tone
 			if (waveletFreq == 0) return;
 			currInterval = Math.round(1200 * (Math.log(waveletFreq / rootFreq) / Math.log(2))) / 100;
-			chart.draw(currInterval);
-			var expNote = chart.exerciseNote(chart.timePlotted);
+			scope.chart.draw(currInterval);
+			var expNote = scope.chart.exerciseNote(scope.chart.timePlotted);
 			score.updateScore(expNote, currInterval.toFixed(0));
 		}
 
@@ -221,7 +201,7 @@ define(['./module', 'jquery', 'require', './referencechart', 'mic', 'audiobuffer
 		function reset($scope) {
 			score.reset();
 			// Destroy html element doesn't cancel timeout event.
-			chart.pauseIndicatorLine();
+			$scope.chart.pauseIndicatorLine();
 			setExercise($scope);
 			// start again
 			countDownDisplayed = false;
@@ -229,15 +209,15 @@ define(['./module', 'jquery', 'require', './referencechart', 'mic', 'audiobuffer
 		}
 
 		// Control Panel Events
-		function pause() {
-			chart.pause();
+		function pause($scope) {
+			$scope.chart.pause();
 		}
 		
-		function resume() {
-			chart.resume();
+		function resume($scope) {
+			$scope.chart.resume();
 		}
 		
-		function setRoot() {
+		function setRoot($scope) {
 			rootFreq = currFreq;
 		}
 		
