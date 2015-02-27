@@ -5,13 +5,13 @@
         <meta name="viewport" content="width=device-width">
         <link href="../style/all.css" rel="stylesheet"/>
         
-        <script src="../../../lib/require.js"></script>
+        <script src="../../ext-libs/require.js"></script>
         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.10/angular.js"></script> -->
         <script>
         // require.config('baseUrl:');
             require(['../../require-config'], function() {
                 require(['angular','domReady!'], function() {
-                    require(['eartonic-apps/pitchdialangular/index'], function() {
+                    require(['er-apps/pitchdialangular/index'], function() {
                         var app =  angular.module('testApp',['pitch-dial']);
                         angular.bootstrap(document, ['testApp']);
                     });

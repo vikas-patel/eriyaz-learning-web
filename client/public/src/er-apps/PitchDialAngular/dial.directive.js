@@ -150,9 +150,11 @@ define(['angular', './module'], function(angular, app) {
                 //     console.log(Date.now());
                 // }, true);
 
-                scope.$on('newvalue',function() {
-                    dial.setValue(DialModel.value);
-                });
+                // scope.$on('newvalue',function() {
+                //     dial.setValue(DialModel.value);
+                // });
+
+                setInterval(function(){ dial.setValue(DialModel.value); }, 5);
             }
         };
     });
