@@ -1,41 +1,10 @@
 define([], function() {
 
-	var Controller = function(exerciseChart, $scope) {
-		this.currentNoteIndex = 0;
-		this.maxNotes = 5;
-		this.chart = exerciseChart;
-		this.$scope = $scope;
+	var Controller = function() {
 	};
 
-	Controller.prototype.setExercise = function(exercise) {
-		this.exercise = exercise;
-		this.currentNoteIndex = 0;
-		this.partNumber = 0;
-		this.drawExercise();
-	};
-
-	Controller.prototype.drawExercise = function() {
-		var sequences = this.getExercisePart(this.partNumber++, this.maxNotes);
-		var control = this;
-		this.chart.setExercise(sequences);
-		this.$scope.$on('chartOver',function() {
-			if (control.partNumber*control.maxNotes < control.exercise.sequence.length) {
-				control.chart.setExercise(control.getExercisePart(control.partNumber++, control.maxNotes));
-			} else {
-				control.$scope.$broadcast('exerciseOver');
-			}
-      	});
-	};
-
-	Controller.prototype.reset = function() {
-		this.currentNoteIndex = 0;
-		// Stop: Delete html view still triggers transition onEnd event.
-		this.chart.pauseIndicatorLine();
-		this.drawExercise();
-	}
-
-	Controller.prototype.getExercisePart = function (partNumber, maxNotes) {
-		var sequences = this.exercise.sequence;
+	Controller.prototype.getExercisePart = function (exercise, partNumber, maxNotes) {
+		var sequences = exercise.sequence;
 		var subSequences = [];
 		for (i = partNumber*maxNotes; i < (partNumber+1)*maxNotes && i < sequences.length; i++) {
 			subSequences.push(sequences[i]);
@@ -44,8 +13,8 @@ define([], function() {
 	};
 
 	return {
-        getController: function(exerciseChart, $scope) {
-			return new Controller(exerciseChart, $scope);
+        getController: function() {
+			return new Controller();
         }
     };
 });
