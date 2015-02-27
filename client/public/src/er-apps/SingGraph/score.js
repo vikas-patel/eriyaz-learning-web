@@ -15,18 +15,10 @@ define(function() {
 		this.$scope.$apply();
 	};
 	
-	// Score.prototype.formatScore = function (value){
-	// 	value = value*100;
-	// 	value = value.toFixed(1);
-	// 	return value + "%";
-	// };
-	
 	Score.prototype.reset = function(){
 		this.$scope.scoreCount = 0;
 		this.$scope.lastScore = 0;
 		this.$scope.totalScore = 0;
-		//$('#'+this.lastScoreId).text(this.lastScore);
-		//$('#'+this.totalScoreId).text(this.totalScore);
 	}
 
 	return {getScore: function ($scope){
