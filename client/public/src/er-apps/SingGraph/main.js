@@ -4,11 +4,7 @@ define(['./module', 'jquery', 'require', './referencechart', 'mic', 'audiobuffer
 	function(app, $, Require, ReferenceChart, MicUtil, AudioBuffer, IntensityFilter, Score, Controller) {
 		//constants
 		var adjustment = 1.088; //pitch adjustment to pitch.js determined pitch(incorrect by itself.)
-		var labels1 = ["P1", "m2", "M2", "m3", "M3", "P4", "TR", "P5", "m6", "M6", "m7", "M7", "P1"];
-		var labels2 = ["Sa", "Re'", "Re", "Ga'", "Ga", "Ma", "Ma''", "Pa", "Dha'", "Dha", "Ni'", "Ni", "Sa"];
-		// added extra space to make unique value for domain map.
 		var labelsIndian = ["Sa", "", "Re", "", "Ga", "Ma", "", "Pa", "", "Dha", "", "Ni"];
-		var labelsWestern = ["1", "2b", "2", "3b", "3", "4", "4#/5b", "5", "6b", "6", "7b", "7", "1"];
 
 		//state variables. 
 		var rootFreq = 110;
@@ -127,11 +123,6 @@ define(['./module', 'jquery', 'require', './referencechart', 'mic', 'audiobuffer
 			chart = ReferenceChart.getChart("chart-box", $scope, chartSettings);
 			score = Score.getScore($scope);
 			controller = Controller.getController();
-			//$('#play-again').click(restart);
-			//$('#next-exercise').click(next);
-			//$('#close-overlay').click(closeOverlay);
-			//exerciseWidget($scope);
-
 		};
 		
 		function startCountdown(callback) {
@@ -232,8 +223,6 @@ define(['./module', 'jquery', 'require', './referencechart', 'mic', 'audiobuffer
 			// Destroy html element doesn't cancel timeout event.
 			chart.pauseIndicatorLine();
 			setExercise($scope);
-			//controller.reset();
-			//chart.drawExercise();
 			// start again
 			countDownDisplayed = false;
 			stopped = true;
