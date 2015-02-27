@@ -1,7 +1,7 @@
-define(['./module', 'jquery', 'require', './referencechart', 'mic', 'audiobuffer', './intensityfilter', './score', './framecontroller',
+define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './intensityfilter', './score', './framecontroller',
 	  //'countdown', 
 	  'webaudio-tools', './tone', 'waveletpitch'],
-	function(app, $, Require, ReferenceChart, MicUtil, AudioBuffer, IntensityFilter, Score, Controller) {
+	function(app, $, Require, MicUtil, AudioBuffer, IntensityFilter, Score, Controller) {
 		//constants
 		var adjustment = 1.088; //pitch adjustment to pitch.js determined pitch(incorrect by itself.)
 		var labelsIndian = ["Sa", "", "Re", "", "Ga", "Ma", "", "Pa", "", "Dha", "", "Ni"];
