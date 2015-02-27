@@ -43,8 +43,8 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './intensityfilte
 				}
 				switch($scope.operation) {
 					case 'start': start($scope);break;
-					case 'pause': pause($scope);break;
-					case 'resume': resume($scope);
+					case 'pause': $scope.$broadcast('pause');break;
+					case 'resume': $scope.$broadcast('resume');
 				}
 			    $scope.operation = ($scope.operation === 'start' || $scope.operation === 'resume') ? 'pause' : 'resume';
 			}
@@ -52,13 +52,6 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './intensityfilte
 			$scope.$watch(function(scope) { return scope.myExercise },
               function() {if(!$scope.myExercise) return; setExercise($scope)}
              );
-
-			$scope.selectExercise = function () {
-				// setExercise($scope);
-				// score.reset();
-				// countDownDisplayed = false;
-				console.log('select exercise');
-			}
 
 			 $scope.stop = function() {
 			 	$scope.operation = 'start';
@@ -75,7 +68,7 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './intensityfilte
 				score.reset();
 				var index = $scope.exercises.indexOf($scope.myExercise);
 				$scope.myExercise = $scope.exercises[index+1];
-				setExercise($scope);
+				//setExercise($scope);
 				// start again
 				countDownDisplayed = false;
 				stopped = true;
@@ -211,15 +204,6 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './intensityfilte
 			// start again
 			countDownDisplayed = false;
 			stopped = true;
-		}
-
-		// Control Panel Events
-		function pause($scope) {
-			$scope.chart.pause();
-		}
-		
-		function resume($scope) {
-			$scope.chart.resume();
 		}
 		
 		function setRoot($scope) {

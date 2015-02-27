@@ -83,17 +83,18 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 
 	ExerciseChart.prototype.resumeIndicatorLine = function () {
 		var duration = this.duration + this.offsetTime;
+		var chart = this;
+		var callback = function () { chart.$scope.$broadcast('chartOver'); };
 		this.indicatorLine.transition()
 				.duration(duration - this.getTimeRendered())
 				.delay(0)
 				.ease("linear")
 				.attr("transform", "translate(" + this.x(duration/1000) +",0)")
-				.each("end", this.onExerciseEnd);
+				.each("end", callback);
 	}
 	
 	ExerciseChart.prototype.setExercise = function(exercise, onExerciseEnd) {
 		this.exercise = exercise;
-		this.onExerciseEnd = onExerciseEnd;
 		this.duration = this.getDuration();
 		if (this.duration > this.settings.timeSpan) {
 			this.transitionDuration = this.duration - this.settings.timeSpan;	
@@ -228,6 +229,13 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 				};
 				var chart = new ExerciseChart(element.attr('id'), scope, chartSettings);
 				scope.chart = chart;
+				scope.$on('pause',function() {
+					chart.pause();
+				});
+
+				scope.$on('resume',function() {
+					chart.resume();
+				});
             }
         };
     });
