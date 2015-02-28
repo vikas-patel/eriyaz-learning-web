@@ -2,7 +2,8 @@
 	<div>
 		<div style="float: left;">
 			<label for="exerciseId">Exercises:</label>
-		    <select id="exerciseId">
+			<select ng-model="myExercise" ng-options="exercise.name for exercise in exercises">
+		   		<option value="">-- Select Exercise --</option>
 		    </select>
 			<button ng-click="startOrPause()" ng-class="{start:operation==='start', pause:operation==='pause', resume:operation==='resume'}"></button>
 			<button ng-click="stop()" ng-disabled="isDisabled()">Reset</button>
@@ -19,8 +20,7 @@
 		</div>
 	</div>
 	<div id="containerId">
-		<div  class='svg-container' id="chart-box">
-		</div>
+		<div ng-sing-graph class='svg-container' id="chart-box"></div>
 	</div>
 	<div id="overlay" ng-show="showOverlay"></div>
 	<div id="overlay-content" ng-show="showOverlay">

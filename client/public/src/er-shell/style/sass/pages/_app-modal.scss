@@ -11,11 +11,13 @@
     display:flex;
     flex-flow:column;
     align-items:center;
-    justify-conent:center;
+    justify-content:center;
   }
 
-  // #app-container {
-  // }
+  #app-container {
+    align-self:center !important;
+
+  }
 
 
   .close-button {

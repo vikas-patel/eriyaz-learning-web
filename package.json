@@ -27,7 +27,9 @@
   },
   "devDependencies": {
     "del": "^1.1.1",
+    "event-stream": "^3.2.2",
     "gulp": "^3.8.10",
+    "gulp-add-src": "^0.2.0",
     "gulp-compass": "^2.0.3",
     "gulp-concat": "^2.5.2",
     "gulp-debug": "^2.0.0",
@@ -45,7 +47,9 @@
     "karma-junit-reporter": "latest",
     "karma-phantomjs-launcher": "latest",
     "karma-requirejs": "^0.2.2",
+    "merge-stream": "^0.1.7",
     "requirejs": "^2.1.15",
-    "run-sequence": "^1.0.2"
+    "run-sequence": "^1.0.2",
+    "vinyl-buffer": "^1.0.0"
   }
 }

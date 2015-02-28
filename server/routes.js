@@ -15,7 +15,7 @@ module.exports = function(app, passport) {
 		app.use(express.static(path.join(__dirname, '..', 'client', 'public', 'src')));
 		app.use('/dist',express.static(path.join(__dirname, '..', 'client', 'public', 'dist')));
 	} else {
-		app.use('/dev',express.static(path.join(__dirname, '..', 'client', 'public', 'src')));
+		// app.use('/dev',express.static(path.join(__dirname, '..', 'client', 'public', 'src')));
 		app.use(express.static(path.join(__dirname, '..', 'client', 'public', 'dist')));
 	}
 

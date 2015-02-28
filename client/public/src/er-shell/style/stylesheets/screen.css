@@ -139,38 +139,37 @@ body /deep/ {
 }
 
 /* line 65, ../sass/pages/_front.scss */
-#front [href='#login'], [href='#signup'] {
+#front #login, #signup {
   color: white;
   float: right;
   text-align: right;
   width: 50px;
   text-decoration: none;
 }
-
-/* line 74, ../sass/pages/_front.scss */
-#front [href='#login']:hover, [href='#signup']:hover {
+/* line 72, ../sass/pages/_front.scss */
+#front #login:hover, #signup:hover {
   text-decoration: underline;
 }
 
-/* line 79, ../sass/pages/_front.scss */
+/* line 78, ../sass/pages/_front.scss */
 #front #try, #try a {
   color: black;
   margin-top: 10px;
 }
 
-/* line 85, ../sass/pages/_front.scss */
+/* line 84, ../sass/pages/_front.scss */
 #front #desc, #eriyaz, #join, #try {
   display: block;
   text-align: center;
   margin: 10px;
 }
 
-/* line 93, ../sass/pages/_front.scss */
+/* line 92, ../sass/pages/_front.scss */
 #front #desc {
   color: black;
 }
 
-/* line 97, ../sass/pages/_front.scss */
+/* line 96, ../sass/pages/_front.scss */
 #front #join {
   color: white;
   background-color: #652218;
@@ -186,26 +185,26 @@ body /deep/ {
   box-shadow: 0 0 28px 5px #652218;
 }
 @media (max-width: 640px), (max-height: 420px) {
-  /* line 97, ../sass/pages/_front.scss */
+  /* line 96, ../sass/pages/_front.scss */
   #front #join {
     line-height: 40px;
     width: 150px;
   }
 }
 
-/* line 118, ../sass/pages/_front.scss */
+/* line 117, ../sass/pages/_front.scss */
 #front #join:hover {
   box-shadow: 0 0 28px 6px #652218;
   text-shadow: 0 0 15px #FFFFFF;
 }
 
-/* line 124, ../sass/pages/_front.scss */
+/* line 123, ../sass/pages/_front.scss */
 #front #eriyaz {
   font-size: 500%;
   color: #652218;
 }
 @media (max-width: 640px), (max-height: 420px) {
-  /* line 124, ../sass/pages/_front.scss */
+  /* line 123, ../sass/pages/_front.scss */
   #front #eriyaz {
     font-size: 300%;
   }
@@ -290,31 +289,44 @@ body /deep/ {
 
 /* line 1, ../sass/pages/_home.scss */
 .snippet {
-  height: 300px;
   background-color: white;
   margin: 20px;
   color: black;
+  padding-bottom: 20px;
 }
-/* line 9, ../sass/pages/_home.scss */
+/* line 7, ../sass/pages/_home.scss */
+.snippet .clear {
+  float: none;
+  clear: both;
+  height: 0;
+}
+/* line 13, ../sass/pages/_home.scss */
 .snippet h1 {
   display: block;
   margin-left: 30px;
   padding-top: 10px;
 }
-/* line 16, ../sass/pages/_home.scss */
+/* line 19, ../sass/pages/_home.scss */
 .snippet p {
   padding-top: 10px;
 }
-/* line 20, ../sass/pages/_home.scss */
+@media (max-width: 640px) {
+  /* line 19, ../sass/pages/_home.scss */
+  .snippet p {
+    padding-top: 20px;
+    clear: both;
+  }
+}
+/* line 27, ../sass/pages/_home.scss */
 .snippet .info {
   margin: 20px;
 }
-/* line 24, ../sass/pages/_home.scss */
+/* line 31, ../sass/pages/_home.scss */
 .snippet .thumbnail {
   width: 200px;
   height: 200px;
 }
-/* line 29, ../sass/pages/_home.scss */
+/* line 36, ../sass/pages/_home.scss */
 .snippet .thumb-container {
   float: left;
   margin-right: 40px;
@@ -377,9 +389,13 @@ core-drawer-panel:not([narrow]) #navicon {
   display: flex;
   flex-flow: column;
   align-items: center;
-  justify-conent: center;
+  justify-content: center;
 }
-/* line 21, ../sass/pages/_app-modal.scss */
+/* line 17, ../sass/pages/_app-modal.scss */
+#appDialog #app-container {
+  align-self: center !important;
+}
+/* line 23, ../sass/pages/_app-modal.scss */
 #appDialog .close-button {
   position: fixed;
   top: 0px;
@@ -392,7 +408,7 @@ core-drawer-panel:not([narrow]) #navicon {
   font-size: 20px;
   font-weight: 300;
 }
-/* line 32, ../sass/pages/_app-modal.scss */
+/* line 34, ../sass/pages/_app-modal.scss */
 #appDialog .close-button:hover {
   cursor: pointer;
   cursor: hand;
@@ -403,7 +419,7 @@ core-drawer-panel:not([narrow]) #navicon {
     width: 100%;
     height: 100%;
   }
-  /* line 42, ../sass/pages/_app-modal.scss */
+  /* line 44, ../sass/pages/_app-modal.scss */
   #appDialog .close-button {
     color: black;
   }

@@ -28,6 +28,7 @@
                  LoginSignupDialogModel.loginSignupDialogModel.selection = 'login';
                  UIModel.uiModel.showMenu = false;
                  UIModel.uiModel.showFront = true;
+                 UIModel.uiModel.showAppDialog = false;
                  UIModel.uiModel.showLoginDialog = true;
              },
              resolve: {
@@ -81,7 +82,7 @@
              onEnter: function(UIModel,AppsInfoModel) {
                  UIModel.uiModel.showMenu = true;
                  UIModel.uiModel.showLoginDialog = false;
-                 AppsInfoModel.setSelected(0);
+                 AppsInfoModel.setSelected(1);
                  UIModel.uiModel.showAppDialog = true;
              },
              resolve: {
@@ -93,7 +94,7 @@
              onEnter: function(UIModel,AppsInfoModel) {
                  UIModel.uiModel.showMenu = true;
                  UIModel.uiModel.showLoginDialog = false;
-                 AppsInfoModel.setSelected(1);
+                 AppsInfoModel.setSelected(0);
                  UIModel.uiModel.showAppDialog = true;
              },
              resolve: {

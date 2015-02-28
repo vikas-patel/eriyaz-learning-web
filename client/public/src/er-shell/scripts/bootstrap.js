@@ -9,6 +9,7 @@ define([
     'domReady',
     './app',
     './routes',
+    './cache'
 ], function(require, ng) {
     'use strict';
     /*
