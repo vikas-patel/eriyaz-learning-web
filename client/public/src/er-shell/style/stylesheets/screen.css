@@ -290,31 +290,44 @@ body /deep/ {
 
 /* line 1, ../sass/pages/_home.scss */
 .snippet {
-  height: 300px;
   background-color: white;
   margin: 20px;
   color: black;
+  padding-bottom: 20px;
 }
-/* line 9, ../sass/pages/_home.scss */
+/* line 7, ../sass/pages/_home.scss */
+.snippet .clear {
+  float: none;
+  clear: both;
+  height: 0;
+}
+/* line 13, ../sass/pages/_home.scss */
 .snippet h1 {
   display: block;
   margin-left: 30px;
   padding-top: 10px;
 }
-/* line 16, ../sass/pages/_home.scss */
+/* line 19, ../sass/pages/_home.scss */
 .snippet p {
   padding-top: 10px;
 }
-/* line 20, ../sass/pages/_home.scss */
+@media (max-width: 640px) {
+  /* line 19, ../sass/pages/_home.scss */
+  .snippet p {
+    padding-top: 20px;
+    clear: both;
+  }
+}
+/* line 27, ../sass/pages/_home.scss */
 .snippet .info {
   margin: 20px;
 }
-/* line 24, ../sass/pages/_home.scss */
+/* line 31, ../sass/pages/_home.scss */
 .snippet .thumbnail {
   width: 200px;
   height: 200px;
 }
-/* line 29, ../sass/pages/_home.scss */
+/* line 36, ../sass/pages/_home.scss */
 .snippet .thumb-container {
   float: left;
   margin-right: 40px;
