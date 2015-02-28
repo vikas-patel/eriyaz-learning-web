@@ -34,7 +34,8 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './intensityfilte
 			$scope.partNumber = 0;
 			$scope.startOrPause = function(){
 				if (!$scope.myExercise) {
-					showToastMessage("Please Select Exercise.")
+					showToastMessage("Please Select Exercise.");
+					$scope.toastMessageDisplayed = true;
 					return;
 				}
 				switch($scope.operation) {

@@ -2,7 +2,8 @@
 	<div>
 		<div style="float: left;">
 			<label for="exerciseId">Exercises:</label>
-			<select ng-model="myExercise" ng-options="exercise.name for exercise in exercises">
+			<select ng-model="myExercise" ng-class="{invalid:myExercise==null&&toastMessageDisplayed}"
+			ng-options="exercise.name for exercise in exercises">
 		   		<option value="">-- Select Exercise --</option>
 		    </select>
 			<button ng-click="startOrPause()" ng-class="{start:operation==='start', pause:operation==='pause', resume:operation==='resume'||operation==='over'}" ng-disabled="operation==='over'"></button>

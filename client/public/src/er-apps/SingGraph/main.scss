@@ -13,6 +13,11 @@ $greyExercise: #A8A8A8;
 	  content:"Resume";
 	}
 
+	.invalid {
+	  border-color: red;
+	  border-width:1px;
+	}
+
 	.container {
 		margin: 5px;
 		padding: 5px;
