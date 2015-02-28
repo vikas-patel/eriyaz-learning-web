@@ -28,6 +28,7 @@
                  LoginSignupDialogModel.loginSignupDialogModel.selection = 'login';
                  UIModel.uiModel.showMenu = false;
                  UIModel.uiModel.showFront = true;
+                 UIModel.uiModel.showAppDialog = false;
                  UIModel.uiModel.showLoginDialog = true;
              },
              resolve: {
