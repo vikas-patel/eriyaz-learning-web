@@ -139,38 +139,37 @@ body /deep/ {
 }
 
 /* line 65, ../sass/pages/_front.scss */
-#front [href='#login'], [href='#signup'] {
+#front #login, #signup {
   color: white;
   float: right;
   text-align: right;
   width: 50px;
   text-decoration: none;
 }
-
-/* line 74, ../sass/pages/_front.scss */
-#front [href='#login']:hover, [href='#signup']:hover {
+/* line 72, ../sass/pages/_front.scss */
+#front #login:hover, #signup:hover {
   text-decoration: underline;
 }
 
-/* line 79, ../sass/pages/_front.scss */
+/* line 78, ../sass/pages/_front.scss */
 #front #try, #try a {
   color: black;
   margin-top: 10px;
 }
 
-/* line 85, ../sass/pages/_front.scss */
+/* line 84, ../sass/pages/_front.scss */
 #front #desc, #eriyaz, #join, #try {
   display: block;
   text-align: center;
   margin: 10px;
 }
 
-/* line 93, ../sass/pages/_front.scss */
+/* line 92, ../sass/pages/_front.scss */
 #front #desc {
   color: black;
 }
 
-/* line 97, ../sass/pages/_front.scss */
+/* line 96, ../sass/pages/_front.scss */
 #front #join {
   color: white;
   background-color: #652218;
@@ -186,26 +185,26 @@ body /deep/ {
   box-shadow: 0 0 28px 5px #652218;
 }
 @media (max-width: 640px), (max-height: 420px) {
-  /* line 97, ../sass/pages/_front.scss */
+  /* line 96, ../sass/pages/_front.scss */
   #front #join {
     line-height: 40px;
     width: 150px;
   }
 }
 
-/* line 118, ../sass/pages/_front.scss */
+/* line 117, ../sass/pages/_front.scss */
 #front #join:hover {
   box-shadow: 0 0 28px 6px #652218;
   text-shadow: 0 0 15px #FFFFFF;
 }
 
-/* line 124, ../sass/pages/_front.scss */
+/* line 123, ../sass/pages/_front.scss */
 #front #eriyaz {
   font-size: 500%;
   color: #652218;
 }
 @media (max-width: 640px), (max-height: 420px) {
-  /* line 124, ../sass/pages/_front.scss */
+  /* line 123, ../sass/pages/_front.scss */
   #front #eriyaz {
     font-size: 300%;
   }

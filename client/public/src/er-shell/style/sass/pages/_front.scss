@@ -62,17 +62,16 @@
 
 
 
-#front [href='#login'],[href='#signup'] {
+#front #login,#signup {
   color : white;
   float:right;
   text-align : right;
   width : 50px;
   text-decoration :none;
-  // margin:10px;
-}
 
-#front [href='#login']:hover,[href='#signup']:hover {
-  text-decoration : underline;
+  &:hover {
+    text-decoration : underline;
+  }  
 }
 
 
