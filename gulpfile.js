@@ -10,6 +10,10 @@ var rename = require('gulp-rename');
 var concat = require('gulp-concat');
 var del = require('del');
 var htmlreplace = require('gulp-html-replace');
+var addsrc = require('gulp-add-src');
+var merge = require('merge-stream');
+var buffer = require('vinyl-buffer');
+var es = require('event-stream');
 
 gulp.task('eriyaz-compass', function() {
   gulp.src('./client/public/src/er-shell/style/sass/*.scss')
@@ -76,25 +80,26 @@ gulp.task('rjs', function(cb) {
     })
     .pipe(ngAnnotate())
     .pipe(uglify())
-    .pipe(gulp.dest('./client/public/dist/')); // pipe it to the output DIR 
-    cb();
+    .pipe(gulp.dest('client/public/dist'));
+  cb();
 });
 
 
-gulp.task('buildjs',['rjs'], function() {
+gulp.task('buildjs', function() {
   return gulp.src(['client/public/src/ext-libs/bower_components/webcomponentsjs/webcomponents.min.js',
-    'client/public/src/ext-libs/require.min.js',
-    'client/public/dist/app.js'])
+      'client/public/src/ext-libs/require.min.js',
+      'client/public/dist/app.js'
+    ])
     .pipe(concat('build.js'))
     // .pipe(ngAnnotate())
     // .pipe(uglify())
     .pipe(gulp.dest('client/public/dist'));
 });
 
-gulp.task('htmlreplace',function() {
-  gulp.src('client/public/src/index.html')
+gulp.task('htmlreplace', function() {
+  var stream = gulp.src('client/public/src/index.html')
     .pipe(htmlreplace({
-      'js':'build.js'
+      'js': 'build.js'
     }))
     .pipe(gulp.dest('client/public/dist'));
 });
@@ -104,27 +109,29 @@ gulp.task('vulcanize', function() {
   return gulp.src('client/public/src/imports.html')
     .pipe(vulcanize({
       dest: DEST_DIR,
-      inline:true,
+      inline: true,
       strip: true
     }))
     // .pipe(rename("index.html"))
     .pipe(gulp.dest(DEST_DIR));
 });
 
-gulp.task('copy',function() {
-  return gulp.src(['client/public/src/**/*.{html,jpg,css}','!**/{ext-libs,dist}/**','!**/{imports,index}.html'],{base:'./client/public/src'})
+gulp.task('copy', function() {
+  return gulp.src(['client/public/src/**/*.{html,jpg,css}', '!**/{ext-libs,dist}/**', '!**/{imports,index}.html'], {
+      base: './client/public/src'
+    })
     .pipe(gulp.dest('client/public/dist'));
 });
 
-gulp.task('del-temp',['buildjs'],function(cb) {
-  del(['client/public/dist/app.js'],cb);
+gulp.task('js-clean', ['buildjs'], function(cb) {
+  del(['client/public/dist/app.js'], cb);
 });
 
-gulp.task('clean',function(cb) {
-  del(['client/public/dist/*'],cb);
+gulp.task('clean', function(cb) {
+  del(['client/public/dist/*'], cb);
 });
 
-gulp.task('build',['buildjs','vulcanize','htmlreplace','copy']);
+gulp.task('build', ['js-clean', 'vulcanize', 'htmlreplace', 'copy']);
 
 
 gulp.task('default', ['compass', 'watch']);
