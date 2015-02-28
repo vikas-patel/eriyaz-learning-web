@@ -49,7 +49,7 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './intensityfilte
               function() {if(!$scope.myExercise) return; setExercise($scope)}
              );
 
-			 $scope.stop = function() {
+			 $scope.reset = function() {
 			 	$scope.operation = 'start';
 			 	reset($scope);
 			 }
@@ -62,7 +62,7 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './intensityfilte
 				//setExercise($scope);
 				// start again
 				countDownDisplayed = false;
-				$scope.operation = 'start';
+				$scope.operation = 'pause';
 			 }
 
 			 $scope.closeOverlay = function() {
@@ -72,7 +72,7 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './intensityfilte
 			 $scope.restart = function() {
 			 	$scope.showOverlay = false;
 			 	reset($scope);
-				start();
+				$scope.operation = 'pause';
 			 }
 
 			 $scope.$on('chartOver',function() {
