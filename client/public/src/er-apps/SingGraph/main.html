@@ -5,8 +5,8 @@
 			<select ng-model="myExercise" ng-options="exercise.name for exercise in exercises">
 		   		<option value="">-- Select Exercise --</option>
 		    </select>
-			<button ng-click="startOrPause()" ng-class="{start:operation==='start', pause:operation==='pause', resume:operation==='resume'}"></button>
-			<button ng-click="stop()" ng-disabled="isDisabled()">Reset</button>
+			<button ng-click="startOrPause()" ng-class="{start:operation==='start', pause:operation==='pause', resume:operation==='resume'||operation==='over'}" ng-disabled="operation==='over'"></button>
+			<button ng-click="stop()" ng-disabled="operation==='start'">Reset</button>
 			<!-- <button id="play">Play Instrument</button>
 			<input type = "checkbox" checked = "checked" id = "instrumentEnabled" />
 	 		<label for = "instrumentEnabled">Play Instrument</label>

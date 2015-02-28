@@ -17,7 +17,6 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './intensityfilte
 		var chart;
 		var buffer;
 		// reset variables
-		var stopped = true;
 
 		var score;
 		var controller;
@@ -58,11 +57,6 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './intensityfilte
 			 	reset($scope);
 			 }
 
-			 $scope.isDisabled = function () {
-			 	if ($scope.operation === 'start') return true;
-			 	return false;
-			 }
-
 			 $scope.next = function() {
 			 	$scope.showOverlay = false;
 				score.reset();
@@ -71,7 +65,7 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './intensityfilte
 				//setExercise($scope);
 				// start again
 				countDownDisplayed = false;
-				stopped = true;
+				$scope.operation = 'start';
 			 }
 
 			 $scope.closeOverlay = function() {
@@ -89,7 +83,7 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './intensityfilte
 			 	if ($scope.partNumber*maxNotes < $scope.myExercise.sequence.length) {
 					$scope.chart.setExercise(controller.getExercisePart($scope.myExercise, $scope.partNumber, maxNotes));
 				} else {
-					stopped = true;
+					$scope.operation = 'over';
 	               	$scope.showOverlay = true;
 	               	$scope.$apply();
 				}
@@ -132,7 +126,6 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './intensityfilte
 		}
 		
 		function start($scope) {
-			stopped = false;
 			if (!buffer) {
 				MicUtil.getMicAudioStream(
 					function(stream) {
@@ -144,7 +137,10 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './intensityfilte
 		};
 
 		function processSignal(data) {
-			if (scope.chart.isPaused || stopped) return;
+			// yet to start or paused.
+			if (scope.operation === 'start' || scope.operation === 'resume' || scope.operation === 'over') {
+				return;
+			}
 			//if (!displayCountDown()) return;
 			
 			if (!playInstrument()) return;
@@ -203,7 +199,7 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './intensityfilte
 			setExercise($scope);
 			// start again
 			countDownDisplayed = false;
-			stopped = true;
+			$scope.operation = 'start';
 		}
 		
 		function setRoot($scope) {
