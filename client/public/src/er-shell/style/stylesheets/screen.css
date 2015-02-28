@@ -77,6 +77,17 @@ body /deep/ {
   font-size: 100%;
 }
 
+/* line 15, ../sass/pages/_common.scss */
+paper-toast {
+  right: 10px;
+  top: 40px;
+  bottom: auto;
+  left: auto;
+  background-color: #F16236;
+  color: black;
+  font-size: 1.2em;
+}
+
 /* line 1, ../sass/pages/_front.scss */
 #front {
   font-family: sans-serif;

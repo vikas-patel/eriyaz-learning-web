@@ -11,3 +11,13 @@ body .core-overlay-backdrop {
 body /deep/ {
 	font-size:100%;
 }
+
+paper-toast {
+  right: 10px;
+  top: 40px;
+  bottom: auto;
+  left: auto;
+  background-color: $main-color;
+  color: black;
+  font-size: 1.2em;
+}
