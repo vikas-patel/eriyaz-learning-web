@@ -7,6 +7,8 @@ run tests with "karma run"
 to add more tests add them in test directory & include them in karma.conf.js.
 
 Steps to Deploy :-
+make sure you have gulp installed (> npm install -g gulp)
+and other gulp dependencies that I have listed in devDependencies in package.json (> npm install)
 from cmd in eriyaz folder run following commands :
 > gulp clean
 > gulp rjs
@@ -16,7 +18,7 @@ To setup heroku commands download and install - heroku toolbelt
 https://toolbelt.heroku.com/
 
 then open git bash & do following :
-heroku login
+> heroku login
 login : ashvyn.jain@gmail.com
 pass : eartrainer
 
