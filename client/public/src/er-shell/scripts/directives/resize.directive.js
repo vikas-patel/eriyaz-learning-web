@@ -17,12 +17,19 @@ define(['angular', './module'], function(angular, app) {
 					var width;
 					var height;
 					if(newValue.w > newValue.h * aspectRatio) {
-						height = newValue.h * 0.9 *0.9;
+						height = newValue.h *0.95; 
 						width = height * aspectRatio;
 					} else {
-						width = newValue.w * 0.9 * 0.9;
+						width = newValue.w * 0.95;
 						height = width / aspectRatio;
 					}
+
+					//can use more margins in desktop
+					if(newValue.w > 640) {
+						height = height * 0.8;
+						width = width * 0.8;
+					}
+
 					scope.style = function() {
 						return {
 							'height':height+ 'px',
