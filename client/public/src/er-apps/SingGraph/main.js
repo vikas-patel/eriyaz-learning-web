@@ -4,19 +4,15 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './intensityfilte
 	function(app, $, Require, MicUtil, AudioBuffer, IntensityFilter, Score, Controller) {
 		//constants
 		var adjustment = 1.088; //pitch adjustment to pitch.js determined pitch(incorrect by itself.)
-		var labelsIndian = ["Sa", "", "Re", "", "Ga", "Ma", "", "Pa", "", "Dha", "", "Ni"];
-
 		//state variables. 
 		var rootFreq = 110;
 		// MIDI
 		var root = 57; // Freq: 220
 		var currFreq;
-		var labels = labelsIndian;
 		//other globals;
 		var context;
 		var chart;
 		var buffer;
-		// reset variables
 
 		var score;
 		var controller;
@@ -25,6 +21,7 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './intensityfilte
 		var countDownProgress = false;
 		var maxNotes = 5;
 		var scope;
+		var instrumentEnabled = false;
 		app.controller('SingGraphCtrl', function($scope, PitchModel, DialModel) {
 			scope = $scope;
 			init($scope);
@@ -37,7 +34,7 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './intensityfilte
 			$scope.partNumber = 0;
 			$scope.startOrPause = function(){
 				if (!$scope.myExercise) {
-					alert("Please select exercise.");
+					showToastMessage("Please Select Exercise.")
 					return;
 				}
 				switch($scope.operation) {
@@ -146,6 +143,7 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './intensityfilte
 			if (!playInstrument()) return;
 
 			if (!scope.chart.started) {
+				showToastMessage("Sing Now.");
 				scope.chart.start();
 			}
 			updatePitch(data);
@@ -167,10 +165,11 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './intensityfilte
 
 		function playInstrument() {
 			// Always play instrument.
-			if (!$("#instrumentEnabled").prop("checked")) return true;
-			if (chart.instrumentPlayed) return true;
-			if (chart.instrumentProgress) return false;
-			chart.play(context, root);
+			if (!instrumentEnabled) return true;
+			if (scope.chart.instrumentPlayed) return true;
+			if (scope.chart.instrumentProgress) return false;
+			showToastMessage("First Listen.");
+			scope.chart.play(context, root);
 		}
 		
 		function displayCountDown() {
@@ -184,12 +183,16 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './intensityfilte
 				countDownProgress = false;
 			});
 		}
+
+		function showToastMessage(text) {
+			document.querySelector('#toast-alert').setAttribute("text", text);
+			document.querySelector('#toast-alert').show();
+		}
 		
 		function now(){
 			var d = new Date();
 			return d.getTime();
 		}
-
 
 		// Reset game to original state
 		function reset($scope) {
