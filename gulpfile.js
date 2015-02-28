@@ -117,7 +117,7 @@ gulp.task('vulcanize', function() {
 });
 
 gulp.task('copy', function() {
-  return gulp.src(['client/public/src/**/*.{html,jpg,css}', '!**/{ext-libs,dist}/**', '!**/{imports,index}.html'], {
+  return gulp.src(['client/public/src/**/*.{html,jpg,css,json}', '!**/{ext-libs,dist}/**', '!**/{imports,index}.html'], {
       base: './client/public/src'
     })
     .pipe(gulp.dest('client/public/dist'));
