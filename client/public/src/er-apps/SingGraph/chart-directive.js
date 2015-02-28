@@ -1,5 +1,5 @@
-define(['./chart', 'd3', 'webaudioplayer', 'note', 'melody'], function(Chart, d3, Player, Note, Melody) {
-	//constant
+define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], function(app, Chart, d3, Player, Note, Melody) {
+	var labelsIndian = ["Sa", "", "Re", "", "Ga", "Ma", "", "Pa", "", "Dha", "", "Ni"];
 	var rectW = 5;
 	var ExerciseChart = function(containerId, $scope, parentWidth, parentHeight, labels){
 		this.parent = Chart.Class;
@@ -83,17 +83,18 @@ define(['./chart', 'd3', 'webaudioplayer', 'note', 'melody'], function(Chart, d3
 
 	ExerciseChart.prototype.resumeIndicatorLine = function () {
 		var duration = this.duration + this.offsetTime;
+		var chart = this;
+		var callback = function () { chart.$scope.$broadcast('chartOver'); };
 		this.indicatorLine.transition()
 				.duration(duration - this.getTimeRendered())
 				.delay(0)
 				.ease("linear")
 				.attr("transform", "translate(" + this.x(duration/1000) +",0)")
-				.each("end", this.onExerciseEnd);
+				.each("end", callback);
 	}
 	
 	ExerciseChart.prototype.setExercise = function(exercise, onExerciseEnd) {
 		this.exercise = exercise;
-		this.onExerciseEnd = onExerciseEnd;
 		this.duration = this.getDuration();
 		if (this.duration > this.settings.timeSpan) {
 			this.transitionDuration = this.duration - this.settings.timeSpan;	
@@ -204,9 +205,38 @@ define(['./chart', 'd3', 'webaudioplayer', 'note', 'melody'], function(Chart, d3
 						});
 	};
 
-    return {
-        getChart: function(containerId, $scope, parentWidth, parentHeight, labels) {
-			return new ExerciseChart(containerId, $scope, parentWidth, parentHeight, labels);
-        }
-    };
+	app.directive('ngSingGraph', function() {
+        return {
+            link: function(scope, element) {
+                var w = window,
+				d = document,
+				e = d.documentElement,
+				g = d.getElementsByTagName('body')[0],
+				x = w.innerWidth || e.clientWidth || g.clientWidth,
+				y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+				//x = 1000;
+				var chartSettings = {
+					width: x,
+					height: 0.46*x,
+					marginTop:20,
+					marginRight:20,
+					marginBottom:20,
+					marginLeft:30,
+					labels: labelsIndian,
+					yTicks: 38,
+					timeSpan:10000,
+					precision: 0
+				};
+				var chart = new ExerciseChart(element.attr('id'), scope, chartSettings);
+				scope.chart = chart;
+				scope.$on('pause',function() {
+					chart.pause();
+				});
+
+				scope.$on('resume',function() {
+					chart.resume();
+				});
+            }
+        };
+    });
 });
