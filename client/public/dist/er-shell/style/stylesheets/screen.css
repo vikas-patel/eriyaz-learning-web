@@ -77,6 +77,17 @@ body /deep/ {
   font-size: 100%;
 }
 
+/* line 15, ../sass/pages/_common.scss */
+paper-toast {
+  right: 10px;
+  top: 40px;
+  bottom: auto;
+  left: auto;
+  background-color: #F16236;
+  color: black;
+  font-size: 1.2em;
+}
+
 /* line 1, ../sass/pages/_front.scss */
 #front {
   font-family: sans-serif;
@@ -347,29 +358,19 @@ core-toolbar {
   background-color: #F16236;
 }
 
-/* line 12, ../sass/pages/_scaffold.scss */
+/* line 11, ../sass/pages/_scaffold.scss */
 .content {
   padding: 20px;
 }
 
-/* line 16, ../sass/pages/_scaffold.scss */
-#drawer /deep/ #mainContainer {
-  background-color: #F4F4F4;
-}
-
-/* line 22, ../sass/pages/_scaffold.scss */
+/* line 23, ../sass/pages/_scaffold.scss */
 #drawer /deep/ #side-menu {
   background-color: white;
 }
 
-/* line 28, ../sass/pages/_scaffold.scss */
-#main-panel /deep/ #mainContainer {
-  background-color: #F4F4F4;
-}
-
 /* drawer is always visible on a wide screen
    so menu button isn't required */
-/* line 35, ../sass/pages/_scaffold.scss */
+/* line 36, ../sass/pages/_scaffold.scss */
 core-drawer-panel:not([narrow]) #navicon {
   display: none;
 }
@@ -501,11 +502,16 @@ core-drawer-panel:not([narrow]) #navicon {
   content: "Resume";
 }
 /* line 16, ../../../er-apps/SingGraph/main.scss */
+#sing-graph .invalid {
+  border-color: red;
+  border-width: 1px;
+}
+/* line 21, ../../../er-apps/SingGraph/main.scss */
 #sing-graph .container {
   margin: 5px;
   padding: 5px;
 }
-/* line 25, ../../../er-apps/SingGraph/main.scss */
+/* line 30, ../../../er-apps/SingGraph/main.scss */
 #sing-graph .svg-container {
   display: inline-block;
   position: relative;
@@ -515,26 +521,26 @@ core-drawer-panel:not([narrow]) #navicon {
   overflow: hidden;
   /* Axis */
 }
-/* line 37, ../../../er-apps/SingGraph/main.scss */
+/* line 42, ../../../er-apps/SingGraph/main.scss */
 #sing-graph .svg-container .axis .tick text {
   fill: black;
   font-size: 0.7em;
 }
-/* line 42, ../../../er-apps/SingGraph/main.scss */
+/* line 47, ../../../er-apps/SingGraph/main.scss */
 #sing-graph .svg-container .axis path, #sing-graph .svg-container .axis line {
   fill: none;
   stroke: black;
   shape-rendering: crispEdges;
   stroke-width: 1px;
 }
-/* line 51, ../../../er-apps/SingGraph/main.scss */
+/* line 56, ../../../er-apps/SingGraph/main.scss */
 #sing-graph .svg-content {
   display: inline-block;
   position: absolute;
   top: 0;
   left: 0;
 }
-/* line 58, ../../../er-apps/SingGraph/main.scss */
+/* line 63, ../../../er-apps/SingGraph/main.scss */
 #sing-graph #overlay, #sing-graph #overlay-content {
   margin: auto;
   width: 100%;
@@ -546,23 +552,23 @@ core-drawer-panel:not([narrow]) #navicon {
   bottom: 0;
   z-index: 1;
 }
-/* line 70, ../../../er-apps/SingGraph/main.scss */
+/* line 75, ../../../er-apps/SingGraph/main.scss */
 #sing-graph #overlay {
   background-color: black;
   opacity: .5;
 }
-/* line 76, ../../../er-apps/SingGraph/main.scss */
+/* line 81, ../../../er-apps/SingGraph/main.scss */
 #sing-graph #overlay-content {
   text-align: center;
   color: white;
   height: 20%;
   width: 50%;
 }
-/* line 82, ../../../er-apps/SingGraph/main.scss */
+/* line 87, ../../../er-apps/SingGraph/main.scss */
 #sing-graph #overlay-content .padding5 {
   padding: 5px;
 }
-/* line 87, ../../../er-apps/SingGraph/main.scss */
+/* line 92, ../../../er-apps/SingGraph/main.scss */
 #sing-graph #counter {
   margin: auto;
   width: 200px;
@@ -576,11 +582,11 @@ core-drawer-panel:not([narrow]) #navicon {
   bottom: 0;
   z-index: 1;
 }
-/* line 102, ../../../er-apps/SingGraph/main.scss */
+/* line 107, ../../../er-apps/SingGraph/main.scss */
 #sing-graph .indicatorLine {
   stroke-width: 1;
 }
-/* line 106, ../../../er-apps/SingGraph/main.scss */
+/* line 111, ../../../er-apps/SingGraph/main.scss */
 #sing-graph .exercise {
   fill: #A8A8A8;
 }
