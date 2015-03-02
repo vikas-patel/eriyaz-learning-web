@@ -6,7 +6,6 @@ core-toolbar {
   background-color: #F16236;
 }
 #navheader {
-  // background-color: #cc000b;
   background-color: #F16236;
 }
 .content {
@@ -15,8 +14,10 @@ core-toolbar {
 
 #drawer /deep/  #mainContainer {
 	// background-color: #F8BA53;
-	background-color: #F4F4F4;
-
+	// background-color: #F4F4F4;
+  // box-shadow: 1px 1px 5px #999;
+  // border-right:solid;
+  // border-color:#eeeeee;
 }
 
 #drawer /deep/  #side-menu {
@@ -27,7 +28,7 @@ core-toolbar {
 
 #main-panel /deep/  #mainContainer {
 	// background-color: #F8BA53;
-	background-color: #F4F4F4;
+	// background-color: #F4F4F4;
 
 }
 /* drawer is always visible on a wide screen
