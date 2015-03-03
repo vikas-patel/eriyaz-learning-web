@@ -4,9 +4,11 @@ core-header-panel {
 core-toolbar {
   // background-color: #cc000b;
   background-color: #F16236;
+  // margin-left:15px;
 }
 #navheader {
-  background-color: #F16236;
+  // background-color: #F16236;
+  background-color:#F16236;
 }
 .content {
   padding: 20px;
@@ -14,12 +16,15 @@ core-toolbar {
 
 #drawer /deep/  #mainContainer {
 	// background-color: #F8BA53;
-	// background-color: #F4F4F4;
+	// background-color: #efefef;
+  // margin-right:20px;
   // box-shadow: 1px 1px 5px #999;
   // border-right:solid;
   // border-color:#eeeeee;
 }
 
+#drawer {
+}
 #drawer /deep/  #side-menu {
 	// background-color: #F8BA53;
 	background-color: white;
