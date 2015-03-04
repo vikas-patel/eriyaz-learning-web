@@ -1,13 +1,19 @@
 <div id="sing-graph" ng-controller="SingGraphCtrl">
 	<div>
 		<div style="float: left;">
-			<label for="exerciseId">Exercises:</label>
 			<select ng-model="myExercise" ng-class="{invalid:myExercise==null&&toastMessageDisplayed}"
 			ng-options="exercise.name for exercise in exercises">
 		   		<option value="">-- Select Exercise --</option>
 		    </select>
 			<button ng-click="startOrPause()" ng-class="{start:operation==='start', pause:operation==='pause', resume:operation==='resume'||operation==='over'}" ng-disabled="operation==='over'"></button>
 			<button ng-click="reset()" ng-disabled="operation==='start'">Reset</button>
+			<select ng-model="rootNote" ng-class="{invalid:rootNote==null&&toastMessageDisplayed}">
+				<option value="">-- Set Sa --</option>
+				<option value="49">Kali 1 (C#)</option>
+				<option value="51">Kali 2 (D#)</option>
+				<option value="56">Kali 4 (G#)</option>
+				<option value="58">Kali 5 (A#)</option>
+			</select>
 			<!-- <button id="play">Play Instrument</button>
 			<input type = "checkbox" checked = "checked" id = "instrumentEnabled" />
 	 		<label for = "instrumentEnabled">Play Instrument</label>

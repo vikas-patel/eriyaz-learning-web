@@ -1,15 +1,10 @@
-define(['./module', 'jquery', 'require', 'mic', 'audiobuffer','./score', './framecontroller','pitchdetector',
+define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './score', './framecontroller', 'pitchdetector', 'note',
 	  //'countdown', 
 	  'webaudio-tools', './tone', 'wavelet-pitch'],
-	function(app, $, Require, MicUtil, AudioBuffer, Score, Controller, PitchDetector) {
+	function(app, $, Require, MicUtil, AudioBuffer, Score, Controller, PitchDetector, Note) {
 		//constants
 		var adjustment = 1.088; //pitch adjustment to pitch.js determined pitch(incorrect by itself.)
 		var detector = PitchDetector.getDetector('wavelet',44100);
-		//state variables. 
-		var rootFreq = 110;
-		// MIDI
-		var root = 57; // Freq: 220
-		var currFreq;
 		//other globals;
 		var context;
 		var chart;
@@ -22,7 +17,7 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer','./score', './fram
 		var countDownProgress = false;
 		var maxNotes = 5;
 		var scope;
-		var instrumentEnabled = false;
+		var instrumentEnabled = true;
 		app.controller('SingGraphCtrl', function($scope, PitchModel, DialModel) {
 			scope = $scope;
 			init($scope);
@@ -39,6 +34,11 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer','./score', './fram
 					$scope.toastMessageDisplayed = true;
 					return;
 				}
+				if (!$scope.rootNote) {
+					showToastMessage("Please Set Sa.");
+					$scope.toastMessageDisplayed = true;
+					return;
+				}
 				switch($scope.operation) {
 					case 'start': start($scope);break;
 					case 'pause': $scope.$broadcast('pause');break;
@@ -49,6 +49,13 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer','./score', './fram
 
 			$scope.$watch(function(scope) { return scope.myExercise },
               function() {if(!$scope.myExercise) return; setExercise($scope)}
+             );
+
+			$scope.$watch(function(scope) { return scope.rootNote },
+              function() {
+              	if(!$scope.rootNote) return; 
+              	$scope.rootFreq = Note.numToFreq($scope.rootNote);
+              }
              );
 
 			 $scope.reset = function() {
@@ -121,7 +128,7 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer','./score', './fram
 		}
 
 		function play() {
-			chart.play(context, root);
+			chart.play(context, $scope.rootNote);
 		}
 		
 		function start($scope) {
@@ -155,7 +162,7 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer','./score', './fram
 			
 			var waveletFreq = detector.findPitch(data);
 			if (waveletFreq == 0) return;
-			currInterval = Math.round(1200 * (Math.log(waveletFreq / rootFreq) / Math.log(2))) / 100;
+			currInterval = Math.round(1200 * (Math.log(waveletFreq / scope.rootFreq) / Math.log(2))) / 100;
 			scope.chart.draw(currInterval);
 			var expNote = scope.chart.exerciseNote(scope.chart.timePlotted);
 			score.updateScore(expNote, currInterval.toFixed(0));
@@ -167,7 +174,7 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer','./score', './fram
 			if (scope.chart.instrumentPlayed) return true;
 			if (scope.chart.instrumentProgress) return false;
 			showToastMessage("First Listen.");
-			scope.chart.play(context, root);
+			scope.chart.play(context, scope.rootNote);
 		}
 		
 		function displayCountDown() {
@@ -202,9 +209,4 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer','./score', './fram
 			countDownDisplayed = false;
 			$scope.operation = 'start';
 		}
-		
-		function setRoot($scope) {
-			rootFreq = currFreq;
-		}
-		
 	});
