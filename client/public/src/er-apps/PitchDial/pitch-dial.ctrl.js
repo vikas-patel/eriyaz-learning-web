@@ -1,22 +1,17 @@
-  define(['./module', 'mic', 'audiobuffer', 'webaudioplayer', 'fft-pitch'], function(app, MicUtil, AudioBuffer, WebAudioPlayer) {
+  define(['./module', 'mic', 'audiobuffer', 'webaudioplayer', 'pitchdetector'], function(app, MicUtil, AudioBuffer, WebAudioPlayer, PitchDetector) {
     var WebAudioContext = window.AudioContext || window.webkitAudioContext;
     var audioContext = new WebAudioContext();
     app.controller('PitchDialCtrl', function($scope, PitchModel, DialModel) {
       var adjustment = 1.088;
+
+      var detector = PitchDetector.getDetector('wavelet', 44100);
       var updatePitch = function(data) {
-        var pitchCalculator = new PitchAnalyzer(44100);
-        pitchCalculator.input(data);
-        pitchCalculator.process();
-        var tone = pitchCalculator.findTone();
-        if (tone === null) {
-          console.log('No tone found!');
-        } else {
-          console.log('Found a tone, frequency:', tone.freq, 'volume:', tone.db);
-          PitchModel.currentFreq = tone.freq * adjustment;
+        var pitch = detector.findPitch(data);
+        if (pitch !== 0) {
+          PitchModel.currentFreq = pitch * adjustment;
           PitchModel.currentInterval = Math.round(1200 * (Math.log(PitchModel.currentFreq / PitchModel.rootFreq) / Math.log(2))) / 100;
           // DialModel.value = PitchModel.currentInterval;
           DialModel.setValue(PitchModel.currentInterval);
-          // $scope.$digest();
         }
       };
 
@@ -29,7 +24,7 @@
           }
         );
       };
-      
+
       $scope.setRoot = function() {
         PitchModel.rootFreq = PitchModel.currentFreq;
       };

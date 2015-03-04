@@ -353,24 +353,24 @@ core-toolbar {
   background-color: #F16236;
 }
 
-/* line 8, ../sass/pages/_scaffold.scss */
+/* line 9, ../sass/pages/_scaffold.scss */
 #navheader {
   background-color: #F16236;
 }
 
-/* line 11, ../sass/pages/_scaffold.scss */
+/* line 13, ../sass/pages/_scaffold.scss */
 .content {
   padding: 20px;
 }
 
-/* line 23, ../sass/pages/_scaffold.scss */
+/* line 28, ../sass/pages/_scaffold.scss */
 #drawer /deep/ #side-menu {
   background-color: white;
 }
 
 /* drawer is always visible on a wide screen
    so menu button isn't required */
-/* line 36, ../sass/pages/_scaffold.scss */
+/* line 41, ../sass/pages/_scaffold.scss */
 core-drawer-panel:not([narrow]) #navicon {
   display: none;
 }

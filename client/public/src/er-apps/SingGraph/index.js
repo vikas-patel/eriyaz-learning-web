@@ -3,7 +3,6 @@ define([
     './chart',
     './chart-directive',
     './framecontroller',
-    './intensityfilter',
     './score',
     './main'
 ], function () {});

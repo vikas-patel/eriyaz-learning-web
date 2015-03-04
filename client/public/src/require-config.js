@@ -13,6 +13,8 @@ requirejs.config({
 
 
         'mic': 'er-libs/mic',
+        'pitchdetector' : 'er-libs/pitchdetector',
+        'intensityfilter':'er-libs/intensityfilter',
         'audiobuffer': 'er-libs/audiobuffer',
         'fft-pitch' : 'ext-libs/pitchjs/pitch',
         'jquery' : 'ext-libs/jquery/jquery',
@@ -20,7 +22,7 @@ requirejs.config({
         'webaudioplayer' : 'er-libs/webaudioplayer',
         'melody' : 'er-libs/melody',
         'note' : 'er-libs/note',
-        'waveletpitch' : 'ext-libs/waveletPitch',
+        'wavelet-pitch' : 'ext-libs/waveletPitch',
         'd3' : 'ext-libs/d3.min'
         //'countdown' : "ext-libs/countdown"
     },
