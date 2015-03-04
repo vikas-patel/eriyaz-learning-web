@@ -4,7 +4,7 @@
     app.controller('PitchDialCtrl', function($scope, PitchModel, DialModel) {
       var adjustment = 1.088;
 
-      var detector = PitchDetector.getDetector('wavelet', 44100);
+      var detector = PitchDetector.getDetector('fft', 44100);
       var updatePitch = function(data) {
         var pitch = detector.findPitch(data);
         if (pitch !== 0) {
