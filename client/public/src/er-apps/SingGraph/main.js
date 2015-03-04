@@ -1,9 +1,10 @@
-define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './intensityfilter', './score', './framecontroller',
+define(['./module', 'jquery', 'require', 'mic', 'audiobuffer','./score', './framecontroller','pitchdetector',
 	  //'countdown', 
 	  'webaudio-tools', './tone', 'wavelet-pitch'],
-	function(app, $, Require, MicUtil, AudioBuffer, IntensityFilter, Score, Controller) {
+	function(app, $, Require, MicUtil, AudioBuffer, Score, Controller, PitchDetector) {
 		//constants
 		var adjustment = 1.088; //pitch adjustment to pitch.js determined pitch(incorrect by itself.)
+		var detector = PitchDetector.getDetector('wavelet',44100);
 		//state variables. 
 		var rootFreq = 110;
 		// MIDI
@@ -152,11 +153,7 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './intensityfilte
 
 		function updatePitch(data) {
 			
-			var waveletFreq = 0;
-			if (IntensityFilter.rootMeanSquare(data) > 0.01) {
-				waveletFreq = dywapitch_computepitch(data);
-			}
-			// no tone
+			var waveletFreq = detector.findPitch(data);
 			if (waveletFreq == 0) return;
 			currInterval = Math.round(1200 * (Math.log(waveletFreq / rootFreq) / Math.log(2))) / 100;
 			scope.chart.draw(currInterval);
