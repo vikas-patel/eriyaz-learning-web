@@ -60,6 +60,7 @@ var PitchService = function(callback) {
 				if(IntensityFilter.rootMeanSquare(data) > 0.01) {
 					waveletFreq = dywapitch_computepitch(data);
 				}
+				console.log(medianFilter);
 				self.currFreq = medianFilter.process(waveletFreq);
 				// self.currFreq = waveletFreq;
 				

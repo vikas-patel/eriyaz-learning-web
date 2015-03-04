@@ -1,6 +1,6 @@
 define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './intensityfilter', './score', './framecontroller',
 	  //'countdown', 
-	  'webaudio-tools', './tone', 'waveletpitch'],
+	  'webaudio-tools', './tone', 'wavelet-pitch'],
 	function(app, $, Require, MicUtil, AudioBuffer, IntensityFilter, Score, Controller) {
 		//constants
 		var adjustment = 1.088; //pitch adjustment to pitch.js determined pitch(incorrect by itself.)
