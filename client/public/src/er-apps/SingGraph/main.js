@@ -1,9 +1,10 @@
-define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './intensityfilter', './score', './framecontroller', 'pitchdetector', 'note',
+define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './score', './framecontroller', 'pitchdetector', 'note',
 	  //'countdown', 
-	  'webaudio-tools', './tone', 'waveletpitch'],
-	function(app, $, Require, MicUtil, AudioBuffer, IntensityFilter, Score, Controller, PitchDetector, Note) {
+	  'webaudio-tools', './tone', 'wavelet-pitch'],
+	function(app, $, Require, MicUtil, AudioBuffer, Score, Controller, PitchDetector, Note) {
 		//constants
 		var adjustment = 1.088; //pitch adjustment to pitch.js determined pitch(incorrect by itself.)
+		var detector = PitchDetector.getDetector('wavelet',44100);
 		//other globals;
 		var context;
 		var chart;

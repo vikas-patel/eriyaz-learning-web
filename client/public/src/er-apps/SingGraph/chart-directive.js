@@ -30,7 +30,8 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 
 	ExerciseChart.prototype.play = function(context, root) {
 		// Raise by one octave; not playing low pitch notes.
-		root = root + 24;
+		root = parseInt(root);
+		root = root + 12;
 		this.instrumentProgress = true;
 		var player = new Player(context);
 		var sequences = this.exercise;
