@@ -5,12 +5,13 @@ define(['intensityfilter','wavelet-pitch', 'fft-pitch'], function(IntensityFilte
 			if (IntensityFilter.rootMeanSquare(data) > 0.01) {
 				freq = dywapitch_computepitch(data);
 			}
+			freq = freq * (sampleRate/44100);
 			return freq;
 		};
 	};
 
 	var FftAlgo = function(sampleRate) {
-		this.pitchAnalyzer = new PitchAnalyzer(sampleRate);
+		this.pitchAnalyzer = new PitchAnalyzer();
 		this.findPitch = function(data) {
 			this.pitchAnalyzer.input(data);
 			this.pitchAnalyzer.process();
@@ -20,7 +21,7 @@ define(['intensityfilter','wavelet-pitch', 'fft-pitch'], function(IntensityFilte
 				return 0;
 			} else {
 				// console.log('Found a tone, frequency:', tone.freq, 'volume:', tone.db);
-				return tone.freq;
+				return tone.freq * (sampleRate/44100);
 			}
 		};
 	};

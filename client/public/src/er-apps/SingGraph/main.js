@@ -3,8 +3,7 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './score', './fra
 	  'webaudio-tools', './tone', 'wavelet-pitch'],
 	function(app, $, Require, MicUtil, AudioBuffer, Score, Controller, PitchDetector, Note) {
 		//constants
-		var adjustment = 1.088; //pitch adjustment to pitch.js determined pitch(incorrect by itself.)
-		var detector = PitchDetector.getDetector('wavelet',44100);
+		var detector;
 		//other globals;
 		var context;
 		var chart;
@@ -102,6 +101,7 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './score', './fra
 			context = new audioContext();
 			score = Score.getScore($scope);
 			controller = Controller.getController();
+			detector = PitchDetector.getDetector('wavelet',context.sampleRate);
 		};
 		
 		function startCountdown(callback) {

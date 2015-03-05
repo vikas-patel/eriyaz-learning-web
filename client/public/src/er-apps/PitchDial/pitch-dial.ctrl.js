@@ -2,13 +2,11 @@
     var WebAudioContext = window.AudioContext || window.webkitAudioContext;
     var audioContext = new WebAudioContext();
     app.controller('PitchDialCtrl', function($scope, PitchModel, DialModel) {
-      var adjustment = 1.088;
-
-      var detector = PitchDetector.getDetector('fft', 44100);
+      var detector = PitchDetector.getDetector('wavelet', audioContext.sampleRate);
       var updatePitch = function(data) {
         var pitch = detector.findPitch(data);
         if (pitch !== 0) {
-          PitchModel.currentFreq = pitch * adjustment;
+          PitchModel.currentFreq = pitch;
           PitchModel.currentInterval = Math.round(1200 * (Math.log(PitchModel.currentFreq / PitchModel.rootFreq) / Math.log(2))) / 100;
           // DialModel.value = PitchModel.currentInterval;
           DialModel.setValue(PitchModel.currentInterval);
