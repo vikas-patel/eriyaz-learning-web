@@ -2,17 +2,17 @@
     app.factory('AppsInfoModel', function() {
       var appsInfo = {};
       appsInfo.apps = [{
-        name: 'Sing Graph',
+        name: 'Alankars',
         thumb: 'er-shell/images/graph-thumb.jpg',
         desc: 'Do step by step guided singing exercises from easy to difficult.',
-        href: '#singgraph',
+        href: '#alankars',
         appUrl: 'er-apps/SingGraph/main.html',
         aspectRatio: 41 / 20
       }, {
-        name: 'Sing Dial',
+        name: 'Freestyle',
         thumb: 'er-shell/images/dial-thumb.jpg',
         desc: 'Practice free flow singing with immediate feedback on your pitch.',
-        href: '#singdial',
+        href: '#freestyle',
         appUrl: 'er-apps/PitchDial/main.html',
         aspectRatio: 5 / 6
       }, ];

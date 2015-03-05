@@ -77,24 +77,24 @@
                  onLoggedOutRedirect: checkLoginAndRedirect
              }
          }).
-         state('singdial', {
-             url: '/singdial',
+         state('alankars', {
+             url: '/alankars',
              onEnter: function(UIModel,AppsInfoModel) {
                  UIModel.uiModel.showMenu = true;
                  UIModel.uiModel.showLoginDialog = false;
-                 AppsInfoModel.setSelected(1);
+                 AppsInfoModel.setSelected(0);
                  UIModel.uiModel.showAppDialog = true;
              },
              resolve: {
                  onLoggedOutRedirect: checkLoginAndRedirect
              }
          }).
-         state('singgraph', {
-             url: '/singgraph',
+         state('freestyle', {
+             url: '/freestyle',
              onEnter: function(UIModel,AppsInfoModel) {
                  UIModel.uiModel.showMenu = true;
                  UIModel.uiModel.showLoginDialog = false;
-                 AppsInfoModel.setSelected(0);
+                 AppsInfoModel.setSelected(1);
                  UIModel.uiModel.showAppDialog = true;
              },
              resolve: {
