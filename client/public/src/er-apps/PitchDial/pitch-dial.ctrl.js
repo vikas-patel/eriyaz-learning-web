@@ -2,7 +2,7 @@
     var WebAudioContext = window.AudioContext || window.webkitAudioContext;
     var audioContext = new WebAudioContext();
     app.controller('PitchDialCtrl', function($scope, PitchModel, DialModel) {
-      var detector = PitchDetector.getDetector('wavelet', audioContext.sampleRate);
+      var detector = PitchDetector.getDetector('fft', audioContext.sampleRate);
       var updatePitch = function(data) {
         var pitch = detector.findPitch(data);
         if (pitch !== 0) {
