@@ -101,13 +101,14 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './score', './fra
 
 			 $scope.$on('chartOver',function() {
 			 	if ($scope.isInstrumentProgress) {
+			 		$scope.chart.drawExercise();
 			 		start($scope);
 			 		return;
 			 	}
 			 	++$scope.partNumber;
 			 	if ($scope.partNumber*maxNotes < $scope.myExercise.sequence.length) {
 					$scope.chart.setExercise(controller.getExercisePart($scope.myExercise, $scope.partNumber, maxNotes));
-					start();
+					start($scope);
 				} else {
 					$scope.operation = 'over';
 	               	$scope.showOverlay = true;

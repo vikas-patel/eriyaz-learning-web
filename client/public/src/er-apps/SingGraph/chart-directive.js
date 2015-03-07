@@ -50,27 +50,17 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		if (!this.isPaused) return;
 		this.parent.prototype.resume.call(this);
 		this.resumeIndicatorLine();
-		this.resumeTransition();
+		//this.resumeTransition();
 	}
 	
 	ExerciseChart.prototype.drawIndicatorLine = function() {
 		var callback;
 		var color = 'red';
+		if (this.$scope.isInstrumentProgress) {
+			color = 'black';
+		}
 		var chart = this;
 		callback = function () { chart.$scope.$broadcast('chartOver'); };
-		// if (this.instrumentProgress) {
-		// 	var chart = this;
-		// 	callback = function(){
-		// 		chart.instrumentPlayed = true; 
-		// 		chart.instrumentProgress = false;
-		// 		chart.$scope.$broadcast('chartOver');
-		// 		//d3.selectAll("line.indicatorLine").remove();
-		// 	};
-		// 	color = 'black';
-		// } else {
-		// 	callback = function () { chart.$scope.$broadcast('chartOver'); };
-		// 	color = 'red';
-		// }
 		this.indicatorLine = this.svg.velocity.append("line")
 								 .attr("x1", 0)
 								 .attr("y1", this.y(-12))
