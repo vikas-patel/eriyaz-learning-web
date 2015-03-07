@@ -27,6 +27,9 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './score', './fra
 			$scope.totalScore = 0;
 			$scope.scoreCount = 0;
 			$scope.partNumber = 0;
+			$scope.rootNote = 49;
+			$scope.signalOn = false;
+			$scope.isInstrumentProgress = false;
 			$scope.startOrPause = function(){
 				if (!$scope.myExercise) {
 					showToastMessage("Please Select Exercise.");
@@ -39,7 +42,13 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './score', './fra
 					return;
 				}
 				switch($scope.operation) {
-					case 'start': start($scope);break;
+					case 'start':
+						if ($scope.signalOn) {
+							start($scope);
+						} else {
+							startMic($scope);
+						}
+						break;
 					case 'pause': $scope.$broadcast('pause');break;
 					case 'resume': $scope.$broadcast('resume');
 				}
@@ -55,6 +64,13 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './score', './fra
               	if(!$scope.rootNote) return; 
               	$scope.rootFreq = Note.numToFreq($scope.rootNote);
               }
+             );
+
+			$scope.$watch(function(scope) { return scope.signalOn},
+              function() {
+              	if (!scope.signalOn) return;
+              		start(scope);
+          		}
              );
 
 			 $scope.reset = function() {
@@ -84,9 +100,14 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './score', './fra
 			 }
 
 			 $scope.$on('chartOver',function() {
+			 	if ($scope.isInstrumentProgress) {
+			 		start($scope);
+			 		return;
+			 	}
 			 	++$scope.partNumber;
 			 	if ($scope.partNumber*maxNotes < $scope.myExercise.sequence.length) {
 					$scope.chart.setExercise(controller.getExercisePart($scope.myExercise, $scope.partNumber, maxNotes));
+					start();
 				} else {
 					$scope.operation = 'over';
 	               	$scope.showOverlay = true;
@@ -99,6 +120,7 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './score', './fra
 			initAudio();
 			audioContext = window.AudioContext || window.webkitAudioContext;
 			context = new audioContext();
+			$scope.context = context;
 			score = Score.getScore($scope);
 			controller = Controller.getController();
 			detector = PitchDetector.getDetector('wavelet',context.sampleRate);
@@ -130,31 +152,36 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './score', './fra
 		function play() {
 			chart.play(context, $scope.rootNote);
 		}
-		
+
 		function start($scope) {
-			if (!buffer) {
-				MicUtil.getMicAudioStream(
-					function(stream) {
-						buffer = new AudioBuffer(context, stream, 2048);
-						buffer.addProcessor(processSignal);
-					}
-				);
+			if (instrumentEnabled && !$scope.isInstrumentProgress) {
+				$scope.isInstrumentProgress = true;
+				$scope.$broadcast('start-instrument');
+				showToastMessage("First Listen.");
+			} else {
+				$scope.isInstrumentProgress = false;
+				$scope.$broadcast('start');
+				showToastMessage("Sing Now.");
 			}
+		}
+		
+		function startMic($scope) {
+			MicUtil.getMicAudioStream(
+				function(stream) {
+					buffer = new AudioBuffer(context, stream, 2048);
+					buffer.addProcessor(processSignal);
+					$scope.signalOn = true;
+				}
+			);
 		};
 
 		function processSignal(data) {
 			// yet to start or paused.
-			if (scope.operation === 'start' || scope.operation === 'resume' || scope.operation === 'over') {
+			if (scope.operation === 'start' || scope.operation === 'resume' || 
+				scope.operation === 'over' || scope.isInstrumentProgress == true) {
 				return;
 			}
 			//if (!displayCountDown()) return;
-			
-			if (!playInstrument()) return;
-
-			if (!scope.chart.started) {
-				showToastMessage("Sing Now.");
-				scope.chart.start();
-			}
 			updatePitch(data);
 		}
 
@@ -173,8 +200,8 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './score', './fra
 			if (!instrumentEnabled) return true;
 			if (scope.chart.instrumentPlayed) return true;
 			if (scope.chart.instrumentProgress) return false;
-			showToastMessage("First Listen.");
-			scope.chart.play(context, scope.rootNote);
+			//scope.$broadcast('start-instrument');
+			//scope.chart.play(context, scope.rootNote);
 		}
 		
 		function displayCountDown() {

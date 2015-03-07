@@ -18,20 +18,23 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 	ExerciseChart.prototype.start = function() {
 		this.parent.prototype.start.call(this);
 		this.drawIndicatorLine();
-		this.startTransition();
+		//this.startTransition();
+	}
+
+	ExerciseChart.prototype.startInstrument = function(context, root) {
+		this.play(context, root);
+		this.start();
 	}
 
 	ExerciseChart.prototype.pause = function() {
 		if (this.isPaused) return;
 		this.parent.prototype.pause.call(this);
 		this.pauseIndicatorLine();
-		this.pauseTransition();
+		//this.pauseTransition();
 	}
 
 	ExerciseChart.prototype.play = function(context, root) {
-		// Raise by one octave; not playing low pitch notes.
 		root = parseInt(root);
-		root = root + 12;
 		this.instrumentProgress = true;
 		var player = new Player(context);
 		var sequences = this.exercise;
@@ -41,7 +44,6 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 			melody.addNote(note);
 		});
 		player.playMelody(melody, this.offsetTime);
-		this.drawIndicatorLine();
 	}
 	
 	ExerciseChart.prototype.resume = function() {
@@ -53,20 +55,22 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 	
 	ExerciseChart.prototype.drawIndicatorLine = function() {
 		var callback;
-		var color;
+		var color = 'red';
 		var chart = this;
-		if (this.instrumentProgress) {
-			var chart = this;
-			callback = function(){
-				chart.instrumentPlayed = true; 
-				chart.instrumentProgress = false;
-				//d3.selectAll("line.indicatorLine").remove();
-			};
-			color = 'black';
-		} else {
-			callback = function () { chart.$scope.$broadcast('chartOver'); };
-			color = 'red';
-		}
+		callback = function () { chart.$scope.$broadcast('chartOver'); };
+		// if (this.instrumentProgress) {
+		// 	var chart = this;
+		// 	callback = function(){
+		// 		chart.instrumentPlayed = true; 
+		// 		chart.instrumentProgress = false;
+		// 		chart.$scope.$broadcast('chartOver');
+		// 		//d3.selectAll("line.indicatorLine").remove();
+		// 	};
+		// 	color = 'black';
+		// } else {
+		// 	callback = function () { chart.$scope.$broadcast('chartOver'); };
+		// 	color = 'red';
+		// }
 		this.indicatorLine = this.svg.velocity.append("line")
 								 .attr("x1", 0)
 								 .attr("y1", this.y(-12))
@@ -232,6 +236,16 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 				};
 				var chart = new ExerciseChart(element.attr('id'), scope, chartSettings);
 				scope.chart = chart;
+
+				scope.$on('start',function() {
+					chart.start();
+				});
+
+				scope.$on('start-instrument',function() {
+					chart.startInstrument(scope.context, scope.rootNote);
+					//chart.play(scope.context, scope.rootNote);
+				});
+
 				scope.$on('pause',function() {
 					chart.pause();
 				});
