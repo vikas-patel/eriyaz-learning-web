@@ -3,18 +3,11 @@
   href="../external-libs/bower_components/paper-dialog/paper-action-dialog.html"> -->
 
 <paper-action-dialog backdrop autoCloseDisabled layered="false" opened={{uiModel.showLoginDialog}} id="loginDialog">
-	<!-- <input type="text" ng-model="selection"> -->
-	<!-- <a href ng-click="selection='login'">signup</a> -->
-	<!-- {{selection='login'}} -->
-	<!-- {{selection='login'}} -->
-	<!-- <div ng-init -->
 	<a href="#" class="close-button" >x</a>
-	
 
-	<div ng-switch on="loginSignupDialogModel.selection">
-		<div ng-switch-when="login">
-		<!-- <input type="text" ng-model="$parent.selection"> -->
-				
+	<!-- <div ng-switch on="loginSignupDialogModel.selection"> -->
+		<!-- <div ng-switch-when="login"> -->
+		<div ng-if="loginSignupDialogModel.selection == 'login'">
 			<form ng-submit="submit()" ng-controller="LoginCtrl">
 				<h4>Log In</h4>
 
@@ -25,10 +18,9 @@
 				<span class="or">or <a href ng-click="loginSignupDialogModel.selection='signup'">signup</a></span>
 
 			</form>
-
 		</div>
-
-		<div ng-switch-when="signup">
+		<!-- <div ng-switch-when="signup"> -->
+		<div ng-if="loginSignupDialogModel.selection == 'signup'">
 			<form ng-submit="submit()" ng-controller="SignupCtrl">
 				<h4>Sign Up</h4>
 				<input type="text" name="email" placeholder="email" ng-model="email">
@@ -39,5 +31,5 @@
 				<span class="or">or <a href ng-click="loginSignupDialogModel.selection='login'">login</a></span>
 
 		</div>
-	</div>
+	<!-- </div> -->
 </paper-action-dialog>

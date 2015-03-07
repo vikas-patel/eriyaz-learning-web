@@ -226,26 +226,26 @@ paper-toast {
   border-radius: 5px;
   background-color: white;
 }
-/* line 15, ../sass/pages/_login-dialog.scss */
+/* line 17, ../sass/pages/_login-dialog.scss */
 #loginDialog /deep/ h4 {
   color: #F16236;
   text-align: center;
   font-weight: 800;
   font-size: x-large;
 }
-/* line 22, ../sass/pages/_login-dialog.scss */
+/* line 24, ../sass/pages/_login-dialog.scss */
 #loginDialog /deep/ #scroller {
   border-radius: 5px;
   margin: 0px;
   border: 0px;
 }
-/* line 28, ../sass/pages/_login-dialog.scss */
+/* line 30, ../sass/pages/_login-dialog.scss */
 #loginDialog /deep/ input {
   display: block;
   height: 40px;
   margin-top: 5.26316%;
 }
-/* line 33, ../sass/pages/_login-dialog.scss */
+/* line 35, ../sass/pages/_login-dialog.scss */
 #loginDialog /deep/ input[type="submit"] {
   width: 73.68421%;
   float: left;
@@ -255,29 +255,29 @@ paper-toast {
   font-size: 16px;
   border: none;
 }
-/* line 41, ../sass/pages/_login-dialog.scss */
+/* line 43, ../sass/pages/_login-dialog.scss */
 #loginDialog /deep/ input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px white inset;
 }
 @media (max-height: 280px) {
-  /* line 28, ../sass/pages/_login-dialog.scss */
+  /* line 30, ../sass/pages/_login-dialog.scss */
   #loginDialog /deep/ input {
     height: 20px;
     margin-top: none;
   }
-  /* line 48, ../sass/pages/_login-dialog.scss */
+  /* line 50, ../sass/pages/_login-dialog.scss */
   #loginDialog /deep/ input[type="submit"] {
     height: 40px;
   }
 }
-/* line 54, ../sass/pages/_login-dialog.scss */
+/* line 56, ../sass/pages/_login-dialog.scss */
 #loginDialog /deep/ .or {
   width: 21.05263%;
   float: right;
   margin-right: 0;
   margin-top: 5.26316%;
 }
-/* line 59, ../sass/pages/_login-dialog.scss */
+/* line 61, ../sass/pages/_login-dialog.scss */
 #loginDialog /deep/ .close-button {
   position: absolute;
   top: 0px;
@@ -288,12 +288,12 @@ paper-toast {
   color: black;
   text-decoration: none;
 }
-/* line 68, ../sass/pages/_login-dialog.scss */
+/* line 70, ../sass/pages/_login-dialog.scss */
 #loginDialog /deep/ .close-button:hover {
   cursor: pointer;
   cursor: hand;
 }
-/* line 74, ../sass/pages/_login-dialog.scss */
+/* line 76, ../sass/pages/_login-dialog.scss */
 #loginDialog /deep/ a {
   color: #652218;
 }
