@@ -7,13 +7,13 @@
 
    <script src="build.js"></script>
 
-  <link rel="stylesheet" type="text/css" href="er-shell/style/stylesheets/screen.css">
+  <link rel="stylesheet" type="text/css" href="er-shell/style/stylesheets/screen.css" shim-shadowdom>
 
   <link rel="import" href="imports.html">
 
 </head>
 
-<body>
+<body unresolved>
   <div ng-include="'er-shell/html/main.html'"></div>
   <div ui-view class="dummy"></div>
 </body>
