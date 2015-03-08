@@ -4,6 +4,8 @@
  */
 define([
     'angular',
+    'angulartics',
+    'angulartics-ga',
     './controllers/index',
     './models/index',
     './services/index',
@@ -20,6 +22,9 @@ define([
         'app.directives',
         'ui.router',
         'pitch-dial',
-        'sing-graph'
+        'sing-graph',
+
+        'angulartics',
+        'angulartics.google.analytics'
     ]);
 });
