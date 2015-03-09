@@ -16,6 +16,7 @@ requirejs.config({
         'mic': 'er-libs/mic',
         'pitchdetector' : 'er-libs/pitchdetector',
         'intensityfilter':'er-libs/intensityfilter',
+        'currentaudiocontext' : 'er-libs/currentaudiocontext',
         'audiobuffer': 'er-libs/audiobuffer',
         'fft-pitch' : 'ext-libs/pitchjs/pitch',
         'jquery' : 'ext-libs/jquery/jquery',

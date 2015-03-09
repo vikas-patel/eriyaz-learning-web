@@ -1,7 +1,7 @@
-define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './score', './framecontroller', 'pitchdetector', 'note',
+define(['./module', 'jquery', 'require', 'mic','currentaudiocontext','audiobuffer', './score', './framecontroller', 'pitchdetector', 'note',
 	  //'countdown', 
 	  'webaudio-tools', './tone', 'wavelet-pitch'],
-	function(app, $, Require, MicUtil, AudioBuffer, Score, Controller, PitchDetector, Note) {
+	function(app, $, Require, MicUtil, CurrentAudioContext, AudioBuffer, Score, Controller, PitchDetector, Note) {
 		//constants
 		var detector;
 		//other globals;
@@ -118,9 +118,7 @@ define(['./module', 'jquery', 'require', 'mic', 'audiobuffer', './score', './fra
 		});
 
 		function init($scope) {
-			initAudio();
-			audioContext = window.AudioContext || window.webkitAudioContext;
-			context = new audioContext();
+			context = CurrentAudioContext.getInstance();
 			$scope.context = context;
 			score = Score.getScore($scope);
 			controller = Controller.getController();
