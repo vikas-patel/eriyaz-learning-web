@@ -14,6 +14,7 @@ var addsrc = require('gulp-add-src');
 var merge = require('merge-stream');
 var buffer = require('vinyl-buffer');
 var es = require('event-stream');
+var manifest = require('gulp-manifest');
 
 gulp.task('eriyaz-compass', function() {
   gulp.src('./client/public/src/er-shell/style/sass/*.scss')
@@ -125,6 +126,18 @@ gulp.task('copy', function() {
 
 gulp.task('js-clean', ['buildjs'], function(cb) {
   del(['client/public/dist/app.js'], cb);
+});
+
+gulp.task('manifest', function(){
+  gulp.src(['client/public/dist/**'])
+    .pipe(manifest({
+      hash: true,
+      preferOnline: true,
+      network: ['http://*', 'https://*', '*'],
+      filename: 'eriyaz.appcache',
+      exclude: 'eriyaz.appcache'
+     }))
+    .pipe(gulp.dest('client/public/dist'));
 });
 
 gulp.task('clean', function(cb) {

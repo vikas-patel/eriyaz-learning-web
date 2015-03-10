@@ -1,7 +1,7 @@
-define(['./module', 'jquery', 'require', 'mic','currentaudiocontext','audiobuffer', './score', './framecontroller', 'pitchdetector', 'note',
+define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiobuffer', './score', './framecontroller', 'pitchdetector', 'note'
 	  //'countdown', 
-	  'webaudio-tools', './tone', 'wavelet-pitch'],
-	function(app, $, Require, MicUtil, CurrentAudioContext, AudioBuffer, Score, Controller, PitchDetector, Note) {
+	  ],
+	function(app, $, exercises, MicUtil, CurrentAudioContext, AudioBuffer, Score, Controller, PitchDetector, Note) {
 		//constants
 		var detector;
 		//other globals;
@@ -132,14 +132,15 @@ define(['./module', 'jquery', 'require', 'mic','currentaudiocontext','audiobuffe
 		};
 
 		function loadExercises($scope) {
-			var url = Require.toUrl("./exercises.json");
-			var jqxhr = $.getJSON(url, function(data) {
-				$scope.exercises = data;
-			})
-			.fail(function(jqXHR, textStatus, errorThrown) { 
-					alert('getJSON request failed! ' + textStatus);
-					console.log(errorThrown);
-			});
+			// var url = Require.toUrl("./exercises.json");
+			// var jqxhr = $.getJSON(url, function(data) {
+			// 	$scope.exercises = data;
+			// })
+			// .fail(function(jqXHR, textStatus, errorThrown) { 
+			// 		alert('getJSON request failed! ' + textStatus);
+			// 		console.log(errorThrown);
+			// });
+			$scope.exercises = exercises;
 		}
 
 		function setExercise($scope) {

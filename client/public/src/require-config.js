@@ -4,6 +4,7 @@
 // except for 'app' ones, which are in a sibling
 // directory.
 requirejs.config({
+    waitSeconds: 60,
     baseUrl: '/',
     paths: {
         'polymer-wecomponents': 'ext-libs/bower_components/webcomponentsjs/webcomponents.min',
