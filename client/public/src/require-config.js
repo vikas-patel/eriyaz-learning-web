@@ -10,11 +10,13 @@ requirejs.config({
         'domReady': 'ext-libs/bower_components/requirejs-domready/domready',
         'angular': 'ext-libs/bower_components/angular/angular',
         'angular-ui-router': 'ext-libs/bower_components/angular-ui-router/release/angular-ui-router.min',
-
+        'angulartics' : 'ext-libs/bower_components/angulartics/dist/angulartics.min',
+        'angulartics-ga' : 'ext-libs/bower_components/angulartics/dist/angulartics-ga.min',
 
         'mic': 'er-libs/mic',
         'pitchdetector' : 'er-libs/pitchdetector',
         'intensityfilter':'er-libs/intensityfilter',
+        'currentaudiocontext' : 'er-libs/currentaudiocontext',
         'audiobuffer': 'er-libs/audiobuffer',
         'fft-pitch' : 'ext-libs/pitchjs/pitch',
         'jquery' : 'ext-libs/jquery/jquery',
@@ -33,6 +35,12 @@ requirejs.config({
             exports: 'angular'
         },
         'angular-ui-router': {
+            deps: ['angular']
+        },
+        'angulartics': {
+            deps: ['angular']
+        },
+        'angulartics-ga': {
             deps: ['angular']
         },
         'fft-pitch': {

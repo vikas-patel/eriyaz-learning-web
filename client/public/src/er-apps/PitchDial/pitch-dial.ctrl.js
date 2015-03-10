@@ -1,6 +1,5 @@
-  define(['./module', 'mic', 'audiobuffer', 'webaudioplayer', 'pitchdetector'], function(app, MicUtil, AudioBuffer, WebAudioPlayer, PitchDetector) {
-    var WebAudioContext = window.AudioContext || window.webkitAudioContext;
-    var audioContext = new WebAudioContext();
+  define(['./module', 'mic','currentaudiocontext', 'audiobuffer', 'webaudioplayer', 'pitchdetector'], function(app, MicUtil,CurrentAudioContext, AudioBuffer, WebAudioPlayer, PitchDetector) {
+    var audioContext = CurrentAudioContext.getInstance();
     app.controller('PitchDialCtrl', function($scope, PitchModel, DialModel) {
       var detector = PitchDetector.getDetector('fft', audioContext.sampleRate);
       var updatePitch = function(data) {
