@@ -194,15 +194,6 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			var expNote = scope.chart.exerciseNote(scope.chart.timePlotted);
 			score.updateScore(expNote, currInterval.toFixed(0));
 		}
-
-		function playInstrument() {
-			// Always play instrument.
-			if (!instrumentEnabled) return true;
-			if (scope.chart.instrumentPlayed) return true;
-			if (scope.chart.instrumentProgress) return false;
-			//scope.$broadcast('start-instrument');
-			//scope.chart.play(context, scope.rootNote);
-		}
 		
 		function displayCountDown() {
 			if (countDownDisplayed) return true;
