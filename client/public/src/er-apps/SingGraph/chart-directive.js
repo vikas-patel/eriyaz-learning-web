@@ -35,7 +35,6 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 
 	ExerciseChart.prototype.play = function(context, root) {
 		root = parseInt(root);
-		this.instrumentProgress = true;
 		var player = new Player(context);
 		var sequences = this.exercise;
 		var melody = new Melody();
