@@ -106,7 +106,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			 		return;
 			 	}
 			 	++$scope.partNumber;
-			 	if ($scope.partNumber*maxNotes < $scope.myExercise.sequence.length) {
+			 	if ($scope.partNumber*maxNotes < $scope.myExercise.notes.length) {
 					$scope.chart.setExercise(controller.getExercisePart($scope.myExercise, $scope.partNumber, maxNotes));
 					start($scope);
 				} else {
@@ -132,15 +132,15 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 		};
 
 		function loadExercises($scope) {
-			// var url = Require.toUrl("./exercises.json");
-			// var jqxhr = $.getJSON(url, function(data) {
-			// 	$scope.exercises = data;
-			// })
-			// .fail(function(jqXHR, textStatus, errorThrown) { 
-			// 		alert('getJSON request failed! ' + textStatus);
-			// 		console.log(errorThrown);
-			// });
-			$scope.exercises = exercises;
+			//var url = Require.toUrl("./exercises.json");
+			var jqxhr = $.getJSON("/listExercise", function(data) {
+				$scope.exercises = data;
+			})
+			.fail(function(jqXHR, textStatus, errorThrown) { 
+					alert('getJSON request failed! ' + textStatus);
+					console.log(errorThrown);
+			});
+			//$scope.exercises = exercises;
 		}
 
 		function setExercise($scope) {
