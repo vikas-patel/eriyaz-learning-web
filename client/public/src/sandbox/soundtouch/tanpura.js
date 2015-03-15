@@ -3,13 +3,13 @@ var context = new webkitAudioContext();
 var SoundBank = function() {
 	this.samples = [];
 	this.init = function() {
-		this.loadSample('c2sharp.wav', 69.296, 37);
-		this.loadSample('g2sharp.wav', 103.83, 44);
-		this.loadSample('c3sharp.wav', 138.59, 49);
-		this.loadSample('g3sharp.wav', 207.65, 56);
+		this.loadSample('c2sharp.mp3', 37);
+		this.loadSample('g2sharp.mp3', 44);
+		this.loadSample('c3sharp.mp3', 49);
+		this.loadSample('g3sharp.mp3', 56);
 	};
 
-	this.loadSample = function(url, freq) {
+	this.loadSample = function(url, noteNum) {
 		var request = new XMLHttpRequest();
 		request.open('GET', url, true);
 		request.responseType = 'arraybuffer';
@@ -18,7 +18,7 @@ var SoundBank = function() {
 			// createBuffer(request.response);
 			context.decodeAudioData(request.response, function(buffer) {
 				local.samples.push({
-					freq: freq,
+					noteNum: noteNum,
 					buffer: buffer
 				});
 				if (local.samples.length == 4) {
@@ -33,22 +33,26 @@ var SoundBank = function() {
 		request.send();
 	};
 
-	this.getNearestSample = function(freq) {
-		return this.samples[0];
+	this.getNearestSample = function(noteNum) {
+		var diffs = this.samples.map(function(obj) {
+			return Math.abs(noteNum-obj.noteNum);
+		});
+		var minIndex = diffs.indexOf(Math.min.apply(Math,diffs));
+		return this.samples[minIndex];
 	};
 
 	this.init();
 };
 
 
-var StringChannel = function(freq, soundbank) {
+var StringChannel = function(noteNum, soundbank) {
 	var buffer;
 
 	this.st = new SoundTouch();
 
-	var nearestSample = soundbank.getNearestSample();
+	var nearestSample = soundbank.getNearestSample(noteNum);
 	buffer = nearestSample.buffer;
-	this.st.pitch = freq / nearestSample.freq;
+	this.st.pitch = Math.pow(2,(noteNum-nearestSample.noteNum)/12);
 	var BUFFER_SIZE = 1024;
 
 
@@ -64,9 +68,9 @@ var StringChannel = function(freq, soundbank) {
 	// 	this.node.connect(node);
 	// };
 
-	// this.disconnect = function() {
-	// 	this.node.disconnect();
-	// };
+	this.disconnect = function() {
+		this.node.disconnect();
+	};
 	this.node = context.createScriptProcessor(BUFFER_SIZE, 2, 2);
 	this.source = {
 		extract: function(target, numFrames, position) {
@@ -102,9 +106,9 @@ var StringChannel = function(freq, soundbank) {
 	};
 };
 
-var Tanpura = function() {
-	this.key = 1;
-	this.tuning = 7;
+var Tanpura = function(key,tuning) {
+	this.key = key;
+	this.tuning = tuning;
 
 	this.samples = [];
 	this.loadSamples = function() {
@@ -112,13 +116,29 @@ var Tanpura = function() {
 	};
 
 	this.mixerNode = context.createGain();
-
+	this.interval = null;
 	this.play = function() {
+
+
+		var j = 0;
+		this.interval = setInterval(function() {
+			local.strings[j % 4].pluck(local.mixerNode);
+			j++;
+		}, 1000);
 		this.mixerNode.connect(context.destination);
+		// for(var i=0;i<local.strings.length;i++) {
+		// 	local.strings[i].connect(local.mixerNode);
+		// }
 	};
 
 	this.pause = function() {
-		this.mixerNode.disconnect();
+		// this.mixerNode.disconnect();
+
+		clearInterval(this.interval);
+
+		// for(var i=0;i<local.strings.length;i++) {
+		// 	this.strings[i].disconnect();
+		// }
 	};
 
 
@@ -127,25 +147,13 @@ var Tanpura = function() {
 	var local = this;
 	this.strings = [];
 	this.soundbank.oninit = function() {
-		local.strings[0] = new StringChannel(120, local.soundbank);
-		local.strings[1] = new StringChannel(180, local.soundbank);
-		local.strings[2] = new StringChannel(180, local.soundbank);
-		local.strings[3] = new StringChannel(90, local.soundbank);
-
-
-
-		var j = 0;
-		setInterval(function() {
-			local.strings[j % 4].pluck(local.mixerNode);
-			j++;
-		}, 1000);
-
-		// for(var i=0;i<local.strings.length;i++) {
-		// 	local.strings[i].connect(local.mixerNode);
-		// }
-
+		local.strings[0] = new StringChannel(local.key-12+local.tuning, local.soundbank);
+		local.strings[1] = new StringChannel(local.key, local.soundbank);
+		local.strings[2] = new StringChannel(local.key, local.soundbank);
+		local.strings[3] = new StringChannel(local.key-12, local.soundbank);
 	};
 };
 
-var tanpura = new Tanpura();
+//47 - 58
+var tanpura = new Tanpura(58,7);
 tanpura.play();
