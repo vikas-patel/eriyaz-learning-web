@@ -26,7 +26,8 @@ requirejs.config({
         'melody' : 'er-libs/melody',
         'note' : 'er-libs/note',
         'wavelet-pitch' : 'ext-libs/waveletPitch',
-        'd3' : 'ext-libs/d3.min'
+        'd3' : 'ext-libs/d3.min',
+        'pitch-shift':'ext-libs/pitch-shift'
         //'countdown' : "ext-libs/countdown"
     },
 
