@@ -63,6 +63,12 @@ require('./routes')(app, passport); // load our routes and pass in our app and f
 var service = require('./service.js');
 app.get('/createExercise', service.createExercise);
 app.get('/listExercise', service.listExercise);
+app.get('/removeAllExercises', service.removeAllExercises);
+
+app.get('/createStudent', service.createStudent);
+app.get('/assignExercise', service.assignExercise);
+app.get('/listStudent', service.listStudent);
+app.get('/removeAllStudents', service.removeAllStudents);
 
 var server = app.listen(port, function() {
 	console.log('Example app listening at http://%s:%s', server.address().address, server.address().port);
