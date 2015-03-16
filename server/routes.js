@@ -1,5 +1,7 @@
 var express = require('express');
 var path = require('path');
+var studentDao = require('./dao/studentDao.js');
+var exerciseDao = require('./dao/exerciseDao.js');
 // app/routes.js
 module.exports = function(app, passport) {
 
@@ -35,6 +37,16 @@ module.exports = function(app, passport) {
 		})(req, res, next);
 	});
 
+	app.get('/createExercise', exerciseDao.createExercise);
+	app.get('/listExercise', exerciseDao.listExercise);
+	app.get('/removeAllExercises', exerciseDao.removeAllExercises);
+
+	app.get('/createStudent', studentDao.createStudent);
+	app.get('/assignExercise', studentDao.assignExercise);
+	app.get('/students', studentDao.findAllStudent);
+	app.get('/students/:id', studentDao.findStudent);
+	app.delete('/students/:id', function (request, response) {});
+	app.get('/removeAllStudents', studentDao.removeAllStudents);
 
 	function customJsonCalback(req, res, next, err, user, info) {
 		if (err) {
