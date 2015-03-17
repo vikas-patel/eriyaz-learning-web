@@ -69,7 +69,7 @@ module.exports = function(app, passport) {
 			}
 			return res.json({
 				status: 'success',
-				email: user.local.email
+				user: user
 			});
 		});
 	}
