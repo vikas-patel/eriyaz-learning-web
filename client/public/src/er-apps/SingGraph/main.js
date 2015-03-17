@@ -17,7 +17,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 		var maxNotes = 5;
 		var scope;
 		var instrumentEnabled = true;
-		app.controller('SingGraphCtrl', function($scope, PitchModel, DialModel) {
+		app.controller('SingGraphCtrl', function($scope) {
 			scope = $scope;
 			init($scope);
 			loadExercises($scope);

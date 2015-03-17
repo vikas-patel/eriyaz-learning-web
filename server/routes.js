@@ -38,8 +38,8 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/createExercise', exerciseDao.createExercise);
-	app.get('/listExercise', exerciseDao.listExercise);
-	app.get('/removeAllExercises', exerciseDao.removeAllExercises);
+	app.get('/listExercise', exerciseDao.findAll);
+	app.get('/removeAllExercises', exerciseDao.removeAll);
 
 	app.post('/students', studentDao.save);
 	app.put('/students/:id', studentDao.update);
@@ -47,7 +47,7 @@ module.exports = function(app, passport) {
 	app.get('/assignExercise', studentDao.assignExercise);
 	app.get('/students', studentDao.findAll);
 	app.get('/students/:id', studentDao.find);
-	app.delete('/students/:id', function (req, res) {studentDao.remove(req, res);});
+	app.delete('/students/:id', studentDao.remove);
 	app.get('/removeAllStudents', studentDao.removeAll);
 
 	app.post('/students/score', studentDao.saveScore);
