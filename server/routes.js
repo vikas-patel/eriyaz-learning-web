@@ -51,7 +51,7 @@ module.exports = function(app, passport) {
 	app.get('/removeAllStudents', studentDao.removeAll);
 
 	app.post('/students/score', studentDao.saveScore);
-	app.get('/students/score', studentDao.findAllScores);
+	app.get('/students/score/:id', studentDao.findAllScores);
 
 	function customJsonCalback(req, res, next, err, user, info) {
 		if (err) {

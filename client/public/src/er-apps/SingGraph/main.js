@@ -17,7 +17,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 		var maxNotes = 5;
 		var scope;
 		var instrumentEnabled = true;
-		app.controller('SingGraphCtrl', function($scope) {
+		app.controller('SingGraphCtrl', function($scope, ScoreService) {
 			scope = $scope;
 			init($scope);
 			loadExercises($scope);
@@ -113,9 +113,13 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 					$scope.operation = 'over';
 	               	$scope.showOverlay = true;
 	               	$scope.$apply();
+	               	// save score at server.
+	               	ScoreService.save();
 				}
 			 });
 		});
+
+		
 
 		function init($scope) {
 			context = CurrentAudioContext.getInstance();

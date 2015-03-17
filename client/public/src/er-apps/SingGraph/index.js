@@ -4,5 +4,6 @@ define([
     './chart-directive',
     './framecontroller',
     './score',
-    './main'
+    './main',
+    './score-service'
 ], function () {});
