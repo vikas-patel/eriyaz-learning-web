@@ -41,12 +41,17 @@ module.exports = function(app, passport) {
 	app.get('/listExercise', exerciseDao.listExercise);
 	app.get('/removeAllExercises', exerciseDao.removeAllExercises);
 
+	app.post('/students', studentDao.save);
+	app.put('/students/:id', studentDao.update);
 	app.get('/createStudent', studentDao.createStudent);
 	app.get('/assignExercise', studentDao.assignExercise);
-	app.get('/students', studentDao.findAllStudent);
-	app.get('/students/:id', studentDao.findStudent);
-	app.delete('/students/:id', function (request, response) {});
-	app.get('/removeAllStudents', studentDao.removeAllStudents);
+	app.get('/students', studentDao.findAll);
+	app.get('/students/:id', studentDao.find);
+	app.delete('/students/:id', function (req, res) {studentDao.remove(req, res);});
+	app.get('/removeAllStudents', studentDao.removeAll);
+
+	app.post('/students/score', studentDao.saveScore);
+	app.get('/students/score', studentDao.findAllScores);
 
 	function customJsonCalback(req, res, next, err, user, info) {
 		if (err) {
