@@ -79,15 +79,15 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 
 			 $scope.reset = function() {
 			 	$scope.operation = 'start';
-			 	reset($scope);
+			 	reset();
 			 }
 
 			 $scope.next = function() {
 			 	$scope.showOverlay = false;
-				resetScore($scope);
+				resetScore();
 				var index = $scope.exercises.indexOf($scope.myExercise);
 				$scope.myExercise = $scope.exercises[index+1];
-				//setExercise($scope);
+				$scope.$apply();
 				// start again
 				countDownDisplayed = false;
 				$scope.operation = 'pause';
@@ -100,7 +100,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 
 			 $scope.restart = function() {
 			 	$scope.showOverlay = false;
-			 	reset($scope);
+			 	reset();
 				$scope.operation = 'pause';
 				start();
 			 }
@@ -188,7 +188,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 
 			// Reset game to original state
 			function reset() {
-				resetScore($scope);
+				resetScore();
 				// Destroy html element doesn't cancel timeout event.
 				$scope.chart.pauseIndicatorLine();
 				setExercise($scope);
