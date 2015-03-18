@@ -1,5 +1,7 @@
 var express = require('express');
 var path = require('path');
+var studentDao = require('./dao/studentDao.js');
+var exerciseDao = require('./dao/exerciseDao.js');
 // app/routes.js
 module.exports = function(app, passport) {
 
@@ -35,6 +37,22 @@ module.exports = function(app, passport) {
 		})(req, res, next);
 	});
 
+	app.get('/createTestExercise', exerciseDao.createExercise);
+	app.post('/exercises', exerciseDao.save);
+	app.put('/exercises/:id', exerciseDao.update);
+	app.get('/exercises', exerciseDao.findAll);
+	app.get('/removeAllExercises', exerciseDao.removeAll);
+
+	app.post('/students', studentDao.save);
+	app.put('/students/:id', studentDao.update);
+	app.get('/assignExercise', studentDao.assignExercise);
+	app.get('/students', studentDao.findAll);
+	app.get('/students/:id', studentDao.find);
+	app.delete('/students/:id', studentDao.remove);
+	app.get('/removeAllStudents', studentDao.removeAll);
+
+	app.post('/students/score', studentDao.saveScore);
+	app.get('/students/score/:id', studentDao.findAllScores);
 
 	function customJsonCalback(req, res, next, err, user, info) {
 		if (err) {
@@ -52,7 +70,7 @@ module.exports = function(app, passport) {
 			}
 			return res.json({
 				status: 'success',
-				email: user.local.email
+				user: user
 			});
 		});
 	}

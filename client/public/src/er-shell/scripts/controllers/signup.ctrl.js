@@ -8,7 +8,7 @@
   				LoginSignupService.signUp($scope.email, $scope.password).success(function(data) {
   					console.log(data.info);
   					if (data.status === "success") {
-  						$window.sessionStorage.user = data.email;
+  						$window.sessionStorage.user = data.user;
   						$location.path("/home");
   					} else {
   						$scope.flashMessage = data.info;
