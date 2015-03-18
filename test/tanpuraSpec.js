@@ -2,7 +2,7 @@ define(['tanpura'], function(Tanpura) {
 	describe("Tanpura", function() {
 		var tanpura;
 		beforeEach(function() {
-			tanpura = new Tanpura(48,7);
+			tanpura = new Tanpura(48,7); //root:48,firstString:7(Pa)
 			jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 		});
 		it("can be played", function(done) {
