@@ -15,9 +15,10 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-       {pattern : 'public/eartonic-libs/*.js', included: false},
-       {pattern : 'public/lib/**/*.js', included: false},
-       // {pattern : 'public/lib/MIDI/soundfont/*.js'},
+       {pattern : 'client/public/src/er-libs/**/*.js', included: false},
+       {pattern : 'client/public/src/er-libs/**/*.mp3', watched: false, included: false, served: true},
+       {pattern : 'client/public/src/ext-libs/*.js', included: false},
+       {pattern : 'client/public/src/ext-libs/MIDI/**/*.js',included:false},
        {pattern:'test/*Spec.js', included: false},
       'test/test-main.js'
     ],

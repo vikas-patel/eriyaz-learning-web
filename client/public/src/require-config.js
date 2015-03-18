@@ -13,6 +13,8 @@ requirejs.config({
         'angular-ui-router': 'ext-libs/bower_components/angular-ui-router/release/angular-ui-router.min',
         'angulartics' : 'ext-libs/bower_components/angulartics/dist/angulartics.min',
         'angulartics-ga' : 'ext-libs/bower_components/angulartics/dist/angulartics-ga.min',
+        'underscore' : 'ext-libs/underscore',
+        'order': 'ext-libs/requirejs-order.min',
 
         'mic': 'er-libs/mic',
         'pitchdetector' : 'er-libs/pitchdetector',
@@ -65,5 +67,10 @@ requirejs.config({
         name: 'sing-graph',
         location: 'er-apps/SingGraph',
         main: 'index'
-    }]
+    }, {
+        name: 'tanpura',
+        location: 'client/public/src/er-libs/tanpura',
+        main: 'tanpura'
+    }
+    ]
 });

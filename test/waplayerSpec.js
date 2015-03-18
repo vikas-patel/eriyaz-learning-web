@@ -1,4 +1,4 @@
-define(['note', 'melody', 'webaudioplayer', 'midiplayer', 'midi-config', 'public/lib/MIDI/soundfont/acoustic_grand_piano-ogg'], function(Note, Melody, WebAudioPlayer, MidiPlayer) {
+define(['note', 'melody', 'webaudioplayer', 'midiplayer', 'midi-config','client/public/src/ext-libs/MIDI/soundfont/acoustic_grand_piano-ogg'], function(Note, Melody, WebAudioPlayer, MidiPlayer) {
 
 	describe("players", function() {
 		var note1, note2, note3, note4, melody;
@@ -41,12 +41,12 @@ define(['note', 'melody', 'webaudioplayer', 'midiplayer', 'midi-config', 'public
 			});
 		});
 
-		ddescribe("MidiPlayer", function() {
+		describe("MidiPlayer", function() {
 			var soundfontUrl,instrument;
 			beforeEach(function() {
 				console.log = jasmine.createSpy("log");
 
-				soundfontUrl = "../base/public/lib/MIDI/soundfont/";
+				soundfontUrl = "../base/client/public/src/ext-libs/MIDI/soundfont/";
 				instrument = "acoustic_grand_piano";
 			});
 

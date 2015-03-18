@@ -53,7 +53,7 @@ var StringChannel = function(noteNum, soundbank) {
 	var nearestSample = soundbank.getNearestSample(noteNum);
 	buffer = nearestSample.buffer;
 	this.st.pitch = Math.pow(2,(noteNum-nearestSample.noteNum)/12);
-	var BUFFER_SIZE = 1024;
+	var BUFFER_SIZE = 16384;
 
 
 	var samples = new Float32Array(BUFFER_SIZE * 2);
@@ -85,9 +85,6 @@ var StringChannel = function(noteNum, soundbank) {
 	};
 
 	this.pluck = function(node) {
-		// delete this.node;
-
-
 		var filter = new SimpleFilter(this.source, this.st);
 
 		this.node.onaudioprocess = function(e) {
@@ -155,5 +152,5 @@ var Tanpura = function(key,tuning) {
 };
 
 //47 - 58
-var tanpura = new Tanpura(58,7);
+var tanpura = new Tanpura(47,7);
 tanpura.play();

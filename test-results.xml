@@ -1,17 +1,27 @@
 <?xml version="1.0"?>
 <testsuites>
-  <testsuite name="Chrome 40.0.2214 (Windows 7)" package="" timestamp="2015-02-07T04:46:37" id="0" hostname="ashwin-PC">
+  <testsuite name="Chrome 41.0.2272 (Windows 7)" package="" timestamp="2015-03-18T16:54:41" id="0" hostname="ashwin-PC">
     <properties>
-      <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.111 Safari/537.36"/>
+      <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36"/>
     </properties>
   </testsuite>
-  <testsuite name="Chrome 40.0.2214 (Windows 7)" package="" timestamp="2015-02-07T04:46:37" id="0" hostname="ashwin-PC" tests="11" errors="0" failures="0" time="11.024">
+  <testsuite name="Chrome 41.0.2272 (Windows 7)" package="" timestamp="2015-03-18T16:54:42" id="0" hostname="ashwin-PC" tests="13" errors="0" failures="0" time="24.291">
     <properties>
-      <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.111 Safari/537.36"/>
+      <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36"/>
     </properties>
-    <testcase name="should callback and return player on load" time="3.006" classname="Chrome 40.0.2214 (Windows 7).MidiPlayer"/>
-    <testcase name="can play a note" time="4.013" classname="Chrome 40.0.2214 (Windows 7).MidiPlayer"/>
-    <testcase name="can play a melody" time="4.005" classname="Chrome 40.0.2214 (Windows 7).MidiPlayer"/>
+    <testcase name="should update freq if created with midi number" time="0.001" classname="Chrome 41.0.2272 (Windows 7).Note"/>
+    <testcase name="should update midi number if created using freq" time="0.001" classname="Chrome 41.0.2272 (Windows 7).Note"/>
+    <testcase name="should have midi num undefined if freq doesn&apos;t fall into any midi bin" time="0" classname="Chrome 41.0.2272 (Windows 7).Note"/>
+    <testcase name="can be played with a midi player" time="0.001" classname="Chrome 41.0.2272 (Windows 7).Note"/>
+    <testcase name="can be played with a freq player" time="0.001" classname="Chrome 41.0.2272 (Windows 7).Note"/>
+    <testcase name="can play notes in sequence" time="0.001" classname="Chrome 41.0.2272 (Windows 7).Melody"/>
+    <testcase name="can play a note" time="1.11" classname="Chrome 41.0.2272 (Windows 7).players WebAudioPlayer"/>
+    <testcase name="can play a melody" time="2.112" classname="Chrome 41.0.2272 (Windows 7).players WebAudioPlayer"/>
+    <testcase name="should callback and return player on load" time="3.006" classname="Chrome 41.0.2272 (Windows 7).players MidiPlayer"/>
+    <testcase name="can play a note" time="4.02" classname="Chrome 41.0.2272 (Windows 7).players MidiPlayer"/>
+    <testcase name="can play a melody" time="4.021" classname="Chrome 41.0.2272 (Windows 7).players MidiPlayer"/>
+    <testcase name="can be played" time="5.011" classname="Chrome 41.0.2272 (Windows 7).Tanpura"/>
+    <testcase name="can be tuned" time="5.006" classname="Chrome 41.0.2272 (Windows 7).Tanpura"/>
     <system-out><![CDATA[
 ]]></system-out>
     <system-err/>

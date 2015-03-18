@@ -17,12 +17,20 @@ require.config({
   baseUrl: '/base',
 
   paths: {
-    'note': 'public/eartonic-libs/note',
-    'melody': 'public/eartonic-libs/melody',
-    'webaudioplayer': 'public/eartonic-libs/webaudioplayer',
-    'midiplayer': 'public/eartonic-libs/midiplayer',
-    'midi-config': 'public/eartonic-libs/midi-config'
+    'note': 'client/public/src/er-libs/note',
+    'melody': 'client/public/src/er-libs/melody',
+    'webaudioplayer': 'client/public/src/er-libs/webaudioplayer',
+    'midiplayer': 'client/public/src/er-libs/midiplayer',
+    'midi-config': 'client/public/src/er-libs/midi-config',
+    'order': 'client/public/src/ext-libs/requirejs-order.min',
+    'currentaudiocontext': 'client/public/src/er-libs/currentaudiocontext',
+    'underscore' : 'client/public/src/ext-libs/underscore'
   },
+   packages: [{
+        name: 'tanpura',
+        location: 'client/public/src/er-libs/tanpura',
+        main: 'tanpura'
+    }],
   // dynamically load all test files
   deps: allTestFiles,
 
