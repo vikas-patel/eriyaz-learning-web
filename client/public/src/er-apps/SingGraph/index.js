@@ -5,5 +5,6 @@ define([
     './framecontroller',
     './score',
     './main',
-    './score-service'
+    './score-service',
+    './exercise-service'
 ], function () {});

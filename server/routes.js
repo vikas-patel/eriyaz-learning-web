@@ -37,13 +37,13 @@ module.exports = function(app, passport) {
 		})(req, res, next);
 	});
 
-	app.get('/createExercise', exerciseDao.createExercise);
-	app.get('/listExercise', exerciseDao.findAll);
+	app.post('/exercises', exerciseDao.save);
+	app.put('/exercises/:id', exerciseDao.update);
+	app.get('/exercises', exerciseDao.findAll);
 	app.get('/removeAllExercises', exerciseDao.removeAll);
 
 	app.post('/students', studentDao.save);
 	app.put('/students/:id', studentDao.update);
-	app.get('/createStudent', studentDao.createStudent);
 	app.get('/assignExercise', studentDao.assignExercise);
 	app.get('/students', studentDao.findAll);
 	app.get('/students/:id', studentDao.find);

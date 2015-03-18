@@ -1,22 +1,8 @@
 var Student = require('../model/student.js');
 var Score = require('../model/score.js');
 
-var student1 = {
-	"name" : "Milap Rane",
-	"mobile": "123",
-	"email" : "123@gmail.com",
-	"join_date" : new Date(),
-	"activeExercises" : []
-};
-
 //TODO:
-// Test Save, Update and Delete
-
-//TODO: Remove method
-exports.createStudent = function(req, res) {
-    new Student(student1).save();
-    res.send(200);
-}
+// Test Update and Delete
 
 exports.save = function(req, res) {
     new Student(request.body).save();
