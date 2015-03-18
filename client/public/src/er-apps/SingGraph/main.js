@@ -1,15 +1,13 @@
-define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiobuffer', './score', './framecontroller', 'pitchdetector', 'note'
+define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiobuffer', './framecontroller', 'pitchdetector', 'note'
 	  //'countdown', 
 	  ],
-	function(app, $, exercises, MicUtil, CurrentAudioContext, AudioBuffer, Score, Controller, PitchDetector, Note) {
+	function(app, $, exercises, MicUtil, CurrentAudioContext, AudioBuffer, Controller, PitchDetector, Note) {
 		//constants
 		var detector;
 		//other globals;
 		var context;
 		var chart;
 		var buffer;
-
-		var score;
 		var controller;
 		var countDown;
 		var countDownDisplayed = false;
@@ -86,7 +84,6 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 
 			 $scope.next = function() {
 			 	$scope.showOverlay = false;
-				//score.reset();
 				resetScore($scope);
 				var index = $scope.exercises.indexOf($scope.myExercise);
 				$scope.myExercise = $scope.exercises[index+1];
@@ -128,7 +125,6 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			 function init() {
 				context = CurrentAudioContext.getInstance();
 				$scope.context = context;
-				score = Score.getScore($scope);
 				controller = Controller.getController();
 				detector = PitchDetector.getDetector('wavelet',context.sampleRate);
 			}
@@ -161,7 +157,6 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 				$scope.chart.draw(currInterval);
 				var expNote = $scope.chart.exerciseNote($scope.chart.timePlotted);
 				updateScore(expNote, currInterval.toFixed(0))
-				//score.updateScore(expNote, currInterval.toFixed(0));
 			};
 
 			function updateScore(expected, actual) {
@@ -191,7 +186,6 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 
 			// Reset game to original state
 			function reset() {
-				//score.reset();
 				resetScore($scope);
 				// Destroy html element doesn't cancel timeout event.
 				$scope.chart.pauseIndicatorLine();

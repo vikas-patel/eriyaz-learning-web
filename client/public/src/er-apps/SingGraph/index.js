@@ -3,7 +3,6 @@ define([
     './chart',
     './chart-directive',
     './framecontroller',
-    './score',
     './main',
     './score-service',
     './exercise-service'
