@@ -19,10 +19,10 @@ define(['d3'], function(d3) {
 		this.containerId = containerId;
 		this.width = this.settings.width - this.settings.marginLeft - this.settings.marginRight;
 		this.height = this.settings.height - this.settings.marginTop - this.settings.marginBottom;
-		this.reset();
+		this.redraw();
 	};
 	
-	Chart.prototype.reset = function() {
+	Chart.prototype.redraw = function() {
 		//pause and resume
 		this.pauseDuration = 0;
 		this.startTime = null;
@@ -36,7 +36,7 @@ define(['d3'], function(d3) {
 		this.createAxis();
 		// group for moving points
 		this.svg.velocity = this.svg.append("g");
-	}
+	};
 		
 	Chart.prototype.createScale = function() {
 		this.y = d3.scale.linear().domain([-12, 25]).range([this.height,0]);

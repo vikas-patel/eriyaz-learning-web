@@ -21,6 +21,12 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		//this.startTransition();
 	}
 
+	ExerciseChart.prototype.redraw = function() {
+		this.parent.prototype.redraw.call(this);
+		if (this.exercise) this.drawExercise();
+	}
+
+
 	ExerciseChart.prototype.startInstrument = function(context, root) {
 		this.play(context, root);
 		this.start();
@@ -97,7 +103,6 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		} else {
 			this.transitionDuration = 0;
 		}
-		this.drawExercise();
 	};
 
 	ExerciseChart.prototype.getDuration = function() {

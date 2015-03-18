@@ -106,15 +106,14 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 
 			 $scope.$on('chartOver',function() {
 			 	if ($scope.isInstrumentProgress) {
-			 		$scope.chart.reset();
-			 		$scope.chart.drawExercise();
+			 		$scope.chart.redraw();
 			 		start();
 			 		return;
 			 	}
 			 	++$scope.partNumber;
 			 	if ($scope.partNumber*maxNotes < $scope.myExercise.notes.length) {
-			 		$scope.chart.reset();
 					$scope.chart.setExercise(ExerciseService.getSubset($scope.myExercise, $scope.partNumber, maxNotes));
+					$scope.chart.redraw();
 					start();
 				} else {
 					$scope.operation = 'over';
@@ -171,8 +170,8 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			function setExercise() {
 				$scope.partNumber = 0;
 				var sequences = ExerciseService.getSubset($scope.myExercise, $scope.partNumber, maxNotes);
-				$scope.chart.reset();
 				$scope.chart.setExercise(sequences);
+				$scope.chart.redraw();
 			}
 
 			function start() {
