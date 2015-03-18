@@ -37,6 +37,7 @@ module.exports = function(app, passport) {
 		})(req, res, next);
 	});
 
+	app.get('/createTestExercise', exerciseDao.createExercise);
 	app.post('/exercises', exerciseDao.save);
 	app.put('/exercises/:id', exerciseDao.update);
 	app.get('/exercises', exerciseDao.findAll);

@@ -91,6 +91,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 				// start again
 				countDownDisplayed = false;
 				$scope.operation = 'pause';
+				start();
 			 }
 
 			 $scope.closeOverlay = function() {
@@ -101,6 +102,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			 	$scope.showOverlay = false;
 			 	reset($scope);
 				$scope.operation = 'pause';
+				start();
 			 }
 
 			 $scope.$on('chartOver',function() {

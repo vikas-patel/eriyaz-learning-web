@@ -1,8 +1,8 @@
 var Exercise = require('../model/exercise.js');
 
 var exercise1 = {
-	"name" : "Test1",
-	"desc" : "Test1",
+	"name" : "Test2",
+	"desc" : "Test2",
 	"notes" : [{"pitch": "0", "duration": "1000"}, {"pitch": "2", "duration": "1000"},
 				{"pitch": "4", "duration": "1000"}],
 	"duration" : "3000",
