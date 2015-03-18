@@ -1,14 +1,13 @@
-define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiobuffer', './framecontroller', 'pitchdetector', 'note'
+define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiobuffer', 'pitchdetector', 'note'
 	  //'countdown', 
 	  ],
-	function(app, $, exercises, MicUtil, CurrentAudioContext, AudioBuffer, Controller, PitchDetector, Note) {
+	function(app, $, exercises, MicUtil, CurrentAudioContext, AudioBuffer, PitchDetector, Note) {
 		//constants
 		var detector;
 		//other globals;
 		var context;
 		var chart;
 		var buffer;
-		var controller;
 		var countDown;
 		var countDownDisplayed = false;
 		var countDownProgress = false;
@@ -60,7 +59,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			}
 
 			$scope.$watch(function(scope) { return scope.myExercise },
-              function() {if(!$scope.myExercise) return; setExercise($scope)}
+              function() {if(!$scope.myExercise) return; setExercise()}
              );
 
 			$scope.$watch(function(scope) { return scope.rootNote },
@@ -107,13 +106,15 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 
 			 $scope.$on('chartOver',function() {
 			 	if ($scope.isInstrumentProgress) {
+			 		$scope.chart.reset();
 			 		$scope.chart.drawExercise();
 			 		start();
 			 		return;
 			 	}
 			 	++$scope.partNumber;
 			 	if ($scope.partNumber*maxNotes < $scope.myExercise.notes.length) {
-					$scope.chart.setExercise(controller.getExercisePart($scope.myExercise, $scope.partNumber, maxNotes));
+			 		$scope.chart.reset();
+					$scope.chart.setExercise(ExerciseService.getSubset($scope.myExercise, $scope.partNumber, maxNotes));
 					start();
 				} else {
 					$scope.operation = 'over';
@@ -127,7 +128,6 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			 function init() {
 				context = CurrentAudioContext.getInstance();
 				$scope.context = context;
-				controller = Controller.getController();
 				detector = PitchDetector.getDetector('wavelet',context.sampleRate);
 			}
 
@@ -170,7 +170,8 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 
 			function setExercise() {
 				$scope.partNumber = 0;
-				var sequences = controller.getExercisePart($scope.myExercise, $scope.partNumber, maxNotes);
+				var sequences = ExerciseService.getSubset($scope.myExercise, $scope.partNumber, maxNotes);
+				$scope.chart.reset();
 				$scope.chart.setExercise(sequences);
 			}
 
@@ -191,7 +192,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 				resetScore();
 				// Destroy html element doesn't cancel timeout event.
 				$scope.chart.pauseIndicatorLine();
-				setExercise($scope);
+				setExercise();
 				// start again
 				countDownDisplayed = false;
 				$scope.operation = 'start';

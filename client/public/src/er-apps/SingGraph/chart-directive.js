@@ -109,8 +109,6 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 	};
 	
 	ExerciseChart.prototype.drawExercise = function () {
-		this.reset();
-		
 		var result = this.exercise;
 		//console.info("result" + JSON.stringify(result));
 		// delay at start
