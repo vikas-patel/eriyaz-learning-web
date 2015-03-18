@@ -114,7 +114,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 	               	$scope.showOverlay = true;
 	               	$scope.$apply();
 	               	// save score at server.
-	               	ScoreService.save();
+	               	ScoreService.save($scope.myExercise._id, $scope.totalScore);
 				}
 			 });
 		});

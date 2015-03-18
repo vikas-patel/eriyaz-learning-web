@@ -1,10 +1,11 @@
   define(['./module'],function(app) {
     var base_url="";
-    app.factory('ScoreService', function($http) {
+    app.factory('ScoreService', function($http, $window) {
         return {
-            save: function(studentId, exerciseId, score) {
+            save: function(exerciseId, score) {
+                var userId = $window.sessionStorage.userId;
                 $http.post(base_url + '/students/score', {
-                    student: studentId,
+                    student: userId,
                     exercise: exerciseId,
                     score:score
                 }).success(function(data) {
@@ -15,8 +16,9 @@
                 });
             },
 
-            findAll: function(studentId) {
-                return $http.get(base_url + '/students/score/' + studentId);
+            findAll: function() {
+                var userId = $window.sessionStorage.userId;
+                return $http.get(base_url + '/students/score/' + userId);
             }
         };
     });
