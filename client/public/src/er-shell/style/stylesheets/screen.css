@@ -486,60 +486,44 @@ core-drawer-panel:not([narrow]) #navicon {
 
 /* line 2, ../../../er-apps/SingGraph/main.scss */
 #sing-graph {
+  /* Axis */
   /* Resize Window */
   /* Indicator line */
 }
-@media only screen and (max-width: 960px) {
-  /* line 2, ../../../er-apps/SingGraph/main.scss */
-  #sing-graph {
-    /* styles for browsers smaller than 960px; 2/3rd of my desktop screen width */
-  }
-  /* line 6, ../../../er-apps/SingGraph/main.scss */
-  #sing-graph button, #sing-graph select, #sing-graph .header {
-    font-size: 0.75em;
-  }
-  /* line 10, ../../../er-apps/SingGraph/main.scss */
-  #sing-graph button {
-    padding: 1px 3px;
-  }
+/* line 7, ../../../er-apps/SingGraph/main.scss */
+#sing-graph .axis .tick text {
+  fill: black;
+  font-size: 0.7em;
 }
-@media only screen and (max-width: 480px) {
-  /* line 2, ../../../er-apps/SingGraph/main.scss */
-  #sing-graph {
-    /* mainly for mobile devices */
-  }
-  /* line 16, ../../../er-apps/SingGraph/main.scss */
-  #sing-graph button, #sing-graph select, #sing-graph .header {
-    font-size: 0.5em;
-  }
-  /* line 19, ../../../er-apps/SingGraph/main.scss */
-  #sing-graph button {
-    padding: 1px 2px;
-  }
+/* line 11, ../../../er-apps/SingGraph/main.scss */
+#sing-graph .axis path, #sing-graph .axis line {
+  fill: none;
+  stroke: black;
+  stroke-width: 1px;
 }
-/* line 25, ../../../er-apps/SingGraph/main.scss */
+/* line 19, ../../../er-apps/SingGraph/main.scss */
 #sing-graph .start::before {
   content: "Start";
 }
-/* line 29, ../../../er-apps/SingGraph/main.scss */
+/* line 23, ../../../er-apps/SingGraph/main.scss */
 #sing-graph .pause::before {
   content: "Pause";
 }
-/* line 33, ../../../er-apps/SingGraph/main.scss */
+/* line 27, ../../../er-apps/SingGraph/main.scss */
 #sing-graph .resume::before {
   content: "Resume";
 }
-/* line 37, ../../../er-apps/SingGraph/main.scss */
+/* line 31, ../../../er-apps/SingGraph/main.scss */
 #sing-graph .invalid {
   border-color: red;
   border-width: 1px;
 }
-/* line 42, ../../../er-apps/SingGraph/main.scss */
+/* line 36, ../../../er-apps/SingGraph/main.scss */
 #sing-graph .container {
   margin: 5px;
   padding: 5px;
 }
-/* line 51, ../../../er-apps/SingGraph/main.scss */
+/* line 45, ../../../er-apps/SingGraph/main.scss */
 #sing-graph .svg-container {
   display: inline-block;
   position: relative;
@@ -547,28 +531,15 @@ core-drawer-panel:not([narrow]) #navicon {
   padding-bottom: 46%;
   vertical-align: middle;
   overflow: hidden;
-  /* Axis */
 }
-/* line 63, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .svg-container .axis .tick text {
-  fill: black;
-  font-size: 0.7em;
-}
-/* line 68, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .svg-container .axis path, #sing-graph .svg-container .axis line {
-  fill: none;
-  stroke: black;
-  shape-rendering: crispEdges;
-  stroke-width: 1px;
-}
-/* line 77, ../../../er-apps/SingGraph/main.scss */
+/* line 54, ../../../er-apps/SingGraph/main.scss */
 #sing-graph .svg-content {
   display: inline-block;
   position: absolute;
   top: 0;
   left: 0;
 }
-/* line 84, ../../../er-apps/SingGraph/main.scss */
+/* line 61, ../../../er-apps/SingGraph/main.scss */
 #sing-graph #overlay, #sing-graph #overlay-content {
   margin: auto;
   width: 100%;
@@ -580,23 +551,23 @@ core-drawer-panel:not([narrow]) #navicon {
   bottom: 0;
   z-index: 1;
 }
-/* line 96, ../../../er-apps/SingGraph/main.scss */
+/* line 73, ../../../er-apps/SingGraph/main.scss */
 #sing-graph #overlay {
   background-color: black;
   opacity: .5;
 }
-/* line 102, ../../../er-apps/SingGraph/main.scss */
+/* line 79, ../../../er-apps/SingGraph/main.scss */
 #sing-graph #overlay-content {
   text-align: center;
   color: white;
   height: 20%;
   width: 50%;
 }
-/* line 108, ../../../er-apps/SingGraph/main.scss */
+/* line 85, ../../../er-apps/SingGraph/main.scss */
 #sing-graph #overlay-content .padding5 {
   padding: 5px;
 }
-/* line 113, ../../../er-apps/SingGraph/main.scss */
+/* line 90, ../../../er-apps/SingGraph/main.scss */
 #sing-graph #counter {
   margin: auto;
   width: 200px;
@@ -610,11 +581,56 @@ core-drawer-panel:not([narrow]) #navicon {
   bottom: 0;
   z-index: 1;
 }
-/* line 128, ../../../er-apps/SingGraph/main.scss */
+/* line 105, ../../../er-apps/SingGraph/main.scss */
 #sing-graph .indicatorLine {
   stroke-width: 1;
 }
-/* line 132, ../../../er-apps/SingGraph/main.scss */
+/* line 109, ../../../er-apps/SingGraph/main.scss */
 #sing-graph .exercise {
   fill: #A8A8A8;
+}
+@media only screen and (max-width: 960px) {
+  /* line 2, ../../../er-apps/SingGraph/main.scss */
+  #sing-graph {
+    /* styles for browsers smaller than 960px; 2/3rd of my desktop screen width */
+  }
+  /* line 115, ../../../er-apps/SingGraph/main.scss */
+  #sing-graph button, #sing-graph select, #sing-graph .header {
+    font-size: 0.75em;
+  }
+  /* line 119, ../../../er-apps/SingGraph/main.scss */
+  #sing-graph button {
+    padding: 1px 3px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  /* line 2, ../../../er-apps/SingGraph/main.scss */
+  #sing-graph {
+    /* mainly for mobile devices */
+  }
+  /* line 125, ../../../er-apps/SingGraph/main.scss */
+  #sing-graph button, #sing-graph select, #sing-graph .header {
+    font-size: 0.5em;
+  }
+  /* line 128, ../../../er-apps/SingGraph/main.scss */
+  #sing-graph button {
+    padding: 1px 2px;
+  }
+}
+@media only screen and (max-device-width: 720px) {
+  /* line 2, ../../../er-apps/SingGraph/main.scss */
+  #sing-graph {
+    /* mainly for mobile devices */
+  }
+  /* line 137, ../../../er-apps/SingGraph/main.scss */
+  #sing-graph .axis .tick text {
+    fill: black;
+    font-size: 0.4em;
+  }
+  /* line 141, ../../../er-apps/SingGraph/main.scss */
+  #sing-graph .axis path, #sing-graph .axis line {
+    fill: none;
+    stroke: black;
+    stroke-width: 0.5px;
+  }
 }

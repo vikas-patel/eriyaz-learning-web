@@ -1,25 +1,19 @@
 $greyExercise: #A8A8A8;
 #sing-graph {
 
-	@media only screen and (max-width:960px){
-        /* styles for browsers smaller than 960px; 2/3rd of my desktop screen width */
-		button, select, .header {
-			font-size:0.75em;
+    /* Axis */
+	.axis {
+		//stroke-width: 1;
+		.tick text {
+			fill: black;
+			font-size: 0.7em;
 		}
-
-		button {
-			padding: 1px 3px;
+		path, line {
+			fill: none;
+			stroke: black;
+			stroke-width: 1px;
 		}
-    }
-    @media only screen and (max-width:480px){
-        /* mainly for mobile devices */
-        button, select, .header {
-			font-size:0.5em;
-		}
-		button {
-			padding: 1px 2px;
-		}
-    }
+	}
 
 	// Control buttons
 	.start::before{
@@ -55,23 +49,6 @@ $greyExercise: #A8A8A8;
 		padding-bottom: 46%;
 		vertical-align: middle;
 		overflow: hidden;
-
-		/* Axis */
-		.axis {
-			//stroke-width: 1;
-
-			.tick text {
-				fill: black;
-				font-size: 0.7em;
-			}
-
-			path, line {
-				fill: none;
-				stroke: black;
-				shape-rendering: crispEdges;
-				stroke-width: 1px;
-			}
-		}
 	}
 
 	.svg-content {
@@ -132,4 +109,40 @@ $greyExercise: #A8A8A8;
 	.exercise {
 		fill: $greyExercise;
 	}
+
+	@media only screen and (max-width:960px){
+        /* styles for browsers smaller than 960px; 2/3rd of my desktop screen width */
+		button, select, .header {
+			font-size:0.75em;
+		}
+
+		button {
+			padding: 1px 3px;
+		}
+    }
+    @media only screen and (max-width:480px){
+        /* mainly for mobile devices */
+        button, select, .header {
+			font-size:0.5em;
+		}
+		button {
+			padding: 1px 2px;
+		}
+    }
+
+    @media only screen and (max-device-width:720px){
+        /* mainly for mobile devices */
+        .axis {
+			//stroke-width: 1;
+			.tick text {
+				fill: black;
+				font-size: 0.4em;
+			}
+			path, line {
+				fill: none;
+				stroke: black;
+				stroke-width: 0.5px;
+			}
+		}
+    }
 }
