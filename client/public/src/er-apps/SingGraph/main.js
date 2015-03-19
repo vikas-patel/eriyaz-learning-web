@@ -207,11 +207,6 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 				document.querySelector('#toast-alert').setAttribute("text", text);
 				document.querySelector('#toast-alert').show();
 			}
-			
-			function now(){
-				var d = new Date();
-				return d.getTime();
-			}
 		});
 		
 		// function startCountdown(callback) {

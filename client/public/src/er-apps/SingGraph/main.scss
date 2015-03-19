@@ -1,5 +1,26 @@
 $greyExercise: #A8A8A8;
 #sing-graph {
+
+	@media only screen and (max-width:960px){
+        /* styles for browsers smaller than 960px; 2/3rd of my desktop screen width */
+		button, select, .header {
+			font-size:0.75em;
+		}
+
+		button {
+			padding: 1px 3px;
+		}
+    }
+    @media only screen and (max-width:480px){
+        /* mainly for mobile devices */
+        button, select, .header {
+			font-size:0.5em;
+		}
+		button {
+			padding: 1px 2px;
+		}
+    }
+
 	// Control buttons
 	.start::before{
 	  content:"Start";
