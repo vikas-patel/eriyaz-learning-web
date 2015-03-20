@@ -1,7 +1,7 @@
 var t = new RateTransposer(true);
 var s = new Stretch(true);
 var st= new SoundTouch();
-st.pitch = 1.5;
+st.pitch =0.5;
 st.tempo = 1;
 // s.tempo = .5;
 // t.rate = 3;
@@ -37,9 +37,9 @@ loadSample = function(url) {
 // }
 
 //loadSample('badromance.mp3')
-loadSample('c2sharp.wav')
+loadSample('sa.mp3')
 
-var BUFFER_SIZE = 1024;
+var BUFFER_SIZE = 16384;
 
 var node = context.createScriptProcessor(BUFFER_SIZE, 2, 2);
 
