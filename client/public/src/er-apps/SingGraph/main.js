@@ -13,7 +13,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 		var countDownProgress = false;
 		var maxNotes = 5;
 		//var scope;
-		var instrumentEnabled = true;
+		var instrumentEnabled = false;
 		app.controller('SingGraphCtrl', function($scope, ScoreService, ExerciseService) {
 			//scope = $scope;
 			init();
@@ -30,7 +30,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			$scope.totalScore = 0;
 			$scope.scoreCount = 0;
 			$scope.partNumber = 0;
-			$scope.rootNote = 49;
+			$scope.rootNote = 48;
 			$scope.signalOn = false;
 			$scope.isInstrumentProgress = false;
 			$scope.startOrPause = function(){
@@ -110,18 +110,24 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			 		start();
 			 		return;
 			 	}
-			 	++$scope.partNumber;
-			 	if ($scope.partNumber*maxNotes < $scope.myExercise.notes.length) {
-					$scope.chart.setExercise(ExerciseService.getSubset($scope.myExercise, $scope.partNumber, maxNotes));
-					$scope.chart.redraw();
-					start();
-				} else {
-					$scope.operation = 'over';
-	               	$scope.showOverlay = true;
-	               	$scope.$apply();
-	               	// save score at server.
-	               	ScoreService.save($scope.myExercise._id, $scope.totalScore);
-				}
+			 	$scope.operation = 'over';
+               	$scope.showOverlay = true;
+               	$scope.$apply();
+               	// save score at server.
+               	ScoreService.save($scope.myExercise._id, $scope.totalScore);
+	               	
+			 // 	++$scope.partNumber;
+			 // 	if ($scope.partNumber*maxNotes < $scope.myExercise.notes.length) {
+				// 	$scope.chart.setExercise(ExerciseService.getSubset($scope.myExercise, $scope.partNumber, maxNotes));
+				// 	$scope.chart.redraw();
+				// 	start();
+				// } else {
+				// 	$scope.operation = 'over';
+	   //             	$scope.showOverlay = true;
+	   //             	$scope.$apply();
+	   //             	// save score at server.
+	   //             	ScoreService.save($scope.myExercise._id, $scope.totalScore);
+				// }
 			 })
 
 			 function init() {
@@ -169,8 +175,8 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 
 			function setExercise() {
 				$scope.partNumber = 0;
-				var sequences = ExerciseService.getSubset($scope.myExercise, $scope.partNumber, maxNotes);
-				$scope.chart.setExercise(sequences);
+				//var sequences = ExerciseService.getSubset($scope.myExercise, $scope.partNumber, maxNotes);
+				$scope.chart.setExercise($scope.myExercise.notes);
 				$scope.chart.redraw();
 			}
 

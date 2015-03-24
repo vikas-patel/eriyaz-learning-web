@@ -7,7 +7,7 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		this.parent.call(this, containerId, parentWidth, parentHeight, labels);
 		this.$scope = $scope;
 		this.transitionDuration = 0;
-		this.transitionDelay = 5000; //ms
+		this.transitionDelay = 0; //ms
 		this.offsetTime = 1000;
 	};
 	
@@ -18,7 +18,7 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 	ExerciseChart.prototype.start = function() {
 		this.parent.prototype.start.call(this);
 		this.drawIndicatorLine();
-		//this.startTransition();
+		this.startTransition();
 	}
 
 	ExerciseChart.prototype.redraw = function() {
@@ -36,7 +36,7 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		if (this.isPaused) return;
 		this.parent.prototype.pause.call(this);
 		this.pauseIndicatorLine();
-		//this.pauseTransition();
+		this.pauseTransition();
 	}
 
 	ExerciseChart.prototype.play = function(context, root) {
@@ -55,7 +55,7 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		if (!this.isPaused) return;
 		this.parent.prototype.resume.call(this);
 		this.resumeIndicatorLine();
-		//this.resumeTransition();
+		this.resumeTransition();
 	}
 	
 	ExerciseChart.prototype.drawIndicatorLine = function() {
@@ -99,7 +99,7 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		this.exercise = exercise;
 		this.duration = this.getDuration();
 		if (this.duration > this.settings.timeSpan) {
-			this.transitionDuration = this.duration - this.settings.timeSpan;	
+			this.transitionDuration = this.duration + this.offsetTime;	
 		} else {
 			this.transitionDuration = 0;
 		}
@@ -156,7 +156,7 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 				.duration(timeLeft)
 				.delay(delay)
 				.ease("linear")
-				.attr("transform", "translate(-" + this.x(this.transitionDuration/1000) +",0)")
+				.attr("transform", "translate(-" + this.x((this.transitionDuration+this.offsetTime-this.settings.timeSpan)/1000) +",0)")
 				.attr("transitionTimeLeft",0);
 	}
 	
@@ -166,7 +166,7 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 				.duration(this.transitionDuration)
 				.delay(this.transitionDelay)
 				.ease("linear")
-				.attr("transform", "translate(-" + this.x(this.transitionDuration/1000) +",0)")
+				.attr("transform", "translate(-" + this.x((this.transitionDuration+this.offsetTime-this.settings.timeSpan)/1000) +",0)")
 				.attr("transitionTimeLeft",0);
 	};
 	
