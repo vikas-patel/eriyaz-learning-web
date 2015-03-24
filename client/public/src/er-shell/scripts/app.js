@@ -6,6 +6,7 @@ define([
     'angular',
     'angulartics',
     'angulartics-ga',
+    'ng-infinite-scroll',
     './controllers/index',
     './models/index',
     './services/index',
@@ -25,6 +26,7 @@ define([
         'sing-graph',
 
         'angulartics',
-        'angulartics.google.analytics'
+        'angulartics.google.analytics',
+        'infinite-scroll'
     ]);
 });

@@ -10,9 +10,9 @@
              url: '',
              // templateUrl : 'front.html',
              onEnter: function(UIModel) {
-                 UIModel.uiModel.showFront = true;
                  UIModel.uiModel.showMenu = false;
                  UIModel.uiModel.showLoginDialog = false;
+                 UIModel.uiModel.showFront = true;
              },
              resolve: {
                  onLoggedInRedirect: function($q, $location, $window) {
@@ -25,10 +25,10 @@
          state('login', {
              url: '/login',
              onEnter: function(UIModel,LoginSignupDialogModel) {
-                 LoginSignupDialogModel.loginSignupDialogModel.selection = 'login';
                  UIModel.uiModel.showMenu = false;
-                 UIModel.uiModel.showFront = true;
                  UIModel.uiModel.showAppDialog = false;
+                 LoginSignupDialogModel.loginSignupDialogModel.selection = 'login';
+                 UIModel.uiModel.showFront = true;
                  UIModel.uiModel.showLoginDialog = true;
              },
              resolve: {
@@ -42,8 +42,8 @@
          state('signup', {
              url: '/signup',
              onEnter: function(UIModel,LoginSignupDialogModel) {
-                 LoginSignupDialogModel.loginSignupDialogModel.selection = 'signup';
                  UIModel.uiModel.showMenu = false;
+                 LoginSignupDialogModel.loginSignupDialogModel.selection = 'signup';
                  UIModel.uiModel.showFront = true;
                  UIModel.uiModel.showLoginDialog = true;
              },
@@ -58,20 +58,46 @@
          state('logout', {
              url: '/logout',
              onEnter: function(UIModel, $window) {
+                 UIModel.uiModel.showLoginDialog = false;
+                 UIModel.uiModel.showMenu = false;
                  delete $window.sessionStorage.user;
                  UIModel.uiModel.showFront = true;
-                 UIModel.uiModel.showMenu = false;
-                 UIModel.uiModel.showLoginDialog = false;
              }
          }).
          state('home', {
              url: '/home',
              onEnter: function(UIModel) {
+                 UIModel.uiModel.showAppDialog = false;
+                 UIModel.uiModel.showLoginDialog = false;
                  UIModel.uiModel.showFront = false;
                  UIModel.uiModel.showMenu = true;
                  UIModel.uiModel.contentUrl = 'er-shell/html/home.html';
-                 UIModel.uiModel.showLoginDialog = false;
+             },
+             resolve: {
+                 onLoggedOutRedirect: checkLoginAndRedirect
+             }
+         }).
+         state('history', {
+             url: '/history',
+             onEnter: function(UIModel) {
                  UIModel.uiModel.showAppDialog = false;
+                 UIModel.uiModel.showLoginDialog = false;
+                 UIModel.uiModel.showFront = false;
+                 UIModel.uiModel.showMenu = true;
+                 UIModel.uiModel.contentUrl = 'er-shell/html/history.html';
+             },
+             resolve: {
+                 onLoggedOutRedirect: checkLoginAndRedirect
+             }
+         }).
+         state('profile', {
+             url: '/profile',
+             onEnter: function(UIModel) {
+                 UIModel.uiModel.showAppDialog = false;
+                 UIModel.uiModel.showLoginDialog = false;
+                 UIModel.uiModel.showFront = false;
+                 UIModel.uiModel.showMenu = true;
+                 UIModel.uiModel.contentUrl = 'er-shell/html/profile.html';
              },
              resolve: {
                  onLoggedOutRedirect: checkLoginAndRedirect
@@ -80,8 +106,8 @@
          state('alankars', {
              url: '/alankars',
              onEnter: function(UIModel,AppsInfoModel) {
-                 UIModel.uiModel.showMenu = true;
                  UIModel.uiModel.showLoginDialog = false;
+                 UIModel.uiModel.showMenu = true;
                  AppsInfoModel.setSelected(0);
                  UIModel.uiModel.showAppDialog = true;
              },
@@ -92,8 +118,8 @@
          state('freestyle', {
              url: '/freestyle',
              onEnter: function(UIModel,AppsInfoModel) {
-                 UIModel.uiModel.showMenu = true;
                  UIModel.uiModel.showLoginDialog = false;
+                 UIModel.uiModel.showMenu = true;
                  AppsInfoModel.setSelected(1);
                  UIModel.uiModel.showAppDialog = true;
              },

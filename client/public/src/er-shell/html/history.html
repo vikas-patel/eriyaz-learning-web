@@ -1,0 +1,17 @@
+<!-- <link rel="import" 
+  href="../external-libs/bower_components/paper-shadow/paper-shadow.html"> -->
+<div id="history">
+	I am history page.
+	<h6>Day</h6>
+<h6>Total Practice Time</h6>
+	<h6>Max Scores</h6>
+
+	<div ng-controller='HistoryCtrl'>
+	  <div infinite-scroll='loadMore()' infinite-scroll-distance='5' 
+	  infinite-scroll-immediate-check='false'
+	  infinite-scroll-parent="false"
+	  >
+	    <img ng-repeat='image in images' ng-src='http://placehold.it/225x250&text={{image}}'>
+	  </div>
+	</div>
+</div>

@@ -1,7 +1,7 @@
 var t = new RateTransposer(true);
 var s = new Stretch(true);
 var st= new SoundTouch();
-st.pitch =0.5;
+st.pitch =0.8;
 st.tempo = 1;
 // s.tempo = .5;
 // t.rate = 3;

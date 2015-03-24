@@ -15,6 +15,7 @@ requirejs.config({
         'angulartics-ga' : 'ext-libs/bower_components/angulartics/dist/angulartics-ga.min',
         'underscore' : 'ext-libs/underscore',
         'order': 'ext-libs/requirejs-order.min',
+        'ng-infinite-scroll': 'ext-libs/ng-infinite-scroll',
 
         'mic': 'er-libs/mic',
         'pitchdetector' : 'er-libs/pitchdetector',
@@ -46,6 +47,9 @@ requirejs.config({
         },
         'angulartics-ga': {
             deps: ['angular']
+        },
+        'ng-infinite-scroll': {
+            deps: ['angular','jquery']
         },
         'fft-pitch': {
             deps: ['ext-libs/pitchjs/complex']

@@ -1,0 +1,30 @@
+<!-- <link rel="import" 
+  href="../external-libs/bower_components/paper-shadow/paper-shadow.html"> -->
+<div id="profile">
+	<div ng-hide="editing" ng-click="editing = true">
+		<table>
+			<tr>
+				<td>First Name: </td>
+				<td>{{user.firstname}}</td>
+			</tr>
+			<tr>
+				<td>Last Name: </td>
+				<td>{{user.lastname}}</td>
+			</tr>
+		</table>
+		<button ng-click="editing = true">Edit</button>
+	</div>
+	<form ng-show="editing"  ng-submit="editing = false"> 
+		<table>
+		<tr>
+			<td>First Name: </td>
+			<td><input type="textarea" ng-model="user.firstname"></td>
+		</tr>
+		<tr>
+			<td>Last Name: </td>
+			<td><input type="textarea" ng-model="user.lastname"></td>
+		</tr>
+		</table>
+		<button type="submit" ng-click="editing = false">Save</button>
+	</form>
+</div>

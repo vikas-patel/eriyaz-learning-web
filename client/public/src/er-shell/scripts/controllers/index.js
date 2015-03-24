@@ -8,5 +8,6 @@ define([
     // './my-ctrl-1',
     './app.ctrl',
     './login.ctrl',
-    './signup.ctrl'
+    './signup.ctrl',
+    './history.ctrl'
 ], function () {});
