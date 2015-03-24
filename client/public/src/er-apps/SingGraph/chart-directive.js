@@ -107,14 +107,26 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 
 	ExerciseChart.prototype.getDuration = function() {
 		var duration = 0;
-		$.each(this.exercise, function(idx, note) {
-			duration += +note.duration;
-		});
+		var notes = this.exercise.notes;
+		for (var i in notes) {
+			var note = notes[i];
+			console.log(i + " " + this.exercise.breakDuration);
+			if (note == -1) {
+
+				duration += this.exercise.breakDuration;
+			} else if (note == -2) {
+				duration += this.exercise.midBreakDuration;
+			} else {
+				duration += this.exercise.noteDuration;
+			}
+		}
+		console.log("Duration: " + duration);
 		return duration;
 	};
 	
 	ExerciseChart.prototype.drawExercise = function () {
-		var result = this.exercise;
+		var exercise = this.exercise;
+		var result = this.exercise.notes;
 		//console.info("result" + JSON.stringify(result));
 		// delay at start
 		var t1 = this.offsetTime;
@@ -125,10 +137,38 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 			.data(result)
 			.enter()
 			.append("rect")
-			.attr("x", function(d){ t1 = t1 + (+d.duration); return  x((t1-(+d.duration))/1000); })
-			.attr("y", function(d){ return y(d.pitch) - rectH/2; })
-			.attr("width", function(d){ return x(+d.duration/1000); })
-			.attr("height", rectH)
+			.attr("x", function(d){
+				//t1 = t1 + (+d.duration); return  x((t1-(+d.duration))/1000); 
+				var duration = 0;
+			 	if (d==-1) 
+					duration = exercise.breakDuration;
+				else if (d==-2)
+					duration = exercise.midBreakDuration;
+				else
+					duration = exercise.noteDuration;
+				t1 = t1 + duration;
+				return x(t1-duration)/1000;
+			})
+			.attr("y", function(d){
+				// return y(d.pitch) - rectH/2;
+				return y(d) - rectH/2;
+			})
+			.attr("width", function(d){
+			 	//return x(+d.duration/1000);
+			 	var duration = 0;
+			 	if (d == -1) 
+					duration = exercise.breakDuration;
+				else if (d == -2)
+					duration = exercise.midBreakDuration;
+				else
+					duration = exercise.noteDuration;
+				console.log("d:" + d + " width: " + duration);
+				return x(duration/1000);
+			 })
+			.attr("height", function(d){
+				if (d<0) return 0;
+				return rectH;
+			})
 			.attr("rx", rectH/2)
 			.attr("ry", rectH/2)
 			.attr("class", "exercise");
@@ -174,13 +214,21 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		// remove start offset
 		time = time - this.offsetTime;
 		var timeTotal = 0;
-		var sequences = this.exercise;
-		for (var i in sequences) {
-			var sequence = sequences[i];
-			var duration = +sequence.duration;
+		var notes = this.exercise.notes;
+		var duration = 0;
+	 	
+		for (var i in notes) {
+			var note = notes[i];
+			if (note==-1)
+				duration = this.exercise.breakDuration;
+			else if (note==-2)
+				duration = this.exercise.midBreakDuration;
+			else
+				duration = this.exercise.noteDuration;
 			timeTotal += duration;
 			if (time <= timeTotal) {
-				return sequence.pitch;
+				console.log("note: " + note);
+				return note;
 			}
 		}
 		return null;

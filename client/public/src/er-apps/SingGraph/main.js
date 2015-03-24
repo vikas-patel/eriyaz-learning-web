@@ -12,18 +12,11 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 		var countDownDisplayed = false;
 		var countDownProgress = false;
 		var maxNotes = 5;
-		//var scope;
 		var instrumentEnabled = false;
 		app.controller('SingGraphCtrl', function($scope, ScoreService, ExerciseService) {
-			//scope = $scope;
 			init();
 			// Load Exercises
-			ExerciseService.findAll().success(function(data) {
-            	$scope.exercises = data;
-            }).error(function(status, data) {
-                alert("Failed to load exercises.");
-                console.log("Failed to load exercises: " + data);
-            });
+			$scope.exercises = ExerciseService.findAll();
 			$scope.operation = 'start';
 			$scope.showOverlay = false;
 			$scope.lastScore = 0;
@@ -176,7 +169,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			function setExercise() {
 				$scope.partNumber = 0;
 				//var sequences = ExerciseService.getSubset($scope.myExercise, $scope.partNumber, maxNotes);
-				$scope.chart.setExercise($scope.myExercise.notes);
+				$scope.chart.setExercise($scope.myExercise);
 				$scope.chart.redraw();
 			}
 

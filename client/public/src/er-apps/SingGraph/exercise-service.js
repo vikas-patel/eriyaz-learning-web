@@ -1,10 +1,11 @@
-  define(['./module'],function(app) {
+  define(['./module', './exercises'],function(app, exercises) {
     var base_url="";
     app.factory('ExerciseService', function($http, $window) {
         return {
             findAll: function() {
                 //TODO: Append teacherId
-                return $http.get(base_url + '/exercises');
+                //return $http.get(base_url + '/exercises');
+                return exercises;
             },
 
             getSubset: function(exercise, partNumber, maxNotes) {
