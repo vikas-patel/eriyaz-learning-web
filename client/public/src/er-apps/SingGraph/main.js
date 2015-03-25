@@ -154,8 +154,11 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 				var waveletFreq = detector.findPitch(data);
 				if (waveletFreq == 0) return;
 				currInterval = Math.round(1200 * (Math.log(waveletFreq / $scope.rootFreq) / Math.log(2))) / 100;
-				$scope.chart.draw(currInterval);
-				var expNote = $scope.chart.exerciseNote($scope.chart.timePlotted);
+				var renderedTime = $scope.chart.getTimeRendered();
+				var expNote = $scope.chart.exerciseNote(renderedTime);
+				// don't update score; break, mid break or offset time.
+				if (expNote < 0) return;
+				$scope.chart.draw(currInterval, renderedTime);
 				updateScore(expNote, currInterval.toFixed(0))
 			};
 

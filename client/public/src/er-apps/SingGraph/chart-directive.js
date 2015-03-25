@@ -209,6 +209,7 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 	
 	ExerciseChart.prototype.exerciseNote = function(time) {
 		// remove start offset
+		if (time < this.offsetTime) return -1;
 		time = time - this.offsetTime;
 		var timeTotal = 0;
 		var notes = this.exercise.notes;
@@ -227,17 +228,14 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 				return note;
 			}
 		}
-		return null;
+		return -1;
 	}
 	
-	ExerciseChart.prototype.draw = function(currInterval) {
-		var d = new Date();
-		var intervalTime = d.getTime();
-		this.timePlotted = intervalTime-this.startTime - this.pauseDuration;
-		var diff = Math.abs(this.exerciseNote(this.timePlotted) - currInterval.toFixed(this.settings.precision))
+	ExerciseChart.prototype.draw = function(currInterval, renderTime) {
+		var diff = Math.abs(this.exerciseNote(renderTime) - currInterval.toFixed(this.settings.precision))
 		var rectH = this.height/this.settings.yTicks;
 		this.svg.velocity.append("rect")
-			.attr("x", this.x(this.timePlotted/1000))
+			.attr("x", this.x(renderTime/1000))
 			.attr("y", this.y(currInterval.toFixed(this.settings.precision)) - rectH/2)
 			.attr("width", rectW)
 			.attr("height", rectH)
