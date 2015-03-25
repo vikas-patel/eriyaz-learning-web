@@ -6,6 +6,7 @@
 
   					if (data.status === "success") {
   						$window.sessionStorage.user = data.user;
+              $window.sessionStorage.userId = data.user._id;
   						$location.path("/home");
   					} else {
   						$scope.flashMessage = data.info;

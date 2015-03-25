@@ -1,5 +1,5 @@
 var Student = require('../model/student.js');
-var Score = require('../model/score.js');
+var Score = require('../model/alankar-score.js');
 
 //TODO:
 // Test Update and Delete
