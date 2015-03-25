@@ -107,7 +107,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
                	$scope.showOverlay = true;
                	$scope.$apply();
                	// save score at server.
-               	ScoreService.save($scope.myExercise._id, $scope.totalScore);
+               	ScoreService.save($scope.myExercise.name, $scope.totalScore);
 	               	
 			 // 	++$scope.partNumber;
 			 // 	if ($scope.partNumber*maxNotes < $scope.myExercise.notes.length) {

@@ -3,8 +3,7 @@ var mongoose = require('mongoose');
 var scoreSchema = mongoose.Schema({
 	student: {type: mongoose.Schema.Types.ObjectId,
     	ref: 'Student'},
-    exercise: {type: mongoose.Schema.Types.ObjectId,
-    	ref: 'Exercise'},
+    exercise: String,
     score: Number,
     completionTime: { type : Date, default : Date.now }
 });

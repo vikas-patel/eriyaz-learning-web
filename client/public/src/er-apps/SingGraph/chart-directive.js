@@ -110,7 +110,6 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		var notes = this.exercise.notes;
 		for (var i in notes) {
 			var note = notes[i];
-			console.log(i + " " + this.exercise.breakDuration);
 			if (note == -1) {
 
 				duration += this.exercise.breakDuration;
@@ -120,7 +119,6 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 				duration += this.exercise.noteDuration;
 			}
 		}
-		console.log("Duration: " + duration);
 		return duration;
 	};
 	
@@ -162,7 +160,6 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 					duration = exercise.midBreakDuration;
 				else
 					duration = exercise.noteDuration;
-				console.log("d:" + d + " width: " + duration);
 				return x(duration/1000);
 			 })
 			.attr("height", function(d){
@@ -227,7 +224,6 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 				duration = this.exercise.noteDuration;
 			timeTotal += duration;
 			if (time <= timeTotal) {
-				console.log("note: " + note);
 				return note;
 			}
 		}
