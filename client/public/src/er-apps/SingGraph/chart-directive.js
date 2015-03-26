@@ -107,14 +107,24 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 
 	ExerciseChart.prototype.getDuration = function() {
 		var duration = 0;
-		$.each(this.exercise, function(idx, note) {
-			duration += +note.duration;
-		});
+		var notes = this.exercise.notes;
+		for (var i in notes) {
+			var note = notes[i];
+			if (note == -1) {
+
+				duration += this.exercise.breakDuration;
+			} else if (note == -2) {
+				duration += this.exercise.midBreakDuration;
+			} else {
+				duration += this.exercise.noteDuration;
+			}
+		}
 		return duration;
 	};
 	
 	ExerciseChart.prototype.drawExercise = function () {
-		var result = this.exercise;
+		var exercise = this.exercise;
+		var result = this.exercise.notes;
 		//console.info("result" + JSON.stringify(result));
 		// delay at start
 		var t1 = this.offsetTime;
@@ -125,10 +135,37 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 			.data(result)
 			.enter()
 			.append("rect")
-			.attr("x", function(d){ t1 = t1 + (+d.duration); return  x((t1-(+d.duration))/1000); })
-			.attr("y", function(d){ return y(d.pitch) - rectH/2; })
-			.attr("width", function(d){ return x(+d.duration/1000); })
-			.attr("height", rectH)
+			.attr("x", function(d){
+				//t1 = t1 + (+d.duration); return  x((t1-(+d.duration))/1000); 
+				var duration = 0;
+			 	if (d==-1) 
+					duration = exercise.breakDuration;
+				else if (d==-2)
+					duration = exercise.midBreakDuration;
+				else
+					duration = exercise.noteDuration;
+				t1 = t1 + duration;
+				return x(t1-duration)/1000;
+			})
+			.attr("y", function(d){
+				// return y(d.pitch) - rectH/2;
+				return y(d) - rectH/2;
+			})
+			.attr("width", function(d){
+			 	//return x(+d.duration/1000);
+			 	var duration = 0;
+			 	if (d == -1) 
+					duration = exercise.breakDuration;
+				else if (d == -2)
+					duration = exercise.midBreakDuration;
+				else
+					duration = exercise.noteDuration;
+				return x(duration/1000);
+			 })
+			.attr("height", function(d){
+				if (d<0) return 0;
+				return rectH;
+			})
 			.attr("rx", rectH/2)
 			.attr("ry", rectH/2)
 			.attr("class", "exercise");
@@ -172,28 +209,33 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 	
 	ExerciseChart.prototype.exerciseNote = function(time) {
 		// remove start offset
+		if (time < this.offsetTime) return -1;
 		time = time - this.offsetTime;
 		var timeTotal = 0;
-		var sequences = this.exercise;
-		for (var i in sequences) {
-			var sequence = sequences[i];
-			var duration = +sequence.duration;
+		var notes = this.exercise.notes;
+		var duration = 0;
+	 	
+		for (var i in notes) {
+			var note = notes[i];
+			if (note==-1)
+				duration = this.exercise.breakDuration;
+			else if (note==-2)
+				duration = this.exercise.midBreakDuration;
+			else
+				duration = this.exercise.noteDuration;
 			timeTotal += duration;
 			if (time <= timeTotal) {
-				return sequence.pitch;
+				return note;
 			}
 		}
-		return null;
+		return -1;
 	}
 	
-	ExerciseChart.prototype.draw = function(currInterval) {
-		var d = new Date();
-		var intervalTime = d.getTime();
-		this.timePlotted = intervalTime-this.startTime - this.pauseDuration;
-		var diff = Math.abs(this.exerciseNote(this.timePlotted) - currInterval.toFixed(this.settings.precision))
+	ExerciseChart.prototype.draw = function(currInterval, renderTime) {
+		var diff = Math.abs(this.exerciseNote(renderTime) - currInterval.toFixed(this.settings.precision))
 		var rectH = this.height/this.settings.yTicks;
 		this.svg.velocity.append("rect")
-			.attr("x", this.x(this.timePlotted/1000))
+			.attr("x", this.x(renderTime/1000))
 			.attr("y", this.y(currInterval.toFixed(this.settings.precision)) - rectH/2)
 			.attr("width", rectW)
 			.attr("height", rectH)

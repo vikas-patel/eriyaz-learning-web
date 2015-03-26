@@ -12,18 +12,11 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 		var countDownDisplayed = false;
 		var countDownProgress = false;
 		var maxNotes = 5;
-		//var scope;
 		var instrumentEnabled = false;
 		app.controller('SingGraphCtrl', function($scope, ScoreService, ExerciseService) {
-			//scope = $scope;
 			init();
 			// Load Exercises
-			ExerciseService.findAll().success(function(data) {
-            	$scope.exercises = data;
-            }).error(function(status, data) {
-                alert("Failed to load exercises.");
-                console.log("Failed to load exercises: " + data);
-            });
+			$scope.exercises = ExerciseService.findAll();
 			$scope.operation = 'start';
 			$scope.showOverlay = false;
 			$scope.lastScore = 0;
@@ -114,7 +107,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
                	$scope.showOverlay = true;
                	$scope.$apply();
                	// save score at server.
-               	ScoreService.save($scope.myExercise._id, $scope.totalScore);
+               	ScoreService.save($scope.myExercise.name, $scope.totalScore);
 	               	
 			 // 	++$scope.partNumber;
 			 // 	if ($scope.partNumber*maxNotes < $scope.myExercise.notes.length) {
@@ -161,8 +154,11 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 				var waveletFreq = detector.findPitch(data);
 				if (waveletFreq == 0) return;
 				currInterval = Math.round(1200 * (Math.log(waveletFreq / $scope.rootFreq) / Math.log(2))) / 100;
-				$scope.chart.draw(currInterval);
-				var expNote = $scope.chart.exerciseNote($scope.chart.timePlotted);
+				var renderedTime = $scope.chart.getTimeRendered();
+				var expNote = $scope.chart.exerciseNote(renderedTime);
+				// don't update score; break, mid break or offset time.
+				if (expNote < 0) return;
+				$scope.chart.draw(currInterval, renderedTime);
 				updateScore(expNote, currInterval.toFixed(0))
 			};
 
@@ -176,7 +172,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			function setExercise() {
 				$scope.partNumber = 0;
 				//var sequences = ExerciseService.getSubset($scope.myExercise, $scope.partNumber, maxNotes);
-				$scope.chart.setExercise($scope.myExercise.notes);
+				$scope.chart.setExercise($scope.myExercise);
 				$scope.chart.redraw();
 			}
 
