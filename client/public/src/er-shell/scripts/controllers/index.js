@@ -9,5 +9,6 @@ define([
     './app.ctrl',
     './login.ctrl',
     './signup.ctrl',
+    './profile.ctrl',
     './history.ctrl'
 ], function () {});

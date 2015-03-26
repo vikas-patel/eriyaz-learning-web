@@ -3,7 +3,7 @@
   		$scope.submit = function() {
   			if ($scope.email !== undefined && $scope.password !== undefined) {
   				LoginSignupService.logIn($scope.email, $scope.password).success(function(data) {
-
+              console.log(data.user._id);
   					if (data.status === "success") {
   						$window.sessionStorage.user = data.user;
   						$location.path("/home");
