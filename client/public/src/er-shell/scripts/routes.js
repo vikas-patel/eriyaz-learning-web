@@ -1,6 +1,6 @@
  define(['./app', 'angular-ui-router'], function(app) {
      var checkLoginAndRedirect = function($q, $window, $location) {
-         if ($window.sessionStorage.user === undefined)
+         if ($window.sessionStorage.userId === undefined)
              $location.path('/login');
          return true;
      };
@@ -16,7 +16,7 @@
              },
              resolve: {
                  onLoggedInRedirect: function($q, $location, $window) {
-                     if ($window.sessionStorage.user !== undefined)
+                     if ($window.sessionStorage.userId !== undefined)
                          $location.path('/home');
                      return true;
                  }
@@ -33,7 +33,7 @@
              },
              resolve: {
                  onLoggedInRedirect: function($q, $location, $window) {
-                     if ($window.sessionStorage.user !== undefined)
+                     if ($window.sessionStorage.userId !== undefined)
                          $location.path('/home');
                      return true;
                  }
@@ -49,7 +49,7 @@
              },
              resolve: {
                  onLoggedInRedirect: function($q, $location, $window) {
-                     if ($window.sessionStorage.user !== undefined)
+                     if ($window.sessionStorage.userId !== undefined)
                          $location.path('/home');
                      return true;
                  }
@@ -60,7 +60,7 @@
              onEnter: function(UIModel, $window) {
                  UIModel.uiModel.showLoginDialog = false;
                  UIModel.uiModel.showMenu = false;
-                 delete $window.sessionStorage.user;
+                 delete $window.sessionStorage.userId;
                  UIModel.uiModel.showFront = true;
              }
          }).

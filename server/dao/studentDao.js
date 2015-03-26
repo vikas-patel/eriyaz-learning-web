@@ -5,14 +5,14 @@ var Score = require('../model/alankar-score.js');
 // Test Update and Delete
 
 exports.save = function(req, res) {
-    new Student(request.body).save();
+    new Student(req.body).save();
     res.send(200);
     //TO DO: Exception
     //res.send(400);
 }
 
 exports.update = function(req, res) {
-	var student = request.body;
+	var student = req.body;
 	student._id = req.params.id;
     new Student(student).save();
     res.send(200);

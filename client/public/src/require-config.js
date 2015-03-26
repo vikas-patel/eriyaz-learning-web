@@ -13,6 +13,7 @@ requirejs.config({
         'angular-ui-router': 'ext-libs/bower_components/angular-ui-router/release/angular-ui-router.min',
         'angulartics' : 'ext-libs/bower_components/angulartics/dist/angulartics.min',
         'angulartics-ga' : 'ext-libs/bower_components/angulartics/dist/angulartics-ga.min',
+        'angular-resource' : 'ext-libs/bower_components/angular-resource/angular-resource',
         'underscore' : 'ext-libs/underscore',
         'order': 'ext-libs/requirejs-order.min',
         'ng-infinite-scroll': 'ext-libs/ng-infinite-scroll',
@@ -47,6 +48,9 @@ requirejs.config({
         },
         'angulartics-ga': {
             deps: ['angular']
+        },
+        'angular-resource' : {
+            deps : ['angular']
         },
         'ng-infinite-scroll': {
             deps: ['angular','jquery']

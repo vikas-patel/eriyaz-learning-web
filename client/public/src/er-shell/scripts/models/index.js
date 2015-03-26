@@ -9,7 +9,8 @@ define(
 	[
 		'./ui.model',	
 		'./login-signup-dialog.model',
-		'./apps-info.model'
+		'./apps-info.model',
+		'./student.model'
 
 	],
 	function() {});

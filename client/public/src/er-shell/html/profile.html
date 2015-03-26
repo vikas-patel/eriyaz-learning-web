@@ -3,20 +3,20 @@
 <div id="profile" ng-controller="ProfileCtrl">
 	<div ng-hide="editing" ng-click="editing = true">
 		<dl>
-			<dt>First Name: </dt>
-			<dd>{{user.firstname}}</dd>
-			<dt>Last Name: </dt>
-			<dd>{{user.lastname}}</dd>
+			<dt>Name</dt>
+			<dd>{{user.name}}</dd>
+			<dt>mobile</dt>
+			<dd>{{user.mobile}}</dd>
 		</dl>
 		<button ng-click="editing = true">Edit</button>
 	</div>
-	<form ng-show="editing"  ng-submit="editing = false"> 
+	<form ng-show="editing"> 
 		<dl>
-			<dt>First Name: </dt>
-			<dd><input type="textarea" ng-model="user.firstname"></dd>
-			<dt>Last Name: </dt>
-			<dd><input type="textarea" ng-model="user.lastname"></dd>
+			<dt>Name</dt>
+			<dd><input type="textarea" ng-model="user.name"></dd>
+			<dt>Mobile</dt>
+			<dd><input type="textarea" ng-model="user.mobile"></dd>
 		</dl>
-		<button type="submit" ng-click="editing = false">Save</button>
+		<button type="submit" ng-click="updateProfile()">Save</button>
 	</form>
 </div>

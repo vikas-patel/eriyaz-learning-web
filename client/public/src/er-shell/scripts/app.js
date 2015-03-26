@@ -6,6 +6,7 @@ define([
     'angular',
     'angulartics',
     'angulartics-ga',
+    'angular-resource',
     'ng-infinite-scroll',
     './controllers/index',
     './models/index',
@@ -25,6 +26,7 @@ define([
         'pitch-dial',
         'sing-graph',
 
+        'ngResource',
         'angulartics',
         'angulartics.google.analytics',
         'infinite-scroll'
