@@ -12,10 +12,10 @@ exports.save = function(req, res) {
 }
 
 exports.update = function(req, res) {
-	var student = req.body;
-	student._id = req.params.id;
-    new Student(student).save();
-    res.send(200);
+    Student.findByIdAndUpdate(req.params.id, { $set: req.body}, function (err, student) {
+	  if (err) return handleError(err);
+	  res.send(student);
+	});
 }
 
 exports.find = function(req, res) {
