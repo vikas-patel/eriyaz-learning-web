@@ -30,11 +30,18 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			$rootScope.$on('$stateChangeSuccess', 
 				function(event, toState, toParams, fromState, fromParams){
 					if (toState.name != 'alankars') return;
-					if ($scope.user) return;
-					$scope.user = Student.get({id: $window.sessionStorage.userId}, function() {
-						console.log("user:" + $scope.user);
-					});
-					$scope.showSettings = true;
+					if (!$scope.user) {
+						$scope.user = Student.get({id: $window.sessionStorage.userId}, function() {
+							if (!$scope.user.settings || !$scope.user.settings.rootNote) {
+								$scope.showSettings = true;
+								console.log("get call back");
+							}
+						});
+						return;
+					}
+					if (!$scope.user.settings || !$scope.user.settings.rootNote) {
+						$scope.showSettings = true;
+					}
 				})
 			$scope.updateSettings = function() {
 				$scope.user.$update(function() {

@@ -8,7 +8,7 @@
 		    </select>
 			<button ng-click="startOrPause()" ng-class="{start:operation==='start', pause:operation==='pause', resume:operation==='resume'||operation==='over'}" ng-disabled="operation==='over'"></button>
 			<button ng-click="reset()" ng-disabled="operation==='start'">Reset</button>
-			<button ng-click="showSetting=true">Settings</button>
+			<button ng-click="showSettings=true">Settings</button>
 		</div>
 		<div style="float: right;">
 			<span>Last Score: </span><span id='lastScore'>{{lastScore*100 | number:0}}%</span>
