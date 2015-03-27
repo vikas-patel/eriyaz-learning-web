@@ -11,7 +11,12 @@ var UserSchema = new mongoose.Schema({
         email        : String,
         password     : String,
     },
-	join_date: { type : Date, default : Date.now }
+	join_date: { type : Date, default : Date.now },
+    settings : {
+        rootNote: Number,
+        isPlayInstrument: Boolean,
+        isPlayTanpura: Boolean
+    }
 }, { collection : 'user', discriminatorKey : 'type' });
 
 // methods ======================

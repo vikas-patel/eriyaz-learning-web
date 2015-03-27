@@ -13,11 +13,12 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 		var countDownProgress = false;
 		var maxNotes = 5;
 		var instrumentEnabled = false;
-		app.controller('SingGraphCtrl', function($scope, ScoreService, ExerciseService) {
+		app.controller('SingGraphCtrl', function($scope, $rootScope, ScoreService, ExerciseService, Student, $window) {
 			init();
 			// Load Exercises
 			$scope.exercises = ExerciseService.findAll();
 			$scope.operation = 'start';
+			$scope.showSettings = false;
 			$scope.showOverlay = false;
 			$scope.lastScore = 0;
 			$scope.totalScore = 0;
@@ -26,6 +27,21 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			$scope.rootNote = 48;
 			$scope.signalOn = false;
 			$scope.isInstrumentProgress = false;
+			$rootScope.$on('$stateChangeSuccess', 
+				function(event, toState, toParams, fromState, fromParams){
+					if (toState.name != 'alankars') return;
+					if ($scope.user) return;
+					$scope.user = Student.get({id: $window.sessionStorage.userId}, function() {
+						console.log("user:" + $scope.user);
+					});
+					$scope.showSettings = true;
+				})
+			$scope.updateSettings = function() {
+				$scope.user.$update(function() {
+					console.log("updated.");
+					$scope.showSettings = false;
+				});
+			}
 			$scope.startOrPause = function(){
 				if (!$scope.myExercise) {
 					showToastMessage("Please Select Exercise.");
@@ -52,8 +68,12 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			}
 
 			$scope.$watch(function(scope) { return scope.myExercise },
-              function() {if(!$scope.myExercise) return; setExercise()}
-             );
+              function() {
+              	if(!$scope.myExercise) 
+              		return; 
+              	setExercise();
+              	$scope.operation = 'start';
+              });
 
 			$scope.$watch(function(scope) { return scope.rootNote },
               function() {
@@ -209,6 +229,8 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 				document.querySelector('#toast-alert').setAttribute("text", text);
 				document.querySelector('#toast-alert').show();
 			}
+
+
 		});
 		
 		// function startCountdown(callback) {
