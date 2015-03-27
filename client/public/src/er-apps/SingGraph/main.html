@@ -1,4 +1,5 @@
 <div id="sing-graph" ng-controller="SingGraphCtrl">
+	<div ng-view></div>
 	<div class="header">
 		<div style="float: left;">
 			<select ng-model="myExercise" ng-class="{invalid:myExercise==null&&toastMessageDisplayed}"
@@ -7,21 +8,7 @@
 		    </select>
 			<button ng-click="startOrPause()" ng-class="{start:operation==='start', pause:operation==='pause', resume:operation==='resume'||operation==='over'}" ng-disabled="operation==='over'"></button>
 			<button ng-click="reset()" ng-disabled="operation==='start'">Reset</button>
-			<select ng-model="rootNote" ng-class="{invalid:rootNote==null&&toastMessageDisplayed}">
-				<option value="">-- Set Sa --</option>
-				<option value="47">Safed 7 (B)</option>
-				<option value="48">Safed 1 (C)</option>
-				<option value="49">Kali 1 (C#)</option>
-				<option value="50">Safed 2 (D)</option>
-				<option value="51">Kali 2 (D#)</option>
-				<option value="52">Safed 3 (E)</option>
-				<option value="53">Safed 4 (F)</option>
-				<option value="54">Kali 3 (F#)</option>
-				<option value="55">Safed 5 (G)</option>
-				<option value="56">Kali 4 (G#)</option>
-				<option value="57">Safed 6 (A)</option>
-				<option value="58">Kali 5 (A#)</option>
-			</select>			
+			<button ng-click="showSettings=true">Settings</button>
 		</div>
 		<div style="float: right;">
 			<span>Last Score: </span><span id='lastScore'>{{lastScore*100 | number:0}}%</span>
@@ -41,4 +28,36 @@
 	  		<button ng-click="next()" id="next-exercise">Next</button>
 	  	</div>
 	<div>
+	<paper-dialog backdrop autoCloseDisabled layered="true" opened="{{showSettings}}" id="setting-dialog" heading="Settings">
+		<div>
+			<label for="setSa"> Set Your Sa: </label>
+			<select ng-model="user.settings.rootNote" ng-class="{invalid:rootNote==null&&toastMessageDisplayed}" name="setSa">
+					<option value="">-- Set Sa --</option>
+					<option value="47">Safed 7 (B)</option>
+					<option value="48">Safed 1 (C)</option>
+					<option value="49">Kali 1 (C#)</option>
+					<option value="50">Safed 2 (D)</option>
+					<option value="51">Kali 2 (D#)</option>
+					<option value="52">Safed 3 (E)</option>
+					<option value="53">Safed 4 (F)</option>
+					<option value="54">Kali 3 (F#)</option>
+					<option value="55">Safed 5 (G)</option>
+					<option value="56">Kali 4 (G#)</option>
+					<option value="57">Safed 6 (A)</option>
+					<option value="58">Kali 5 (A#)</option>
+				</select>
+		</div>
+		<div>
+			<label for="isPlayInstrument">Sing with Instrument:</label>
+			<input ng-model="user.settings.isPlayInstrument" type="checkbox" id="isPlayInstrument" />
+        </div>  
+        <div>
+        	<label for="isPlayTanpura">Tanpura in Background:</label>
+			<input ng-model="user.settings.isPlayTanpura" type="checkbox" id="isPlayTanpura" />
+        </div>
+        <div>
+        	<button type="submit" ng-click="updateSettings()">Save</button>
+		</div>
+	</paper-dialog>
+	
 </div>

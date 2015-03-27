@@ -12,31 +12,51 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 		var countDownDisplayed = false;
 		var countDownProgress = false;
 		var maxNotes = 5;
-		var instrumentEnabled = false;
-		app.controller('SingGraphCtrl', function($scope, ScoreService, ExerciseService) {
+		app.controller('SingGraphCtrl', function($scope, $rootScope, ScoreService, ExerciseService, Student, $window) {
 			init();
 			// Load Exercises
 			$scope.exercises = ExerciseService.findAll();
 			$scope.operation = 'start';
+			$scope.showSettings = false;
 			$scope.showOverlay = false;
 			$scope.lastScore = 0;
 			$scope.totalScore = 0;
 			$scope.scoreCount = 0;
 			$scope.partNumber = 0;
-			$scope.rootNote = 48;
 			$scope.signalOn = false;
 			$scope.isInstrumentProgress = false;
+			$rootScope.$on('$stateChangeSuccess', 
+				function(event, toState, toParams, fromState, fromParams){
+					if (toState.name != 'alankars') return;
+					if (!$scope.user) {
+						$scope.user = Student.get({id: $window.sessionStorage.userId}, function() {
+							if (!$scope.user.settings || !$scope.user.settings.rootNote) {
+								$scope.showSettings = true;
+							}
+						});
+						return;
+					}
+					if (!$scope.user.settings || !$scope.user.settings.rootNote) {
+						$scope.showSettings = true;
+					}
+				})
+			$scope.updateSettings = function() {
+				$scope.user.$update(function() {
+					$scope.showSettings = false;
+				});
+			}
 			$scope.startOrPause = function(){
 				if (!$scope.myExercise) {
 					showToastMessage("Please Select Exercise.");
 					$scope.toastMessageDisplayed = true;
 					return;
 				}
-				if (!$scope.rootNote) {
+				if (!$scope.user.settings.rootNote) {
 					showToastMessage("Please Set Sa.");
 					$scope.toastMessageDisplayed = true;
 					return;
 				}
+				$scope.rootFreq = Note.numToFreq($scope.user.settings.rootNote);
 				switch($scope.operation) {
 					case 'start':
 						if ($scope.signalOn) {
@@ -52,15 +72,12 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			}
 
 			$scope.$watch(function(scope) { return scope.myExercise },
-              function() {if(!$scope.myExercise) return; setExercise()}
-             );
-
-			$scope.$watch(function(scope) { return scope.rootNote },
               function() {
-              	if(!$scope.rootNote) return; 
-              	$scope.rootFreq = Note.numToFreq($scope.rootNote);
-              }
-             );
+              	if(!$scope.myExercise) 
+              		return; 
+              	setExercise();
+              	$scope.operation = 'start';
+              });
 
 			$scope.$watch(function(scope) { return scope.signalOn},
               function() {
@@ -177,7 +194,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			}
 
 			function start() {
-				if (instrumentEnabled && !$scope.isInstrumentProgress) {
+				if ($scope.user.settings.isPlayInstrument && !$scope.isInstrumentProgress) {
 					$scope.isInstrumentProgress = true;
 					$scope.$broadcast('start-instrument');
 					showToastMessage("First Listen.");
@@ -209,6 +226,8 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 				document.querySelector('#toast-alert').setAttribute("text", text);
 				document.querySelector('#toast-alert').show();
 			}
+
+
 		});
 		
 		// function startCountdown(callback) {
