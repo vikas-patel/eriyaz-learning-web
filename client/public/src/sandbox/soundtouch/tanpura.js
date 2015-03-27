@@ -150,7 +150,3 @@ var Tanpura = function(key,tuning) {
 		local.strings[3] = new StringChannel(local.key-12, local.soundbank);
 	};
 };
-
-//47 - 58
-var tanpura = new Tanpura(47,7);
-tanpura.play();

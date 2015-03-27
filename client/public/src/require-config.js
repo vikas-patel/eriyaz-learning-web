@@ -77,7 +77,7 @@ requirejs.config({
         main: 'index'
     }, {
         name: 'tanpura',
-        location: 'client/public/src/er-libs/tanpura',
+        location: 'er-libs/tanpura',
         main: 'tanpura'
     }
     ]

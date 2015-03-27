@@ -1,7 +1,6 @@
-define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiobuffer', 'pitchdetector', 'note'
-	  //'countdown', 
-	  ],
-	function(app, $, exercises, MicUtil, CurrentAudioContext, AudioBuffer, PitchDetector, Note) {
+define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiobuffer', 'pitchdetector', 'note',
+		'tanpura'],
+	function(app, $, exercises, MicUtil, CurrentAudioContext, AudioBuffer, PitchDetector, Note, Tanpura) {
 		//constants
 		var detector;
 		//other globals;
@@ -12,6 +11,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 		var countDownDisplayed = false;
 		var countDownProgress = false;
 		var maxNotes = 5;
+		var tanpura;
 		app.controller('SingGraphCtrl', function($scope, $rootScope, ScoreService, ExerciseService, Student, $window) {
 			init();
 			// Load Exercises
@@ -27,32 +27,35 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			$scope.isInstrumentProgress = false;
 			$rootScope.$on('$stateChangeSuccess', 
 				function(event, toState, toParams, fromState, fromParams){
-					if (toState.name != 'alankars') return;
-					if (!$scope.user) {
-						$scope.user = Student.get({id: $window.sessionStorage.userId}, function() {
-							if (!$scope.user.settings || !$scope.user.settings.rootNote) {
-								$scope.showSettings = true;
-							}
-						});
-						return;
+					if (fromState.name == 'alankars') {
+						stopTanpura();
 					}
-					if (!$scope.user.settings || !$scope.user.settings.rootNote) {
-						$scope.showSettings = true;
-					}
-				})
+					if (toState.name == 'alankars') {
+						if (!$scope.user) {
+							$scope.user = Student.get({id: $window.sessionStorage.userId}, function() {
+								if (!$scope.user.settings || !$scope.user.settings.rootNote) {
+									$scope.showSettings = true;
+								}
+							});
+							return;
+						}
+						if (!$scope.user.settings || !$scope.user.settings.rootNote) {
+							$scope.showSettings = true;
+						}
+				}});
 			$scope.updateSettings = function() {
 				$scope.user.$update(function() {
 					$scope.showSettings = false;
 				});
 			}
 			$scope.startOrPause = function(){
-				if (!$scope.myExercise) {
-					showToastMessage("Please Select Exercise.");
-					$scope.toastMessageDisplayed = true;
+				if (!$scope.user.settings.rootNote) {
+					$scope.showSettings = true;
 					return;
 				}
-				if (!$scope.user.settings.rootNote) {
-					showToastMessage("Please Set Sa.");
+				
+				if (!$scope.myExercise) {
+					showToastMessage("Please Select Exercise.");
 					$scope.toastMessageDisplayed = true;
 					return;
 				}
@@ -77,6 +80,13 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
               		return; 
               	setExercise();
               	$scope.operation = 'start';
+              });
+
+			$scope.$watch(function(scope) { 
+					return isUserSettingChanged();
+				},
+              function() {
+              		startTanpura($scope);
               });
 
 			$scope.$watch(function(scope) { return scope.signalOn},
@@ -227,6 +237,29 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 				document.querySelector('#toast-alert').show();
 			}
 
+			function startTanpura() {
+				if ($scope.user && $scope.user.settings) {
+					if ($scope.user.settings.isPlayTanpura) {
+						tanpura = new Tanpura($scope.user.settings.rootNote, 7);
+						tanpura.play();
+					} else {
+						stopTanpura();
+					}
+				}
+			}
+
+			function stopTanpura() {
+				if(tanpura) {
+					tanpura.stop();
+				}
+			}
+
+			function isUserSettingChanged() {
+				if ($scope.user && $scope.user.settings && $scope.user.settings.isPlayTanpura) {
+					return true;
+				}
+				return false;
+			}
 
 		});
 		
