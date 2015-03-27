@@ -34,7 +34,6 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 						$scope.user = Student.get({id: $window.sessionStorage.userId}, function() {
 							if (!$scope.user.settings || !$scope.user.settings.rootNote) {
 								$scope.showSettings = true;
-								console.log("get call back");
 							}
 						});
 						return;
@@ -45,7 +44,6 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 				})
 			$scope.updateSettings = function() {
 				$scope.user.$update(function() {
-					console.log("updated.");
 					$scope.showSettings = false;
 				});
 			}
