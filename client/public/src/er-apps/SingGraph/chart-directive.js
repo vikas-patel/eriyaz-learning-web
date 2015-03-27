@@ -276,7 +276,7 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 				});
 
 				scope.$on('start-instrument',function() {
-					chart.startInstrument(scope.context, scope.rootNote);
+					chart.startInstrument(scope.context, scope.user.settings.rootNote);
 					//chart.play(scope.context, scope.rootNote);
 				});
 

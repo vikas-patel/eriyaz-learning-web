@@ -12,7 +12,6 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 		var countDownDisplayed = false;
 		var countDownProgress = false;
 		var maxNotes = 5;
-		var instrumentEnabled = false;
 		app.controller('SingGraphCtrl', function($scope, $rootScope, ScoreService, ExerciseService, Student, $window) {
 			init();
 			// Load Exercises
@@ -24,7 +23,6 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			$scope.totalScore = 0;
 			$scope.scoreCount = 0;
 			$scope.partNumber = 0;
-			$scope.rootNote = 48;
 			$scope.signalOn = false;
 			$scope.isInstrumentProgress = false;
 			$rootScope.$on('$stateChangeSuccess', 
@@ -53,11 +51,12 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 					$scope.toastMessageDisplayed = true;
 					return;
 				}
-				if (!$scope.rootNote) {
+				if (!$scope.user.settings.rootNote) {
 					showToastMessage("Please Set Sa.");
 					$scope.toastMessageDisplayed = true;
 					return;
 				}
+				$scope.rootFreq = Note.numToFreq($scope.user.settings.rootNote);
 				switch($scope.operation) {
 					case 'start':
 						if ($scope.signalOn) {
@@ -79,13 +78,6 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
               	setExercise();
               	$scope.operation = 'start';
               });
-
-			$scope.$watch(function(scope) { return scope.rootNote },
-              function() {
-              	if(!$scope.rootNote) return; 
-              	$scope.rootFreq = Note.numToFreq($scope.rootNote);
-              }
-             );
 
 			$scope.$watch(function(scope) { return scope.signalOn},
               function() {
@@ -202,7 +194,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			}
 
 			function start() {
-				if (instrumentEnabled && !$scope.isInstrumentProgress) {
+				if ($scope.user.settings.isPlayInstrument && !$scope.isInstrumentProgress) {
 					$scope.isInstrumentProgress = true;
 					$scope.$broadcast('start-instrument');
 					showToastMessage("First Listen.");
