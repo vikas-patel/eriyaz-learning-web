@@ -10,7 +10,7 @@ define(
 		'./ui.model',	
 		'./login-signup-dialog.model',
 		'./apps-info.model',
-		'./student.model'
-
+		'./student.model',
+		'./score.model',
 	],
 	function() {});
