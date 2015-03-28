@@ -66,7 +66,7 @@ exports.saveScore = function(req, res) {
 
 exports.findAllScores = function(req, res) {
 	Score.aggregate([
-		{ $match : { student : new mongoose.Types.ObjectId(req.params.id) }},
+		{ $match : { user : new mongoose.Types.ObjectId(req.params.id) }},
     	 { $group: { _id: {day: { $dayOfMonth: "$completionTime" }, month: { $month: "$completionTime" }, 
     	 			year: { $year: "$completionTime" }, exercise:'$exercise'}, maxScore: { $max: '$score' }}},
     	 { $project: { _id: 0, year:"$_id.year", month:"$_id.month", day:"$_id.day", maxScore: 1, exercise: "$_id.exercise" } },
@@ -74,6 +74,6 @@ exports.findAllScores = function(req, res) {
     	],
   		function (err, scores) {
 			  if (err) return handleError(err);
-			  res.json(scores);3
+			  res.json(scores);
 		});
 }

@@ -5,7 +5,8 @@
             save: function(exerciseName, score) {
                 var userId = $window.sessionStorage.userId;
                 $http.post(base_url + '/students/score', {
-                    student: userId,
+                    user: userId,
+                    appName: "alankar",
                     exercise: exerciseName,
                     score:score
                 }).success(function(data) {
