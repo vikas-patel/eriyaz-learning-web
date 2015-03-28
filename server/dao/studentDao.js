@@ -1,4 +1,4 @@
-var Student = require('../model/student.js');
+var Student = require('../model/user.js');
 var Score = require('../model/alankar-score.js');
 var mongoose = require('mongoose');
 
@@ -22,7 +22,7 @@ exports.update = function(req, res) {
 exports.find = function(req, res) {
 	Student
 		.findOne({_id: req.params.id})
-		.populate('activeExercises')
+		//.populate('activeExercises')
 		.exec(function(err, student) {
 		    if (err) res.send(err);
 	    	res.json(student);
@@ -32,30 +32,10 @@ exports.find = function(req, res) {
 exports.findAll = function(req, res) {
 	Student
 		.find()
-		.populate('activeExercises')
+		//.populate('activeExercises')
 		.exec(function(err, students) {
 		    if (err) res.send(err);
 	    	res.json(students);
-	});
-}
-
-exports.findAllExercises = function(req, res) {
-	Student
-		.findOne({_id: req.params.id})
-		.populate('allExercises')
-		.exec(function(err, student) {
-		    if (err) res.send(err);
-	    	res.json(student.allExercises);
-	});
-}
-
-exports.findActiveExercises = function(req, res) {
-	Student
-		.findOne({_id: req.params.id})
-		.populate('activeExercises')
-		.exec(function(err, student) {
-		    if (err) res.send(err);
-	    	res.json(student.activeExercises);
 	});
 }
 
@@ -73,7 +53,7 @@ exports.assignExercise = function(req, res) {
 	Student.findOne({_id: req.query.studentId})
 		.exec(function(err, student) {
 		    if (err) res.send(err);
-		    student.activeExercises.push(req.query.exerciseId);
+		    //student.activeExercises.push(req.query.exerciseId);
 		    student.save();
 	    	res.send(200);
 	});

@@ -1,6 +1,4 @@
 var mongoose = require('mongoose');
-var extend = require('mongoose-schema-extend');
-var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
 //var Schema = mongoose.Schema;
 
@@ -19,7 +17,7 @@ var UserSchema = new mongoose.Schema({
         isPlayInstrument: Boolean,
         isPlayTanpura: Boolean
     }
-}, { collection : 'user', discriminatorKey : 'type' });
+});
 
 // methods ======================
 // generating a hash
@@ -32,7 +30,7 @@ UserSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.local.password);
 };
 
-module.exports = UserSchema;
+module.exports = mongoose.model('User', UserSchema);;
 
 //TODO:
     // facebook         : {
