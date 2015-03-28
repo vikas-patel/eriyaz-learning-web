@@ -12,6 +12,9 @@ var UserSchema = new mongoose.Schema({
         password     : String,
     },
 	join_date: { type : Date, default : Date.now },
+    isTeacher: { type : Boolean, default : false},
+    teacher: {type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'},
     settings : {
         rootNote: Number,
         isPlayInstrument: Boolean,

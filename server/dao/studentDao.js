@@ -1,5 +1,5 @@
 var Student = require('../model/user.js');
-var Score = require('../model/alankar-score.js');
+var Score = require('../model/score.js');
 var mongoose = require('mongoose');
 
 //TODO:
