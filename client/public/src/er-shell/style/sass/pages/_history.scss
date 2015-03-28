@@ -1,0 +1,32 @@
+#history {
+	color:#99;
+
+	#daily {
+    	margin:40px 0 0 0;
+		padding:0 0 40px 0;
+      	// border-bottom: 1px solid #ddd;
+	}
+
+	h1 {
+		// font-size: 20px;
+		font-weight: bold;
+	}
+	h2 {
+		// font-weight: bold;
+		margin:20px 0 10px 25px;
+	}
+
+	dl {
+		margin:0 0 0 50px;
+	}
+
+	dt {
+    float: left;
+    clear: left;
+    width: 200px;
+    text-align: left;
+  }
+   dt:after {
+    content: " :";
+  }
+}

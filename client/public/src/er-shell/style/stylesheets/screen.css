@@ -461,6 +461,39 @@ core-drawer-panel:not([narrow]) #navicon {
   margin: 10px 50px 0 0;
 }
 
+/* line 1, ../sass/pages/_history.scss */
+#history {
+  color: #99;
+}
+/* line 4, ../sass/pages/_history.scss */
+#history #daily {
+  margin: 40px 0 0 0;
+  padding: 0 0 40px 0;
+}
+/* line 10, ../sass/pages/_history.scss */
+#history h1 {
+  font-weight: bold;
+}
+/* line 14, ../sass/pages/_history.scss */
+#history h2 {
+  margin: 20px 0 10px 25px;
+}
+/* line 19, ../sass/pages/_history.scss */
+#history dl {
+  margin: 0 0 0 50px;
+}
+/* line 23, ../sass/pages/_history.scss */
+#history dt {
+  float: left;
+  clear: left;
+  width: 200px;
+  text-align: left;
+}
+/* line 29, ../sass/pages/_history.scss */
+#history dt:after {
+  content: " :";
+}
+
 /* line 6, ../../../er-apps/PitchDial/main.scss */
 #pitch-dial .container-toplevel {
   position: relative;

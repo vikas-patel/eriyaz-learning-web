@@ -12,6 +12,7 @@ define([
     './models/index',
     './services/index',
     './directives/index',
+    './filters/index',
     'pitch-dial',
     'sing-graph'
 ], function (angular) {
@@ -22,6 +23,7 @@ define([
         'app.models',
         'app.services',
         'app.directives',
+        'app.filters',
         'ui.router',
         'pitch-dial',
         'sing-graph',

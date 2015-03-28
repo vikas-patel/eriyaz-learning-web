@@ -1,12 +1,14 @@
 <!-- <link rel="import" 
   href="../external-libs/bower_components/paper-shadow/paper-shadow.html"> -->
 <div id="history">
-	<h6>Day</h6>
-<h6>Total Practice Time</h6>
-	<h6>Max Scores</h6>
 	<div ng-controller='HistoryCtrl'>
-	  
-		{{scores}}
-	  
+		<div id="daily" ng-repeat="score in scores">
+			<h1>{{score.completionTime | date2:'doo MMM, EEE'}}</h1>
+			<h2>Best Scores</h2>
+			<dl>
+				<dt>Alankars: {{score.exercise}}</dt>
+				<dd>{{score.score*100 | number:1}}%</dd>
+			</dl>
+		</div>
 	</div>
 </div>
