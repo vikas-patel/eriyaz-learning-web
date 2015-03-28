@@ -1,5 +1,6 @@
 var Student = require('../model/student.js');
 var Score = require('../model/alankar-score.js');
+var mongoose = require('mongoose');
 
 //TODO:
 // Test Update and Delete
@@ -84,9 +85,15 @@ exports.saveScore = function(req, res) {
 }
 
 exports.findAllScores = function(req, res) {
-	Score.find({student: req.params.id})
-		.exec(function(err, scores) {
-			if(err) res.send(err);
-			res.json(scores);
+	Score.aggregate([
+		{ $match : { student : new mongoose.Types.ObjectId(req.params.id) }},
+    	 { $group: { _id: {day: { $dayOfMonth: "$completionTime" }, month: { $month: "$completionTime" }, 
+    	 			year: { $year: "$completionTime" }, exercise:'$exercise'}, maxScore: { $max: '$score' }}},
+    	 { $project: { _id: 0, year:"$_id.year", month:"$_id.month", day:"$_id.day", maxScore: 1, exercise: "$_id.exercise" } },
+    	 { $sort : { year: -1, month: -1, day: -1, maxScore: -1} }
+    	],
+  		function (err, scores) {
+			  if (err) return handleError(err);
+			  res.json(scores);3
 		});
 }
