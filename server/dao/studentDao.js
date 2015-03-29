@@ -83,3 +83,21 @@ exports.findAllScores = function(req, res) {
 			  res.json(scores);
 		});
 }
+
+exports.findAllTeachers = function(req, res) {
+	Student
+		.find({isTeacher: true})
+		.exec(function(err, teachers) {
+		    if (err) res.send(err);
+	    	res.json(teachers);
+	});
+}
+
+exports.findAllStudentsByTeacher = function(req, res) {
+	Student
+		.find({teacher: req.params.id})
+		.exec(function(err, students) {
+		    if (err) res.send(err);
+	    	res.json(students);
+	});
+}
