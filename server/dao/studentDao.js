@@ -68,12 +68,18 @@ exports.findAllScores = function(req, res) {
 	Score.aggregate([
 		{ $match : { user : new mongoose.Types.ObjectId(req.params.id) }},
     	 { $group: { _id: {day: { $dayOfMonth: "$completionTime" }, month: { $month: "$completionTime" }, 
-    	 			year: { $year: "$completionTime" }, exercise:'$exercise'}, maxScore: { $max: '$score' }}},
-    	 { $project: { _id: 0, year:"$_id.year", month:"$_id.month", day:"$_id.day", maxScore: 1, exercise: "$_id.exercise" } },
-    	 { $sort : { year: -1, month: -1, day: -1, maxScore: -1} }
+    	 			year: { $year: "$completionTime" }, exercise:'$exercise'}, score: { $max: '$score' }}},
+    	 { $project: { _id: 0, year:"$_id.year", month:"$_id.month", day:"$_id.day", score: 1, exercise: "$_id.exercise" } },
+    	 { $sort : { year: -1, month: -1, day: -1, score: -1} }
     	],
   		function (err, scores) {
 			  if (err) return handleError(err);
+			  scores.forEach(function(score){
+			  		score.completionTime = score.day + " " + score.month + "," +score.year;
+			  		delete score.day;
+			  		delete score.month;
+			  		delete score.year;
+			  });
 			  res.json(scores);
 		});
 }
