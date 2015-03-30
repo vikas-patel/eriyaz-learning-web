@@ -1,7 +1,6 @@
   define(['./module'], function(app) {
   	app.controller("FrontCtrl", function($scope, $location, $window, LoginSignupService) {
   		$scope.loginasguest = function() {
-          console.log("front controller");
   				LoginSignupService.logIn("guest", "guest").success(function(data) {
   					if (data.status === "success") {
               $window.sessionStorage.userId = data.user._id;
