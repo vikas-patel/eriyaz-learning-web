@@ -15,6 +15,7 @@
           </core-item>
         </core-submenu>
         <core-submenu label="User">
+          <core-item label="Students" ng-show="{{uiModel.isTeacher}}"><a href="#students" target="_self"></a></core-item>
           <core-item label="History"><a href="#history" target="_self"></a></core-item>
           <core-item label="Profile"><a href="#profile" target="_self"></a></core-item>
           <core-item label="logout"><a href="#logout" target="_self"></a></core-item>

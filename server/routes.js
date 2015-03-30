@@ -1,6 +1,6 @@
 var express = require('express');
 var path = require('path');
-var studentDao = require('./dao/studentDao.js');
+var userDao = require('./dao/userDao.js');
 var exerciseDao = require('./dao/exerciseDao.js');
 // app/routes.js
 module.exports = function(app, passport) {
@@ -37,18 +37,18 @@ module.exports = function(app, passport) {
 		})(req, res, next);
 	});
 
-	app.post('/students', studentDao.save);
-	app.put('/students/:id', studentDao.update);
-	app.get('/assignExercise', studentDao.assignExercise);
-	app.get('/students', studentDao.findAll);
-	app.get('/students/:id', studentDao.find);
-	app.delete('/students/:id', studentDao.remove);
+	app.post('/users', userDao.save);
+	app.put('/users/:id', userDao.update);
+	app.get('/assignExercise', userDao.assignExercise);
+	app.get('/users', userDao.findAll);
+	app.get('/users/:id', userDao.find);
+	app.delete('/users/:id', userDao.remove);
 
-	app.post('/students/score', studentDao.saveScore);
-	app.get('/students/score/:id', studentDao.findAllScores);
+	app.post('/users/score', userDao.saveScore);
+	app.get('/users/score/:id', userDao.findAllScores);
 
-	app.get('/teachers', studentDao.findAllTeachers);
-	app.get('/teachers/students/:id', studentDao.findAllStudentsByTeacher);
+	app.get('/teachers', userDao.findAllTeachers);
+	app.get('/teachers/students/:id', userDao.findAllStudentsByTeacher);
 
 	function customJsonCalback(req, res, next, err, user, info) {
 		if (err) {

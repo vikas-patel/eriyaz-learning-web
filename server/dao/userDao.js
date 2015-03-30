@@ -1,4 +1,4 @@
-var Student = require('../model/user.js');
+var User = require('../model/user.js');
 var Score = require('../model/score.js');
 var mongoose = require('mongoose');
 var _ = require('underscore');
@@ -6,63 +6,63 @@ var _ = require('underscore');
 // Test Update and Delete
 
 exports.save = function(req, res) {
-	new Student(req.body).save();
+	new User(req.body).save();
 	res.send(200);
 	//TO DO: Exception
 	//res.send(400);
 }
 
 exports.update = function(req, res) {
-	Student.findByIdAndUpdate(req.params.id, {
+	User.findByIdAndUpdate(req.params.id, {
 		$set: req.body
-	}, function(err, student) {
+	}, function(err, user) {
 		if (err) return handleError(err);
-		res.send(student);
+		res.send(user);
 	});
 }
 
 exports.find = function(req, res) {
-	Student
+	User
 		.findOne({
 			_id: req.params.id
 		})
 		//.populate('activeExercises')
-		.exec(function(err, student) {
+		.exec(function(err, user) {
 			if (err) res.send(err);
-			res.json(student);
+			res.json(user);
 		});
 }
 
 exports.findAll = function(req, res) {
-	Student
+	User
 		.find()
 		//.populate('activeExercises')
-		.exec(function(err, students) {
+		.exec(function(err, users) {
 			if (err) res.send(err);
-			res.json(students);
+			res.json(users);
 		});
 }
 
 exports.remove = function(req, res) {
-	Student.remove({
+	User.remove({
 		_id: req.params.id
 	}).exec();
 	res.send(200);
 }
 
 exports.removeAll = function(req, res) {
-	Student.remove().exec();
+	User.remove().exec();
 	res.send(200);
 }
 
 exports.assignExercise = function(req, res) {
-	Student.findOne({
-			_id: req.query.studentId
+	User.findOne({
+			_id: req.query.userId
 		})
-		.exec(function(err, student) {
+		.exec(function(err, user) {
 			if (err) res.send(err);
-			//student.activeExercises.push(req.query.exerciseId);
-			student.save();
+			//user.activeExercises.push(req.query.exerciseId);
+			user.save();
 			res.send(200);
 		});
 }
@@ -135,7 +135,7 @@ exports.findAllScores = function(req, res) {
 }
 
 exports.findAllTeachers = function(req, res) {
-	Student
+	User
 		.find({
 			isTeacher: true
 		})
@@ -146,7 +146,7 @@ exports.findAllTeachers = function(req, res) {
 }
 
 exports.findAllStudentsByTeacher = function(req, res) {
-	Student
+	User
 		.find({
 			teacher: req.params.id
 		})

@@ -1,6 +1,6 @@
   define(['./module'], function(app) {
-  	app.controller("ProfileCtrl", function($scope, $window, Student) {
-  		$scope.user = Student.get({
+  	app.controller("ProfileCtrl", function($scope, $window, User) {
+  		$scope.user = User.get({
   			id: $window.sessionStorage.userId
   		});
 
