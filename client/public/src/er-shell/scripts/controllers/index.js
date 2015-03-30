@@ -7,6 +7,7 @@
 define([
     // './my-ctrl-1',
     './app.ctrl',
+    './front.ctrl',
     './login.ctrl',
     './signup.ctrl',
     './profile.ctrl',
