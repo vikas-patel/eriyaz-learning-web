@@ -39,6 +39,10 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 					if (fromState.name == 'alankars') {
 						stopTanpura();
 					}
+					if (toState.name == 'alankars' && $scope.user && $scope.user.settings
+						&& $scope.user.settings.isPlayTanpura) {
+						startTanpura();
+					}
 				});
 			$scope.updateSettings = function() {
 				$scope.user.$update(function() {
