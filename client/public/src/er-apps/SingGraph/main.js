@@ -28,6 +28,10 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			$scope.user = Student.get({id: $window.sessionStorage.userId}, function() {
 				if (!$scope.user.settings || !$scope.user.settings.rootNote) {
 					$scope.showSettings = true;
+					return;
+				}
+				if ($scope.user.settings.isPlayTanpura) {
+					startTanpura();
 				}
 			});
 			$rootScope.$on('$stateChangeSuccess', 
@@ -39,6 +43,11 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			$scope.updateSettings = function() {
 				$scope.user.$update(function() {
 					$scope.showSettings = false;
+					if ($scope.user.settings.isPlayTanpura) {
+						startTanpura();
+					} else {
+						stopTanpura();
+					}
 				});
 			}
 			$scope.startOrPause = function(){
@@ -73,13 +82,6 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
               		return; 
               	setExercise();
               	$scope.operation = 'start';
-              });
-
-			$scope.$watch(function(scope) { 
-					return isUserSettingChanged();
-				},
-              function() {
-              		startTanpura($scope);
               });
 
 			$scope.$watch(function(scope) { return scope.signalOn},
@@ -231,27 +233,14 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			}
 
 			function startTanpura() {
-				if ($scope.user && $scope.user.settings) {
-					if ($scope.user.settings.isPlayTanpura) {
-						tanpura = new Tanpura($scope.user.settings.rootNote, 7);
-						tanpura.play();
-					} else {
-						stopTanpura();
-					}
-				}
+				tanpura = new Tanpura($scope.user.settings.rootNote, 7);
+				tanpura.play();
 			}
 
 			function stopTanpura() {
 				if(tanpura) {
 					tanpura.stop();
 				}
-			}
-
-			function isUserSettingChanged() {
-				if ($scope.user && $scope.user.settings && $scope.user.settings.isPlayTanpura) {
-					return true;
-				}
-				return false;
 			}
 
 		});
@@ -261,10 +250,6 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 		// 	//GameCountDown = new jQuery.GameCountDown();
 		// 	countDown.Add({control: '#counter', seconds: 4});
 		// };
-
-		// function play() {
-		// 	chart.play(context, $scope.rootNote);
-		// }
 
 		// function displayCountDown() {
 		// 	if (countDownDisplayed) return true;
