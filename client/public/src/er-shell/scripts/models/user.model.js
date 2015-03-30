@@ -1,7 +1,7 @@
   define(['./module'], function(app) {
 
-    app.factory('Student', function($resource) {
-      return $resource('students/:id', {
+    app.factory('User', function($resource) {
+      return $resource('users/:id', {
         id: '@_id'
       }, {
         update: {
