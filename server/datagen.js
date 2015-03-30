@@ -55,31 +55,33 @@ async.each(teachers, saveObj, function(err) {
 		for (var i = 0; i < users.length; i++) {
 			var date = new Date();
 			for (var d = 0; d < 7; d++) {
-				for (var e = 0; e < 5; e++) {
-					var score1 = new Score({
-						user: users[i].id,
-						appName: 'Alankars',
-						exercise: 'Alankar' + e,
-						score: Math.random(),
-						completionTime: date
-					});
-					var score2 = new Score({
-						user: users[i].id,
-						appName: 'Alankars',
-						exercise: 'Alankar' + e,
-						score: Math.random(),
-						completionTime: date
-					});
-					scores.push(score1);
-					scores.push(score2);
-				}
-
+				(function(date1) {
+					for (var e = 0; e < 5; e++) {
+						scores.push(new Score({
+							user: users[i].id,
+							appName: 'Alankars',
+							exercise: 'Alankar' + e,
+							score: Math.random(),
+							completionTime: new Date(date1)
+						}));
+						scores.push(new Score({
+							user: users[i].id,
+							appName: 'Alankars',
+							exercise: 'Alankar' + e,
+							score: Math.random(),
+							completionTime: date1
+						}));
+					}
+				})(date);
 				date.setDate(date.getDate() - 1);
 			}
 		}
 
 		async.each(scores, saveObj, function(err) {
 			console.log('saved scores');
+			for (var i = 0; i < scores.length; i++) {
+				console.log(scores[i].completionTime);
+			}
 			mongoose.disconnect();
 		});
 

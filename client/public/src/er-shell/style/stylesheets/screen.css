@@ -489,10 +489,6 @@ core-drawer-panel:not([narrow]) #navicon {
   width: 200px;
   text-align: left;
 }
-/* line 29, ../sass/pages/_history.scss */
-#history dt:after {
-  content: " :";
-}
 
 /* line 6, ../../../er-apps/PitchDial/main.scss */
 #pitch-dial .container-toplevel {

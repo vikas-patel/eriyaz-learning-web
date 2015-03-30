@@ -53,7 +53,7 @@ requirejs.config({
             deps : ['angular']
         },
         'underscore' : {
-            exportes : '_'
+            exports : '_'
         },
         'ng-infinite-scroll': {
             deps: ['angular','jquery']
