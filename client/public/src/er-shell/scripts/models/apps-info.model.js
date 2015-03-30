@@ -16,7 +16,7 @@
         appUrl: 'er-apps/PitchDial/main.html',
         aspectRatio: 5 / 6
       }, ];
-      appsInfo.selectedIndex = 0;
+      appsInfo.selectedIndex = 1;
       appsInfo.setSelected = function(index) {
         this.selectedIndex = index;
       };
