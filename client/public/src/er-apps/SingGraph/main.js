@@ -25,24 +25,17 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			$scope.partNumber = 0;
 			$scope.signalOn = false;
 			$scope.isInstrumentProgress = false;
+			$scope.user = Student.get({id: $window.sessionStorage.userId}, function() {
+				if (!$scope.user.settings || !$scope.user.settings.rootNote) {
+					$scope.showSettings = true;
+				}
+			});
 			$rootScope.$on('$stateChangeSuccess', 
 				function(event, toState, toParams, fromState, fromParams){
 					if (fromState.name == 'alankars') {
 						stopTanpura();
 					}
-					if (toState.name == 'alankars') {
-						if (!$scope.user) {
-							$scope.user = Student.get({id: $window.sessionStorage.userId}, function() {
-								if (!$scope.user.settings || !$scope.user.settings.rootNote) {
-									$scope.showSettings = true;
-								}
-							});
-							return;
-						}
-						if (!$scope.user.settings || !$scope.user.settings.rootNote) {
-							$scope.showSettings = true;
-						}
-				}});
+				});
 			$scope.updateSettings = function() {
 				$scope.user.$update(function() {
 					$scope.showSettings = false;
