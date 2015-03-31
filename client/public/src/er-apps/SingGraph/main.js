@@ -25,7 +25,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			$scope.partNumber = 0;
 			$scope.signalOn = false;
 			$scope.isInstrumentProgress = false;
-			$scope.user = User.get({id: $window.sessionStorage.userId}, function() {
+			$scope.user = User.get({id: $window.localStorage.userId}, function() {
 				if (!$scope.user.settings || !$scope.user.settings.rootNote) {
 					$scope.showSettings = true;
 					return;
