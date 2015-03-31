@@ -3,7 +3,8 @@
   		$scope.loginasguest = function() {
   				LoginSignupService.logIn("guest", "guest").success(function(data) {
   					if (data.status === "success") {
-              $window.sessionStorage.userId = data.user._id;
+              $window.localStorage.userId = data.user._id;
+              $window.localStorage.isTeacher = data.user.isTeacher;
   						$location.path("/home");
   					} else {
   						$scope.flashMessage = data.info;
