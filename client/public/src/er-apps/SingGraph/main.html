@@ -28,36 +28,45 @@
 	  		<button ng-click="next()" id="next-exercise">Next</button>
 	  	</div>
 	<div>
-	<paper-dialog backdrop autoCloseDisabled layered="true" opened="{{showSettings}}" id="setting-dialog" heading="Settings">
-		<div>
-			<label for="setSa"> Set Your Sa: </label>
-			<select ng-model="user.settings.rootNote" ng-class="{invalid:rootNote==null&&toastMessageDisplayed}" name="setSa">
-					<option value="">-- Set Sa --</option>
-					<option value="47">Safed 7 (B)</option>
-					<option value="48">Safed 1 (C)</option>
-					<option value="49">Kali 1 (C#)</option>
-					<option value="50">Safed 2 (D)</option>
-					<option value="51">Kali 2 (D#)</option>
-					<option value="52">Safed 3 (E)</option>
-					<option value="53">Safed 4 (F)</option>
-					<option value="54">Kali 3 (F#)</option>
-					<option value="55">Safed 5 (G)</option>
-					<option value="56">Kali 4 (G#)</option>
-					<option value="57">Safed 6 (A)</option>
-					<option value="58">Kali 5 (A#)</option>
-				</select>
+	<paper-dialog autoCloseDisabled layered="true" opened="{{showSettings}}" id="setting-dialog" heading="Settings">
+		<!-- paper-dialog is detached from DOM, so providing inline styles. -->
+		<style type="text/css">
+	  		.settings form  { display: table; font-size:20px; padding: 30px 30px 30px 30px; border: 1px solid #ddd;      }
+			.settings p     { display: table-row;   }
+			.settings label { display: table-cell; padding: 0 0 20px 0; }
+			.settings input, .settings select { display: table-cell; font-size:16px; margin: 0 0 0 20px; }
+			.settings button { float:right; font-size:20px; }
+		</style>
+		<div id="settings" class="settings">
+			<form>
+			    <p>
+			        <label for="setSa"> Set Your Sa: </label>
+					<select ng-model="user.settings.rootNote" ng-class="{invalid:rootNote==null&&toastMessageDisplayed}" 
+						name="setSa">
+						<option value="">-- Set Sa --</option>
+						<option value="47">Safed 7 (B)</option>
+						<option value="48">Safed 1 (C)</option>
+						<option value="49">Kali 1 (C#)</option>
+						<option value="50">Safed 2 (D)</option>
+						<option value="51">Kali 2 (D#)</option>
+						<option value="52">Safed 3 (E)</option>
+						<option value="53">Safed 4 (F)</option>
+						<option value="54">Kali 3 (F#)</option>
+						<option value="55">Safed 5 (G)</option>
+						<option value="56">Kali 4 (G#)</option>
+						<option value="57">Safed 6 (A)</option>
+						<option value="58">Kali 5 (A#)</option>
+					</select>			    
+				</p>
+			    <p>
+			        <label for="isPlayTanpura"> Tanpura in Background: </label>
+					<input name="isPlayTanpura" ng-model="user.settings.isPlayTanpura" type="checkbox" id="isPlayTanpura" />
+			    </p>
+			    <p>
+			    	<label></label>
+			    	<button type="submit" ng-click="updateSettings()">Save</button>
+			    </p>
+			</form>
 		</div>
-		<div>
-			<label for="isPlayInstrument">Sing with Instrument:</label>
-			<input ng-model="user.settings.isPlayInstrument" type="checkbox" id="isPlayInstrument" />
-        </div>  
-        <div>
-        	<label for="isPlayTanpura">Tanpura in Background:</label>
-			<input ng-model="user.settings.isPlayTanpura" type="checkbox" id="isPlayTanpura" />
-        </div>
-        <div>
-        	<button type="submit" ng-click="updateSettings()">Save</button>
-		</div>
-	</paper-dialog>
-	
+	</paper-dialog>	
 </div>

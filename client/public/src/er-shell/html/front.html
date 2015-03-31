@@ -1,7 +1,7 @@
 
 <div id="front">
 	
-<div id="intro">
+<div id="intro" ng-controller="FrontCtrl">
 <div id="header">
     <a href="#login" id="login" ng-click="uiModel.showLoginDialog='true'">login</a>
     <a href="#signup" id="signup">signup</a>
@@ -9,7 +9,7 @@
 		  <span id="eriyaz">eRiyaz</span>
 		  <span id="desc"> Learn to Sing faster with fun Apps & Games  </span>
 		  <a href="#signup" id="join">Join Now!</a>
-		  <span id="try">... or <a href="#home" onclick="window.sessionStorage.userId='guest';window.location.href='#home'"> try as guest</a></span>
+		  <span id="try">... or <a href="" ng-click="loginasguest();"> try as guest</a></span>
 	</div>
 
 </div>

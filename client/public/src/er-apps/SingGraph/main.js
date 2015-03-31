@@ -12,7 +12,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 		var countDownProgress = false;
 		var maxNotes = 5;
 		var tanpura;
-		app.controller('SingGraphCtrl', function($scope, $rootScope, ScoreService, ExerciseService, Student, $window) {
+		app.controller('SingGraphCtrl', function($scope, $rootScope, ScoreService, ExerciseService, User, $window) {
 			init();
 			// Load Exercises
 			$scope.exercises = ExerciseService.findAll();
@@ -25,7 +25,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			$scope.partNumber = 0;
 			$scope.signalOn = false;
 			$scope.isInstrumentProgress = false;
-			$scope.user = Student.get({id: $window.sessionStorage.userId}, function() {
+			$scope.user = User.get({id: $window.sessionStorage.userId}, function() {
 				if (!$scope.user.settings || !$scope.user.settings.rootNote) {
 					$scope.showSettings = true;
 					return;

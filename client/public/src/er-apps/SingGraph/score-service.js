@@ -4,7 +4,7 @@
         return {
             save: function(exerciseName, score) {
                 var userId = $window.sessionStorage.userId;
-                $http.post(base_url + '/students/score', {
+                $http.post(base_url + '/users/score', {
                     user: userId,
                     appName: "alankar",
                     exercise: exerciseName,
@@ -19,7 +19,7 @@
 
             findAll: function() {
                 var userId = $window.sessionStorage.userId;
-                return $http.get(base_url + '/students/score/' + userId);
+                return $http.get(base_url + '/users/score/' + userId);
             },
 
             getScore: function(expected, actual) {
