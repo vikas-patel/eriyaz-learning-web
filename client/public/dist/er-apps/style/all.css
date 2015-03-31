@@ -1,0 +1,166 @@
+/* line 6, ../PitchDial/main.scss */
+#pitch-dial .container-toplevel {
+  position: relative;
+  border-radius: 5px;
+  border-width: 3px;
+  border-color: #CCCCCC;
+  width: 100%;
+}
+/* line 16, ../PitchDial/main.scss */
+#pitch-dial .container-toplevel::before {
+  display: block;
+  padding-top: 120%;
+  content: '';
+}
+/* line 21, ../PitchDial/main.scss */
+#pitch-dial .container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: 5px;
+  padding: 5px;
+}
+/* line 35, ../PitchDial/main.scss */
+#pitch-dial #dial-container {
+  position: absolute;
+  top: 10%;
+  width: 100%;
+}
+/* line 39, ../PitchDial/main.scss */
+#pitch-dial #dial-container canvas {
+  width: 100%;
+}
+/* line 55, ../PitchDial/main.scss */
+#pitch-dial button {
+  width: 30%;
+  height: 7%;
+  text-overflow: clip;
+  border: none;
+  border-bottom: solid;
+  border-width: 1px;
+  border-color: #eeeeee;
+  background-color: #ffffff;
+}
+/* line 66, ../PitchDial/main.scss */
+#pitch-dial button:focus {
+  outline: 0;
+}
+/* line 71, ../PitchDial/main.scss */
+#pitch-dial button:hover {
+  cursor: pointer;
+}
+/* line 75, ../PitchDial/main.scss */
+#pitch-dial button:active {
+  border-bottom: solid;
+}
+
+/* line 2, ../SingGraph/main.scss */
+#sing-graph {
+  /* Resize Window */
+  /* Indicator line */
+}
+/* line 4, ../SingGraph/main.scss */
+#sing-graph .start::before {
+  content: "Start";
+}
+/* line 8, ../SingGraph/main.scss */
+#sing-graph .pause::before {
+  content: "Pause";
+}
+/* line 12, ../SingGraph/main.scss */
+#sing-graph .resume::before {
+  content: "Resume";
+}
+/* line 16, ../SingGraph/main.scss */
+#sing-graph .ng-invalid {
+  border-color: red;
+  outline-color: red;
+  border-width: 3px;
+  border-style: solid;
+}
+/* line 23, ../SingGraph/main.scss */
+#sing-graph .container {
+  margin: 5px;
+  padding: 5px;
+}
+/* line 32, ../SingGraph/main.scss */
+#sing-graph .svg-container {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  padding-bottom: 46%;
+  vertical-align: middle;
+  overflow: hidden;
+  /* Axis */
+}
+/* line 44, ../SingGraph/main.scss */
+#sing-graph .svg-container .axis .tick text {
+  fill: black;
+  font-size: 0.7em;
+}
+/* line 49, ../SingGraph/main.scss */
+#sing-graph .svg-container .axis path, #sing-graph .svg-container .axis line {
+  fill: none;
+  stroke: black;
+  shape-rendering: crispEdges;
+  stroke-width: 1px;
+}
+/* line 58, ../SingGraph/main.scss */
+#sing-graph .svg-content {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+/* line 65, ../SingGraph/main.scss */
+#sing-graph #overlay, #sing-graph #overlay-content {
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+/* line 77, ../SingGraph/main.scss */
+#sing-graph #overlay {
+  background-color: black;
+  opacity: .5;
+}
+/* line 83, ../SingGraph/main.scss */
+#sing-graph #overlay-content {
+  text-align: center;
+  color: white;
+  height: 20%;
+  width: 50%;
+}
+/* line 89, ../SingGraph/main.scss */
+#sing-graph #overlay-content .padding5 {
+  padding: 5px;
+}
+/* line 94, ../SingGraph/main.scss */
+#sing-graph #counter {
+  margin: auto;
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  color: red;
+  font-size: 3em;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+/* line 109, ../SingGraph/main.scss */
+#sing-graph .indicatorLine {
+  stroke-width: 1;
+}
+/* line 113, ../SingGraph/main.scss */
+#sing-graph .exercise {
+  fill: #A8A8A8;
+}

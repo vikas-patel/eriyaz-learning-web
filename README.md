@@ -29,3 +29,12 @@ production -  https://git.heroku.com/eriyaz-prod.git
 then to deploy new build just do -
 git push staging master 
 git push production master
+
+Staging is accessible via :-
+http://eriyaz-staging.herokuapp.com/
+
+Production is Accessible via :- 
+http://eriyaz.com
+
+Database configuration for production,staging is stored in :-
+evn.json
