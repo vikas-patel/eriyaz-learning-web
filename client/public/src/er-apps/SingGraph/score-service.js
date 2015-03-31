@@ -3,7 +3,7 @@
     app.factory('ScoreService', function($http, $window) {
         return {
             save: function(exerciseName, score) {
-                var userId = $window.sessionStorage.userId;
+                var userId = $window.localStorage.userId;
                 $http.post(base_url + '/users/score', {
                     user: userId,
                     appName: "alankar",
@@ -18,7 +18,7 @@
             },
 
             findAll: function() {
-                var userId = $window.sessionStorage.userId;
+                var userId = $window.localStorage.userId;
                 return $http.get(base_url + '/users/score/' + userId);
             },
 
