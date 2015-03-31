@@ -10,5 +10,6 @@ define([
     './login.ctrl',
     './signup.ctrl',
     './profile.ctrl',
+    './mystudents.ctrl',
     './history.ctrl'
 ], function () {});

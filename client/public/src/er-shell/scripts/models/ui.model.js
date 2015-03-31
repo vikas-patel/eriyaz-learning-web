@@ -7,7 +7,8 @@
                   showFront: false,
                   showLoginDialog: false,
                   showAppDialog: false,
-                  isTeacher : $window.sessionStorage.isTeacher
+                  isTeacher : $window.localStorage.isTeacher,
+                  title:'Home'
               }
           };
       });

@@ -27,7 +27,7 @@
     <core-header-panel id="main-panel" main>
       <core-toolbar id="mainheader">
         <paper-icon-button id="navicon" icon="menu" onclick="document.getElementById('drawerPanel').togglePanel();"></paper-icon-button>
-        <span flex>Home</span>
+        <span flex>{{uiModel.title}}</span>
       </core-toolbar>
       <div ng-include="uiModel.contentUrl"></div>
     </core-header-panel>

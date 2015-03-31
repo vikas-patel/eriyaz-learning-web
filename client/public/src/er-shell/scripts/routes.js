@@ -1,6 +1,6 @@
  define(['./app', 'angular-ui-router'], function(app) {
      var checkLoginAndRedirect = function($q, $window, $location) {
-         if ($window.sessionStorage.userId === undefined)
+         if ($window.localStorage.userId === undefined)
              $location.path('/login');
          return true;
      };
@@ -16,7 +16,7 @@
              },
              resolve: {
                  onLoggedInRedirect: function($q, $location, $window) {
-                     if ($window.sessionStorage.userId !== undefined)
+                     if ($window.localStorage.userId !== undefined)
                          $location.path('/home');
                      return true;
                  }
@@ -24,7 +24,7 @@
          }).
          state('login', {
              url: '/login',
-             onEnter: function(UIModel,LoginSignupDialogModel) {
+             onEnter: function(UIModel, LoginSignupDialogModel) {
                  UIModel.uiModel.showMenu = false;
                  UIModel.uiModel.showAppDialog = false;
                  LoginSignupDialogModel.loginSignupDialogModel.selection = 'login';
@@ -33,7 +33,7 @@
              },
              resolve: {
                  onLoggedInRedirect: function($q, $location, $window) {
-                     if ($window.sessionStorage.userId !== undefined)
+                     if ($window.localStorage.userId !== undefined)
                          $location.path('/home');
                      return true;
                  }
@@ -41,7 +41,7 @@
          }).
          state('signup', {
              url: '/signup',
-             onEnter: function(UIModel,LoginSignupDialogModel) {
+             onEnter: function(UIModel, LoginSignupDialogModel) {
                  UIModel.uiModel.showMenu = false;
                  LoginSignupDialogModel.loginSignupDialogModel.selection = 'signup';
                  UIModel.uiModel.showFront = true;
@@ -49,7 +49,7 @@
              },
              resolve: {
                  onLoggedInRedirect: function($q, $location, $window) {
-                     if ($window.sessionStorage.userId !== undefined)
+                     if ($window.localStorage.userId !== undefined)
                          $location.path('/home');
                      return true;
                  }
@@ -60,7 +60,7 @@
              onEnter: function(UIModel, $window) {
                  UIModel.uiModel.showLoginDialog = false;
                  UIModel.uiModel.showMenu = false;
-                 delete $window.sessionStorage.userId;
+                 delete $window.localStorage.userId;
                  UIModel.uiModel.showFront = true;
              }
          }).
@@ -79,11 +79,34 @@
          }).
          state('history', {
              url: '/history',
-             onEnter: function(UIModel) {
+             onEnter: function(UIModel, $stateParams, $window) {
                  UIModel.uiModel.showAppDialog = false;
                  UIModel.uiModel.showLoginDialog = false;
                  UIModel.uiModel.showFront = false;
                  UIModel.uiModel.showMenu = true;
+                 UIModel.uiModel.title = 'My Scores';
+                 $stateParams.s_id = $window.localStorage.userId;
+                 UIModel.uiModel.contentUrl = 'er-shell/html/history.html';
+                 console.log($stateParams);
+             },
+             resolve: {
+                 onLoggedOutRedirect: checkLoginAndRedirect
+             }
+         }).
+         state('s_history', {
+             url: '/history/:s_id',
+             onEnter: function(UIModel, User, $stateParams) {
+                 UIModel.uiModel.showAppDialog = false;
+                 UIModel.uiModel.showLoginDialog = false;
+                 UIModel.uiModel.showFront = false;
+                 UIModel.uiModel.showMenu = true;
+                 console.log($stateParams.s_id);
+                 User.get({
+                     id: $stateParams.s_id
+                 }).$promise.then(function(data) {
+                     UIModel.uiModel.title = data.name + '\'s Scores';
+                 });
+
                  UIModel.uiModel.contentUrl = 'er-shell/html/history.html';
              },
              resolve: {
@@ -97,7 +120,22 @@
                  UIModel.uiModel.showLoginDialog = false;
                  UIModel.uiModel.showFront = false;
                  UIModel.uiModel.showMenu = true;
+                 UIModel.uiModel.title = 'My Profile';
                  UIModel.uiModel.contentUrl = 'er-shell/html/profile.html';
+             },
+             resolve: {
+                 onLoggedOutRedirect: checkLoginAndRedirect
+             }
+         }).
+         state('students', {
+             url: '/students',
+             onEnter: function(UIModel) {
+                 UIModel.uiModel.showAppDialog = false;
+                 UIModel.uiModel.showLoginDialog = false;
+                 UIModel.uiModel.showFront = false;
+                 UIModel.uiModel.showMenu = true;
+                 UIModel.uiModel.title = 'My Students';
+                 UIModel.uiModel.contentUrl = 'er-shell/html/mystudents.html';
              },
              resolve: {
                  onLoggedOutRedirect: checkLoginAndRedirect
@@ -105,7 +143,7 @@
          }).
          state('alankars', {
              url: '/alankars',
-             onEnter: function(UIModel,AppsInfoModel) {
+             onEnter: function(UIModel, AppsInfoModel) {
                  UIModel.uiModel.showLoginDialog = false;
                  UIModel.uiModel.showMenu = true;
                  AppsInfoModel.setSelected(0);
@@ -117,7 +155,7 @@
          }).
          state('freestyle', {
              url: '/freestyle',
-             onEnter: function(UIModel,AppsInfoModel) {
+             onEnter: function(UIModel, AppsInfoModel) {
                  UIModel.uiModel.showLoginDialog = false;
                  UIModel.uiModel.showMenu = true;
                  AppsInfoModel.setSelected(1);

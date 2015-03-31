@@ -461,6 +461,25 @@ core-drawer-panel:not([narrow]) #navicon {
   margin: 10px 50px 0 0;
 }
 
+/* line 1, ../sass/pages/_mystudents.scss */
+#mystudents {
+  margin-top: 50px;
+  color: black;
+}
+/* line 5, ../sass/pages/_mystudents.scss */
+#mystudents a {
+  color: black;
+}
+/* line 9, ../sass/pages/_mystudents.scss */
+#mystudents ul {
+  margin-left: 50px;
+  list-style-type: disc;
+}
+/* line 15, ../sass/pages/_mystudents.scss */
+#mystudents li {
+  padding: 5px;
+}
+
 /* line 1, ../sass/pages/_history.scss */
 #history {
   color: #99;

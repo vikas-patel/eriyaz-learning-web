@@ -1,0 +1,11 @@
+<!-- <link rel="import" 
+  href="../external-libs/bower_components/paper-shadow/paper-shadow.html"> -->
+<div id="mystudents">
+	<div ng-controller='MyStudentsCtrl'>
+		<ul>
+			<li ng-repeat="student in students">
+				<a href="#history/{{student._id}}">{{student.name}}</a>
+			</li>
+		</ul>
+	</div>
+</div>
