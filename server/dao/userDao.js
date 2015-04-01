@@ -115,7 +115,7 @@ exports.findAllScores = function(req, res) {
 		function(err, scores) {
 			if (err) return handleError(err);
 			scores.forEach(function(score) {
-				score.completionTime = new Date(score.year, score.month, score.day);
+				score.completionTime = new Date(score.year, score.month-1, score.day);
 				delete score.day;
 				delete score.month;
 				delete score.year;
