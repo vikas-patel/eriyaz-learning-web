@@ -28,8 +28,6 @@ define(['require', 'currentaudiocontext'], function(require, CurrentAudioContext
 					console.log('could not load audio');
 				});
 			};
-
-			console.log('reading url');
 			request.send();
 		};
 

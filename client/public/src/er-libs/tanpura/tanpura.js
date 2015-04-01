@@ -19,6 +19,7 @@ define(['./soundbank', './stringsynth', 'currentaudiocontext', 'require', './st-
 
 		this.stop = function() {
 			clearInterval(this.interval);
+			this.mixerNode.disconnect();
 		};
 
 		this.setTuning = function(root, firstString) {
