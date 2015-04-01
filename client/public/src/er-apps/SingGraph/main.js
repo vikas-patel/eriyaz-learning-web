@@ -206,11 +206,11 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 				if ($scope.user.settings.isPlayInstrument && !$scope.isInstrumentProgress) {
 					$scope.isInstrumentProgress = true;
 					$scope.$broadcast('start-instrument');
-					showToastMessage("First Listen.");
+					//showToastMessage("First Listen.");
 				} else {
 					$scope.isInstrumentProgress = false;
 					$scope.$broadcast('start');
-					showToastMessage("Sing Now.");
+					//showToastMessage("Sing Now.");
 				}
 			}
 
