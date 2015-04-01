@@ -15,17 +15,19 @@
         href: '#freestyle',
         appUrl: 'er-apps/PitchDial/main.html',
         aspectRatio: 5 / 6
-      }, ];
-      appsInfo.selectedIndex = 1;
+      }];
+      appsInfo.selectedIndex = -1;
       appsInfo.setSelected = function(index) {
         this.selectedIndex = index;
       };
 
       appsInfo.getSelectedUrl = function() {
+        if (this.selectedIndex == -1) return "";
         return this.apps[this.selectedIndex].appUrl;
       };
 
       appsInfo.getAspectRatio = function() {
+        if (this.selectedIndex == -1) return 1;
         return this.apps[this.selectedIndex].aspectRatio;
       };
       return appsInfo;
