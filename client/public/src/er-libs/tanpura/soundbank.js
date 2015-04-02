@@ -3,10 +3,10 @@ define(['require', 'currentaudiocontext'], function(require, CurrentAudioContext
 	var SoundBank = function() {
 		this.samples = [];
 		this.init = function() {
-			this.loadSample(require.toUrl('./assets/c2sharp.mp3'), 37);
-			this.loadSample(require.toUrl('./assets/g2sharp.mp3'), 44);
-			this.loadSample(require.toUrl('./assets/c3sharp.mp3'), 49);
-			this.loadSample(require.toUrl('./assets/g3sharp.mp3'), 56);
+			this.loadSample(require.toUrl('/assets/c2sharp.mp3'), 37);
+			this.loadSample(require.toUrl('/assets/g2sharp.mp3'), 44);
+			this.loadSample(require.toUrl('/assets/c3sharp.mp3'), 49);
+			this.loadSample(require.toUrl('/assets/g3sharp.mp3'), 56);
 		};
 
 		this.loadSample = function(url, noteNum) {
@@ -28,8 +28,6 @@ define(['require', 'currentaudiocontext'], function(require, CurrentAudioContext
 					console.log('could not load audio');
 				});
 			};
-
-			console.log('reading url');
 			request.send();
 		};
 

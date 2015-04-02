@@ -66,12 +66,13 @@
          }).
          state('home', {
              url: '/home',
-             onEnter: function(UIModel) {
+             onEnter: function(UIModel, AppsInfoModel) {
                  UIModel.uiModel.showAppDialog = false;
                  UIModel.uiModel.showLoginDialog = false;
                  UIModel.uiModel.showFront = false;
                  UIModel.uiModel.showMenu = true;
                  UIModel.uiModel.contentUrl = 'er-shell/html/home.html';
+                 AppsInfoModel.setSelected(-1);
              },
              resolve: {
                  onLoggedOutRedirect: checkLoginAndRedirect
@@ -87,7 +88,6 @@
                  UIModel.uiModel.title = 'My Scores';
                  $stateParams.s_id = $window.localStorage.userId;
                  UIModel.uiModel.contentUrl = 'er-shell/html/history.html';
-                 console.log($stateParams);
              },
              resolve: {
                  onLoggedOutRedirect: checkLoginAndRedirect

@@ -39,10 +39,6 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 					if (fromState.name == 'alankars') {
 						stopTanpura();
 					}
-					if (toState.name == 'alankars' && $scope.user && $scope.user.settings
-						&& $scope.user.settings.isPlayTanpura) {
-						startTanpura();
-					}
 				});
 			$scope.updateSettings = function() {
 				$scope.user.$update(function() {
@@ -206,11 +202,11 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 				if ($scope.user.settings.isPlayInstrument && !$scope.isInstrumentProgress) {
 					$scope.isInstrumentProgress = true;
 					$scope.$broadcast('start-instrument');
-					showToastMessage("First Listen.");
+					//showToastMessage("First Listen.");
 				} else {
 					$scope.isInstrumentProgress = false;
 					$scope.$broadcast('start');
-					showToastMessage("Sing Now.");
+					//showToastMessage("Sing Now.");
 				}
 			}
 

@@ -4,9 +4,12 @@
         id: $window.localStorage.userId
       }).$promise.then(function(data) {
         $scope.user = data;
-        $scope.myteacher = User.get({
-          id: data.teacher
-        });
+        if ($scope.user.dob) $scope.user.dob = new Date($scope.user.dob);
+        if (data.teacher) {
+            $scope.myteacher = User.get({
+              id: data.teacher
+            });
+        }
       });
 
       $scope.teachers = $resource('teachers').query();
@@ -18,6 +21,7 @@
         else $scope.user.teacher=null;
         $scope.user.$update(function() {
           $scope.editing = false;
+          if ($scope.user.dob) $scope.user.dob = new Date($scope.user.dob);
         });
       };
     });

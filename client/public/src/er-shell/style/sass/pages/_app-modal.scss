@@ -45,5 +45,15 @@
       color:black;
     }
   }
+
+  paper-toast {
+  top: 30px;
+  bottom: auto;
+  left: auto;
+  position:center;
+  background-color: $main-color;
+  color: black;
+  font-size: 1.2em;
+}
 }
 
