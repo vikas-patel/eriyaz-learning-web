@@ -24,7 +24,7 @@ pass : eartrainer
 
 also add following remotes :-
 staging - https://git.heroku.com/eriyaz-staging.git
-production -  https://git.heroku.com/eriyaz-prod.git
+production -  https://git.heroku.com/eriyaz.git
 
 then to deploy new build just do -
 git push staging master 
