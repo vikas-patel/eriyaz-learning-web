@@ -5,14 +5,10 @@
       }).$promise.then(function(data) {
         $scope.user = data;
         if ($scope.user.dob) $scope.user.dob = new Date($scope.user.dob);
-        if (data.teacher) {
-            $scope.myteacher = User.get({
-              id: data.teacher
-            });
-        }
+        $scope.teachers = $resource('teachers').query(function(resp){
+              $scope.myteacher = $.grep(resp, function(teacher){return teacher._id == data.teacher; })[0];
+          });
       });
-
-      $scope.teachers = $resource('teachers').query();
      
 
       $scope.updateProfile = function() {
