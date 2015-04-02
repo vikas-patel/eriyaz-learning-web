@@ -47,6 +47,18 @@ async.each(teachers, saveObj, function(err) {
 			students.push(student);
 		}
 	}
+
+	//add guest account
+	var guest = new User({
+		name: "guest",
+		dob: new Date(),
+		local: {
+			email: "guest",
+			password: generateHash("guest")
+		},
+	});
+	students.push(guest);
+
 	async.each(students, saveObj, function(err) {
 		console.log('saved students');
 
