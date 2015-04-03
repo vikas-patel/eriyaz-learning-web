@@ -41,12 +41,21 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 	}
 
 	ExerciseChart.prototype.play = function(context, root) {
-		root = parseInt(root);
 		var player = new Player(context);
-		var sequences = this.exercise;
+		var exercise = this.exercise;
 		var melody = new Melody();
-		$.each(sequences, function(idx, sequence) {
-			var note = Note.createFromMidiNum(root + +sequence.pitch, +sequence.duration);
+		$.each(exercise.notes, function(idx, item) {
+			var note;
+			if (item == -1) {
+				// don't play
+				note = Note.createFromMidiNum(-1, exercise.breakDuration);
+			} else if (item == -2) {
+				// don't play
+				note = Note.createFromMidiNum(-1, exercise.midBreakDuration);
+			} else {
+				note = Note.createFromMidiNum(root + item, exercise.noteDuration);
+			}
+			
 			melody.addNote(note);
 		});
 		player.playMelody(melody, this.offsetTime);
@@ -112,7 +121,6 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		for (var i in notes) {
 			var note = notes[i];
 			if (note == -1) {
-
 				duration += this.exercise.breakDuration;
 			} else if (note == -2) {
 				duration += this.exercise.midBreakDuration;
