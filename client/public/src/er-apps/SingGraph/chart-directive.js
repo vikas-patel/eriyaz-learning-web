@@ -1,5 +1,6 @@
 define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], function(app, Chart, d3, Player, Note, Melody) {
 	var labelsIndian = ["Sa", "", "Re", "", "Ga", "Ma", "", "Pa", "", "Dha", "", "Ni"];
+	var labels12 = ["Sa", "Re(k)", "Re", "Ga(k)", "Ga", "Ma", "Ma(t)", "Pa", "Dha(k)", "Dha", "Ni(k)", "Ni", "SA"];
 	var rectW = 5;
 	var ExerciseChart = function(containerId, $scope, parentWidth, parentHeight, labels){
 		this.parent = Chart.Class;
@@ -131,6 +132,34 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		var y = this.y;
 		var x = this.x;
 		var rectH = this.height/this.settings.yTicks;
+
+		var textX=t1;
+		this.svg.velocity.selectAll("text")
+			.data(result)
+			.enter()
+			.append("text")
+			.attr("x", function(d) {
+				var duration = 0;
+			 	if (d==-1) 
+					duration = exercise.breakDuration;
+				else if (d==-2)
+					duration = exercise.midBreakDuration;
+				else
+					duration = exercise.noteDuration;
+				textX = textX + duration;
+				return x(textX-duration/2)/1000;
+			})
+			.attr("y", function(d) {
+				return y(d)-rectH;
+			})
+			.style("text-anchor", "middle")
+			.text(function(d) {
+				if (d<0) 
+					return "";
+				else
+					return labels12[d];
+			});
+
 		this.svg.velocity.selectAll("rect.exercise")
 			.data(result)
 			.enter()
