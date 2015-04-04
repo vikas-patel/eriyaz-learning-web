@@ -17,6 +17,7 @@ define(['currentaudiocontext', './timerworker'], function(CurrentAudioContext, t
     var notesInQueue = []; // the notes that have been put into the web audio,
     // and may or may not have played yet. {note, time}
 
+
     function nextNote() {
         // Advance current note and time by a 16th note...
         var secondsPerBeat = 60.0 / tempo; // Notice this picks up the CURRENT 
@@ -44,12 +45,17 @@ define(['currentaudiocontext', './timerworker'], function(CurrentAudioContext, t
         // create an oscillator
         var osc = audioContext.createOscillator();
         osc.connect(audioContext.destination);
+
+        /*
         if (beatNumber % 16 === 0) // beat 0 == low pitch
             osc.frequency.value = 880.0;
         else if (beatNumber % 4 === 0) // quarter notes = medium pitch
             osc.frequency.value = 440.0;
         else // other 16th notes = high pitch
             osc.frequency.value = 220.0;
+        */
+
+        osc.frequency.value = 440;
 
         osc.start(time);
         osc.stop(time + noteLength);
