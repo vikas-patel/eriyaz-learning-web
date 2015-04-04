@@ -30,6 +30,11 @@ require.config({
         name: 'tanpura',
         location: 'client/public/src/er-libs/tanpura',
         main: 'tanpura'
+    },
+    {
+        name: 'metronome',
+        location: 'client/public/src/er-libs/metronome',
+        main: 'metronome'
     }],
   // dynamically load all test files
   deps: allTestFiles,
