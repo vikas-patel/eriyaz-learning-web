@@ -1,5 +1,5 @@
 define(['metronome'], function(metronome) {
-	ddescribe("Metronome", function() {
+	describe("Metronome", function() {
 		beforeEach(function() {
 			jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 		});

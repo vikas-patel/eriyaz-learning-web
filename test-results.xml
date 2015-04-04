@@ -1,17 +1,26 @@
 <?xml version="1.0"?>
 <testsuites>
-  <testsuite name="Chrome 41.0.2272 (Windows 7)" package="" timestamp="2015-04-04T15:08:17" id="0" hostname="ashwin-PC">
+  <testsuite name="Chrome 41.0.2272 (Windows 7)" package="" timestamp="2015-04-04T16:57:29" id="0" hostname="ashwin-PC">
     <properties>
       <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36"/>
     </properties>
   </testsuite>
-  <testsuite name="Chrome 41.0.2272 (Windows 7)" package="" timestamp="2015-04-04T15:08:19" id="0" hostname="ashwin-PC" tests="15" errors="0" failures="0" time="8.005">
+  <testsuite name="Chrome 41.0.2272 (Windows 7)" package="" timestamp="2015-04-04T16:57:30" id="0" hostname="ashwin-PC" tests="15" errors="1" failures="0" time="0">
     <properties>
       <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36"/>
     </properties>
-    <testcase name="can play" time="3.003" classname="Chrome 41.0.2272 (Windows 7).Metronome"/>
-    <testcase name="can set duration" time="5.002" classname="Chrome 41.0.2272 (Windows 7).Metronome"/>
-    <system-out><![CDATA[
+    <system-out><![CDATA[Chrome 41.0.2272 (Windows 7) LOG: 'could not load audio'
+,Chrome 41.0.2272 (Windows 7) LOG: 'could not load audio'
+,Chrome 41.0.2272 (Windows 7) LOG: 'could not load audio'
+,Chrome 41.0.2272 (Windows 7) LOG: 'could not load audio'
+,Chrome 41.0.2272 (Windows 7) LOG: 'could not load audio'
+,Chrome 41.0.2272 (Windows 7) LOG: 'could not load audio'
+,Chrome 41.0.2272 (Windows 7) LOG: 'could not load audio'
+,Chrome 41.0.2272 (Windows 7) LOG: 'could not load audio'
+,Chrome 41.0.2272 (Windows 7) ERROR
+  Uncaught TypeError: Cannot read property 'pluck' of undefined
+  at D:/Work/eartonic/Workspaces/eriyaz/client/public/src/er-libs/tanpura/tanpura.js:14
+
 ]]></system-out>
     <system-err/>
   </testsuite>
