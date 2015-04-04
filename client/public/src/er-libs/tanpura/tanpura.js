@@ -24,7 +24,7 @@ define(['./soundbank', './stringsynth', 'currentaudiocontext', 'require', './st-
 
 		this.setTuning = function(root, firstString) {
 			var soundbank = new SoundBank();
-			var local= this;
+			var local = this;
 			soundbank.oninit = function() {
 				local.strings[0] = new StringSynth(root - 12 + firstString, soundbank);
 				local.strings[1] = new StringSynth(root, soundbank);
@@ -33,9 +33,23 @@ define(['./soundbank', './stringsynth', 'currentaudiocontext', 'require', './st-
 			};
 		};
 
-		this.setTuning(root,firstString);
+		this.setTuning(root, firstString);
 
 	};
 
-	return Tanpura;
+	var instance;
+
+	function createInstance(root,firstString) {
+		return new Tanpura(root,firstString);
+	}
+
+	return {
+		getInstance: function(root,firstString) {
+			if (!instance) {
+				instance = createInstance(root,firstString);
+			} 
+			instance.setTuning(root,firstString);
+			return instance;
+		}
+	};
 });

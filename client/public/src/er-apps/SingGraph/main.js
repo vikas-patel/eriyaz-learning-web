@@ -233,7 +233,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			}
 
 			function startTanpura() {
-				tanpura = new Tanpura($scope.user.settings.rootNote, 7);
+				tanpura = Tanpura.getInstance($scope.user.settings.rootNote, 7);
 				tanpura.play();
 			}
 

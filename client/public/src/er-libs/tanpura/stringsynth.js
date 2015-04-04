@@ -26,7 +26,7 @@ define(['currentaudiocontext'], function(CurrentAudioContext) {
 		this.disconnect = function() {
 			this.node.disconnect();
 		};
-		this.node = context.createScriptProcessor(BUFFER_SIZE, 2, 2);
+		// this.node = context.createScriptProcessor(BUFFER_SIZE, 2, 2);
 		this.source = {
 			extract: function(target, numFrames, position) {
 				var l = buffer.getChannelData(0);
