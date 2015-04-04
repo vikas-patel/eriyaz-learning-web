@@ -11,28 +11,28 @@ requirejs.config({
         'domReady': 'ext-libs/bower_components/requirejs-domready/domready',
         'angular': 'ext-libs/bower_components/angular/angular',
         'angular-ui-router': 'ext-libs/bower_components/angular-ui-router/release/angular-ui-router.min',
-        'angulartics' : 'ext-libs/bower_components/angulartics/dist/angulartics.min',
-        'angulartics-ga' : 'ext-libs/bower_components/angulartics/dist/angulartics-ga.min',
-        'angular-resource' : 'ext-libs/bower_components/angular-resource/angular-resource',
-        'underscore' : 'ext-libs/underscore',
+        'angulartics': 'ext-libs/bower_components/angulartics/dist/angulartics.min',
+        'angulartics-ga': 'ext-libs/bower_components/angulartics/dist/angulartics-ga.min',
+        'angular-resource': 'ext-libs/bower_components/angular-resource/angular-resource',
+        'underscore': 'ext-libs/underscore',
         'order': 'ext-libs/requirejs-order.min',
         'ng-infinite-scroll': 'ext-libs/ng-infinite-scroll',
 
         'mic': 'er-libs/mic',
-        'pitchdetector' : 'er-libs/pitchdetector',
-        'intensityfilter':'er-libs/intensityfilter',
-        'currentaudiocontext' : 'er-libs/currentaudiocontext',
+        'pitchdetector': 'er-libs/pitchdetector',
+        'intensityfilter': 'er-libs/intensityfilter',
+        'currentaudiocontext': 'er-libs/currentaudiocontext',
         'audiobuffer': 'er-libs/audiobuffer',
-        'fft-pitch' : 'ext-libs/pitchjs/pitch',
-        'jquery' : 'ext-libs/jquery/jquery',
-        'webaudio-tools' : 'ext-libs/webaudio/webaudio-tools',
-        'webaudioplayer' : 'er-libs/webaudioplayer',
-        'melody' : 'er-libs/melody',
-        'note' : 'er-libs/note',
-        'wavelet-pitch' : 'ext-libs/waveletPitch',
-        'd3' : 'ext-libs/d3.min',
-        'pitch-shift':'ext-libs/pitch-shift'
-        //'countdown' : "ext-libs/countdown"
+        'fft-pitch': 'ext-libs/pitchjs/pitch',
+        'jquery': 'ext-libs/jquery/jquery',
+        'webaudio-tools': 'ext-libs/webaudio/webaudio-tools',
+        'webaudioplayer': 'er-libs/webaudioplayer',
+        'melody': 'er-libs/melody',
+        'note': 'er-libs/note',
+        'wavelet-pitch': 'ext-libs/waveletPitch',
+        'd3': 'ext-libs/d3.min',
+        'pitch-shift': 'ext-libs/pitch-shift'
+            //'countdown' : "ext-libs/countdown"
     },
 
     // Add modules that do not support AMD
@@ -49,14 +49,14 @@ requirejs.config({
         'angulartics-ga': {
             deps: ['angular']
         },
-        'angular-resource' : {
-            deps : ['angular']
+        'angular-resource': {
+            deps: ['angular']
         },
-        'underscore' : {
-            exports : '_'
+        'underscore': {
+            exports: '_'
         },
         'ng-infinite-scroll': {
-            deps: ['angular','jquery']
+            deps: ['angular', 'jquery']
         },
         'fft-pitch': {
             deps: ['ext-libs/pitchjs/complex']
@@ -82,6 +82,9 @@ requirejs.config({
         name: 'tanpura',
         location: 'er-libs/tanpura',
         main: 'tanpura'
-    }
-    ]
+    }, {
+        name: 'metronome',
+        location: 'er-libs/metronome',
+        main: 'metronome'
+    }]
 });
