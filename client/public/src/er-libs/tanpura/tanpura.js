@@ -23,7 +23,7 @@ define(['./soundbank', './stringsynth', 'currentaudiocontext', 'require', './st-
 
 		this.stop = function() {
 			clearInterval(this.interval);
-			this.mixerNode.disconnect();
+			// this.mixerNode.disconnect();
 			this.interval = null;
 			this.isPlaying = false;
 		};
