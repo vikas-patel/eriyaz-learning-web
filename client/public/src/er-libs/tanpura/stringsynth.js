@@ -8,10 +8,10 @@ define(['currentaudiocontext'], function(CurrentAudioContext) {
 		var nearestSample = soundbank.getNearestSample(noteNum);
 		buffer = nearestSample.buffer;
 		this.st.pitch = Math.pow(2, (noteNum - nearestSample.noteNum) / 12);
-		var BUFFER_SIZE = 16384;
+		// var BUFFER_SIZE = 16384;
 
 
-		var samples = new Float32Array(BUFFER_SIZE * 2);
+		// var samples = new Float32Array(BUFFER_SIZE * 2);
 
 
 
@@ -23,9 +23,9 @@ define(['currentaudiocontext'], function(CurrentAudioContext) {
 		// 	this.node.connect(node);
 		// };
 
-		this.disconnect = function() {
-			this.node.disconnect();
-		};
+		// this.disconnect = function() {
+		// 	this.node.disconnect();
+		// };
 		// this.node = context.createScriptProcessor(BUFFER_SIZE, 2, 2);
 		this.source = {
 			extract: function(target, numFrames, position) {

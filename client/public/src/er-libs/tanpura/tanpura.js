@@ -6,20 +6,26 @@ define(['./soundbank', './stringsynth', 'currentaudiocontext', 'require', './st-
 		this.strings = [];
 		this.mixerNode = context.createGain();
 		this.interval = null;
+		this.isPlaying = false;
 
 		this.play = function() {
-			var j = 0;
-			var local = this;
-			this.interval = setInterval(function() {
-				local.strings[j % 4].pluck(local.mixerNode);
-				j++;
-			}, 1000);
-			this.mixerNode.connect(context.destination);
+			if (!this.isPlaying) {
+				var j = 0;
+				var local = this;
+				this.interval = setInterval(function() {
+					local.strings[j % 4].pluck(local.mixerNode);
+					j++;
+				}, 1000);
+				this.mixerNode.connect(context.destination);
+				this.isPlaying = true;
+			}
 		};
 
 		this.stop = function() {
 			clearInterval(this.interval);
 			this.mixerNode.disconnect();
+			this.interval = null;
+			this.isPlaying = false;
 		};
 
 		this.setTuning = function(root, firstString) {
@@ -32,22 +38,20 @@ define(['./soundbank', './stringsynth', 'currentaudiocontext', 'require', './st-
 				local.strings[3] = new StringSynth(root - 12, soundbank);
 			};
 		};
-
 		this.setTuning(root, firstString);
-
 	};
 
 	var instance;
 
-	function createInstance(root,firstString) {
-		return new Tanpura(root,firstString);
+	function createInstance(root, firstString) {
+		return new Tanpura(root, firstString);
 	}
 
 	return {
-		getInstance: function(root,firstString) {
+		getInstance: function(root, firstString) {
 			if (!instance) {
-				instance = createInstance(root,firstString);
-			} 
+				instance = createInstance(root, firstString);
+			}
 			instance.setTuning(root,firstString);
 			return instance;
 		}
