@@ -79,6 +79,10 @@ requirejs.config({
         location: 'er-apps/SingGraph',
         main: 'index'
     }, {
+        name: 'upordown',
+        location: 'er-apps/UpOrDown',
+        main: 'index'
+    }, {
         name: 'tanpura',
         location: 'er-libs/tanpura',
         main: 'tanpura'

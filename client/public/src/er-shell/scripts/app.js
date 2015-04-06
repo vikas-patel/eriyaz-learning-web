@@ -14,7 +14,8 @@ define([
     './directives/index',
     './filters/index',
     'pitch-dial',
-    'sing-graph'
+    'sing-graph',
+    'upordown'
 ], function (angular) {
     'use strict';
 
@@ -27,7 +28,8 @@ define([
         'ui.router',
         'pitch-dial',
         'sing-graph',
-
+        'upordown',
+        
         'ngResource',
         'angulartics',
         'angulartics.google.analytics',

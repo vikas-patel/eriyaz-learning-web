@@ -164,6 +164,18 @@
              resolve: {
                  onLoggedOutRedirect: checkLoginAndRedirect
              }
+         }).
+         state('upordown', {
+             url: '/upordown',
+             onEnter: function(UIModel, AppsInfoModel) {
+                 UIModel.uiModel.showLoginDialog = false;
+                 UIModel.uiModel.showMenu = true;
+                 AppsInfoModel.setSelected(2);
+                 UIModel.uiModel.showAppDialog = true;
+             },
+             resolve: {
+                 onLoggedOutRedirect: checkLoginAndRedirect
+             }
          });
      });
  });

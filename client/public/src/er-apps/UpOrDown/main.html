@@ -1,0 +1,37 @@
+<div id="upordown" ng-controller="UpOrDownCtrl as ctrl">
+    <div class="container-toplevel">
+    <h4> Up or Down?</h4>
+        <div class="container">
+            <span>Melody Size (Num of Notes): </span>
+            <select ng-model='numNotes' ng-options='opt for opt in numNotesOpts'>         
+            </select>
+            <button ng-click='newSequence()'>New</button>
+            <button ng-click='repeat()'>Repeat</button>
+        </div>
+
+        <div class="container">
+            <div class="title">Select notes you want to test :-</div>
+            <span>First Note :</span> 
+            <select ng-model='firstNote' ng-options='opt for opt in firstNotesOpts'></select><br>
+            <span>Second Note :</span>
+            <select ng-model='secondNote' ng-options='opt for opt in secondNoteOpts'></select>
+        </div>
+
+        <div class="container">
+            <div class="title">Your Answer :</div>
+            <button ng-click='isUp();'>UP</button>
+            <button ng-click='isDown();'>DOWN</button>
+            <button ng-click='isSame();'>SAME</button>
+        </div>
+
+        <div class="container">
+            <div class="title">Statistics :- </div>
+            <span>Total :</span>
+            <span id="total">{{total}}</span><br>
+            <span>Right :</span>
+            <span id="right">{{right}}</span><br>
+            <span>accuracy % :</span>
+            <span id="accuracy">{{accuracy}}</span>
+        </div>
+    </div>
+</div>

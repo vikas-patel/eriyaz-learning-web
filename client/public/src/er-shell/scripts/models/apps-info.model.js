@@ -15,6 +15,13 @@
         href: '#freestyle',
         appUrl: 'er-apps/PitchDial/main.html',
         aspectRatio: 5 / 6
+      }, {
+        name: 'UpOrDown',
+        thumb: 'er-shell/images/upordown.jpg',
+        desc: 'Can you tell if the second node higher or lower than the first note?',
+        href: '#upordown',
+        appUrl: 'er-apps/UpOrDown/main.html',
+        aspectRatio: 9/10
       }];
       appsInfo.selectedIndex = -1;
       appsInfo.setSelected = function(index) {
