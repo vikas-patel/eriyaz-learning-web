@@ -14,6 +14,9 @@ define([], function() {
 	Note.A4_FREQ = 440;
 	Note.A4_NUM = 69;
 
+	Note.createSilentNote = function(duration) {
+		return Note.createFromFreq(0,duration,0);	
+	};
 
 	Note.createFromFreq = function(freq,duration,volume) {
 		var n = new Note();

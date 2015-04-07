@@ -37,6 +37,16 @@ define(['note', 'melody', 'webaudioplayer', 'midiplayer', 'midi-config','client/
 				setTimeout(function() {
 					expect(true).toBe(true);
 					done();
+				}, 3100);
+			});
+
+			iit("can keep silent for a duration", function(done){
+				var silentNote = Note.createSilentNote(500);
+				var melody1 = new Melody([note1,silentNote,note3]);
+				player.playMelody(melody1);
+				setTimeout(function() {
+					expect(true).toBe(true);
+					done();
 				}, 2100);
 			});
 		});

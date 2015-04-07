@@ -1,5 +1,5 @@
 define(['tanpura'], function(Tanpura) {
-	ddescribe("Tanpura", function() {
+	describe("Tanpura", function() {
 		var tanpura;
 		beforeEach(function() {
 			tanpura = Tanpura.getInstance(48, 7); //root:48,firstString:7(Pa)
@@ -22,7 +22,7 @@ define(['tanpura'], function(Tanpura) {
 				done();
 			}, 5000);
 		});
-		iit("can handle multiple play calls", function(done) {
+		it("can handle multiple play calls", function(done) {
 			tanpura.play();
 			setInterval(function() {
 				tanpura.play();

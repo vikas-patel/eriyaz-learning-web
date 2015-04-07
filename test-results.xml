@@ -1,9 +1,15 @@
 <?xml version="1.0"?>
 <testsuites>
-  <testsuite name="Chrome 41.0.2272 (Windows 7)" package="" timestamp="2015-04-05T09:51:22" id="0" hostname="ashwin-PC" tests="0" errors="1" failures="0" time="0">
+  <testsuite name="Chrome 41.0.2272 (Windows 7)" package="" timestamp="2015-04-07T03:07:54" id="0" hostname="ashwin-PC">
     <properties>
       <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36"/>
     </properties>
+  </testsuite>
+  <testsuite name="Chrome 41.0.2272 (Windows 7)" package="" timestamp="2015-04-07T03:07:55" id="0" hostname="ashwin-PC" tests="18" errors="0" failures="0" time="2.106">
+    <properties>
+      <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36"/>
+    </properties>
+    <testcase name="can keep silent for a duration" time="2.106" classname="Chrome 41.0.2272 (Windows 7)."/>
     <system-out><![CDATA[
 ]]></system-out>
     <system-err/>

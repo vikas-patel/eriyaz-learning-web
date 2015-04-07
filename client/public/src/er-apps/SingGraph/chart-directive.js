@@ -48,10 +48,10 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 			var note;
 			if (item == -1) {
 				// don't play
-				note = Note.createFromMidiNum(-1, exercise.breakDuration);
+				note = Note.createSilentNote(exercise.breakDuration);
 			} else if (item == -2) {
 				// don't play
-				note = Note.createFromMidiNum(-1, exercise.midBreakDuration);
+				note = Note.createSilentNote(exercise.midBreakDuration);
 			} else {
 				note = Note.createFromMidiNum(root + item, exercise.noteDuration);
 			}
