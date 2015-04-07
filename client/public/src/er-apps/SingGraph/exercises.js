@@ -1,5 +1,13 @@
 define([], function() {
 	return [
+	// {
+	// 		"name": "test",
+	// 		"desc": "test",
+	// 		"notes": [0, -1,2,-1, 4, -1,5, -1,7,-1, 9,-1, 11, -1,12, -2, 12,-1,11,-1, 9, -1,7, -1,5,-1, -1,4, -1,2, -1,0],
+	// 		"noteDuration": 500,
+	// 		"breakDuration": 500,
+	// 		"midBreakDuration": 1000
+	// 	}, 
 		{
 			"name": "Sa,Re,Ga,..",
 			"desc": "Sa,Re,Ga,.. up and reverse",

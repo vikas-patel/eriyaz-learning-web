@@ -746,14 +746,22 @@ core-drawer-panel:not([narrow]) #navicon {
 
 /* line 2, ../../../er-apps/UpOrDown/main.scss */
 #upordown .container-toplevel {
-  width: 250px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: space-around;
 }
-/* line 11, ../../../er-apps/UpOrDown/main.scss */
+/* line 14, ../../../er-apps/UpOrDown/main.scss */
+#upordown h4 {
+  padding: 10px;
+  align-self: center;
+  font-weight: bold;
+}
+/* line 19, ../../../er-apps/UpOrDown/main.scss */
 #upordown .container {
-  border-style: solid;
-  border-radius: 5px;
+  border-bottom: solid;
   border-width: 1px;
   border-color: #E3E3E3;
-  margin: 5px;
-  padding: 5px;
+  margin: 10px;
+  padding: 10px;
 }
