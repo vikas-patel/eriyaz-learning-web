@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <style>
+            .container-toplevel {
+                border-style:solid; 
+                border-radius:5px;
+                border-width:3px;
+                border-color:#CCCCCC;
+                padding: 10px;
+                display:inline-block
+            }
+
+            .container {
+                border-style:solid; 
+                border-radius:5px;
+                border-width:1px;
+                border-color:#E3E3E3;
+                margin: 5px;
+                padding: 5px;
+            }
+            
+            .settings {
+                padding-left:40px;
+            }
+
+            #chartitle {
+                padding-left:40px;
+                color:gray;
+            }
+        </style>
+        <script type="text/javascript" src="../lib/webaudio/webaudio_tools.js"></script>
+        <script type="text/javascript" src="js/tone.js"></script>
+        <script type="text/javascript" src="js/melodygraph.js"></script>
+
+        <script type="text/javascript" src="../lib/jquery/jquery.min-jqplot.js"></script>
+        <script type="text/javascript" src="../lib/jqplot/jquery.jqplot.min.js"></script>
+        <script type="text/javascript" src="../lib/jqplot/plugins/jqplot.barRenderer.min.js"></script>
+        <script type="text/javascript" src="../lib/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+        <script type="text/javascript" src="../lib/jqplot/plugins/jqplot.cursor.min.js"></script>
+        <script type="text/javascript" src="../lib/jqplot/plugins/jqplot.highlighter.min.js"></script>
+        <script type="text/javascript" src="../lib/jqplot/plugins/jqplot.dragable.min.js"></script>
+        <script type="text/javascript" src="js/jquery.ui.touch-punch.js"></script>
+
+
+        <script>
+            var plot1;
+            var melody;
+            $(document).ready(function() {
+                initAudio();
+                $("#numnotes").html(getOptions(2, 6));
+                $("#numnotes").val(3);
+                renderGraph(ChartUtil.getZeroSeries(1), ChartUtil.getZeroSeries(1));
+            });
+
+            function showAnswer() {
+                plot1.series[1].show = true;
+                plot1.replot();
+            }
+
+            function repeat() {
+                melody.play();
+            }
+            function newMelody() {
+                var numNotes = $("#numnotes option:selected").val();
+                melody = NoteSequence.getRandomSequence(numNotes);
+                melody.play();
+                $("#chartdiv").empty();
+                var s1 = ChartUtil.getZeroSeries(numNotes);
+                var s2 = ChartUtil.dataToSeries(Util.multiplyArray(melody.getIntervals(), 0.01));
+                renderGraph(s1, s2);
+            }
+
+            function getOptions(start, end) {
+                var options = "";
+                for (var i = start; i <= end; i++) {
+                    options += "<option value=" + i + ">" + i + "</option>";
+                }
+                return options;
+            }
+
+            function playMyGraph() {
+                var semitonesArray = ChartUtil.seriesToData((plot1.series[0].data));
+                var freqs1 = FrequencyUtil.getFreqsArray(melody.freqs[0], Util.multiplyArray(semitonesArray, 100));
+                var myMelody = new NoteSequence(freqs1);
+                myMelody.play();
+            }
+            function renderGraph(series1, series2) {
+                $.jqplot.config.enablePlugins = true;
+
+                plot1 = $.jqplot('chartdiv', [series1, series2], {
+                    series: [
+                        {
+                            dragable: {
+                                constrainTo: 'y'
+                            }
+                        },
+                        {
+                            show: false
+                        }],
+                    axes: {
+                        xaxis: {
+                            numberTicks: 6,
+                            min: 1,
+                            max: 6
+                        },
+                        yaxis: {
+                            tickOptions: {
+                                formatString: '%.2f'
+                            },
+                            numberTicks: 27,
+                            min: -13,
+                            max: 13
+                        }
+                    },
+                    highlighter: {
+                        sizeAdjust: 10,
+                        tooltipLocation: 'n',
+                        tooltipAxes: 'y',
+                        tooltipFormatString: '<b><i><span style="color:red;">Drag Me</span></i></b> %.2f',
+                        useAxesFormatters: false
+                    },
+                    cursor: {
+                        show: true
+                    }
+                });
+            }
+        </script>
+        <link rel="stylesheet" type="text/css" href="js/libs/css/jquery.jqplot.min.css" />
+    </head>
+    <body>
+        <div class="container-toplevel">
+            <div class="container">
+                <h3 id="chartitle">Melody Graph</h3>
+                <div id="chartdiv" style="height:600px;width:600px; "></div>
+            </div>
+
+            <div class="container settings">
+                Number of Notes: <select id="numnotes"></select><br>
+                <button onclick="newMelody();">new</button>
+                <button onclick="repeat();">repeat</button>
+                <button onclick="playMyGraph();">play my graph</button>
+                <button onclick="showAnswer();">show answer</button>
+            </div>
+        </div>
+    </body>
+</html>

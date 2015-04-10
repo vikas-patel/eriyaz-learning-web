@@ -30,7 +30,7 @@ requirejs.config({
         'melody': 'er-libs/melody',
         'note': 'er-libs/note',
         'wavelet-pitch': 'ext-libs/waveletPitch',
-        'd3': 'ext-libs/d3.min',
+        'd3': 'ext-libs/d3',
         'pitch-shift': 'ext-libs/pitch-shift'
             //'countdown' : "ext-libs/countdown"
     },
@@ -81,6 +81,10 @@ requirejs.config({
     }, {
         name: 'upordown',
         location: 'er-apps/UpOrDown',
+        main: 'index'
+    }, {    
+        name: 'melodygraph',
+        location: 'er-apps/MelodyGraph',
         main: 'index'
     }, {
         name: 'tanpura',

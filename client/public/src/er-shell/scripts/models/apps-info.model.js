@@ -22,6 +22,13 @@
         href: '#upordown',
         appUrl: 'er-apps/UpOrDown/main.html',
         aspectRatio: 9/10
+      }, {
+        name: 'MelodyGraph',
+        thumb: 'er-shell/images/melodygraph.jpg',
+        desc: 'Get familiar with ups and downs in the songs.',
+        href: '#melodygraph',
+        appUrl: 'er-apps/MelodyGraph/main.html',
+        aspectRatio: 9/10
       }];
       appsInfo.selectedIndex = -1;
       appsInfo.setSelected = function(index) {

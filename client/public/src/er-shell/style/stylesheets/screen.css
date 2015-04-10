@@ -765,3 +765,71 @@ core-drawer-panel:not([narrow]) #navicon {
   margin: 10px;
   padding: 10px;
 }
+
+/* line 2, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph .container-toplevel {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: space-around;
+}
+/* line 14, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph .container {
+  border-bottom: solid;
+  border-width: 1px;
+  border-color: #E3E3E3;
+  margin: 10px;
+  padding: 10px;
+}
+/* line 25, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph rect {
+  fill: none;
+  pointer-events: all;
+}
+/* line 30, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph circle {
+  fill: #fff;
+  stroke-opacity: 0;
+  fill-opacity: .1;
+  cursor: move;
+  stroke: #eee;
+  stroke-width: 1.5px;
+}
+/* line 46, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph .selected {
+  fill: steelblue;
+  stroke: steelblue;
+}
+/* line 51, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph #guess {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 2px;
+}
+/* line 57, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph #ans {
+  fill: none;
+  stroke: green;
+  stroke-width: 2px;
+}
+/* line 64, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph .axis {
+  shape-rendering: crispEdges;
+}
+/* line 68, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph .x.axis line {
+  stroke: #ccc;
+}
+/* line 72, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph .x.axis .minor {
+  stroke-opacity: .5;
+}
+/* line 76, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph .x.axis path {
+  fill: none;
+}
+/* line 81, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph .y.axis line, #melodygraph .y.axis path {
+  fill: none;
+  stroke: #ccc;
+}

@@ -1,0 +1,85 @@
+#melodygraph {
+    .container-toplevel {
+        // position:relative;
+        // border-style:solid; 
+        // border-radius:5px;
+        // border-width:3px;
+        // border-color:#CCCCCC;
+        width: 100%;
+        display:flex;
+        flex-direction:column;
+        align-items:space-around;
+    }
+  
+    .container {
+        // position:absolute;
+        border-bottom:solid; 
+        // border-radius:5px;
+        border-width:1px;
+        border-color:#E3E3E3;
+        margin: 10px;
+        padding: 10px;
+    }
+
+
+    rect {
+      fill: none;
+      pointer-events: all;
+    }
+
+    circle {
+      fill: #fff;
+      stroke-opacity:0;
+      fill-opacity:.1;
+      cursor: move;
+
+      stroke: #eee;
+      stroke-width: 1.5px;
+    }
+
+    //     circle {
+    //   fill: #fff;
+    //   fill-opacity: .2;
+    //   cursor: move;
+    // }
+
+    .selected {
+      fill: steelblue;
+      stroke: steelblue;
+    }
+
+    #guess {
+      fill: none;
+      stroke: steelblue;
+      stroke-width: 2px;
+    }
+
+     #ans {
+      fill: none;
+      stroke: green;
+      stroke-width: 2px;
+    }
+
+
+    .axis {
+      shape-rendering: crispEdges;
+    }
+
+    .x.axis line {
+      stroke: #ccc;
+    }
+
+    .x.axis .minor {
+      stroke-opacity: .5;
+    }
+
+    .x.axis path {
+      // display: none;
+      fill:none;
+    }
+
+    .y.axis line, .y.axis path {
+      fill: none;
+      stroke: #ccc;
+    }
+}

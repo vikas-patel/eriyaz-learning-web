@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+  <style>
+ 
+  body {
+    font: 10px sans-serif;
+  }
+ 
+  .axis path, .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+  </style>
+
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script> 
+
+</head>
+
+<body>
+  <div id="chart"></div>
+  <p>An example of verticle lines extending from an x using innerTickSize and outerTickSize</p>
+</body>
+
+<script>
+
+ 
+var margin = {top: 10, right: 30, bottom: 30, left: 30},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+ 
+var x = d3.scale.linear()
+    .domain([0, 25])
+    .range([0, width]);
+ 
+var data = [1, 2, 3, 5, 8, 13, 21];
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("top")
+    .tickValues(data)
+    .innerTickSize([250])
+    // .outerTickSize([250])
+    ;
+ 
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+ 
+svg.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis);
+ 
+</script>

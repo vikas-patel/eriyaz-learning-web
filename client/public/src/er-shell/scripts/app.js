@@ -15,7 +15,8 @@ define([
     './filters/index',
     'pitch-dial',
     'sing-graph',
-    'upordown'
+    'upordown',
+    'melodygraph'
 ], function (angular) {
     'use strict';
 
@@ -29,6 +30,7 @@ define([
         'pitch-dial',
         'sing-graph',
         'upordown',
+        'melodygraph',
         
         'ngResource',
         'angulartics',
