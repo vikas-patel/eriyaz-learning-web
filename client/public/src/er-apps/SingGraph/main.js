@@ -106,7 +106,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 				$scope.$apply();
 				// start again
 				countDownDisplayed = false;
-				$scope.operation = 'pause';
+				$scope.operation = 'reset';
 				start();
 			 }
 
@@ -117,7 +117,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			 $scope.restart = function() {
 			 	$scope.showOverlay = false;
 			 	reset();
-				$scope.operation = 'pause';
+				$scope.operation = 'reset';
 				start();
 			 }
 
@@ -166,8 +166,9 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 
 			function processSignal(data) {
 				// yet to start or paused.
-				if ($scope.operation === 'start' || $scope.operation === 'resume' || 
-					$scope.operation === 'over' || $scope.isInstrumentProgress == true) {
+				if ($scope.operation === 'start' || 
+					$scope.operation === 'over' || 
+					$scope.isInstrumentProgress == true) {
 					return;
 				}
 				//if (!displayCountDown()) return;
