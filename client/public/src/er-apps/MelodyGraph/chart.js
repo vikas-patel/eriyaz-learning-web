@@ -11,8 +11,8 @@ define([], function() {
 		// 	var parentEl = d3.select('#chartdiv')[0][0];
 		// var size = parseInt(window.getComputedStyle(parentEl).width);
 		// console.log(size);
-		var width = 400 - margin.left - margin.right;
-		var height = 400 - margin.top - margin.bottom;
+		var width = 400; 
+		var height = 400;
 
 		var dragBehavior = d3.behavior.drag()
 			.on("drag", dragmove);
@@ -30,6 +30,8 @@ define([], function() {
 			.orient("top")
 			.innerTickSize([height])
 			.outerTickSize([height])
+			// .outerTickSize([10])
+			// .outerTickSize([20])
 			.tickFormat('')
 			.tickSubdivide(true);
 
@@ -38,7 +40,8 @@ define([], function() {
 			.orient("left")
 			.ticks(25)
 			.tickFormat(customYFormat)
-			.tickSize(-width).tickSubdivide(true);
+			.tickSize(-width)
+			.tickSubdivide(true);
 
 		function customYFormat(yValue) {
 			var labels = ['Sa', '', 'Re', '', 'Ga', 'Ma', '', 'Pa', '', 'Dha', '', 'Ni', 'Sa'];
@@ -56,8 +59,9 @@ define([], function() {
 
 
 		var svg = d3.select("#chartdiv").append("svg")
-			.attr("width", width + margin.left + margin.right)
-			.attr("height", height + margin.top + margin.bottom)
+			.attr("width", "100%")
+			.attr("height", "100%")
+			.attr("viewBox", "0 0 " + (width + margin.left + margin.right) + " " + (height + margin.top + margin.bottom))
 			.append("g")
 			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
