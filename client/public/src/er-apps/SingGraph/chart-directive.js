@@ -2,14 +2,19 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 	var labelsIndian = ["Sa", "", "Re", "", "Ga", "Ma", "", "Pa", "", "Dha", "", "Ni"];
 	var labels12 = ["Sa", "Re(k)", "Re", "Ga(k)", "Ga", "Ma", "Ma(t)", "Pa", "Dha(k)", "Dha", "Ni(k)", "Ni", "SA"];
 	var rectW = 5;
+	var chart;
 	var ExerciseChart = function(containerId, $scope, parentWidth, parentHeight, labels){
 		this.parent = Chart.Class;
 		// super constructor
 		this.parent.call(this, containerId, parentWidth, parentHeight, labels);
 		this.$scope = $scope;
-		this.transitionDuration = 0;
-		this.transitionDelay = 0; //ms
 		this.offsetTime = 1000;
+		this.nextTick= this.offsetTime;
+		this.player = new Player($scope.context);
+		this.beatDuration = 1000;
+		this.nextBeatTime = 0;
+		this.currentNote = null;
+		this.isPlayInstrument = false;
 	};
 	
 	ExerciseChart.prototype = Object.create(Chart.Class.prototype);
@@ -19,47 +24,34 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 	ExerciseChart.prototype.start = function() {
 		this.parent.prototype.start.call(this);
 		this.drawIndicatorLine();
-		this.startTransition();
+		// transition
+		d3.timer(transitionFn);
+		//this.startTransition();
 	}
 
 	ExerciseChart.prototype.redraw = function() {
 		this.parent.prototype.redraw.call(this);
 		if (this.exercise) this.drawExercise();
+		this.nextTick= this.offsetTime;
+		this.nextBeatTime = 0;
+		this.currentNote = null;
 	}
 
+	// ExerciseChart.prototype.startInstrument = function(context, root) {
+	// 	//this.play(context, root);
+	// 	this.start();
+	// }
 
-	ExerciseChart.prototype.startInstrument = function(context, root) {
-		this.play(context, root);
-		this.start();
-	}
+	// ExerciseChart.prototype.pause = function() {
+	// 	if (this.isPaused) return;
+	// 	this.parent.prototype.pause.call(this);
+	// 	this.pauseIndicatorLine();
+	// 	this.pauseTransition();
+	// }
 
-	ExerciseChart.prototype.pause = function() {
-		if (this.isPaused) return;
-		this.parent.prototype.pause.call(this);
-		this.pauseIndicatorLine();
-		this.pauseTransition();
-	}
-
-	ExerciseChart.prototype.play = function(context, root) {
-		var player = new Player(context);
-		var exercise = this.exercise;
-		var melody = new Melody();
-		$.each(exercise.notes, function(idx, item) {
-			var note;
-			if (item == -1) {
-				// don't play
-				note = Note.createSilentNote(exercise.breakDuration);
-			} else if (item == -2) {
-				// don't play
-				note = Note.createSilentNote(exercise.midBreakDuration);
-			} else {
-				note = Note.createFromMidiNum(root + item, exercise.noteDuration);
-			}
-			
-			melody.addNote(note);
-		});
-		player.playMelody(melody, this.offsetTime);
-	}
+	// ExerciseChart.prototype.play = function(context, root) {
+		
+	// }
 	
 	ExerciseChart.prototype.resume = function() {
 		if (!this.isPaused) return;
@@ -71,11 +63,14 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 	ExerciseChart.prototype.drawIndicatorLine = function() {
 		var callback;
 		var color = 'red';
-		if (this.$scope.isInstrumentProgress) {
+		if (this.isPlayInstrument) {
 			color = 'black';
 		}
-		var chart = this;
-		callback = function () { chart.$scope.$broadcast('chartOver'); };
+		// if (this.$scope.isInstrumentProgress) {
+		// 	color = 'black';
+		// }
+		chart = this;
+		//callback = function () { chart.$scope.$broadcast('chartOver'); };
 		this.indicatorLine = this.svg.velocity.append("line")
 								 .attr("x1", 0)
 								 .attr("y1", this.y(-12))
@@ -85,34 +80,94 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 								 .attr("stroke", color)
 								 .attr("class", "indicatorLine");
 		var duration = this.duration + this.offsetTime;
-		this.indicatorLine.transition()
-				.duration(duration)
-				.delay(0)
-				.ease("linear")
-				.attr("transform", "translate(" + this.x(duration/1000) +",0)")
-				.each("end", callback);
+		// this.indicatorLine.transition()
+		// 		.duration(duration)
+		// 		.delay(0)
+		// 		.ease("linear")
+		// 		.attr("transform", "translate(" + this.x(duration/1000) +",0)")
+		// 		.each("end", callback);
+		// Kick off the timer.
 	}
 
-	ExerciseChart.prototype.resumeIndicatorLine = function () {
-		var duration = this.duration + this.offsetTime;
-		var chart = this;
-		var callback = function () { chart.$scope.$broadcast('chartOver'); };
-		this.indicatorLine.transition()
-				.duration(duration - this.getTimeRendered())
-				.delay(0)
-				.ease("linear")
-				.attr("transform", "translate(" + this.x(duration/1000) +",0)")
-				.each("end", callback);
+	function transitionFn(_elapsed) {
+		if (_elapsed > chart.duration + chart.offsetTime) {
+			chart.$scope.$broadcast('chartOver');
+			return true;
+		}
+		chart.indicatorLine.attr("transform", "translate(" + chart.x(_elapsed/1000) +",0)");
+		var totalDuration = (chart.duration + 2*chart.offsetTime - chart.settings.timeSpan)/(chart.duration + chart.offsetTime);
+		chart.svg.velocity.attr("transform", "translate(-" + chart.x((totalDuration*_elapsed)/1000) +",0)");
+		if (_elapsed > chart.nextBeatTime) {
+			chart.player.playBeat();
+			chart.nextBeatTime += chart.beatDuration;
+		}
+		// play instrument
+		if (chart.isPlayInstrument && _elapsed > chart.nextTick) {
+			chart.currentNote = chart.melody.shift();
+			chart.nextTick += chart.currentNote.duration;
+			chart.player.playNote(chart.currentNote.freq, chart.currentNote.duration);
+		}
+		return false;
 	}
+
+	// ExerciseChart.prototype.resumeTransition = function () {
+	// 	var delay = this.transitionDelay - this.getTimeRendered();
+	// 	if (delay<0) delay = 0;
+	// 	var timeLeft = this.svg.velocity.attr("transitionTimeLeft");
+	// 	this.svg.velocity.transition()
+	// 			.duration(timeLeft)
+	// 			.delay(delay)
+	// 			.ease("linear")
+	// 			.attr("transform", "translate(-" + this.x((this.transitionDuration+this.offsetTime-this.settings.timeSpan)/1000) +",0)")
+	// 			.attr("transitionTimeLeft",0);
+	// }
+	
+	// ExerciseChart.prototype.startTransition = function () {
+	// 	this.svg.velocity.attr("transitionTimeLeft",this.transitionDuration);
+	// 	this.svg.velocity.transition()
+	// 			.duration(this.transitionDuration)
+	// 			.delay(this.transitionDelay)
+	// 			.ease("linear")
+	// 			.attr("transform", "translate(-" + this.x((this.transitionDuration+this.offsetTime-this.settings.timeSpan)/1000) +",0)")
+	// 			.attr("transitionTimeLeft",0);
+	// };
+
+	// ExerciseChart.prototype.resumeIndicatorLine = function () {
+	// 	var duration = this.duration + this.offsetTime;
+	// 	var chart = this;
+	// 	var callback = function () { chart.$scope.$broadcast('chartOver'); };
+	// 	this.indicatorLine.transition()
+	// 			.duration(duration - this.getTimeRendered())
+	// 			.delay(0)
+	// 			.ease("linear")
+	// 			.attr("transform", "translate(" + this.x(duration/1000) +",0)")
+	// 			.each("end", callback);
+	// }
 	
 	ExerciseChart.prototype.setExercise = function(exercise) {
 		this.exercise = exercise;
 		this.duration = this.getDuration();
-		if (this.duration > this.settings.timeSpan) {
-			this.transitionDuration = this.duration + this.offsetTime;	
-		} else {
-			this.transitionDuration = 0;
-		}
+		// if (this.duration > this.settings.timeSpan) {
+		// 	this.transitionDuration = this.duration + this.offsetTime;	
+		// } else {
+		// 	this.transitionDuration = 0;
+		// }
+		this.melody = [];
+		melody = this.melody;
+		var rootNote = this.$scope.user.settings.rootNote;
+		$.each(exercise.notes, function(idx, item) {
+			var note;
+			if (item == -1) {
+				// don't play
+				note = Note.createSilentNote(exercise.breakDuration);
+			} else if (item == -2) {
+				// don't play
+				note = Note.createSilentNote(exercise.midBreakDuration);
+			} else {
+				note = Note.createFromMidiNum(rootNote + item, exercise.noteDuration);
+			}
+			melody.push(note);
+		});
 	};
 
 	ExerciseChart.prototype.getDuration = function() {
@@ -208,41 +263,19 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 			.attr("class", "exercise");
 	};
 	
-	ExerciseChart.prototype.pauseTransition = function () {
-		this.svg.velocity.transition().duration(0);
-	}
+	// ExerciseChart.prototype.pauseTransition = function () {
+	// 	this.svg.velocity.transition().duration(0);
+	// }
 
-	ExerciseChart.prototype.pauseIndicatorLine = function () {
-		this.indicatorLine.transition().duration(0);
-	}	
+	// ExerciseChart.prototype.pauseIndicatorLine = function () {
+	// 	this.indicatorLine.transition().duration(0);
+	// }	
 	
 	ExerciseChart.prototype.getTimeRendered = function(){
 		var d = new Date();
 		var currentTime = d.getTime();
 		return currentTime -this.startTime - this.pauseDuration;
 	}
-	
-	ExerciseChart.prototype.resumeTransition = function () {
-		var delay = this.transitionDelay - this.getTimeRendered();
-		if (delay<0) delay = 0;
-		var timeLeft = this.svg.velocity.attr("transitionTimeLeft");
-		this.svg.velocity.transition()
-				.duration(timeLeft)
-				.delay(delay)
-				.ease("linear")
-				.attr("transform", "translate(-" + this.x((this.transitionDuration+this.offsetTime-this.settings.timeSpan)/1000) +",0)")
-				.attr("transitionTimeLeft",0);
-	}
-	
-	ExerciseChart.prototype.startTransition = function () {
-		this.svg.velocity.attr("transitionTimeLeft",this.transitionDuration);
-		this.svg.velocity.transition()
-				.duration(this.transitionDuration)
-				.delay(this.transitionDelay)
-				.ease("linear")
-				.attr("transform", "translate(-" + this.x((this.transitionDuration+this.offsetTime-this.settings.timeSpan)/1000) +",0)")
-				.attr("transitionTimeLeft",0);
-	};
 	
 	ExerciseChart.prototype.exerciseNote = function(time) {
 		// remove start offset
@@ -309,21 +342,24 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 				scope.chart = chart;
 
 				scope.$on('start',function() {
+					chart.isPlayInstrument = false;
 					chart.start();
 				});
 
 				scope.$on('start-instrument',function() {
-					chart.startInstrument(scope.context, scope.user.settings.rootNote);
+					chart.isPlayInstrument = true;
+					chart.start();
+					//chart.startInstrument(scope.context, scope.user.settings.rootNote);
 					//chart.play(scope.context, scope.rootNote);
 				});
 
-				scope.$on('pause',function() {
-					chart.pause();
-				});
+				// scope.$on('pause',function() {
+				// 	chart.pause();
+				// });
 
-				scope.$on('resume',function() {
-					chart.resume();
-				});
+				// scope.$on('resume',function() {
+				// 	chart.resume();
+				// });
             }
         };
     });

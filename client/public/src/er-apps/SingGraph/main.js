@@ -1,6 +1,6 @@
 define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiobuffer', 'pitchdetector', 'note',
-		'tanpura'],
-	function(app, $, exercises, MicUtil, CurrentAudioContext, AudioBuffer, PitchDetector, Note, Tanpura) {
+		'tanpura', 'metronome'],
+	function(app, $, exercises, MicUtil, CurrentAudioContext, AudioBuffer, PitchDetector, Note, Tanpura, metronome) {
 		//constants
 		var detector;
 		//other globals;
@@ -33,6 +33,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 				if ($scope.user.settings.isPlayTanpura) {
 					startTanpura();
 				}
+				$scope.rootFreq = Note.numToFreq($scope.user.settings.rootNote);
 			});
 			$rootScope.$on('$stateChangeSuccess', 
 				function(event, toState, toParams, fromState, fromParams){
@@ -48,6 +49,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 					} else {
 						stopTanpura();
 					}
+					$scope.rootFreq = Note.numToFreq($scope.user.settings.rootNote);
 				});
 			}
 			$scope.startOrPause = function(){
@@ -61,7 +63,6 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 					$scope.toastMessageDisplayed = true;
 					return;
 				}
-				$scope.rootFreq = Note.numToFreq($scope.user.settings.rootNote);
 				switch($scope.operation) {
 					case 'start':
 						if ($scope.signalOn) {
@@ -120,6 +121,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			 }
 
 			 $scope.$on('chartOver',function() {
+			 	//metronome.stop();
 			 	if ($scope.isInstrumentProgress) {
 			 		$scope.chart.redraw();
 			 		start();
@@ -199,13 +201,16 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			}
 
 			function start() {
+				//metronome.setDuration(1000);
 				if ($scope.user.settings.isPlayInstrument && !$scope.isInstrumentProgress) {
 					$scope.isInstrumentProgress = true;
 					$scope.$broadcast('start-instrument');
+					//metronome.play();
 					//showToastMessage("First Listen.");
 				} else {
 					$scope.isInstrumentProgress = false;
 					$scope.$broadcast('start');
+					//metronome.play();
 					//showToastMessage("Sing Now.");
 				}
 			}
@@ -214,7 +219,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			function reset() {
 				resetScore();
 				// Destroy html element doesn't cancel timeout event.
-				$scope.chart.pauseIndicatorLine();
+				//$scope.chart.pauseIndicatorLine();
 				setExercise();
 				// start again
 				countDownDisplayed = false;
