@@ -15,6 +15,7 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		this.nextBeatTime = 0;
 		this.currentNote = null;
 		this.isPlayInstrument = false;
+		this.isTransitionStopped = true;
 	};
 	
 	ExerciseChart.prototype = Object.create(Chart.Class.prototype);
@@ -25,6 +26,7 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		this.parent.prototype.start.call(this);
 		this.drawIndicatorLine();
 		// transition
+		this.isTransitionStopped = false;
 		d3.timer(transitionFn);
 		//this.startTransition();
 	}
@@ -35,6 +37,7 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		this.nextTick= this.offsetTime;
 		this.nextBeatTime = 0;
 		this.currentNote = null;
+		this.isTransitionStopped = true;
 	}
 
 	// ExerciseChart.prototype.startInstrument = function(context, root) {
@@ -90,6 +93,7 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 	}
 
 	function transitionFn(_elapsed) {
+		if (chart.isTransitionStopped) return true;
 		if (_elapsed > chart.duration + chart.offsetTime) {
 			chart.$scope.$broadcast('chartOver');
 			return true;

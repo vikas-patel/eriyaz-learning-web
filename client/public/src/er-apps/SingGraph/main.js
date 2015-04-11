@@ -70,11 +70,12 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 						} else {
 							startMic($scope);
 						}
+						$scope.operation = 'reset';
 						break;
-					case 'pause': $scope.$broadcast('pause');break;
-					case 'resume': $scope.$broadcast('resume');
+					case 'reset' : reset(); break;
+					//case 'pause': $scope.$broadcast('pause');break;
+					//case 'resume': $scope.$broadcast('resume');
 				}
-			    $scope.operation = ($scope.operation === 'start' || $scope.operation === 'resume') ? 'pause' : 'resume';
 			}
 
 			$scope.$watch(function(scope) { return scope.myExercise },

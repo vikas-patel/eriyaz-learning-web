@@ -6,8 +6,10 @@
 			ng-options="exercise.name for exercise in exercises">
 		   		<option value="">-- Select Exercise --</option>
 		    </select>
-			<button ng-click="startOrPause()" ng-class="{start:operation==='start', pause:operation==='pause', resume:operation==='resume'||operation==='over'}" ng-disabled="operation==='over'"></button>
-			<button ng-click="reset()" ng-disabled="operation==='start'">Reset</button>
+		    <button ng-click="startOrPause()" ng-class="{start:operation==='start',
+		    reset:operation==='reset'||operation==='over'}"></button>
+<!-- 			<button ng-click="startOrPause()" ng-class="{start:operation==='start', pause:operation==='pause', resume:operation==='resume'||operation==='over'}" ng-disabled="operation==='over'"></button>
+			<button ng-click="reset()" ng-disabled="operation==='start'">Reset</button> -->
 			<button ng-click="showSettings=true">Settings</button>
 		</div>
 		<div style="float: right;">
