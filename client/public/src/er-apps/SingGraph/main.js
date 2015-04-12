@@ -5,7 +5,6 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 		var detector;
 		//other globals;
 		var context;
-		var chart;
 		var buffer;
 		var countDown;
 		var countDownDisplayed = false;
@@ -39,6 +38,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 				function(event, toState, toParams, fromState, fromParams){
 					if (fromState.name == 'alankars') {
 						stopTanpura();
+						$scope.chart.isTransitionStopped = true;
 					}
 				});
 			$scope.updateSettings = function() {
