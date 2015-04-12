@@ -73,8 +73,6 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 						$scope.operation = 'reset';
 						break;
 					case 'reset' : reset(); break;
-					//case 'pause': $scope.$broadcast('pause');break;
-					//case 'resume': $scope.$broadcast('resume');
 				}
 			}
 
@@ -122,7 +120,6 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			 }
 
 			 $scope.$on('chartOver',function() {
-			 	//metronome.stop();
 			 	if ($scope.isInstrumentProgress) {
 			 		$scope.chart.redraw();
 			 		start();
@@ -133,19 +130,6 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
                	$scope.$apply();
                	// save score at server.
                	ScoreService.save($scope.myExercise.name, $scope.totalScore);
-	               	
-			 // 	++$scope.partNumber;
-			 // 	if ($scope.partNumber*maxNotes < $scope.myExercise.notes.length) {
-				// 	$scope.chart.setExercise(ExerciseService.getSubset($scope.myExercise, $scope.partNumber, maxNotes));
-				// 	$scope.chart.redraw();
-				// 	start();
-				// } else {
-				// 	$scope.operation = 'over';
-	   //             	$scope.showOverlay = true;
-	   //             	$scope.$apply();
-	   //             	// save score at server.
-	   //             	ScoreService.save($scope.myExercise._id, $scope.totalScore);
-				// }
 			 })
 
 			 function init() {
@@ -203,25 +187,18 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			}
 
 			function start() {
-				//metronome.setDuration(1000);
 				if ($scope.user.settings.isPlayInstrument && !$scope.isInstrumentProgress) {
 					$scope.isInstrumentProgress = true;
 					$scope.$broadcast('start-instrument');
-					//metronome.play();
-					//showToastMessage("First Listen.");
 				} else {
 					$scope.isInstrumentProgress = false;
 					$scope.$broadcast('start');
-					//metronome.play();
-					//showToastMessage("Sing Now.");
 				}
 			}
 
 			// Reset game to original state
 			function reset() {
 				resetScore();
-				// Destroy html element doesn't cancel timeout event.
-				//$scope.chart.pauseIndicatorLine();
 				setExercise();
 				// start again
 				countDownDisplayed = false;

@@ -29,13 +29,6 @@
       $scope.playRoot = function() {
         var player = new WebAudioPlayer(audioContext);
         player.playNote(PitchModel.rootFreq, 1000);
-        // var playTime = 1000;
-        // console.log(player.startTone);
-        // player.startTone(PitchModel.rootFreq);
-        // setTimeout(
-        //   function() {
-        //     player.stopTone();
-        //   }, playTime);
       };
     });
   });

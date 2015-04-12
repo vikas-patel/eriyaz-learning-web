@@ -28,7 +28,6 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		// transition
 		this.isTransitionStopped = false;
 		d3.timer(transitionFn);
-		//this.startTransition();
 	}
 
 	ExerciseChart.prototype.redraw = function() {
@@ -40,20 +39,11 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		this.isTransitionStopped = true;
 	}
 
-	// ExerciseChart.prototype.startInstrument = function(context, root) {
-	// 	//this.play(context, root);
-	// 	this.start();
-	// }
-
 	// ExerciseChart.prototype.pause = function() {
 	// 	if (this.isPaused) return;
 	// 	this.parent.prototype.pause.call(this);
 	// 	this.pauseIndicatorLine();
 	// 	this.pauseTransition();
-	// }
-
-	// ExerciseChart.prototype.play = function(context, root) {
-		
 	// }
 	
 	ExerciseChart.prototype.resume = function() {
@@ -69,9 +59,6 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		if (this.isPlayInstrument) {
 			color = 'black';
 		}
-		// if (this.$scope.isInstrumentProgress) {
-		// 	color = 'black';
-		// }
 		chart = this;
 		//callback = function () { chart.$scope.$broadcast('chartOver'); };
 		this.indicatorLine = this.svg.velocity.append("line")
@@ -83,13 +70,6 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 								 .attr("stroke", color)
 								 .attr("class", "indicatorLine");
 		var duration = this.duration + this.offsetTime;
-		// this.indicatorLine.transition()
-		// 		.duration(duration)
-		// 		.delay(0)
-		// 		.ease("linear")
-		// 		.attr("transform", "translate(" + this.x(duration/1000) +",0)")
-		// 		.each("end", callback);
-		// Kick off the timer.
 	}
 
 	function transitionFn(_elapsed) {
@@ -114,48 +94,9 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		return false;
 	}
 
-	// ExerciseChart.prototype.resumeTransition = function () {
-	// 	var delay = this.transitionDelay - this.getTimeRendered();
-	// 	if (delay<0) delay = 0;
-	// 	var timeLeft = this.svg.velocity.attr("transitionTimeLeft");
-	// 	this.svg.velocity.transition()
-	// 			.duration(timeLeft)
-	// 			.delay(delay)
-	// 			.ease("linear")
-	// 			.attr("transform", "translate(-" + this.x((this.transitionDuration+this.offsetTime-this.settings.timeSpan)/1000) +",0)")
-	// 			.attr("transitionTimeLeft",0);
-	// }
-	
-	// ExerciseChart.prototype.startTransition = function () {
-	// 	this.svg.velocity.attr("transitionTimeLeft",this.transitionDuration);
-	// 	this.svg.velocity.transition()
-	// 			.duration(this.transitionDuration)
-	// 			.delay(this.transitionDelay)
-	// 			.ease("linear")
-	// 			.attr("transform", "translate(-" + this.x((this.transitionDuration+this.offsetTime-this.settings.timeSpan)/1000) +",0)")
-	// 			.attr("transitionTimeLeft",0);
-	// };
-
-	// ExerciseChart.prototype.resumeIndicatorLine = function () {
-	// 	var duration = this.duration + this.offsetTime;
-	// 	var chart = this;
-	// 	var callback = function () { chart.$scope.$broadcast('chartOver'); };
-	// 	this.indicatorLine.transition()
-	// 			.duration(duration - this.getTimeRendered())
-	// 			.delay(0)
-	// 			.ease("linear")
-	// 			.attr("transform", "translate(" + this.x(duration/1000) +",0)")
-	// 			.each("end", callback);
-	// }
-	
 	ExerciseChart.prototype.setExercise = function(exercise) {
 		this.exercise = exercise;
 		this.duration = this.getDuration();
-		// if (this.duration > this.settings.timeSpan) {
-		// 	this.transitionDuration = this.duration + this.offsetTime;	
-		// } else {
-		// 	this.transitionDuration = 0;
-		// }
 		this.melody = [];
 		melody = this.melody;
 		var rootNote = this.$scope.user.settings.rootNote;
@@ -232,7 +173,6 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 			.enter()
 			.append("rect")
 			.attr("x", function(d){
-				//t1 = t1 + (+d.duration); return  x((t1-(+d.duration))/1000); 
 				var duration = 0;
 			 	if (d==-1) 
 					duration = exercise.breakDuration;
@@ -248,7 +188,6 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 				return y(d) - rectH/2;
 			})
 			.attr("width", function(d){
-			 	//return x(+d.duration/1000);
 			 	var duration = 0;
 			 	if (d == -1) 
 					duration = exercise.breakDuration;
@@ -266,14 +205,6 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 			.attr("ry", rectH/2)
 			.attr("class", "exercise");
 	};
-	
-	// ExerciseChart.prototype.pauseTransition = function () {
-	// 	this.svg.velocity.transition().duration(0);
-	// }
-
-	// ExerciseChart.prototype.pauseIndicatorLine = function () {
-	// 	this.indicatorLine.transition().duration(0);
-	// }	
 	
 	ExerciseChart.prototype.getTimeRendered = function(){
 		var d = new Date();
@@ -353,17 +284,7 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 				scope.$on('start-instrument',function() {
 					chart.isPlayInstrument = true;
 					chart.start();
-					//chart.startInstrument(scope.context, scope.user.settings.rootNote);
-					//chart.play(scope.context, scope.rootNote);
 				});
-
-				// scope.$on('pause',function() {
-				// 	chart.pause();
-				// });
-
-				// scope.$on('resume',function() {
-				// 	chart.resume();
-				// });
             }
         };
     });
