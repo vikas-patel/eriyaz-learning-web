@@ -34,6 +34,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 				}
 				$scope.rootFreq = Note.numToFreq($scope.user.settings.rootNote);
 			});
+			
 			$rootScope.$on('$stateChangeSuccess', 
 				function(event, toState, toParams, fromState, fromParams){
 					if (fromState.name == 'alankars') {

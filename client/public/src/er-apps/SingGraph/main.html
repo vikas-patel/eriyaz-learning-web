@@ -45,8 +45,10 @@
 					<input name="isPlayTanpura" ng-model="user.settings.isPlayTanpura" type="checkbox" id="isPlayTanpura" />
 			    </p>
 			    <p>
-			        <label for="isPlayInstrument"> First Play Instrument: </label>
-					<input name="isPlayInstrument" ng-model="user.settings.isPlayInstrument" type="checkbox" id="isPlayInstrument" />
+			        <label for="isPlayInstrument"> Play Instrument: </label>
+			        <input type="radio" ng-checked="true" name="playInstrument" value="with" ng-model="user.settings.playInstrument"> With
+			        <input type="radio" name="playInstrument" value="before" ng-model="user.settings.playInstrument"> Before
+			        <input type="radio" name="playInstrument" value="no" ng-model="user.settings.playInstrument"> No
 			    </p>
 			    <p>
 			    	<label></label>
