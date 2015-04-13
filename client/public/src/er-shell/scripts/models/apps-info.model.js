@@ -29,6 +29,13 @@
         href: '#melodygraph',
         appUrl: 'er-apps/MelodyGraph/main.html',
         aspectRatio: 9/10
+      }, {
+        name: 'SwarSpace',
+        thumb: 'er-shell/images/swarspace.jpg',
+        desc: 'Develop a sense of space between two notes - how far apart they are?',
+        href: '#swarspace',
+        appUrl: 'er-apps/SwarSpace/main.html',
+        aspectRatio: 9/10
       }];
       appsInfo.selectedIndex = -1;
       appsInfo.setSelected = function(index) {

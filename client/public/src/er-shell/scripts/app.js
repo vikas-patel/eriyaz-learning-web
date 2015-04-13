@@ -16,7 +16,8 @@ define([
     'pitch-dial',
     'sing-graph',
     'upordown',
-    'melodygraph'
+    'melodygraph',
+    'swarspace'
 ], function (angular) {
     'use strict';
 
@@ -31,6 +32,7 @@ define([
         'sing-graph',
         'upordown',
         'melodygraph',
+        'swarspace',
         
         'ngResource',
         'angulartics',

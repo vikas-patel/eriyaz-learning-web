@@ -841,3 +841,52 @@ core-drawer-panel:not([narrow]) #navicon {
   stroke: #ccc;
   stroke-width: 1px;
 }
+
+/* line 2, ../../../er-apps/SwarSpace/main.scss */
+#swarspace #score {
+  float: right;
+  margin-right: 10px;
+}
+/* line 5, ../../../er-apps/SwarSpace/main.scss */
+#swarspace #score dt {
+  float: left;
+  clear: left;
+  width: 100px;
+  text-align: left;
+}
+/* line 13, ../../../er-apps/SwarSpace/main.scss */
+#swarspace #score dt:after {
+  content: ":";
+}
+/* line 16, ../../../er-apps/SwarSpace/main.scss */
+#swarspace #score dd {
+  margin: 0 0 0 100px;
+  color: darkgrey;
+}
+/* line 22, ../../../er-apps/SwarSpace/main.scss */
+#swarspace svg {
+  margin-top: 15px;
+}
+/* line 26, ../../../er-apps/SwarSpace/main.scss */
+#swarspace line {
+  stroke: #ccc;
+  stroke-width: 1px;
+}
+/* line 31, ../../../er-apps/SwarSpace/main.scss */
+#swarspace .y.axis line, #swarspace .y.axis path {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1px;
+}
+/* line 38, ../../../er-apps/SwarSpace/main.scss */
+#swarspace #guessBar {
+  fill: blue;
+}
+/* line 42, ../../../er-apps/SwarSpace/main.scss */
+#swarspace #arrow {
+  fill: darkgrey;
+}
+/* line 46, ../../../er-apps/SwarSpace/main.scss */
+#swarspace #ansBar {
+  fill: green;
+}

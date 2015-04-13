@@ -86,6 +86,10 @@ requirejs.config({
         name: 'melodygraph',
         location: 'er-apps/MelodyGraph',
         main: 'index'
+    }, {    
+        name: 'swarspace',
+        location: 'er-apps/SwarSpace',
+        main: 'index'
     }, {
         name: 'tanpura',
         location: 'er-libs/tanpura',
