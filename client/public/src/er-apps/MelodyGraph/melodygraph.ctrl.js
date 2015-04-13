@@ -2,7 +2,7 @@ define(['./module', './notesequence', 'd3','./chart','./frequencyutil'], functio
     var sequence;
 
     app.controller('MelodyGraphCtrl', function($scope) {
-        $scope.numNotesOpts = [2, 3, 4, 5, 6];
+        $scope.numNotesOpts = [3, 4, 5, 6];
         $scope.numNotes = 3;
 
         var chart = new Chart();
