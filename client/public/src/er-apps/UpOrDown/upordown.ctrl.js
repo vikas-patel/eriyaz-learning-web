@@ -30,7 +30,6 @@ define(['./module', './notesequence'], function(app, NoteSequence) {
         });
 
         $scope.$watch('total', function() {
-            console.log('here');
             $scope.accuracy = $scope.right * 100 / $scope.total;
 
         });
@@ -49,7 +48,6 @@ define(['./module', './notesequence'], function(app, NoteSequence) {
             if (sequence.isUp($scope.firstNote - 1, $scope.secondNote - 1)) {
                 $scope.right++;
             }
-            console.log($scope.right);
         };
 
         $scope.isDown = function() {
