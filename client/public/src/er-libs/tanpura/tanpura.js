@@ -38,7 +38,6 @@ define(['./soundbank', './stringsynth', 'currentaudiocontext', 'require', './st-
 				local.strings[3] = new StringSynth(root - 12, soundbank);
 			};
 		};
-		this.setTuning(root, firstString);
 	};
 
 	var instance;
