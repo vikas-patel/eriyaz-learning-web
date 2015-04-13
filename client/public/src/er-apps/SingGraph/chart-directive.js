@@ -56,9 +56,9 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 	ExerciseChart.prototype.drawIndicatorLine = function() {
 		var callback;
 		var color = 'red';
-		if (this.isPlayInstrument) {
-			color = 'black';
-		}
+		// if (this.isPlayInstrument) {
+		// 	color = 'black';
+		// }
 		chart = this;
 		//callback = function () { chart.$scope.$broadcast('chartOver'); };
 		this.indicatorLine = this.svg.velocity.append("line")

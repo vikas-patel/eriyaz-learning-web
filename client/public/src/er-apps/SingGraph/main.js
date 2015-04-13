@@ -23,6 +23,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			$scope.scoreCount = 0;
 			$scope.partNumber = 0;
 			$scope.signalOn = false;
+			$scope.stopSignal = true;
 			$scope.isInstrumentProgress = false;
 			$scope.user = User.get({id: $window.localStorage.userId}, function() {
 				if (!$scope.user.settings || !$scope.user.settings.rootNote) {
@@ -121,12 +122,12 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			 }
 
 			 $scope.$on('chartOver',function() {
-			 	if ($scope.isInstrumentProgress) {
+			 	if ($scope.user.settings.playInstrument == "before" && $scope.chart.isPlayInstrument) {
 			 		$scope.chart.redraw();
 			 		start();
 			 		return;
 			 	}
-			 	$scope.operation = 'over';
+			 	$scope.stopSignal = true;
                	$scope.showOverlay = true;
                	$scope.$apply();
                	// save score at server.
@@ -151,9 +152,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 
 			function processSignal(data) {
 				// yet to start or paused.
-				if ($scope.operation === 'start' || 
-					$scope.operation === 'over' || 
-					$scope.isInstrumentProgress == true) {
+				if ($scope.stopSignal) {
 					return;
 				}
 				//if (!displayCountDown()) return;
@@ -188,11 +187,14 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			}
 
 			function start() {
-				if ($scope.user.settings.isPlayInstrument && !$scope.isInstrumentProgress) {
-					$scope.isInstrumentProgress = true;
+				if ($scope.user.settings.playInstrument == "before" && !$scope.chart.isPlayInstrument) {
+					$scope.stopSignal = true;
+					$scope.$broadcast('start-instrument');
+				} else if ($scope.user.settings.playInstrument == "with") {
+					$scope.stopSignal = false;
 					$scope.$broadcast('start-instrument');
 				} else {
-					$scope.isInstrumentProgress = false;
+					$scope.stopSignal = false;
 					$scope.$broadcast('start');
 				}
 			}
