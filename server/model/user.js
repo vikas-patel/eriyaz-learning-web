@@ -17,7 +17,7 @@ var UserSchema = new mongoose.Schema({
         ref: 'User'},
     settings : {
         rootNote: Number,
-        isPlayInstrument: Boolean,
+        playInstrument: String,
         isPlayTanpura: Boolean
     }
 });

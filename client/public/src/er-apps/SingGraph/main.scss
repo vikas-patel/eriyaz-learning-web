@@ -28,6 +28,10 @@ $greyExercise: #A8A8A8;
 	  content:"Resume";
 	}
 
+	.reset::before{
+	  content:"Reset";
+	}
+
 	.invalid {
 	  border-color: red;
 	  border-width:1px;

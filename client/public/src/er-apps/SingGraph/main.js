@@ -1,11 +1,10 @@
 define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiobuffer', 'pitchdetector', 'note',
-		'tanpura'],
-	function(app, $, exercises, MicUtil, CurrentAudioContext, AudioBuffer, PitchDetector, Note, Tanpura) {
+		'tanpura', 'metronome'],
+	function(app, $, exercises, MicUtil, CurrentAudioContext, AudioBuffer, PitchDetector, Note, Tanpura, metronome) {
 		//constants
 		var detector;
 		//other globals;
 		var context;
-		var chart;
 		var buffer;
 		var countDown;
 		var countDownDisplayed = false;
@@ -24,6 +23,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			$scope.scoreCount = 0;
 			$scope.partNumber = 0;
 			$scope.signalOn = false;
+			$scope.stopSignal = true;
 			$scope.isInstrumentProgress = false;
 			$scope.user = User.get({id: $window.localStorage.userId}, function() {
 				if (!$scope.user.settings || !$scope.user.settings.rootNote) {
@@ -33,11 +33,14 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 				if ($scope.user.settings.isPlayTanpura) {
 					startTanpura();
 				}
+				$scope.rootFreq = Note.numToFreq($scope.user.settings.rootNote);
 			});
+			
 			$rootScope.$on('$stateChangeSuccess', 
 				function(event, toState, toParams, fromState, fromParams){
 					if (fromState.name == 'alankars') {
 						stopTanpura();
+						$scope.chart.isTransitionStopped = true;
 					}
 				});
 			$scope.updateSettings = function() {
@@ -48,6 +51,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 					} else {
 						stopTanpura();
 					}
+					$scope.rootFreq = Note.numToFreq($scope.user.settings.rootNote);
 				});
 			}
 			$scope.startOrPause = function(){
@@ -61,7 +65,6 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 					$scope.toastMessageDisplayed = true;
 					return;
 				}
-				$scope.rootFreq = Note.numToFreq($scope.user.settings.rootNote);
 				switch($scope.operation) {
 					case 'start':
 						if ($scope.signalOn) {
@@ -69,11 +72,10 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 						} else {
 							startMic($scope);
 						}
+						$scope.operation = 'reset';
 						break;
-					case 'pause': $scope.$broadcast('pause');break;
-					case 'resume': $scope.$broadcast('resume');
+					case 'reset' : reset(); break;
 				}
-			    $scope.operation = ($scope.operation === 'start' || $scope.operation === 'resume') ? 'pause' : 'resume';
 			}
 
 			$scope.$watch(function(scope) { return scope.myExercise },
@@ -104,7 +106,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 				$scope.$apply();
 				// start again
 				countDownDisplayed = false;
-				$scope.operation = 'pause';
+				$scope.operation = 'reset';
 				start();
 			 }
 
@@ -115,34 +117,21 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			 $scope.restart = function() {
 			 	$scope.showOverlay = false;
 			 	reset();
-				$scope.operation = 'pause';
+				$scope.operation = 'reset';
 				start();
 			 }
 
 			 $scope.$on('chartOver',function() {
-			 	if ($scope.isInstrumentProgress) {
+			 	if ($scope.user.settings.playInstrument == "before" && $scope.chart.isPlayInstrument) {
 			 		$scope.chart.redraw();
 			 		start();
 			 		return;
 			 	}
-			 	$scope.operation = 'over';
+			 	$scope.stopSignal = true;
                	$scope.showOverlay = true;
                	$scope.$apply();
                	// save score at server.
                	ScoreService.save($scope.myExercise.name, $scope.totalScore);
-	               	
-			 // 	++$scope.partNumber;
-			 // 	if ($scope.partNumber*maxNotes < $scope.myExercise.notes.length) {
-				// 	$scope.chart.setExercise(ExerciseService.getSubset($scope.myExercise, $scope.partNumber, maxNotes));
-				// 	$scope.chart.redraw();
-				// 	start();
-				// } else {
-				// 	$scope.operation = 'over';
-	   //             	$scope.showOverlay = true;
-	   //             	$scope.$apply();
-	   //             	// save score at server.
-	   //             	ScoreService.save($scope.myExercise._id, $scope.totalScore);
-				// }
 			 })
 
 			 function init() {
@@ -163,8 +152,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 
 			function processSignal(data) {
 				// yet to start or paused.
-				if ($scope.operation === 'start' || $scope.operation === 'resume' || 
-					$scope.operation === 'over' || $scope.isInstrumentProgress == true) {
+				if ($scope.stopSignal) {
 					return;
 				}
 				//if (!displayCountDown()) return;
@@ -199,22 +187,21 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 			}
 
 			function start() {
-				if ($scope.user.settings.isPlayInstrument && !$scope.isInstrumentProgress) {
-					$scope.isInstrumentProgress = true;
+				if ($scope.user.settings.playInstrument == "before" && !$scope.chart.isPlayInstrument) {
+					$scope.stopSignal = true;
 					$scope.$broadcast('start-instrument');
-					//showToastMessage("First Listen.");
+				} else if ($scope.user.settings.playInstrument == "with") {
+					$scope.stopSignal = false;
+					$scope.$broadcast('start-instrument');
 				} else {
-					$scope.isInstrumentProgress = false;
+					$scope.stopSignal = false;
 					$scope.$broadcast('start');
-					//showToastMessage("Sing Now.");
 				}
 			}
 
 			// Reset game to original state
 			function reset() {
 				resetScore();
-				// Destroy html element doesn't cancel timeout event.
-				$scope.chart.pauseIndicatorLine();
 				setExercise();
 				// start again
 				countDownDisplayed = false;
