@@ -11,7 +11,7 @@ define([], function() {
 		// 	var parentEl = d3.select('#chartdiv')[0][0];
 		// var size = parseInt(window.getComputedStyle(parentEl).width);
 		// console.log(size);
-		var width = 400; 
+		var width = 400;
 		var height = 400;
 
 		var dragBehavior = d3.behavior.drag()
@@ -43,9 +43,10 @@ define([], function() {
 			.tickSize(-width)
 			.tickSubdivide(true);
 
+
 		function customYFormat(yValue) {
 			var labels = ['Sa', '', 'Re', '', 'Ga', 'Ma', '', 'Pa', '', 'Dha', '', 'Ni', 'Sa'];
-			return labels[Math.abs(Math.round(yValue / 100))];
+			return labels[(12 + Math.round(yValue / 100)) % 12];
 		}
 
 		function dragmove(d) {
@@ -87,6 +88,13 @@ define([], function() {
 		svg.append("g")
 			.attr("class", "y axis")
 			.call(yAxis);
+
+		svg.append("svg:line")
+			.attr("id", "center-line")
+			.attr("x1", 0)
+			.attr("y1", height / 2)
+			.attr("x2", width)
+			.attr("y2", height / 2);
 
 		svg.node().focus();
 

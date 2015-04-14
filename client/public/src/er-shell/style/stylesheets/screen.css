@@ -845,6 +845,11 @@ core-drawer-panel:not([narrow]) #navicon {
   stroke: #ccc;
   stroke-width: 1px;
 }
+/* line 102, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph #center-line {
+  stroke: #999;
+  stroke-width: 1px;
+}
 
 /* line 2, ../../../er-apps/SwarSpace/main.scss */
 #swarspace #score {
