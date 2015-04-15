@@ -899,3 +899,32 @@ core-drawer-panel:not([narrow]) #navicon {
 #swarspace #ansBar {
   fill: green;
 }
+
+/* line 2, ../../../er-apps/ThatMemorizer/main.scss */
+#thatmemorizer #score {
+  float: right;
+  margin-right: 10px;
+}
+/* line 5, ../../../er-apps/ThatMemorizer/main.scss */
+#thatmemorizer #score dt {
+  float: left;
+  clear: left;
+  width: 100px;
+  text-align: left;
+}
+/* line 13, ../../../er-apps/ThatMemorizer/main.scss */
+#thatmemorizer #score dt:after {
+  content: ":";
+}
+/* line 16, ../../../er-apps/ThatMemorizer/main.scss */
+#thatmemorizer #score dd {
+  margin: 0 0 0 100px;
+}
+/* line 22, ../../../er-apps/ThatMemorizer/main.scss */
+#thatmemorizer svg {
+  margin-top: 15px;
+}
+/* line 26, ../../../er-apps/ThatMemorizer/main.scss */
+#thatmemorizer #feedback {
+  margin: 20px;
+}

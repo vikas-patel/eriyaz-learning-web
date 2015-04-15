@@ -90,6 +90,10 @@ requirejs.config({
         name: 'swarspace',
         location: 'er-apps/SwarSpace',
         main: 'index'
+    }, {    
+        name: 'thatmemorizer',
+        location: 'er-apps/ThatMemorizer',
+        main: 'index'
     }, {
         name: 'tanpura',
         location: 'er-libs/tanpura',

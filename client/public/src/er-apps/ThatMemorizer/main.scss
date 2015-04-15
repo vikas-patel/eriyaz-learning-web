@@ -1,0 +1,30 @@
+#thatmemorizer {
+    #score {
+      float:right;
+      margin-right: 10px;
+      dt {
+        float: left;
+        clear: left;
+        width: 100px;
+        text-align: left;
+        // font-weight: bold;
+        // color:darkgrey;
+      }
+      dt:after {
+        content: ":";
+      }
+      dd {
+        margin: 0 0 0 100px;
+        // color:darkgrey;
+      }
+    }
+
+    svg {
+      margin-top:15px;
+    }
+    
+    #feedback {
+      margin: 20px;
+    }
+
+}

@@ -17,7 +17,8 @@ define([
     'sing-graph',
     'upordown',
     'melodygraph',
-    'swarspace'
+    'swarspace',
+    'thatmemorizer'
 ], function (angular) {
     'use strict';
 
@@ -33,6 +34,7 @@ define([
         'upordown',
         'melodygraph',
         'swarspace',
+        'thatmemorizer',
         
         'ngResource',
         'angulartics',

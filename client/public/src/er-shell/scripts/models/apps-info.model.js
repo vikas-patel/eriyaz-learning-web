@@ -41,6 +41,14 @@
         appUrl: 'er-apps/SwarSpace/main.html',
         aspectRatio: 9/10,
         show:true
+      }, {
+        name: 'ThatMemorizer',
+        thumb: 'er-shell/images/thatmemorizer.jpg',
+        desc: 'Develop a sense of space between two notes - how far apart they are?',
+        href: '#thatmemorizer',
+        appUrl: 'er-apps/ThatMemorizer/main.html',
+        aspectRatio: 9/10,
+        show:true
       }];
       appsInfo.selectedIndex = -1;
       appsInfo.setSelected = function(index) {
