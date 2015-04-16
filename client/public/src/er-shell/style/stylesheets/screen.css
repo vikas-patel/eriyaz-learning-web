@@ -917,27 +917,48 @@ core-drawer-panel:not([narrow]) #navicon {
 #thatmemorizer #score {
   float: right;
   margin-right: 10px;
+  margin-top: 5px;
 }
-/* line 5, ../../../er-apps/ThatMemorizer/main.scss */
+/* line 6, ../../../er-apps/ThatMemorizer/main.scss */
 #thatmemorizer #score dt {
   float: left;
   clear: left;
   width: 100px;
   text-align: left;
 }
-/* line 13, ../../../er-apps/ThatMemorizer/main.scss */
+/* line 14, ../../../er-apps/ThatMemorizer/main.scss */
 #thatmemorizer #score dt:after {
   content: ":";
 }
-/* line 16, ../../../er-apps/ThatMemorizer/main.scss */
+/* line 17, ../../../er-apps/ThatMemorizer/main.scss */
 #thatmemorizer #score dd {
   margin: 0 0 0 100px;
 }
-/* line 22, ../../../er-apps/ThatMemorizer/main.scss */
+/* line 24, ../../../er-apps/ThatMemorizer/main.scss */
 #thatmemorizer svg {
-  margin-top: 15px;
+  margin-top: 10px;
 }
-/* line 26, ../../../er-apps/ThatMemorizer/main.scss */
+/* line 27, ../../../er-apps/ThatMemorizer/main.scss */
+#thatmemorizer ul {
+  columns: 3;
+  -webkit-columns: 3;
+  -moz-columns: 3;
+}
+/* line 33, ../../../er-apps/ThatMemorizer/main.scss */
+#thatmemorizer li button {
+  width: 60%;
+}
+/* line 46, ../../../er-apps/ThatMemorizer/main.scss */
+#thatmemorizer .container {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 3%;
+  border-top: solid;
+  border-width: 1px;
+  border-color: #E3E3E3;
+}
+/* line 59, ../../../er-apps/ThatMemorizer/main.scss */
 #thatmemorizer #feedback {
-  margin: 20px;
+  font-weight: bold;
+  border: none;
 }

@@ -45,7 +45,7 @@ define(['./module', './intervalgen', './display', 'note', 'webaudioplayer', 'cur
             enabled: false
         }];
 
-    app.controller('ThatMemorizerCtrl', function($scope) {
+    app.controller('ThatMemorizerCtrl', function($scope, $rootScope) {
         $scope.thats = thats;
         $scope.total = 0;
         $scope.correct = 0;
@@ -62,6 +62,20 @@ define(['./module', './intervalgen', './display', 'note', 'webaudioplayer', 'cur
         var playTime = 500;
 
         var currLoopId;
+
+        $scope.$watch('hideNotes', function() {
+            if ($scope.hideNotes) {
+                display.hideDisplay();
+            } else
+                display.showDisplay();
+        });
+
+        $rootScope.$on('$stateChangeSuccess',
+            function(event, toState, toParams, fromState, fromParams) {
+                if (fromState.name == 'thatmemorizer') {
+                    cancelCurrentLoop();
+                }
+            });
 
         $scope.newThat = function() {
 

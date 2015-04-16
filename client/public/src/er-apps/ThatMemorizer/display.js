@@ -2,10 +2,10 @@ define(['d3'], function(d3) {
 	var Display = function() {
 
 		var margin = {
-			top: 10,
+			top: 15,
 			right: 40,
 			bottom: 10,
-			left: 30
+			left: 15
 		};
 
 		var chartWidth = 400,
@@ -39,10 +39,20 @@ define(['d3'], function(d3) {
 			.attr("fill", "lightgrey")
 			.attr("fill-opacity", 0.5);
 
-
+		appendCurtain();
 
 		var fixedData = [0, 7, 12];
 
+		function appendCurtain() {
+			svg.append("rect")
+				.attr("x", -7)
+				.attr("id", "curtain")
+				.attr("y", -margin.top)
+				.attr("height", chartHeight + margin.top + margin.bottom)
+				.attr("width", chartWidth + margin.right)
+				.attr("fill", "lightgrey")
+				.attr("opacity", 0);
+		}
 
 		this.displayThat = function(thatData) {
 			svg.selectAll("rect.note").remove();
@@ -99,18 +109,11 @@ define(['d3'], function(d3) {
 				.attr("fill", "black")
 				.attr("fill-opacity", 1);
 
-			svg.append("rect")
-				.attr("x", 0)
-				.attr("id", "curtain")
-				.attr("y", -margin.top)
-				.attr("height", chartHeight + margin.top + margin.bottom)
-				.attr("width", chartWidth + margin.right)
-				.attr("fill", "lightgrey")
-				.attr("opacity", 0);
+
+			appendCurtain();
 		};
 
 		this.hideDisplay = function() {
-			console.log('hideDisplay');
 			svg.select("#curtain")
 				.attr("opacity", 1);
 		};
