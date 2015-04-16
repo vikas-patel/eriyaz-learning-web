@@ -801,7 +801,7 @@ core-drawer-panel:not([narrow]) #navicon {
   pointer-events: all;
 }
 /* line 44, ../../../er-apps/MelodyGraph/main.scss */
-#melodygraph circle {
+#melodygraph circle.big {
   fill: #fff;
   stroke-opacity: 0;
   fill-opacity: .1;
@@ -809,43 +809,56 @@ core-drawer-panel:not([narrow]) #navicon {
   stroke: #eee;
   stroke-width: 1.5px;
 }
-/* line 60, ../../../er-apps/MelodyGraph/main.scss */
-#melodygraph .selected {
+/* line 54, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph circle.small {
+  fill: steelblue;
+  stroke-opacity: 0;
+  fill-opacity: 1;
+  cursor: move;
+  stroke: #eee;
+  stroke-width: 1.5px;
+}
+/* line 65, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph circle.big.selected {
   fill: steelblue;
   stroke: steelblue;
 }
-/* line 65, ../../../er-apps/MelodyGraph/main.scss */
+/* line 70, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph circle.ans {
+  fill: green;
+}
+/* line 74, ../../../er-apps/MelodyGraph/main.scss */
 #melodygraph #guess {
   fill: none;
   stroke: steelblue;
   stroke-width: 2px;
 }
-/* line 71, ../../../er-apps/MelodyGraph/main.scss */
+/* line 80, ../../../er-apps/MelodyGraph/main.scss */
 #melodygraph #ans {
   fill: none;
   stroke: green;
   stroke-width: 2px;
 }
-/* line 82, ../../../er-apps/MelodyGraph/main.scss */
+/* line 91, ../../../er-apps/MelodyGraph/main.scss */
 #melodygraph .x.axis line {
   stroke: #ccc;
   stroke-width: 1px;
 }
-/* line 87, ../../../er-apps/MelodyGraph/main.scss */
+/* line 96, ../../../er-apps/MelodyGraph/main.scss */
 #melodygraph .x.axis .minor {
   stroke-opacity: .5;
 }
-/* line 91, ../../../er-apps/MelodyGraph/main.scss */
+/* line 100, ../../../er-apps/MelodyGraph/main.scss */
 #melodygraph .x.axis path {
   fill: none;
 }
-/* line 96, ../../../er-apps/MelodyGraph/main.scss */
+/* line 105, ../../../er-apps/MelodyGraph/main.scss */
 #melodygraph .y.axis line, #melodygraph .y.axis path {
   fill: none;
   stroke: #ccc;
   stroke-width: 1px;
 }
-/* line 102, ../../../er-apps/MelodyGraph/main.scss */
+/* line 111, ../../../er-apps/MelodyGraph/main.scss */
 #melodygraph #center-line {
   stroke: #999;
   stroke-width: 1px;

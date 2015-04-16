@@ -107,22 +107,32 @@ define([], function() {
 		function redraw() {
 			svg.select("#guess").attr("d", line);
 
-			var circle = svg.selectAll("circle")
-				.data(points, function(d) {
-					return d;
-				});
-
-			circle.enter().append("circle")
+			svg.selectAll("circle.guess.big")
+				.data(points)
+				.enter()
+				.append("circle")
 				.on("mousedown", function(d) {
 					selected = dragged = d;
 					redraw();
 				})
 				.attr("r", 26.5)
-				.attr("class", "draggable")
+				.attr("class", "guess big")
+				.call(dragBehavior);
+
+			svg.selectAll("circle.guess.small")
+				.data(points)
+				.enter()
+				.append("circle")
+				.on("mousedown", function(d) {
+					selected = dragged = d;
+					redraw();
+				})
+				.attr("r", 5)
+				.attr("class", "guess small")
 				.call(dragBehavior);
 
 
-			circle
+			svg.selectAll("circle.guess")
 				.classed("selected", function(d) {
 					return d === selected;
 				})
@@ -133,12 +143,20 @@ define([], function() {
 					return d[1];
 				});
 
-			circle.exit().remove();
+			svg.selectAll("circle.big")
+				.data(points)
+				.exit()
+				.remove();
+
+				svg.selectAll("circle.small")
+				.data(points)
+				.exit()
+				.remove();
 		}
+		
 
 		var dragged = null,
 			selected = null;
-
 
 		redraw();
 
@@ -156,15 +174,31 @@ define([], function() {
 				series.push([x(i + 1), y(data[i])]);
 			}
 			svg.select("#ans").remove();
+			svg.selectAll("circle.ans").remove();
+
 			svg.append("path")
 				.datum(series)
 				.attr("class", "line")
 				.attr("id", "ans")
 				.attr("d", line);
+
+			svg.selectAll("circle.ans")
+				.data(series)
+				.enter()
+				.append("circle")
+				.attr("class","ans")
+				.attr("r",5)
+				.attr("cx", function(d) {
+					return d[0];
+				})
+				.attr("cy", function(d) {
+					return d[1];
+				});
 		};
 
 		this.reset = function(numNotes) {
 			svg.select("#ans").remove();
+			svg.selectAll("circle.ans").remove();
 			points.length = 0;
 			for (var i = 0; i < numNotes; i++) {
 				points.push([x(i + 1), y(0)]);

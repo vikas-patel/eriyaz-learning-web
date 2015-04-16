@@ -41,7 +41,7 @@
       pointer-events: all;
     }
 
-    circle {
+    circle.big {
       fill: #fff;
       stroke-opacity:0;
       fill-opacity:.1;
@@ -51,15 +51,24 @@
       stroke-width: 1.5px;
     }
 
-    //     circle {
-    //   fill: #fff;
-    //   fill-opacity: .2;
-    //   cursor: move;
-    // }
+    circle.small {
+      fill: steelblue;
+      stroke-opacity:0;
+      fill-opacity:1;
+      cursor: move;
 
-    .selected {
+      stroke: #eee;
+      stroke-width: 1.5px;
+    }
+
+
+    circle.big.selected {
       fill: steelblue;
       stroke: steelblue;
+    }
+
+    circle.ans {
+      fill:green;
     }
 
     #guess {

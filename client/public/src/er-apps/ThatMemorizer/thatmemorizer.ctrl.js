@@ -108,7 +108,6 @@ define(['./module', './intervalgen', './display', 'note', 'webaudioplayer', 'cur
             display.markNone(playTime);
         }
 
-
         $scope.repeatPlay = function() {
             playThat();
         };
