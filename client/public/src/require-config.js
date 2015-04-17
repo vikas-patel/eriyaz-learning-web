@@ -18,6 +18,7 @@ requirejs.config({
         'order': 'ext-libs/requirejs-order.min',
         'ng-infinite-scroll': 'ext-libs/ng-infinite-scroll',
 
+        'music-calc' : 'er-libs/music-calc',
         'mic': 'er-libs/mic',
         'pitchdetector': 'er-libs/pitchdetector',
         'intensityfilter': 'er-libs/intensityfilter',
@@ -89,6 +90,10 @@ requirejs.config({
     }, {    
         name: 'swarspace',
         location: 'er-apps/SwarSpace',
+        main: 'index'
+    }, {    
+        name: 'swarrelation',
+        location: 'er-apps/SwarRelation',
         main: 'index'
     }, {    
         name: 'thatmemorizer',

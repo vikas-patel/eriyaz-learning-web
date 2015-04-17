@@ -1,7 +1,7 @@
 /*
 Represents a musical note conforming to MIDI specs.
 */
-define([], function() {
+define(['music-calc'], function(MusicCalc) {
 	var Note = function() {
 		this.play = function(player) {
 			player.playNote(this);
@@ -21,7 +21,7 @@ define([], function() {
 	Note.createFromFreq = function(freq,duration,volume) {
 		var n = new Note();
 		n.freq = freq;
-		n.midiNumber = Note.freqToNum(freq);
+		n.midiNumber = MusicCalc.freqToMidiNum(freq);
 		if(duration) 
 			n.duration = duration;
 		if(volume)
@@ -32,7 +32,7 @@ define([], function() {
 	Note.createFromMidiNum = function(midiNumber,duration,volume) {
 		var n = new Note();
 		n.midiNumber = midiNumber;
-		n.freq = Note.numToFreq(midiNumber);
+		n.freq = MusicCalc.midiNumToFreq(midiNumber);
 		if(duration) 
 			n.duration = duration;
 		if(volume)
@@ -40,17 +40,6 @@ define([], function() {
 		return n;
 	};
 
-	Note.freqToNum = function(freq) {
-		var num =  12.0 * (Math.log(freq / 440.0)/Math.log(2)) + 69;
-		//assign a number if within 5 cents.
-		if(Math.abs(num-Math.round(num)) < 0.05) 
-			return Math.round(num); 
-		else return;
-	};
-
-	Note.numToFreq = function(midiNumber) {
-		return 440.0 * Math.pow(2, (midiNumber - 69.0) / 12.0);
-	};
 
 	Note.prototype = {
 		midiNumber: Note.MIDDLE_C_NUM,

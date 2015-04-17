@@ -33,8 +33,9 @@ define(['./soundbank', './stringsynth', 'currentaudiocontext', 'require', './st-
 			var local = this;
 			soundbank.oninit = function() {
 				local.strings[0] = new StringSynth(root - 12 + firstString, soundbank);
-				local.strings[1] = new StringSynth(root, soundbank);
-				local.strings[2] = new StringSynth(root, soundbank);
+				var middleString = new StringSynth(root, soundbank);
+				local.strings[1] = middleString;
+				local.strings[2] = middleString;
 				local.strings[3] = new StringSynth(root - 12, soundbank);
 			};
 		};

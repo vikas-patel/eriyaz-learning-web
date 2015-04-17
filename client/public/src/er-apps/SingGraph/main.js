@@ -1,6 +1,6 @@
 define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiobuffer', 'pitchdetector', 'note',
-		'tanpura', 'metronome'],
-	function(app, $, exercises, MicUtil, CurrentAudioContext, AudioBuffer, PitchDetector, Note, Tanpura, metronome) {
+		'tanpura', 'metronome','music-calc'],
+	function(app, $, exercises, MicUtil, CurrentAudioContext, AudioBuffer, PitchDetector, Note, Tanpura, metronome,MusicCalc) {
 		//constants
 		var detector;
 		//other globals;
@@ -33,7 +33,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 				if ($scope.user.settings.isPlayTanpura) {
 					startTanpura();
 				}
-				$scope.rootFreq = Note.numToFreq($scope.user.settings.rootNote);
+				$scope.rootFreq = MusicCalc.midiNumToFreq($scope.user.settings.rootNote);
 			});
 			
 			$rootScope.$on('$stateChangeSuccess', 
@@ -51,7 +51,7 @@ define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiob
 					} else {
 						stopTanpura();
 					}
-					$scope.rootFreq = Note.numToFreq($scope.user.settings.rootNote);
+					$scope.rootFreq = MusicCalc.midiNumToFreq($scope.user.settings.rootNote);
 				});
 			}
 			$scope.startOrPause = function(){

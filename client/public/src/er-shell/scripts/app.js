@@ -18,6 +18,7 @@ define([
     'upordown',
     'melodygraph',
     'swarspace',
+    'swarrelation',
     'thatmemorizer'
 ], function (angular) {
     'use strict';
@@ -34,6 +35,7 @@ define([
         'upordown',
         'melodygraph',
         'swarspace',
+        'swarrelation',
         'thatmemorizer',
         
         'ngResource',

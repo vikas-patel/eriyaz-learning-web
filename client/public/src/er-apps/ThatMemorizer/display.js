@@ -3,7 +3,7 @@ define(['d3'], function(d3) {
 
 		var margin = {
 			top: 15,
-			right: 40,
+			right: 10,
 			bottom: 10,
 			left: 15
 		};
@@ -16,7 +16,7 @@ define(['d3'], function(d3) {
 		var labelsData = ["S", "r", "R", "g", "G", "m", "M", "P", "d", "D", "n", "N", "S'"];
 
 		var xScale = d3.scale.linear()
-			.domain([0, 12])
+			.domain([0, 13])
 			.range([0, chartWidth]);
 
 		var svg = d3.select("#display").append("svg")
@@ -35,7 +35,7 @@ define(['d3'], function(d3) {
 			.attr("class", "slot")
 			.attr("y", 0)
 			.attr("height", chartHeight)
-			.attr("width", chartWidth / 13)
+			.attr("width", -2+chartWidth / 13)
 			.attr("fill", "lightgrey")
 			.attr("fill-opacity", 0.5);
 
@@ -45,11 +45,11 @@ define(['d3'], function(d3) {
 
 		function appendCurtain() {
 			svg.append("rect")
-				.attr("x", -7)
+				.attr("x", -2)
 				.attr("id", "curtain")
 				.attr("y", -margin.top)
 				.attr("height", chartHeight + margin.top + margin.bottom)
-				.attr("width", chartWidth + margin.right)
+				.attr("width", chartWidth)
 				.attr("fill", "lightgrey")
 				.attr("opacity", 0);
 		}
@@ -83,7 +83,7 @@ define(['d3'], function(d3) {
 				})
 				.attr("y", 0)
 				.attr("height", chartHeight)
-				.attr("width", chartWidth / 13)
+				.attr("width", -2+chartWidth / 13)
 				.attr("fill", "lightblue")
 				.attr("fill-opacity", 0.5);
 
@@ -96,7 +96,7 @@ define(['d3'], function(d3) {
 				})
 				.attr("y", 0)
 				.attr("height", chartHeight)
-				.attr("width", chartWidth / 13)
+				.attr("width", -2+chartWidth / 13)
 				.attr("fill", "blue")
 				.attr("fill-opacity", 0.5);
 
@@ -105,7 +105,7 @@ define(['d3'], function(d3) {
 				.attr("id", "marker")
 				.attr("y", 0)
 				.attr("height", chartHeight)
-				.attr("width", chartWidth / 13)
+				.attr("width", -2+chartWidth / 13)
 				.attr("fill", "black")
 				.attr("fill-opacity", 1);
 

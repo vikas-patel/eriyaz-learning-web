@@ -1,0 +1,54 @@
+#swarspace {
+    #score {
+      float:right;
+      margin-right: 10px;
+      dt {
+        float: left;
+        clear: left;
+        width: 100px;
+        text-align: left;
+        // font-weight: bold;
+        // color:darkgrey;
+      }
+      dt:after {
+        content: ":";
+      }
+      dd {
+        margin: 0 0 0 100px;
+        color:darkgrey;
+      }
+    }
+
+    svg {
+      margin-top:15px;
+    }
+
+    line {
+      stroke: #ccc;
+      stroke-width: 1px;
+    }
+
+    .y.axis line, .y.axis path {
+      fill: none;
+      stroke: #ccc;
+      stroke-width: 1px;
+    }
+
+
+    #guessBar {
+      fill:blue;
+    }
+
+    #arrow {
+      fill:darkgrey;
+    }
+
+    #ansBar {
+      fill:green;
+    }
+    // .x.axis line, .x.axis path {
+    //   fill: none;
+    //   stroke: #ccc;
+    //   stroke-width: 1px;
+    // }
+}

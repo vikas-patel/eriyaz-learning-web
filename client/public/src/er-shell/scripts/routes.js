@@ -201,12 +201,24 @@
                  onLoggedOutRedirect: checkLoginAndRedirect
              }
          }).
+         state('swarrelation', {
+             url: '/swarrelation',
+             onEnter: function(UIModel, AppsInfoModel) {
+                 UIModel.uiModel.showLoginDialog = false;
+                 UIModel.uiModel.showMenu = true;
+                 AppsInfoModel.setSelected(5);
+                 UIModel.uiModel.showAppDialog = true;
+             },
+             resolve: {
+                 onLoggedOutRedirect: checkLoginAndRedirect
+             }
+         }).
          state('thatmemorizer', {
              url: '/thatmemorizer',
              onEnter: function(UIModel, AppsInfoModel) {
                  UIModel.uiModel.showLoginDialog = false;
                  UIModel.uiModel.showMenu = true;
-                 AppsInfoModel.setSelected(5);
+                 AppsInfoModel.setSelected(6);
                  UIModel.uiModel.showAppDialog = true;
              },
              resolve: {

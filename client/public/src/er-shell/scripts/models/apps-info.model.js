@@ -42,9 +42,17 @@
         aspectRatio: 9/10,
         show:true
       }, {
+        name: 'SwarRelation',
+        thumb: 'er-shell/images/swarrelation.jpg',
+        desc: 'Develop a sense of space between two notes - how far apart they are?',
+        href: '#swarrelation',
+        appUrl: 'er-apps/SwarRelation/main.html',
+        aspectRatio: 9/10,
+        show:true
+      }, {
         name: 'ThatMemorizer',
         thumb: 'er-shell/images/thatmemorizer.jpg',
-        desc: 'Develop a sense of space between two notes - how far apart they are?',
+        desc: 'Learn to differentiate between Thats. Start with selecting just two of them and add more one by one.',
         href: '#thatmemorizer',
         appUrl: 'er-apps/ThatMemorizer/main.html',
         aspectRatio: 9/10,
