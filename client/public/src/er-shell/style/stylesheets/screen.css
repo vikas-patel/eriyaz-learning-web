@@ -913,6 +913,44 @@ core-drawer-panel:not([narrow]) #navicon {
   fill: green;
 }
 
+/* line 3, ../../../er-apps/SwarRelation/main.scss */
+#swarrelation #score {
+  float: right;
+  margin-right: 10px;
+}
+/* line 12, ../../../er-apps/SwarRelation/main.scss */
+#swarrelation svg {
+  margin-top: 3%;
+}
+/* line 16, ../../../er-apps/SwarRelation/main.scss */
+#swarrelation rect.slot {
+  fill: #E3F2FD;
+}
+/* line 20, ../../../er-apps/SwarRelation/main.scss */
+#swarrelation rect.note {
+  fill: #BBDEFB;
+}
+/* line 22, ../../../er-apps/SwarRelation/main.scss */
+#swarrelation rect.note:hover {
+  fill: #C5CAE9;
+}
+/* line 27, ../../../er-apps/SwarRelation/main.scss */
+#swarrelation rect.selector {
+  fill: #C5CAE9;
+}
+/* line 31, ../../../er-apps/SwarRelation/main.scss */
+#swarrelation rect.root {
+  fill: #C5CAE9;
+}
+/* line 35, ../../../er-apps/SwarRelation/main.scss */
+#swarrelation #marker {
+  fill: #333;
+}
+/* line 39, ../../../er-apps/SwarRelation/main.scss */
+#swarrelation #feedback {
+  font-size: 30px;
+}
+
 /* line 2, ../../../er-apps/ThatMemorizer/main.scss */
 #thatmemorizer #score {
   float: right;

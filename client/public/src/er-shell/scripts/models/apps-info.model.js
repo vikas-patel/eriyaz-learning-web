@@ -44,7 +44,7 @@
       }, {
         name: 'SwarRelation',
         thumb: 'er-shell/images/swarrelation.jpg',
-        desc: 'Develop a sense of space between two notes - how far apart they are?',
+        desc: 'Practice regonizing the exact swar, by using its position in the sargam.',
         href: '#swarrelation',
         appUrl: 'er-apps/SwarRelation/main.html',
         aspectRatio: 9/10,

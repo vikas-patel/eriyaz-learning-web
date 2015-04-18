@@ -1,19 +1,13 @@
 <div id="swarrelation" ng-controller='SwarRelationCtrl as ctrl'>
-	<div class="container">
-        <button ng-click="newInterval();">New</button>
-        <button ng-click="repeatPlay();">Repeat</button>
-        <button ng-click="checkAnswer();">Check</button>
-        <!-- <dl id="score">
-        	<dt>Attempts</dt>
-        	<dd>{{attempts}}</dd>
-
-        	<dt>Off By</dt> 
-        	<dd>{{error}}%</dd>
-        	
-        	<dt>Avg Error</dt>
-        	<dd>{{avgError}}%</dd>
-	    </dl> -->
-    </div>
+	<div class="buttons">
+        <button ng-click="newInterval();" ng-disabled="isLooping()">New</button>
+        <button ng-click="repeatPlay();" ng-disabled="isLooping()">Repeat</button>
+        <button ng-click="checkAnswer();" ng-disabled="isLooping()">Check</button>
+    <div id="score"> Score: {{correct}}/{{total}}</div>
+        
+     </div>   
+   
+    
 	<div id="display">
 	</div>
 </div>

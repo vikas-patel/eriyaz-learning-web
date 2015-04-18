@@ -1,33 +1,73 @@
-define(['./module', './intervalgen', './display'], function(app, intervalGen, Display) {
-    var sequence;
+define(['./module', './display', './problem', 'melody', 'note', 'webaudioplayer', 'currentaudiocontext'],
+    function(app, Display, Problem, Melody, Note, Player, CurrentAudioContext) {
+        var audioContext = CurrentAudioContext.getInstance();
+        var player = new Player(audioContext);
+        var sequence;
+        var playTime = 1000;
+        var currLoopId = -1;
+        var scale = [0, 2, 4, 5, 7, 9, 11, 12];
 
-    app.controller('SwarRelationCtrl', function($scope) {
-        $scope.attempts = 0;
-        $scope.error = 0;
-        $scope.avgError = 0;
+        app.controller('SwarRelationCtrl', function($scope) {
+            $scope.total = 0;
+            $scope.correct = 0;
+            $scope.isLooping = function() {
+                return currLoopId >= 0;
+            };
 
-        var display = new Display();
-        var intV;
-        $scope.newInterval = function() {
-            display.reset();
-            intV = intervalGen.getRandomInterval();
-            intV.play();
-        };
 
-        $scope.repeatPlay = function() {
-            intV.play();
-        };
+            var display = new Display(scale);
+            var problem;
+            var tracker = 0;
+            $scope.newInterval = function() {
+                cancelCurrentLoop();
+                display.reset();
+                problem = Problem.getNewProblem(scale);
+                playInterval();
+            };
 
-        $scope.checkAnswer = function() {
-            $scope.attempts++;
-            var answer = Math.abs(intV.getCents());
-            var guess = display.getCents();
+            $scope.repeatPlay = function() {
+                cancelCurrentLoop();
+                playInterval();
+            };
 
-            display.showCents(answer);
-            var offBy = Math.abs(guess - answer);
-            $scope.error = Math.round(offBy*1000/answer)/10;
-            $scope.avgError = Math.round(($scope.avgError * ($scope.attempts-1) + $scope.error)*10/$scope.attempts)/10;
-        };
+            $scope.checkAnswer = function() {
+                cancelCurrentLoop();
+                playSequence(function() {
+                    display.setFeedback(display.getSelected() === problem.getDegree());
+                    $scope.total++;
+                    if(display.getSelected() === problem.getDegree())
+                        $scope.correct++;
+                    $scope.$apply();
+                });
+            };
 
+            function playInterval() {
+                var playTime = 1000;
+                var melody = new Melody();
+                melody.addNote(Note.createFromFreq(problem.getBaseFreq(), playTime));
+                melody.addNote(Note.createFromFreq(problem.getNoteFreq(), playTime));
+                player.playMelody(melody);
+            }
+
+            function playSequence(callback) {
+                var playTime = 1000;
+                var intervalSequence = problem.getAnswerSeqDegs();
+                var freqsSequence = problem.getAnswerSeqFreqs();
+                currLoopId = setInterval(function() {
+                    display.markNote(intervalSequence[tracker]);
+                    player.playNote(freqsSequence[tracker], playTime);
+                    tracker++;
+                    if (tracker > intervalSequence.length-1) {
+                        cancelCurrentLoop();
+                        callback();
+                    }
+                }, playTime);
+            }
+
+            function cancelCurrentLoop() {
+                tracker = 0;
+                clearInterval(currLoopId);
+                currLoopId = -1;
+            }
+        });
     });
-});

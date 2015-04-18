@@ -27,7 +27,7 @@ define([], function() {
 		return cents;
 	};
 
-	MusicCalc.getFreq = function(baseFrequency, cents) {
+	MusicCalc.getFreq = function(baseFreq, cents) {
 		return baseFreq * Math.pow(2, cents / 1200);
 	};
 

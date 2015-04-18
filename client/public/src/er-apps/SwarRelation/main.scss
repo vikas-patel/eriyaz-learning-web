@@ -1,54 +1,42 @@
-#swarspace {
+#swarrelation {
+
     #score {
       float:right;
       margin-right: 10px;
-      dt {
-        float: left;
-        clear: left;
-        width: 100px;
-        text-align: left;
-        // font-weight: bold;
-        // color:darkgrey;
-      }
-      dt:after {
-        content: ":";
-      }
-      dd {
-        margin: 0 0 0 100px;
-        color:darkgrey;
-      }
     }
+
+    // div.buttons {
+    //   margin:10px 0 0 30px;
+    // }
 
     svg {
-      margin-top:15px;
+      margin-top:3%;
     }
 
-    line {
-      stroke: #ccc;
-      stroke-width: 1px;
+    rect.slot {
+      fill:#E3F2FD;
     }
 
-    .y.axis line, .y.axis path {
-      fill: none;
-      stroke: #ccc;
-      stroke-width: 1px;
+    rect.note {
+      fill:#BBDEFB;
+      &:hover {
+        fill:#C5CAE9;
+      }
     }
 
-
-    #guessBar {
-      fill:blue;
+    rect.selector {
+      fill:#C5CAE9;
     }
 
-    #arrow {
-      fill:darkgrey;
+    rect.root {
+      fill:#C5CAE9;
     }
 
-    #ansBar {
-      fill:green;
+    #marker {
+      fill:#333;
     }
-    // .x.axis line, .x.axis path {
-    //   fill: none;
-    //   stroke: #ccc;
-    //   stroke-width: 1px;
-    // }
+
+    #feedback {
+      font-size:30px;
+    }
 }
