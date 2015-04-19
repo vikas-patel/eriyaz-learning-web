@@ -3,10 +3,10 @@
       var appsInfo = {};
       appsInfo.apps = [{
         name: 'Alankars',
-        thumb: 'er-shell/images/graph-thumb.jpg',
+        thumb: 'er-shell/images/singalankars.jpg',
         desc: 'Do step by step guided singing exercises from easy to difficult.',
         href: '#alankars',
-        appUrl: 'er-apps/SingGraph/main.html',
+        appUrl: 'er-apps/SingAlankars/main.html',
         aspectRatio: 41 / 20,
         show:true
       }, {
@@ -56,6 +56,14 @@
         href: '#thatmemorizer',
         appUrl: 'er-apps/ThatMemorizer/main.html',
         aspectRatio: 9/10,
+        show:true
+      }, {
+        name: 'SingGraph',
+        thumb: 'er-shell/images/singgraph.jpg',
+        desc: 'Practice free flow singing with immediate feedback on your pitch.',
+        href: '#singgraph',
+        appUrl: 'er-apps/SingGraph/main.html',
+        aspectRatio: 5/3,
         show:true
       }];
       appsInfo.selectedIndex = -1;

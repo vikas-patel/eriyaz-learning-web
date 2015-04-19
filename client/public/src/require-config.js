@@ -76,8 +76,8 @@ requirejs.config({
         location: 'er-apps/PitchDial',
         main: 'index'
     }, {
-        name: 'sing-graph',
-        location: 'er-apps/SingGraph',
+        name: 'sing-alankars',
+        location: 'er-apps/SingAlankars',
         main: 'index'
     }, {
         name: 'upordown',
@@ -98,6 +98,10 @@ requirejs.config({
     }, {    
         name: 'thatmemorizer',
         location: 'er-apps/ThatMemorizer',
+        main: 'index'
+    }, {    
+        name: 'singgraph',
+        location: 'er-apps/SingGraph',
         main: 'index'
     }, {
         name: 'tanpura',

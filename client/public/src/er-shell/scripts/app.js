@@ -14,12 +14,13 @@ define([
     './directives/index',
     './filters/index',
     'pitch-dial',
-    'sing-graph',
+    'sing-alankars',
     'upordown',
     'melodygraph',
     'swarspace',
     'swarrelation',
-    'thatmemorizer'
+    'thatmemorizer',
+    'singgraph'
 ], function (angular) {
     'use strict';
 
@@ -31,12 +32,13 @@ define([
         'app.filters',
         'ui.router',
         'pitch-dial',
-        'sing-graph',
+        'sing-alankars',
         'upordown',
         'melodygraph',
         'swarspace',
         'swarrelation',
         'thatmemorizer',
+        'singgraph',
         
         'ngResource',
         'angulartics',

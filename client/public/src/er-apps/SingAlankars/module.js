@@ -1,4 +1,4 @@
 define(['angular'], function (ng) {
     'use strict';
-    return ng.module('singgraph', []);
+    return ng.module('sing-alankars', []);
 });

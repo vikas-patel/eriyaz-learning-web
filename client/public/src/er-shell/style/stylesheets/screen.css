@@ -566,51 +566,51 @@ core-drawer-panel:not([narrow]) #navicon {
   border-bottom: solid;
 }
 
-/* line 2, ../../../er-apps/SingGraph/main.scss */
-#sing-graph {
+/* line 2, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars {
   /* Axis */
   /* Resize Window */
   /* Indicator line */
 }
-/* line 7, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .axis .tick text {
+/* line 7, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .axis .tick text {
   fill: black;
   font-size: 0.7em;
 }
-/* line 11, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .axis path, #sing-graph .axis line {
+/* line 11, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .axis path, #sing-alankars .axis line {
   fill: none;
   stroke: black;
   stroke-width: 1px;
 }
-/* line 19, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .start::before {
+/* line 19, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .start::before {
   content: "Start";
 }
-/* line 23, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .pause::before {
+/* line 23, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .pause::before {
   content: "Pause";
 }
-/* line 27, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .resume::before {
+/* line 27, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .resume::before {
   content: "Resume";
 }
-/* line 31, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .reset::before {
+/* line 31, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .reset::before {
   content: "Reset";
 }
-/* line 35, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .invalid {
+/* line 35, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .invalid {
   border-color: red;
   border-width: 1px;
 }
-/* line 40, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .container {
+/* line 40, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .container {
   margin: 5px;
   padding: 5px;
 }
-/* line 49, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .svg-container {
+/* line 49, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .svg-container {
   display: inline-block;
   position: relative;
   width: 100%;
@@ -618,15 +618,15 @@ core-drawer-panel:not([narrow]) #navicon {
   vertical-align: middle;
   overflow: hidden;
 }
-/* line 58, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .svg-content {
+/* line 58, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .svg-content {
   display: inline-block;
   position: absolute;
   top: 0;
   left: 0;
 }
-/* line 65, ../../../er-apps/SingGraph/main.scss */
-#sing-graph #overlay, #sing-graph #overlay-content {
+/* line 65, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars #overlay, #sing-alankars #overlay-content {
   margin: auto;
   width: 100%;
   height: 100%;
@@ -637,24 +637,24 @@ core-drawer-panel:not([narrow]) #navicon {
   bottom: 0;
   z-index: 1;
 }
-/* line 77, ../../../er-apps/SingGraph/main.scss */
-#sing-graph #overlay {
+/* line 77, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars #overlay {
   background-color: black;
   opacity: .5;
 }
-/* line 83, ../../../er-apps/SingGraph/main.scss */
-#sing-graph #overlay-content {
+/* line 83, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars #overlay-content {
   text-align: center;
   color: white;
   height: 20%;
   width: 50%;
 }
-/* line 89, ../../../er-apps/SingGraph/main.scss */
-#sing-graph #overlay-content .padding5 {
+/* line 89, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars #overlay-content .padding5 {
   padding: 5px;
 }
-/* line 94, ../../../er-apps/SingGraph/main.scss */
-#sing-graph #counter {
+/* line 94, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars #counter {
   margin: auto;
   width: 200px;
   height: 200px;
@@ -667,83 +667,83 @@ core-drawer-panel:not([narrow]) #navicon {
   bottom: 0;
   z-index: 1;
 }
-/* line 109, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .indicatorLine {
+/* line 109, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .indicatorLine {
   stroke-width: 1;
 }
-/* line 113, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .exercise {
+/* line 113, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .exercise {
   fill: #A8A8A8;
 }
 @media only screen and (max-width: 960px) {
-  /* line 2, ../../../er-apps/SingGraph/main.scss */
-  #sing-graph {
+  /* line 2, ../../../er-apps/SingAlankars/main.scss */
+  #sing-alankars {
     /* styles for browsers smaller than 960px; 2/3rd of my desktop screen width */
   }
-  /* line 119, ../../../er-apps/SingGraph/main.scss */
-  #sing-graph button, #sing-graph select, #sing-graph .header {
+  /* line 119, ../../../er-apps/SingAlankars/main.scss */
+  #sing-alankars button, #sing-alankars select, #sing-alankars .header {
     font-size: 0.75em;
   }
-  /* line 123, ../../../er-apps/SingGraph/main.scss */
-  #sing-graph button {
+  /* line 123, ../../../er-apps/SingAlankars/main.scss */
+  #sing-alankars button {
     padding: 1px 3px;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 2, ../../../er-apps/SingGraph/main.scss */
-  #sing-graph {
+  /* line 2, ../../../er-apps/SingAlankars/main.scss */
+  #sing-alankars {
     /* mainly for mobile devices */
   }
-  /* line 129, ../../../er-apps/SingGraph/main.scss */
-  #sing-graph button, #sing-graph select, #sing-graph .header {
+  /* line 129, ../../../er-apps/SingAlankars/main.scss */
+  #sing-alankars button, #sing-alankars select, #sing-alankars .header {
     font-size: 0.5em;
   }
-  /* line 132, ../../../er-apps/SingGraph/main.scss */
-  #sing-graph button {
+  /* line 132, ../../../er-apps/SingAlankars/main.scss */
+  #sing-alankars button {
     padding: 1px 2px;
   }
 }
 @media only screen and (max-device-width: 720px) {
-  /* line 2, ../../../er-apps/SingGraph/main.scss */
-  #sing-graph {
+  /* line 2, ../../../er-apps/SingAlankars/main.scss */
+  #sing-alankars {
     /* mainly for mobile devices */
   }
-  /* line 141, ../../../er-apps/SingGraph/main.scss */
-  #sing-graph .axis .tick text {
+  /* line 141, ../../../er-apps/SingAlankars/main.scss */
+  #sing-alankars .axis .tick text {
     fill: black;
     font-size: 0.4em;
   }
-  /* line 145, ../../../er-apps/SingGraph/main.scss */
-  #sing-graph .axis path, #sing-graph .axis line {
+  /* line 145, ../../../er-apps/SingAlankars/main.scss */
+  #sing-alankars .axis path, #sing-alankars .axis line {
     fill: none;
     stroke: black;
     stroke-width: 0.5px;
   }
 }
-/* line 154, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .settings form {
+/* line 154, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .settings form {
   display: table;
   font-size: 20px;
   padding: 30px 30px 30px 30px;
   border: 1px solid #ddd;
 }
-/* line 160, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .settings p {
+/* line 160, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .settings p {
   display: table-row;
 }
-/* line 163, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .settings label {
+/* line 163, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .settings label {
   display: table-cell;
   padding: 0 0 20px 0;
 }
-/* line 167, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .settings input, #sing-graph .settings select {
+/* line 167, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .settings input, #sing-alankars .settings select {
   display: table-cell;
   font-size: 16px;
   margin: 0 0 0 20px;
 }
-/* line 170, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .settings button {
+/* line 170, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .settings button {
   float: right;
   font-size: 20px;
 }
@@ -999,4 +999,35 @@ core-drawer-panel:not([narrow]) #navicon {
 #thatmemorizer #feedback {
   font-weight: bold;
   border: none;
+}
+
+/* line 2, ../../../er-apps/SingGraph/main.scss */
+#singgraph .container-toplevel {
+  width: 100%;
+}
+/* line 14, ../../../er-apps/SingGraph/main.scss */
+#singgraph #chartdiv {
+  margin: 1% 0 0 0;
+}
+/* line 18, ../../../er-apps/SingGraph/main.scss */
+#singgraph .container.settings {
+  margin: 1% 0 0 5%;
+}
+/* line 29, ../../../er-apps/SingGraph/main.scss */
+#singgraph .line {
+  fill: none;
+  stroke: #999;
+  stroke-width: 1.5px;
+}
+/* line 35, ../../../er-apps/SingGraph/main.scss */
+#singgraph .axis path,
+#singgraph .axis line {
+  fill: none;
+  stroke: #999;
+  shape-rendering: crispEdges;
+}
+/* line 42, ../../../er-apps/SingGraph/main.scss */
+#singgraph #center-line {
+  stroke: #999;
+  stroke-width: 1px;
 }
