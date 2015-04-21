@@ -47,7 +47,7 @@ define([], function() {
 				12, 14, 12, -1, 11, 12, 11, -1, 9, 11, 9, -1, 7, 9, 7, -1, 5, 7, 5, -1, 4, 5, 4, -1, 2, 4, 2, -1, 0, 2, 0
 			],
 			"noteDuration": 1000,
-			"breakDuration": 0,
+			"breakDuration": 1000,
 			"midBreakDuration": 1000
 		}, {
 			"name": "SaSaReReSaSa,ReReGaGaReRe,..",
@@ -65,7 +65,7 @@ define([], function() {
 				9, 7, 5, -1, 7, 5, 4, -1, 5, 4, 2, -1, 4, 2, 0
 			],
 			"noteDuration": 1000,
-			"breakDuration": 0,
+			"breakDuration": 1000,
 			"midBreakDuration": 1000
 		}, {
 			"name": "SaReGaMa,ReGaMaPa,..",
