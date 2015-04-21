@@ -19,7 +19,7 @@ requirejs.config({
         'ng-infinite-scroll': 'ext-libs/ng-infinite-scroll',
 
         'music-calc' : 'er-libs/music-calc',
-        'mic': 'er-libs/mic',
+        'mic-util': 'er-libs/mic-util',
         'pitchdetector': 'er-libs/pitchdetector',
         'intensityfilter': 'er-libs/intensityfilter',
         'currentaudiocontext': 'er-libs/currentaudiocontext',

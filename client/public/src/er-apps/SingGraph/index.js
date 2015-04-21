@@ -1,4 +1,5 @@
 define([
     // './my-ctrl-1',
-    './singgraph.ctrl'
+    './singgraph.ctrl',
+    './pitch.model',
 ], function () {});

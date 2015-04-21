@@ -1,4 +1,4 @@
-define(['./module', 'jquery', './exercises', 'mic','currentaudiocontext','audiobuffer', 'pitchdetector', 'note',
+define(['./module', 'jquery', './exercises', 'mic-util','currentaudiocontext','audiobuffer', 'pitchdetector', 'note',
 		'tanpura', 'metronome','music-calc'],
 	function(app, $, exercises, MicUtil, CurrentAudioContext, AudioBuffer, PitchDetector, Note, Tanpura, metronome,MusicCalc) {
 		//constants

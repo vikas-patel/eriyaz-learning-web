@@ -1031,3 +1031,7 @@ core-drawer-panel:not([narrow]) #navicon {
   stroke: #999;
   stroke-width: 1px;
 }
+/* line 47, ../../../er-apps/SingGraph/main.scss */
+#singgraph text {
+  font-size: 10px;
+}

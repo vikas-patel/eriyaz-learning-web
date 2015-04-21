@@ -154,7 +154,7 @@ define(['angular', './module'], function(angular, app) {
                 //     dial.setValue(DialModel.value);
                 // });
 
-                setInterval(function(){ dial.setValue(DialModel.value); }, 1);
+                setInterval(function(){ dial.setValue(DialModel.value); }, 10);
             }
         };
     });

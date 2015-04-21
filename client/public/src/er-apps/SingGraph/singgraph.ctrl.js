@@ -1,29 +1,43 @@
-define(['./module', './notesequence', 'd3','./chart','./frequencyutil'], function(app, NoteSequence, d3, Chart,FrequencyUtil) {
-    var sequence;
+  define(['./module', './chart', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'webaudioplayer', 'pitchdetector', 'music-calc'],
+      function(app, Chart, MicUtil, CurrentAudioContext, AudioBuffer, WebAudioPlayer, PitchDetector, MusicCalc) {
+          var audioContext = CurrentAudioContext.getInstance();
+          app.controller('SingGraphCtrl', function($scope, PitchModel, DialModel) {
+              var chart = new Chart();
+              var detector = PitchDetector.getDetector('wavelet', audioContext.sampleRate);
+              var updatePitch = function(data) {
+                  var pitch = detector.findPitch(data);
+                  if (pitch !== 0) {
+                      PitchModel.currentFreq = pitch;
+                      PitchModel.currentInterval = MusicCalc.getCents(PitchModel.rootFreq, PitchModel.currentFreq) / 100;
+                      chart.notify(PitchModel.currentInterval);
+                  }
+              };
 
-    app.controller('SingGraphCtrl', function($scope) {
-        $scope.numNotesOpts = [3, 4, 5, 6];
-        $scope.numNotes = 3;
+              $scope.signalOn = false;
+              $scope.startMic = function() {
+                  chart.start();
+                  if (!$scope.signalOn) {
+                      MicUtil.getMicAudioStream(
+                          function(stream) {
+                              buffer = new AudioBuffer(audioContext, stream, 2048);
+                              buffer.addProcessor(updatePitch);
+                              $scope.signalOn = true;
+                          }
+                      );
+                  }
+              };
 
-        var chart = new Chart();
+              $scope.pause = function() {
+                  console.log('pause');
+                  chart.pause();
+              };
+              $scope.setRoot = function() {
+                  PitchModel.rootFreq = PitchModel.currentFreq;
+              };
 
-        $scope.newSequence = function() {
-            sequence = NoteSequence.getRandomSequence($scope.numNotes);
-            sequence.play();
-            chart.reset($scope.numNotes);
-        };
-
-        $scope.repeat = function() {
-            sequence.play();
-        };
-
-        $scope.playMyGraph = function() {
-            var mySeq = new NoteSequence(FrequencyUtil.getFreqsArray(sequence.freqs[0],chart.getData()));
-            mySeq.play();
-        };
-
-        $scope.showAnswer = function() {
-            chart.plotData(FrequencyUtil.getCentsArray(sequence.freqs[0],sequence.freqs));
-        };
-    });
-});
+              $scope.playRoot = function() {
+                  var player = new WebAudioPlayer(audioContext);
+                  player.playNote(PitchModel.rootFreq, 1000);
+              };
+          });
+      });
