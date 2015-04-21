@@ -22,9 +22,9 @@ define(['music-calc'], function(MusicCalc) {
 		var n = new Note();
 		n.freq = freq;
 		n.midiNumber = MusicCalc.freqToMidiNum(freq);
-		if(duration) 
+		if(duration != undefined) 
 			n.duration = duration;
-		if(volume)
+		if(volume != undefined)
 			n.volume = volume;
 		return n;
 	};
@@ -33,9 +33,9 @@ define(['music-calc'], function(MusicCalc) {
 		var n = new Note();
 		n.midiNumber = midiNumber;
 		n.freq = MusicCalc.midiNumToFreq(midiNumber);
-		if(duration) 
+		if(duration != undefined) 
 			n.duration = duration;
-		if(volume)
+		if(volume != undefined)
 			n.volume = volume;
 		return n;
 	};
