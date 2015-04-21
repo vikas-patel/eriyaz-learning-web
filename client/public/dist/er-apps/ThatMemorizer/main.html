@@ -1,0 +1,35 @@
+<div id="thatmemorizer" ng-controller='ThatMemorizerCtrl as ctrl'>
+    <div>
+        <dl id="score">
+        	<dt>Total</dt>
+        	<dd>{{total}}</dd>
+
+        	<dt>Correct</dt> 
+        	<dd>{{correct}}</dd>
+	    </dl>
+    </div>
+    <div class="container">
+        <input type="checkbox" ng-model="hideNotes">
+        Hide notes.
+        <div id="display"></div>
+    </div>
+    
+    <div id="feedback" class="container">
+        {{feedback}}
+    </div>
+
+    <div class="container">
+        <button ng-click="newThat();">New</button>
+        <button ng-click="repeatPlay();">Repeat</button>
+        <button ng-click="showAns();" ng-show="hideNotes">Show Ans</button>
+    </div>
+    <div class="container">
+        <ul>
+            <li ng-repeat="that in thats">
+                <input type="checkbox" ng-model="that.enabled">
+                <button ng-disabled="!that.enabled" ng-click="checkAnswer(that.name)">{{that.name}}</button>
+            </li>
+        </ul>
+    </div>
+    
+</div>

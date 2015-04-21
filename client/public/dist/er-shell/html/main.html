@@ -10,7 +10,7 @@
 
       <core-menu>
         <core-submenu label="Apps">
-          <core-item label="{{app.name}}" ng-repeat="app in appsInfo.apps">
+          <core-item label="{{app.name}}" ng-repeat="app in appsInfo.apps" ng-show="app.show">
             <a href="{{app.href}}" target="_self"></a>
           </core-item>
         </core-submenu>

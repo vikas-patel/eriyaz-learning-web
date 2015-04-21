@@ -2,7 +2,7 @@
  * In this file you should write your main styles. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
-/* line 5, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 5, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -24,45 +24,45 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 22, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 24, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 26, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 28, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 30, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 103, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 32, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 116, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
   display: block;
 }
@@ -80,7 +80,7 @@ body /deep/ {
 /* line 1, ../sass/pages/_front.scss */
 #front {
   font-family: sans-serif;
-  background-image: url('../../images/fort.jpg?1424883674'), radial-gradient(closest-side at 35% 45%, #e02006, #f16236, #e02006);
+  background-image: url('../../images/fort.jpg?1424756334'), radial-gradient(closest-side at 35% 45%, #e02006, #f16236, #e02006);
   /* Background image is centered vertically and horizontally at all times */
   background-position: center center;
   /* Background image doesn't tile */
@@ -566,47 +566,51 @@ core-drawer-panel:not([narrow]) #navicon {
   border-bottom: solid;
 }
 
-/* line 2, ../../../er-apps/SingGraph/main.scss */
-#sing-graph {
+/* line 2, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars {
   /* Axis */
   /* Resize Window */
   /* Indicator line */
 }
-/* line 7, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .axis .tick text {
+/* line 7, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .axis .tick text {
   fill: black;
   font-size: 0.7em;
 }
-/* line 11, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .axis path, #sing-graph .axis line {
+/* line 11, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .axis path, #sing-alankars .axis line {
   fill: none;
   stroke: black;
   stroke-width: 1px;
 }
-/* line 19, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .start::before {
+/* line 19, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .start::before {
   content: "Start";
 }
-/* line 23, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .pause::before {
+/* line 23, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .pause::before {
   content: "Pause";
 }
-/* line 27, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .resume::before {
+/* line 27, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .resume::before {
   content: "Resume";
 }
-/* line 31, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .invalid {
+/* line 31, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .reset::before {
+  content: "Reset";
+}
+/* line 35, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .invalid {
   border-color: red;
   border-width: 1px;
 }
-/* line 36, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .container {
+/* line 40, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .container {
   margin: 5px;
   padding: 5px;
 }
-/* line 45, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .svg-container {
+/* line 49, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .svg-container {
   display: inline-block;
   position: relative;
   width: 100%;
@@ -614,15 +618,15 @@ core-drawer-panel:not([narrow]) #navicon {
   vertical-align: middle;
   overflow: hidden;
 }
-/* line 54, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .svg-content {
+/* line 58, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .svg-content {
   display: inline-block;
   position: absolute;
   top: 0;
   left: 0;
 }
-/* line 61, ../../../er-apps/SingGraph/main.scss */
-#sing-graph #overlay, #sing-graph #overlay-content {
+/* line 65, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars #overlay, #sing-alankars #overlay-content {
   margin: auto;
   width: 100%;
   height: 100%;
@@ -633,24 +637,24 @@ core-drawer-panel:not([narrow]) #navicon {
   bottom: 0;
   z-index: 1;
 }
-/* line 73, ../../../er-apps/SingGraph/main.scss */
-#sing-graph #overlay {
+/* line 77, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars #overlay {
   background-color: black;
   opacity: .5;
 }
-/* line 79, ../../../er-apps/SingGraph/main.scss */
-#sing-graph #overlay-content {
+/* line 83, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars #overlay-content {
   text-align: center;
   color: white;
   height: 20%;
   width: 50%;
 }
-/* line 85, ../../../er-apps/SingGraph/main.scss */
-#sing-graph #overlay-content .padding5 {
+/* line 89, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars #overlay-content .padding5 {
   padding: 5px;
 }
-/* line 90, ../../../er-apps/SingGraph/main.scss */
-#sing-graph #counter {
+/* line 94, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars #counter {
   margin: auto;
   width: 200px;
   height: 200px;
@@ -663,83 +667,375 @@ core-drawer-panel:not([narrow]) #navicon {
   bottom: 0;
   z-index: 1;
 }
-/* line 105, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .indicatorLine {
+/* line 109, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .indicatorLine {
   stroke-width: 1;
 }
-/* line 109, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .exercise {
+/* line 113, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .exercise {
   fill: #A8A8A8;
 }
 @media only screen and (max-width: 960px) {
-  /* line 2, ../../../er-apps/SingGraph/main.scss */
-  #sing-graph {
+  /* line 2, ../../../er-apps/SingAlankars/main.scss */
+  #sing-alankars {
     /* styles for browsers smaller than 960px; 2/3rd of my desktop screen width */
   }
-  /* line 115, ../../../er-apps/SingGraph/main.scss */
-  #sing-graph button, #sing-graph select, #sing-graph .header {
+  /* line 119, ../../../er-apps/SingAlankars/main.scss */
+  #sing-alankars button, #sing-alankars select, #sing-alankars .header {
     font-size: 0.75em;
   }
-  /* line 119, ../../../er-apps/SingGraph/main.scss */
-  #sing-graph button {
+  /* line 123, ../../../er-apps/SingAlankars/main.scss */
+  #sing-alankars button {
     padding: 1px 3px;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 2, ../../../er-apps/SingGraph/main.scss */
-  #sing-graph {
+  /* line 2, ../../../er-apps/SingAlankars/main.scss */
+  #sing-alankars {
     /* mainly for mobile devices */
   }
-  /* line 125, ../../../er-apps/SingGraph/main.scss */
-  #sing-graph button, #sing-graph select, #sing-graph .header {
+  /* line 129, ../../../er-apps/SingAlankars/main.scss */
+  #sing-alankars button, #sing-alankars select, #sing-alankars .header {
     font-size: 0.5em;
   }
-  /* line 128, ../../../er-apps/SingGraph/main.scss */
-  #sing-graph button {
+  /* line 132, ../../../er-apps/SingAlankars/main.scss */
+  #sing-alankars button {
     padding: 1px 2px;
   }
 }
 @media only screen and (max-device-width: 720px) {
-  /* line 2, ../../../er-apps/SingGraph/main.scss */
-  #sing-graph {
+  /* line 2, ../../../er-apps/SingAlankars/main.scss */
+  #sing-alankars {
     /* mainly for mobile devices */
   }
-  /* line 137, ../../../er-apps/SingGraph/main.scss */
-  #sing-graph .axis .tick text {
+  /* line 141, ../../../er-apps/SingAlankars/main.scss */
+  #sing-alankars .axis .tick text {
     fill: black;
     font-size: 0.4em;
   }
-  /* line 141, ../../../er-apps/SingGraph/main.scss */
-  #sing-graph .axis path, #sing-graph .axis line {
+  /* line 145, ../../../er-apps/SingAlankars/main.scss */
+  #sing-alankars .axis path, #sing-alankars .axis line {
     fill: none;
     stroke: black;
     stroke-width: 0.5px;
   }
 }
-/* line 150, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .settings form {
+/* line 154, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .settings form {
   display: table;
   font-size: 20px;
   padding: 30px 30px 30px 30px;
   border: 1px solid #ddd;
 }
-/* line 156, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .settings p {
+/* line 160, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .settings p {
   display: table-row;
 }
-/* line 159, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .settings label {
+/* line 163, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .settings label {
   display: table-cell;
   padding: 0 0 20px 0;
 }
-/* line 163, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .settings input, #sing-graph .settings select {
+/* line 167, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .settings input, #sing-alankars .settings select {
   display: table-cell;
   font-size: 16px;
   margin: 0 0 0 20px;
 }
-/* line 166, ../../../er-apps/SingGraph/main.scss */
-#sing-graph .settings button {
+/* line 170, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars .settings button {
   float: right;
   font-size: 20px;
+}
+
+/* line 2, ../../../er-apps/UpOrDown/main.scss */
+#upordown .container-toplevel {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: space-around;
+}
+/* line 14, ../../../er-apps/UpOrDown/main.scss */
+#upordown h4 {
+  padding: 10px;
+  align-self: center;
+  font-weight: bold;
+}
+/* line 19, ../../../er-apps/UpOrDown/main.scss */
+#upordown .container {
+  border-bottom: solid;
+  border-width: 1px;
+  border-color: #E3E3E3;
+  margin: 10px;
+  padding: 10px;
+}
+
+/* line 2, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph .container-toplevel {
+  width: 100%;
+}
+/* line 14, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph #chartdiv {
+  margin: 1% 0 0 0;
+}
+/* line 18, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph .container.settings {
+  margin: 1% 0 0 5%;
+}
+/* line 28, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph button {
+  height: 25px;
+  text-overflow: clip;
+}
+/* line 32, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph button.small {
+  width: 15%;
+}
+/* line 35, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph button.large {
+  width: 25%;
+}
+/* line 39, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph rect {
+  fill: none;
+  pointer-events: all;
+}
+/* line 44, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph circle.big {
+  fill: #fff;
+  stroke-opacity: 0;
+  fill-opacity: .1;
+  cursor: move;
+  stroke: #eee;
+  stroke-width: 1.5px;
+}
+/* line 54, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph circle.small {
+  fill: steelblue;
+  stroke-opacity: 0;
+  fill-opacity: 1;
+  cursor: move;
+  stroke: #eee;
+  stroke-width: 1.5px;
+}
+/* line 65, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph circle.big.selected {
+  fill: steelblue;
+  stroke: steelblue;
+}
+/* line 70, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph circle.ans {
+  fill: green;
+}
+/* line 74, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph #guess {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 2px;
+}
+/* line 80, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph #ans {
+  fill: none;
+  stroke: green;
+  stroke-width: 2px;
+}
+/* line 91, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph .x.axis line {
+  stroke: #ccc;
+  stroke-width: 1px;
+}
+/* line 96, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph .x.axis .minor {
+  stroke-opacity: .5;
+}
+/* line 100, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph .x.axis path {
+  fill: none;
+}
+/* line 105, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph .y.axis line, #melodygraph .y.axis path {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1px;
+}
+/* line 111, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph #center-line {
+  stroke: #999;
+  stroke-width: 1px;
+}
+
+/* line 2, ../../../er-apps/SwarSpace/main.scss */
+#swarspace #score {
+  float: right;
+  margin-right: 10px;
+}
+/* line 5, ../../../er-apps/SwarSpace/main.scss */
+#swarspace #score dt {
+  float: left;
+  clear: left;
+  width: 100px;
+  text-align: left;
+}
+/* line 13, ../../../er-apps/SwarSpace/main.scss */
+#swarspace #score dt:after {
+  content: ":";
+}
+/* line 16, ../../../er-apps/SwarSpace/main.scss */
+#swarspace #score dd {
+  margin: 0 0 0 100px;
+  color: darkgrey;
+}
+/* line 22, ../../../er-apps/SwarSpace/main.scss */
+#swarspace svg {
+  margin-top: 15px;
+}
+/* line 26, ../../../er-apps/SwarSpace/main.scss */
+#swarspace line {
+  stroke: #ccc;
+  stroke-width: 1px;
+}
+/* line 31, ../../../er-apps/SwarSpace/main.scss */
+#swarspace .y.axis line, #swarspace .y.axis path {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1px;
+}
+/* line 38, ../../../er-apps/SwarSpace/main.scss */
+#swarspace #guessBar {
+  fill: blue;
+}
+/* line 42, ../../../er-apps/SwarSpace/main.scss */
+#swarspace #arrow {
+  fill: darkgrey;
+}
+/* line 46, ../../../er-apps/SwarSpace/main.scss */
+#swarspace #ansBar {
+  fill: green;
+}
+
+/* line 3, ../../../er-apps/SwarRelation/main.scss */
+#swarrelation #score {
+  float: right;
+  margin-right: 10px;
+}
+/* line 12, ../../../er-apps/SwarRelation/main.scss */
+#swarrelation svg {
+  margin-top: 3%;
+}
+/* line 16, ../../../er-apps/SwarRelation/main.scss */
+#swarrelation rect.slot {
+  fill: #E3F2FD;
+}
+/* line 20, ../../../er-apps/SwarRelation/main.scss */
+#swarrelation rect.note {
+  fill: #BBDEFB;
+}
+/* line 22, ../../../er-apps/SwarRelation/main.scss */
+#swarrelation rect.note:hover {
+  fill: #C5CAE9;
+}
+/* line 27, ../../../er-apps/SwarRelation/main.scss */
+#swarrelation rect.selector {
+  fill: #C5CAE9;
+}
+/* line 31, ../../../er-apps/SwarRelation/main.scss */
+#swarrelation rect.root {
+  fill: #C5CAE9;
+}
+/* line 35, ../../../er-apps/SwarRelation/main.scss */
+#swarrelation #marker {
+  fill: #333;
+}
+/* line 39, ../../../er-apps/SwarRelation/main.scss */
+#swarrelation #feedback {
+  font-size: 30px;
+}
+
+/* line 2, ../../../er-apps/ThatMemorizer/main.scss */
+#thatmemorizer #score {
+  float: right;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+/* line 6, ../../../er-apps/ThatMemorizer/main.scss */
+#thatmemorizer #score dt {
+  float: left;
+  clear: left;
+  width: 100px;
+  text-align: left;
+}
+/* line 14, ../../../er-apps/ThatMemorizer/main.scss */
+#thatmemorizer #score dt:after {
+  content: ":";
+}
+/* line 17, ../../../er-apps/ThatMemorizer/main.scss */
+#thatmemorizer #score dd {
+  margin: 0 0 0 100px;
+}
+/* line 24, ../../../er-apps/ThatMemorizer/main.scss */
+#thatmemorizer svg {
+  margin-top: 10px;
+}
+/* line 27, ../../../er-apps/ThatMemorizer/main.scss */
+#thatmemorizer ul {
+  columns: 3;
+  -webkit-columns: 3;
+  -moz-columns: 3;
+}
+/* line 33, ../../../er-apps/ThatMemorizer/main.scss */
+#thatmemorizer li button {
+  width: 60%;
+}
+/* line 46, ../../../er-apps/ThatMemorizer/main.scss */
+#thatmemorizer .container {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 3%;
+  border-top: solid;
+  border-width: 1px;
+  border-color: #E3E3E3;
+}
+/* line 59, ../../../er-apps/ThatMemorizer/main.scss */
+#thatmemorizer #feedback {
+  font-weight: bold;
+  border: none;
+}
+
+/* line 2, ../../../er-apps/SingGraph/main.scss */
+#singgraph .container-toplevel {
+  width: 100%;
+}
+/* line 14, ../../../er-apps/SingGraph/main.scss */
+#singgraph #chartdiv {
+  margin: 1% 0 0 0;
+}
+/* line 18, ../../../er-apps/SingGraph/main.scss */
+#singgraph .container.settings {
+  margin: 1% 0 0 5%;
+}
+/* line 29, ../../../er-apps/SingGraph/main.scss */
+#singgraph .line {
+  fill: none;
+  stroke: #999;
+  stroke-width: 1.5px;
+}
+/* line 35, ../../../er-apps/SingGraph/main.scss */
+#singgraph #mainline {
+  stroke: blue;
+}
+/* line 39, ../../../er-apps/SingGraph/main.scss */
+#singgraph .axis path,
+#singgraph .axis line {
+  fill: none;
+  stroke: #999;
+  shape-rendering: crispEdges;
+}
+/* line 46, ../../../er-apps/SingGraph/main.scss */
+#singgraph #center-line {
+  stroke: #999;
+  stroke-width: 1px;
+}
+/* line 51, ../../../er-apps/SingGraph/main.scss */
+#singgraph text {
+  font-size: 10px;
 }
