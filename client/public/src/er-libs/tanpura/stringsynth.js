@@ -8,29 +8,18 @@ define(['currentaudiocontext'], function(CurrentAudioContext) {
 		var nearestSample = soundbank.getNearestSample(noteNum);
 		buffer = nearestSample.buffer;
 		this.st.pitch = Math.pow(2, (noteNum - nearestSample.noteNum) / 12);
-		// var BUFFER_SIZE = 16384;
 
 
-		// var samples = new Float32Array(BUFFER_SIZE * 2);
-
-
-
-		// this.filter = new SimpleFilter(this.source, st);
-
-
-
-		// this.connect = function(node) {
-		// 	this.node.connect(node);
-		// };
-
-		// this.disconnect = function() {
-		// 	this.node.disconnect();
-		// };
-		// this.node = context.createScriptProcessor(BUFFER_SIZE, 2, 2);
+		//extract 2 secs of subbuffer from main buffer assuming pluck at every 1s, leaving 1 sec overlap.
+		var subBuffer = context.createBuffer(1, Math.round(buffer.sampleRate * 2), buffer.sampleRate);
+		var ls = subBuffer.getChannelData(0);
+		for (var j = 0; j < subBuffer.length; j++) {
+			ls[j] = buffer.getChannelData(0)[j];
+		}
 		this.source = {
 			extract: function(target, numFrames, position) {
-				var l = buffer.getChannelData(0);
-				// var r = buffer.getChannelData(1);
+				var l = subBuffer.getChannelData(0);
+				// var r = subBuffer.getChannelData(1);
 				for (var i = 0; i < numFrames; i++) {
 					target[i * 2] = l[i + position];
 					target[i * 2 + 1] = l[i + position];
@@ -40,9 +29,9 @@ define(['currentaudiocontext'], function(CurrentAudioContext) {
 		};
 
 		var filter = new SimpleFilter(this.source, this.st);
-		var outSamples = new Float32Array(buffer.length * 2);
-		var framesExtracted = filter.extract(outSamples, buffer.length);
-		var outBuffer = context.createBuffer(2, buffer.length, buffer.sampleRate);
+		var outSamples = new Float32Array(subBuffer.length * 2);
+		var framesExtracted = filter.extract(outSamples, subBuffer.length);
+		var outBuffer = context.createBuffer(2, subBuffer.length, subBuffer.sampleRate);
 		// console.log(outSamples);
 		var l = outBuffer.getChannelData(0);
 		var r = outBuffer.getChannelData(1);
@@ -53,6 +42,7 @@ define(['currentaudiocontext'], function(CurrentAudioContext) {
 			l[i] = outSamples[i * 2];
 			r[i] = outSamples[i * 2 + 1];
 		}
+
 
 		this.pluck = function(node) {
 			// var filter = new SimpleFilter(this.source, this.st);
@@ -70,7 +60,7 @@ define(['currentaudiocontext'], function(CurrentAudioContext) {
 			// 	}
 			// };
 			// this.node.connect(node);
-			
+
 			var source = context.createBufferSource();
 			source.buffer = outBuffer;
 			source.connect(node);

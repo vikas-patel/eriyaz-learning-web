@@ -104,6 +104,7 @@ define([], function() {
 			// .attr("clip-path", "url(#clip)")
 			.append("path")
 			.datum(data)
+			.attr("id","mainline")
 			.attr("class", "line")
 			.attr("d", line);
 
@@ -177,12 +178,14 @@ define([], function() {
 			if (play) {
 				data.push(intervalValue * 100);
 				dataCache.push(intervalValue * 100);
-				var maxValue = d3.max(data, function(d) {
-					return Math.abs(d);
-				});
-
-				y.domain([-maxValue,maxValue]);
-				yAxisGroup.transition().call(yAxis); // Update Y-Axis
+				// var maxValue = d3.max(data, function(d) {
+				// 	return Math.abs(d);
+				// });
+				// yAxis.ticks(Math.round(maxValue/100)*2 + 1);
+				// y.domain([-maxValue,maxValue]);
+				// yAxisGroup.transition().call(yAxis); // Update Y-Axis
+				// y.domain([Math.round(maxValue)+100-2400,Math.round(maxValue)+100]);
+				// yAxisGroup.transition().call(yAxis); // Update Y-Axis
 
 				if (data.length < Math.round(displayTimeRange * 0.95 / refreshTime)) {
 					path
