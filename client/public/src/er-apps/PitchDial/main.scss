@@ -52,16 +52,20 @@ $landscape : min-aspect-ratio 1/1;
 		}
 	}
 
+	paper-icon-button {
+		margin-top:-10px;
+		float:left;
+	}
+
+	#scale {
+		// display:inline;
+		float:left;
+	}
 	button {
 		width : 30%;
-		height: 7%;
+		// height: 7%;
 		text-overflow:clip;
-		border:none;
-		border-bottom:solid;
-		border-width:1px;
-		border-color:#eeeeee;
-		// line-height: 5%;
-		background-color: #ffffff;
+
 		
 		&:focus {
 			outline:0;
@@ -76,4 +80,6 @@ $landscape : min-aspect-ratio 1/1;
 			border-bottom:solid;
 		}
 	}
+
+
 }

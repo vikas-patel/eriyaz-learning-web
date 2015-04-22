@@ -105,10 +105,13 @@ define(['./module', './intervalgen', './display', 'note', 'webaudioplayer', 'cur
             var reverseData = currThat.model.slice();
             reverseData.reverse();
             var intervalSequence = currThat.model.concat(reverseData);
+            var startTime = audioContext.currentTime+playTime/1000 ;
             currLoopId = setInterval(function() {
+                noteStartTime = startTime + playTime * marker / 1000;
+                console.log(marker);
                 var noteFreq = baseFreq * Math.pow(2, intervalSequence[marker] / 12);
                 display.markNote(intervalSequence[marker]);
-                player.playNote(noteFreq, playTime);
+                player.scheduleNote(noteFreq,noteStartTime , playTime);
                 marker++;
                 if (marker > 15) {
                     cancelCurrentLoop();

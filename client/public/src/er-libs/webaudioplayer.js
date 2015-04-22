@@ -20,11 +20,32 @@ define([], function() {
 			this.amp.connect(this.audioContext.destination);
 			osc.start(this.audioContext.currentTime + delay/1000);
 			osc.stop(this.audioContext.currentTime + delay/1000 + duration/1000);
-		}
+		};
+
+		this.scheduleNote = function(freq,startTime,duration) {
+			var osc = this.audioContext.createOscillator();
+			osc.frequency.value = freq;
+			osc.type = 'square';
+
+			this.smoothingFilter = this.audioContext.createBiquadFilter();
+			this.smoothingFilter.frequency = 1000;
+
+			this.amp = this.audioContext.createGain();
+			this.amp.gain.value = 1;
+
+			osc.connect(this.smoothingFilter);
+			this.smoothingFilter.connect(this.amp);
+			this.amp.connect(this.audioContext.destination);
+			console.log(audioContext.currentTime);
+			console.log(startTime);
+
+			osc.start(startTime);
+			osc.stop(startTime + duration/1000);
+		};
 
 		this.playBeat = function() {
 			this.play(440, this.beatLength);
-		}
+		};
 
 		this.play = function(freq, duration, delay) {
 			if (!delay) delay = 0;
@@ -33,7 +54,7 @@ define([], function() {
 	        osc.frequency.value = freq;
 	        osc.start(this.audioContext.currentTime + delay/1000);
 	        osc.stop(this.audioContext.currentTime + delay/1000 + duration);			
-		}
+		};
 
 		this.playMelody = function(melody, delay) {
 			if (!delay) delay = 0;
@@ -41,7 +62,7 @@ define([], function() {
 				this.playNote(melody.notes[i].freq, melody.notes[i].duration, delay);
 				delay += melody.notes[i].duration;
 			}
-		}
+		};
 	};
 
 	return WebAudioPlayer;
