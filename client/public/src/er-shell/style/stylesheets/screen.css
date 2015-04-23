@@ -77,6 +77,38 @@ body /deep/ {
   font-size: 100%;
 }
 
+/* line 17, ../sass/pages/_common.scss */
+body #error {
+  margin: 10%;
+}
+/* line 20, ../sass/pages/_common.scss */
+body #error span, body #error a {
+  margin-top: 3%;
+  display: block;
+  font-size: 25px;
+}
+/* line 26, ../sass/pages/_common.scss */
+body #error a {
+  text-align: center;
+}
+/* line 36, ../sass/pages/_common.scss */
+body #error dt {
+  float: left;
+  clear: left;
+  width: 100px;
+  text-align: left;
+  font-weight: bold;
+  padding: 10px 0 0 0;
+}
+/* line 45, ../sass/pages/_common.scss */
+body #error dt:after {
+  content: ":";
+}
+/* line 48, ../sass/pages/_common.scss */
+body #error dd {
+  padding: 10px 0 0 0;
+}
+
 /* line 1, ../sass/pages/_front.scss */
 #front {
   font-family: sans-serif;

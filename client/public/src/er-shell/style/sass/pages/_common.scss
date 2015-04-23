@@ -11,3 +11,43 @@ body .core-overlay-backdrop {
 body /deep/ {
 	font-size:100%;
 }
+
+body {
+
+	#error {
+		margin:10%;
+
+		span,a {
+			margin-top:3%;
+			display:block;
+			font-size:25px;
+		}
+
+		a {
+   			text-align:center;
+		}
+
+		 dl {
+		    // font-size:20px;
+		    // padding: 50px 0 40px 50px;
+		      	// border-bottom: 1px solid #ddd;
+
+		  }
+		  dt {
+		    float: left;
+		    clear: left;
+		    width: 100px;
+		    text-align: left;
+		    font-weight: bold;
+		    padding: 10px 0 0 0;
+
+		  }
+		   dt:after {
+		    content: ":";
+		  }
+		  dd {
+		    // margin: 0 0 0 100px;
+		    padding: 10px 0 0 0;
+		  }
+	}
+}
