@@ -28,15 +28,26 @@ define(['./soundbank', './stringsynth', 'currentaudiocontext', 'require', './st-
 			this.isPlaying = false;
 		};
 
-		this.setTuning = function(root, firstString) {
+		this.setTuning = function(root, firstString, progressCallback) {
+			progressCallback('start', 0);
+
 			var soundbank = new SoundBank();
+
 			var local = this;
 			soundbank.oninit = function() {
+				progressCallback('soundbank', 25);
 				local.strings[0] = new StringSynth(root - 12 + firstString, soundbank);
+				progressCallback('string1', 50);
 				var middleString = new StringSynth(root, soundbank);
+				progressCallback('string2', 75);
 				local.strings[1] = middleString;
 				local.strings[2] = middleString;
+
 				local.strings[3] = new StringSynth(root - 12, soundbank);
+				progressCallback('string3', 100);
+
+
+
 			};
 		};
 	};
@@ -48,11 +59,11 @@ define(['./soundbank', './stringsynth', 'currentaudiocontext', 'require', './st-
 	}
 
 	return {
-		getInstance: function(root, firstString) {
+		getInstance: function(root, firstString, progressCallback) {
 			if (!instance) {
 				instance = createInstance(root, firstString);
 			}
-			instance.setTuning(root,firstString);
+			instance.setTuning(root, firstString, progressCallback);
 			return instance;
 		}
 	};

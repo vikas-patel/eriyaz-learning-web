@@ -36,8 +36,6 @@ define([], function() {
 			osc.connect(this.smoothingFilter);
 			this.smoothingFilter.connect(this.amp);
 			this.amp.connect(this.audioContext.destination);
-			console.log(audioContext.currentTime);
-			console.log(startTime);
 
 			osc.start(startTime);
 			osc.stop(startTime + duration/1000);

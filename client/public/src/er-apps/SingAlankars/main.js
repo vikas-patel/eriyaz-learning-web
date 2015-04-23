@@ -1,6 +1,7 @@
-define(['./module', 'jquery', './exercises', 'mic-util','currentaudiocontext','audiobuffer', 'pitchdetector', 'note',
-		'tanpura', 'metronome','music-calc'],
-	function(app, $, exercises, MicUtil, CurrentAudioContext, AudioBuffer, PitchDetector, Note, Tanpura, metronome,MusicCalc) {
+define(['./module', 'jquery', './exercises', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'pitchdetector', 'note',
+		'tanpura', 'metronome', 'music-calc'
+	],
+	function(app, $, exercises, MicUtil, CurrentAudioContext, AudioBuffer, PitchDetector, Note, Tanpura, metronome, MusicCalc) {
 		//constants
 		var detector;
 		//other globals;
@@ -25,7 +26,9 @@ define(['./module', 'jquery', './exercises', 'mic-util','currentaudiocontext','a
 			$scope.signalOn = false;
 			$scope.stopSignal = true;
 			$scope.isInstrumentProgress = false;
-			$scope.user = User.get({id: $window.localStorage.userId}, function() {
+			$scope.user = User.get({
+				id: $window.localStorage.userId
+			}, function() {
 				if (!$scope.user.settings || !$scope.user.settings.rootNote) {
 					$scope.showSettings = true;
 					return;
@@ -35,9 +38,9 @@ define(['./module', 'jquery', './exercises', 'mic-util','currentaudiocontext','a
 				}
 				$scope.rootFreq = MusicCalc.midiNumToFreq($scope.user.settings.rootNote);
 			});
-			
-			$rootScope.$on('$stateChangeSuccess', 
-				function(event, toState, toParams, fromState, fromParams){
+
+			$rootScope.$on('$stateChangeSuccess',
+				function(event, toState, toParams, fromState, fromParams) {
 					if (fromState.name == 'alankars') {
 						stopTanpura();
 						$scope.chart.isTransitionStopped = true;
@@ -54,18 +57,18 @@ define(['./module', 'jquery', './exercises', 'mic-util','currentaudiocontext','a
 					$scope.rootFreq = MusicCalc.midiNumToFreq($scope.user.settings.rootNote);
 				});
 			}
-			$scope.startOrPause = function(){
+			$scope.startOrPause = function() {
 				if (!$scope.user.settings.rootNote) {
 					$scope.showSettings = true;
 					return;
 				}
-				
+
 				if (!$scope.myExercise) {
 					showToastMessage("Please Select Exercise.");
 					$scope.toastMessageDisplayed = true;
 					return;
 				}
-				switch($scope.operation) {
+				switch ($scope.operation) {
 					case 'start':
 						if ($scope.signalOn) {
 							start();
@@ -74,70 +77,76 @@ define(['./module', 'jquery', './exercises', 'mic-util','currentaudiocontext','a
 						}
 						$scope.operation = 'reset';
 						break;
-					case 'reset' : reset(); break;
+					case 'reset':
+						reset();
+						break;
 				}
 			}
 
-			$scope.$watch(function(scope) { return scope.myExercise },
-              function() {
-              	if(!$scope.myExercise) 
-              		return; 
-              	setExercise();
-              	$scope.operation = 'start';
-              });
+			$scope.$watch(function(scope) {
+					return scope.myExercise
+				},
+				function() {
+					if (!$scope.myExercise)
+						return;
+					setExercise();
+					$scope.operation = 'start';
+				});
 
-			$scope.$watch(function(scope) { return scope.signalOn},
-              function() {
-              	if (!$scope.signalOn) return;
-              		start();
-          		}
-             );
+			$scope.$watch(function(scope) {
+					return scope.signalOn
+				},
+				function() {
+					if (!$scope.signalOn) return;
+					start();
+				}
+			);
 
-			 $scope.reset = function() {
-			 	$scope.operation = 'start';
-			 	reset();
-			 }
+			$scope.reset = function() {
+				$scope.operation = 'start';
+				reset();
+			}
 
-			 $scope.next = function() {
-			 	$scope.showOverlay = false;
+			$scope.next = function() {
+				$scope.showOverlay = false;
 				resetScore();
 				var index = $scope.exercises.indexOf($scope.myExercise);
-				$scope.myExercise = $scope.exercises[index+1];
+				$scope.myExercise = $scope.exercises[index + 1];
 				$scope.$apply();
 				// start again
 				countDownDisplayed = false;
 				$scope.operation = 'reset';
 				start();
-			 }
+			}
 
-			 $scope.closeOverlay = function() {
-			 	$scope.showOverlay = false;
-			 }
+			$scope.closeOverlay = function() {
+				$scope.showOverlay = false;
+			}
 
-			 $scope.restart = function() {
-			 	$scope.showOverlay = false;
-			 	reset();
+			$scope.restart = function() {
+				$scope.showOverlay = false;
+				reset();
 				$scope.operation = 'reset';
 				start();
-			 }
+			}
 
-			 $scope.$on('chartOver',function() {
-			 	if ($scope.user.settings.playInstrument == "before" && $scope.chart.isPlayInstrument) {
-			 		$scope.chart.redraw();
-			 		start();
-			 		return;
-			 	}
-			 	$scope.stopSignal = true;
-               	$scope.showOverlay = true;
-               	$scope.$apply();
-               	// save score at server.
-               	ScoreService.save($scope.myExercise.name, $scope.totalScore);
-			 })
+			$scope.$on('chartOver', function() {
+				if ($scope.user.settings.playInstrument == "before" && $scope.chart.isPlayInstrument) {
+					$scope.chart.redraw();
+					start();
+					return;
+				}
+				$scope.stopSignal = true;
+				$scope.showOverlay = true;
+				$scope.$apply();
+				// save score at server.
+				ScoreService.save($scope.myExercise.name, $scope.totalScore);
+			})
 
-			 function init() {
+			function init() {
 				context = CurrentAudioContext.getInstance();
 				$scope.context = context;
-				detector = PitchDetector.getDetector('wavelet',context.sampleRate);
+				detector = PitchDetector.getDetector('wavelet', context.sampleRate);
 			}
 
 			function startMic($scope) {
@@ -160,7 +169,7 @@ define(['./module', 'jquery', './exercises', 'mic-util','currentaudiocontext','a
 			}
 
 			function updatePitch(data) {
-				
+
 				var waveletFreq = detector.findPitch(data);
 				if (waveletFreq == 0) return;
 				currInterval = Math.round(1200 * (Math.log(waveletFreq / $scope.rootFreq) / Math.log(2))) / 100;
@@ -220,18 +229,24 @@ define(['./module', 'jquery', './exercises', 'mic-util','currentaudiocontext','a
 			}
 
 			function startTanpura() {
-				tanpura = Tanpura.getInstance($scope.user.settings.rootNote, 7);
-				tanpura.play();
+				if (tanpura !== null && tanpura)
+					tanpura.stop();
+				var progressListener = function(message, progress) {
+					if (progress === 100) {
+						tanpura.play();
+					}
+				};
+				tanpura = Tanpura.getInstance($scope.user.settings.rootNote, 7, progressListener);
 			}
 
 			function stopTanpura() {
-				if(tanpura) {
+				if (tanpura) {
 					tanpura.stop();
 				}
 			}
 
 		});
-		
+
 		// function startCountdown(callback) {
 		// 	countDown = new $.GameCountDown({readymessage:"Go", callback: callback});
 		// 	//GameCountDown = new jQuery.GameCountDown();

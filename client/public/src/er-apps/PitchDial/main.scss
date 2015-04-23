@@ -32,6 +32,19 @@ $landscape : min-aspect-ratio 1/1;
     	// padding-bottom:100%;
 	}
 
+	#progress-overlay {
+		float:left;
+		margin-left:12px;
+		clear:both;
+		// line-height: 2.5%;
+		span {
+		  display: inline-block;
+		  vertical-align: text-top;
+		  margin-top:-5px;
+		}
+
+	}
+
 	#dial-container {
 		position:absolute;
 		top:10%;

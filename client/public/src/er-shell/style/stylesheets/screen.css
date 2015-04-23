@@ -533,38 +533,50 @@ core-drawer-panel:not([narrow]) #navicon {
   padding: 5px;
 }
 /* line 35, ../../../er-apps/PitchDial/main.scss */
+#pitch-dial #progress-overlay {
+  float: left;
+  margin-left: 12px;
+  clear: both;
+}
+/* line 40, ../../../er-apps/PitchDial/main.scss */
+#pitch-dial #progress-overlay span {
+  display: inline-block;
+  vertical-align: text-top;
+  margin-top: -5px;
+}
+/* line 48, ../../../er-apps/PitchDial/main.scss */
 #pitch-dial #dial-container {
   position: absolute;
   top: 10%;
   width: 100%;
 }
-/* line 39, ../../../er-apps/PitchDial/main.scss */
+/* line 52, ../../../er-apps/PitchDial/main.scss */
 #pitch-dial #dial-container canvas {
   width: 100%;
 }
-/* line 55, ../../../er-apps/PitchDial/main.scss */
+/* line 68, ../../../er-apps/PitchDial/main.scss */
 #pitch-dial paper-icon-button {
   margin-top: -10px;
   float: left;
 }
-/* line 60, ../../../er-apps/PitchDial/main.scss */
+/* line 73, ../../../er-apps/PitchDial/main.scss */
 #pitch-dial #scale {
   float: left;
 }
-/* line 64, ../../../er-apps/PitchDial/main.scss */
+/* line 77, ../../../er-apps/PitchDial/main.scss */
 #pitch-dial button {
   width: 30%;
   text-overflow: clip;
 }
-/* line 70, ../../../er-apps/PitchDial/main.scss */
+/* line 83, ../../../er-apps/PitchDial/main.scss */
 #pitch-dial button:focus {
   outline: 0;
 }
-/* line 75, ../../../er-apps/PitchDial/main.scss */
+/* line 88, ../../../er-apps/PitchDial/main.scss */
 #pitch-dial button:hover {
   cursor: pointer;
 }
-/* line 79, ../../../er-apps/PitchDial/main.scss */
+/* line 92, ../../../er-apps/PitchDial/main.scss */
 #pitch-dial button:active {
   border-bottom: solid;
 }

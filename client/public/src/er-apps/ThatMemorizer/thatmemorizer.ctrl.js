@@ -108,7 +108,6 @@ define(['./module', './intervalgen', './display', 'note', 'webaudioplayer', 'cur
             var startTime = audioContext.currentTime+playTime/1000 ;
             currLoopId = setInterval(function() {
                 noteStartTime = startTime + playTime * marker / 1000;
-                console.log(marker);
                 var noteFreq = baseFreq * Math.pow(2, intervalSequence[marker] / 12);
                 display.markNote(intervalSequence[marker]);
                 player.scheduleNote(noteFreq,noteStartTime , playTime);

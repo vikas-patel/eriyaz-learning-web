@@ -1,12 +1,24 @@
-  define(['./module', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'webaudioplayer', 'pitchdetector', 'music-calc', 'tanpura'],
-    function(app, MicUtil, CurrentAudioContext, AudioBuffer, WebAudioPlayer, PitchDetector, MusicCalc, Tanpura) {
+  define(['./module', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'webaudioplayer', 'pitchdetector', 'music-calc', 'tanpura','jquery'],
+    function(app, MicUtil, CurrentAudioContext, AudioBuffer, WebAudioPlayer, PitchDetector, MusicCalc, Tanpura,$) {
       var audioContext = CurrentAudioContext.getInstance();
-      app.controller('PitchDialCtrl', function($scope, PitchModel, DialModel,$rootScope) {
+      app.controller('PitchDialCtrl', function($scope, PitchModel, DialModel, $rootScope) {
         $scope.rootNote = 56;
+        $scope.progress = 0;
+        $scope.loading = false;
+        var tanpura = null;
         $scope.$watch('rootNote', function() {
           PitchModel.rootFreq = MusicCalc.midiNumToFreq($scope.rootNote);
-          tanpura = Tanpura.getInstance($scope.rootNote, 7);
-          tanpura.play();
+          if (tanpura !== null)
+            tanpura.stop();
+          $scope.loading = true;
+          var progressListener = function(message, progress) {
+            if (progress === 100) {
+              tanpura.play();
+              $scope.loading = false;
+              $scope.$apply();
+            }
+          };
+          tanpura = Tanpura.getInstance($scope.rootNote, 7, progressListener);
         });
 
         $rootScope.$on('$stateChangeSuccess',
