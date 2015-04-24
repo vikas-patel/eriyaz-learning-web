@@ -61,6 +61,43 @@
 }
 
 
+#contact {
+  margin:0 10px 10px 0;
+  color:#652218;
+  position:absolute;
+  bottom:0;
+  right:0;
+  // height:10px;
+  // width:100%;
+
+  dt {  
+    display:inline;
+    padding: 10px 0 0 0;
+  }
+      
+  dd {
+    font-size:80%;
+    display:inline;
+    color:black;
+    // margin: 0 0 0 100px;
+    padding: 10px 0 0 0;
+  }
+
+   @include breakpoint($narrow-width) {
+    dt {
+    display:block;
+    float:left;
+    clear:left;
+    }
+    dt,dd {
+      padding:0px;
+    }
+    core-icon {
+      width:15px;
+      height:15px;
+    }
+  }
+}
 
 #front #login,#signup {
   color : white;

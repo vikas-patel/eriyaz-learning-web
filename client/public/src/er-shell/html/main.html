@@ -21,7 +21,6 @@
           <core-item label="logout"><a href="#logout" target="_self"></a></core-item>
         </core-submenu>
       </core-menu>
-
     </core-header-panel>
 
     <core-header-panel id="main-panel" main>
@@ -30,6 +29,14 @@
         <span flex>{{uiModel.title}}</span>
       </core-toolbar>
       <div ng-include="uiModel.contentUrl"></div>
+      <div id="footer">
+        <dl>
+            <dt><core-icon icon="mail"></core-icon></dt>
+            <dd>eriyazonline@gmail.com</dd>
+            <dt><core-icon icon="settings-phone"></core-icon></dt>
+            <dd>+91 9623443789</dd>
+        </dl>
+      </div>
     </core-header-panel>
    
 
@@ -44,4 +51,6 @@
      <paper-toast id="toast-alert" role="alert" text=""></paper-toast>
    </paper-dialog>
   <div ui-view class="dummy"></div>
+  
+
 </div>

@@ -170,7 +170,45 @@ body #error dd {
   }
 }
 
-/* line 65, ../sass/pages/_front.scss */
+/* line 64, ../sass/pages/_front.scss */
+#contact {
+  margin: 0 10px 10px 0;
+  color: #652218;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+/* line 73, ../sass/pages/_front.scss */
+#contact dt {
+  display: inline;
+  padding: 10px 0 0 0;
+}
+/* line 78, ../sass/pages/_front.scss */
+#contact dd {
+  font-size: 80%;
+  display: inline;
+  color: black;
+  padding: 10px 0 0 0;
+}
+@media (max-width: 640px) {
+  /* line 87, ../sass/pages/_front.scss */
+  #contact dt {
+    display: block;
+    float: left;
+    clear: left;
+  }
+  /* line 92, ../sass/pages/_front.scss */
+  #contact dt, #contact dd {
+    padding: 0px;
+  }
+  /* line 95, ../sass/pages/_front.scss */
+  #contact core-icon {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+/* line 102, ../sass/pages/_front.scss */
 #front #login, #signup {
   color: white;
   float: right;
@@ -178,30 +216,30 @@ body #error dd {
   width: 50px;
   text-decoration: none;
 }
-/* line 72, ../sass/pages/_front.scss */
+/* line 109, ../sass/pages/_front.scss */
 #front #login:hover, #signup:hover {
   text-decoration: underline;
 }
 
-/* line 78, ../sass/pages/_front.scss */
+/* line 115, ../sass/pages/_front.scss */
 #front #try, #try a {
   color: black;
   margin-top: 10px;
 }
 
-/* line 84, ../sass/pages/_front.scss */
+/* line 121, ../sass/pages/_front.scss */
 #front #desc, #eriyaz, #join, #try {
   display: block;
   text-align: center;
   margin: 10px;
 }
 
-/* line 92, ../sass/pages/_front.scss */
+/* line 129, ../sass/pages/_front.scss */
 #front #desc {
   color: black;
 }
 
-/* line 96, ../sass/pages/_front.scss */
+/* line 133, ../sass/pages/_front.scss */
 #front #join {
   color: white;
   background-color: #652218;
@@ -217,26 +255,26 @@ body #error dd {
   box-shadow: 0 0 28px 5px #652218;
 }
 @media (max-width: 640px), (max-height: 420px) {
-  /* line 96, ../sass/pages/_front.scss */
+  /* line 133, ../sass/pages/_front.scss */
   #front #join {
     line-height: 40px;
     width: 150px;
   }
 }
 
-/* line 117, ../sass/pages/_front.scss */
+/* line 154, ../sass/pages/_front.scss */
 #front #join:hover {
   box-shadow: 0 0 28px 6px #652218;
   text-shadow: 0 0 15px #FFFFFF;
 }
 
-/* line 123, ../sass/pages/_front.scss */
+/* line 160, ../sass/pages/_front.scss */
 #front #eriyaz {
   font-size: 500%;
   color: #652218;
 }
 @media (max-width: 640px), (max-height: 420px) {
-  /* line 123, ../sass/pages/_front.scss */
+  /* line 160, ../sass/pages/_front.scss */
   #front #eriyaz {
     font-size: 300%;
   }
@@ -394,6 +432,31 @@ core-toolbar {
 /* line 41, ../sass/pages/_scaffold.scss */
 core-drawer-panel:not([narrow]) #navicon {
   display: none;
+}
+
+/* line 45, ../sass/pages/_scaffold.scss */
+#footer {
+  background: #F16236;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  border-radius: 10px 0 0 0;
+  color: #222;
+}
+/* line 58, ../sass/pages/_scaffold.scss */
+#footer dl {
+  float: right;
+}
+/* line 61, ../sass/pages/_scaffold.scss */
+#footer dt {
+  display: inline;
+  padding: 10px 0 0 10px;
+}
+/* line 66, ../sass/pages/_scaffold.scss */
+#footer dd {
+  font-size: 80%;
+  display: inline;
+  padding: 10px 10px 0 0;
 }
 
 /* line 1, ../sass/pages/_app-modal.scss */
