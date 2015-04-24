@@ -1,0 +1,33 @@
+#contact {
+		margin:5%;
+
+
+		span {
+			margin-top:3%;
+			display:block;
+			font-size:15px;
+		}
+
+		
+
+		 dl {
+		    // font-size:20px;
+		    padding: 20px 0 0 10px;
+		      	// border-bottom: 1px solid #ddd;
+
+		  }
+		  dt {
+		    float: left;
+		    clear: left;
+		    width: 30px;
+		    text-align: left;
+		    font-weight: bold;
+		    padding: 10px 0 0 0;
+
+		  }
+		 
+		  dd {
+		    // margin: 0 0 0 100px;
+		    padding: 15px 0 0 0;
+		  }
+	}

@@ -171,7 +171,7 @@ body #error dd {
 }
 
 /* line 64, ../sass/pages/_front.scss */
-#contact {
+#front #footer {
   margin: 0 10px 10px 0;
   color: #652218;
   position: absolute;
@@ -179,12 +179,12 @@ body #error dd {
   right: 0;
 }
 /* line 73, ../sass/pages/_front.scss */
-#contact dt {
+#front #footer dt {
   display: inline;
   padding: 10px 0 0 0;
 }
 /* line 78, ../sass/pages/_front.scss */
-#contact dd {
+#front #footer dd {
   font-size: 80%;
   display: inline;
   color: black;
@@ -192,17 +192,17 @@ body #error dd {
 }
 @media (max-width: 640px) {
   /* line 87, ../sass/pages/_front.scss */
-  #contact dt {
+  #front #footer dt {
     display: block;
     float: left;
     clear: left;
   }
   /* line 92, ../sass/pages/_front.scss */
-  #contact dt, #contact dd {
+  #front #footer dt, #front #footer dd {
     padding: 0px;
   }
   /* line 95, ../sass/pages/_front.scss */
-  #contact core-icon {
+  #front #footer core-icon {
     width: 15px;
     height: 15px;
   }
@@ -434,31 +434,6 @@ core-drawer-panel:not([narrow]) #navicon {
   display: none;
 }
 
-/* line 45, ../sass/pages/_scaffold.scss */
-#footer {
-  background: #F16236;
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  border-radius: 10px 0 0 0;
-  color: #222;
-}
-/* line 58, ../sass/pages/_scaffold.scss */
-#footer dl {
-  float: right;
-}
-/* line 61, ../sass/pages/_scaffold.scss */
-#footer dt {
-  display: inline;
-  padding: 10px 0 0 10px;
-}
-/* line 66, ../sass/pages/_scaffold.scss */
-#footer dd {
-  font-size: 80%;
-  display: inline;
-  padding: 10px 10px 0 0;
-}
-
 /* line 1, ../sass/pages/_app-modal.scss */
 #appDialog {
   width: 90%;
@@ -601,6 +576,34 @@ core-drawer-panel:not([narrow]) #navicon {
   clear: left;
   width: 200px;
   text-align: left;
+}
+
+/* line 1, ../sass/pages/_contact.scss */
+#contact {
+  margin: 5%;
+}
+/* line 5, ../sass/pages/_contact.scss */
+#contact span {
+  margin-top: 3%;
+  display: block;
+  font-size: 15px;
+}
+/* line 13, ../sass/pages/_contact.scss */
+#contact dl {
+  padding: 20px 0 0 10px;
+}
+/* line 19, ../sass/pages/_contact.scss */
+#contact dt {
+  float: left;
+  clear: left;
+  width: 30px;
+  text-align: left;
+  font-weight: bold;
+  padding: 10px 0 0 0;
+}
+/* line 29, ../sass/pages/_contact.scss */
+#contact dd {
+  padding: 15px 0 0 0;
 }
 
 /* line 6, ../../../er-apps/PitchDial/main.scss */

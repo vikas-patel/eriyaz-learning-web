@@ -1,49 +1,9 @@
-<!DOCTYPE html>
-<html  manifest="eriyaz.appcache">
-<head>
-  <title>eRiyaz</title>
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-   
-</head>
-
-<body>
-  
-<style>
-body{width:414px;font-family:Arial;font-size:14px;}
-
-label{color:#6c6c6c;}
-
-input{line-height:31px;}
-
-input,textarea{width:288px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background-color:rgba(255,255,255,.6);border:solid 1px #b6c7cb;}
-
-#contact_form{height:317px;background-color:#e1e9eb;border:solid 1px #e5e5e5;padding:10px 20px 50px 20px;  -webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;}
-
-#submit_button{width:109px;height:34px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background-color:#86c5fa;-webkit-box-shadow:inset 0 2px rgba(255,255,255,.29);-moz-box-shadow:inset 0 2px rgba(255,255,255,.29);box-shadow:inset 0 2px rgba(255,255,255,.29);border:solid 1px #77a4cb;font-weight:bold;color:#fff;margin-left:7px;}
-
-label.required:after{content:'*';color:red;}
-
-.row{margin:5px;}
-</style>
-    <form id="contact_form" action="#" method="POST" enctype="multipart/form-data">
-    <div class="row">
-      <label for="name">Your name:</label><br />
-      <input id="name" class="input" name="name" type="text" value="" size="30" /><br />
-    </div>
-    <div class="row">
-      <label for="email">Your email:</label><br />
-      <input id="email" class="input" name="email" type="text" value="" size="30" /><br />
-    </div>
-    <div class="row">
-      <label for="message">Your message:</label><br />
-      <textarea id="message" class="input" name="message" rows="7" cols="30"></textarea><br />
-    </div>
-    <input type="hidden" name="action" value="submit"/>
-    <input id="submit_button" type="submit" value="Send email" />
-  </form>
-
-</body>
-
-
-</html>
+<div id="contact">
+<span>Please feel free to contact us anytime you face any difficulty, have any suggestion or perhaps just want to say 'Hi'.</span>
+  <dl>
+    <dt><core-icon icon="mail" size="5"></core-icon></dt>
+    <dd>eriyazonline@gmail.com</dd>
+    <dt><core-icon icon="settings-phone"></core-icon></dt>
+    <dd>+91 9623443789</dd>
+  </dl>
+</div>

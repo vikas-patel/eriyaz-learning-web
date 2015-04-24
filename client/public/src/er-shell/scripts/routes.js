@@ -127,6 +127,20 @@
                  onLoggedOutRedirect: checkLoginAndRedirect
              }
          }).
+         state('contact', {
+             url: '/contact',
+             onEnter: function(UIModel) {
+                 UIModel.uiModel.showAppDialog = false;
+                 UIModel.uiModel.showLoginDialog = false;
+                 UIModel.uiModel.showFront = false;
+                 UIModel.uiModel.showMenu = true;
+                 UIModel.uiModel.title = 'My Profile';
+                 UIModel.uiModel.contentUrl = 'er-shell/html/contact.html';
+             },
+             resolve: {
+                 onLoggedOutRedirect: checkLoginAndRedirect
+             }
+         }).
          state('students', {
              url: '/students',
              onEnter: function(UIModel) {
