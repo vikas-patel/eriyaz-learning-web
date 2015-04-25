@@ -32,8 +32,17 @@ requirejs.config({
         'note': 'er-libs/note',
         'wavelet-pitch': 'ext-libs/waveletPitch',
         'd3': 'ext-libs/d3',
-        'pitch-shift': 'ext-libs/pitch-shift'
+        'pitch-shift': 'ext-libs/pitch-shift',
             //'countdown' : "ext-libs/countdown"
+
+
+        'st-core' : 'ext-libs/soundtouch/core',
+        'st-pipe' : 'ext-libs/soundtouch/pipe',
+        'st-rate-transposer' : 'ext-libs/soundtouch/rate-transposer',
+        'st-buffer' : 'ext-libs/soundtouch/buffer',
+        'st-filter' : 'ext-libs/soundtouch/filter',
+        'st-stretch' : 'ext-libs/soundtouch/stretch',
+        'soundtouch' : 'ext-libs/soundtouch/soundtouch'
     },
 
     // Add modules that do not support AMD
@@ -65,6 +74,11 @@ requirejs.config({
         },
         'jquery': {
             exports: '$'
+        },
+
+        //sountouch load order
+        'soundtouch' : {
+            deps: ['underscore','st-core','st-pipe','st-rate-transposer','st-buffer','st-filter','st-stretch']
         }
     },
     packages: [{

@@ -15,10 +15,11 @@
             if (progress === 100) {
               tanpura.play();
               $scope.loading = false;
-              $scope.$apply();
+              // $scope.$apply();
             }
           };
-          tanpura = Tanpura.getInstance($scope.rootNote, 7, progressListener);
+          tanpura = Tanpura.getInstance();
+          tanpura.setTuning($scope.rootNote, 7, progressListener);
         });
 
         $rootScope.$on('$stateChangeSuccess',

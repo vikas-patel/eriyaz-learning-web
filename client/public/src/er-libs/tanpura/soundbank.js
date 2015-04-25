@@ -2,6 +2,7 @@ define(['require', 'currentaudiocontext'], function(require, CurrentAudioContext
 	var context = CurrentAudioContext.getInstance();
 	var SoundBank = function() {
 		this.samples = [];
+		this.isReady = false;
 		this.init = function() {
 			this.loadSample(require.toUrl('./assets/c2sharp.mp3'), 37);
 			this.loadSample(require.toUrl('./assets/g2sharp.mp3'), 44);
@@ -15,14 +16,14 @@ define(['require', 'currentaudiocontext'], function(require, CurrentAudioContext
 			request.responseType = 'arraybuffer';
 			var local = this;
 			request.onload = function() {
-				// createBuffer(request.response);
 				context.decodeAudioData(request.response, function(buffer) {
 					local.samples.push({
 						noteNum: noteNum,
 						buffer: buffer
 					});
 					if (local.samples.length == 4) {
-						local.oninit();
+						local.isReady = true;
+						local.onready();
 					}
 				}, function() {
 					console.log('could not load audio');
@@ -41,5 +42,18 @@ define(['require', 'currentaudiocontext'], function(require, CurrentAudioContext
 
 		this.init();
 	};
-	return SoundBank;
+	var instance;
+
+	function createInstance() {
+		return new SoundBank();
+	}
+
+	return {
+		getInstance: function() {
+			if (!instance) {
+				instance = createInstance();
+			}
+			return instance;
+		}
+	};
 });

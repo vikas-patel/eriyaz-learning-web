@@ -236,7 +236,8 @@ define(['./module', 'jquery', './exercises', 'mic-util', 'currentaudiocontext', 
 						tanpura.play();
 					}
 				};
-				tanpura = Tanpura.getInstance($scope.user.settings.rootNote, 7, progressListener);
+				tanpura = Tanpura.getInstance();
+				tanpura.setTuning($scope.user.settings.rootNote, 7, progressListener);
 			}
 
 			function stopTanpura() {

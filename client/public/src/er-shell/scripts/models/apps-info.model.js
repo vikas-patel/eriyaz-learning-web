@@ -64,7 +64,7 @@
         href: '#singgraph',
         appUrl: 'er-apps/SingGraph/main.html',
         aspectRatio: 5/3,
-        show:true
+        show:false
       }];
       appsInfo.selectedIndex = -1;
       appsInfo.setSelected = function(index) {

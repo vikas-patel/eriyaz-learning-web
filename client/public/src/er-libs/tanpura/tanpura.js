@@ -1,8 +1,8 @@
-define(['./soundbank', './stringsynth', 'currentaudiocontext', 'require', './st-index'], function(SoundBank, StringSynth, CurrentAudioContext, require) {
+define(['./soundbank', './stringsynth', 'currentaudiocontext', 'require', 'soundtouch'], function(SoundBank, StringSynth, CurrentAudioContext, require) {
 	var context = CurrentAudioContext.getInstance();
 
 	// root between 47 and 58
-	var Tanpura = function(root, firstString) {
+	var Tanpura = function() {
 		this.strings = [];
 		this.mixerNode = context.createGain();
 		this.interval = null;
@@ -30,40 +30,43 @@ define(['./soundbank', './stringsynth', 'currentaudiocontext', 'require', './st-
 
 		this.setTuning = function(root, firstString, progressCallback) {
 			progressCallback('start', 0);
+			var soundbank = SoundBank.getInstance();
 
-			var soundbank = new SoundBank();
+			if (soundbank.isReady) {
+				this.initStrings(root,firstString,soundbank, progressCallback);
+			} else {
+				var local = this;
+				soundbank.onready = function() {
+					local.initStrings(root,firstString,soundbank, progressCallback);
+				};
+			}
+		};
 
-			var local = this;
-			soundbank.oninit = function() {
-				progressCallback('soundbank', 25);
-				local.strings[0] = new StringSynth(root - 12 + firstString, soundbank);
-				progressCallback('string1', 50);
-				var middleString = new StringSynth(root, soundbank);
-				progressCallback('string2', 75);
-				local.strings[1] = middleString;
-				local.strings[2] = middleString;
+		this.initStrings = function(root,firstString,soundbank, progressCallback) {
+			progressCallback('soundbank', 25);
+			this.strings[0] = new StringSynth(root - 12 + firstString, soundbank);
+			progressCallback('string1', 50);
+			var middleString = new StringSynth(root, soundbank);
+			progressCallback('string2', 75);
+			this.strings[1] = middleString;
+			this.strings[2] = middleString;
 
-				local.strings[3] = new StringSynth(root - 12, soundbank);
-				progressCallback('string3', 100);
-
-
-
-			};
+			this.strings[3] = new StringSynth(root - 12, soundbank);
+			progressCallback('string3', 100);
 		};
 	};
 
 	var instance;
 
-	function createInstance(root, firstString) {
-		return new Tanpura(root, firstString);
+	function createInstance() {
+		return new Tanpura();
 	}
 
 	return {
-		getInstance: function(root, firstString, progressCallback) {
+		getInstance: function() {
 			if (!instance) {
-				instance = createInstance(root, firstString);
+				instance = createInstance();
 			}
-			instance.setTuning(root, firstString, progressCallback);
 			return instance;
 		}
 	};
