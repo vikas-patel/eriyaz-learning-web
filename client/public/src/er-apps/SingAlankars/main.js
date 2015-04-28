@@ -155,6 +155,7 @@ define(['./module', 'jquery', './exercises', 'mic-util', 'currentaudiocontext', 
 						buffer = new AudioBuffer(context, stream, 2048);
 						buffer.addProcessor(processSignal);
 						$scope.signalOn = true;
+						$scope.$apply();
 					}
 				);
 			}
