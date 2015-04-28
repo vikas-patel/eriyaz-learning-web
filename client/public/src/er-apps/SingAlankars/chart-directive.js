@@ -95,6 +95,7 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 	}
 
 	ExerciseChart.prototype.setExercise = function(exercise) {
+		this.isPlayInstrument = false;
 		this.exercise = exercise;
 		this.duration = this.getDuration();
 		this.melody = [];
