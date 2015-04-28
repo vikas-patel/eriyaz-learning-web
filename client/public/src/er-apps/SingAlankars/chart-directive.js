@@ -8,7 +8,7 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		// super constructor
 		this.parent.call(this, containerId, parentWidth, parentHeight, labels);
 		this.$scope = $scope;
-		this.offsetTime = 1000;
+		this.offsetTime = 2000;
 		this.nextTick= this.offsetTime;
 		this.player = new Player($scope.context);
 		this.beatDuration = 1000;
