@@ -91,19 +91,36 @@ $greyExercise: #A8A8A8;
 		}
 	}
 
-	#counter {
+	.center {
 		margin: auto;
-		width: 200px;
-		height: 200px;
 		position: absolute;
+		width:150px;
+		height:50px;
 		color: red;
-		font-size:3em;
+		font-size:5em;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
 		z-index: 1;
 	}
+
+	.close-button {
+	    position:absolute;
+	    top:0px;
+	    right:0px;
+	    width:40px;
+	    height:40px;
+	    text-align:center;
+	    color:black;
+	    text-decoration : none;
+	    font-size : 1.5em;
+	    font-weight : 300;
+	    &:hover {
+	      cursor:pointer;
+	      cursor:hand;
+	    }
+  }
 
 	/* Indicator line */
 	.indicatorLine {

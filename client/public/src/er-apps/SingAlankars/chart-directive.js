@@ -8,7 +8,7 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		// super constructor
 		this.parent.call(this, containerId, parentWidth, parentHeight, labels);
 		this.$scope = $scope;
-		this.offsetTime = 1000;
+		this.offsetTime = 2000;
 		this.nextTick= this.offsetTime;
 		this.player = new Player($scope.context);
 		this.beatDuration = 1000;
@@ -16,6 +16,7 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		this.currentNote = null;
 		this.isPlayInstrument = false;
 		this.isTransitionStopped = true;
+		this.countdownNumber = 2;
 	};
 	
 	ExerciseChart.prototype = Object.create(Chart.Class.prototype);
@@ -28,6 +29,9 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		// transition
 		this.isTransitionStopped = false;
 		d3.timer(transitionFn);
+		if (!this.$scope.stopSignal) {
+			d3.timer(countdownFn);
+		}
 	}
 
 	ExerciseChart.prototype.redraw = function() {
@@ -72,6 +76,30 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		var duration = this.duration + this.offsetTime;
 	}
 
+	function countdownFn(_elapsed) {
+		if (!chart.nextCounter) {
+			chart.nextCounter = chart.offsetTime/chart.countdownNumber;
+			chart.$scope.countdownValue = chart.countdownNumber;
+			chart.$scope.$apply();
+			return false;
+		}
+		if (_elapsed > chart.nextCounter) {
+			if (chart.$scope.countdownValue == "SING") {
+				chart.$scope.countdownValue = "";
+				chart.nextCounter = null;
+				chart.$scope.$apply();
+				return true;
+			}
+			chart.nextCounter += chart.offsetTime/chart.countdownNumber;
+			--chart.$scope.countdownValue;
+			if (chart.$scope.countdownValue == 0) {
+				chart.$scope.countdownValue = "SING";
+			}
+			chart.$scope.$apply();
+			return false;
+		}
+	}
+
 	function transitionFn(_elapsed) {
 		if (chart.isTransitionStopped) return true;
 		if (_elapsed > chart.duration + chart.offsetTime) {
@@ -95,6 +123,7 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 	}
 
 	ExerciseChart.prototype.setExercise = function(exercise) {
+		this.isPlayInstrument = false;
 		this.exercise = exercise;
 		this.duration = this.getDuration();
 		this.melody = [];
