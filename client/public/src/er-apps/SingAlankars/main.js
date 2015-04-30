@@ -7,9 +7,6 @@ define(['./module', 'jquery', './exercises', 'mic-util', 'currentaudiocontext', 
 		//other globals;
 		var context;
 		var buffer;
-		var countDown;
-		var countDownDisplayed = false;
-		var countDownProgress = false;
 		var maxNotes = 5;
 		var tanpura;
 		app.controller('SingAlankarsCtrl', function($scope, $rootScope, ScoreService, ExerciseService, User, $window) {
@@ -113,8 +110,6 @@ define(['./module', 'jquery', './exercises', 'mic-util', 'currentaudiocontext', 
 				var index = $scope.exercises.indexOf($scope.myExercise);
 				$scope.myExercise = $scope.exercises[index + 1];
 				$scope.$apply();
-				// start again
-				countDownDisplayed = false;
 				$scope.operation = 'reset';
 				start();
 			}
@@ -165,7 +160,6 @@ define(['./module', 'jquery', './exercises', 'mic-util', 'currentaudiocontext', 
 				if ($scope.stopSignal) {
 					return;
 				}
-				//if (!displayCountDown()) return;
 				updatePitch(data);
 			}
 
@@ -213,8 +207,6 @@ define(['./module', 'jquery', './exercises', 'mic-util', 'currentaudiocontext', 
 			function reset() {
 				resetScore();
 				setExercise();
-				// start again
-				countDownDisplayed = false;
 				$scope.operation = 'start';
 			}
 
@@ -248,22 +240,4 @@ define(['./module', 'jquery', './exercises', 'mic-util', 'currentaudiocontext', 
 			}
 
 		});
-
-		// function startCountdown(callback) {
-		// 	countDown = new $.GameCountDown({readymessage:"Go", callback: callback});
-		// 	//GameCountDown = new jQuery.GameCountDown();
-		// 	countDown.Add({control: '#counter', seconds: 4});
-		// };
-
-		// function displayCountDown() {
-		// 	if (countDownDisplayed) return true;
-		// 	if (countDownProgress) return false;
-		// 	countDownProgress = true;
-		// 	startCountdown(function(id){
-		// 		countDown.Remove('#counter');
-		// 		$('#counter').text("");
-		// 		countDownDisplayed = true;
-		// 		countDownProgress = false;
-		// 	});
-		// }
 	});
