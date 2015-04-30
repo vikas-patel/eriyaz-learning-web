@@ -16,6 +16,7 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		this.currentNote = null;
 		this.isPlayInstrument = false;
 		this.isTransitionStopped = true;
+		this.countdownNumber = 2;
 	};
 	
 	ExerciseChart.prototype = Object.create(Chart.Class.prototype);
@@ -28,6 +29,9 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		// transition
 		this.isTransitionStopped = false;
 		d3.timer(transitionFn);
+		if (!this.$scope.stopSignal) {
+			d3.timer(countdownFn);
+		}
 	}
 
 	ExerciseChart.prototype.redraw = function() {
@@ -70,6 +74,30 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 								 .attr("stroke", color)
 								 .attr("class", "indicatorLine");
 		var duration = this.duration + this.offsetTime;
+	}
+
+	function countdownFn(_elapsed) {
+		if (!chart.nextCounter) {
+			chart.nextCounter = chart.offsetTime/chart.countdownNumber;
+			chart.$scope.countdownValue = chart.countdownNumber;
+			chart.$scope.$apply();
+			return false;
+		}
+		if (_elapsed > chart.nextCounter) {
+			if (chart.$scope.countdownValue == "SING") {
+				chart.$scope.countdownValue = "";
+				chart.nextCounter = null;
+				chart.$scope.$apply();
+				return true;
+			}
+			chart.nextCounter += chart.offsetTime/chart.countdownNumber;
+			--chart.$scope.countdownValue;
+			if (chart.$scope.countdownValue == 0) {
+				chart.$scope.countdownValue = "SING";
+			}
+			chart.$scope.$apply();
+			return false;
+		}
 	}
 
 	function transitionFn(_elapsed) {

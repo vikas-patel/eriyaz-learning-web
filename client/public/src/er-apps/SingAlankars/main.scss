@@ -91,13 +91,13 @@ $greyExercise: #A8A8A8;
 		}
 	}
 
-	#counter {
+	.center {
 		margin: auto;
-		width: 200px;
-		height: 200px;
 		position: absolute;
+		width:150px;
+		height:50px;
 		color: red;
-		font-size:3em;
+		font-size:5em;
 		top: 0;
 		left: 0;
 		right: 0;
