@@ -1,4 +1,4 @@
-define(['./frequencyutil'], function(FrequencyUtil) {
+define(['melody', 'note', 'webaudioplayer', 'currentaudiocontext', './frequencyutil'], function(Melody, Note, Player, CurrentAudioContext, FrequencyUtil) {
     var middleCFreq = 261;
 
     function NoteSequence(freqs) {
@@ -9,6 +9,14 @@ define(['./frequencyutil'], function(FrequencyUtil) {
 
         var audioContext = CurrentAudioContext.getInstance();
         var player = new Player(audioContext);
+
+       function play() {
+            var melody = new Melody();
+            for (var i = 0; i < freqs.length; i++) {
+                melody.addNote(Note.createFromFreq(freqs[i]), 1000);
+            }
+            player.playMelody(melody);
+        }
 
         function getIntervals() {
             var centsArray = [];
