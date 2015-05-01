@@ -1,4 +1,4 @@
-define(['music-calc','./problem','./levels-data'], function(MusicCalc,Problem,levelsData) {
+define(['music-calc','./problem'], function(MusicCalc,Problem) {
     var ProblemGen = function() {
         var middleCFreq = 261;
         var octaves = 2;
@@ -12,8 +12,8 @@ define(['music-calc','./problem','./levels-data'], function(MusicCalc,Problem,le
                     freqs[i] = mainFreq;
                 } else if (i === (level.testNotes[1] - 1)) {
                     freqs[i] = MusicCalc.getFreq(mainFreq,
-                        getRandomCents(levelsData.interval[level.interval][0],
-                            levelsData.interval[level.interval][1]
+                        getRandomCents(level.interval[0],
+                            level.interval[1]
                         ));
                 } else {
                     freqs[i] = mainFreq;

@@ -1,5 +1,5 @@
 define(['./module', './problem-gen', './display', 'webaudioplayer', 'currentaudiocontext', './levels-data'],
-    function(app, ProblemGen, Display, Player, CurrentAudioContext, levelsData) {
+    function(app, ProblemGen, Display, Player, CurrentAudioContext, levels) {
         var getIntegerArray = function(start, end) {
             var arr = [];
             var j = start;
@@ -21,7 +21,7 @@ define(['./module', './problem-gen', './display', 'webaudioplayer', 'currentaudi
         app.controller('UpOrDownCtrl', function($scope) {
 
 
-            $scope.levels = levelsData.levels;
+            $scope.levels = levels;
             $scope.selectedLevelIdx = 0;
             $scope.testNotes = [1,2];
             var display = new Display();
@@ -31,8 +31,8 @@ define(['./module', './problem-gen', './display', 'webaudioplayer', 'currentaudi
             $scope.total = 0;
 
             $scope.$watch('selectedLevelIdx', function() {
-                display.showLevel(levelsData.levels[$scope.selectedLevelIdx]);
-                $scope.testNotes = levelsData.levels[$scope.selectedLevelIdx].testNotes;
+                display.showLevel(levels[$scope.selectedLevelIdx]);
+                $scope.testNotes = levels[$scope.selectedLevelIdx].testNotes;
                 resetScore();
             });
 
@@ -43,7 +43,7 @@ define(['./module', './problem-gen', './display', 'webaudioplayer', 'currentaudi
 
             $scope.newProblem = function() {
                 display.setFeedback("");
-                problem = ProblemGen.getNewProblem(levelsData.levels[$scope.selectedLevelIdx]);
+                problem = ProblemGen.getNewProblem(levels[$scope.selectedLevelIdx]);
                 playProblem();
             };
 

@@ -1,4 +1,4 @@
-define(['music-calc','./problem'], function(MusicCalc,Problem) {
+define(['music-calc'], function(MusicCalc) {
      var Problem = function(freqs, note1, note2) {
         this.freqs = freqs;
         this.note1 = note1;

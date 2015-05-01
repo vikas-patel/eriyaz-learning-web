@@ -1,86 +1,77 @@
-define([],function() {
-	var purple = "#8f6da5";
-	var blue = "#308ec1";
-	var green = "#1de2a4";
-	var red = "#ff6b77";
-	return {
-		interval : {
-			XL : [900,1500],
-			L : [400,900],
-			M : [100,400],
-			S : [20,100]
-		},
-		levels : [
-			{
-				desc : "extra large interval",
-				interval : "XL",
-				numNotes : 2,
-				testNotes : [1,2],
-				color:blue
-			},
-			{
-				desc : "large interval",
-				interval : "L",
-				numNotes : 2,
-				testNotes : [1,2],
-				color:purple
-			},
-			{
-				desc : "medium interval",
-				interval : "M",
-				numNotes : 2,
-				testNotes : [1,2],
-				color : red
-			},
-			{
-				desc : "small interval",
-				interval : "S",
-				numNotes : 2,
-				testNotes : [1,2],
-				color: green
-			},
-			{
-				desc : "medium interval between note2 & note3",
-				interval : "M",
-				numNotes : 3,
-				testNotes : [2,3],
-				color: red
-			},
-			{
-				desc : "small interval between note2 & note3",
-				interval : "S",
-				numNotes : 3,
-				testNotes : [2,3],
-				color : green
-			},
-			{
-				desc : "medium interval between note1 & note2",
-				interval : "M",
-				numNotes : 3,
-				testNotes : [1,2],
-				color: red
-			},
-			{
-				desc : "small interval between note1 & note2",
-				interval : "S",
-				numNotes : 3,
-				testNotes : [1,2],
-				color: green
-			},
-			{
-				desc : "medium interval between note1 & note3",
-				interval : "M",
-				numNotes : 3,
-				testNotes : [1,3],
-				color : red
-			},
-			{
-				desc : "small interval between note1 & note3",
-				interval : "S",
-				numNotes : 3,
-				testNotes : [1,3],
-				color: green
-			}
-		]
+define([], function() {
+	var colors = {
+		purple: "#8f6da5",
+		blue: "#308ec1",
+		green: "#1de2a4",
+		red: "#ff6b77"
 	};
+
+	var intervals = {
+		xlarge: [900, 1500],
+		large: [400, 900],
+		medium: [100, 400],
+		small: [20, 100]
+	};
+
+	return [{
+		desc: "extra large interval",
+		interval: intervals.xlarge,
+		numNotes: 2,
+		testNotes: [1, 2],
+		color: colors.blue
+	}, {
+		desc: "large interval",
+		interval: intervals.large,
+		numNotes: 2,
+		testNotes: [1, 2],
+		color: colors.purple
+	}, {
+		desc: "medium interval",
+		interval: intervals.medium,
+		numNotes: 2,
+		testNotes: [1, 2],
+		color: colors.red
+	}, {
+		desc: "small interval",
+		interval: intervals.small,
+		numNotes: 2,
+		testNotes: [1, 2],
+		color: colors.green
+	}, {
+		desc: "medium interval between note2 & note3",
+		interval: intervals.medium,
+		numNotes: 3,
+		testNotes: [2, 3],
+		color: colors.red
+	}, {
+		desc: "small interval between note2 & note3",
+		interval: intervals.small,
+		numNotes: 3,
+		testNotes: [2, 3],
+		color: colors.green
+	}, {
+		desc: "medium interval between note1 & note2",
+		interval: intervals.medium,
+		numNotes: 3,
+		testNotes: [1, 2],
+		color: colors.red
+	}, {
+		desc: "small interval between note1 & note2",
+		interval: intervals.small,
+		numNotes: 3,
+		testNotes: [1, 2],
+		color: colors.green
+	}, {
+		desc: "medium interval between note1 & note3",
+		interval: intervals.medium,
+		numNotes: 3,
+		testNotes: [1, 3],
+		color: colors.red
+	}, {
+		desc: "small interval between note1 & note3",
+		interval: intervals.small,
+		numNotes: 3,
+		testNotes: [1, 3],
+		color: colors.green
+	}];
 });
