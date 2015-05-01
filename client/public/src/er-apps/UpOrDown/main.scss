@@ -8,6 +8,9 @@
         width: 100%;
     }
     
+    #backdrop {
+        fill:#252525;
+    }
     h4 {
         // font-weight: bold;
         // font-size:20px;
@@ -23,5 +26,6 @@
     
     #score {
         float:right;
+        margin-right:5px;
     }
 }
