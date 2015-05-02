@@ -16,7 +16,10 @@ define(['music-calc','./problem'], function(MusicCalc,Problem) {
                             level.interval[1]
                         ));
                 } else {
-                    freqs[i] = mainFreq;
+                    freqs[i] = MusicCalc.getFreq(mainFreq,
+                        getRandomCents(otherIntervalsRange[0],
+                            otherIntervalsRange[1]
+                        ));
                 }
             }
 
