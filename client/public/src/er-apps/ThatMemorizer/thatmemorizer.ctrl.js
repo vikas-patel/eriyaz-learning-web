@@ -50,7 +50,7 @@ define(['./module', './intervalgen', './display', 'note', 'webaudioplayer', 'cur
         $scope.total = 0;
         $scope.correct = 0;
         $scope.hideNotes = false;
-
+        $scope.avrohOnly = false;
         $scope.feedback = "Start with New";
 
         var display = new Display();
@@ -104,13 +104,18 @@ define(['./module', './intervalgen', './display', 'note', 'webaudioplayer', 'cur
             cancelCurrentLoop();
             var reverseData = currThat.model.slice();
             reverseData.reverse();
-            var intervalSequence = currThat.model.concat(reverseData);
-            var startTime = audioContext.currentTime+playTime/1000 ;
+            var intervalSequence;
+            if ($scope.avrohOnly) {
+                intervalSequence = reverseData;
+            } else {
+                intervalSequence = currThat.model.concat(reverseData);
+            }
+            var startTime = audioContext.currentTime + playTime / 1000;
             currLoopId = setInterval(function() {
                 noteStartTime = startTime + playTime * marker / 1000;
                 var noteFreq = baseFreq * Math.pow(2, intervalSequence[marker] / 12);
                 display.markNote(intervalSequence[marker]);
-                player.scheduleNote(noteFreq,noteStartTime , playTime);
+                player.scheduleNote(noteFreq, noteStartTime, playTime);
                 marker++;
                 if (marker > 15) {
                     cancelCurrentLoop();

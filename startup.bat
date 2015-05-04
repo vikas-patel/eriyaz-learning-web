@@ -1,3 +1,3 @@
 start npm start
-start compass watch client\public\src\er-shell\style\config.rb
+start cd client\public\src\er-shell\style\
 start gulp fast-reload
