@@ -132,10 +132,8 @@ define(['d3'], function(d3) {
 				.attr("x", xScale(interval));
 		};
 
-		this.markNone = function(playTime) {
+		this.markNone = function() {
 			svg.select("#marker")
-				.transition()
-				.duration(playTime)
 				.attr("opacity", 0);
 		};
 

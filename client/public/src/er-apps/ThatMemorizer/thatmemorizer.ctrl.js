@@ -111,13 +111,14 @@ define(['./module', './intervalgen', './display', 'note', 'webaudioplayer', 'cur
                 intervalSequence = currThat.model.concat(reverseData);
             }
             var startTime = audioContext.currentTime + playTime / 1000;
+            display.markNote(intervalSequence[0]);
             currLoopId = setInterval(function() {
                 noteStartTime = startTime + playTime * marker / 1000;
                 var noteFreq = baseFreq * Math.pow(2, intervalSequence[marker] / 12);
                 display.markNote(intervalSequence[marker]);
                 player.scheduleNote(noteFreq, noteStartTime, playTime);
                 marker++;
-                if (marker > 15) {
+                if (marker >= intervalSequence.length) {
                     cancelCurrentLoop();
                 }
             }, playTime);
@@ -126,7 +127,9 @@ define(['./module', './intervalgen', './display', 'note', 'webaudioplayer', 'cur
         function cancelCurrentLoop() {
             marker = 0;
             clearInterval(currLoopId);
-            display.markNone(playTime);
+            setTimeout(function() {
+                display.markNone();
+            }, playTime);
         }
 
         $scope.repeatPlay = function() {
