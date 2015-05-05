@@ -17,7 +17,10 @@ define([], function() {
 		var dragBehavior = d3.behavior.drag()
 			.on("drag", dragmove);
 
-		var x = d3.time.scale()
+			var clickDragBehavior = d3.behavior.drag()
+			.on("drag", clickDragMove);
+
+		var x = d3.scale.linear()
 			.domain([1, 6])
 			.range([0, width]);
 
@@ -30,6 +33,7 @@ define([], function() {
 			.orient("top")
 			.innerTickSize([height])
 			.outerTickSize([height])
+			.ticks(6)
 			// .outerTickSize([10])
 			// .outerTickSize([20])
 			.tickFormat('')
@@ -58,6 +62,14 @@ define([], function() {
 			redraw();
 		}
 
+		function clickDragMove() {
+			var m = d3.mouse(svg.node());
+			if (selected !== null) {
+				selected[1] = m[1];
+			}
+			redraw();
+		}
+
 
 		var svg = d3.select("#chartdiv").append("svg")
 			.attr("width", "100%")
@@ -76,9 +88,17 @@ define([], function() {
 			.attr("width", width)
 			.attr("height", height)
 			.on("mousedown", function() {
-				selected = dragged = null;
+				var m = d3.mouse(svg.node());
+				var selectedIndex = Math.round(x.invert(m[0])) - 1;
+				if (selectedIndex > 0 && selectedIndex < points.length && Math.abs(x.invert(m[0])-1-selectedIndex)<0.2) {
+					selected = dragged = points[selectedIndex];
+					selected[1] = m[1];
+				}
+				else {
+					selected = dragged = null;
+				}
 				redraw();
-			});
+			}).call(clickDragBehavior);
 
 		svg.append("g")
 			.attr("class", "x axis")
@@ -148,12 +168,12 @@ define([], function() {
 				.exit()
 				.remove();
 
-				svg.selectAll("circle.small")
+			svg.selectAll("circle.small")
 				.data(points)
 				.exit()
 				.remove();
 		}
-		
+
 
 		var dragged = null,
 			selected = null;
@@ -186,8 +206,8 @@ define([], function() {
 				.data(series)
 				.enter()
 				.append("circle")
-				.attr("class","ans")
-				.attr("r",5)
+				.attr("class", "ans")
+				.attr("r", 5)
 				.attr("cx", function(d) {
 					return d[0];
 				})
