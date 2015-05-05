@@ -66,50 +66,15 @@ define(['d3'], function(d3) {
 				return labelsData[d];
 			});
 
-		svg.selectAll("rect.note")
-			.data(notesData)
-			.enter().append("rect")
-			.attr("class", "note")
-			.attr("y", function(d) {
-				return yScale(d) - chartHeight / 13;
-			})
-			.attr("x", 0)
-			.attr("height", chartHeight / 13 - 1)
-			.attr("width", chartWidth)
-			.attr("fill", "lightblue")
-			.attr("fill-opacity", 1)
-			// .on("mouseover", function(d) {
-			// 	d3.select(this).attr("fill", "lightgreen");
-			// })
-			// .on("mouseout", function(d) {
-			// 	d3.select(this).attr("fill", "lightblue");
-			// })
-			.on("click", selectedNote);
 
-		svg.selectAll("rect.root")
-			.data(rootNotes)
-			.enter().append("rect")
-			.attr("class", "root")
-			.attr("y", function(d) {
-				return yScale(d) - chartHeight / 13;
-			})
-			.attr("x", 0)
-			.attr("height", chartHeight / 13 - 1)
-			.attr("width", chartWidth)
-			.attr("fill", "grey")
-			.attr("fill-opacity", 1);
 
 		function selectedNote(d) {
 			selected = d;
-			svg.select("rect.selector").remove();
-			svg.append("rect")
-				.attr("class", "selector")
-				.attr("y", yScale(d) - chartHeight / 13)
-				.attr("x", 0)
-				.attr("height", chartHeight / 13 - 1)
-				.attr("width", chartWidth)
-				.attr("fill", "green")
-				.attr("fill-opacity", 1);
+			svg.select("#selector").remove();
+			createMarkedGroup()
+				.attr("id","selector")
+				.attr("transform", "translate(0," + (yScale(d) - chartHeight / 13) + ")");
+			
 		}
 
 		this.markNote = function(degree) {
@@ -120,10 +85,10 @@ define(['d3'], function(d3) {
 				.attr("y", 0)
 				.attr("height", chartHeight / 13 - 1)
 				.attr("width", chartWidth)
-				.attr("fill", "black")
+				.attr("fill", "grey")
 				.attr("opacity", 0);
 			svg.select("#marker")
-				.attr("opacity", 1)
+				.attr("opacity", 0.5)
 				.attr("y", yScale(degree) - chartHeight / 13);
 		};
 
@@ -156,6 +121,108 @@ define(['d3'], function(d3) {
 					else return "wrong :(";
 				});
 		};
+
+		this.showLevel = function(level) {
+
+			svg.selectAll("rect.note").remove();
+			svg.selectAll("circle").remove();
+			svg.selectAll("text.qMark").remove();
+
+
+			svg.selectAll("rect.note")
+				.data(notesData)
+				.enter().append("rect")
+				.attr("class", "note")
+				.attr("y", function(d) {
+					return yScale(d) - chartHeight / 13;
+				})
+				.attr("x", 0)
+				.attr("height", chartHeight / 13 - 1)
+				.attr("width", chartWidth)
+				.attr("fill", "lightblue")
+				.attr("fill-opacity", 1)
+				.filter(function(d) {
+					return level.notes.indexOf(d) >= 0;
+				})
+				.attr("class", "selectable")
+				.on("click", selectedNote);
+
+			svg.selectAll("circle.qNote")
+				.data(level.notes)
+				.enter()
+				.append("circle")
+				.attr("r", 10)
+				.attr("cx", chartWidth / 2)
+				.attr("cy", function(d) {
+					return yScale(d) - chartHeight / 26;
+				})
+				.attr("fill", "white")
+				.attr("fill-opacity", 0.5);
+
+			svg.selectAll("text.qMark")
+				.data(level.notes)
+				.enter()
+				.append("text")
+				.attr("class", "qMark")
+				.attr("text-anchor", "middle")
+				.attr("x", chartWidth / 2)
+				.attr("y", function(d) {
+					return yScale(d) - 10;
+				})
+				.text("?");
+
+
+			createMarkedGroup()
+				.attr("transform", "translate(0," + (yScale(level.direction === "asc" ? 0 : 12) - chartHeight / 13) + ")");
+
+			// rootGroup.append("rect")
+			// 	.attr("y", 0)
+			// 	.attr("x", 0)
+			// 	.attr("height", chartHeight / 13 - 1)
+			// 	.attr("width", chartWidth)
+			// 	.attr("fill", "grey")
+			// 	.attr("fill-opacity", 1);
+			// rootGroup.append("circle")
+			// 	.attr("r", 10)
+			// 	.attr("cx", chartWidth / 2)
+			// 	.attr("cy", chartHeight / 26)
+			// 	.attr("fill", "white")
+			// 	.attr("fill-opacity", 0.5);
+			// rootGroup.append("text")
+			// 	.attr("text-anchor", "middle")
+			// 	.attr("x", chartWidth / 2)
+			// 	.attr("y", chartHeight / 26 + 4)
+			// 	.attr("font-size",10)
+			// 	.text("✓");
+
+		};
+
+		function createMarkedGroup() {
+			var group = svg.append("g")
+				.attr("class", "marked");
+
+			group.append("rect")
+				.attr("y", 0)
+				.attr("x", 0)
+				.attr("height", chartHeight / 13 - 1)
+				.attr("width", chartWidth)
+				.attr("fill", "grey")
+				.attr("fill-opacity", 1);
+			group.append("circle")
+				.attr("r", 10)
+				.attr("cx", chartWidth / 2)
+				.attr("cy", chartHeight / 26)
+				.attr("fill", "white")
+				.attr("fill-opacity", 0.5);
+			group.append("text")
+				.attr("text-anchor", "middle")
+				.attr("x", chartWidth / 2)
+				.attr("y", chartHeight / 26 + 4)
+				.attr("font-size", 10)
+				.text("✓");
+
+			return group;
+		}
 	};
 
 	return Display;

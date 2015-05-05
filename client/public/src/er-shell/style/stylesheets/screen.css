@@ -1052,35 +1052,31 @@ core-drawer-panel:not([narrow]) #navicon {
   float: right;
   margin-right: 10px;
 }
-/* line 12, ../../../er-apps/SwarRelation/main.scss */
+/* line 8, ../../../er-apps/SwarRelation/main.scss */
 #swarrelation svg {
   margin-top: 3%;
 }
-/* line 16, ../../../er-apps/SwarRelation/main.scss */
+/* line 12, ../../../er-apps/SwarRelation/main.scss */
 #swarrelation rect.slot {
   fill: #E3F2FD;
 }
-/* line 20, ../../../er-apps/SwarRelation/main.scss */
-#swarrelation rect.note {
+/* line 16, ../../../er-apps/SwarRelation/main.scss */
+#swarrelation rect.note, #swarrelation rect.selectable {
   fill: #BBDEFB;
 }
-/* line 22, ../../../er-apps/SwarRelation/main.scss */
-#swarrelation rect.note:hover {
+/* line 21, ../../../er-apps/SwarRelation/main.scss */
+#swarrelation rect.selectable:hover {
   fill: #C5CAE9;
 }
-/* line 27, ../../../er-apps/SwarRelation/main.scss */
-#swarrelation rect.selector {
+/* line 26, ../../../er-apps/SwarRelation/main.scss */
+#swarrelation g.marked rect {
   fill: #C5CAE9;
 }
-/* line 31, ../../../er-apps/SwarRelation/main.scss */
-#swarrelation rect.root {
-  fill: #C5CAE9;
-}
-/* line 35, ../../../er-apps/SwarRelation/main.scss */
+/* line 30, ../../../er-apps/SwarRelation/main.scss */
 #swarrelation #marker {
   fill: #333;
 }
-/* line 39, ../../../er-apps/SwarRelation/main.scss */
+/* line 35, ../../../er-apps/SwarRelation/main.scss */
 #swarrelation #feedback {
   font-size: 30px;
 }

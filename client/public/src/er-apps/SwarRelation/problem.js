@@ -1,12 +1,13 @@
 define(['music-calc'], function(MusicCalc) {
 
 
-	var Problem = function(scale) {
+	var Problem = function(scale,level) {
 		var baseFreq = MusicCalc.MIDDLE_C_FREQ - Math.floor(Math.random() * 24);
-		var asc = Math.random() < 0.5;
+		var asc = level.direction==="asc";
 
-		var index = 1 + Math.floor(Math.random() * (scale.length - 2));
-		var degree = scale[index];
+		// var index = 1 + Math.floor(Math.random() * (scale.length - 2));
+		var degree = level.notes[Math.floor(Math.random()*level.notes.length)];
+		var index = scale.indexOf(degree);
 		var sequence;
 
 		if (asc) {
@@ -52,8 +53,8 @@ define(['music-calc'], function(MusicCalc) {
 		};
 	};
 
-	Problem.getNewProblem = function(scale) {
-		return new Problem(scale);
+	Problem.getNewProblem = function(scale,level) {
+		return new Problem(scale,level);
 	};
 
 	return Problem;

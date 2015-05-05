@@ -87,13 +87,13 @@ define(['d3'], function(d3) {
 				.attr("text-anchor", "start")
 				.attr("alignment-baseline", "middle")
 				// .attr("stroke-width",0)
-				.attr("y", chartHeight / 2)
+				.attr("y", chartHeight / 2 + 1)
 				.attr("x", function(d) {
-					return xScale(d - 1) + slotWidth / 2 + gutter - 2;
+					return xScale(d - 1) + slotWidth / 2 + gutter - 3;
 				})
 				.attr("font-size", 8)
 				.attr("fill", "black")
-				.text("?");
+				.text("✓");
 
 			svg.selectAll("text.label")
 				.data(slotsData)

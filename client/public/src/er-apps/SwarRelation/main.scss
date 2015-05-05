@@ -5,10 +5,6 @@
       margin-right: 10px;
     }
 
-    // div.buttons {
-    //   margin:10px 0 0 30px;
-    // }
-
     svg {
       margin-top:3%;
     }
@@ -17,23 +13,23 @@
       fill:#E3F2FD;
     }
 
-    rect.note {
+    rect.note,rect.selectable {
       fill:#BBDEFB;
-      &:hover {
+     
+    }
+
+    rect.selectable:hover {
         fill:#C5CAE9;
-      }
+
     }
 
-    rect.selector {
-      fill:#C5CAE9;
-    }
-
-    rect.root {
+    g.marked rect{
       fill:#C5CAE9;
     }
 
     #marker {
       fill:#333;
+      // fill:black;
     }
 
     #feedback {

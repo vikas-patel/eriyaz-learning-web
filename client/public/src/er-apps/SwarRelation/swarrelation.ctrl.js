@@ -1,5 +1,5 @@
-define(['./module', './display', './problem', 'melody', 'note', 'webaudioplayer', 'currentaudiocontext'],
-    function(app, Display, Problem, Melody, Note, Player, CurrentAudioContext) {
+define(['./module', './display', './problem','./levels', 'melody', 'note', 'webaudioplayer', 'currentaudiocontext'],
+    function(app, Display, Problem, levels,Melody, Note, Player, CurrentAudioContext) {
         var audioContext = CurrentAudioContext.getInstance();
         var player = new Player(audioContext);
         var sequence;
@@ -10,6 +10,15 @@ define(['./module', './display', './problem', 'melody', 'note', 'webaudioplayer'
         app.controller('SwarRelationCtrl', function($scope) {
             $scope.total = 0;
             $scope.correct = 0;
+            $scope.levels = levels;
+            $scope.selectedLevelIdx = 0;
+
+            $scope.$watch('selectedLevelIdx', function() {
+                display.showLevel(levels[$scope.selectedLevelIdx]);
+                resetScore();
+                display.reset();
+            });
+            
             $scope.isLooping = function() {
                 return currLoopId >= 0;
             };
@@ -21,7 +30,7 @@ define(['./module', './display', './problem', 'melody', 'note', 'webaudioplayer'
             $scope.newInterval = function() {
                 cancelCurrentLoop();
                 display.reset();
-                problem = Problem.getNewProblem(scale);
+                problem = Problem.getNewProblem(scale,levels[$scope.selectedLevelIdx]);
                 playInterval();
             };
 
@@ -68,6 +77,11 @@ define(['./module', './display', './problem', 'melody', 'note', 'webaudioplayer'
                 tracker = 0;
                 clearInterval(currLoopId);
                 currLoopId = -1;
+            }
+
+            function resetScore() {
+                $scope.total = 0;
+                $scope.right = 0;
             }
         });
     });
