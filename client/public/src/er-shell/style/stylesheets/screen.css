@@ -1047,37 +1047,37 @@ core-drawer-panel:not([narrow]) #navicon {
   fill: green;
 }
 
-/* line 3, ../../../er-apps/SwarRelation/main.scss */
-#swarrelation #score {
+/* line 3, ../../../er-apps/SwarPosition/main.scss */
+#swarposition #score {
   float: right;
   margin-right: 10px;
 }
-/* line 8, ../../../er-apps/SwarRelation/main.scss */
-#swarrelation svg {
+/* line 8, ../../../er-apps/SwarPosition/main.scss */
+#swarposition svg {
   margin-top: 3%;
 }
-/* line 12, ../../../er-apps/SwarRelation/main.scss */
-#swarrelation rect.slot {
+/* line 12, ../../../er-apps/SwarPosition/main.scss */
+#swarposition rect.slot {
   fill: #E3F2FD;
 }
-/* line 16, ../../../er-apps/SwarRelation/main.scss */
-#swarrelation rect.note, #swarrelation rect.selectable {
+/* line 16, ../../../er-apps/SwarPosition/main.scss */
+#swarposition rect.note, #swarposition rect.selectable {
   fill: #BBDEFB;
 }
-/* line 21, ../../../er-apps/SwarRelation/main.scss */
-#swarrelation rect.selectable:hover {
+/* line 21, ../../../er-apps/SwarPosition/main.scss */
+#swarposition rect.selectable:hover {
   fill: #C5CAE9;
 }
-/* line 26, ../../../er-apps/SwarRelation/main.scss */
-#swarrelation g.marked rect {
+/* line 26, ../../../er-apps/SwarPosition/main.scss */
+#swarposition g.marked rect {
   fill: #C5CAE9;
 }
-/* line 30, ../../../er-apps/SwarRelation/main.scss */
-#swarrelation #marker {
+/* line 30, ../../../er-apps/SwarPosition/main.scss */
+#swarposition #marker {
   fill: #333;
 }
-/* line 35, ../../../er-apps/SwarRelation/main.scss */
-#swarrelation #feedback {
+/* line 35, ../../../er-apps/SwarPosition/main.scss */
+#swarposition #feedback {
   font-size: 30px;
 }
 

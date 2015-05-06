@@ -7,7 +7,7 @@ define(['./module', './display', './problem','./levels', 'melody', 'note', 'weba
         var currLoopId = -1;
         var scale = [0, 2, 4, 5, 7, 9, 11, 12];
 
-        app.controller('SwarRelationCtrl', function($scope) {
+        app.controller('SwarPositionCtrl', function($scope) {
             $scope.total = 0;
             $scope.correct = 0;
             $scope.levels = levels;

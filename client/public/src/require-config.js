@@ -106,8 +106,8 @@ requirejs.config({
         location: 'er-apps/SwarSpace',
         main: 'index'
     }, {    
-        name: 'swarrelation',
-        location: 'er-apps/SwarRelation',
+        name: 'swarposition',
+        location: 'er-apps/SwarPosition',
         main: 'index'
     }, {    
         name: 'thatmemorizer',

@@ -42,11 +42,11 @@
         aspectRatio: 9/10,
         show:true
       }, {
-        name: 'SwarRelation',
-        thumb: 'er-shell/images/swarrelation.jpg',
+        name: 'SwarPosition',
+        thumb: 'er-shell/images/swarposition.jpg',
         desc: 'Practice regonizing the exact swar, by using its position in the sargam.',
-        href: '#swarrelation',
-        appUrl: 'er-apps/SwarRelation/main.html',
+        href: '#swarposition',
+        appUrl: 'er-apps/SwarPosition/main.html',
         aspectRatio: 9/10,
         show:true
       }, {

@@ -18,7 +18,7 @@ define([
     'upordown',
     'melodygraph',
     'swarspace',
-    'swarrelation',
+    'swarposition',
     'thatmemorizer',
     'singgraph'
 ], function (angular) {
@@ -36,7 +36,7 @@ define([
         'upordown',
         'melodygraph',
         'swarspace',
-        'swarrelation',
+        'swarposition',
         'thatmemorizer',
         'singgraph',
         

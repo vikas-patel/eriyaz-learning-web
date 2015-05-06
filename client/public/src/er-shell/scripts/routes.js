@@ -215,8 +215,8 @@
                  onLoggedOutRedirect: checkLoginAndRedirect
              }
          }).
-         state('swarrelation', {
-             url: '/swarrelation',
+         state('swarposition', {
+             url: '/swarposition',
              onEnter: function(UIModel, AppsInfoModel) {
                  UIModel.uiModel.showLoginDialog = false;
                  UIModel.uiModel.showMenu = true;
