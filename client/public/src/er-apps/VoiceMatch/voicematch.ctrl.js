@@ -31,8 +31,6 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
       $scope.$watch('rootNote', function() {
         rootNote = parseInt($scope.rootNote);
         PitchModel.rootFreq = MusicCalc.midiNumToFreq(rootNote);
-        console.log(PitchModel.rootFreq);
-        console.log(rootNote);
       });
 
       $scope.startMic = function() {
@@ -52,7 +50,6 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
         if ($scope.signalOn) {
           display.clear();
           currentNote = rootNote + Math.floor(Math.random() * (maxInterval - minInterval + 1)) + minInterval;
-          console.log(currentNote);
           player.playNote(MusicCalc.midiNumToFreq(currentNote), playDuration);
 
           setTimeout(function() {

@@ -68,7 +68,7 @@
       }, {
         name: 'VoiceMatch',
         thumb: 'er-shell/images/voicematch.jpg',
-        desc: 'Practice free flow singing with immediate feedback on your pitch.',
+        desc: 'Practice matching your voice to the tone of the instrument.',
         href: '#voicematch',
         appUrl: 'er-apps/VoiceMatch/main.html',
         aspectRatio: 68/100,
