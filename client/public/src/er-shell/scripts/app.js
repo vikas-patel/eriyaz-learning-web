@@ -20,7 +20,8 @@ define([
     'swarspace',
     'swarposition',
     'thatmemorizer',
-    'singgraph'
+    'singgraph',
+    'voicematch'
 ], function (angular) {
     'use strict';
 
@@ -39,6 +40,7 @@ define([
         'swarposition',
         'thatmemorizer',
         'singgraph',
+        'voicematch',
         
         'ngResource',
         'angulartics',

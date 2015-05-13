@@ -65,6 +65,14 @@
         appUrl: 'er-apps/SingGraph/main.html',
         aspectRatio: 5/3,
         show:false
+      }, {
+        name: 'VoiceMatch',
+        thumb: 'er-shell/images/voicematch.jpg',
+        desc: 'Practice free flow singing with immediate feedback on your pitch.',
+        href: '#voicematch',
+        appUrl: 'er-apps/VoiceMatch/main.html',
+        aspectRatio: 68/100,
+        show:true
       }];
       appsInfo.selectedIndex = -1;
       appsInfo.setSelected = function(index) {

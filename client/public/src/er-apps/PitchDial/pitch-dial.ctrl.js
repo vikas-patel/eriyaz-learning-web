@@ -29,7 +29,7 @@
             }
           });
 
-        var detector = PitchDetector.getDetector('wavelet', audioContext.sampleRate);
+        var detector = PitchDetector.getDetector('fft', audioContext.sampleRate);
         var updatePitch = function(data) {
           var pitch = detector.findPitch(data);
           if (pitch !== 0) {

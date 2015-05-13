@@ -1169,3 +1169,36 @@ core-drawer-panel:not([narrow]) #navicon {
 #singgraph text {
   font-size: 10px;
 }
+
+/* line 2, ../../../er-apps/VoiceMatch/main.scss */
+#voicematch .container-toplevel {
+  width: 100%;
+}
+/* line 7, ../../../er-apps/VoiceMatch/main.scss */
+#voicematch #chartdiv {
+  margin: 1% 0 0 0;
+}
+/* line 11, ../../../er-apps/VoiceMatch/main.scss */
+#voicematch .container.settings {
+  margin: 1% 0 0 5%;
+}
+/* line 21, ../../../er-apps/VoiceMatch/main.scss */
+#voicematch #score {
+  float: right;
+}
+/* line 25, ../../../er-apps/VoiceMatch/main.scss */
+#voicematch paper-icon-button, #voicematch button, #voicematch select {
+  float: left;
+}
+/* line 29, ../../../er-apps/VoiceMatch/main.scss */
+#voicematch paper-icon-button {
+  margin-top: -5px;
+}
+/* line 33, ../../../er-apps/VoiceMatch/main.scss */
+#voicematch button, #voicematch select {
+  margin: 5px 0 0 2px;
+}
+/* line 37, ../../../er-apps/VoiceMatch/main.scss */
+#voicematch button {
+  font-size: 0.73em;
+}

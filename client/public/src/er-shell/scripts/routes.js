@@ -250,6 +250,18 @@
              resolve: {
                  onLoggedOutRedirect: checkLoginAndRedirect
              }
+         }).
+         state('voicematch', {
+             url: '/voicematch',
+             onEnter: function(UIModel, AppsInfoModel) {
+                 UIModel.uiModel.showLoginDialog = false;
+                 UIModel.uiModel.showMenu = true;
+                 AppsInfoModel.setSelected(8);
+                 UIModel.uiModel.showAppDialog = true;
+             },
+             resolve: {
+                 onLoggedOutRedirect: checkLoginAndRedirect
+             }
          });
      });
  });

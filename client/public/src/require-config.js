@@ -117,6 +117,10 @@ requirejs.config({
         name: 'singgraph',
         location: 'er-apps/SingGraph',
         main: 'index'
+    }, {    
+        name: 'voicematch',
+        location: 'er-apps/VoiceMatch',
+        main: 'index'
     }, {
         name: 'tanpura',
         location: 'er-libs/tanpura',

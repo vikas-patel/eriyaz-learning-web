@@ -3,7 +3,7 @@
           var audioContext = CurrentAudioContext.getInstance();
           app.controller('SingGraphCtrl', function($scope, PitchModel, DialModel) {
               var chart = new Chart();
-              var detector = PitchDetector.getDetector('fft', audioContext.sampleRate);
+              var detector = PitchDetector.getDetector('wavelet', audioContext.sampleRate);
               var updatePitch = function(data) {
                   var pitch = detector.findPitch(data);
                   if (pitch !== 0) {
