@@ -1047,41 +1047,37 @@ core-drawer-panel:not([narrow]) #navicon {
   fill: green;
 }
 
-/* line 3, ../../../er-apps/SwarRelation/main.scss */
-#swarrelation #score {
+/* line 3, ../../../er-apps/SwarPosition/main.scss */
+#swarposition #score {
   float: right;
   margin-right: 10px;
 }
-/* line 12, ../../../er-apps/SwarRelation/main.scss */
-#swarrelation svg {
+/* line 8, ../../../er-apps/SwarPosition/main.scss */
+#swarposition svg {
   margin-top: 3%;
 }
-/* line 16, ../../../er-apps/SwarRelation/main.scss */
-#swarrelation rect.slot {
+/* line 12, ../../../er-apps/SwarPosition/main.scss */
+#swarposition rect.slot {
   fill: #E3F2FD;
 }
-/* line 20, ../../../er-apps/SwarRelation/main.scss */
-#swarrelation rect.note {
+/* line 16, ../../../er-apps/SwarPosition/main.scss */
+#swarposition rect.note, #swarposition rect.selectable {
   fill: #BBDEFB;
 }
-/* line 22, ../../../er-apps/SwarRelation/main.scss */
-#swarrelation rect.note:hover {
+/* line 21, ../../../er-apps/SwarPosition/main.scss */
+#swarposition rect.selectable:hover {
   fill: #C5CAE9;
 }
-/* line 27, ../../../er-apps/SwarRelation/main.scss */
-#swarrelation rect.selector {
+/* line 26, ../../../er-apps/SwarPosition/main.scss */
+#swarposition g.marked rect {
   fill: #C5CAE9;
 }
-/* line 31, ../../../er-apps/SwarRelation/main.scss */
-#swarrelation rect.root {
-  fill: #C5CAE9;
-}
-/* line 35, ../../../er-apps/SwarRelation/main.scss */
-#swarrelation #marker {
+/* line 30, ../../../er-apps/SwarPosition/main.scss */
+#swarposition #marker {
   fill: #333;
 }
-/* line 39, ../../../er-apps/SwarRelation/main.scss */
-#swarrelation #feedback {
+/* line 35, ../../../er-apps/SwarPosition/main.scss */
+#swarposition #feedback {
   font-size: 30px;
 }
 
@@ -1172,4 +1168,37 @@ core-drawer-panel:not([narrow]) #navicon {
 /* line 51, ../../../er-apps/SingGraph/main.scss */
 #singgraph text {
   font-size: 10px;
+}
+
+/* line 2, ../../../er-apps/VoiceMatch/main.scss */
+#voicematch .container-toplevel {
+  width: 100%;
+}
+/* line 7, ../../../er-apps/VoiceMatch/main.scss */
+#voicematch #chartdiv {
+  margin: 1% 0 0 0;
+}
+/* line 11, ../../../er-apps/VoiceMatch/main.scss */
+#voicematch .container.settings {
+  margin: 1% 0 0 5%;
+}
+/* line 21, ../../../er-apps/VoiceMatch/main.scss */
+#voicematch #score {
+  float: right;
+}
+/* line 25, ../../../er-apps/VoiceMatch/main.scss */
+#voicematch paper-icon-button, #voicematch button, #voicematch select {
+  float: left;
+}
+/* line 29, ../../../er-apps/VoiceMatch/main.scss */
+#voicematch paper-icon-button {
+  margin-top: -5px;
+}
+/* line 33, ../../../er-apps/VoiceMatch/main.scss */
+#voicematch button, #voicematch select {
+  margin: 5px 0 0 2px;
+}
+/* line 37, ../../../er-apps/VoiceMatch/main.scss */
+#voicematch button {
+  font-size: 0.73em;
 }

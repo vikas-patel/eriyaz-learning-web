@@ -1,8 +1,11 @@
-<div id="swarrelation" ng-controller='SwarRelationCtrl as ctrl'>
+<div id="swarposition" ng-controller='SwarPositionCtrl as ctrl'>
 	<div class="buttons">
         <button ng-click="newInterval();" ng-disabled="isLooping()">New</button>
         <button ng-click="repeatPlay();" ng-disabled="isLooping()">Repeat</button>
         <button ng-click="checkAnswer();" ng-disabled="isLooping()">Check</button>
+         <select ng-model="selectedLevelIdx">
+            <option ng-repeat="level in levels" value="{{$index}}">Level {{$index+1}}</option> 
+        </select>
     <div id="score"> Score: {{correct}}/{{total}}</div>
         
      </div>   
