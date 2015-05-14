@@ -23,32 +23,6 @@ define([], function() {
 			.domain([-800, 1300])
 			.range([height, 0]);
 
-		// var xAxis = d3.svg.axis()
-		// 	.scale(x)
-		// 	.orient("top")
-		// 	.innerTickSize(0)
-		// 	.outerTickSize([height])
-		// 	// .outerTickSize([10])
-		// 	// .outerTickSize([20])
-		// 	.tickFormat('')
-		// 	.tickSubdivide(true);
-
-		// var yAxis = d3.svg.axis()
-		// 	.scale(y)
-		// 	.orient("left")
-		// 	.ticks(22)
-		// 	.tickFormat(customYFormat)
-		// 	.tickSize(width)
-		// 	.tickSubdivide(true);
-
-
-
-		// function customYFormat(yValue) {
-		// 	var labels = ['Sa', '', 'Re', '', 'Ga', 'Ma', '', 'Pa', '', 'Dha', '', 'Ni', 'Sa'];
-		// 	return labels[(12 + Math.round(yValue / 100)) % 12];
-		// }
-
-
 
 		var svg = d3.select("#chartdiv").append("svg")
 			.attr("width", "100%")
@@ -57,57 +31,38 @@ define([], function() {
 			.append("g")
 			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-		var notesData = [-8,-7,-5,-3,-1,0, 2, 4, 5, 7, 9, 11, 12];
-		var labels = ['Ga','ma','','Pa','','Dha','','Ni','Sa','','Re','','Ga','ma','','Pa','','Dha','','Ni','Sa\''];
+		var notesData = [-8, -7, -5, -3, -1, 0, 2, 4, 5, 7, 9, 11, 12];
+		var labels = ['Ga', 'ma', '', 'Pa', '', 'Dha', '', 'Ni', 'Sa', '', 'Re', '', 'Ga', 'ma', '', 'Pa', '', 'Dha', '', 'Ni', 'Sa\''];
 
-			svg.selectAll("rect.note")
-				.data(notesData)
-				.enter().append("rect")
-				.attr("class", "note")
-				.attr("y", function(d) {
-					return y(d*100) - height / 22;
-				})
-				.attr("x", 0)
-				.attr("height", height / 22 - 1)
-				.attr("width", width)
-				.attr("fill", "#fff3ef")
-				.attr("fill-opacity", 1)	
-				.filter(function(d){
-					return (d===0 || d===12) ;
-				})
-				.attr("fill","#fcdcd4");
+		svg.selectAll("rect.note")
+			.data(notesData)
+			.enter().append("rect")
+			.attr("class", "note")
+			.attr("y", function(d) {
+				return y(d * 100) - height / 22;
+			})
+			.attr("x", 0)
+			.attr("height", height / 22 - 1)
+			.attr("width", width)
+			.attr("fill", "#fff3ef")
+			.attr("fill-opacity", 1)
+			.filter(function(d) {
+				return (d === 0 || d === 12);
+			})
+			.attr("fill", "#fcdcd4");
 
-		    svg.selectAll("text")
+		svg.selectAll("text")
 			.data(notesData)
 			.enter()
 			.append("text")
 			.attr("class", "label")
 			.attr("y", function(d) {
-				return y(d*100) - 10; // - chartHeight / 13 + chartHeight / 100;
+				return y(d * 100) - 10; // - chartHeight / 13 + chartHeight / 100;
 			})
 			.attr("x", -25)
 			.text(function(d) {
-				return labels[d+8];
+				return labels[d + 8];
 			});
-		// var line = d3.svg.line();
-
-
-		// svg.append("g")
-		// 	.attr("class", "x axis")
-		// 	.attr("transform", "translate(0," + y(-800) + ")")
-		// 	.call(xAxis);
-
-		// var yAxisGroup = svg.append("g")
-		// 	.attr("class", "y axis")
-		// 	.attr("transform", "translate(" + width + ",0)")
-		// 	.call(yAxis);
-
-		// svg.append("svg:line")
-		// 	.attr("id", "center-line")
-		// 	.attr("x1", 0)
-		// 	.attr("y1", y(0))
-		// 	.attr("x2", width)
-		// 	.attr("y2", y(0));
 
 
 		var currCents = 0;
@@ -133,7 +88,7 @@ define([], function() {
 			if (isPendingValue) {
 				var newPoint = pointGroup.append("rect")
 					.attr("x", x(tickCount * refreshTime))
-					.attr("y", y(currCents) - height/22/2)
+					.attr("y", y(currCents) - height / 22 / 2)
 					.attr("width", 5)
 					.attr("height", 5);
 				points.push(newPoint);
@@ -153,13 +108,14 @@ define([], function() {
 
 		this.stop = function() {
 			clearInterval(tickId);
+			tickCount = 0;
 		};
 
 		this.notifyUnitStable = function(interval) {
 			pointGroup.append("rect")
 				.attr("x", x(tickCount * refreshTime))
-				.attr("y", y(interval*100) - height/22 +1)
-				.attr("height", height/22 -1)
+				.attr("y", y(interval * 100) - height / 22 + 1)
+				.attr("height", height / 22 - 1)
 				// .attr("y", y(interval * 100))
 				.attr("width", 5)
 				// .attr("height", 20)
@@ -184,10 +140,10 @@ define([], function() {
 			this.clearFlash();
 			svg.append("text")
 				.attr("id", "flash")
-				.attr("font-size",25)
-				.attr("x",width/2)
-				.attr("y",height/2)
-				.attr("text-anchor","middle")
+				.attr("font-size", 25)
+				.attr("x", width / 2)
+				.attr("y", height / 2)
+				.attr("text-anchor", "middle")
 				.text(message);
 		};
 
@@ -206,19 +162,19 @@ define([], function() {
 			svg.selectAll(".playRect").remove();
 		};
 
-		this.playAnimate = function(interval,duration) {
+		this.playAnimate = function(interval, duration) {
 			var playRect = svg.append("rect")
-			.attr("class","playRect")
-			.attr("x",0)
-			.attr("y",y(interval * 100) - height/22)
-			.attr("height",height/22-1)
-			.attr("width",0)
-			.attr("opacity",0.2);
+				.attr("class", "playRect")
+				.attr("x", 0)
+				.attr("y", y(interval * 100) - height / 22)
+				.attr("height", height / 22 - 1)
+				.attr("width", 0)
+				.attr("opacity", 0.2);
 
 			playRect
-			.transition()
-			.duration(duration)
-			.attr("width",width);
+				.transition()
+				.duration(duration)
+				.attr("width", width);
 		};
 
 	};

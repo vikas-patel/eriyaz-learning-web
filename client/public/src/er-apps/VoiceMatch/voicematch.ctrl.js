@@ -20,13 +20,16 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
         if (pitch !== 0) {
           PitchModel.currentFreq = pitch;
           PitchModel.currentInterval = MusicCalc.getCents(PitchModel.rootFreq, PitchModel.currentFreq) / 100;
-          display.notifyInterval(PitchModel.currentInterval);
-          stabilityDetector.push(PitchModel.currentInterval);
+          if ($scope.isPending) {
+            display.notifyInterval(PitchModel.currentInterval);
+            stabilityDetector.push(PitchModel.currentInterval);
+          }
         }
       };
 
       $scope.rootNote = 47;
       $scope.signalOn = false;
+      $scope.isPending = false;
       $scope.total = 0;
       $scope.right = 0;
       $scope.$watch('rootNote', function() {
@@ -42,14 +45,15 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
               buffer = new AudioBuffer(audioContext, stream, 2048);
               buffer.addProcessor(updatePitch);
               $scope.signalOn = true;
+              $scope.$apply();
             }
           );
         }
         display.setFlash("Click 'New' to hear Tone");
       };
 
-      $scope.$on('$destroy',function() {
-        if(micStream)
+      $scope.$on('$destroy', function() {
+        if (micStream)
           micStream.stop();
       });
 
@@ -58,7 +62,7 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
           display.clear();
           currentNote = rootNote + Math.floor(Math.random() * (maxInterval - minInterval + 1)) + minInterval;
           player.playNote(MusicCalc.midiNumToFreq(currentNote), playDuration);
-
+          $scope.isPending = true;
           setTimeout(function() {
             display.start();
             display.setFlash("Now Sing and Stabalize");
@@ -96,6 +100,8 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
               } else {
                 display.setFlash("Wrong :(");
               }
+              $scope.isPending = false;
+              $scope.$apply();
             }, playDuration + 100);
           }, playDuration + 100);
         }, 100);

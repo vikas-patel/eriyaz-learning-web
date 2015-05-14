@@ -23,8 +23,8 @@
                 
             </div>
             <div>
-                <button ng-click="new()">New</button>
-                <button ng-click="repeat()">Repeat</button>
+                <button ng-click="new()" ng-disabled="isPending || !signalOn">New</button>
+                <button ng-click="repeat()" ng-disabled="!signalOn">Repeat</button>
             </div>
                 <div id="chartdiv"></div>
 
