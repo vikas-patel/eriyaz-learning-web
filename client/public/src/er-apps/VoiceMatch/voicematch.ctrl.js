@@ -12,6 +12,7 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
       var display = new Display();
       var detector = PitchDetector.getDetector('wavelet', audioContext.sampleRate);
       var stabilityDetector = new StabilityDetector(unitStabilityDetected, aggStabilityDetected);
+      var micStream;
 
       display.setFlash("Start Mic");
       var updatePitch = function(data) {
@@ -37,6 +38,7 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
         if (!$scope.signalOn) {
           MicUtil.getMicAudioStream(
             function(stream) {
+              micStream = stream;
               buffer = new AudioBuffer(audioContext, stream, 2048);
               buffer.addProcessor(updatePitch);
               $scope.signalOn = true;
@@ -45,6 +47,11 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
         }
         display.setFlash("Click 'New' to hear Tone");
       };
+
+      $scope.$on('$destroy',function() {
+        if(micStream)
+          micStream.stop();
+      });
 
       $scope.new = function() {
         if ($scope.signalOn) {
@@ -70,7 +77,6 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
       }
 
       function aggStabilityDetected(interval) {
-        console.log(interval);
         display.notifyAggStable(interval);
         display.stop();
         display.setFlash("Stable Tone Detected!");

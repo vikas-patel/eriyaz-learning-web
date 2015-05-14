@@ -36,13 +36,11 @@ define(['./module', 'jquery', './exercises', 'mic-util', 'currentaudiocontext', 
 				$scope.rootFreq = MusicCalc.midiNumToFreq($scope.user.settings.rootNote);
 			});
 
-			$rootScope.$on('$stateChangeSuccess',
-				function(event, toState, toParams, fromState, fromParams) {
-					if (fromState.name == 'alankars') {
-						stopTanpura();
-						$scope.chart.isTransitionStopped = true;
-					}
-				});
+			$scope.$on("$destroy", function() {
+				stopTanpura();
+				$scope.chart.isTransitionStopped = true;
+			});
+
 			$scope.updateSettings = function() {
 				$scope.user.$update(function() {
 					$scope.showSettings = false;

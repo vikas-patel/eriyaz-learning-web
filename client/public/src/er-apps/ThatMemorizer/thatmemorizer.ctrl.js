@@ -70,12 +70,9 @@ define(['./module', './intervalgen', './display', 'note', 'webaudioplayer', 'cur
                 display.showDisplay();
         });
 
-        $rootScope.$on('$stateChangeSuccess',
-            function(event, toState, toParams, fromState, fromParams) {
-                if (fromState.name == 'thatmemorizer') {
-                    cancelCurrentLoop();
-                }
-            });
+        $scope.$on("$destroy", function() {
+            cancelCurrentLoop();
+        });
 
         $scope.newThat = function() {
 
