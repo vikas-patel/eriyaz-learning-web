@@ -38,3 +38,4 @@ http://eriyaz.com
 
 Database configuration for production,staging is stored in :-
 evn.json
+TESTING
