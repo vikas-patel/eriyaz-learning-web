@@ -24,7 +24,6 @@ define(['./module', './problem-gen', './display', 'webaudioplayer', 'currentaudi
             $scope.testNotes = [1,2];
             var display = new Display();
 
-
             $scope.right = 0;
             $scope.count = 0;
 
@@ -38,8 +37,9 @@ define(['./module', './problem-gen', './display', 'webaudioplayer', 'currentaudi
                 if ($scope.count == $scope.level.total) {
                     // Display score & save
                     $scope.score = $scope.right / $scope.count;
+                    $scope.showOverlay = true;
                     ScoreService.save("UpOrDown", $scope.level.name, $scope.score);
-                    resetScore();
+                    //resetScore();
                 }
             });
 
@@ -69,6 +69,17 @@ define(['./module', './problem-gen', './display', 'webaudioplayer', 'currentaudi
                     display.setFeedback("Right!");
                     $scope.right++;
                 }
+            };
+
+            $scope.closeOverlay = function() {
+                $scope.showOverlay = false;
+                resetScore();
+            };
+
+            $scope.restart = function() {
+                $scope.showOverlay = false;
+                resetScore();
+                $scope.newProblem();
             };
 
             function resetScore() {
