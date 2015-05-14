@@ -2,11 +2,11 @@
     var base_url="";
     app.factory('ScoreService', function($http, $window) {
         return {
-            save: function(exerciseName, score) {
+            save: function(appName, exerciseName, score) {
                 var userId = $window.localStorage.userId;
                 $http.post(base_url + '/users/score', {
                     user: userId,
-                    appName: "alankar",
+                    appName: appName,
                     exercise: exerciseName,
                     score:score
                 }).success(function(data) {

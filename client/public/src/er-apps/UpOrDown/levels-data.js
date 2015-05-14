@@ -15,20 +15,23 @@ define([], function() {
 
 	return [{
 		desc: "extra large interval",
+		name:"level 1",
 		interval: intervals.xlarge,
 		numNotes: 2,
 		testNotes: [1, 2],
 		color: colors.blue,
-		total: 10
+		total: 2
 	}, {
 		desc: "large interval",
+		name:"level 2",
 		interval: intervals.large,
 		numNotes: 2,
 		testNotes: [1, 2],
 		color: colors.purple,
-		total: 20
+		total: 3
 	}, {
 		desc: "medium interval",
+		name:"level 3",
 		interval: intervals.medium,
 		numNotes: 2,
 		testNotes: [1, 2],
@@ -36,6 +39,7 @@ define([], function() {
 		total: 20
 	}, {
 		desc: "small interval",
+		name:"level 4",
 		interval: intervals.small,
 		numNotes: 2,
 		testNotes: [1, 2],
@@ -43,6 +47,7 @@ define([], function() {
 		total: 20
 	}, {
 		desc: "medium interval between note2 & note3",
+		name:"level 5",
 		interval: intervals.medium,
 		numNotes: 3,
 		testNotes: [2, 3],
@@ -50,6 +55,7 @@ define([], function() {
 		total: 10
 	}, {
 		desc: "small interval between note2 & note3",
+		name:"level 6",
 		interval: intervals.small,
 		numNotes: 3,
 		testNotes: [2, 3],
@@ -57,6 +63,7 @@ define([], function() {
 		total: 20
 	}, {
 		desc: "medium interval between note1 & note2",
+		name:"level 7",
 		interval: intervals.medium,
 		numNotes: 3,
 		testNotes: [1, 2],
@@ -64,6 +71,7 @@ define([], function() {
 		total: 10
 	}, {
 		desc: "small interval between note1 & note2",
+		name:"level 8",
 		interval: intervals.small,
 		numNotes: 3,
 		testNotes: [1, 2],
@@ -71,6 +79,7 @@ define([], function() {
 		total: 20
 	}, {
 		desc: "medium interval between note1 & note3",
+		name:"level 9",
 		interval: intervals.medium,
 		numNotes: 3,
 		testNotes: [1, 3],
@@ -78,6 +87,7 @@ define([], function() {
 		total: 10
 	}, {
 		desc: "small interval between note1 & note3",
+		name:"level 10",
 		interval: intervals.small,
 		numNotes: 3,
 		testNotes: [1, 3],

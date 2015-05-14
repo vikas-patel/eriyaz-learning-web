@@ -18,7 +18,7 @@ define(['./module', './problem-gen', './display', 'webaudioplayer', 'currentaudi
         var playTime = 1000;
         var currLoopId;
 
-        app.controller('UpOrDownCtrl', function($scope) {
+        app.controller('UpOrDownCtrl', function($scope, ScoreService) {
 
 
             $scope.levels = levels;
@@ -39,11 +39,10 @@ define(['./module', './problem-gen', './display', 'webaudioplayer', 'currentaudi
             $scope.$watch('count', function() {
                 if ($scope.count == $scope.levels[$scope.selectedLevelIdx].total) {
                     // Display score & save
-                    console.log("save score");
-                    $scope.score = $scope.right * 100 / $scope.count;
+                    $scope.score = $scope.right / $scope.count;
+                    ScoreService.save("UpOrDown", $scope.levels[$scope.selectedLevelIdx].name, $scope.score);
                     resetScore();
                 }
-
             });
 
             $scope.newProblem = function() {

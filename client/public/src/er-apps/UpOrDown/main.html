@@ -11,7 +11,7 @@
             <button ng-click='repeat()'>Repeat</button>
             <!-- <button ng-click='check()'>Check</button> -->
             <select ng-model="selectedLevelIdx">
-                <option ng-repeat="level in levels" value="{{$index}}">Level {{$index+1}}</option> 
+                <option ng-repeat="level in levels">{{level.name}}</option> 
             </select>
         </div>
        
