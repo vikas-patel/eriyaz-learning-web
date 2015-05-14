@@ -2,7 +2,7 @@
     <div class="container-toplevel">
      <div id="score">
             <span>Remaining: </span>
-            {{levels[selectedLevelIdx].total - count}}
+            {{level.total - count}}
             <span> Score: </span>
             {{right*100/count  | number:0}}%
         </div>
@@ -10,12 +10,9 @@
             <button ng-click='newProblem()'>New</button>
             <button ng-click='repeat()'>Repeat</button>
             <!-- <button ng-click='check()'>Check</button> -->
-            <select ng-model="selectedLevelIdx">
-                <option ng-repeat="level in levels">{{level.name}}</option> 
+            <select ng-model="level" ng-options="l.name for l in levels">
             </select>
         </div>
-       
-
         <div id="display">
         </div>
         

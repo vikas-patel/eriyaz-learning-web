@@ -20,7 +20,7 @@ define([], function() {
 		numNotes: 2,
 		testNotes: [1, 2],
 		color: colors.blue,
-		total: 2
+		total: 10
 	}, {
 		desc: "large interval",
 		name:"level 2",
@@ -28,7 +28,7 @@ define([], function() {
 		numNotes: 2,
 		testNotes: [1, 2],
 		color: colors.purple,
-		total: 3
+		total: 20
 	}, {
 		desc: "medium interval",
 		name:"level 3",
