@@ -28,7 +28,7 @@ define(['./module', './problem-gen', './display', 'webaudioplayer', 'currentaudi
 
 
             $scope.right = 0;
-            $scope.total = 0;
+            $scope.count = 0;
 
             $scope.$watch('selectedLevelIdx', function() {
                 display.showLevel(levels[$scope.selectedLevelIdx]);
@@ -36,8 +36,13 @@ define(['./module', './problem-gen', './display', 'webaudioplayer', 'currentaudi
                 resetScore();
             });
 
-            $scope.$watch('total', function() {
-                $scope.accuracy = $scope.right * 100 / $scope.total;
+            $scope.$watch('count', function() {
+                if ($scope.count == $scope.levels[$scope.selectedLevelIdx].total) {
+                    // Display score & save
+                    console.log("save score");
+                    $scope.score = $scope.right * 100 / $scope.count;
+                    resetScore();
+                }
 
             });
 
@@ -52,7 +57,7 @@ define(['./module', './problem-gen', './display', 'webaudioplayer', 'currentaudi
             };
 
             $scope.isUp = function() {
-                $scope.total++;
+                $scope.count++;
                 display.setFeedback("Wrong :(");
                 if (problem.isUp()) {
                     display.setFeedback("Right!");
@@ -61,7 +66,7 @@ define(['./module', './problem-gen', './display', 'webaudioplayer', 'currentaudi
             };
 
             $scope.isDown = function() {
-                $scope.total++;
+                $scope.count++;
                 display.setFeedback("Wrong :(");
                 if (problem.isDown()) {
                     display.setFeedback("Right!");
@@ -70,7 +75,7 @@ define(['./module', './problem-gen', './display', 'webaudioplayer', 'currentaudi
             };
 
             function resetScore() {
-                $scope.total = 0;
+                $scope.count = 0;
                 $scope.right = 0;
             }
 
