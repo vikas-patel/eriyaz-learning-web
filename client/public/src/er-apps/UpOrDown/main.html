@@ -24,8 +24,14 @@
             <button ng-click='isDown();'>DOWN</button>
         </div>
 
-        
-
-       
+        <div id="overlay" ng-show="showOverlay"></div>
+        <div id="overlay-content" ng-show="showOverlay">
+            <div class="padding5"><h1>Exercise Ends</h1></div>
+            <div class="padding5"><h2>Your Score: <span id="overlay-score">{{right*100/count  | number:0}}%</span></h2></div>
+            <div class="padding5">
+                <button ng-click="restart()" id="play-again">Restart</button>
+                <button ng-click="closeOverlay()" id="close-overlay">Close</button>
+            </div>
+        <div>
     </div>
 </div>
