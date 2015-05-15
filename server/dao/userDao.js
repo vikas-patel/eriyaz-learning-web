@@ -89,6 +89,7 @@ exports.findAllScores = function(req, res) {
 					year: {
 						$year: "$completionTime"
 					},
+					appName: '$appName',
 					exercise: '$exercise'
 				},
 				score: {
@@ -102,6 +103,7 @@ exports.findAllScores = function(req, res) {
 				month: "$_id.month",
 				day: "$_id.day",
 				score: 1,
+				appName: "$_id.appName",
 				exercise: "$_id.exercise"
 			}
 		}, {
