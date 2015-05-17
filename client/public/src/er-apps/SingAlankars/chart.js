@@ -36,6 +36,15 @@ define(['d3'], function(d3) {
 		this.createAxis();
 		// group for moving points
 		this.svg.velocity = this.svg.append("g");
+		var zoomListener = d3.behavior.zoom()
+		  .scaleExtent([1, 1])
+		  .on("zoom", zoomHandler);
+		this.svg.call(zoomListener);
+		// function for handling zoom event
+		velocityElement = this.svg.velocity;
+		function zoomHandler() {
+		  	velocityElement.attr("transform", "translate(" + d3.event.translate[0] + ",0)");
+		};
 	};
 		
 	Chart.prototype.createScale = function() {
