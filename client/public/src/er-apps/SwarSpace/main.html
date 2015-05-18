@@ -3,6 +3,7 @@
         <button ng-click="newInterval();">New</button>
         <button ng-click="repeatPlay();">Repeat</button>
         <button ng-click="checkAnswer();">Check</button>
+         <select ng-model="level" ng-options="l.name for l in levels"></select>
         <dl id="score">
         	<dt>Attempts</dt>
         	<dd>{{attempts}}</dd>

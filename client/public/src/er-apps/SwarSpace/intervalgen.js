@@ -1,22 +1,32 @@
 define(['./interval'], function(Interval) {
 	var middleCFreq = 261;
-	var RandomIntervalGen = function(octaves) {
-		this.octaves = octaves;
+	var RandomIntervalGen = function() {
 
 		this.getRandomInterval = getRandomInterval;
 
-		function getRandomInterval() {
-			return new Interval(getRandomFreq(), getRandomFreq());
+		function getRandomInterval(isBaseFixed, isUp) {
+			var freq1 = middleCFreq;
+			if (!isBaseFixed) {
+				// Max 261*2.5 & Min 261*.5
+				if (isUp) freq1 = middleCFreq/2 + middleCFreq*2*Math.random();
+				// Min 261 & max 261*4
+				else freq1 = middleCFreq + middleCFreq*3*Math.random();
+			}
+			var sign = isUp ? 1 : -1;
+			var freq2 = getRandomFreq(freq1, 1, sign);
+			console.log("freq1:"+freq1 + " freq2:"+freq2);
+			return new Interval(freq1, freq2);
 		}
 
-		function getRandomFreq() {
-			return middleCFreq * Math.pow(2, getRandomCents() / 1200);
+		function getRandomFreq(baseFreq, octaves, sign) {
+			return baseFreq * Math.pow(2, octaves*sign*getRandomCents() / 1200);
 		}
 
 		function getRandomCents() {
-			return (Math.floor(Math.random() * octaves * 1200) - octaves * 1200 / 2);
+			var random = Math.floor(Math.random() * 1200);
+			return random;
 		}
 	};
 
-	return new RandomIntervalGen(1);
+	return new RandomIntervalGen();
 });
