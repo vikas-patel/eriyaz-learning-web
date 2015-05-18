@@ -23,8 +23,8 @@ define(['./module', './intervalgen', './display'], function(app, intervalGen, Di
         }];
     app.controller('SwarSpaceCtrl', function($scope) {
         $scope.attempts = 0;
-        $scope.error = 0;
-        $scope.avgError = 0;
+        $scope.accuracy = 0;
+        $scope.avgAccuracy = 0;
         $scope.level = levels[0];
         $scope.levels = levels;
 
@@ -40,6 +40,16 @@ define(['./module', './intervalgen', './display'], function(app, intervalGen, Di
             intV.play();
         };
 
+        $scope.resetScore = function() {
+            $scope.attempts = 0;
+            $scope.accuracy = 0;
+            $scope.avgAccuracy = 0;
+        };
+
+        $scope.$watch('level', function() {
+            $scope.resetScore();
+        });
+
         $scope.checkAnswer = function() {
             $scope.attempts++;
             var answer = Math.abs(intV.getCents());
@@ -47,8 +57,9 @@ define(['./module', './intervalgen', './display'], function(app, intervalGen, Di
 
             display.showCents(answer);
             var offBy = Math.abs(guess - answer);
-            $scope.error = Math.round(offBy*1000/answer)/10;
-            $scope.avgError = Math.round(($scope.avgError * ($scope.attempts-1) + $scope.error)*10/$scope.attempts)/10;
+            var base = answer > guess ? answer : guess;
+            $scope.accuracy = 1 - offBy/base;
+            $scope.avgAccuracy = ($scope.avgAccuracy * ($scope.attempts-1) + $scope.accuracy)/$scope.attempts;
         };
 
     });
