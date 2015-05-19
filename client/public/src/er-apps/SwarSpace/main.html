@@ -3,17 +3,28 @@
         <button ng-click="newInterval();">New</button>
         <button ng-click="repeatPlay();">Repeat</button>
         <button ng-click="checkAnswer();">Check</button>
+         <select ng-model="level" ng-options="l.name for l in levels"></select>
         <dl id="score">
-        	<dt>Attempts</dt>
-        	<dd>{{attempts}}</dd>
+        	<dt>Remaining: </dt>
+        	<dd>{{level.total - attempts}}</dd>
 
-        	<dt>Off By</dt> 
-        	<dd>{{error}}%</dd>
+        	<dt>Accuracy</dt> 
+        	<dd>{{accuracy*100 | number:0}}%</dd>
         	
-        	<dt>Avg Error</dt>
-        	<dd>{{avgError}}%</dd>
+        	<dt>Avg Accuracy</dt>
+        	<dd>{{avgAccuracy*100 | number:0}}%</dd>
 	    </dl>
     </div>
 	<div id="display">
 	</div>
+
+    <div id="overlay" ng-show="showOverlay"></div>
+    <div id="overlay-content" ng-show="showOverlay">
+        <div class="padding5"><h1>Exercise Ends</h1></div>
+        <div class="padding5"><h2>Your Score: <span id="overlay-score">{{avgAccuracy*100  | number:0}}%</span></h2></div>
+        <div class="padding5">
+            <button ng-click="restart()" id="play-again">Restart</button>
+            <button ng-click="closeOverlay()" id="close-overlay">Close</button>
+        </div>
+        <div>
 </div>

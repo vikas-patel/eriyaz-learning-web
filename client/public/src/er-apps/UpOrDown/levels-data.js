@@ -7,71 +7,91 @@ define([], function() {
 	};
 
 	var intervals = {
-		xlarge: [900, 1500],
-		large: [400, 900],
-		medium: [100, 400],
+		xlarge: [580, 1220],
+		large: [260, 580],
+		medium: [100, 260],
 		small: [20, 100]
 	};
 
 	return [{
 		desc: "extra large interval",
+		name:"level 1",
 		interval: intervals.xlarge,
 		numNotes: 2,
 		testNotes: [1, 2],
-		color: colors.blue
+		color: colors.blue,
+		total: 10
 	}, {
 		desc: "large interval",
+		name:"level 2",
 		interval: intervals.large,
 		numNotes: 2,
 		testNotes: [1, 2],
-		color: colors.purple
+		color: colors.purple,
+		total: 20
+	}, {
+		desc: "large interval between note2 & note3",
+		name:"level 3",
+		interval: intervals.large,
+		numNotes: 3,
+		testNotes: [2, 3],
+		color: colors.purple,
+		total: 10
+	}, {
+		desc: "large interval between note1 & note2",
+		name:"level 4",
+		interval: intervals.large,
+		numNotes: 3,
+		testNotes: [1, 2],
+		color: colors.purple,
+		total: 10
+	}, {
+		desc: "large interval between note1 & note3",
+		name:"level 5",
+		interval: intervals.large,
+		numNotes: 3,
+		testNotes: [1, 3],
+		color: colors.purple,
+		total: 10
 	}, {
 		desc: "medium interval",
+		name:"level 6",
 		interval: intervals.medium,
 		numNotes: 2,
 		testNotes: [1, 2],
-		color: colors.red
+		color: colors.red,
+		total: 20
 	}, {
 		desc: "small interval",
+		name:"level 7",
 		interval: intervals.small,
 		numNotes: 2,
 		testNotes: [1, 2],
-		color: colors.green
-	}, {
-		desc: "medium interval between note2 & note3",
-		interval: intervals.medium,
-		numNotes: 3,
-		testNotes: [2, 3],
-		color: colors.red
-	}, {
+		color: colors.green,
+		total: 20
+	},  {
 		desc: "small interval between note2 & note3",
+		name:"level 8",
 		interval: intervals.small,
 		numNotes: 3,
 		testNotes: [2, 3],
-		color: colors.green
-	}, {
-		desc: "medium interval between note1 & note2",
-		interval: intervals.medium,
-		numNotes: 3,
-		testNotes: [1, 2],
-		color: colors.red
-	}, {
+		color: colors.green,
+		total: 20
+	},  {
 		desc: "small interval between note1 & note2",
+		name:"level 9",
 		interval: intervals.small,
 		numNotes: 3,
 		testNotes: [1, 2],
-		color: colors.green
-	}, {
-		desc: "medium interval between note1 & note3",
-		interval: intervals.medium,
-		numNotes: 3,
-		testNotes: [1, 3],
-		color: colors.red
-	}, {
+		color: colors.green,
+		total: 20
+	},  {
 		desc: "small interval between note1 & note3",
+		name:"level 10",
 		interval: intervals.small,
 		numNotes: 3,
 		testNotes: [1, 3],
-		color: colors.green
+		color: colors.green,
+		total: 20
 	}];
 });

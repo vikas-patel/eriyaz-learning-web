@@ -1,6 +1,6 @@
 define(['d3'], function(d3) {
-	var Display = function() {
-
+	var Display = function(aIsUp) {
+		var isUp = aIsUp;
 		var margin = {
 			top: 10,
 			right: 30,
@@ -62,7 +62,8 @@ define(['d3'], function(d3) {
 
 		var barData = {
 			x: 0,
-			y: barPreset
+			y: barPreset,
+			height: barPreset
 		};
 
 		var newg = svg.append("g")
@@ -74,11 +75,11 @@ define(['d3'], function(d3) {
 				return d.x;
 			})
 			.attr("y", function(d) {
-				return d.y;
+				if (!isUp) return 0;
+				return chartHeight - d.height;
 			})
 			.attr("height", function(d) {
-				barHeight = chartHeight - d.y;
-				return barHeight;
+				return d.height;
 			})
 			.attr("width", barWidth)
 			// .attr("fill", "blue")
@@ -88,7 +89,8 @@ define(['d3'], function(d3) {
 		var dragArea = newg.append("rect")
 			.attr("x", 0)
 			.attr("y", function(d) {
-				return d.y - (dragAreaH / 2);
+				if (!isUp) return d.height - dragAreaH/2;
+				return chartHeight - d.height - dragAreaH/2;
 			})
 			.attr("height", dragAreaH)
 			.attr("id", "dragArea")
@@ -101,7 +103,9 @@ define(['d3'], function(d3) {
 		var arrow = newg.append("rect")
 			.attr("id", "arrow")
 			.attr("transform", function(d) {
-				return "translate(" + (barWidth / 2 - arrowsize) + "," + (d.y) + ") rotate(-45)";
+				var height = d.height;
+				if (!isUp) height = chartHeight - d.height;
+				return "translate(" + (barWidth / 2 - arrowsize) + "," + (height) + ") rotate(-45)";
 			})
 			.attr("height", arrowsize)
 			.attr("width", arrowsize)
@@ -113,35 +117,41 @@ define(['d3'], function(d3) {
 
 		function tdragresize(d) {
 			d.y = Math.max(0,Math.min(d3.event.y, chartHeight));
+			d.height = isUp ? chartHeight - d.y : d.y;
 			redrawBar();
 		}
 
 		function redrawBar() {
 			dragrect
 				.attr("y", function(d) {
-					return d.y;
+					if (!isUp) return 0;
+					return chartHeight - d.height;
 				})
 				.attr("height", function(d) {
-					barHeight = chartHeight - d.y;
-					return barHeight;
+					return d.height;
 				});
 			arrow
 				.attr("transform", function(d) {
-					return "translate(" + (barWidth / 2 - arrowsize) + "," + (d.y) + ") rotate(-45)";
+					var height = d.height;
+					if (isUp) height = chartHeight - d.height;
+					return "translate(" + (barWidth / 2 - arrowsize) + "," + (height) + ") rotate(-45)";
 				});
 			dragArea.attr("y", function(d) {
-				return d.y - (dragAreaH / 2);
+				if (!isUp) return d.height - dragAreaH/2;
+				return chartHeight - d.height - dragAreaH/2;
 			});
 		}
 
-		this.reset = function() {
+		this.reset = function(aIsUp) {
+			isUp = aIsUp;
 			svg.select("#ansBar").remove();
 			barData.y = barPreset;
+			barData.height = barPreset;
 			redrawBar();
 		};
 
 		this.getCents = function() {
-			return yScale.invert(chartHeight - barData.y);
+			return yScale.invert(barData.height);
 		};
 
 		this.showCents = function(answer) {
@@ -149,7 +159,7 @@ define(['d3'], function(d3) {
 			var ansRect = svg.append("rect")
 				.attr("id", "ansBar")
 				.attr("x", 0)
-				.attr("y", chartHeight)
+				.attr("y", isUp ? chartHeight : 0)
 				.attr("width", chartWidth)
 				.attr("opacity", 0.3)
 				// .attr("fill", "green")
@@ -159,7 +169,7 @@ define(['d3'], function(d3) {
 				.duration(1000) // this is 1s
 				.delay(100)
 				.ease("elastic")
-				.attr("y", chartHeight - yScale(Math.abs(answer)))
+				.attr("y", isUp ? chartHeight - yScale(Math.abs(answer)) : 0)
 				.attr("height", yScale(Math.abs(answer)));
 		};
 	};

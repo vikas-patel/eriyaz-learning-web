@@ -6,5 +6,6 @@
  * which avails each service of, for example, the `config` constants object.
  **/
 define([
-	'./login-signup.service'
+	'./login-signup.service',
+	'./score-service'
 	], function () {});

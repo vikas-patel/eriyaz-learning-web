@@ -133,7 +133,7 @@ define(['./module', 'jquery', './exercises', 'mic-util', 'currentaudiocontext', 
 				$scope.showOverlay = true;
 				$scope.$apply();
 				// save score at server.
-				ScoreService.save($scope.myExercise.name, $scope.totalScore);
+				ScoreService.save("alankar", $scope.myExercise.name, $scope.totalScore);
 			})
 
 			function init() {

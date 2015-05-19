@@ -18,32 +18,34 @@ define(['./module', './problem-gen', './display', 'webaudioplayer', 'currentaudi
         var playTime = 1000;
         var currLoopId;
 
-        app.controller('UpOrDownCtrl', function($scope) {
-
-
+        app.controller('UpOrDownCtrl', function($scope, ScoreService) {
             $scope.levels = levels;
-            $scope.selectedLevelIdx = 0;
+            $scope.level = levels[0];
             $scope.testNotes = [1,2];
             var display = new Display();
 
-
             $scope.right = 0;
-            $scope.total = 0;
+            $scope.count = 0;
 
-            $scope.$watch('selectedLevelIdx', function() {
-                display.showLevel(levels[$scope.selectedLevelIdx]);
-                $scope.testNotes = levels[$scope.selectedLevelIdx].testNotes;
+            $scope.$watch('level', function() {
+                display.showLevel($scope.level);
+                $scope.testNotes = $scope.level.testNotes;
                 resetScore();
             });
 
-            $scope.$watch('total', function() {
-                $scope.accuracy = $scope.right * 100 / $scope.total;
-
+            $scope.$watch('count', function() {
+                if ($scope.count == $scope.level.total) {
+                    // Display score & save
+                    $scope.score = $scope.right / $scope.count;
+                    $scope.showOverlay = true;
+                    ScoreService.save("UpOrDown", $scope.level.name, $scope.score);
+                    //resetScore();
+                }
             });
 
             $scope.newProblem = function() {
                 display.setFeedback("");
-                problem = ProblemGen.getNewProblem(levels[$scope.selectedLevelIdx]);
+                problem = ProblemGen.getNewProblem($scope.level);
                 playProblem();
             };
 
@@ -52,7 +54,7 @@ define(['./module', './problem-gen', './display', 'webaudioplayer', 'currentaudi
             };
 
             $scope.isUp = function() {
-                $scope.total++;
+                $scope.count++;
                 display.setFeedback("Wrong :(");
                 if (problem.isUp()) {
                     display.setFeedback("Right!");
@@ -61,7 +63,7 @@ define(['./module', './problem-gen', './display', 'webaudioplayer', 'currentaudi
             };
 
             $scope.isDown = function() {
-                $scope.total++;
+                $scope.count++;
                 display.setFeedback("Wrong :(");
                 if (problem.isDown()) {
                     display.setFeedback("Right!");
@@ -69,8 +71,19 @@ define(['./module', './problem-gen', './display', 'webaudioplayer', 'currentaudi
                 }
             };
 
+            $scope.closeOverlay = function() {
+                $scope.showOverlay = false;
+                resetScore();
+            };
+
+            $scope.restart = function() {
+                $scope.showOverlay = false;
+                resetScore();
+                $scope.newProblem();
+            };
+
             function resetScore() {
-                $scope.total = 0;
+                $scope.count = 0;
                 $scope.right = 0;
             }
 
