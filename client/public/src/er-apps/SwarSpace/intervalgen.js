@@ -14,7 +14,6 @@ define(['./interval'], function(Interval) {
 			}
 			var sign = isUp ? 1 : -1;
 			var freq2 = getRandomFreq(freq1, 1, sign);
-			console.log("freq1:"+freq1 + " freq2:"+freq2);
 			return new Interval(freq1, freq2);
 		}
 

@@ -28,10 +28,10 @@ define(['./module', './intervalgen', './display'], function(app, intervalGen, Di
         $scope.level = levels[0];
         $scope.levels = levels;
 
-        var display = new Display();
+        var display = new Display($scope.level.isUp);
         var intV;
         $scope.newInterval = function() {
-            display.reset();
+            display.reset($scope.level.isUp);
             intV = intervalGen.getRandomInterval($scope.level.isBaseFixed, $scope.level.isUp);
             intV.play();
         };
@@ -48,6 +48,7 @@ define(['./module', './intervalgen', './display'], function(app, intervalGen, Di
 
         $scope.$watch('level', function() {
             $scope.resetScore();
+            display.reset($scope.level.isUp);
         });
 
         $scope.checkAnswer = function() {
