@@ -21,7 +21,7 @@ define(['./module', './intervalgen', './display'], function(app, intervalGen, Di
             isUp: false,
             total: 10
         }];
-    app.controller('SwarSpaceCtrl', function($scope) {
+    app.controller('SwarSpaceCtrl', function($scope, ScoreService) {
         $scope.attempts = 0;
         $scope.accuracy = 0;
         $scope.avgAccuracy = 0;
@@ -46,9 +46,28 @@ define(['./module', './intervalgen', './display'], function(app, intervalGen, Di
             $scope.avgAccuracy = 0;
         };
 
+        $scope.closeOverlay = function() {
+            $scope.showOverlay = false;
+            $scope.resetScore();
+        };
+
+        $scope.restart = function() {
+            $scope.showOverlay = false;
+            $scope.resetScore();
+            $scope.newInterval();
+        };
+
         $scope.$watch('level', function() {
             $scope.resetScore();
             display.reset($scope.level.isUp);
+        });
+
+        $scope.$watch('attempts', function() {
+            if ($scope.attempts == $scope.level.total) {
+                // Display score & save
+                $scope.showOverlay = true;
+                ScoreService.save("SwarSpace", $scope.level.name, $scope.avgAccuracy);
+            }
         });
 
         $scope.checkAnswer = function() {
