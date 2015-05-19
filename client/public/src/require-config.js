@@ -22,6 +22,7 @@ requirejs.config({
         'mic-util': 'er-libs/mic-util',
         'pitchdetector': 'er-libs/pitchdetector',
         'intensityfilter': 'er-libs/intensityfilter',
+        'stabilitydetector': 'er-libs/stabilitydetector',
         'currentaudiocontext': 'er-libs/currentaudiocontext',
         'audiobuffer': 'er-libs/audiobuffer',
         'fft-pitch': 'ext-libs/pitchjs/pitch',
@@ -120,6 +121,14 @@ requirejs.config({
     }, {    
         name: 'voicematch',
         location: 'er-apps/VoiceMatch',
+        main: 'index'
+    }, {    
+        name: 'freestylephrases',
+        location: 'er-apps/FreestylePhrases',
+        main: 'index'
+    }, {    
+        name: 'swarmastery',
+        location: 'er-apps/SwarMastery',
         main: 'index'
     }, {
         name: 'tanpura',

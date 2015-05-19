@@ -1,4 +1,4 @@
-define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'webaudioplayer', 'pitchdetector', 'music-calc', './stabilityDetector'],
+define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'webaudioplayer', 'pitchdetector', 'music-calc', 'stabilitydetector'],
   function(app, Display, MicUtil, CurrentAudioContext, AudioBuffer, WebAudioPlayer, PitchDetector, MusicCalc, StabilityDetector) {
     var audioContext = CurrentAudioContext.getInstance();
     var player = new WebAudioPlayer(audioContext);
@@ -7,9 +7,9 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
       var rootNote;
       var playDuration = 1000;
       var timeRange = 3000;
-      var minInterval = -7;
+      var minInterval = -5;
       var maxInterval = 12;
-      var display = new Display();
+      var display = new Display(timeRange);
       var detector = PitchDetector.getDetector('wavelet', audioContext.sampleRate);
       var stabilityDetector = new StabilityDetector(unitStabilityDetected, aggStabilityDetected);
       var micStream;
@@ -66,7 +66,7 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
           setTimeout(function() {
             display.start();
             display.setFlash("Now Sing and Stabalize");
-          }, playDuration);
+          }, playDuration + 300);
         } else {
           display.setFlash("Please start Mic first.");
         }

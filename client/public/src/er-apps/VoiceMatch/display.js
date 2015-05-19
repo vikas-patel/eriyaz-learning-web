@@ -1,6 +1,6 @@
 define([], function() {
 
-	var Chart = function() {
+	var Chart = function(displayTimeRange) {
 		var margin = {
 			top: 10,
 			right: 20,
@@ -12,15 +12,13 @@ define([], function() {
 		var height = 600;
 
 		var refreshTime = 40;
-		var displayTimeRange = 3000;
-
 
 		var x = d3.time.scale()
 			.domain([0, displayTimeRange])
 			.range([0, width]);
 
 		var y = d3.scale.linear()
-			.domain([-800, 1300])
+			.domain([-500, 1300])
 			.range([height, 0]);
 
 
@@ -31,18 +29,18 @@ define([], function() {
 			.append("g")
 			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-		var notesData = [-8, -7, -5, -3, -1, 0, 2, 4, 5, 7, 9, 11, 12];
-		var labels = ['Ga', 'ma', '', 'Pa', '', 'Dha', '', 'Ni', 'Sa', '', 'Re', '', 'Ga', 'ma', '', 'Pa', '', 'Dha', '', 'Ni', 'Sa\''];
+		var notesData = [-5, -3, -1, 0, 2, 4, 5, 7, 9, 11, 12];
+		var labels = ['Pa', '', 'Dha', '', 'Ni', 'Sa', '', 'Re', '', 'Ga', 'ma', '', 'Pa', '', 'Dha', '', 'Ni', 'Sa\''];
 
 		svg.selectAll("rect.note")
 			.data(notesData)
 			.enter().append("rect")
 			.attr("class", "note")
 			.attr("y", function(d) {
-				return y(d * 100) - height / 22;
+				return y(d * 100) - height / 19;
 			})
 			.attr("x", 0)
-			.attr("height", height / 22 - 1)
+			.attr("height", height / 19 - 1)
 			.attr("width", width)
 			.attr("fill", "#fff3ef")
 			.attr("fill-opacity", 1)
@@ -61,7 +59,7 @@ define([], function() {
 			})
 			.attr("x", -25)
 			.text(function(d) {
-				return labels[d + 8];
+				return labels[d + 5];
 			});
 
 
@@ -88,7 +86,7 @@ define([], function() {
 			if (isPendingValue) {
 				var newPoint = pointGroup.append("rect")
 					.attr("x", x(tickCount * refreshTime))
-					.attr("y", y(currCents) - height / 22 / 2)
+					.attr("y", y(currCents) - height / 19 / 2)
 					.attr("width", 5)
 					.attr("height", 5);
 				points.push(newPoint);
@@ -114,8 +112,8 @@ define([], function() {
 		this.notifyUnitStable = function(interval) {
 			pointGroup.append("rect")
 				.attr("x", x(tickCount * refreshTime))
-				.attr("y", y(interval * 100) - height / 22 + 1)
-				.attr("height", height / 22 - 1)
+				.attr("y", y(interval * 100) - height / 19 + 1)
+				.attr("height", height / 19 - 1)
 				// .attr("y", y(interval * 100))
 				.attr("width", 5)
 				// .attr("height", 20)
@@ -166,8 +164,8 @@ define([], function() {
 			var playRect = svg.append("rect")
 				.attr("class", "playRect")
 				.attr("x", 0)
-				.attr("y", y(interval * 100) - height / 22)
-				.attr("height", height / 22 - 1)
+				.attr("y", y(interval * 100) - height / 19)
+				.attr("height", height / 19 - 1)
 				.attr("width", 0)
 				.attr("opacity", 0.2);
 

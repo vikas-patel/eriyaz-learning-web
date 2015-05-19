@@ -1,0 +1,53 @@
+#swarmastery {
+    .container-toplevel {
+        width: 100%;
+    }
+  
+    #chartdiv {
+      margin:1% 0 0 0;
+    }
+
+    #stabalizer {
+      width:20%;
+      // border:solid;
+      // border-width:1px;
+      float:right;
+    }
+
+    .container.settings{
+        // position:absolute;
+        // border-bottom:solid; 
+        // // border-radius:5px;
+        // border-width:1px;
+        // border-color:#E3E3E3;
+        margin: 1% 0 0 5%;
+        // padding: 1%;
+    }
+
+
+    .line {
+      fill: none;
+      stroke: #999;
+      stroke-width: 1.5px;
+    }
+
+    #mainline {
+      stroke:blue;
+    }
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #999;
+      shape-rendering: crispEdges;
+    }
+
+    #center-line {
+      stroke:#999;
+      stroke-width:1px;
+    }
+
+    .lablel {
+      font-size : 10px;
+    }
+}

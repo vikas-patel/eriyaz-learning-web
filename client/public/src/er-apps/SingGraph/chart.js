@@ -226,7 +226,7 @@ define([], function() {
 		};
 
 		this.notify = function(newValue) {
-			intervalValue = newValue;
+			intervalValue = Math.round(newValue);
 		};
 
 

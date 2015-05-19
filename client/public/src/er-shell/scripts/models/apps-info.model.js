@@ -64,7 +64,7 @@
         href: '#singgraph',
         appUrl: 'er-apps/SingGraph/main.html',
         aspectRatio: 5/3,
-        show:false
+        show:true
       }, {
         name: 'VoiceMatch',
         thumb: 'er-shell/images/voicematch.jpg',
@@ -72,6 +72,22 @@
         href: '#voicematch',
         appUrl: 'er-apps/VoiceMatch/main.html',
         aspectRatio: 68/100,
+        show:true
+      }, {
+        name: 'FreestylePhrases',
+        thumb: 'er-shell/images/freestylephrases.jpg',
+        desc: 'Practice matching your voice to the tone of the instrument.',
+        href: '#freestylephrases',
+        appUrl: 'er-apps/FreestylePhrases/main.html',
+        aspectRatio: 5/3,
+        show:true
+      }, {
+        name: 'SwarMastery',
+        thumb: 'er-shell/images/swarmastery.jpg',
+        desc: 'Practice matching your voice to the tone of the instrument.',
+        href: '#swarmastery',
+        appUrl: 'er-apps/SwarMastery/main.html',
+        aspectRatio: 2/3,
         show:true
       }];
       appsInfo.selectedIndex = -1;

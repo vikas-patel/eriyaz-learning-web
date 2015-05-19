@@ -1202,3 +1202,86 @@ core-drawer-panel:not([narrow]) #navicon {
 #voicematch button {
   font-size: 0.73em;
 }
+
+/* line 2, ../../../er-apps/FreestylePhrases/main.scss */
+#freestylephrases .container-toplevel {
+  width: 100%;
+}
+/* line 14, ../../../er-apps/FreestylePhrases/main.scss */
+#freestylephrases #chartdiv {
+  margin: 1% 0 0 0;
+}
+/* line 18, ../../../er-apps/FreestylePhrases/main.scss */
+#freestylephrases .container.settings {
+  margin: 1% 0 0 5%;
+}
+/* line 29, ../../../er-apps/FreestylePhrases/main.scss */
+#freestylephrases .line {
+  fill: none;
+  stroke: #999;
+  stroke-width: 1.5px;
+}
+/* line 35, ../../../er-apps/FreestylePhrases/main.scss */
+#freestylephrases #mainline {
+  stroke: blue;
+}
+/* line 39, ../../../er-apps/FreestylePhrases/main.scss */
+#freestylephrases .axis path,
+#freestylephrases .axis line {
+  fill: none;
+  stroke: #999;
+  shape-rendering: crispEdges;
+}
+/* line 46, ../../../er-apps/FreestylePhrases/main.scss */
+#freestylephrases #center-line {
+  stroke: #999;
+  stroke-width: 1px;
+}
+/* line 51, ../../../er-apps/FreestylePhrases/main.scss */
+#freestylephrases text {
+  font-size: 10px;
+}
+
+/* line 2, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery .container-toplevel {
+  width: 100%;
+}
+/* line 6, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery #chartdiv {
+  margin: 1% 0 0 0;
+}
+/* line 10, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery #stabalizer {
+  width: 20%;
+  float: right;
+}
+/* line 17, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery .container.settings {
+  margin: 1% 0 0 5%;
+}
+/* line 28, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery .line {
+  fill: none;
+  stroke: #999;
+  stroke-width: 1.5px;
+}
+/* line 34, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery #mainline {
+  stroke: blue;
+}
+/* line 38, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery .axis path,
+#swarmastery .axis line {
+  fill: none;
+  stroke: #999;
+  shape-rendering: crispEdges;
+}
+/* line 45, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery #center-line {
+  stroke: #999;
+  stroke-width: 1px;
+}
+/* line 50, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery .lablel {
+  font-size: 10px;
+}

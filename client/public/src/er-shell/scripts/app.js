@@ -21,8 +21,10 @@ define([
     'swarposition',
     'thatmemorizer',
     'singgraph',
-    'voicematch'
-], function (angular) {
+    'voicematch',
+    'swarmastery',
+    'freestylephrases'
+], function(angular) {
     'use strict';
 
     return angular.module('app', [
@@ -41,7 +43,9 @@ define([
         'thatmemorizer',
         'singgraph',
         'voicematch',
-        
+        'freestylephrases',
+        'swarmastery',
+
         'ngResource',
         'angulartics',
         'angulartics.google.analytics',
