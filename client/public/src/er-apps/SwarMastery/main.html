@@ -1,11 +1,12 @@
 <div id="swarmastery" ng-controller="SwarMasteryCtrl as ctrl">
     <div class="container-toplevel">
-            <div>
             <paper-icon-button icon="settings-voice" ng-click="startMic()"></paper-icon-button>
             <paper-icon-button icon="settings" ng-click="showSettings()"></paper-icon-button>
             <button ng-click="newNote()">New</button>
-            <paper-dialog opened="{{isSettings}}" layered="false" opened="true" id="setting-dialog">
-            <a class="close-button" ng-click="isSettings=false;">x</a>
+            <div id="score"> Score: {{correct}}/{{total}}</div>
+
+            <paper-dialog autoCloseDisabled opened="{{isSettings}}" layered="false" opened="true" id="setting-dialog">
+                <a class="close-button" ng-click="isSettings=false;">x</a>
                 <h4>Select Notes</h4>
                 <ul>
                     <li ng-repeat="note in notes"> 
@@ -13,6 +14,7 @@
                     </li>
                 </ul>  
             </paper-dialog>
+            
             <div id="scale">
                 Scale:
                 <select ng-model="rootNote">
@@ -30,11 +32,12 @@
                     <option value="58">Kali 5 (A#)</option>
                 </select>   
             </div>  
-        </div>
-            </div>
-                <div id="stabalizer"></div>
+    </div>
+    <div id="display">
+        <div id="stabalizer"></div>
 
-                <div id="main-display"></div>
+        <div id="main-display"></div>
+    </div>
 
 
             

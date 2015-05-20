@@ -1,11 +1,18 @@
 define([], function() {
 
 	var StabalizerView = function() {
+		// var margin = {
+		// 	top: 10,
+		// 	right: 30,
+		// 	bottom: 10,
+		// 	left: 10
+		// };
+
 		var margin = {
-			top: 10,
-			right: 30,
-			bottom: 10,
-			left: 10
+			top: 0,
+			right: 0,
+			bottom: 0,
+			left: 0
 		};
 
 		var width = 80;
@@ -20,7 +27,7 @@ define([], function() {
 			.range([0, width]);
 
 		var y = d3.scale.linear()
-			.domain([-20, 120])
+			.domain([-100, 200])
 			.range([height, 0]);
 
 		var xAxis = d3.svg.axis()
@@ -36,10 +43,9 @@ define([], function() {
 		var yAxis = d3.svg.axis()
 			.scale(y)
 			.orient("right")
-			.ticks(2)
+			.ticks(3)
 			.tickSize(-width)
 			.tickSubdivide(true);
-
 
 
 		var svg = d3.select("#stabalizer").append("svg")
@@ -51,16 +57,29 @@ define([], function() {
 
 		// var line = d3.svg.line();
 
+		svg.append("rect")
+			.attr("x", 0)
+			.attr("y", 0)
+			.attr("width", width)
+			.attr("height", height)
+			.attr("fill", "white");
 
-		svg.append("g")
-			.attr("class", "x axis")
-			.attr("transform", "translate(0," + y(0) + ")")
-			.call(xAxis);
+		svg.append("rect")
+			.attr("x", 0)
+			.attr("y", height / 3)
+			.attr("width", width)
+			.attr("height", height / 3)
+			.attr("fill", "lightgreen");
 
-		var yAxisGroup = svg.append("g")
-			.attr("class", "y axis")
-			.attr("transform", "translate(" + width + ",0)")
-			.call(yAxis);
+		// svg.append("g")
+		// 	.attr("class", "x axis")
+		// 	.attr("transform", "translate(0," + y(0) + ")")
+		// 	.call(xAxis);
+
+		// var yAxisGroup = svg.append("g")
+		// 	.attr("class", "y axis")
+		// 	.attr("transform", "translate(" + width + ",0)")
+		// 	.call(yAxis);
 
 
 
@@ -83,24 +102,26 @@ define([], function() {
 					.transition()
 					.duration(refreshTime)
 					.ease("linear")
-					.attr("transform", "translate(" + x(displayTimeRange - tickCount * refreshTime) + ","+ calcTranslate(latestStable) + ")");
+					.attr("transform", "translate(" + x(displayTimeRange - tickCount * refreshTime) + "," + calcTranslate(latestStable) + ")");
 				if (isPendingValue && points.length > Math.round(displayTimeRange / refreshTime)) {
 					var oldestPoint = points.shift();
 					oldestPoint.remove();
 				}
+			} else {
+				pointGroup
+					.transition()
+					.duration(refreshTime)
+					.ease("linear")
+					.attr("transform", "translate(0," + calcTranslate(latestStable) + ")");
 			}
 
 			if (isPendingValue) {
 				var newPoint = pointGroup.append("rect")
 					.attr("x", x(tickCount * refreshTime))
-					.attr("y", y(currCents) - height / 19 / 2)
+					.attr("y", y(currCents) + 2)
 					.attr("width", 2)
 					.attr("height", 2);
-				// pointGroup
-				// 	.transition()
-				// 	.duration(refreshTime)
-				// 	.ease("linear")
-				// 	.attr("transform", "translate(" + x(displayTimeRange - tickCount * refreshTime) + ","+ -y(currCents) + ")");
+
 
 				points.push(newPoint);
 				isPendingValue = false;
@@ -109,7 +130,7 @@ define([], function() {
 		};
 
 		function calcTranslate(cents) {
-			return -1*y(cents - cents%100);
+			return -1 * y(cents - cents % 100 + 100);
 		}
 
 		var tickId;
@@ -129,14 +150,14 @@ define([], function() {
 		this.notifyUnitStable = function(interval) {
 			pointGroup.append("rect")
 				.attr("x", x(tickCount * refreshTime))
-				.attr("y", y(interval * 100) - height / 19 + 1)
-				.attr("height", 15)
+				.attr("y", y(interval * 100))
+				.attr("height", height / 3)
 				// .attr("y", y(interval * 100))
 				.attr("width", 5)
 				// .attr("height", 20)
 				.attr("fill", "green")
 				.attr("opacity", 0.5);
-				latestStable = interval * 100;
+			latestStable = interval * 100;
 		};
 		this.notifyInterval = function(newValue) {
 			currCents = newValue * 100;

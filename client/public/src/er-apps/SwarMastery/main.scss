@@ -7,11 +7,20 @@
       margin:1% 0 0 0;
     }
 
+    #display {
+      position:relative;
+    }
     #stabalizer {
-      width:20%;
+      width:40%;
       // border:solid;
       // border-width:1px;
       float:right;
+      position:absolute;
+      top:5%;
+      right:5%;
+      svg {
+         border-radius:5px;
+       }
     }
 
     .container.settings{

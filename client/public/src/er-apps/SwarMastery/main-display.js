@@ -8,7 +8,7 @@ define([], function() {
 			left: 30
 		};
 
-		var chartWidth = 400,
+		var chartWidth = 300,
 			chartHeight = 400;
 
 		var slotsData = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
@@ -72,8 +72,8 @@ define([], function() {
 			svg.append("text")
 				.attr("id", "flash")
 				.attr("font-size", 25)
-				.attr("x", width / 2)
-				.attr("y", height / 2)
+				.attr("x", chartWidth / 2)
+				.attr("y", chartHeight / 2)
 				.attr("text-anchor", "middle")
 				.text(message);
 		};
@@ -136,15 +136,15 @@ define([], function() {
 			var playRect = svg.append("rect")
 				.attr("class", "playRect")
 				.attr("x", 0)
-				.attr("y", y(interval * 100) - height / 19)
-				.attr("height", height / 19 - 1)
+				.attr("y", yScale(interval) - chartHeight / 13)
+				.attr("height", chartHeight / 13 - 1)
 				.attr("width", 0)
 				.attr("opacity", 0.2);
 
 			playRect
 				.transition()
 				.duration(duration)
-				.attr("width", width);
+				.attr("width", chartWidth);
 		};
 	};
 
