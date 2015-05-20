@@ -10,7 +10,8 @@ define([], function() {
 		xlarge: [580, 1220],
 		large: [260, 580],
 		medium: [100, 260],
-		small: [20, 100]
+		small: [45, 100],
+		xsmall: [20, 45]
 	};
 
 	return [{
@@ -92,6 +93,14 @@ define([], function() {
 		numNotes: 3,
 		testNotes: [1, 3],
 		color: colors.green,
+		total: 20
+	},  {
+		desc: "extra small interval",
+		name:"level 11",
+		interval: intervals.xsmall,
+		numNotes: 2,
+		testNotes: [1, 2],
+		color: colors.blue,
 		total: 20
 	}];
 });
