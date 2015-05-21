@@ -7,47 +7,56 @@ define(['./module', './display', './problem','./levels', 'melody', 'note', 'weba
         var currLoopId = -1;
         var scale = [0, 2, 4, 5, 7, 9, 11, 12];
 
-        app.controller('SwarPositionCtrl', function($scope) {
-            $scope.total = 0;
-            $scope.correct = 0;
+        app.controller('SwarPositionCtrl', function($scope, ScoreService) {
+            $scope.count = 0;
+            $scope.right = 0;
             $scope.levels = levels;
-            $scope.selectedLevelIdx = 0;
+            $scope.level = levels[0];
 
-            $scope.$watch('selectedLevelIdx', function() {
-                display.showLevel(levels[$scope.selectedLevelIdx]);
+            $scope.$watch('level', function() {
+                display.showLevel($scope.level);
                 resetScore();
                 display.reset();
+            });
+
+            $scope.$watch('count', function() {
+                if ($scope.count == $scope.level.total) {
+                    // Display score & save
+                    $scope.score = $scope.right / $scope.count;
+                    $scope.showOverlay = true;
+                    ScoreService.save("SwarPosition", $scope.level.name, $scope.score);
+                }
             });
             
             $scope.isLooping = function() {
                 return currLoopId >= 0;
             };
 
+            $scope.checkAnswer = function() {
+                cancelCurrentLoop();
+                playSequence(function() {
+                    display.setFeedback(display.getSelected() === problem.getDegree());
+                    $scope.count++;
+                    if(display.getSelected() === problem.getDegree())
+                        $scope.right++;
+                    $scope.$apply();
+                });
+            };
 
-            var display = new Display(scale);
+
+            var display = new Display(scale, $scope.checkAnswer);
             var problem;
             var tracker = 0;
             $scope.newInterval = function() {
                 cancelCurrentLoop();
                 display.reset();
-                problem = Problem.getNewProblem(scale,levels[$scope.selectedLevelIdx]);
+                problem = Problem.getNewProblem(scale,$scope.level);
                 playInterval();
             };
 
             $scope.repeatPlay = function() {
                 cancelCurrentLoop();
                 playInterval();
-            };
-
-            $scope.checkAnswer = function() {
-                cancelCurrentLoop();
-                playSequence(function() {
-                    display.setFeedback(display.getSelected() === problem.getDegree());
-                    $scope.total++;
-                    if(display.getSelected() === problem.getDegree())
-                        $scope.correct++;
-                    $scope.$apply();
-                });
             };
 
             function playInterval() {
@@ -80,8 +89,19 @@ define(['./module', './display', './problem','./levels', 'melody', 'note', 'weba
             }
 
             function resetScore() {
-                $scope.total = 0;
+                $scope.count = 0;
                 $scope.right = 0;
             }
+
+            $scope.closeOverlay = function() {
+                $scope.showOverlay = false;
+                resetScore();
+            };
+
+            $scope.restart = function() {
+                $scope.showOverlay = false;
+                resetScore();
+                $scope.newInterval();
+            };
         });
     });
