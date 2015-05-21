@@ -3,7 +3,7 @@ define([], function() {
 			name: "Level 1",
 			direction: "asc",
 			notes: [4, 7, 11],
-			total: 2
+			total: 10
 		}, {
 			name: "Level 2",
 			direction: "asc",
