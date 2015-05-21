@@ -12,6 +12,7 @@
         var tanpura = null;
         var rootNote;
         var problemInterval;
+        var micStream;
 
         var updatePitch = function(data) {
           var pitch = detector.findPitch(data);
@@ -71,6 +72,7 @@
           if (!$scope.signalOn) {
             MicUtil.getMicAudioStream(
               function(stream) {
+                micStream = stream;
                 buffer = new AudioBuffer(audioContext, stream, 2048);
                 buffer.addProcessor(updatePitch);
                 $scope.signalOn = true;
