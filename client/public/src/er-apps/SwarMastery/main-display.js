@@ -51,10 +51,10 @@ define([], function() {
 				return labelsData[d];
 			});
 		
-		this.changeSettings = function(settigs) {
+		this.changeSettings = function(selectedNotes) {
 			svg.selectAll("rect.note").remove();
 			svg.selectAll("rect.note")
-				.data(settigs.selectedNotes)
+				.data(selectedNotes)
 				.enter().append("rect")
 				.attr("class", "note")
 				.attr("y", function(d) {
@@ -122,8 +122,9 @@ define([], function() {
 				.attr("fill-opacity",1);
 			group2.append("text")
 				.attr("text-anchor", "middle")
+				.attr("alignment-baseline","middle")
 				.attr("x", chartWidth / 2)
-				.attr("y", chartHeight / 26 + 4)
+				.attr("y", chartHeight / 26)
 				.attr("font-size", 40)
 				.text(labelsData[interval]);
 

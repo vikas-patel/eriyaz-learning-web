@@ -1320,45 +1320,72 @@ core-drawer-panel:not([narrow]) #navicon {
 #swarmastery #display {
   position: relative;
 }
-/* line 13, ../../../er-apps/SwarMastery/main.scss */
+/* line 15, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery #main-display rect.slot {
+  fill: #d3e5e0;
+}
+/* line 19, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery #main-display rect.note {
+  fill: #B8DBD3;
+}
+/* line 24, ../../../er-apps/SwarMastery/main.scss */
 #swarmastery #stabalizer {
   width: 40%;
   float: right;
   position: absolute;
   top: 5%;
-  right: 5%;
+  right: 6%;
 }
-/* line 21, ../../../er-apps/SwarMastery/main.scss */
+/* line 32, ../../../er-apps/SwarMastery/main.scss */
 #swarmastery #stabalizer svg {
   border-radius: 5px;
 }
-/* line 26, ../../../er-apps/SwarMastery/main.scss */
+/* line 36, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery #stabalizer #backdrop {
+  fill: #eae6d0;
+}
+/* line 40, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery #stabalizer #refbar {
+  fill: #e0ddce;
+  border: solid;
+  border: 1px;
+}
+/* line 47, ../../../er-apps/SwarMastery/main.scss */
 #swarmastery .container.settings {
   margin: 1% 0 0 5%;
 }
-/* line 37, ../../../er-apps/SwarMastery/main.scss */
-#swarmastery .line {
-  fill: none;
-  stroke: #999;
-  stroke-width: 1.5px;
+/* line 57, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery #score {
+  float: right;
 }
-/* line 43, ../../../er-apps/SwarMastery/main.scss */
-#swarmastery #mainline {
-  stroke: blue;
+/* line 61, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery #buttons {
+  margin-left: 13px;
 }
-/* line 47, ../../../er-apps/SwarMastery/main.scss */
-#swarmastery .axis path,
-#swarmastery .axis line {
-  fill: none;
-  stroke: #999;
-  shape-rendering: crispEdges;
+/* line 64, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery h4 {
+  font-weight: bold;
+  float: left;
 }
-/* line 54, ../../../er-apps/SwarMastery/main.scss */
-#swarmastery #center-line {
-  stroke: #999;
-  stroke-width: 1px;
+/* line 69, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery .close-button {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  color: black;
+  text-decoration: none;
+  font-size: 1.5em;
+  font-weight: 300;
 }
-/* line 59, ../../../er-apps/SwarMastery/main.scss */
+/* line 80, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery .close-button:hover {
+  cursor: pointer;
+  cursor: hand;
+}
+/* line 87, ../../../er-apps/SwarMastery/main.scss */
 #swarmastery .lablel {
   font-size: 10px;
 }

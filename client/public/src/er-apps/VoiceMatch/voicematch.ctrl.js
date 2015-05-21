@@ -85,12 +85,12 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
         display.stop();
         display.setFlash("Stable Tone Detected!");
         setTimeout(function() {
-          player.playNote(MusicCalc.midiNumToFreq(rootNote + interval), playDuration);
           display.setFlash("You Sung..");
+          player.playNote(MusicCalc.midiNumToFreq(rootNote + interval), playDuration);
           display.playAnimate(interval, playDuration);
           setTimeout(function() {
-            player.playNote(MusicCalc.midiNumToFreq(currentNote), playDuration);
             display.setFlash("Actual..");
+            player.playNote(MusicCalc.midiNumToFreq(currentNote), playDuration);
             display.playAnimate(currentNote - rootNote, playDuration);
             setTimeout(function() {
               $scope.total++;

@@ -3,9 +3,8 @@
       var audioContext = CurrentAudioContext.getInstance();
       var player = new WebAudioPlayer(audioContext);
 
-      app.controller('SwarMasteryCtrl', function($scope, PitchModel, SettingsModel) {
+      app.controller('SwarMasteryCtrl', function($scope, PitchModel) {
         var mainDisplay = new MainDisplay();
-        mainDisplay.changeSettings(SettingsModel);
         var stabView = new StabalizerView();
         var detector = PitchDetector.getDetector('wavelet', audioContext.sampleRate);
         var stabilityDetector = new StabilityDetector(unitStabilityDetected, aggStabilityDetected);
@@ -19,16 +18,22 @@
           if (pitch !== 0) {
             PitchModel.currentFreq = pitch;
             PitchModel.currentInterval = MusicCalc.getCents(PitchModel.rootFreq, PitchModel.currentFreq) / 100;
-            stabView.notifyInterval(PitchModel.currentInterval);
-            stabilityDetector.push(PitchModel.currentInterval);
+            if ($scope.isPending) {
+              stabView.notifyInterval(PitchModel.currentInterval);
+              stabilityDetector.push(PitchModel.currentInterval);
+            }
           }
         };
+
 
         $scope.signalOn = false;
         $scope.notes = ["S", "r", "R", "g", "G", "m", "M", "P", "d", "D", "n", "N", "S'"];
         $scope.rootNote = 56;
         $scope.isSettings = false;
         $scope.selected = [true, false, true, false, true, true, false, true, false, true, false, true, true];
+        $scope.isPending = false;
+        $scope.total = 0;
+        $scope.right = 0;
 
         $scope.$watch('rootNote', function() {
           rootNote = parseInt($scope.rootNote);
@@ -47,6 +52,15 @@
           tanpura.setTuning($scope.rootNote, 7, progressListener);
         });
 
+        $scope.$watchCollection('selected', function() {
+          var selIndices = [];
+          $scope.selected.forEach(function(element, index) {
+            if (element) {
+              selIndices.push(index);
+            }
+          });
+          mainDisplay.changeSettings(selIndices);
+        });
 
         $scope.$on("$destroy", function() {
           tanpura.stop();
@@ -60,6 +74,7 @@
                 buffer = new AudioBuffer(audioContext, stream, 2048);
                 buffer.addProcessor(updatePitch);
                 $scope.signalOn = true;
+                $scope.$apply();
               }
             );
           }
@@ -70,15 +85,20 @@
         };
 
         $scope.newNote = function() {
-          mainDisplay.clear();
-          stabView.clear();
-          var randomNote;
-          while (!$scope.selected[randomNote]) {
-            randomNote = Math.round(Math.random() * 12.9);
+          if ($scope.signalOn) {
+            mainDisplay.clear();
+            stabView.clear();
+            var randomNote;
+            while (!$scope.selected[randomNote]) {
+              randomNote = Math.round(Math.random() * 12.9);
+            }
+            problemInterval = randomNote;
+            mainDisplay.markQuestion(problemInterval);
+            $scope.isPending = true;
+            stabView.start();
+          } else {
+            mainDisplay.setFlash("Please start Mic first.");
           }
-          problemInterval = randomNote;
-          mainDisplay.markQuestion(problemInterval);
-          stabView.start();
         };
 
         function unitStabilityDetected(interval) {
@@ -88,10 +108,13 @@
 
 
         function aggStabilityDetected(interval) {
-          var ansInterval = ((interval%12)+12)%12;
+          var ansInterval = ((interval % 12) + 12) % 12;
+          //small hack for S'
+          if (problemInterval === 12 && ansInterval === 0) {
+            ansInterval = 12;
+          }
           stabView.stop();
           mainDisplay.clear();
-          console.log(ansInterval);
           setTimeout(function() {
             mainDisplay.setFlash("You Sung..");
             player.playNote(MusicCalc.midiNumToFreq(rootNote + ansInterval), playDuration);
@@ -99,7 +122,6 @@
             setTimeout(function() {
               mainDisplay.setFlash("Actual..");
               player.playNote(MusicCalc.midiNumToFreq(rootNote + problemInterval), playDuration);
-              console.log(problemInterval);
               mainDisplay.playAnimate(problemInterval, playDuration);
               setTimeout(function() {
                 $scope.total++;

@@ -64,7 +64,7 @@
         href: '#singgraph',
         appUrl: 'er-apps/SingGraph/main.html',
         aspectRatio: 5/3,
-        show:true
+        show:false
       }, {
         name: 'VoiceMatch',
         thumb: 'er-shell/images/voicematch.jpg',
@@ -80,7 +80,7 @@
         href: '#freestylephrases',
         appUrl: 'er-apps/FreestylePhrases/main.html',
         aspectRatio: 5/3,
-        show:true
+        show:false
       }, {
         name: 'SwarMastery',
         thumb: 'er-shell/images/swarmastery.jpg',

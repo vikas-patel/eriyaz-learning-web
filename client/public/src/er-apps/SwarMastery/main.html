@@ -2,8 +2,7 @@
     <div class="container-toplevel">
             <paper-icon-button icon="settings-voice" ng-click="startMic()"></paper-icon-button>
             <paper-icon-button icon="settings" ng-click="showSettings()"></paper-icon-button>
-            <button ng-click="newNote()">New</button>
-            <div id="score"> Score: {{correct}}/{{total}}</div>
+            <div id="score"> Score: {{right}}/{{total}}</div>
 
             <paper-dialog autoCloseDisabled opened="{{isSettings}}" layered="false" opened="true" id="setting-dialog">
                 <a class="close-button" ng-click="isSettings=false;">x</a>
@@ -15,7 +14,7 @@
                 </ul>  
             </paper-dialog>
             
-            <div id="scale">
+            <div id="buttons">
                 Scale:
                 <select ng-model="rootNote">
                     <option value="47">Safed 7 (B)</option>
@@ -31,6 +30,7 @@
                     <option value="57">Safed 6 (A)</option>
                     <option value="58">Kali 5 (A#)</option>
                 </select>   
+                <button ng-click="newNote()"  ng-disabled="isPending || !signalOn">New</button>
             </div>  
     </div>
     <div id="display">

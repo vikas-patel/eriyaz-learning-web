@@ -58,6 +58,7 @@ define([], function() {
 		// var line = d3.svg.line();
 
 		svg.append("rect")
+		    .attr("id","backdrop")
 			.attr("x", 0)
 			.attr("y", 0)
 			.attr("width", width)
@@ -65,6 +66,7 @@ define([], function() {
 			.attr("fill", "white");
 
 		svg.append("rect")
+		    .attr("id","refbar")
 			.attr("x", 0)
 			.attr("y", height / 3)
 			.attr("width", width)

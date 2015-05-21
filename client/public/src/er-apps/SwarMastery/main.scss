@@ -10,6 +10,17 @@
     #display {
       position:relative;
     }
+
+    #main-display {
+      rect.slot {
+        fill:#d3e5e0;
+      }
+
+      rect.note {
+        fill:#B8DBD3;
+      }
+    }
+
     #stabalizer {
       width:40%;
       // border:solid;
@@ -17,9 +28,17 @@
       float:right;
       position:absolute;
       top:5%;
-      right:5%;
+      right:6%;
       svg {
          border-radius:5px;
+       }
+
+       #backdrop {
+        fill: #eae6d0
+       }
+
+       #refbar {
+        fill:#e0ddce;
        }
     }
 
@@ -33,28 +52,35 @@
         // padding: 1%;
     }
 
-
-    .line {
-      fill: none;
-      stroke: #999;
-      stroke-width: 1.5px;
+    #score {
+      float:right;
     }
 
-    #mainline {
-      stroke:blue;
+    #buttons {
+      margin-left:13px;
+    }
+    h4 {
+      font-weight: bold;
+      float:left;
     }
 
-    .axis path,
-    .axis line {
-      fill: none;
-      stroke: #999;
-      shape-rendering: crispEdges;
+    .close-button {
+      position:absolute;
+      top:0px;
+      right:0px;
+      width:40px;
+      height:40px;
+      text-align:center;
+      color:black;
+      text-decoration : none;
+      font-size : 1.5em;
+      font-weight : 300;
+      &:hover {
+        cursor:pointer;
+        cursor:hand;
+      }
     }
-
-    #center-line {
-      stroke:#999;
-      stroke-width:1px;
-    }
+    
 
     .lablel {
       font-size : 10px;
