@@ -23,6 +23,9 @@ define(['./interval'], function(Interval) {
 
 		function getRandomCents() {
 			var random = Math.floor(Math.random() * 1200);
+			if(random < 50) {
+				random = getRandomCents();
+			}
 			return random;
 		}
 	};
