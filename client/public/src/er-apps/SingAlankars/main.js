@@ -9,6 +9,7 @@ define(['./module', 'jquery', './exercises', 'mic-util', 'currentaudiocontext', 
 		var buffer;
 		var maxNotes = 5;
 		var tanpura;
+		var renderTimeShift = 70;
 		app.controller('SingAlankarsCtrl', function($scope, $rootScope, ScoreService, ExerciseService, User, $window) {
 			init();
 			// Load Exercises
@@ -166,7 +167,7 @@ define(['./module', 'jquery', './exercises', 'mic-util', 'currentaudiocontext', 
 				var waveletFreq = detector.findPitch(data);
 				if (waveletFreq == 0) return;
 				currInterval = Math.round(1200 * (Math.log(waveletFreq / $scope.rootFreq) / Math.log(2))) / 100;
-				var renderedTime = $scope.chart.getTimeRendered();
+				var renderedTime = $scope.chart.getTimeRendered() - renderTimeShift;
 				var expNote = $scope.chart.exerciseNote(renderedTime);
 				// don't update score; break, mid break or offset time.
 				if (expNote < 0) return;
