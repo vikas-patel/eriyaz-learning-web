@@ -23,8 +23,39 @@
           }
         };
 
-        function getPitchData() {
+        function concatBuffers() {
           console.log(buffArray);
+          for(var i=0;i<buffArray.length;i++) {
+            (function(index) {
+            console.log(index);
+            console.log(buffArray.indexOf(buffArray[index]));
+            console.log(buffArray[index]);
+
+          })(i);
+          }
+          var concatenatedArray = new Float32Array(buffArray.length * 256);
+          var offset = 0;
+          for (var j = 0; j < buffArray.length; j++) {
+            (function(buffer) {
+            concatenatedArray.set(buffer, offset);
+            // console.log(buffer);
+            })(buffArray[j]);
+            offset += buffArray[j].length;
+          }
+          var outBuffer = audioContext.createBuffer(1, concatenatedArray.length, audioContext.sampleRate);
+          var l = outBuffer.getChannelData(0);
+          // console.log(concatenatedArray);
+          l.set(concatenatedArray);
+          // console.log(l);
+          var source = audioContext.createBufferSource();
+          source.buffer = outBuffer;
+          source.connect(audioContext.destination);
+          source.start();
+          // display.plotAudioData(l);
+        }
+
+        function getPitchData() {
+          // console.log(buffArray);
           for (var j = 0; j < buffArray.length - 8; j++) {
             (function(idxj) {
               // console.log(idxj);
@@ -70,6 +101,8 @@
         };
         $scope.stop = function() {
           isStarted = false;
+          // setTimeout(function() {},5000);
+          concatBuffers();
           getPitchData();
           display.plotData(pitchArray);
         };

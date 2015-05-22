@@ -92,13 +92,50 @@ define([], function() {
 					return yScale(d);
 				}).attr("width",2)
 				.attr("height",2);
-			console.log(data);
-			console.log(data.length);
+			// console.log(data);
+			// console.log(data.length);
 		};
+
+		this.plotAudioData = function(data1) {
+			var data=[];
+			for(var i=0;i<data1.length;i++) {
+				data.push(data1[i]);
+			}
+			console.log(data);
+			var xScale1 = d3.scale.linear()
+			.domain([0,data.length])
+			.range([0,width]);
+			var yScale1 = d3.scale.linear()
+			.domain([-1, 1])
+			.range([height, 0]);
+
+			// data = [1,2,3];
+			svg.selectAll("circle")
+			.data(data)
+			.enter()
+			.append("circle")
+			.attr("r",1)
+			.attr("cx",function(d,i) {
+				return xScale1(i);
+			})
+			.attr("cy",function(d) {
+				return yScale1(d);
+			});
+
+
+			// svg.append("circle")
+			// .attr("r",20)
+			// .attr("cx",width/2)
+			// .attr("cy",height/2);
+
+		};
+
+
 
 		this.clear = function() {
 			if (pointGroup)
 				pointGroup.remove();
+			svg.selectAll("circle").remove();
 		};
 
 
