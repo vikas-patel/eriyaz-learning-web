@@ -1,6 +1,5 @@
 define(['d3'], function(d3) {
-	var Display = function(notesData) {
-
+	var Display = function(notesData, checkAnswerFn) {
 		var margin = {
 			top: 15,
 			right: 15,
@@ -71,10 +70,10 @@ define(['d3'], function(d3) {
 		function selectedNote(d) {
 			selected = d;
 			svg.select("#selector").remove();
-			createMarkedGroup()
+			createMarkedGroup("reset")
 				.attr("id","selector")
 				.attr("transform", "translate(0," + (yScale(d) - chartHeight / 13) + ")");
-			
+			checkAnswerFn();
 		}
 
 		this.markNote = function(degree) {
@@ -101,6 +100,7 @@ define(['d3'], function(d3) {
 			// .attr("opacity", 0);
 			selected = -1;
 			svg.select("rect.selector").remove();
+			svg.select("g.reset").remove();
 			svg.select("#feedback").remove();
 		};
 
@@ -197,9 +197,9 @@ define(['d3'], function(d3) {
 
 		};
 
-		function createMarkedGroup() {
+		function createMarkedGroup(css) {
 			var group = svg.append("g")
-				.attr("class", "marked");
+				.attr("class", "marked" + " " + css);
 
 			group.append("rect")
 				.attr("y", 0)
