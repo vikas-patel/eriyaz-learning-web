@@ -130,6 +130,10 @@ requirejs.config({
         name: 'swarmastery',
         location: 'er-apps/SwarMastery',
         main: 'index'
+    }, {    
+        name: 'melodicphrases',
+        location: 'er-apps/MelodicPhrases',
+        main: 'index'
     }, {
         name: 'tanpura',
         location: 'er-libs/tanpura',

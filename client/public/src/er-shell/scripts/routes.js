@@ -286,6 +286,18 @@
              resolve: {
                  onLoggedOutRedirect: checkLoginAndRedirect
              }
+         }).
+         state('melodicphrases', {
+             url: '/melodicphrases',
+             onEnter: function(UIModel, AppsInfoModel) {
+                 UIModel.uiModel.showLoginDialog = false;
+                 UIModel.uiModel.showMenu = true;
+                 AppsInfoModel.setSelected(11);
+                 UIModel.uiModel.showAppDialog = true;
+             },
+             resolve: {
+                 onLoggedOutRedirect: checkLoginAndRedirect
+             }
          });
      });
  });

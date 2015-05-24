@@ -1,0 +1,122 @@
+#melodicphrases {
+    .container-toplevel {
+        // position:relative;
+        // border-style:solid; 
+        // border-radius:5px;
+        // border-width:3px;
+        // border-color:#CCCCCC;
+        width: 100%;
+        // display:flex;
+        // flex-direction:column;
+        // align-items:space-around;
+    }
+  
+    #chartdiv {
+      margin:1% 0 0 0;
+    }
+
+    .container.settings{
+        // position:absolute;
+        // border-bottom:solid; 
+        // // border-radius:5px;
+        // border-width:1px;
+        // border-color:#E3E3E3;
+        margin: 1% 0 0 5%;
+        // padding: 1%;
+    }
+
+    button {
+      height:25px;
+      text-overflow:clip;
+    }
+    button.small {
+      width:15%;
+    }
+    button.large {
+      width:25%;
+    }
+
+    rect {
+      fill: none;
+      pointer-events: all;
+    }
+
+    #selrect {
+      fill:steelblue;
+      opacity :0.1;
+    }
+    circle.big {
+      fill: #fff;
+      stroke-opacity:0;
+      fill-opacity:.1;
+      cursor: move;
+
+      stroke: #eee;
+      stroke-width: 1.5px;
+    }
+
+    circle.small {
+      fill: steelblue;
+      stroke-opacity:0;
+      fill-opacity:1;
+      cursor: move;
+
+      stroke: #eee;
+      stroke-width: 1.5px;
+    }
+
+    circle.small.selected {
+      fill:red;
+    }
+
+    circle.big.selected {
+      fill: steelblue;
+      stroke: steelblue;
+    }
+
+    circle.ans {
+      fill:green;
+    }
+
+    #guess {
+      fill: none;
+      stroke: steelblue;
+      stroke-width: 2px;
+    }
+
+     #ans {
+      fill: none;
+      stroke: green;
+      stroke-width: 2px;
+    }
+
+
+    .axis {
+      // shape-rendering: crispEdges;
+    }
+
+    .x.axis line {
+      stroke: #ccc;
+      stroke-width: 1px;
+    }
+
+    .x.axis .minor {
+      stroke-opacity: .5;
+    }
+
+    .x.axis path {
+      // display: none;
+      fill:none;
+    }
+
+    .y.axis line, .y.axis path {
+      fill: none;
+      stroke: #ccc;
+      stroke-width: 1px;
+    }
+
+    #center-line {
+      stroke:#999;
+      stroke-width:1px;
+    }
+}

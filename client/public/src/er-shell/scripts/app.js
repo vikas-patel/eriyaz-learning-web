@@ -22,8 +22,9 @@ define([
     'thatmemorizer',
     'singgraph',
     'voicematch',
+    'freestylephrases',
     'swarmastery',
-    'freestylephrases'
+    'melodicphrases',
 ], function(angular) {
     'use strict';
 
@@ -45,6 +46,7 @@ define([
         'voicematch',
         'freestylephrases',
         'swarmastery',
+        'melodicphrases',
 
         'ngResource',
         'angulartics',

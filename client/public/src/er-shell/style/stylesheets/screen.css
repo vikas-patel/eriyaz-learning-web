@@ -2,7 +2,7 @@
  * In this file you should write your main styles. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
-/* line 5, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 5, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -24,45 +24,45 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 22, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 24, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 26, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 28, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 30, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 103, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 32, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 116, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
   display: block;
 }
@@ -112,7 +112,7 @@ body #error dd {
 /* line 1, ../sass/pages/_front.scss */
 #front {
   font-family: sans-serif;
-  background-image: url('../../images/fort.jpg?1424883674'), radial-gradient(closest-side at 35% 45%, #e02006, #f16236, #e02006);
+  background-image: url('../../images/fort.jpg?1424756334'), radial-gradient(closest-side at 35% 45%, #e02006, #f16236, #e02006);
   /* Background image is centered vertically and horizontally at all times */
   background-position: center center;
   /* Background image doesn't tile */
@@ -1353,4 +1353,107 @@ core-drawer-panel:not([narrow]) #navicon {
 /* line 85, ../../../er-apps/SwarMastery/main.scss */
 #swarmastery .lablel {
   font-size: 10px;
+}
+
+/* line 2, ../../../er-apps/MelodicPhrases/main.scss */
+#melodicphrases .container-toplevel {
+  width: 100%;
+}
+/* line 14, ../../../er-apps/MelodicPhrases/main.scss */
+#melodicphrases #chartdiv {
+  margin: 1% 0 0 0;
+}
+/* line 18, ../../../er-apps/MelodicPhrases/main.scss */
+#melodicphrases .container.settings {
+  margin: 1% 0 0 5%;
+}
+/* line 28, ../../../er-apps/MelodicPhrases/main.scss */
+#melodicphrases button {
+  height: 25px;
+  text-overflow: clip;
+}
+/* line 32, ../../../er-apps/MelodicPhrases/main.scss */
+#melodicphrases button.small {
+  width: 15%;
+}
+/* line 35, ../../../er-apps/MelodicPhrases/main.scss */
+#melodicphrases button.large {
+  width: 25%;
+}
+/* line 39, ../../../er-apps/MelodicPhrases/main.scss */
+#melodicphrases rect {
+  fill: none;
+  pointer-events: all;
+}
+/* line 44, ../../../er-apps/MelodicPhrases/main.scss */
+#melodicphrases #selrect {
+  fill: steelblue;
+  opacity: 0.1;
+}
+/* line 48, ../../../er-apps/MelodicPhrases/main.scss */
+#melodicphrases circle.big {
+  fill: #fff;
+  stroke-opacity: 0;
+  fill-opacity: .1;
+  cursor: move;
+  stroke: #eee;
+  stroke-width: 1.5px;
+}
+/* line 58, ../../../er-apps/MelodicPhrases/main.scss */
+#melodicphrases circle.small {
+  fill: steelblue;
+  stroke-opacity: 0;
+  fill-opacity: 1;
+  cursor: move;
+  stroke: #eee;
+  stroke-width: 1.5px;
+}
+/* line 68, ../../../er-apps/MelodicPhrases/main.scss */
+#melodicphrases circle.small.selected {
+  fill: red;
+}
+/* line 72, ../../../er-apps/MelodicPhrases/main.scss */
+#melodicphrases circle.big.selected {
+  fill: steelblue;
+  stroke: steelblue;
+}
+/* line 77, ../../../er-apps/MelodicPhrases/main.scss */
+#melodicphrases circle.ans {
+  fill: green;
+}
+/* line 81, ../../../er-apps/MelodicPhrases/main.scss */
+#melodicphrases #guess {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 2px;
+}
+/* line 87, ../../../er-apps/MelodicPhrases/main.scss */
+#melodicphrases #ans {
+  fill: none;
+  stroke: green;
+  stroke-width: 2px;
+}
+/* line 98, ../../../er-apps/MelodicPhrases/main.scss */
+#melodicphrases .x.axis line {
+  stroke: #ccc;
+  stroke-width: 1px;
+}
+/* line 103, ../../../er-apps/MelodicPhrases/main.scss */
+#melodicphrases .x.axis .minor {
+  stroke-opacity: .5;
+}
+/* line 107, ../../../er-apps/MelodicPhrases/main.scss */
+#melodicphrases .x.axis path {
+  fill: none;
+}
+/* line 112, ../../../er-apps/MelodicPhrases/main.scss */
+#melodicphrases .y.axis line, #melodicphrases .y.axis path {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1px;
+}
+/* line 118, ../../../er-apps/MelodicPhrases/main.scss */
+#melodicphrases #center-line {
+  stroke: #999;
+  stroke-width: 1px;
 }

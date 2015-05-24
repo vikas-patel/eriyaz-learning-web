@@ -1,0 +1,15 @@
+<div id="melodicphrases" ng-controller="MelodicPhrasesCtrl as ctrl">
+    <div class="container-toplevel">
+            <div class="container">
+                <div id="chartdiv"></div>
+            </div>
+
+            <div class="container settings">
+                Number of Notes: <select ng-model='numNotes' ng-options='opt for opt in numNotesOpts'></select><br>
+                <button class="small" ng-click="newSequence();">new</button>
+                <button class="small" ng-click="repeat();">repeat</button>
+                <button class="large" ng-click="playMyGraph();">play my graph</button>
+                <button class="large" ng-click="showAnswer();">show answer</button>
+            </div>
+        </div>
+</div>
