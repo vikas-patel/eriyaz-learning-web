@@ -41,12 +41,12 @@ define([], function() {
 			osc.stop(startTime + duration/1000);
 		};
 
-		this.playBeat = function() {
-			this.play(440, this.beatLength);
+		this.playBeat = function(delay) {
+			this.play(440, this.beatLength, delay);
 		};
 
 		this.play = function(freq, duration, delay) {
-			if (!delay) delay = 0;
+			if (!delay || delay < 0) delay = 0;
 			var osc = this.audioContext.createOscillator();
 	        osc.connect(this.audioContext.destination);
 	        osc.frequency.value = freq;
