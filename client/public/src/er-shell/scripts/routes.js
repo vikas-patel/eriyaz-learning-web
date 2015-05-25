@@ -287,8 +287,8 @@
                  onLoggedOutRedirect: checkLoginAndRedirect
              }
          }).
-         state('melodicphrases', {
-             url: '/melodicphrases',
+         state('melodygraph2', {
+             url: '/melodygraph2',
              onEnter: function(UIModel, AppsInfoModel) {
                  UIModel.uiModel.showLoginDialog = false;
                  UIModel.uiModel.showMenu = true;

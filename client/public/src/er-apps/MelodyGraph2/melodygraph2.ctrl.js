@@ -4,7 +4,7 @@ define(['./module', './melodygen', 'd3', './chart', 'webaudioplayer', 'currentau
         var audioContext = CurrentAudioContext.getInstance();
         var player = new Player(audioContext);
 
-        app.controller('MelodicPhrasesCtrl', function($scope) {
+        app.controller('MelodyGraph2Ctrl', function($scope) {
             $scope.numNotesOpts = [3, 4, 5, 6];
             $scope.numNotes = 3;
 
@@ -46,12 +46,10 @@ define(['./module', './melodygen', 'd3', './chart', 'webaudioplayer', 'currentau
 
             function dataToMelody(baseNoteNum,data) {
                 var melody1 = new Melody();
-                console.log(data);
                 melody1.addNote(Note.createFromMidiNum(baseNoteNum, data[0].duration));
                 for (var i = 1; i < data.length; i++) {
                     melody1.addNote(Note.createFromMidiNum(baseNoteNum + data[i].degree, data[i].duration));
                 }
-                console.log(melody1);
                 return melody1;
             }
         });

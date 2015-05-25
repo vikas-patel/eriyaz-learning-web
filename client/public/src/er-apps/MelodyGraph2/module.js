@@ -1,4 +1,4 @@
 define(['angular'], function (ng) {
     'use strict';
-    return ng.module('melodicphrases', []);
+    return ng.module('melodygraph2', []);
 });

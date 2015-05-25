@@ -90,11 +90,11 @@
         aspectRatio: 2/3,
         show:true
       }, {
-        name: 'MelodicPhrases',
-        thumb: 'er-shell/images/melodicphrases.jpg',
+        name: 'MelodyGraph2',
+        thumb: 'er-shell/images/melodygraph2.jpg',
         desc: 'Practice matching your voice to the tone of the instrument.',
-        href: '#melodicphrases',
-        appUrl: 'er-apps/MelodicPhrases/main.html',
+        href: '#melodygraph2',
+        appUrl: 'er-apps/MelodyGraph2/main.html',
         aspectRatio: 9/10,
         show:true
       }];

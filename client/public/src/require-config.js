@@ -131,8 +131,8 @@ requirejs.config({
         location: 'er-apps/SwarMastery',
         main: 'index'
     }, {    
-        name: 'melodicphrases',
-        location: 'er-apps/MelodicPhrases',
+        name: 'melodygraph2',
+        location: 'er-apps/MelodyGraph2',
         main: 'index'
     }, {
         name: 'tanpura',
