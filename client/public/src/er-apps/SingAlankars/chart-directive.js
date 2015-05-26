@@ -17,6 +17,7 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		this.isPlayInstrument = false;
 		this.isTransitionStopped = true;
 		this.countdownNumber = 2;
+		this.maxTempo = 60;
 	};
 	
 	ExerciseChart.prototype = Object.create(Chart.Class.prototype);
@@ -77,13 +78,15 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 	}
 
 	function countdownFn(_elapsed) {
+		var tempo = chart.$scope.tempo/chart.maxTempo;
+		var distance = _elapsed*tempo;
 		if (!chart.nextCounter) {
 			chart.nextCounter = chart.offsetTime/chart.countdownNumber;
 			chart.$scope.countdownValue = chart.countdownNumber;
 			chart.$scope.$apply();
 			return false;
 		}
-		if (_elapsed > chart.nextCounter) {
+		if (distance > chart.nextCounter) {
 			if (chart.$scope.countdownValue == "SING") {
 				chart.$scope.countdownValue = "";
 				chart.nextCounter = null;
@@ -102,22 +105,24 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 
 	function transitionFn(_elapsed) {
 		if (chart.isTransitionStopped) return true;
-		if (_elapsed > chart.duration + chart.offsetTime) {
+		var tempo = chart.$scope.tempo/chart.maxTempo;
+		var distance = _elapsed*tempo;
+		if (distance > chart.duration + chart.offsetTime) {
 			chart.$scope.$broadcast('chartOver');
 			return true;
 		}
-		chart.indicatorLine.attr("transform", "translate(" + chart.x(_elapsed/1000) +",0)");
+		chart.indicatorLine.attr("transform", "translate(" + chart.x(distance/1000) +",0)");
 		var totalDuration = (chart.duration + 2*chart.offsetTime - chart.settings.timeSpan)/(chart.duration + chart.offsetTime);
-		chart.svg.velocity.attr("transform", "translate(-" + chart.x((totalDuration*_elapsed)/1000) +",0)");
+		chart.svg.velocity.attr("transform", "translate(-" + chart.x((totalDuration*distance)/1000) +",0)");
 		if (_elapsed > chart.nextBeatTime) {
 			chart.player.playBeat();
-			chart.nextBeatTime += chart.beatDuration;
+			chart.nextBeatTime += chart.beatDuration/tempo;
 		}
 		// play instrument
-		if (chart.isPlayInstrument && _elapsed > chart.nextTick) {
+		if (chart.isPlayInstrument && distance > chart.nextTick) {
 			chart.currentNote = chart.melody.shift();
 			chart.nextTick += chart.currentNote.duration;
-			chart.player.playNote(chart.currentNote.freq, chart.currentNote.duration);
+			chart.player.playNote(chart.currentNote.freq, chart.currentNote.duration/tempo);
 		}
 		return false;
 	}
@@ -238,7 +243,7 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 	ExerciseChart.prototype.getTimeRendered = function(){
 		var d = new Date();
 		var currentTime = d.getTime();
-		return currentTime -this.startTime - this.pauseDuration;
+		return (currentTime -this.startTime - this.pauseDuration)*(this.$scope.tempo/this.maxTempo);
 	}
 	
 	ExerciseChart.prototype.exerciseNote = function(time) {

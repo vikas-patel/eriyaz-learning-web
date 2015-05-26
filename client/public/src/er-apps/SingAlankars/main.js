@@ -23,7 +23,7 @@ define(['./module', 'jquery', './exercises', 'mic-util', 'currentaudiocontext', 
 			$scope.partNumber = 0;
 			$scope.signalOn = false;
 			$scope.stopSignal = true;
-			$scope.tempo = 10;
+			$scope.tempo = 60;
 			$scope.isInstrumentProgress = false;
 			$scope.user = User.get({
 				id: $window.localStorage.userId
@@ -168,7 +168,7 @@ define(['./module', 'jquery', './exercises', 'mic-util', 'currentaudiocontext', 
 				var waveletFreq = detector.findPitch(data);
 				if (waveletFreq == 0) return;
 				currInterval = Math.round(1200 * (Math.log(waveletFreq / $scope.rootFreq) / Math.log(2))) / 100;
-				var renderedTime = $scope.chart.getTimeRendered() - renderTimeShift;
+				var renderedTime = $scope.chart.getTimeRendered() - renderTimeShift*($scope.tempo/$scope.chart.maxTempo);
 				var expNote = $scope.chart.exerciseNote(renderedTime);
 				// don't update score; break, mid break or offset time.
 				if (expNote < 0) return;

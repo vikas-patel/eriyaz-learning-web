@@ -8,7 +8,7 @@
 	  <div style="padding: 0 5px 0 0"><button ng-click="startOrPause()" ng-class="{start:operation==='start',
 				    reset:operation==='reset'||operation==='over'}"></button>
 					<button ng-click="showSettings=true">Settings</button></div>
-		<div> Tempo:</div><div><paper-slider ng-model="tempo" min="1" max="10"></paper-slider></div>
+		<div> Tempo:</div><div><paper-slider pin ng-model="tempo" min="12" max="60"></paper-slider></div>
 		<div flex></div>
 	  <div>Last Score: {{lastScore*100 | number:0}}% Total Score: {{totalScore*100 | number:0}}%</div>
 	</div>
