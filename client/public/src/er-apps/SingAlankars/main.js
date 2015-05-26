@@ -23,6 +23,7 @@ define(['./module', 'jquery', './exercises', 'mic-util', 'currentaudiocontext', 
 			$scope.partNumber = 0;
 			$scope.signalOn = false;
 			$scope.stopSignal = true;
+			$scope.tempo = 10;
 			$scope.isInstrumentProgress = false;
 			$scope.user = User.get({
 				id: $window.localStorage.userId

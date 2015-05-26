@@ -34,6 +34,7 @@ requirejs.config({
         'wavelet-pitch': 'ext-libs/waveletPitch',
         'd3': 'ext-libs/d3',
         'pitch-shift': 'ext-libs/pitch-shift',
+        'ng-polymer-elements':'ext-libs/bower_components/ng-polymer-elements/ng-polymer-elements.min',
             //'countdown' : "ext-libs/countdown"
 
 
