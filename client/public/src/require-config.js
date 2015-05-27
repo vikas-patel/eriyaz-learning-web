@@ -55,6 +55,9 @@ requirejs.config({
         'angular-ui-router': {
             deps: ['angular']
         },
+        'ng-polymer-elements' : {
+            deps:['angular']
+        },
         'angulartics': {
             deps: ['angular']
         },
