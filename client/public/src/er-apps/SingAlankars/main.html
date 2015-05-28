@@ -8,7 +8,7 @@
 	  <div style="padding: 0 5px 0 0"><button ng-click="startOrPause()" ng-class="{start:operation==='start',
 				    reset:operation==='reset'||operation==='over'}"></button>
 					<button ng-click="showSettings=true">Settings</button></div>
-		<div> Tempo:</div><div><paper-slider pin ng-model="tempo" min="12" max="60"></paper-slider></div>
+		
 		<div flex></div>
 	  <div>Last Score: {{lastScore*100 | number:0}}% Total Score: {{totalScore*100 | number:0}}%</div>
 	</div>
@@ -47,6 +47,10 @@
 			        <input type="radio" ng-checked="true" name="playInstrument" value="with" ng-model="user.settings.playInstrument"> With
 			        <input type="radio" name="playInstrument" value="before" ng-model="user.settings.playInstrument"> Before
 			        <input type="radio" name="playInstrument" value="no" ng-model="user.settings.playInstrument"> No
+			    </p>
+			    <p>
+			    	<label>Tempo: </label>
+			    	<paper-slider id="tempoSlider" pin ng-model="tempo" min="12" max="60"></paper-slider>
 			    </p>
 			    <p>
 			    	<label></label>
