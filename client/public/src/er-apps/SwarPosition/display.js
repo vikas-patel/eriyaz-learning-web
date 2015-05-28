@@ -105,6 +105,7 @@ define(['d3'], function(d3) {
 		};
 
 		this.setFeedback = function(isRight) {
+			svg.select('#feedback').remove();
 			svg.append("text")
 				.attr("id", "feedback")
 				.attr("text-anchor", "middle")
