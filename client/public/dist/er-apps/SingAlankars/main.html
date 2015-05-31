@@ -1,23 +1,21 @@
 <div id="sing-alankars" ng-controller="SingAlankarsCtrl">
 	<div ng-view></div>
-	<div class="header">
-		<div style="float: left;">
-			<select ng-model="myExercise" ng-class="{invalid:myExercise==null&&toastMessageDisplayed}"
-			ng-options="exercise.name for exercise in exercises">
-		   		<option value="">-- Select Exercise --</option>
-		    </select>
-		    <button ng-click="startOrPause()" ng-class="{start:operation==='start',
-		    reset:operation==='reset'||operation==='over'}"></button>
-			<button ng-click="showSettings=true">Settings</button>
-		</div>
-		<div style="float: right;">
-			<span>Last Score: </span><span id='lastScore'>{{lastScore*100 | number:0}}%</span>
-			<span>Total Score: </span><span id='totalScore'>{{totalScore*100 | number:0}}%</span>
-		</div>
+	<div horizontal layout center justified>
+	  <div><select ng-model="myExercise" ng-class="{invalid:myExercise==null&&toastMessageDisplayed}"
+				ng-options="exercise.name for exercise in exercises">
+			   		<option value="">-- Select Exercise --</option>
+			    </select></div>
+	  <div style="padding: 0 5px 0 0"><button ng-click="startOrPause()" ng-class="{start:operation==='start',
+				    reset:operation==='reset'||operation==='over'}"></button>
+					<button ng-click="showSettings=true">Settings</button></div>
+		
+		<div flex></div>
+	  <div>Last Score: {{lastScore*100 | number:0}}% Total Score: {{totalScore*100 | number:0}}%</div>
 	</div>
 	<div id="containerId">
 		<div ng-sing-alankars class='svg-container' id="chart-box"></div>
 	</div>
+	
 	<paper-dialog autoCloseDisabled layered="false" opened="{{showSettings}}" id="setting-dialog" heading="Settings">
 		<div id="settings" class="settings">
 			<form>
@@ -49,6 +47,10 @@
 			        <input type="radio" ng-checked="true" name="playInstrument" value="with" ng-model="user.settings.playInstrument"> With
 			        <input type="radio" name="playInstrument" value="before" ng-model="user.settings.playInstrument"> Before
 			        <input type="radio" name="playInstrument" value="no" ng-model="user.settings.playInstrument"> No
+			    </p>
+			    <p>
+			    	<label>Tempo: </label>
+			    	<paper-slider id="tempoSlider" pin ng-model="tempo" min="12" max="60"></paper-slider>
 			    </p>
 			    <p>
 			    	<label></label>

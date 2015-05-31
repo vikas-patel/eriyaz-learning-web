@@ -2,7 +2,7 @@
  * In this file you should write your main styles. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
-/* line 5, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 5, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -24,45 +24,45 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 22, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 24, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 26, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 28, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 30, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 103, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 32, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 116, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
   display: block;
 }
@@ -112,7 +112,7 @@ body #error dd {
 /* line 1, ../sass/pages/_front.scss */
 #front {
   font-family: sans-serif;
-  background-image: url('../../images/fort.jpg?1424883674'), radial-gradient(closest-side at 35% 45%, #e02006, #f16236, #e02006);
+  background-image: url('../../images/fort.jpg?1424756334'), radial-gradient(closest-side at 35% 45%, #e02006, #f16236, #e02006);
   /* Background image is centered vertically and horizontally at all times */
   background-position: center center;
   /* Background image doesn't tile */
@@ -494,6 +494,39 @@ core-drawer-panel:not([narrow]) #navicon {
   color: black;
   font-size: 1.2em;
 }
+/* line 59, ../sass/pages/_app-modal.scss */
+#appDialog #overlay, #appDialog #overlay-content {
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+/* line 71, ../sass/pages/_app-modal.scss */
+#appDialog #overlay {
+  background-color: black;
+  opacity: .7;
+}
+/* line 77, ../sass/pages/_app-modal.scss */
+#appDialog #overlay-content {
+  text-align: center;
+  color: white;
+  font-size: 1.5em;
+  height: 20%;
+  width: 50%;
+}
+/* line 84, ../sass/pages/_app-modal.scss */
+#appDialog #overlay-content .padding5 {
+  padding: 0.5em;
+}
+/* line 88, ../sass/pages/_app-modal.scss */
+#appDialog #overlay-content button {
+  font-size: 1em;
+}
 
 /* line 1, ../sass/pages/_profile.scss */
 #profile {
@@ -873,10 +906,14 @@ core-drawer-panel:not([narrow]) #navicon {
   font-size: 16px;
   margin: 0 0 0 20px;
 }
-/* line 187, ../../../er-apps/SingAlankars/main.scss */
+/* line 191, ../../../er-apps/SingAlankars/main.scss */
 #sing-alankars .settings button {
   float: right;
   font-size: 20px;
+}
+/* line 196, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars paper-slider {
+  width: 130px;
 }
 
 /* line 2, ../../../er-apps/UpOrDown/main.scss */
@@ -902,39 +939,6 @@ core-drawer-panel:not([narrow]) #navicon {
 #upordown #score {
   float: right;
   margin-right: 5px;
-}
-/* line 32, ../../../er-apps/UpOrDown/main.scss */
-#upordown #overlay, #upordown #overlay-content {
-  margin: auto;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
-}
-/* line 44, ../../../er-apps/UpOrDown/main.scss */
-#upordown #overlay {
-  background-color: black;
-  opacity: .7;
-}
-/* line 50, ../../../er-apps/UpOrDown/main.scss */
-#upordown #overlay-content {
-  text-align: center;
-  color: white;
-  font-size: 1.5em;
-  height: 20%;
-  width: 50%;
-}
-/* line 57, ../../../er-apps/UpOrDown/main.scss */
-#upordown #overlay-content .padding5 {
-  padding: 0.5em;
-}
-/* line 61, ../../../er-apps/UpOrDown/main.scss */
-#upordown #overlay-content button {
-  font-size: 1em;
 }
 
 /* line 2, ../../../er-apps/MelodyGraph/main.scss */
@@ -1078,39 +1082,6 @@ core-drawer-panel:not([narrow]) #navicon {
 /* line 46, ../../../er-apps/SwarSpace/main.scss */
 #swarspace #ansBar {
   fill: green;
-}
-/* line 55, ../../../er-apps/SwarSpace/main.scss */
-#swarspace #overlay, #swarspace #overlay-content {
-  margin: auto;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
-}
-/* line 67, ../../../er-apps/SwarSpace/main.scss */
-#swarspace #overlay {
-  background-color: black;
-  opacity: .7;
-}
-/* line 73, ../../../er-apps/SwarSpace/main.scss */
-#swarspace #overlay-content {
-  text-align: center;
-  color: white;
-  font-size: 1.5em;
-  height: 20%;
-  width: 50%;
-}
-/* line 80, ../../../er-apps/SwarSpace/main.scss */
-#swarspace #overlay-content .padding5 {
-  padding: 0.5em;
-}
-/* line 84, ../../../er-apps/SwarSpace/main.scss */
-#swarspace #overlay-content button {
-  font-size: 1em;
 }
 
 /* line 3, ../../../er-apps/SwarPosition/main.scss */
@@ -1267,4 +1238,226 @@ core-drawer-panel:not([narrow]) #navicon {
 /* line 37, ../../../er-apps/VoiceMatch/main.scss */
 #voicematch button {
   font-size: 0.73em;
+}
+
+/* line 2, ../../../er-apps/FreestylePhrases/main.scss */
+#freestylephrases .container-toplevel {
+  width: 100%;
+}
+/* line 14, ../../../er-apps/FreestylePhrases/main.scss */
+#freestylephrases #chartdiv {
+  margin: 1% 0 0 0;
+}
+/* line 18, ../../../er-apps/FreestylePhrases/main.scss */
+#freestylephrases .container.settings {
+  margin: 1% 0 0 5%;
+}
+/* line 29, ../../../er-apps/FreestylePhrases/main.scss */
+#freestylephrases .line {
+  fill: none;
+  stroke: #999;
+  stroke-width: 1.5px;
+}
+/* line 35, ../../../er-apps/FreestylePhrases/main.scss */
+#freestylephrases #mainline {
+  stroke: blue;
+}
+/* line 39, ../../../er-apps/FreestylePhrases/main.scss */
+#freestylephrases .axis path,
+#freestylephrases .axis line {
+  fill: none;
+  stroke: #999;
+  shape-rendering: crispEdges;
+}
+/* line 46, ../../../er-apps/FreestylePhrases/main.scss */
+#freestylephrases #center-line {
+  stroke: #999;
+  stroke-width: 1px;
+}
+/* line 51, ../../../er-apps/FreestylePhrases/main.scss */
+#freestylephrases text {
+  font-size: 10px;
+}
+
+/* line 2, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery .container-toplevel {
+  width: 100%;
+}
+/* line 6, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery #chartdiv {
+  margin: 1% 0 0 0;
+}
+/* line 10, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery #display {
+  position: relative;
+}
+/* line 15, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery #main-display rect.slot {
+  fill: #d3e5e0;
+}
+/* line 19, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery #main-display rect.note {
+  fill: #B8DBD3;
+}
+/* line 24, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery #stabalizer {
+  width: 40%;
+  float: right;
+  position: absolute;
+  top: 5%;
+  right: 6%;
+}
+/* line 32, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery #stabalizer svg {
+  border-radius: 5px;
+}
+/* line 36, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery #stabalizer #backdrop {
+  fill: #eae6d0;
+}
+/* line 40, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery #stabalizer #refbar {
+  fill: #e0ddce;
+}
+/* line 45, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery .container.settings {
+  margin: 1% 0 0 5%;
+}
+/* line 55, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery #score {
+  float: right;
+}
+/* line 59, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery #buttons {
+  margin-left: 13px;
+}
+/* line 62, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery h4 {
+  font-weight: bold;
+  float: left;
+}
+/* line 67, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery .close-button {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  color: black;
+  text-decoration: none;
+  font-size: 1.5em;
+  font-weight: 300;
+}
+/* line 78, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery .close-button:hover {
+  cursor: pointer;
+  cursor: hand;
+}
+/* line 85, ../../../er-apps/SwarMastery/main.scss */
+#swarmastery .lablel {
+  font-size: 10px;
+}
+
+/* line 2, ../../../er-apps/MelodyGraph2/main.scss */
+#melodygraph2 .container-toplevel {
+  width: 100%;
+}
+/* line 14, ../../../er-apps/MelodyGraph2/main.scss */
+#melodygraph2 #chartdiv {
+  margin: 1% 0 0 0;
+}
+/* line 18, ../../../er-apps/MelodyGraph2/main.scss */
+#melodygraph2 .container.settings {
+  margin: 1% 0 0 5%;
+}
+/* line 28, ../../../er-apps/MelodyGraph2/main.scss */
+#melodygraph2 button {
+  height: 25px;
+  text-overflow: clip;
+}
+/* line 32, ../../../er-apps/MelodyGraph2/main.scss */
+#melodygraph2 button.small {
+  width: 15%;
+}
+/* line 35, ../../../er-apps/MelodyGraph2/main.scss */
+#melodygraph2 button.large {
+  width: 25%;
+}
+/* line 39, ../../../er-apps/MelodyGraph2/main.scss */
+#melodygraph2 rect {
+  fill: none;
+  pointer-events: all;
+}
+/* line 44, ../../../er-apps/MelodyGraph2/main.scss */
+#melodygraph2 #selrect {
+  fill: steelblue;
+  opacity: 0.1;
+}
+/* line 48, ../../../er-apps/MelodyGraph2/main.scss */
+#melodygraph2 circle.big {
+  fill: #fff;
+  stroke-opacity: 0;
+  fill-opacity: .1;
+  cursor: move;
+  stroke: #eee;
+  stroke-width: 1.5px;
+}
+/* line 58, ../../../er-apps/MelodyGraph2/main.scss */
+#melodygraph2 circle.small {
+  fill: steelblue;
+  stroke-opacity: 0;
+  fill-opacity: 1;
+  cursor: move;
+  stroke: #eee;
+  stroke-width: 1.5px;
+}
+/* line 68, ../../../er-apps/MelodyGraph2/main.scss */
+#melodygraph2 circle.small.selected {
+  fill: red;
+}
+/* line 72, ../../../er-apps/MelodyGraph2/main.scss */
+#melodygraph2 circle.big.selected {
+  fill: steelblue;
+  stroke: steelblue;
+}
+/* line 77, ../../../er-apps/MelodyGraph2/main.scss */
+#melodygraph2 circle.ans {
+  fill: green;
+}
+/* line 81, ../../../er-apps/MelodyGraph2/main.scss */
+#melodygraph2 #guess {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 2px;
+}
+/* line 87, ../../../er-apps/MelodyGraph2/main.scss */
+#melodygraph2 #ans {
+  fill: none;
+  stroke: green;
+  stroke-width: 2px;
+}
+/* line 98, ../../../er-apps/MelodyGraph2/main.scss */
+#melodygraph2 .x.axis line {
+  stroke: #ccc;
+  stroke-width: 1px;
+}
+/* line 103, ../../../er-apps/MelodyGraph2/main.scss */
+#melodygraph2 .x.axis .minor {
+  stroke-opacity: .5;
+}
+/* line 107, ../../../er-apps/MelodyGraph2/main.scss */
+#melodygraph2 .x.axis path {
+  fill: none;
+}
+/* line 112, ../../../er-apps/MelodyGraph2/main.scss */
+#melodygraph2 .y.axis line, #melodygraph2 .y.axis path {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1px;
+}
+/* line 118, ../../../er-apps/MelodyGraph2/main.scss */
+#melodygraph2 #center-line {
+  stroke: #999;
+  stroke-width: 1px;
 }
