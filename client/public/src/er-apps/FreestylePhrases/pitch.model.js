@@ -1,7 +1,7 @@
   define(['./module'], function(app) {
     app.factory('PitchModel', function() {
       return {
-        rootFreq : 110,
+        rootFreq : 123.4,
         currentFrequency: 110,
         currentInterval : 0
       };

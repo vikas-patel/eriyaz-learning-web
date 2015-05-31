@@ -5,20 +5,20 @@ define(['pitchdetector', 'music-calc'], function(PitchDetector, MusicCalc) {
 	var blobURL = URL.createObjectURL(new Blob(['(',
 
 		function() {
-			importScripts('http://localhost:3000/ext-libs/require.js', 'http://localhost:3000/require-config.js');
+			// importScripts('http://localhost:3000/ext-libs/require.js', 'http://localhost:3000/require-config.js');
 
-			require(
-				// {
-				//      baseUrl: "localhost:3000"
-				//  },
-				["require", "pitchdetector", "music-calc"],
-				function(PitchDetector, MusicCalc) {
+			// require(
+			// 	// {
+			// 	//      baseUrl: "localhost:3000"
+			// 	//  },
+			// 	["require", "pitchdetector", "music-calc"],
+			// 	function(PitchDetector, MusicCalc) {
 					// console.log('here');
 					// console.log(a);
 					// console.log(MusicCalc);
 					// console.log(PitchDetector);
 
-					var pitchDetector = PitchDetector.getDetector('fft', audioContext.sampleRate);
+					// var pitchDetector = PitchDetector.getDetector('fft', audioContext.sampleRate);
 
 					var buffArray = [];
 					self.onmessage = function(e) {
@@ -44,7 +44,7 @@ define(['pitchdetector', 'music-calc'], function(PitchDetector, MusicCalc) {
 					}
 
 					function concatBuffers() {
-						var concatenatedArray = new Float32Array(buffArray.length * 256);
+						var concatenatedArray = new Float32Array(buffArray.length * 8192);
 						var offset = 0;
 						for (var j = 0; j < buffArray.length; j++) {
 							(function(buffer) {
@@ -88,7 +88,7 @@ define(['pitchdetector', 'music-calc'], function(PitchDetector, MusicCalc) {
 					function clear() {
 						buffArray = [];
 					}
-				});
+				// });
 
 		}.toString(),
 
