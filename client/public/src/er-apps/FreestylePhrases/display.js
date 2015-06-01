@@ -12,9 +12,9 @@ define([], function() {
 		var height = 200;
 
 
-		var timeRange = 3000;
+		var timeRange = 10000;
 
-		
+
 
 		var xScale = d3.time.scale()
 			.domain([0, timeRange])
@@ -87,55 +87,62 @@ define([], function() {
 				.enter()
 				.append("rect")
 				.attr("x", function(d, i) {
-					return xScale(i*4);
+					return xScale(i * 64 / 48);
 				}).attr("y", function(d) {
 					return yScale(d);
-				}).attr("width",2)
-				.attr("height",2);
+				}).attr("width", 2)
+				.attr("height", 2);
 			// console.log(data);
 			// console.log(data.length);
 		};
 
-		this.plotAudioData = function(data1) {
-			var data=[];
-			for(var i=0;i<data1.length;i++) {
-				data.push(data1[i]);
-			}
-			console.log(data);
-			var xScale1 = d3.scale.linear()
-			.domain([0,data.length])
-			.range([0,width]);
-			var yScale1 = d3.scale.linear()
-			.domain([-1, 1])
-			.range([height, 0]);
-
-			// data = [1,2,3];
-			svg.selectAll("circle")
-			.data(data)
-			.enter()
-			.append("circle")
-			.attr("r",1)
-			.attr("cx",function(d,i) {
-				return xScale1(i);
-			})
-			.attr("cy",function(d) {
-				return yScale1(d);
-			});
-
-
-			// svg.append("circle")
-			// .attr("r",20)
-			// .attr("cx",width/2)
-			// .attr("cy",height/2);
-
+		var remainingTime;
+		var count;
+		this.playAnimate = function(audioTime) {
+			count = 0;
+			remainingTime = audioTime;
+			pointGroup.attr("transform", "translate(0,0)");
+			playPage(remainingTime);
 		};
 
+		function playPage() {
+			if (remainingTime > 0) {
+				if (count > 0) {
+					console.log('ncount');
+					pointGroup.attr("transform", "translate(" + -1 * xScale(timeRange * count) + ",0)");
+				}
+				if (remainingTime > timeRange) {
+					playCursor(timeRange);
+				} else playCursor(remainingTime);
+				remainingTime = remainingTime - timeRange;
+			}
+			count++;
+		}
 
 
+		function playCursor(cursorTime) {
+			svg.select('#cursor').remove();
+			var cursor = svg.append("svg:line");
+			cursor
+				.attr("id", "cursor")
+				.attr("x1", 0)
+				.attr("y1", 0)
+				.attr("x2", 0)
+				.attr("y2", height);
+			cursor.transition().duration(cursorTime)
+				.ease("linear")
+				// .attr("transform","translate(" + xScale(cursorTime) + ",0)")
+				.attr("x1", xScale(cursorTime))
+				.attr("x2", xScale(cursorTime))
+				.each("end", function() {
+					playPage();
+				});
+		}
 		this.clear = function() {
 			if (pointGroup)
 				pointGroup.remove();
 			svg.selectAll("circle").remove();
+			svg.select('#cursor').remove();
 		};
 
 
