@@ -6,12 +6,14 @@
             <span> Score: </span>
             {{right*100/count  | number:0}}%
         </div>
-        <div id="top-panel">
+        
+        <div id="top-panel" >
             <button ng-click='newProblem()'>New</button>
-            <button ng-click='repeat()'>Repeat</button>
+            <button ng-click='repeat()' ng-disabled="!repBtn">Repeat</button>
             <select ng-model="level" ng-options="l.name for l in levels">
             </select>
         </div>
+        
         <div id="display">
         </div>
         
@@ -19,8 +21,8 @@
       
         <div id="bottom-panel">
             <h4>From note {{testNotes[0]}} to note {{testNotes[1]}}, is it Up or Down? </h4>
-            <button ng-click='isUp();'>UP</button>
-            <button ng-click='isDown();'>DOWN</button>
+            <button ng-click='isUp();' ng-disabled="!repBtn">UP</button>
+            <button ng-click='isDown();' ng-disabled="!repBtn">DOWN</button>
         </div>
 
         <div id="overlay" ng-show="showOverlay"></div>

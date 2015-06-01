@@ -47,6 +47,7 @@ define(['./module', './problem-gen', './display', 'webaudioplayer', 'currentaudi
                 display.setFeedback("");
                 problem = ProblemGen.getNewProblem($scope.level);
                 playProblem();
+                $scope.repBtn=true;
             };
 
             $scope.repeat = function() {
@@ -60,6 +61,8 @@ define(['./module', './problem-gen', './display', 'webaudioplayer', 'currentaudi
                     display.setFeedback("Right!");
                     $scope.right++;
                 }
+                $scope.repBtn=false;
+
             };
 
             $scope.isDown = function() {
@@ -69,6 +72,8 @@ define(['./module', './problem-gen', './display', 'webaudioplayer', 'currentaudi
                     display.setFeedback("Right!");
                     $scope.right++;
                 }
+                $scope.repBtn=false;
+
             };
 
             $scope.closeOverlay = function() {
