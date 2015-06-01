@@ -47,6 +47,7 @@ define(['./module', './problem-gen', './display', 'webaudioplayer', 'currentaudi
                 display.setFeedback("");
                 problem = ProblemGen.getNewProblem($scope.level);
                 playProblem();
+                $scope.repeatBtn=true;
                 $scope.repBtn=true;
             };
 
