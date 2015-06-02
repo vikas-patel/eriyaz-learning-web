@@ -12,7 +12,7 @@ define([], function() {
 		var height = 200;
 
 
-		var timeRange = 10000;
+		var timeRange = 2500;
 
 
 

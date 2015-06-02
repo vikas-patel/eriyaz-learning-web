@@ -78,7 +78,6 @@
                 buffer = new AudioBuffer(audioContext, stream, recBufferSize);
                 buffer.addProcessor(updatePitch);
                 $scope.signalOn = true;
-                console.log(stream);
               }
             );
           }
