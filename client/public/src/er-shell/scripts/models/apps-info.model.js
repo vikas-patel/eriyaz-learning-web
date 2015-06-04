@@ -107,8 +107,8 @@
             var lastPage = this.apps[this.selectedIndex].name;
             var timeSpent = TimeMe.getTimeOnCurrentPageInSeconds();
             // Upload time to the server.
-            if (timeSpent > 1) {
-                ScoreService.addTime(lastPage, timeSpent, TimeMe.startTime, new Date());
+            if (timeSpent > 10) {
+                ScoreService.addTime(lastPage, Math.round(timeSpent), TimeMe.startTime, new Date());
             }
         } else if (index > -1) {
             TimeMe.stopTimer();

@@ -114,13 +114,13 @@ exports.findAllScores = function(req, res) {
 					});
 					var timeKeys = _.keys(groupedTimesObj);
 					var scoreKeys = _.keys(groupedScoresObj);
-					var keys = scoreKeys.concat(timeKeys);
+					var keys = _.union(timeKeys, scoreKeys);
 					var groupedScoresArray = [];
 					for (var i = 0; i < keys.length; i++) {
 						groupedScoresArray.push({
-							completionTime: new Date(scoreKeys[i]),
-							scores: groupedScoresObj[scoreKeys[i]],
-							times:groupedTimesObj[scoreKeys[i]]
+							completionTime: new Date(keys[i]),
+							scores: groupedScoresObj[keys[i]],
+							times:groupedTimesObj[keys[i]]
 						});
 					}
 					res.json(groupedScoresArray);
