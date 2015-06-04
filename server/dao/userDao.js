@@ -94,12 +94,14 @@ exports.findAllScores = function(req, res) {
 		.find({
 			user: new mongoose.Types.ObjectId(req.params.id)
 		})
+		.sort({completionTime: -1})
 		.exec(function(err, scores) {
 			if (err) res.send(err);
 			UserTime
 				.find({
 					user: new mongoose.Types.ObjectId(req.params.id)
 				})
+				.sort({endTime: -1})
 				.exec(function(err, times) {
 					if (err) res.send(err);
 					var groupedScoresObj = _.groupBy(scores, function(score) {
@@ -114,7 +116,9 @@ exports.findAllScores = function(req, res) {
 					});
 					var timeKeys = _.keys(groupedTimesObj);
 					var scoreKeys = _.keys(groupedScoresObj);
-					var keys = _.union(timeKeys, scoreKeys);
+					var keys = _.union(scoreKeys, timeKeys);
+					keys = _.sortBy(keys, function(key){ return new Date(key)});
+					keys.reverse();
 					var groupedScoresArray = [];
 					for (var i = 0; i < keys.length; i++) {
 						groupedScoresArray.push({
