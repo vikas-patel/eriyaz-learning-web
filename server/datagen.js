@@ -7,6 +7,16 @@ var Score = require('./model/score.js');
 
 var generateHash = new User().generateHash;
 
+var admin = new User({
+	name: "admin",
+	dob: new Date(),
+	local: {
+		email: "admin@xyz.com",
+		password: generateHash("admin")
+	},
+	userType: "admin"
+});
+
 
 var teachers = [];
 for (var i = 0; i < 3; i++) {
@@ -17,12 +27,14 @@ for (var i = 0; i < 3; i++) {
 			email: "teacher" + i + "@xyz.com",
 			password: generateHash("teacher" + i)
 		},
-		isTeacher: true
+		userType: "teacher"
 	});
 	teachers.push(teacher);
 }
 
 mongoose.connect(config.dburl); // connect to our database
+console.log("saved admin");
+admin.save();
 var saveObj = function(obj, doneCallback) {
 	obj.save(function(err, data) {
 		return doneCallback(null);
@@ -42,7 +54,8 @@ async.each(teachers, saveObj, function(err) {
 					email: "student" + t + "@xyz.com",
 					password: generateHash("student" + t)
 				},
-				teacher: teachers[i].id
+				teacher: teachers[i].id,
+				userType: "student"
 			});
 			students.push(student);
 		}

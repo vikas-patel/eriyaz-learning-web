@@ -7,7 +7,7 @@
                   showFront: false,
                   showLoginDialog: false,
                   showAppDialog: false,
-                  isTeacher : $window.localStorage.isTeacher,
+                  userType : $window.localStorage.userType,
                   title:'Home'
               }
           };

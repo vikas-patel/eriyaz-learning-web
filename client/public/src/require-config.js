@@ -44,7 +44,8 @@ requirejs.config({
         'st-buffer' : 'ext-libs/soundtouch/buffer',
         'st-filter' : 'ext-libs/soundtouch/filter',
         'st-stretch' : 'ext-libs/soundtouch/stretch',
-        'soundtouch' : 'ext-libs/soundtouch/soundtouch'
+        'soundtouch' : 'ext-libs/soundtouch/soundtouch',
+        'timeMe' : 'ext-libs/TimeMe/TImeMe'
     },
 
     // Add modules that do not support AMD

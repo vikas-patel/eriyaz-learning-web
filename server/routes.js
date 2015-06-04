@@ -45,7 +45,11 @@ module.exports = function(app, passport) {
 	app.delete('/users/:id', userDao.remove);
 
 	app.post('/users/score', userDao.saveScore);
+	app.get('/users/topScore/:id', userDao.findTopScoresByDate);
 	app.get('/users/score/:id', userDao.findAllScores);
+
+	app.post('/users/time', userDao.addTime);
+	app.get('/users/time/:id', userDao.findTime);
 
 	app.get('/teachers', userDao.findAllTeachers);
 	app.get('/teachers/students/:id', userDao.findAllStudentsByTeacher);
