@@ -1,4 +1,4 @@
-define(['./module', './notesequence', 'd3','./chart','./frequencyutil'], function(app, NoteSequence, d3, Chart,FrequencyUtil) {
+define(['./module', './notesequence', 'd3', './chart', './frequencyutil'], function(app, NoteSequence, d3, Chart, FrequencyUtil) {
     var sequence;
 
     app.controller('MelodyGraphCtrl', function($scope) {
@@ -18,12 +18,27 @@ define(['./module', './notesequence', 'd3','./chart','./frequencyutil'], functio
         };
 
         $scope.playMyGraph = function() {
-            var mySeq = new NoteSequence(FrequencyUtil.getFreqsArray(sequence.freqs[0],chart.getData()));
+            var mySeq = new NoteSequence(FrequencyUtil.getFreqsArray(sequence.freqs[0], chart.getData()));
             mySeq.play();
         };
 
         $scope.showAnswer = function() {
-            chart.plotData(FrequencyUtil.getCentsArray(sequence.freqs[0],sequence.freqs));
+            var ansCentsArray = FrequencyUtil.getCentsArray(sequence.freqs[0], sequence.freqs);
+            chart.plotData(ansCentsArray);
+            $scope.avgAccuracy = calcScore(chart.getData(), ansCentsArray);
+
         };
+
+        function calcScore(guessCentsArray, ansCentsArray) {
+            var accSum = 0;
+            for (var i = 1; i < ansCentsArray.length; i++) {
+                var offBy = Math.abs(guessCentsArray[i] - ansCentsArray[i]);
+                var base = Math.abs(ansCentsArray[i] > guessCentsArray[i] ? ansCentsArray[i] : guessCentsArray[i]);
+                var accuracy = 1 - offBy / base;
+                console.log(accuracy);
+                accSum = accSum + accuracy;
+            }
+            return accSum/(ansCentsArray.length-1);
+        }
     });
 });
