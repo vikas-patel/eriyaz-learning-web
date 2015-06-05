@@ -103,7 +103,7 @@
                  User.get({
                      id: $stateParams.s_id
                  }).$promise.then(function(data) {
-                     UIModel.uiModel.title = data.name + '\'s Scores';
+                     UIModel.uiModel.title = data.name ? data.name : data.local.email + '\'s Scores';
                  });
 
                  UIModel.uiModel.contentUrl = 'er-shell/html/history.html';
