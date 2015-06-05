@@ -100,7 +100,6 @@
                  UIModel.uiModel.showLoginDialog = false;
                  UIModel.uiModel.showFront = false;
                  UIModel.uiModel.showMenu = true;
-                 console.log($stateParams.s_id);
                  User.get({
                      id: $stateParams.s_id
                  }).$promise.then(function(data) {

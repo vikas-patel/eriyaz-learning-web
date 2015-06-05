@@ -1,5 +1,5 @@
-  define(['./module'], function(app) {
-    app.factory('AppsInfoModel', function() {
+  define(['./module', 'timeMe'], function(app) {
+    app.factory('AppsInfoModel', function(ScoreService) {
       var appsInfo = {};
       appsInfo.apps = [{
         name: 'Alankars',
@@ -99,7 +99,23 @@
         show:true
       }];
       appsInfo.selectedIndex = -1;
+      TimeMe.setIdleDurationInSeconds(60);
       appsInfo.setSelected = function(index) {
+        // exit an app.
+        if (this.selectedIndex > -1 && index == -1) {
+            TimeMe.stopTimer();
+            var lastPage = this.apps[this.selectedIndex].name;
+            var timeSpent = TimeMe.getTimeOnCurrentPageInSeconds();
+            // Upload time to the server.
+            if (timeSpent > 10) {
+                ScoreService.addTime(lastPage, Math.round(timeSpent), TimeMe.startTime, new Date());
+            }
+        } else if (index > -1) {
+            TimeMe.stopTimer();
+            TimeMe.setCurrentPageName(this.apps[index].name);
+            TimeMe.startTimer();
+            TimeMe.startTime = new Date();
+        }
         this.selectedIndex = index;
       };
 

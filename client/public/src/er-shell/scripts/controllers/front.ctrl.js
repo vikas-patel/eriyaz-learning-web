@@ -4,7 +4,7 @@
   				LoginSignupService.logIn("guest", "guest").success(function(data) {
   					if (data.status === "success") {
               $window.localStorage.userId = data.user._id;
-              $window.localStorage.isTeacher = data.user.isTeacher;
+              $window.localStorage.userType = data.user.userType;
   						$location.path("/home");
   					} else {
   						$scope.flashMessage = data.info;

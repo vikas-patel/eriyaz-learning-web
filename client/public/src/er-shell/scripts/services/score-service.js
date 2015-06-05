@@ -17,8 +17,27 @@
                 });
             },
 
-            findAll: function() {
+            addTime: function(appName, time, startTime, endTime) {
                 var userId = $window.localStorage.userId;
+                $http.post(base_url + '/users/time', {
+                    user: userId,
+                    appName: appName,
+                    time: time,
+                    startTime:startTime,
+                    endTime:endTime
+                }).success(function(data) {
+                    // do nothing
+                }).error(function(status, data) {
+                    console.log("failed");
+                    console.log(data);
+                });
+            },
+
+            findTopScores: function(userId) {
+                return $http.get(base_url + '/users/topScore/' + userId);
+            },
+
+            findAllScores: function(userId) {
                 return $http.get(base_url + '/users/score/' + userId);
             },
 
