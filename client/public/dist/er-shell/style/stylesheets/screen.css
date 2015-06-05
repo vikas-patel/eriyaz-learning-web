@@ -213,7 +213,7 @@ body #error dd {
   color: white;
   float: right;
   text-align: right;
-  width: 50px;
+  width: 75px;
   text-decoration: none;
 }
 /* line 109, ../sass/pages/_front.scss */
@@ -1259,22 +1259,27 @@ core-drawer-panel:not([narrow]) #navicon {
   stroke-width: 1.5px;
 }
 /* line 35, ../../../er-apps/FreestylePhrases/main.scss */
+#freestylephrases #cursor {
+  stroke: red;
+  stroke-width: 1px;
+}
+/* line 40, ../../../er-apps/FreestylePhrases/main.scss */
 #freestylephrases #mainline {
   stroke: blue;
 }
-/* line 39, ../../../er-apps/FreestylePhrases/main.scss */
+/* line 44, ../../../er-apps/FreestylePhrases/main.scss */
 #freestylephrases .axis path,
 #freestylephrases .axis line {
   fill: none;
   stroke: #999;
   shape-rendering: crispEdges;
 }
-/* line 46, ../../../er-apps/FreestylePhrases/main.scss */
+/* line 51, ../../../er-apps/FreestylePhrases/main.scss */
 #freestylephrases #center-line {
   stroke: #999;
   stroke-width: 1px;
 }
-/* line 51, ../../../er-apps/FreestylePhrases/main.scss */
+/* line 56, ../../../er-apps/FreestylePhrases/main.scss */
 #freestylephrases text {
   font-size: 10px;
 }
