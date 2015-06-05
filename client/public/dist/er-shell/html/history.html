@@ -2,22 +2,9 @@
   href="../external-libs/bower_components/paper-shadow/paper-shadow.html"> -->
 <div id="history">
 	<div ng-controller='HistoryCtrl'>
-		<div id="daily" ng-show="{{uiModel.userType != 'admin'}}" ng-repeat="day in dailyScore">
+		<div id="daily" ng-repeat="day in dailyScore">
 			<h1>{{day.completionTime | date2:'doo MMM, EEE'}}</h1>
 			<h2>Best Scores</h2>
-			<dl>
-				<dt ng-repeat-start="score in day.scores">{{score.appName}}: {{score.exercise}}</dt>
-				<dd ng-repeat-end>{{score.score*100 | number:1}}%</dd>
-			</dl>
-		</div>
-		<div id="daily" ng-show="{{uiModel.userType == 'admin'}}" ng-repeat="day in dailyScore">
-			<h1>{{day.completionTime | date2:'doo MMM, EEE'}}</h1>
-			<h2>Time Spent</h2>
-			<dl>
-				<dt ng-repeat-start="time in day.times">{{time.appName}}</dt>
-				<dd ng-repeat-end>{{secondsToTime(time.time)}}</dd>
-			</dl>
-			<h2>Scores</h2>
 			<dl>
 				<dt ng-repeat-start="score in day.scores">{{score.appName}}: {{score.exercise}}</dt>
 				<dd ng-repeat-end>{{score.score*100 | number:1}}%</dd>
