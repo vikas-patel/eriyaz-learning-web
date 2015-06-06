@@ -3,8 +3,8 @@
 <div id="mystudents">
 	<div ng-controller='MyStudentsCtrl'>
 		<ul>
-			<li ng-repeat="student in students">
-				<a href="#history/{{student._id}}">{{student.name}}</a>
+			<li ng-repeat="student in students | orderBy:'name'">
+				<a href="#history/{{student._id}}">{{student.name || student.local.email}}</a>
 			</li>
 		</ul>
 	</div>
