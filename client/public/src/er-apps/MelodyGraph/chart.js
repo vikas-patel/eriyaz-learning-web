@@ -216,7 +216,19 @@ define([], function() {
 				});
 		};
 
+		this.setFeedback = function(feedback) {
+			svg.select("#feedback").remove();
+			svg.append("text")
+				.attr("id", "feedback")
+				.attr("font-size", 25)
+				.attr("x", width * 2/3)
+				.attr("y", height *1/3)
+				.attr("text-anchor", "middle")
+				.text(feedback);
+		};
+
 		this.reset = function(numNotes) {
+			svg.select("#feedback").remove();
 			svg.select("#ans").remove();
 			svg.selectAll("circle.ans").remove();
 			points.length = 0;

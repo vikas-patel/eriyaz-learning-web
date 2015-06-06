@@ -15,6 +15,17 @@
       margin:1% 0 0 0;
     }
 
+    #score,#attempts {
+      float:right;
+      margin-right:10px;
+    }
+
+    #overlay-content {
+      button {
+        font-size:0.8em;
+      }
+    }
+    
     .container.settings{
         // position:absolute;
         // border-bottom:solid; 
@@ -83,6 +94,9 @@
       stroke-width: 2px;
     }
 
+    #feedback {
+      fill:#555;
+    }
 
     .axis {
       // shape-rendering: crispEdges;

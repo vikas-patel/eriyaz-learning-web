@@ -213,7 +213,7 @@ body #error dd {
   color: white;
   float: right;
   text-align: right;
-  width: 75px;
+  width: 50px;
   text-decoration: none;
 }
 /* line 109, ../sass/pages/_front.scss */
@@ -950,28 +950,37 @@ core-drawer-panel:not([narrow]) #navicon {
   margin: 1% 0 0 0;
 }
 /* line 18, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph #score, #melodygraph #attempts {
+  float: right;
+  margin-right: 10px;
+}
+/* line 24, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph #overlay-content button {
+  font-size: 0.8em;
+}
+/* line 29, ../../../er-apps/MelodyGraph/main.scss */
 #melodygraph .container.settings {
   margin: 1% 0 0 5%;
 }
-/* line 28, ../../../er-apps/MelodyGraph/main.scss */
+/* line 39, ../../../er-apps/MelodyGraph/main.scss */
 #melodygraph button {
   height: 25px;
   text-overflow: clip;
 }
-/* line 32, ../../../er-apps/MelodyGraph/main.scss */
+/* line 43, ../../../er-apps/MelodyGraph/main.scss */
 #melodygraph button.small {
   width: 15%;
 }
-/* line 35, ../../../er-apps/MelodyGraph/main.scss */
+/* line 46, ../../../er-apps/MelodyGraph/main.scss */
 #melodygraph button.large {
   width: 25%;
 }
-/* line 39, ../../../er-apps/MelodyGraph/main.scss */
+/* line 50, ../../../er-apps/MelodyGraph/main.scss */
 #melodygraph rect {
   fill: none;
   pointer-events: all;
 }
-/* line 44, ../../../er-apps/MelodyGraph/main.scss */
+/* line 55, ../../../er-apps/MelodyGraph/main.scss */
 #melodygraph circle.big {
   fill: #fff;
   stroke-opacity: 0;
@@ -980,7 +989,7 @@ core-drawer-panel:not([narrow]) #navicon {
   stroke: #eee;
   stroke-width: 1.5px;
 }
-/* line 54, ../../../er-apps/MelodyGraph/main.scss */
+/* line 65, ../../../er-apps/MelodyGraph/main.scss */
 #melodygraph circle.small {
   fill: steelblue;
   stroke-opacity: 0;
@@ -989,47 +998,51 @@ core-drawer-panel:not([narrow]) #navicon {
   stroke: #eee;
   stroke-width: 1.5px;
 }
-/* line 65, ../../../er-apps/MelodyGraph/main.scss */
+/* line 76, ../../../er-apps/MelodyGraph/main.scss */
 #melodygraph circle.big.selected {
   fill: steelblue;
   stroke: steelblue;
 }
-/* line 70, ../../../er-apps/MelodyGraph/main.scss */
+/* line 81, ../../../er-apps/MelodyGraph/main.scss */
 #melodygraph circle.ans {
   fill: green;
 }
-/* line 74, ../../../er-apps/MelodyGraph/main.scss */
+/* line 85, ../../../er-apps/MelodyGraph/main.scss */
 #melodygraph #guess {
   fill: none;
   stroke: steelblue;
   stroke-width: 2px;
 }
-/* line 80, ../../../er-apps/MelodyGraph/main.scss */
+/* line 91, ../../../er-apps/MelodyGraph/main.scss */
 #melodygraph #ans {
   fill: none;
   stroke: green;
   stroke-width: 2px;
 }
-/* line 91, ../../../er-apps/MelodyGraph/main.scss */
+/* line 97, ../../../er-apps/MelodyGraph/main.scss */
+#melodygraph #feedback {
+  fill: #555;
+}
+/* line 105, ../../../er-apps/MelodyGraph/main.scss */
 #melodygraph .x.axis line {
   stroke: #ccc;
   stroke-width: 1px;
 }
-/* line 96, ../../../er-apps/MelodyGraph/main.scss */
+/* line 110, ../../../er-apps/MelodyGraph/main.scss */
 #melodygraph .x.axis .minor {
   stroke-opacity: .5;
 }
-/* line 100, ../../../er-apps/MelodyGraph/main.scss */
+/* line 114, ../../../er-apps/MelodyGraph/main.scss */
 #melodygraph .x.axis path {
   fill: none;
 }
-/* line 105, ../../../er-apps/MelodyGraph/main.scss */
+/* line 119, ../../../er-apps/MelodyGraph/main.scss */
 #melodygraph .y.axis line, #melodygraph .y.axis path {
   fill: none;
   stroke: #ccc;
   stroke-width: 1px;
 }
-/* line 111, ../../../er-apps/MelodyGraph/main.scss */
+/* line 125, ../../../er-apps/MelodyGraph/main.scss */
 #melodygraph #center-line {
   stroke: #999;
   stroke-width: 1px;
