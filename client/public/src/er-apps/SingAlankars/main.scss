@@ -131,11 +131,19 @@ $greyExercise: #A8A8A8;
 		fill: $greyExercise;
 	}
 
+	paper-slider {
+      width: 130px;
+    }
+
 	@media only screen and (max-width:960px){
         /* styles for browsers smaller than 960px; 2/3rd of my desktop screen width */
 		button, select, .header {
 			font-size:0.75em;
 		}
+
+		paper-slider {
+	      width: 85px;
+	    }
 
 		button {
 			padding: 1px 3px;
@@ -146,6 +154,9 @@ $greyExercise: #A8A8A8;
         button, select, .header {
 			font-size:0.5em;
 		}
+		paper-slider {
+	      width: 60px;
+	    }
 		button {
 			padding: 1px 2px;
 		}
@@ -193,7 +204,9 @@ $greyExercise: #A8A8A8;
 		}
     }
 
-    paper-slider {
-      width: 130px;
+    paper-slider::shadow #sliderKnobInner,
+    paper-slider::shadow #sliderKnobInner::before,
+    paper-slider::shadow #sliderBar::shadow #activeProgress {
+      background-color: #0f9d58;
     }
 }

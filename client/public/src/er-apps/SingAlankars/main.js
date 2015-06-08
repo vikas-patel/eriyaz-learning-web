@@ -17,7 +17,6 @@ define(['./module', 'jquery', './exercises', 'mic-util', 'currentaudiocontext', 
 			$scope.operation = 'start';
 			$scope.showSettings = false;
 			$scope.showOverlay = false;
-			$scope.lastScore = 0;
 			$scope.totalScore = 0;
 			$scope.scoreCount = 0;
 			$scope.partNumber = 0;
@@ -177,8 +176,8 @@ define(['./module', 'jquery', './exercises', 'mic-util', 'currentaudiocontext', 
 			};
 
 			function updateScore(expected, actual) {
-				$scope.lastScore = ScoreService.getScore(expected, actual);
-				$scope.totalScore = ScoreService.getTotalScore($scope.totalScore, $scope.lastScore, $scope.scoreCount);
+				var lastScore = ScoreService.getScore(expected, actual);
+				$scope.totalScore = ScoreService.getTotalScore($scope.totalScore, lastScore, $scope.scoreCount);
 				$scope.scoreCount++;
 				$scope.$apply();
 			};
@@ -212,7 +211,6 @@ define(['./module', 'jquery', './exercises', 'mic-util', 'currentaudiocontext', 
 
 			function resetScore() {
 				$scope.scoreCount = 0;
-				$scope.lastScore = 0;
 				$scope.totalScore = 0;
 			}
 
