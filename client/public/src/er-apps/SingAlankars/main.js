@@ -1,7 +1,7 @@
 define(['./module', 'jquery', './exercises', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'pitchdetector', 'note',
-		'tanpura', 'metronome', 'music-calc'
+		'tanpura', 'metronome', 'music-calc', 'octaveError'
 	],
-	function(app, $, exercises, MicUtil, CurrentAudioContext, AudioBuffer, PitchDetector, Note, Tanpura, metronome, MusicCalc) {
+	function(app, $, exercises, MicUtil, CurrentAudioContext, AudioBuffer, PitchDetector, Note, Tanpura, metronome, MusicCalc, octaveError) {
 		//constants
 		var detector;
 		//other globals;
@@ -163,14 +163,15 @@ define(['./module', 'jquery', './exercises', 'mic-util', 'currentaudiocontext', 
 			}
 
 			function updatePitch(data) {
-
 				var waveletFreq = detector.findPitch(data);
 				if (waveletFreq == 0) return;
-				currInterval = Math.round(1200 * (Math.log(waveletFreq / $scope.rootFreq) / Math.log(2))) / 100;
 				var renderedTime = $scope.chart.getTimeRendered() - renderTimeShift*($scope.tempo/$scope.chart.maxTempo);
 				var expNote = $scope.chart.exerciseNote(renderedTime);
 				// don't update score; break, mid break or offset time.
 				if (expNote < 0) return;
+				var expFreq = Math.pow(2, expNote/12)*$scope.rootFreq;
+				var actualFreq = octaveError.fix(waveletFreq, expFreq);
+				currInterval = Math.round(1200 * (Math.log(actualFreq/$scope.rootFreq) / Math.log(2))) / 100;
 				$scope.chart.draw(currInterval, renderedTime);
 				updateScore(expNote, currInterval.toFixed(0))
 			};
