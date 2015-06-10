@@ -80,7 +80,7 @@
         href: '#freestylephrases',
         appUrl: 'er-apps/FreestylePhrases/main.html',
         aspectRatio: 5/3,
-        show:false
+        show:true
       }, {
         name: 'SwarMastery',
         thumb: 'er-shell/images/swarmastery.jpg',
@@ -95,6 +95,14 @@
         desc: 'Practice matching your voice to the tone of the instrument.',
         href: '#melodygraph2',
         appUrl: 'er-apps/MelodyGraph2/main.html',
+        aspectRatio: 9/10,
+        show:true
+      }, {
+        name: 'TimeTrainer',
+        thumb: 'er-shell/images/timetrainer.jpg',
+        desc: 'Practice matching your voice to the tone of the instrument.',
+        href: '#timetrainer',
+        appUrl: 'er-apps/TimeTrainer/main.html',
         aspectRatio: 9/10,
         show:true
       }];

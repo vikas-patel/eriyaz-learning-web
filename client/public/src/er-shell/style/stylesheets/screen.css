@@ -1479,3 +1479,41 @@ core-drawer-panel:not([narrow]) #navicon {
   stroke: #999;
   stroke-width: 1px;
 }
+
+/* line 2, ../../../er-apps/TimeTrainer/main.scss */
+#timetrainer .container-toplevel {
+  width: 100%;
+}
+/* line 7, ../../../er-apps/TimeTrainer/main.scss */
+#timetrainer #chartdiv {
+  margin: 1% 0 0 0;
+}
+/* line 11, ../../../er-apps/TimeTrainer/main.scss */
+#timetrainer .container.settings {
+  margin: 1% 0 0 5%;
+}
+/* line 21, ../../../er-apps/TimeTrainer/main.scss */
+#timetrainer #score {
+  float: right;
+}
+/* line 25, ../../../er-apps/TimeTrainer/main.scss */
+#timetrainer paper-icon-button, #timetrainer button, #timetrainer select {
+  float: left;
+}
+/* line 29, ../../../er-apps/TimeTrainer/main.scss */
+#timetrainer paper-icon-button {
+  margin-top: -5px;
+}
+/* line 33, ../../../er-apps/TimeTrainer/main.scss */
+#timetrainer button, #timetrainer select {
+  margin: 5px 0 0 2px;
+}
+/* line 37, ../../../er-apps/TimeTrainer/main.scss */
+#timetrainer button {
+  font-size: 0.73em;
+}
+/* line 41, ../../../er-apps/TimeTrainer/main.scss */
+#timetrainer .tick {
+  stroke: red;
+  stroke-width: 1px;
+}

@@ -25,6 +25,7 @@ define([
     'freestylephrases',
     'swarmastery',
     'melodygraph2',
+    'timetrainer',
 ], function(angular) {
     'use strict';
 
@@ -47,7 +48,8 @@ define([
         'freestylephrases',
         'swarmastery',
         'melodygraph2',
-
+        'timetrainer',
+        
         'ngResource',
         'angulartics',
         'angulartics.google.analytics',

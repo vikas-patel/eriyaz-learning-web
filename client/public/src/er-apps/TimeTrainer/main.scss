@@ -1,0 +1,45 @@
+#timetrainer {
+    .container-toplevel {
+        width: 100%;
+
+    }
+  
+    #chartdiv {
+      margin:1% 0 0 0;
+    }
+
+    .container.settings{
+        // position:absolute;
+        // border-bottom:solid; 
+        // // border-radius:5px;
+        // border-width:1px;
+        // border-color:#E3E3E3;
+        margin: 1% 0 0 5%;
+        // padding: 1%;
+    }
+
+    #score {
+      float:right;
+    }
+ 
+    paper-icon-button, button, select {
+      float:left;
+    }
+
+    paper-icon-button {
+      margin-top : -5px;
+    }
+
+    button, select {
+      margin : 5px 0 0 2px;
+    }
+
+    button {
+      font-size:0.73em;
+    }
+
+    .tick {
+      stroke:red;
+      stroke-width:1px;
+    }
+}

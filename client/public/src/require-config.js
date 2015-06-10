@@ -139,6 +139,10 @@ requirejs.config({
         name: 'melodygraph2',
         location: 'er-apps/MelodyGraph2',
         main: 'index'
+    }, {    
+        name: 'timetrainer',
+        location: 'er-apps/TimeTrainer',
+        main: 'index'
     }, {
         name: 'tanpura',
         location: 'er-libs/tanpura',
