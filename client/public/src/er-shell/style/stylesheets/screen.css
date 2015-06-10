@@ -2,7 +2,7 @@
  * In this file you should write your main styles. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
-/* line 5, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 5, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -24,45 +24,45 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 22, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 24, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 26, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 28, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 30, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 103, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 32, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 116, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
   display: block;
 }
@@ -112,7 +112,7 @@ body #error dd {
 /* line 1, ../sass/pages/_front.scss */
 #front {
   font-family: sans-serif;
-  background-image: url('../../images/fort.jpg?1424756334'), radial-gradient(closest-side at 35% 45%, #e02006, #f16236, #e02006);
+  background-image: url('../../images/fort.jpg?1424883674'), radial-gradient(closest-side at 35% 45%, #e02006, #f16236, #e02006);
   /* Background image is centered vertically and horizontally at all times */
   background-position: center center;
   /* Background image doesn't tile */
@@ -839,16 +839,24 @@ core-drawer-panel:not([narrow]) #navicon {
 #sing-alankars .exercise {
   fill: #A8A8A8;
 }
+/* line 134, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars paper-slider {
+  width: 130px;
+}
 @media only screen and (max-width: 960px) {
   /* line 2, ../../../er-apps/SingAlankars/main.scss */
   #sing-alankars {
     /* styles for browsers smaller than 960px; 2/3rd of my desktop screen width */
   }
-  /* line 136, ../../../er-apps/SingAlankars/main.scss */
+  /* line 140, ../../../er-apps/SingAlankars/main.scss */
   #sing-alankars button, #sing-alankars select, #sing-alankars .header {
     font-size: 0.75em;
   }
-  /* line 140, ../../../er-apps/SingAlankars/main.scss */
+  /* line 144, ../../../er-apps/SingAlankars/main.scss */
+  #sing-alankars paper-slider {
+    width: 85px;
+  }
+  /* line 148, ../../../er-apps/SingAlankars/main.scss */
   #sing-alankars button {
     padding: 1px 3px;
   }
@@ -858,11 +866,15 @@ core-drawer-panel:not([narrow]) #navicon {
   #sing-alankars {
     /* mainly for mobile devices */
   }
-  /* line 146, ../../../er-apps/SingAlankars/main.scss */
+  /* line 154, ../../../er-apps/SingAlankars/main.scss */
   #sing-alankars button, #sing-alankars select, #sing-alankars .header {
     font-size: 0.5em;
   }
-  /* line 149, ../../../er-apps/SingAlankars/main.scss */
+  /* line 157, ../../../er-apps/SingAlankars/main.scss */
+  #sing-alankars paper-slider {
+    width: 60px;
+  }
+  /* line 160, ../../../er-apps/SingAlankars/main.scss */
   #sing-alankars button {
     padding: 1px 2px;
   }
@@ -872,48 +884,50 @@ core-drawer-panel:not([narrow]) #navicon {
   #sing-alankars {
     /* mainly for mobile devices */
   }
-  /* line 158, ../../../er-apps/SingAlankars/main.scss */
+  /* line 169, ../../../er-apps/SingAlankars/main.scss */
   #sing-alankars .axis .tick text {
     fill: black;
     font-size: 0.4em;
   }
-  /* line 162, ../../../er-apps/SingAlankars/main.scss */
+  /* line 173, ../../../er-apps/SingAlankars/main.scss */
   #sing-alankars .axis path, #sing-alankars .axis line {
     fill: none;
     stroke: black;
     stroke-width: 0.5px;
   }
 }
-/* line 171, ../../../er-apps/SingAlankars/main.scss */
+/* line 182, ../../../er-apps/SingAlankars/main.scss */
 #sing-alankars .settings form {
   display: table;
   font-size: 20px;
   padding: 30px 30px 30px 30px;
   border: 1px solid #ddd;
 }
-/* line 177, ../../../er-apps/SingAlankars/main.scss */
+/* line 188, ../../../er-apps/SingAlankars/main.scss */
 #sing-alankars .settings p {
   display: table-row;
 }
-/* line 180, ../../../er-apps/SingAlankars/main.scss */
+/* line 191, ../../../er-apps/SingAlankars/main.scss */
 #sing-alankars .settings label {
   display: table-cell;
   padding: 0 0 20px 0;
 }
-/* line 184, ../../../er-apps/SingAlankars/main.scss */
+/* line 195, ../../../er-apps/SingAlankars/main.scss */
 #sing-alankars .settings input, #sing-alankars .settings select {
   display: table-cell;
   font-size: 16px;
   margin: 0 0 0 20px;
 }
-/* line 191, ../../../er-apps/SingAlankars/main.scss */
+/* line 202, ../../../er-apps/SingAlankars/main.scss */
 #sing-alankars .settings button {
   float: right;
   font-size: 20px;
 }
-/* line 196, ../../../er-apps/SingAlankars/main.scss */
-#sing-alankars paper-slider {
-  width: 130px;
+/* line 207, ../../../er-apps/SingAlankars/main.scss */
+#sing-alankars paper-slider::shadow #sliderKnobInner,
+#sing-alankars paper-slider::shadow #sliderKnobInner::before,
+#sing-alankars paper-slider::shadow #sliderBar::shadow #activeProgress {
+  background-color: #0f9d58;
 }
 
 /* line 2, ../../../er-apps/UpOrDown/main.scss */

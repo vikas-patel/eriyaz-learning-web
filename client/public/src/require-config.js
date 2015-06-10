@@ -22,6 +22,7 @@ requirejs.config({
         'mic-util': 'er-libs/mic-util',
         'pitchdetector': 'er-libs/pitchdetector',
         'intensityfilter': 'er-libs/intensityfilter',
+        'octaveError': 'er-libs/octaveError',
         'stabilitydetector': 'er-libs/stabilitydetector',
         'currentaudiocontext': 'er-libs/currentaudiocontext',
         'audiobuffer': 'er-libs/audiobuffer',

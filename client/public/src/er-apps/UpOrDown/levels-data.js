@@ -9,9 +9,10 @@ define([], function() {
 	var intervals = {
 		xlarge: [580, 1220],
 		large: [260, 580],
-		medium: [100, 260],
-		small: [45, 100],
-		xsmall: [20, 45]
+		medium: [150, 260],
+		small: [100, 150],
+		xsmall: [45, 100],
+		xxsmall: [20, 45]
 	};
 
 	return [{
@@ -101,6 +102,14 @@ define([], function() {
 		numNotes: 2,
 		testNotes: [1, 2],
 		color: colors.blue,
+		total: 20
+	},  {
+		desc: "extra extra small interval",
+		name:"level 12",
+		interval: intervals.xxsmall,
+		numNotes: 2,
+		testNotes: [1, 2],
+		color: colors.purple,
 		total: 20
 	}];
 });
