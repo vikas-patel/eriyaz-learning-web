@@ -31,7 +31,7 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		this.isTransitionStopped = false;
 		d3.timer(transitionFn);
 		if (!this.$scope.stopSignal) {
-			d3.timer(countdownFn);
+			this.$scope.$broadcast('start-timer');
 		}
 	}
 
@@ -75,32 +75,6 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 								 .attr("stroke", color)
 								 .attr("class", "indicatorLine");
 		var duration = this.duration + this.offsetTime;
-	}
-
-	function countdownFn(_elapsed) {
-		var tempo = chart.$scope.tempo/chart.maxTempo;
-		var distance = _elapsed*tempo;
-		if (!chart.nextCounter) {
-			chart.nextCounter = chart.offsetTime/chart.countdownNumber;
-			chart.$scope.countdownValue = chart.countdownNumber;
-			chart.$scope.$apply();
-			return false;
-		}
-		if (distance > chart.nextCounter) {
-			if (chart.$scope.countdownValue == "SING") {
-				chart.$scope.countdownValue = "";
-				chart.nextCounter = null;
-				chart.$scope.$apply();
-				return true;
-			}
-			chart.nextCounter += chart.offsetTime/chart.countdownNumber;
-			--chart.$scope.countdownValue;
-			if (chart.$scope.countdownValue == 0) {
-				chart.$scope.countdownValue = "SING";
-			}
-			chart.$scope.$apply();
-			return false;
-		}
 	}
 
 	function transitionFn(_elapsed) {
@@ -284,6 +258,33 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 						return "#E79797"; //red very far
 						});
 	};
+
+	app.directive('timer', ['$interval', function($interval) {
+		return {
+			link: function(scope, element, attr) {
+				var count;
+				function updateCounter() {
+					if (count == "SING") {
+						count = "";
+					} else if (count == 1) {
+						count = "SING";
+					} else {
+						count--;
+					}
+					element.text(count);
+				}
+				
+				scope.$on('start-timer', function() {
+					var interval = attr.offset/3*(60/scope.tempo);
+					count = 4;
+					updateCounter();
+					$interval(function() {
+						updateCounter();
+					}, interval, 4);
+				});
+			}
+		};
+	}]);
 
 	app.directive('ngSingAlankars', function() {
         return {
