@@ -1,6 +1,5 @@
-define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], function(app, Chart, d3, Player, Note, Melody) {
+define(['./module', 'chart', 'd3', 'webaudioplayer', 'note', 'melody'], function(app, Chart, d3, Player, Note, Melody) {
 	var labelsIndian = ["Sa", "", "Re", "", "Ga", "Ma", "", "Pa", "", "Dha", "", "Ni"];
-	var rectW = 5;
 	var chart;
 	var ExerciseChart = function(containerId, $scope, parentWidth, parentHeight, labels){
 		this.parent = Chart.Class;
@@ -114,45 +113,6 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		var currentTime = d.getTime();
 		return (currentTime -this.startTime)*(this.$scope.tempo/this.maxTempo);
 	}
-	
-	ExerciseChart.prototype.exerciseNote = function(time) {
-		// remove start offset
-		if (time < this.offsetTime) return -1;
-		time = time - this.offsetTime;
-		var timeTotal = 0;
-		var notes = this.exercise.notes;
-		var duration = 0;
-	 	
-		for (var i in notes) {
-			var note = notes[i];
-			if (note==-1)
-				duration = this.exercise.breakDuration;
-			else if (note==-2)
-				duration = this.exercise.midBreakDuration;
-			else
-				duration = this.exercise.noteDuration;
-			timeTotal += duration;
-			if (time <= timeTotal) {
-				return note;
-			}
-		}
-		return -1;
-	}
-	
-	ExerciseChart.prototype.draw = function(currInterval, renderTime) {
-		var diff = Math.abs(this.exerciseNote(renderTime) - currInterval.toFixed(this.settings.precision))
-		var rectH = this.height/this.settings.yTicks;
-		this.svg.velocity.append("rect")
-			.attr("x", this.x(renderTime/1000))
-			.attr("y", this.y(currInterval.toFixed(this.settings.precision)) - rectH/2)
-			.attr("width", rectW)
-			.attr("height", rectH)
-			.style("fill", function() {
-						if (diff==0) return "#2BB03B";//green perfect
-						if (diff==1) return "#FBD295";// almost
-						return "#E79797"; //red very far
-						});
-	};
 
 	app.directive('timer', ['$interval', function($interval) {
 		return {

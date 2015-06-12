@@ -1,4 +1,5 @@
 define(['d3'], function(d3) {
+	var rectW = 5;
 	var saGreen = "#d4f5d5";
 	var reKRed = "#FFFFFF";
 	var reRed = "#ffdddc";
@@ -112,6 +113,45 @@ define(['d3'], function(d3) {
 		.attr("viewBox", "0 0 " + (this.width + this.settings.marginLeft + this.settings.marginRight) + " " + (this.height + this.settings.marginTop + this.settings.marginBottom))
 		.append("g")
 		.attr("transform", "translate(" + this.settings.marginLeft + "," + this.settings.marginTop + ")");
+	};
+
+	Chart.prototype.exerciseNote = function(time) {
+		// remove start offset
+		if (time < this.offsetTime) return -1;
+		time = time - this.offsetTime;
+		var timeTotal = 0;
+		var notes = this.exercise.notes;
+		var duration = 0;
+	 	
+		for (var i in notes) {
+			var note = notes[i];
+			if (note==-1)
+				duration = this.exercise.breakDuration;
+			else if (note==-2)
+				duration = this.exercise.midBreakDuration;
+			else
+				duration = this.exercise.noteDuration;
+			timeTotal += duration;
+			if (time <= timeTotal) {
+				return note;
+			}
+		}
+		return -1;
+	}
+
+	Chart.prototype.draw = function(currInterval, renderTime) {
+		var diff = Math.abs(this.exerciseNote(renderTime) - currInterval.toFixed(this.settings.precision))
+		var rectH = this.height/this.settings.yTicks;
+		this.svg.velocity.append("rect")
+			.attr("x", this.x(renderTime/1000))
+			.attr("y", this.y(currInterval.toFixed(this.settings.precision)) - rectH/2)
+			.attr("width", rectW)
+			.attr("height", rectH)
+			.style("fill", function() {
+						if (diff==0) return "#2BB03B";//green perfect
+						if (diff==1) return "#FBD295";// almost
+						return "#E79797"; //red very far
+						});
 	};
 
 	Chart.prototype.drawIndicatorLine = function() {

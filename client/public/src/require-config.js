@@ -30,6 +30,7 @@ requirejs.config({
         'jquery': 'ext-libs/jquery/jquery',
         'webaudio-tools': 'ext-libs/webaudio/webaudio-tools',
         'webaudioplayer': 'er-libs/webaudioplayer',
+        'chart': 'er-libs/chart',
         'melody': 'er-libs/melody',
         'note': 'er-libs/note',
         'wavelet-pitch': 'ext-libs/waveletPitch',
