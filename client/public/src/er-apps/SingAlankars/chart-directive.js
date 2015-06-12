@@ -25,7 +25,6 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 	ExerciseChart.prototype.constructor = ExerciseChart;
 	
 	ExerciseChart.prototype.start = function() {
-		//this.parent.prototype.start.call(this);
 		var d = new Date();
 		this.startTime = d.getTime();
 		this.drawIndicatorLine();
@@ -46,7 +45,7 @@ define(['./module', './chart', 'd3', 'webaudioplayer', 'note', 'melody'], functi
 		this.currentNote = null;
 		this.isTransitionStopped = true;
 	}
-	
+
 	function transitionFn(_elapsed) {
 		if (chart.isTransitionStopped) return true;
 		var tempo = chart.$scope.tempo/chart.maxTempo;

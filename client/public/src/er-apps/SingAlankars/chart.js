@@ -113,11 +113,6 @@ define(['d3'], function(d3) {
 		.append("g")
 		.attr("transform", "translate(" + this.settings.marginLeft + "," + this.settings.marginTop + ")");
 	};
-	
-	Chart.prototype.start = function() {
-		var d = new Date();
-		this.startTime = d.getTime();
-	}
 
 	Chart.prototype.drawIndicatorLine = function() {
 		this.indicatorLine = this.svg.velocity.append("line")
