@@ -11,7 +11,8 @@ define(['d3'], function(d3) {
 	var dhaYellow = "#fafcbe";
 	var niKMulti = "#FFFFFF";
 	var niMulti = "#ffedff";
-
+	var labels12 = ["Sa", "Re(k)", "Re", "Ga(k)", "Ga", "Ma", "Ma(t)", "Pa", "Dha(k)", "Dha", "Ni(k)", "Ni", "SA"];
+	
 	var colors = [saGreen,reKRed,reRed,gaKGolden,gaGolden,maWhite,maTWhite,paBlue,dhaKYellow,dhaYellow,niKMulti,niMulti];
 		
     var Chart = function(containerId, settings) {
@@ -19,17 +20,11 @@ define(['d3'], function(d3) {
 		this.containerId = containerId;
 		this.width = this.settings.width - this.settings.marginLeft - this.settings.marginRight;
 		this.height = this.settings.height - this.settings.marginTop - this.settings.marginBottom;
+		this.offsetTime = 2000;
 		this.redraw();
 	};
 	
 	Chart.prototype.redraw = function() {
-		//pause and resume
-		this.pauseDuration = 0;
-		this.startTime = null;
-		this.started = false;
-		this.lastIntervalTime = null;
-		this.instrumentPlayed = false;
-		this.instrumentProgress = false;
 		// construct display elements
 		this.createCanvas();
 		this.createScale();
@@ -122,48 +117,94 @@ define(['d3'], function(d3) {
 	Chart.prototype.start = function() {
 		var d = new Date();
 		this.startTime = d.getTime();
-		this.started = true;
 	}
-	
-	Chart.prototype.pause = function() {
-		if (this.isPaused) return;
-		this.isPaused = true;
-		var d = new Date();
-		this.pauseTime = d.getTime();
+
+	Chart.prototype.drawIndicatorLine = function() {
+		this.indicatorLine = this.svg.velocity.append("line")
+								 .attr("x1", 0)
+								 .attr("y1", this.y(-12))
+								 .attr("x2", 0)
+								 .attr("y2", this.y(25))
+								 .attr("stroke-width", 1)
+								 .attr("stroke", 'red')
+								 .attr("class", "indicatorLine");
+	}
+
+	Chart.prototype.drawExercise = function () {
+		var exercise = this.exercise;
+		var result = this.exercise.notes;
+		//console.info("result" + JSON.stringify(result));
+		// delay at start
+		var t1 = this.offsetTime;
+		var y = this.y;
+		var x = this.x;
+		var rectH = this.height/this.settings.yTicks;
+
+		var textX=t1;
+		this.svg.velocity.selectAll("text")
+			.data(result)
+			.enter()
+			.append("text")
+			.attr("x", function(d) {
+				var duration = 0;
+			 	if (d==-1) 
+					duration = exercise.breakDuration;
+				else if (d==-2)
+					duration = exercise.midBreakDuration;
+				else
+					duration = exercise.noteDuration;
+				textX = textX + duration;
+				return x(textX-duration/2)/1000;
+			})
+			.attr("y", function(d) {
+				return y(d)-rectH;
+			})
+			.style("text-anchor", "middle")
+			.text(function(d) {
+				if (d<0) 
+					return "";
+				else
+					return labels12[d];
+			});
+
+		this.svg.velocity.selectAll("rect.exercise")
+			.data(result)
+			.enter()
+			.append("rect")
+			.attr("x", function(d){
+				var duration = 0;
+			 	if (d==-1) 
+					duration = exercise.breakDuration;
+				else if (d==-2)
+					duration = exercise.midBreakDuration;
+				else
+					duration = exercise.noteDuration;
+				t1 = t1 + duration;
+				return x(t1-duration)/1000;
+			})
+			.attr("y", function(d){
+				// return y(d.pitch) - rectH/2;
+				return y(d) - rectH/2;
+			})
+			.attr("width", function(d){
+			 	var duration = 0;
+			 	if (d == -1) 
+					duration = exercise.breakDuration;
+				else if (d == -2)
+					duration = exercise.midBreakDuration;
+				else
+					duration = exercise.noteDuration;
+				return x(duration/1000);
+			 })
+			.attr("height", function(d){
+				if (d<0) return 0;
+				return rectH;
+			})
+			.attr("rx", rectH/2)
+			.attr("ry", rectH/2)
+			.attr("class", "exercise");
 	};
-	
-	Chart.prototype.resume = function() {
-		if (!this.isPaused) return;
-		this.isPaused = false;
-		var d = new Date();
-		this.resumeTime = d.getTime();
-		this.pauseDuration +=(this.resumeTime - this.pauseTime);
-		//this.svg.selectAll('line.line').remove();
-	};
-	
-	Chart.prototype.draw = function(currInterval) {
-		var d = new Date();
-		if (!this.lastIntervalTime) this.lastIntervalTime = this.startTime;
-		if (!this.lastInterval) this.lastInterval = currInterval;
-		var intervalTime = d.getTime();
-		if (intervalTime-this.startTime > this.settings.timeSpan) {
-			this.startTime = this.lastIntervalTime;
-			this.spanNumber++;
-			// Don't remove axis ticks, adding class name.
-			this.svg.selectAll('line.line').remove();
-		}
-		this.svg.append("line")
-			.attr("x1", this.x((this.lastIntervalTime - this.startTime)/1000))
-			.attr("y1", this.y(this.lastInterval.toFixed(this.settings.precision)))
-			.attr("x2", this.x((intervalTime - this.startTime)/1000))
-			.attr("y2", this.y(currInterval.toFixed(this.settings.precision)))
-			.attr("stroke-width", 1)
-			.attr("class", "line")
-			.attr("stroke", "blue");
-		this.lastInterval = currInterval;
-		this.lastIntervalTime = intervalTime;
-	};
-	
+
     return {
 		Class: Chart,
         getChart: function(containerId, parentWidth, parentHeight, labels) {
