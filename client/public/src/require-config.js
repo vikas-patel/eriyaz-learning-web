@@ -22,6 +22,7 @@ requirejs.config({
         'mic-util': 'er-libs/mic-util',
         'pitchdetector': 'er-libs/pitchdetector',
         'intensityfilter': 'er-libs/intensityfilter',
+        'octaveError': 'er-libs/octaveError',
         'stabilitydetector': 'er-libs/stabilitydetector',
         'currentaudiocontext': 'er-libs/currentaudiocontext',
         'audiobuffer': 'er-libs/audiobuffer',
@@ -29,6 +30,7 @@ requirejs.config({
         'jquery': 'ext-libs/jquery/jquery',
         'webaudio-tools': 'ext-libs/webaudio/webaudio-tools',
         'webaudioplayer': 'er-libs/webaudioplayer',
+        'chart': 'er-libs/chart',
         'melody': 'er-libs/melody',
         'note': 'er-libs/note',
         'wavelet-pitch': 'ext-libs/waveletPitch',
@@ -44,7 +46,8 @@ requirejs.config({
         'st-buffer' : 'ext-libs/soundtouch/buffer',
         'st-filter' : 'ext-libs/soundtouch/filter',
         'st-stretch' : 'ext-libs/soundtouch/stretch',
-        'soundtouch' : 'ext-libs/soundtouch/soundtouch'
+        'soundtouch' : 'ext-libs/soundtouch/soundtouch',
+        'timeMe' : 'ext-libs/TimeMe/TImeMe'
     },
 
     // Add modules that do not support AMD

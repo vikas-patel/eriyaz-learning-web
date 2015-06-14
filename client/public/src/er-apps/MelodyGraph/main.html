@@ -1,15 +1,34 @@
 <div id="melodygraph" ng-controller="MelodyGraphCtrl as ctrl">
     <div class="container-toplevel">
+            <select ng-model="selectedLevelIdx">
+                <option ng-repeat="level in levels" value="{{$index}}">Level {{$index+1}}</option> 
+            </select>
+            <div id="score">
+                Score: {{avgAccuracy*100 | number:0}}%
+            </div>
+            <div id="attempts">
+                {{attempts}}/{{total}}
+            </div>
             <div class="container">
                 <div id="chartdiv"></div>
             </div>
-
+            
             <div class="container settings">
-                Number of Notes: <select ng-model='numNotes' ng-options='opt for opt in numNotesOpts'></select><br>
-                <button class="small" ng-click="newSequence();">new</button>
-                <button class="small" ng-click="repeat();">repeat</button>
-                <button class="large" ng-click="playMyGraph();">play my graph</button>
-                <button class="large" ng-click="showAnswer();">show answer</button>
+                <button class="small" ng-disabled="newDisabled" ng-click="newSequence();">new</button>
+                <button class="small" ng-disabled="repeatDisabled" ng-click="repeat();">repeat</button>
+                <button class="large" ng-disabled="playMyDisabled" ng-click="playMyGraph();">play my graph</button>
+                <button class="large" ng-disabled="checkDisabled" ng-click="check();">check</button>
             </div>
-        </div>
+
+            <div id="overlay" ng-show="showOverlay"></div>
+            <div id="overlay-content" ng-show="showOverlay">
+                <div class="padding5"><h1>Exercise Ends</h1></div>
+                <div class="padding5"><h2>Your Score: <span id="overlay-score">{{avgAccuracy*100  | number:0}}%</span></h2></div>
+                <div class="padding5">
+                    <button ng-click="replay()" id="play-again">replay</button>
+                    <button ng-click="nextLevel()" id="close-overlay">next</button>
+                    <button ng-click="closeOverlay()" id="close-overlay">close</button>
+                </div>
+                <div>
+            </div>
 </div>

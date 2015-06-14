@@ -13,7 +13,7 @@ var UserSchema = new mongoose.Schema({
         
     },
 	join_date: { type : Date, default : Date.now },
-    isTeacher: { type : Boolean, default : false},
+    userType: { type : String, default : "student"},
     teacher: {type: mongoose.Schema.Types.ObjectId,
         ref: 'User'},
     settings : {

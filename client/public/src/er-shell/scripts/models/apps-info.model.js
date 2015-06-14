@@ -1,5 +1,5 @@
-  define(['./module'], function(app) {
-    app.factory('AppsInfoModel', function() {
+  define(['./module', 'timeMe'], function(app) {
+    app.factory('AppsInfoModel', function(ScoreService, $window) {
       var appsInfo = {};
       appsInfo.apps = [{
         name: 'Alankars',
@@ -80,7 +80,7 @@
         href: '#freestylephrases',
         appUrl: 'er-apps/FreestylePhrases/main.html',
         aspectRatio: 5/3,
-        show:true
+        show:false
       }, {
         name: 'SwarMastery',
         thumb: 'er-shell/images/swarmastery.jpg',
@@ -99,8 +99,36 @@
         show:true
       }];
       appsInfo.selectedIndex = -1;
+      TimeMe.setIdleDurationInSeconds(60);
       appsInfo.setSelected = function(index) {
+        // exit an app.
+        if (this.selectedIndex > -1 && index == -1) {
+            TimeMe.stopTimer();
+            var lastPage = this.apps[this.selectedIndex].name;
+            var timeSpent = TimeMe.getTimeOnCurrentPageInSeconds();
+            // Upload time to the server.
+            if (timeSpent > 10) {
+                ScoreService.addTime(lastPage, Math.round(timeSpent), TimeMe.startTime, new Date(), false);
+            }
+        } else if (index > -1) {
+            TimeMe.stopTimer();
+            TimeMe.setCurrentPageName(this.apps[index].name);
+            TimeMe.startTimer();
+            TimeMe.startTime = new Date();
+        }
         this.selectedIndex = index;
+      };
+
+      $window.onbeforeunload = function (event) {
+            if (appsInfo.selectedIndex > -1) {
+                TimeMe.stopTimer();
+                var lastPage = appsInfo.apps[appsInfo.selectedIndex].name;
+                var timeSpent = TimeMe.getTimeOnCurrentPageInSeconds();
+                // Upload time to the server.
+                if (timeSpent > 10) {
+                    ScoreService.addTime(lastPage, Math.round(timeSpent), TimeMe.startTime, new Date(), true);
+                }
+            }
       };
 
       appsInfo.getSelectedUrl = function() {

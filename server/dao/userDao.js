@@ -1,5 +1,6 @@
 var User = require('../model/user.js');
 var Score = require('../model/score.js');
+var UserTime = require('../model/user-time.js');
 var mongoose = require('mongoose');
 var _ = require('underscore');
 //TODO:
@@ -72,7 +73,66 @@ exports.saveScore = function(req, res) {
 	res.send(200);
 }
 
+exports.addTime = function(req, res) {
+	new UserTime(req.body).save();
+	res.send(200);
+}
+
+exports.findTime = function(req, res) {
+	UserTime
+		.find({
+			user: new mongoose.Types.ObjectId(req.params.id)
+		})
+		.exec(function(err, userTimes) {
+			if (err) res.send(err);
+			res.json(userTimes);
+		});
+}
+
 exports.findAllScores = function(req, res) {
+	Score
+		.find({
+			user: new mongoose.Types.ObjectId(req.params.id)
+		})
+		.sort({completionTime: -1})
+		.exec(function(err, scores) {
+			if (err) res.send(err);
+			UserTime
+				.find({
+					user: new mongoose.Types.ObjectId(req.params.id)
+				})
+				.sort({endTime: -1})
+				.exec(function(err, times) {
+					if (err) res.send(err);
+					var groupedScoresObj = _.groupBy(scores, function(score) {
+						return new Date(score.completionTime.getFullYear(),
+							score.completionTime.getMonth(),
+							score.completionTime.getDate());
+					});
+					var groupedTimesObj = _.groupBy(times, function(time) {
+						return new Date(time.endTime.getFullYear(),
+							time.endTime.getMonth(),
+							time.endTime.getDate());
+					});
+					var timeKeys = _.keys(groupedTimesObj);
+					var scoreKeys = _.keys(groupedScoresObj);
+					var keys = _.union(scoreKeys, timeKeys);
+					keys = _.sortBy(keys, function(key){ return new Date(key)});
+					keys.reverse();
+					var groupedScoresArray = [];
+					for (var i = 0; i < keys.length; i++) {
+						groupedScoresArray.push({
+							completionTime: new Date(keys[i]),
+							scores: groupedScoresObj[keys[i]],
+							times:groupedTimesObj[keys[i]]
+						});
+					}
+					res.json(groupedScoresArray);
+				});
+		});
+}
+
+exports.findTopScoresByDate = function(req, res) {
 	Score.aggregate([{
 			$match: {
 				user: new mongoose.Types.ObjectId(req.params.id)
@@ -139,7 +199,7 @@ exports.findAllScores = function(req, res) {
 exports.findAllTeachers = function(req, res) {
 	User
 		.find({
-			isTeacher: true
+			userType: "teacher"
 		})
 		.exec(function(err, teachers) {
 			if (err) res.send(err);
