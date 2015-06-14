@@ -2,7 +2,7 @@
  * In this file you should write your main styles. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
-/* line 5, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 5, ../../../../../../../Ruby22/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -24,45 +24,45 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 22, ../../../../../../../Ruby22/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 24, ../../../../../../../Ruby22/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 26, ../../../../../../../Ruby22/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 28, ../../../../../../../Ruby22/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 30, ../../../../../../../Ruby22/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 103, ../../../../../../../Ruby22/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 32, ../../../../../../../Ruby22/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 116, ../../../../../../../Ruby22/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
   display: block;
 }
@@ -112,7 +112,7 @@ body #error dd {
 /* line 1, ../sass/pages/_front.scss */
 #front {
   font-family: sans-serif;
-  background-image: url('../../images/fort.jpg?1424883674'), radial-gradient(closest-side at 35% 45%, #e02006, #f16236, #e02006);
+  background-image: url('../../images/fort.jpg?1431764611'), radial-gradient(closest-side at 35% 45%, #e02006, #f16236, #e02006);
   /* Background image is centered vertically and horizontally at all times */
   background-position: center center;
   /* Background image doesn't tile */
@@ -213,7 +213,7 @@ body #error dd {
   color: white;
   float: right;
   text-align: right;
-  width: 50px;
+  width: 70px;
   text-decoration: none;
 }
 /* line 109, ../sass/pages/_front.scss */
@@ -315,6 +315,13 @@ body #error dd {
   border: none;
 }
 /* line 43, ../sass/pages/_login-dialog.scss */
+#loginDialog /deep/ input[type="radio"] {
+  margin-right: 16px;
+  display: inline;
+  vertical-align: middle;
+  margin-top: 2px;
+}
+/* line 51, ../sass/pages/_login-dialog.scss */
 #loginDialog /deep/ input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px white inset;
 }
@@ -324,19 +331,19 @@ body #error dd {
     height: 20px;
     margin-top: none;
   }
-  /* line 50, ../sass/pages/_login-dialog.scss */
+  /* line 58, ../sass/pages/_login-dialog.scss */
   #loginDialog /deep/ input[type="submit"] {
     height: 40px;
   }
 }
-/* line 56, ../sass/pages/_login-dialog.scss */
+/* line 64, ../sass/pages/_login-dialog.scss */
 #loginDialog /deep/ .or {
   width: 21.05263%;
   float: right;
   margin-right: 0;
   margin-top: 5.26316%;
 }
-/* line 61, ../sass/pages/_login-dialog.scss */
+/* line 69, ../sass/pages/_login-dialog.scss */
 #loginDialog /deep/ .close-button {
   position: absolute;
   top: 0px;
@@ -347,12 +354,12 @@ body #error dd {
   color: black;
   text-decoration: none;
 }
-/* line 70, ../sass/pages/_login-dialog.scss */
+/* line 78, ../sass/pages/_login-dialog.scss */
 #loginDialog /deep/ .close-button:hover {
   cursor: pointer;
   cursor: hand;
 }
-/* line 76, ../sass/pages/_login-dialog.scss */
+/* line 84, ../sass/pages/_login-dialog.scss */
 #loginDialog /deep/ a {
   color: #652218;
 }

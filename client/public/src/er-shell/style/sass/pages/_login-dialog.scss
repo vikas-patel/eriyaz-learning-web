@@ -40,6 +40,14 @@
 				border:none;
 			}
 
+			&[type="radio"] {
+				margin-right:16px;
+				display:inline;
+				vertical-align: middle;
+				  margin-top: 2px;
+
+			}
+
 			&:-webkit-autofill {
     			-webkit-box-shadow: 0 0 0px 1000px white inset;
 			}
