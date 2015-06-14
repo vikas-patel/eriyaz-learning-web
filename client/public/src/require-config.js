@@ -129,6 +129,10 @@ requirejs.config({
         name: 'voicematch',
         location: 'er-apps/VoiceMatch',
         main: 'index'
+    }, {
+        name: 'voicerange',
+        location: 'er-apps/Voicerange',
+        main: 'index'
     }, {    
         name: 'freestylephrases',
         location: 'er-apps/FreestylePhrases',

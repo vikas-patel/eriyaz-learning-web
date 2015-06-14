@@ -25,6 +25,7 @@ define([
     'freestylephrases',
     'swarmastery',
     'melodygraph2',
+    'voicerange'
 ], function(angular) {
     'use strict';
 
@@ -47,7 +48,7 @@ define([
         'freestylephrases',
         'swarmastery',
         'melodygraph2',
-
+        'voicerange',
         'ngResource',
         'angulartics',
         'angulartics.google.analytics',

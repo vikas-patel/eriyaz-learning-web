@@ -97,6 +97,14 @@
         appUrl: 'er-apps/MelodyGraph2/main.html',
         aspectRatio: 9/10,
         show:true
+      }, {
+        name: 'VoiceRange',
+        thumb: 'er-shell/images/voicerange.jpg',
+        desc: 'Know your voice range.',
+        href: '#voicerange',
+        appUrl: 'er-apps/VoiceRange/main.html',
+        aspectRatio: 41/20,
+        show:true
       }];
       appsInfo.selectedIndex = -1;
       TimeMe.setIdleDurationInSeconds(60);
