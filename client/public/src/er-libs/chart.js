@@ -240,6 +240,22 @@ define(['d3'], function(d3) {
 			.attr("class", "exercise");
 	};
 
+	Chart.prototype.getDuration = function() {
+		var duration = 0;
+		var notes = this.exercise.notes;
+		for (var i in notes) {
+			var note = notes[i];
+			if (note == -1) {
+				duration += this.exercise.breakDuration;
+			} else if (note == -2) {
+				duration += this.exercise.midBreakDuration;
+			} else {
+				duration += this.exercise.noteDuration;
+			}
+		}
+		return duration;
+	};
+
     return {
 		Class: Chart,
         getChart: function(containerId, parentWidth, parentHeight, labels) {

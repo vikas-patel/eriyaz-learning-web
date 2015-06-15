@@ -90,23 +90,6 @@ define(['./module', 'chart', 'd3', 'webaudioplayer', 'note', 'melody'], function
 			melody.push(note);
 		});
 	};
-
-	ExerciseChart.prototype.getDuration = function() {
-		var duration = 0;
-		var notes = this.exercise.notes;
-		for (var i in notes) {
-			var note = notes[i];
-			if (note == -1) {
-				duration += this.exercise.breakDuration;
-			} else if (note == -2) {
-				duration += this.exercise.midBreakDuration;
-			} else {
-				duration += this.exercise.noteDuration;
-			}
-		}
-		return duration;
-	};
-	
 	
 	ExerciseChart.prototype.getTimeRendered = function(){
 		var d = new Date();

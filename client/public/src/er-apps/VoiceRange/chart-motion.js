@@ -1,5 +1,8 @@
 define(['./module', 'chart', 'd3', 'webaudioplayer', 'note', 'melody'], function(app, Chart, d3, Player, Note, Melody) {
 	var labelsIndian = ["Sa", "", "Re", "", "Ga", "Ma", "", "Pa", "", "Dha", "", "Ni"];
+	var exercise = {notes:[0, 2, 4, 6, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], 
+					noteDuration: 2000, breakDuration: 500, 
+					midBreakDuration: 0};
 	var ChartMotion = function(containerId, $scope, parentWidth, parentHeight, labels){
 		this.parent = Chart.Class;
 		// super constructor
@@ -37,7 +40,9 @@ define(['./module', 'chart', 'd3', 'webaudioplayer', 'note', 'melody'], function
 	ChartMotion.prototype.redraw = function() {
 		this.parent.prototype.redraw.call(this);
 		this.startTime = null;
-		if (this.exercise) this.drawExercise();
+		this.exercise = exercise;
+		this.drawExercise();
+		this.duration = this.getDuration();
 		this.nextTick= this.offsetTime;
 		this.nextBeatTime = 0;
 		this.currentNote = null;
@@ -47,14 +52,16 @@ define(['./module', 'chart', 'd3', 'webaudioplayer', 'note', 'melody'], function
 	function transitionFn(_elapsed) {
 		if (chart.isTransitionStopped) return true;
 		var distance = _elapsed;
+		if (distance > chart.duration + chart.offsetTime) {
+			chart.$scope.$broadcast('chartOver');
+			return true;
+		}
 		//TODO: Stop condition
 		chart.indicatorLine.attr("transform", "translate(" + chart.x(distance/1000) +",0)");
 		// var totalDuration = (chart.duration + 2*chart.offsetTime - chart.settings.timeSpan)/(chart.duration + chart.offsetTime);
-		// chart.svg.velocity.attr("transform", "translate(-" + chart.x((totalDuration*distance)/1000) +",0)");
-		if (_elapsed > chart.nextBeatTime) {
-			chart.player.playBeat();
-			chart.nextBeatTime += chart.beatDuration/tempo;
-		}
+		//var groupLag = Math.min(distance*.2, chart.settings.timeSpan/2);
+		chart.svg.velocity.attr("transform", "translate(-" + chart.x((0.8*distance)/1000) +",0)");
+
 		// play instrument
 		if (chart.isPlayInstrument && distance > chart.nextTick) {
 			chart.currentNote = chart.melody.shift();
