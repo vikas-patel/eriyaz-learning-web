@@ -23,15 +23,15 @@
 		<div ng-if="loginSignupDialogModel.selection == 'signup'">
 			<form ng-submit="submit()" ng-controller="SignupCtrl">
 				<h4>Sign Up</h4>
-				<input type="text" name="name" placeholder="Name" ng-model="name">
-				<input type="text" name="email" placeholder="email" ng-model="email">
-				<input type="password" name="password" placeholder="password" ng-model="password">
+				<input type="text" name="name" placeholder="Name" ng-model="name"><br>
+				<input type="text" name="email" placeholder="email" ng-model="email"><br>
+				<input type="password" name="password" placeholder="password" ng-model="password"><br>
 				<input type="radio" name="gender" value="man" ng-model="gender" />
-				<level for="man">Man</level><br>
+				<level for="man">Man</level>
 				<input type="radio" name="gender" value="woman" ng-model="gender" />
-				<level for="woman">Woman</level><br>
+				<level for="woman">Woman</level>
 				<input type="radio" name="gender" value="child" ng-model="gender" />
-				<level for="child">Child</level><br>
+				<level for="child">Child</level>
 				<input type="submit" value="Sign Up">
 				{{flashMessage}}
 				</form>
