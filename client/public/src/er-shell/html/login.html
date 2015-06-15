@@ -4,39 +4,30 @@
 
 <paper-action-dialog backdrop autoCloseDisabled layered="false" opened={{uiModel.showLoginDialog}} id="loginDialog">
 	<a href="#" class="close-button" >x</a>
-
-	<!-- <div ng-switch on="loginSignupDialogModel.selection"> -->
-		<!-- <div ng-switch-when="login"> -->
 		<div ng-if="loginSignupDialogModel.selection == 'login'">
 			<form ng-submit="submit()" ng-controller="LoginCtrl">
-				<h4>Log In</h4>
-
-				<input type="text" name="email" placeholder="email" ng-model="email">
-				<input type="password" name="password" placeholder="password" ng-model="password" >
-				<input type="submit" value="Log In">
-				{{flashMessage}}
-				<span class="or">or <a href ng-click="loginSignupDialogModel.selection='signup'">signup</a></span>
-
+				<div><h4>Log In</h4></div>
+				<div><input type="text" name="email" placeholder="email" ng-model="email"></div>
+				<div><input type="password" name="password" placeholder="password" ng-model="password" ></div>
+				<div><input type="submit" value="Log In"></div>
+				<div><span class="or">or <a href ng-click="loginSignupDialogModel.selection='signup'">signup</a></span></div>
+				<div>{{flashMessage}}</div>
 			</form>
 		</div>
-		<!-- <div ng-switch-when="signup"> -->
 		<div ng-if="loginSignupDialogModel.selection == 'signup'">
 			<form ng-submit="submit()" ng-controller="SignupCtrl">
-				<h4>Sign Up</h4>
-				<input type="text" name="name" placeholder="Name" ng-model="name"><br>
-				<input type="text" name="email" placeholder="email" ng-model="email"><br>
-				<input type="password" name="password" placeholder="password" ng-model="password"><br>
-				<input type="radio" name="gender" value="man" ng-model="gender" />
+				<div><h4>Sign Up</h4></div>
+				<div><input type="text" name="name" placeholder="Name" ng-model="name"></div>
+				<div><input type="text" name="email" placeholder="email" ng-model="email"></div>
+				<div><input type="password" name="password" placeholder="password" ng-model="password"></div>
+				<div><input type="radio" name="gender" value="man" ng-model="gender" />
 				<level for="man">Man</level>
 				<input type="radio" name="gender" value="woman" ng-model="gender" />
 				<level for="woman">Woman</level>
 				<input type="radio" name="gender" value="child" ng-model="gender" />
-				<level for="child">Child</level>
-				<input type="submit" value="Sign Up">
-				{{flashMessage}}
-				</form>
-				<span class="or">or <a href ng-click="loginSignupDialogModel.selection='login'">login</a></span>
-
+				<level for="child">Child</level></div>
+				<div>{{flashMessage}}</div>
+				<div><input type="submit" value="Sign Up"><span class="or">or <a href ng-click="loginSignupDialogModel.selection='login'">login</a></span></div>
+			</form>
 		</div>
-	<!-- </div> -->
 </paper-action-dialog>
