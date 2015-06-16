@@ -1,5 +1,7 @@
 define(['./module', 'chart', 'd3', 'webaudioplayer', 'note', 'melody'], function(app, Chart, d3, Player, Note, Melody) {
 	var labelsIndian = ["Sa", "", "Re", "", "Ga", "Ma", "", "Pa", "", "Dha", "", "Ni"];
+	var labels12 = ["Sa", "Re(k)", "Re", "Ga(k)", "Ga", "Ma", "Ma(t)", "Pa", "Dha(k)", "Dha", "Ni(k)", "Ni", "SA"];
+	
 	var chart;
 	var ExerciseChart = function(containerId, $scope, parentWidth, parentHeight, labels){
 		this.parent = Chart.Class;
@@ -142,11 +144,13 @@ define(['./module', 'chart', 'd3', 'webaudioplayer', 'note', 'melody'], function
 					marginBottom:20,
 					marginLeft:30,
 					labels: labelsIndian,
+					labels12: labels12,
 					yTicks: 38,
 					timeSpan:10000,
 					precision: 0
 				};
 				var chart = new ExerciseChart(element.attr('id'), scope, chartSettings);
+				chart.redraw();
 				scope.chart = chart;
 
 				scope.$on('start',function() {

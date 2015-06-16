@@ -1,7 +1,11 @@
 define(['./module', 'chart', 'd3', 'webaudioplayer', 'note', 'melody'], function(app, Chart, d3, Player, Note, Melody) {
-	var labelsIndian = ["Sa", "", "Re", "", "Ga", "Ma", "", "Pa", "", "Dha", "", "Ni"];
-	var exercise = {notes:[0, 2, 4, 6, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], 
-					noteDuration: 2000, breakDuration: 500, 
+	var labelsAxis = ["F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E"];
+	var labelsNote = ["F3", "F3#", "G3", "G3#", "A3", "A3#", "B3", "C4", "C4#", "D4", "D4#", "E4",
+	 "F4", "F4#", "G4", "G4#", "A4", "A4#", "B4", "C5", "C5#", "D5", "D5#", "E5",
+	 "F5", "F5#", "G5", "G5#", "A5", "A5#"];
+	var exercise = {notes:[0, -1, 2, -1, 4, -1, 6, -1, 8, -1, 10, -1, 11, -1, 12, -1, 13, -1, 14, -1, 15, -1, 16, -1, 
+							17, -1, 18, -1, 19, -1, 20, -1, 21, -1, 22, -1, 23, -1, 24], 
+					noteDuration: 2000, breakDuration: 1000, 
 					midBreakDuration: 0};
 	var ChartMotion = function(containerId, $scope, parentWidth, parentHeight, labels){
 		this.parent = Chart.Class;
@@ -14,10 +18,8 @@ define(['./module', 'chart', 'd3', 'webaudioplayer', 'note', 'melody'], function
 		this.beatDuration = 1000;
 		this.nextBeatTime = 0;
 		this.currentNote = null;
-		this.isPlayInstrument = false;
 		this.isTransitionStopped = true;
 		this.countdownNumber = 2;
-		this.maxTempo = 60;
 		chart = this;
 	};
 	
@@ -43,6 +45,7 @@ define(['./module', 'chart', 'd3', 'webaudioplayer', 'note', 'melody'], function
 		this.exercise = exercise;
 		this.drawExercise();
 		this.duration = this.getDuration();
+		this.setMelody();
 		this.nextTick= this.offsetTime;
 		this.nextBeatTime = 0;
 		this.currentNote = null;
@@ -63,18 +66,37 @@ define(['./module', 'chart', 'd3', 'webaudioplayer', 'note', 'melody'], function
 		chart.svg.velocity.attr("transform", "translate(-" + chart.x((0.8*distance)/1000) +",0)");
 
 		// play instrument
-		if (chart.isPlayInstrument && distance > chart.nextTick) {
+		if (distance > chart.nextTick) {
 			chart.currentNote = chart.melody.shift();
 			chart.nextTick += chart.currentNote.duration;
-			chart.player.playNote(chart.currentNote.freq, chart.currentNote.duration/tempo);
+			chart.player.playNote(chart.currentNote.freq, chart.currentNote.duration);
 		}
 		return false;
+	}
+
+	ChartMotion.prototype.setMelody = function() {
+		this.melody = [];
+		var melody = this.melody;
+		var rootNote = this.$scope.rootNote;
+		$.each(exercise.notes, function(idx, item) {
+			var note;
+			if (item == -1) {
+				// don't play
+				note = Note.createSilentNote(exercise.breakDuration);
+			} else if (item == -2) {
+				// don't play
+				note = Note.createSilentNote(exercise.midBreakDuration);
+			} else {
+				note = Note.createFromMidiNum(rootNote + item, exercise.noteDuration);
+			}
+			melody.push(note);
+		});
 	}
 
 	ChartMotion.prototype.getTimeRendered = function(){
 		var d = new Date();
 		var currentTime = d.getTime();
-		return (currentTime -this.startTime)*(this.$scope.tempo/this.maxTempo);
+		return (currentTime -this.startTime);
 	}
 
 	app.directive('voiceRangeChart', function() {
@@ -94,14 +116,16 @@ define(['./module', 'chart', 'd3', 'webaudioplayer', 'note', 'melody'], function
 					marginRight:20,
 					marginBottom:20,
 					marginLeft:30,
-					labels: labelsIndian,
+					labels: labelsAxis,
+					labels12: labelsNote,
 					yTicks: 38,
 					timeSpan:10000,
 					precision: 0
 				};
 				var chart = new ChartMotion(element.attr('id'), scope, chartSettings);
+				chart.redraw();
 				scope.chart = chart;
-
+				
 				scope.$on('start',function() {
 					chart.isPlayInstrument = false;
 					chart.start();

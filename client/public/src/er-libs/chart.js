@@ -12,7 +12,6 @@ define(['d3'], function(d3) {
 	var dhaYellow = "#fafcbe";
 	var niKMulti = "#FFFFFF";
 	var niMulti = "#ffedff";
-	var labels12 = ["Sa", "Re(k)", "Re", "Ga(k)", "Ga", "Ma", "Ma(t)", "Pa", "Dha(k)", "Dha", "Ni(k)", "Ni", "SA"];
 	
 	var colors = [saGreen,reKRed,reRed,gaKGolden,gaGolden,maWhite,maTWhite,paBlue,dhaKYellow,dhaYellow,niKMulti,niMulti];
 		
@@ -22,7 +21,7 @@ define(['d3'], function(d3) {
 		this.width = this.settings.width - this.settings.marginLeft - this.settings.marginRight;
 		this.height = this.settings.height - this.settings.marginTop - this.settings.marginBottom;
 		this.offsetTime = 2000;
-		this.redraw();
+		//this.redraw();
 	};
 	
 	Chart.prototype.redraw = function() {
@@ -168,6 +167,7 @@ define(['d3'], function(d3) {
 	Chart.prototype.drawExercise = function () {
 		var exercise = this.exercise;
 		var result = this.exercise.notes;
+		var labels12 = this.settings.labels12;
 		//console.info("result" + JSON.stringify(result));
 		// delay at start
 		var t1 = this.offsetTime;

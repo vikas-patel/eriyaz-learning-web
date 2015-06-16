@@ -15,6 +15,8 @@ define(['./module', 'jquery', 'mic-util', 'currentaudiocontext', 'audiobuffer', 
 			//$scope.partNumber = 0;
 			$scope.signalOn = false;
 			$scope.stopSignal = true;
+			$scope.rootNote = 53;
+			$scope.rootFreq = MusicCalc.midiNumToFreq($scope.rootNote);
 			$scope.user = User.get({
 				id: $window.localStorage.userId
 			}, function() {
@@ -37,7 +39,7 @@ define(['./module', 'jquery', 'mic-util', 'currentaudiocontext', 'audiobuffer', 
 						$scope.operation = 'reset';
 						break;
 					case 'reset':
-						reset();
+						$scope.reset();
 						break;
 				}
 			}
@@ -53,7 +55,7 @@ define(['./module', 'jquery', 'mic-util', 'currentaudiocontext', 'audiobuffer', 
 
 			$scope.reset = function() {
 				$scope.operation = 'start';
-				reset();
+				$scope.chart.redraw();
 			}
 
 			$scope.closeOverlay = function() {
@@ -62,7 +64,7 @@ define(['./module', 'jquery', 'mic-util', 'currentaudiocontext', 'audiobuffer', 
 
 			$scope.restart = function() {
 				$scope.showOverlay = false;
-				reset();
+				$scope.reset();
 				$scope.operation = 'reset';
 				start();
 			}
@@ -109,11 +111,6 @@ define(['./module', 'jquery', 'mic-util', 'currentaudiocontext', 'audiobuffer', 
 			function start() {
 				$scope.stopSignal = false;
 				$scope.$broadcast('start');
-			}
-
-			// Reset game to original state
-			function reset() {
-				$scope.operation = 'start';
 			}
 
 			function showToastMessage(text) {
