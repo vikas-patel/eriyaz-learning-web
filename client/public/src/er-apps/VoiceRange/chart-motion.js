@@ -3,7 +3,8 @@ define(['./module', 'chart', 'd3', 'webaudioplayer', 'note', 'melody'], function
 	var labelsNote = ["F3", "F3#", "G3", "G3#", "A3", "A3#", "B3", "C4", "C4#", "D4", "D4#", "E4",
 	 "F4", "F4#", "G4", "G4#", "A4", "A4#", "B4", "C5", "C5#", "D5", "D5#", "E5",
 	 "F5", "F5#", "G5", "G5#", "A5", "A5#"];
-	var exercise = {notes:[0, -1, 2, -1, 4, -1, 6, -1, 8, -1, 10, -1, 11, -1, 12, -1, 13, -1, 14, -1, 15, -1, 16, -1, 
+	var exercise = {notes:[0, -1, 1, -1, 2, -1, 3, -1, 4, -1, 5, -1, 6, -1, 7, -1, 8, -1, 9, -1,
+							10, -1, 11, -1, 12, -1, 13, -1, 14, -1, 15, -1, 16, -1, 
 							17, -1, 18, -1, 19, -1, 20, -1, 21, -1, 22, -1, 23, -1, 24], 
 					noteDuration: 2000, breakDuration: 1000, 
 					midBreakDuration: 0};
@@ -63,7 +64,7 @@ define(['./module', 'chart', 'd3', 'webaudioplayer', 'note', 'melody'], function
 		chart.indicatorLine.attr("transform", "translate(" + chart.x(distance/1000) +",0)");
 		// var totalDuration = (chart.duration + 2*chart.offsetTime - chart.settings.timeSpan)/(chart.duration + chart.offsetTime);
 		//var groupLag = Math.min(distance*.2, chart.settings.timeSpan/2);
-		chart.svg.velocity.attr("transform", "translate(-" + chart.x((0.8*distance)/1000) +",0)");
+		chart.svg.velocity.attr("transform", "translate(-" + chart.x((0.9*distance)/1000) +",0)");
 
 		// play instrument
 		if (distance > chart.nextTick) {

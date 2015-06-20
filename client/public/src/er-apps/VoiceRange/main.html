@@ -3,13 +3,8 @@
         <div style="padding: 0 5px 0 0"><button ng-click="startOrPause()" ng-class="{start:operation==='start',
                     reset:operation==='reset'||operation==='over'}"></button>
                     </div>
-        <div><select ng-model="gender" ng-class="{invalid:gender==null&&toastMessageDisplayed}">
-                    <option value="">-- User Type --</option>
-                    <option value="Male">Man</option>
-                    <option value="woman">Woman</option>
-                    <option value="child">Child</option>
-                </select></div>
         <div flex></div>
+      <div>Highest Note: {{lastMaxNote}}</div>
     </div>
     <div id="vr-containerId">
         <div voice-range-chart class='svg-container' id="voice-range-chart"></div>

@@ -15,6 +15,39 @@ define([], function() {
 		return 440.0 * Math.pow(2, (midiNumber - 69.0) / 12.0);
 	};
 
+	MusicCalc.midiNumToNotation = function(midiNumber) {
+		var octave = Math.floor(midiNumber/12) - 1;
+		var note = midiNumber%12;
+		switch (note) {
+		  case 0:
+		    return "C"+octave;
+		  case 1:
+		  	return "C"+octave + "#";
+		  case 2:
+		    return "D"+octave;
+		  case 3:
+		  	return "D"+octave + "#";
+		  case 4:
+		    return "E"+octave;
+		  case 5:
+		  	return "F"+octave;
+		  case 6:
+		    return "F"+octave + "#";
+		  case 7:
+		  	return "G"+octave;
+		  case 8:
+		  	return "G"+octave + "#";
+		  case 9:
+		    return "A"+octave;
+		  case 10:
+		  	return "A"+octave + "#";
+		  case 11:
+		  	return "B"+octave;
+		  default:
+		  	return "";
+		}
+	};
+
 	MusicCalc.getCents = function(freq1, freq2) {
 		return Math.floor(1200 * (Math.log(freq2 / freq1) / Math.log(2)));
 	};
