@@ -8,11 +8,14 @@ define(['./module', 'jquery', 'mic-util', 'currentaudiocontext', 'audiobuffer', 
 		var context;
 		var buffer;
 		var renderTimeShift = 70;
-		var lastExpNote = 0;
-		var notesArray = [];
-		var maxNote = -99;
+		var lastExpNote;
+		var notesArray;
+		var maxNote;
+		var minNote;
+		var isHigh;
 		app.controller('VoiceRangeCtrl', function($scope, User, $window) {
 			init();
+			initVariables();
 			$scope.operation = 'start';
 			$scope.showOverlay = false;
 			//$scope.partNumber = 0;
@@ -25,6 +28,14 @@ define(['./module', 'jquery', 'mic-util', 'currentaudiocontext', 'audiobuffer', 
 			}, function() {
 				
 			});
+
+			function initVariables () {
+				lastExpNote = 0;
+				notesArray = [];
+				maxNote = -99;
+				minNote = 99;
+				isHigh = true;
+			}
 
 			$scope.startOrPause = function() {
 				switch ($scope.operation) {
@@ -52,9 +63,7 @@ define(['./module', 'jquery', 'mic-util', 'currentaudiocontext', 'audiobuffer', 
 			);
 
 			$scope.reset = function() {
-				lastExpNote = 0;
-				notesArray = [];
-				maxNote = -99;
+				initVariables();
 				$scope.lastMaxNote = "";
 				$scope.operation = 'start';
 				$scope.chart.redraw();
@@ -105,10 +114,18 @@ define(['./module', 'jquery', 'mic-util', 'currentaudiocontext', 'audiobuffer', 
 				if (expNote != lastExpNote && lastExpNote != -1 && notesArray.length > 0) {
 					// find mean value of notesArray.
 					var meanNote = Number(_.chain(notesArray).countBy().pairs().max(_.last).head().value());
-					if (meanNote > maxNote) {
-						maxNote = meanNote;
-						$scope.lastMaxNote = MusicCalc.midiNumToNotation($scope.rootNote+maxNote);
-						$scope.$apply();
+					if (isHigh) {
+						if (meanNote > maxNote) {
+							maxNote = meanNote;
+							$scope.lastMaxNote = MusicCalc.midiNumToNotation($scope.rootNote+maxNote);
+							$scope.$apply();
+						}
+					} else {
+						if (meanNote < minNote) {
+							minNote = meanNote;
+							$scope.lastMinNote = MusicCalc.midiNumToNotation($scope.rootNote+maxNote);
+							$scope.$apply();
+						}
 					}
 					notesArray = [];
 				}
