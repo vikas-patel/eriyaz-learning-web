@@ -80,10 +80,10 @@ define(['./module', 'chart', 'd3', 'webaudioplayer', 'note', 'melody'], function
 		var rootNote = this.$scope.user.settings.rootNote;
 		$.each(exercise.notes, function(idx, item) {
 			var note;
-			if (item == -1) {
+			if (item == -100) {
 				// don't play
 				note = Note.createSilentNote(exercise.breakDuration);
-			} else if (item == -2) {
+			} else if (item == -101) {
 				// don't play
 				note = Note.createSilentNote(exercise.midBreakDuration);
 			} else {

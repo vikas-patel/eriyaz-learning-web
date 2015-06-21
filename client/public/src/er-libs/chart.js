@@ -124,9 +124,9 @@ define(['d3'], function(d3) {
 	 	
 		for (var i in notes) {
 			var note = notes[i];
-			if (note==-1)
+			if (note==-100)
 				duration = this.exercise.breakDuration;
-			else if (note==-2)
+			else if (note==-101)
 				duration = this.exercise.midBreakDuration;
 			else
 				duration = this.exercise.noteDuration;
@@ -135,7 +135,7 @@ define(['d3'], function(d3) {
 				return note;
 			}
 		}
-		return -1;
+		return -100;
 	}
 
 	Chart.prototype.draw = function(currInterval, renderTime) {
@@ -182,9 +182,9 @@ define(['d3'], function(d3) {
 			.append("text")
 			.attr("x", function(d) {
 				var duration = 0;
-			 	if (d==-1) 
+			 	if (d==-100) 
 					duration = exercise.breakDuration;
-				else if (d==-2)
+				else if (d==-101)
 					duration = exercise.midBreakDuration;
 				else
 					duration = exercise.noteDuration;
@@ -208,9 +208,9 @@ define(['d3'], function(d3) {
 			.append("rect")
 			.attr("x", function(d){
 				var duration = 0;
-			 	if (d==-1) 
+			 	if (d==-100) 
 					duration = exercise.breakDuration;
-				else if (d==-2)
+				else if (d==-101)
 					duration = exercise.midBreakDuration;
 				else
 					duration = exercise.noteDuration;
@@ -223,16 +223,16 @@ define(['d3'], function(d3) {
 			})
 			.attr("width", function(d){
 			 	var duration = 0;
-			 	if (d == -1) 
+			 	if (d == -100) 
 					duration = exercise.breakDuration;
-				else if (d == -2)
+				else if (d == -101)
 					duration = exercise.midBreakDuration;
 				else
 					duration = exercise.noteDuration;
 				return x(duration/1000);
 			 })
 			.attr("height", function(d){
-				if (d<0) return 0;
+				if (d<-99) return 0;
 				return rectH;
 			})
 			.attr("rx", rectH/2)
@@ -245,9 +245,9 @@ define(['d3'], function(d3) {
 		var notes = this.exercise.notes;
 		for (var i in notes) {
 			var note = notes[i];
-			if (note == -1) {
+			if (note == -100) {
 				duration += this.exercise.breakDuration;
-			} else if (note == -2) {
+			} else if (note == -101) {
 				duration += this.exercise.midBreakDuration;
 			} else {
 				duration += this.exercise.noteDuration;

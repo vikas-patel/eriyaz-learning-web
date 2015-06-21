@@ -131,7 +131,7 @@ define(['./module', 'jquery', 'mic-util', 'currentaudiocontext', 'audiobuffer', 
 				}
 				lastExpNote = expNote;
 				// don't update score; break, mid break or offset time.
-				if (expNote < 0) return;
+				if (expNote < -99) return;
 				var expFreq = Math.pow(2, expNote/12)*$scope.rootFreq;
 				//var actualFreq = octaveError.fix(waveletFreq, expFreq);
 				currInterval = Math.round(1200 * (Math.log(waveletFreq/$scope.rootFreq) / Math.log(2)) / 100);

@@ -3,9 +3,13 @@ define(['./module', 'chart', 'd3', 'webaudioplayer', 'note', 'melody'], function
 	var labelsNote = ["F3", "F3#", "G3", "G3#", "A3", "A3#", "B3", "C4", "C4#", "D4", "D4#", "E4",
 	 "F4", "F4#", "G4", "G4#", "A4", "A4#", "B4", "C5", "C5#", "D5", "D5#", "E5",
 	 "F5", "F5#", "G5", "G5#", "A5", "A5#"];
-	var exercise = {notes:[0, -1, 1, -1, 2, -1, 3, -1, 4, -1, 5, -1, 6, -1, 7, -1, 8, -1, 9, -1,
-							10, -1, 11, -1, 12, -1, 13, -1, 14, -1, 15, -1, 16, -1, 
-							17, -1, 18, -1, 19, -1, 20, -1, 21, -1, 22, -1, 23, -1, 24], 
+	var exercise = {notes:[0, -100, 1, -100, 2, -100, 3, -100, 4, -100, 5, -100, 6, -100, 7, -100, 8, -100, 9, -100,
+							10, -100, 11, -100, 12, -100, 13, -100, 14, -100, 15, -100, 16, -100, 
+							17, -100, 18, -100, 19, -100, 20, -100, 21, -100, 22, -100, 23, -100, 24], 
+					noteDuration: 2000, breakDuration: 1000, 
+					midBreakDuration: 0};
+	var exerciseLow = {notes:[0, -100, -1, -100, -2, -100, -3, -100, -4, -100, -5, -100, -6, -100, -7, -100, -8, -100, -9, -100,
+							-10, -100, -11, -100, -12, -100, -13, -100, -14], 
 					noteDuration: 2000, breakDuration: 1000, 
 					midBreakDuration: 0};
 	var ChartMotion = function(containerId, $scope, parentWidth, parentHeight, labels){
@@ -43,7 +47,7 @@ define(['./module', 'chart', 'd3', 'webaudioplayer', 'note', 'melody'], function
 	ChartMotion.prototype.redraw = function() {
 		this.parent.prototype.redraw.call(this);
 		this.startTime = null;
-		this.exercise = exercise;
+		this.exercise = exerciseLow;
 		this.drawExercise();
 		this.duration = this.getDuration();
 		this.setMelody();
@@ -79,12 +83,12 @@ define(['./module', 'chart', 'd3', 'webaudioplayer', 'note', 'melody'], function
 		this.melody = [];
 		var melody = this.melody;
 		var rootNote = this.$scope.rootNote;
-		$.each(exercise.notes, function(idx, item) {
+		$.each(this.exercise.notes, function(idx, item) {
 			var note;
-			if (item == -1) {
+			if (item == -100) {
 				// don't play
 				note = Note.createSilentNote(exercise.breakDuration);
-			} else if (item == -2) {
+			} else if (item == -101) {
 				// don't play
 				note = Note.createSilentNote(exercise.midBreakDuration);
 			} else {
