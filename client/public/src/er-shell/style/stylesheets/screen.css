@@ -583,18 +583,36 @@ core-drawer-panel:not([narrow]) #navicon {
   color: black;
 }
 /* line 9, ../sass/pages/_mystudents.scss */
-#mystudents table, #mystudents th, #mystudents td {
+#mystudents .mytable {
+  -moz-border-radius: 9px;
+  -webkit-border-bottom: 9px;
+  border-bottom: 9px;
+}
+/* line 14, ../sass/pages/_mystudents.scss */
+#mystudents table, #mystudents thead, #mystudents td {
   border: 1px solid black;
   text-align: center;
-  padding: 8px;
+  padding: 12px;
 }
 
-/* line 15, ../sass/pages/_mystudents.scss */
+/* line 20, ../sass/pages/_mystudents.scss */
+.mytable thead {
+  font-size: 25px;
+  background-color: #FF3300;
+}
+
+/* line 24, ../sass/pages/_mystudents.scss */
+.mytable tr:nth-child(2n+2) {
+  background-color: #99FF99;
+  font-size: 15px;
+}
+
+/* line 29, ../sass/pages/_mystudents.scss */
 .sortorder:after {
   content: '\25b2';
 }
 
-/* line 18, ../sass/pages/_mystudents.scss */
+/* line 32, ../sass/pages/_mystudents.scss */
 .sortorder.sortReverse:after {
   content: '\25bc';
 }
