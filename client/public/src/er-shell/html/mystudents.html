@@ -3,11 +3,15 @@
 <div id="mystudents">
 	<div ng-controller='MyStudentsCtrl'>
 		<table>
-			<tr>
-    			<th>Name</th>
-    			<th>email</th>
-  			</tr>
-			<tr ng-repeat="student in students | orderBy:'name'">
+			<thead>
+					<tr>
+    					<td> <a href="" ng-click="sortType = 'name'; sortReverse = !sortReverse">Name</a>
+    					<span class="sortorder" ng-show="sortType === 'name'" ng-class="{sortReverse:sortReverse}"></span></td>
+    					<td><a href="" ng-click="sortType = 'local.email'; sortReverse = !sortReverse">email</a>
+    					<span class="sortorder" ng-show="sortType === 'local.email'" ng-class="{sortReverse:sortReverse}"></span></td>
+  					</tr>
+  			</thead>
+			<tr ng-repeat="student in students | orderBy:sortType:sortReverse">
 				<td><a href="#history/{{student._id}}">{{student.name}}</a></td>
 				<td><a href="#history/{{student._id}}">{{student.local.email}}</a></td>
 			</tr>

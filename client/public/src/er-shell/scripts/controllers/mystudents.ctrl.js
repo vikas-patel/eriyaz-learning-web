@@ -9,6 +9,8 @@
 	  			id: $window.localStorage.userId
 	  		});
   		}
+       $scope.sortType     = 'name';
+      $scope.sortReverse  = false;
   		
   	});
   });

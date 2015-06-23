@@ -589,6 +589,16 @@ core-drawer-panel:not([narrow]) #navicon {
   padding: 8px;
 }
 
+/* line 15, ../sass/pages/_mystudents.scss */
+.sortorder:after {
+  content: '\25b2';
+}
+
+/* line 18, ../sass/pages/_mystudents.scss */
+.sortorder.sortReverse:after {
+  content: '\25bc';
+}
+
 /* line 1, ../sass/pages/_history.scss */
 #history {
   color: #99;

@@ -12,3 +12,9 @@
     padding: 8px;
   }
 }
+.sortorder:after {
+    content: '\25b2';
+  }
+  .sortorder.sortReverse:after {
+    content: '\25bc';
+  }
