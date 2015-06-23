@@ -1,8 +1,18 @@
   define(['./module'], function(app) {
-  	app.controller("AppCtrl", function($scope, $rootScope, UIModel, LoginSignupDialogModel,AppsInfoModel, hotkeys) {
+  	app.controller("AppCtrl", function($scope, $rootScope, UIModel, LoginSignupDialogModel,AppsInfoModel, hotkeys, $location) {
   		$scope.uiModel = UIModel.uiModel;
   		$scope.loginSignupDialogModel = LoginSignupDialogModel.loginSignupDialogModel;
   		$scope.appsInfo = AppsInfoModel;
+  		// global short-cut
+  		hotkeys.add({
+                    combo: "esc",
+                    description: '',
+                    persistent: true,
+                    callback: function() {
+                    	if (AppsInfoModel.selectedIndex < 0) return;
+                        $location.path("home");
+                    }
+                  });
   		$rootScope.$watch(function() {return AppsInfoModel.selectedIndex}, function() {
   				if (AppsInfoModel.selectedIndex < 0) {
   					hotkeys.purgeHotkeys();
