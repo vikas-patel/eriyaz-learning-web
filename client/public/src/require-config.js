@@ -17,6 +17,7 @@ requirejs.config({
         'underscore': 'ext-libs/underscore',
         'order': 'ext-libs/requirejs-order.min',
         'ng-infinite-scroll': 'ext-libs/ng-infinite-scroll',
+        'hot-keys': 'ext-libs/bower_components/angular-hotkeys/build/hotkeys',
 
         'music-calc' : 'er-libs/music-calc',
         'mic-util': 'er-libs/mic-util',
@@ -68,6 +69,9 @@ requirejs.config({
             deps: ['angular']
         },
         'angular-resource': {
+            deps: ['angular']
+        },
+        'hot-keys': {
             deps: ['angular']
         },
         'underscore': {

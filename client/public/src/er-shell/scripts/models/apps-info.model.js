@@ -23,6 +23,7 @@
         desc: 'Can you tell if the second node higher or lower than the first note?',
         href: '#upordown',
         appUrl: 'er-apps/UpOrDown/main.html',
+        hotkeys: [['n', 'newProblem()'],['r', 'repeat()'],['up', 'isUp()'], ['down', 'isDown()']],
         aspectRatio: 9/10,
         show:true
       }, {
