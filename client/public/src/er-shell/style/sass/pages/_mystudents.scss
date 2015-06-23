@@ -5,14 +5,10 @@
   a {
     color:black;
   }
-  
-  ul {
-    margin-left:50px;
-    list-style-type : disc;
 
-  }
-
-  li {
-    padding:5px;
+  table, th, td {
+    border: 1px solid black;
+    text-align: center;
+    padding: 8px;
   }
 }

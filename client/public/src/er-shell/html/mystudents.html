@@ -2,10 +2,17 @@
   href="../external-libs/bower_components/paper-shadow/paper-shadow.html"> -->
 <div id="mystudents">
 	<div ng-controller='MyStudentsCtrl'>
-		<ul>
-			<li ng-repeat="student in students | orderBy:'name'">
-				<a href="#history/{{student._id}}">{{student.name || student.local.email}}</a>
-			</li>
-		</ul>
+		<table>
+			<tr>
+    			<th>Name</th>
+    			<th>email</th>
+  			</tr>
+			<tr ng-repeat="student in students | orderBy:'name'">
+				<td><a href="#history/{{student._id}}">{{student.name}}</a></td>
+				<td><a href="#history/{{student._id}}">{{student.local.email}}</a></td>
+			</tr>
+		</table>
 	</div>
 </div>
+
+
