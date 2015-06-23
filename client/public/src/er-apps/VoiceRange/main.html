@@ -4,7 +4,8 @@
                     reset:operation==='reset'||operation==='over'}"></button>
                     </div>
         <div flex></div>
-      <div>Highest Note: {{lastMaxNote}}</div>
+      <div ng-show="{{isHigh}}">Highest Note: {{lastMaxNote}}</div>
+      <div ng-show="{{!isHigh}}">Lowest Note: {{lastMinNote}}</div>
     </div>
     <div id="vr-containerId">
         <div voice-range-chart class='svg-container' id="voice-range-chart"></div>

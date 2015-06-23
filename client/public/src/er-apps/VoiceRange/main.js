@@ -12,7 +12,6 @@ define(['./module', 'jquery', 'mic-util', 'currentaudiocontext', 'audiobuffer', 
 		var notesArray;
 		var maxNote;
 		var minNote;
-		var isHigh;
 		app.controller('VoiceRangeCtrl', function($scope, User, $window) {
 			init();
 			initVariables();
@@ -34,7 +33,7 @@ define(['./module', 'jquery', 'mic-util', 'currentaudiocontext', 'audiobuffer', 
 				notesArray = [];
 				maxNote = -99;
 				minNote = 99;
-				isHigh = true;
+				$scope.isHigh = false;
 			}
 
 			$scope.startOrPause = function() {
@@ -65,6 +64,7 @@ define(['./module', 'jquery', 'mic-util', 'currentaudiocontext', 'audiobuffer', 
 			$scope.reset = function() {
 				initVariables();
 				$scope.lastMaxNote = "";
+				$scope.lastMinNote = "";
 				$scope.operation = 'start';
 				$scope.chart.redraw();
 			}
@@ -114,7 +114,7 @@ define(['./module', 'jquery', 'mic-util', 'currentaudiocontext', 'audiobuffer', 
 				if (expNote != lastExpNote && lastExpNote != -1 && notesArray.length > 0) {
 					// find mean value of notesArray.
 					var meanNote = Number(_.chain(notesArray).countBy().pairs().max(_.last).head().value());
-					if (isHigh) {
+					if ($scope.isHigh) {
 						if (meanNote > maxNote) {
 							maxNote = meanNote;
 							$scope.lastMaxNote = MusicCalc.midiNumToNotation($scope.rootNote+maxNote);
@@ -122,8 +122,10 @@ define(['./module', 'jquery', 'mic-util', 'currentaudiocontext', 'audiobuffer', 
 						}
 					} else {
 						if (meanNote < minNote) {
+							
 							minNote = meanNote;
-							$scope.lastMinNote = MusicCalc.midiNumToNotation($scope.rootNote+maxNote);
+							console.log("minNote:"+minNote);
+							$scope.lastMinNote = MusicCalc.midiNumToNotation($scope.rootNote+minNote);
 							$scope.$apply();
 						}
 					}

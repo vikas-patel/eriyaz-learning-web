@@ -3,7 +3,7 @@ define(['./module', 'chart', 'd3', 'webaudioplayer', 'note', 'melody'], function
 	var labelsNote = ["F3", "F3#", "G3", "G3#", "A3", "A3#", "B3", "C4", "C4#", "D4", "D4#", "E4",
 	 "F4", "F4#", "G4", "G4#", "A4", "A4#", "B4", "C5", "C5#", "D5", "D5#", "E5",
 	 "F5", "F5#", "G5", "G5#", "A5", "A5#"];
-	var exercise = {notes:[0, -100, 1, -100, 2, -100, 3, -100, 4, -100, 5, -100, 6, -100, 7, -100, 8, -100, 9, -100,
+	var exerciseHigh = {notes:[0, -100, 1, -100, 2, -100, 3, -100, 4, -100, 5, -100, 6, -100, 7, -100, 8, -100, 9, -100,
 							10, -100, 11, -100, 12, -100, 13, -100, 14, -100, 15, -100, 16, -100, 
 							17, -100, 18, -100, 19, -100, 20, -100, 21, -100, 22, -100, 23, -100, 24], 
 					noteDuration: 2000, breakDuration: 1000, 
@@ -47,7 +47,11 @@ define(['./module', 'chart', 'd3', 'webaudioplayer', 'note', 'melody'], function
 	ChartMotion.prototype.redraw = function() {
 		this.parent.prototype.redraw.call(this);
 		this.startTime = null;
-		this.exercise = exerciseLow;
+		if (this.$scope.isHigh) {
+			this.exercise = exerciseHigh;
+		} else {
+			this.exercise = exerciseLow;
+		}
 		this.drawExercise();
 		this.duration = this.getDuration();
 		this.setMelody();
@@ -87,12 +91,12 @@ define(['./module', 'chart', 'd3', 'webaudioplayer', 'note', 'melody'], function
 			var note;
 			if (item == -100) {
 				// don't play
-				note = Note.createSilentNote(exercise.breakDuration);
+				note = Note.createSilentNote(exerciseHigh.breakDuration);
 			} else if (item == -101) {
 				// don't play
-				note = Note.createSilentNote(exercise.midBreakDuration);
+				note = Note.createSilentNote(exerciseHigh.midBreakDuration);
 			} else {
-				note = Note.createFromMidiNum(rootNote + item, exercise.noteDuration);
+				note = Note.createFromMidiNum(rootNote + item, exerciseHigh.noteDuration);
 			}
 			melody.push(note);
 		});
