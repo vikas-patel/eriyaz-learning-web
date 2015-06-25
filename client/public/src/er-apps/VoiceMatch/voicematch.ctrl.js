@@ -3,19 +3,21 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
   function(app, Display, MicUtil, CurrentAudioContext, AudioBuffer, WebAudioPlayer, PitchDetector, MusicCalc, StabilityDetector, levels) {
     var audioContext = CurrentAudioContext.getInstance();
     var player = new WebAudioPlayer(audioContext);
-    app.controller('VoiceMatchCtrl', function($scope, PitchModel, DialModel, ScoreService) {
+    app.controller('VoiceMatchCtrl', function($scope, PitchModel, DialModel, ScoreService, $interval) {
       var currentNote;
       var rootNote;
       var playDuration = 1000;
       var timeRange = 3000;
       var minInterval = -5;
       var maxInterval = 12;
+      $scope.levels = levels;
+      $scope.level = levels[0];
       var display = new Display(timeRange);
+      display.draw($scope.level.notes);
       var detector = PitchDetector.getDetector('wavelet', audioContext.sampleRate);
       var stabilityDetector = new StabilityDetector(unitStabilityDetected, aggStabilityDetected);
       var micStream;
-      $scope.levels = levels;
-      $scope.level = levels[0];
+      var stopBeep;
       $scope.rootNote = 47;
       $scope.signalOn = false;
       $scope.isPending = false;
@@ -41,10 +43,12 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
       });
 
       $scope.$watch('level', function() {
+          display.draw($scope.level.notes);
           $scope.reset();
       });
 
       $scope.reset = function() {
+          if (stopBeep) $interval.cancel(stopBeep);
           $scope.resetScore();
           display.clear();
       };
@@ -88,6 +92,12 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
           var randomNote = $scope.level.notes[Math.floor(Math.random()*$scope.level.notes.length)];
           currentNote = rootNote + randomNote;
           player.playNote(MusicCalc.midiNumToFreq(currentNote), playDuration);
+          if ($scope.level.isBeepPersistent) {
+              stopBeep = $interval(function() {
+                player.playNote(MusicCalc.midiNumToFreq(currentNote), playDuration*0.8);
+              }, 5000);
+          }
+          
           $scope.isPending = true;
           setTimeout(function() {
             display.start();
@@ -112,6 +122,7 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
       }
 
       function aggStabilityDetected(interval) {
+        if (stopBeep) $interval.cancel(stopBeep);
         display.notifyAggStable(interval);
         display.stop();
         display.setFlash("Stable Tone Detected!");

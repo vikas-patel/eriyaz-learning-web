@@ -3,7 +3,7 @@ define([], function() {
 			name: "Level 1",
 			isBeepPersistent: true,
 			notes: [0, 2],
-			total: 1
+			total: 10
 		}, {
 			name: "Level 2",
 			isBeepPersistent: true,
@@ -12,7 +12,7 @@ define([], function() {
 		},{
 			name: "Level 3",
 			isBeepPersistent: true,
-			notes: [0, 2, 4, 5, 7, 9, 11],
+			notes: [0, 2, 4, 5, 7, 9, 11, 12],
 			total: 10
 		},{
 			name: "Level 4",
@@ -27,7 +27,7 @@ define([], function() {
 		},{
 			name: "Level 6",
 			isBeepPersistent: false,
-			notes: [0, 2, 4, 5, 7, 9, 11],
+			notes: [0, 2, 4, 5, 7, 9, 11, 12],
 			total: 10
 		}
 	];
