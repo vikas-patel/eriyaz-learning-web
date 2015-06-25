@@ -41,14 +41,27 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
       });
 
       $scope.$watch('level', function() {
+          $scope.reset();
+      });
+
+      $scope.reset = function() {
           $scope.resetScore();
           display.clear();
-      });
+      };
+
+      $scope.restart = function() {
+            $scope.reset();
+            $scope.new();
+        };
 
       $scope.$on('exercise-complete',function() {
           ScoreService.save("VoiceMatch", $scope.level.name, $scope.right/$scope.total);
         });
-      
+
+      $scope.$on('overlay-close',function() {
+          $scope.reset();
+        });
+
       $scope.startMic = function() {
         if (!$scope.signalOn) {
           MicUtil.getMicAudioStream(
@@ -72,7 +85,8 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
       $scope.new = function() {
         if ($scope.signalOn) {
           display.clear();
-          currentNote = rootNote + Math.floor(Math.random() * (maxInterval - minInterval + 1)) + minInterval;
+          var randomNote = $scope.level.notes[Math.floor(Math.random()*$scope.level.notes.length)];
+          currentNote = rootNote + randomNote;
           player.playNote(MusicCalc.midiNumToFreq(currentNote), playDuration);
           $scope.isPending = true;
           setTimeout(function() {

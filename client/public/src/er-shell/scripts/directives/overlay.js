@@ -20,11 +20,13 @@ define(['angular', './module'], function(angular, app) {
             '<div></div>',
           controller: function($scope) {
             $scope.restartProxy= function() {
+              $scope.showOverlay = false;
               $scope.restart();
             };
 
             $scope.closeOverlay = function() {
                 $scope.showOverlay = false;
+                $scope.$parent.$broadcast('overlay-close');
             };
 
             $scope.$watch('total', function() {
