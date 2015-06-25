@@ -3,7 +3,7 @@ define([], function() {
 			name: "Level 1",
 			isBeepPersistent: true,
 			notes: [0, 2],
-			total: 10
+			total: 1
 		}, {
 			name: "Level 2",
 			isBeepPersistent: true,

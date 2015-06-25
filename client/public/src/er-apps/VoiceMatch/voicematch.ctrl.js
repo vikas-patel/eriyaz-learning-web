@@ -1,8 +1,9 @@
-define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'webaudioplayer', 'pitchdetector', 'music-calc', 'stabilitydetector', './levels'],
+define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'webaudioplayer', 
+  'pitchdetector', 'music-calc', 'stabilitydetector', './levels'],
   function(app, Display, MicUtil, CurrentAudioContext, AudioBuffer, WebAudioPlayer, PitchDetector, MusicCalc, StabilityDetector, levels) {
     var audioContext = CurrentAudioContext.getInstance();
     var player = new WebAudioPlayer(audioContext);
-    app.controller('VoiceMatchCtrl', function($scope, PitchModel, DialModel) {
+    app.controller('VoiceMatchCtrl', function($scope, PitchModel, DialModel, ScoreService) {
       var currentNote;
       var rootNote;
       var playDuration = 1000;
@@ -44,15 +45,10 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
           display.clear();
       });
 
-      $scope.$watch('total', function() {
-          if ($scope.total == $scope.level.total) {
-              // Display score & save
-              $scope.score = $scope.right / $scope.total;
-              $scope.showOverlay = true;
-              ScoreService.save("VoiceMatch", $scope.level.name, $scope.score);
-          }
-      });
-
+      $scope.$on('exercise-complete',function() {
+          ScoreService.save("VoiceMatch", $scope.level.name, $scope.right/$scope.total);
+        });
+      
       $scope.startMic = function() {
         if (!$scope.signalOn) {
           MicUtil.getMicAudioStream(
