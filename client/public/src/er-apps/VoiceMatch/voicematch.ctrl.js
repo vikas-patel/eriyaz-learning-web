@@ -1,5 +1,5 @@
-define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'webaudioplayer', 'pitchdetector', 'music-calc', 'stabilitydetector'],
-  function(app, Display, MicUtil, CurrentAudioContext, AudioBuffer, WebAudioPlayer, PitchDetector, MusicCalc, StabilityDetector) {
+define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'webaudioplayer', 'pitchdetector', 'music-calc', 'stabilitydetector', './levels'],
+  function(app, Display, MicUtil, CurrentAudioContext, AudioBuffer, WebAudioPlayer, PitchDetector, MusicCalc, StabilityDetector, levels) {
     var audioContext = CurrentAudioContext.getInstance();
     var player = new WebAudioPlayer(audioContext);
     app.controller('VoiceMatchCtrl', function($scope, PitchModel, DialModel) {
@@ -13,8 +13,15 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
       var detector = PitchDetector.getDetector('wavelet', audioContext.sampleRate);
       var stabilityDetector = new StabilityDetector(unitStabilityDetected, aggStabilityDetected);
       var micStream;
-
+      $scope.levels = levels;
+      $scope.level = levels[0];
+      $scope.rootNote = 47;
+      $scope.signalOn = false;
+      $scope.isPending = false;
+      $scope.total = 0;
+      $scope.right = 0;
       display.setFlash("Start Mic");
+
       var updatePitch = function(data) {
         var pitch = detector.findPitch(data);
         if (pitch !== 0) {
@@ -27,14 +34,23 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
         }
       };
 
-      $scope.rootNote = 47;
-      $scope.signalOn = false;
-      $scope.isPending = false;
-      $scope.total = 0;
-      $scope.right = 0;
       $scope.$watch('rootNote', function() {
         rootNote = parseInt($scope.rootNote);
         PitchModel.rootFreq = MusicCalc.midiNumToFreq(rootNote);
+      });
+
+      $scope.$watch('level', function() {
+          $scope.resetScore();
+          display.clear();
+      });
+
+      $scope.$watch('total', function() {
+          if ($scope.total == $scope.level.total) {
+              // Display score & save
+              $scope.score = $scope.right / $scope.total;
+              $scope.showOverlay = true;
+              ScoreService.save("VoiceMatch", $scope.level.name, $scope.score);
+          }
       });
 
       $scope.startMic = function() {
@@ -75,6 +91,11 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
       $scope.repeat = function() {
         player.playNote(MusicCalc.midiNumToFreq(currentNote), playDuration);
       };
+
+      $scope.resetScore = function() {
+          $scope.total = 0;
+          $scope.right = 0;
+      }
 
       function unitStabilityDetected(interval) {
         display.notifyUnitStable(interval);

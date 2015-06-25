@@ -8,7 +8,7 @@ define([], function() {
 			left: 40
 		};
 
-		var width = 400;
+		var width = 480;
 		var height = 600;
 
 		var refreshTime = 40;

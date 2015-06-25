@@ -72,7 +72,8 @@
         desc: 'Practice matching your voice to the tone of the instrument.',
         href: '#voicematch',
         appUrl: 'er-apps/VoiceMatch/main.html',
-        aspectRatio: 68/100,
+        hotkeys: [['n', 'new()'],['r', 'repeat()'],['m', 'startMic()']],
+        aspectRatio: 80/100,
         show:true
       }, {
         name: 'FreestylePhrases',
