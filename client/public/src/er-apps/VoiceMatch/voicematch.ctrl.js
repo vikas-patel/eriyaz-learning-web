@@ -3,6 +3,9 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
   function(app, Display, MicUtil, CurrentAudioContext, AudioBuffer, WebAudioPlayer, PitchDetector, MusicCalc, StabilityDetector, levels) {
     var audioContext = CurrentAudioContext.getInstance();
     var player = new WebAudioPlayer(audioContext);
+    var labels = ['Pa', '', 'Dha', '', 'Ni', 'Sa', '', 'Re', '', 'Ga', 'ma', '', 'Pa', '', 'Dha', '', 'Ni', 'Sa\''];
+    var scale = ['kali#3','safed#5', 'kali#4', 'safed#6', 'kali#5', 'Safed#7', 'Safed#1', 'Kali#1', 'Safed#2', 'Kali#2', 'Safed#3', 'Safed#4', 'Kali#3', 'Safed#5', 'Kali#4', 'Safed#6', 'Kali#5', 'Safed#7', 'Safed#1'];
+
     app.controller('VoiceMatchCtrl', function($scope, PitchModel, DialModel, ScoreService, $interval) {
       var currentNote;
       var rootNote;
@@ -12,13 +15,13 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
       var maxInterval = 12;
       $scope.levels = levels;
       $scope.level = levels[0];
+      $scope.rootNote = 47;
       var display = new Display(timeRange);
-      display.draw($scope.level.notes);
+      display.draw($scope.level.notes, $scope.rootNote);
       var detector = PitchDetector.getDetector('wavelet', audioContext.sampleRate);
       var stabilityDetector = new StabilityDetector(unitStabilityDetected, aggStabilityDetected);
       var micStream;
       var stopBeep;
-      $scope.rootNote = 47;
       $scope.signalOn = false;
       $scope.isPending = false;
       $scope.total = 0;
@@ -40,10 +43,11 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
       $scope.$watch('rootNote', function() {
         rootNote = parseInt($scope.rootNote);
         PitchModel.rootFreq = MusicCalc.midiNumToFreq(rootNote);
+        display.draw($scope.level.notes, $scope.rootNote);
       });
 
       $scope.$watch('level', function() {
-          display.draw($scope.level.notes);
+          display.draw($scope.level.notes, $scope.rootNote);
           $scope.reset();
       });
 
@@ -94,8 +98,8 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
           player.playNote(MusicCalc.midiNumToFreq(currentNote), playDuration);
           if ($scope.level.isBeepPersistent) {
               stopBeep = $interval(function() {
-                player.playNote(MusicCalc.midiNumToFreq(currentNote), playDuration*0.8);
-              }, 5000);
+                player.playNote(MusicCalc.midiNumToFreq(currentNote), playDuration);
+              }, 2000);
           }
           
           $scope.isPending = true;
