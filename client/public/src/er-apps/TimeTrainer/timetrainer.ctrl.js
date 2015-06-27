@@ -1,5 +1,5 @@
-define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'webaudioplayer', 'intensityfilter'],
-  function(app, Display, MicUtil, CurrentAudioContext, AudioBuffer, WebAudioPlayer, IntensityFilter) {
+define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'webaudioplayer', 'intensityfilter','./intensity-display'],
+  function(app, Display, MicUtil, CurrentAudioContext, AudioBuffer, WebAudioPlayer, IntensityFilter,IntensityDisplay) {
     var audioContext = CurrentAudioContext.getInstance();
     var player = new WebAudioPlayer(audioContext);
     var timeRange = 100000;
@@ -51,12 +51,15 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
     };
 
     app.controller('TimeTrainerCtrl', function($scope) {
+    var intensityDisplay = new IntensityDisplay();
+
       var display = new Display(timeRange);
       var micStream;
       var pulseStartDetector = new PulseStartDetector();
       var pulseEndDetector = new PulseEndDetector();
       var updatePitch = function(data) {
-        if (IntensityFilter.rootMeanSquare(data) > 0.01) {
+        intensityDisplay.showIntensity(IntensityFilter.rootMeanSquare(data));
+        if (IntensityFilter.rootMeanSquare(data) > 0.1) {
           pulseStartDetector.push(1);
           pulseEndDetector.push(1);
         } else {
