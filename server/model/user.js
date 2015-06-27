@@ -10,6 +10,7 @@ var UserSchema = new mongoose.Schema({
 	local            : {
         email        : String,
         password     : String,
+        
     },
 	join_date: { type : Date, default : Date.now },
     userType: { type : String, default : "student"},

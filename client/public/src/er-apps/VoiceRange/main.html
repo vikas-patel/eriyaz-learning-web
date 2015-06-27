@@ -1,0 +1,13 @@
+<div id="sing-alankars" ng-controller="VoiceRangeCtrl">
+    <div horizontal layout center justified class="header">
+        <div style="padding: 0 5px 0 0"><button ng-click="startOrPause()" ng-class="{start:operation==='start',
+                    reset:operation==='reset'||operation==='over'}"></button>
+                    </div>
+        <div flex></div>
+      <div ng-show="{{isHigh}}">Highest Note: {{lastMaxNote}}</div>
+      <div ng-show="{{!isHigh}}">Lowest Note: {{lastMinNote}}</div>
+    </div>
+    <div id="vr-containerId">
+        <div voice-range-chart class='svg-container' id="voice-range-chart"></div>
+    </div>
+</div>

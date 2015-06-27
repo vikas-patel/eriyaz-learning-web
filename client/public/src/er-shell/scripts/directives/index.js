@@ -7,4 +7,5 @@
 define([
     // './my-ctrl-1',
     './resize.directive',
+    './overlay'
 ], function () {});

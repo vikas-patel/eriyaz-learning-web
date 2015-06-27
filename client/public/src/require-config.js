@@ -17,6 +17,7 @@ requirejs.config({
         'underscore': 'ext-libs/underscore',
         'order': 'ext-libs/requirejs-order.min',
         'ng-infinite-scroll': 'ext-libs/ng-infinite-scroll',
+        'hot-keys': 'ext-libs/bower_components/angular-hotkeys/build/hotkeys',
 
         'music-calc' : 'er-libs/music-calc',
         'mic-util': 'er-libs/mic-util',
@@ -30,6 +31,7 @@ requirejs.config({
         'jquery': 'ext-libs/jquery/jquery',
         'webaudio-tools': 'ext-libs/webaudio/webaudio-tools',
         'webaudioplayer': 'er-libs/webaudioplayer',
+        'chart': 'er-libs/chart',
         'melody': 'er-libs/melody',
         'note': 'er-libs/note',
         'wavelet-pitch': 'ext-libs/waveletPitch',
@@ -67,6 +69,9 @@ requirejs.config({
             deps: ['angular']
         },
         'angular-resource': {
+            deps: ['angular']
+        },
+        'hot-keys': {
             deps: ['angular']
         },
         'underscore': {
@@ -127,6 +132,10 @@ requirejs.config({
     }, {    
         name: 'voicematch',
         location: 'er-apps/VoiceMatch',
+        main: 'index'
+    }, {
+        name: 'voicerange',
+        location: 'er-apps/Voicerange',
         main: 'index'
     }, {    
         name: 'freestylephrases',

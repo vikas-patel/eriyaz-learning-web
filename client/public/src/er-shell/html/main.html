@@ -38,7 +38,7 @@
 
   <paper-dialog backdrop autoCloseDisabled layered="false" opened={{uiModel.showAppDialog}} id="appDialog">
     <paper-shadow id="app-container" z="1" ng-style="style()" ng-resize>
-       <div ng-include="appsInfo.getSelectedUrl()"></div>
+       <div id="selected-app" ng-include="appsInfo.getSelectedUrl()"></div>
      </paper-shadow>
      <!-- <paper-button ng-click="uiModel.showAppDialog='false'" >Tap me to close</paper-button> -->
      <a class="close-button" href="#home">x</a>

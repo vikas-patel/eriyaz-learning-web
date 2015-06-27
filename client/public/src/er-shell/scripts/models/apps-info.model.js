@@ -23,6 +23,7 @@
         desc: 'Can you tell if the second node higher or lower than the first note?',
         href: '#upordown',
         appUrl: 'er-apps/UpOrDown/main.html',
+        hotkeys: [['n', 'newProblem()'],['r', 'repeat()'],['up', 'isUp()'], ['down', 'isDown()']],
         aspectRatio: 9/10,
         show:true
       }, {
@@ -71,7 +72,8 @@
         desc: 'Practice matching your voice to the tone of the instrument.',
         href: '#voicematch',
         appUrl: 'er-apps/VoiceMatch/main.html',
-        aspectRatio: 68/100,
+        hotkeys: [['n', 'new()'],['r', 'repeat()'],['m', 'startMic()']],
+        aspectRatio: 80/100,
         show:true
       }, {
         name: 'FreestylePhrases',
@@ -104,6 +106,14 @@
         href: '#timetrainer',
         appUrl: 'er-apps/TimeTrainer/main.html',
         aspectRatio: 9/10,
+        show:true
+    },{
+        name: 'VoiceRange',
+        thumb: 'er-shell/images/voicerange.jpg',
+        desc: 'Know your voice range.',
+        href: '#voicerange',
+        appUrl: 'er-apps/VoiceRange/main.html',
+        aspectRatio: 41/20,
         show:true
       }];
       appsInfo.selectedIndex = -1;

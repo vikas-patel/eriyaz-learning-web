@@ -13,6 +13,7 @@ define([
     './services/index',
     './directives/index',
     './filters/index',
+    'hot-keys',
     'pitch-dial',
     'sing-alankars',
     'upordown',
@@ -26,6 +27,7 @@ define([
     'swarmastery',
     'melodygraph2',
     'timetrainer',
+    'voicerange'
 ], function(angular) {
     'use strict';
 
@@ -36,6 +38,7 @@ define([
         'app.directives',
         'app.filters',
         'ui.router',
+        'cfp.hotkeys',
         'pitch-dial',
         'sing-alankars',
         'upordown',
@@ -49,6 +52,7 @@ define([
         'swarmastery',
         'melodygraph2',
         'timetrainer',
+        'voicerange',
         
         'ngResource',
         'angulartics',

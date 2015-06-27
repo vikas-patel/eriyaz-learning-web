@@ -12,10 +12,12 @@
                 });
             },
 
-            signUp: function(email, password) {
+            signUp: function(email, password, gender, name) {
                 return $http.post(base_url + '/signup', {
                     email: email,
-                    password: password
+                    password: password,
+                    gender:gender,
+                    name:name
                 });
             }
         };

@@ -5,12 +5,13 @@ define([], function() {
 			top: 10,
 			right: 20,
 			bottom: 10,
-			left: 40
+			left: 60
 		};
 
-		var width = 400;
+		var width = 480;
 		var height = 600;
-
+		var labels = ['kali#3','safed#5', 'kali#4', 'safed#6', 'kali#5', 'safed#7', 'safed#1', 'kali#1', 'safed#2', 
+				'kali#2', 'safed#3', 'safed#4', 'kali#3', 'safed#5', 'kali#4', 'safed#6', 'kali#5', 'safed#7', 'safed#1'];
 		var refreshTime = 40;
 
 		var x = d3.time.scale()
@@ -21,47 +22,23 @@ define([], function() {
 			.domain([-500, 1300])
 			.range([height, 0]);
 
-
-		var svg = d3.select("#chartdiv").append("svg")
+		this.draw = function(noteOptions, rootNoteMIDI) {
+			if (this.svg) $('#chartdiv').html("");
+			this.noteOptions = noteOptions;
+			this.rootNoteMIDI = rootNoteMIDI;
+			this.svg = this.createRootElement();
+			this.drawRectNotes();
+			this.drawLabels();
+		}
+		this.createRootElement = function() {
+			return d3.select("#chartdiv").append("svg")
 			.attr("width", "100%")
 			.attr("height", "100%")
 			.attr("viewBox", "0 0 " + (width + margin.left + margin.right) + " " + (height + margin.top + margin.bottom))
 			.append("g")
 			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
+		}
 		var notesData = [-5, -3, -1, 0, 2, 4, 5, 7, 9, 11, 12];
-		var labels = ['Pa', '', 'Dha', '', 'Ni', 'Sa', '', 'Re', '', 'Ga', 'ma', '', 'Pa', '', 'Dha', '', 'Ni', 'Sa\''];
-
-		svg.selectAll("rect.note")
-			.data(notesData)
-			.enter().append("rect")
-			.attr("class", "note")
-			.attr("y", function(d) {
-				return y(d * 100) - height / 19;
-			})
-			.attr("x", 0)
-			.attr("height", height / 19 - 1)
-			.attr("width", width)
-			.attr("fill", "#fff3ef")
-			.attr("fill-opacity", 1)
-			.filter(function(d) {
-				return (d === 0 || d === 12);
-			})
-			.attr("fill", "#fcdcd4");
-
-		svg.selectAll("text")
-			.data(notesData)
-			.enter()
-			.append("text")
-			.attr("class", "label")
-			.attr("y", function(d) {
-				return y(d * 100) - 10; // - chartHeight / 13 + chartHeight / 100;
-			})
-			.attr("x", -25)
-			.text(function(d) {
-				return labels[d + 5];
-			});
-
 
 		var currCents = 0;
 		var isPendingValue = false;
@@ -96,8 +73,45 @@ define([], function() {
 		};
 
 		var tickId;
+		this.drawRectNotes = function() {
+			noteOptions = this.noteOptions;
+			this.svg.selectAll("rect.note")
+			.data(notesData)
+			.enter().append("rect")
+			.attr("class", "note")
+			.attr("y", function(d) {
+				return y(d * 100) - height / 19;
+			})
+			.attr("x", 0)
+			.attr("height", height / 19 - 1)
+			.attr("width", width)
+			.attr("fill", "#fff3ef")
+			.attr("fill-opacity", 1)
+			.filter(function(d) {
+				return noteOptions.indexOf(d) > -1;
+				//return (d === 0 || d === 12);
+			})
+			.attr("fill", "#fcdcd4");
+		};
+
+		this.drawLabels = function() {
+			var rootNoteShift = this.rootNoteMIDI - 47;
+			this.svg.selectAll("text")
+			.data(labels)
+			.enter()
+			.append("text")
+			.attr("class", "label")
+			.attr("y", function(d, i) {
+				return y((i-5) * 100) - 10; // start from 5 notes below root note.
+			})
+			.attr("x", -50)
+			.text(function(d, i) {
+				return labels[(i+rootNoteShift)%12];
+			});
+		};
+
 		this.start = function() {
-			pointGroup = svg.append("g");
+			pointGroup = this.svg.append("g");
 			var local = this;
 			tickId = setInterval(function() {
 				local.tick();
@@ -136,7 +150,7 @@ define([], function() {
 
 		this.setFlash = function(message) {
 			this.clearFlash();
-			svg.append("text")
+			this.svg.append("text")
 				.attr("id", "flash")
 				.attr("font-size", 25)
 				.attr("x", width / 2)
@@ -146,22 +160,22 @@ define([], function() {
 		};
 
 		this.clearFlash = function() {
-			var flash = svg.select("#flash");
+			var flash = this.svg.select("#flash");
 			if (flash)
 				flash.remove();
 		};
 
-		this.clearFlash();
+		// this.clearFlash();
 
 		this.clear = function() {
 			if (pointGroup)
 				pointGroup.remove();
 			this.clearFlash();
-			svg.selectAll(".playRect").remove();
+			this.svg.selectAll(".playRect").remove();
 		};
 
 		this.playAnimate = function(interval, duration) {
-			var playRect = svg.append("rect")
+			var playRect = this.svg.append("rect")
 				.attr("class", "playRect")
 				.attr("x", 0)
 				.attr("y", y(interval * 100) - height / 19)
