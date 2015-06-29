@@ -8,7 +8,6 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
 
     app.controller('VoiceMatchCtrl', function($scope, PitchModel, DialModel, ScoreService, $interval) {
       var currentNote;
-      var rootNote;
       var playDuration = 1000;
       var timeRange = 3000;
       var minInterval = -5;
@@ -34,20 +33,24 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
           PitchModel.currentFreq = pitch;
           PitchModel.currentInterval = MusicCalc.getCents(PitchModel.rootFreq, PitchModel.currentFreq) / 100;
           if ($scope.isPending) {
-            display.notifyInterval(PitchModel.currentInterval);
-            stabilityDetector.push(PitchModel.currentInterval);
+            display.notifyInterval(PitchModel.currentInterval + $scope.rootNote);
+            stabilityDetector.push(PitchModel.currentInterval + $scope.rootNote);
           }
         }
       };
 
-      $scope.$watch('rootNote', function() {
-        rootNote = parseInt($scope.rootNote);
-        PitchModel.rootFreq = MusicCalc.midiNumToFreq(rootNote);
-        display.draw($scope.level.notes, $scope.rootNote);
+      $scope.$watch('gender', function() {
+        if ($scope.gender == "man") {
+            $scope.rootNote = 47;
+        } else {
+          $scope.rootNote = 58;
+        }
+        PitchModel.rootFreq = MusicCalc.midiNumToFreq($scope.rootNote);
+        $scope.reset();
       });
 
       $scope.$watch('level', function() {
-          display.draw($scope.level.notes, $scope.rootNote);
+          display.draw($scope.level.notes);
           $scope.reset();
       });
 
@@ -91,25 +94,29 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
       });
 
       $scope.new = function() {
-        if ($scope.signalOn) {
-          display.clear();
-          var randomNote = $scope.level.notes[Math.floor(Math.random()*$scope.level.notes.length)];
-          currentNote = rootNote + randomNote;
-          player.playNote(MusicCalc.midiNumToFreq(currentNote), playDuration);
-          if ($scope.level.isBeepPersistent) {
-              stopBeep = $interval(function() {
-                player.playNote(MusicCalc.midiNumToFreq(currentNote), playDuration);
-              }, 2000);
-          }
-          
-          $scope.isPending = true;
-          setTimeout(function() {
-            display.start();
-            display.setFlash("Now Sing and Stabalize");
-          }, playDuration + 300);
-        } else {
-          display.setFlash("Please start Mic first.");
+        if (!$scope.signalOn) {
+            display.setFlash("Please start Mic first.");
+            return;
         }
+        if (!$scope.gender) {
+            display.setFlash("Please set user type first.");
+            return; 
+        }
+        display.clear();
+        var randomNote = $scope.level.notes[Math.floor(Math.random()*$scope.level.notes.length)];
+        currentNote = $scope.rootNote + randomNote;
+        player.playNote(MusicCalc.midiNumToFreq(currentNote), playDuration);
+        if ($scope.level.isBeepPersistent) {
+            stopBeep = $interval(function() {
+              player.playNote(MusicCalc.midiNumToFreq(currentNote), playDuration);
+            }, 2000);
+        }
+        
+        $scope.isPending = true;
+        setTimeout(function() {
+          display.start();
+          display.setFlash("Now Sing and Stabalize");
+        }, playDuration + 300);
       };
 
       $scope.repeat = function() {
@@ -132,15 +139,15 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
         display.setFlash("Stable Tone Detected!");
         setTimeout(function() {
           display.setFlash("You Sung..");
-          player.playNote(MusicCalc.midiNumToFreq(rootNote + interval), playDuration);
+          player.playNote(MusicCalc.midiNumToFreq(interval), playDuration);
           display.playAnimate(interval, playDuration);
           setTimeout(function() {
             display.setFlash("Actual..");
             player.playNote(MusicCalc.midiNumToFreq(currentNote), playDuration);
-            display.playAnimate(currentNote - rootNote, playDuration);
+            display.playAnimate(currentNote, playDuration);
             setTimeout(function() {
               $scope.total++;
-              if (currentNote === rootNote + interval) {
+              if (currentNote === interval) {
                 $scope.right++;
                 display.setFlash("Right!");
               } else {

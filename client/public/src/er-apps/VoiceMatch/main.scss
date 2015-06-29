@@ -10,4 +10,17 @@
     button {
       font-size:0.73em;
     }
+
+    .key {
+	  stroke-width: 1.5px;
+	  transition: fill 250ms linear, stroke 250ms linear;
+	  transition-delay: 150ms;
+	}
+
+	.key:hover {
+	  transition-delay: 0;
+	}
+
+	.key--white { fill: #fff; stroke: #777; }
+	.key--black { fill: #333; stroke: #000; }
 }

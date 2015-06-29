@@ -1281,6 +1281,26 @@ core-drawer-panel:not([narrow]) #navicon {
 #voicematch button {
   font-size: 0.73em;
 }
+/* line 14, ../../../er-apps/VoiceMatch/main.scss */
+#voicematch .key {
+  stroke-width: 1.5px;
+  transition: fill 250ms linear, stroke 250ms linear;
+  transition-delay: 150ms;
+}
+/* line 20, ../../../er-apps/VoiceMatch/main.scss */
+#voicematch .key:hover {
+  transition-delay: 0;
+}
+/* line 24, ../../../er-apps/VoiceMatch/main.scss */
+#voicematch .key--white {
+  fill: #fff;
+  stroke: #777;
+}
+/* line 25, ../../../er-apps/VoiceMatch/main.scss */
+#voicematch .key--black {
+  fill: #333;
+  stroke: #000;
+}
 
 /* line 2, ../../../er-apps/FreestylePhrases/main.scss */
 #freestylephrases .container-toplevel {

@@ -5,7 +5,7 @@ define([], function() {
 			top: 10,
 			right: 20,
 			bottom: 10,
-			left: 60
+			left: 30
 		};
 
 		var width = 480;
@@ -13,23 +13,91 @@ define([], function() {
 		var labels = ['kali#3','safed#5', 'kali#4', 'safed#6', 'kali#5', 'safed#7', 'safed#1', 'kali#1', 'safed#2', 
 				'kali#2', 'safed#3', 'safed#4', 'kali#3', 'safed#5', 'kali#4', 'safed#6', 'kali#5', 'safed#7', 'safed#1'];
 		var refreshTime = 40;
+	  	this.generateKeys = function() {
+			var steps = ["C", "D", "E", "F", "G", "A", "B"];
+			var octaves = [2, 3, 4];
+			var invalidNotes = ["2C", "2C#", "2D", "2D#", "2E", "2E#"];
+			var position = 0;
+			var keys = [];
+			octaves.forEach(function(octave) {
+				steps.forEach(function(step) {
+		          var whiteKey = {octave:octave, position:position, step:step, note:octave+step, white:true};
+		          if (invalidNotes.indexOf(whiteKey.note) > -1) {
+		          		return true;
+		          }
+		          keys.push(whiteKey);
+		          position += 2;
+		        });
+		    });
+		    position = 0.8;
+		    octaves.forEach(function(octave) {
+		        steps.forEach(function(step) {
+		        	var blackKey = {octave:octave, position:position, step:step, note:octave+step+'#', white:false};
+	        		if (invalidNotes.indexOf(blackKey.note) > -1) {
+			          	return true;
+			          }
+		        	if (step != "E" && step != "B") {
+		        		keys.push(blackKey);
+		        	}
+		          	position += 2;
+		        });
+		    });
+	        return keys;
+		};
 
 		var x = d3.time.scale()
 			.domain([0, displayTimeRange])
 			.range([0, width]);
-
+		var keys = this.generateKeys();
+		var whiteKeys = _.filter(keys, function(key){ return key.white; });
+		var keyWidth = width;
+		var keyHeight = height/(whiteKeys.length + 3);
+		var keyHeightRatio = 0.7;
+	  	var keyWidthRatio = 0.6;
 		var y = d3.scale.linear()
-			.domain([-500, 1300])
-			.range([height, 0]);
+			//.domain([-500, 1300])
+			.domain([0, 2 + d3.max(keys, function(key){return key.position})])
+			.range([height - keyHeight, 0]);
+		var noteScale = d3.scale.linear().domain([41, 47, 48, 49,  51, 52, 58, 59, 63, 64, 70])
+										 .range([0, 6, 8, 9, 11, 13, 19, 21, 25, 27, 33]); 
+		
+		this.drawRectNotes = function() {
+			this.svg.selectAll("rect")
+					    .data(keys).enter()
+					    .append("rect")
+					    .attr("class", function(d) {
+					     	return "key key--" + (d.white ?  "white" : "black");
+					 	})
+					    .attr("x", 0)
+					    .attr("y", function(d) {
+					    	return y(d.position) - keyHeight;
+					    })
+					    .attr("rx", 5)
+					    .attr("ry", 5)
+					    .attr("width", function(d) {
+					    	return d.white ? keyWidth : keyWidth * keyWidthRatio;
+					    })
+					    .attr("height", function(d) {
+					    	return d.white ? keyHeight : keyHeight * keyHeightRatio;
+					    });
+					    
+			this.svg.selectAll("text")
+					.data(keys).enter()
+					.append("text")
+				    .attr("x", -25)
+				    .attr("y", function(d) {return y(d.position) - keyHeight/2;})
+				    .attr("font-size", "0.8em")
+				    .attr("dy", ".35em")
+				    .text(function(d) { return d.note });
+		};
 
-		this.draw = function(noteOptions, rootNoteMIDI) {
+		this.draw = function(noteOptions) {
 			if (this.svg) $('#chartdiv').html("");
 			this.noteOptions = noteOptions;
-			this.rootNoteMIDI = rootNoteMIDI;
 			this.svg = this.createRootElement();
 			this.drawRectNotes();
-			this.drawLabels();
 		}
+
 		this.createRootElement = function() {
 			return d3.select("#chartdiv").append("svg")
 			.attr("width", "100%")
@@ -59,11 +127,11 @@ define([], function() {
 					oldestPoint.remove();
 				}
 			}
-
 			if (isPendingValue) {
 				var newPoint = pointGroup.append("rect")
 					.attr("x", x(tickCount * refreshTime))
-					.attr("y", y(currCents) - height / 19 / 2)
+					.attr("y", y(noteScale(currCents/100)) - keyHeight/2)
+					//.attr("y", y(currCents) - height / 19 / 2)
 					.attr("width", 5)
 					.attr("height", 5);
 				points.push(newPoint);
@@ -73,42 +141,6 @@ define([], function() {
 		};
 
 		var tickId;
-		this.drawRectNotes = function() {
-			noteOptions = this.noteOptions;
-			this.svg.selectAll("rect.note")
-			.data(notesData)
-			.enter().append("rect")
-			.attr("class", "note")
-			.attr("y", function(d) {
-				return y(d * 100) - height / 19;
-			})
-			.attr("x", 0)
-			.attr("height", height / 19 - 1)
-			.attr("width", width)
-			.attr("fill", "#fff3ef")
-			.attr("fill-opacity", 1)
-			.filter(function(d) {
-				return noteOptions.indexOf(d) > -1;
-				//return (d === 0 || d === 12);
-			})
-			.attr("fill", "#fcdcd4");
-		};
-
-		this.drawLabels = function() {
-			var rootNoteShift = this.rootNoteMIDI - 47;
-			this.svg.selectAll("text")
-			.data(labels)
-			.enter()
-			.append("text")
-			.attr("class", "label")
-			.attr("y", function(d, i) {
-				return y((i-5) * 100) - 10; // start from 5 notes below root note.
-			})
-			.attr("x", -50)
-			.text(function(d, i) {
-				return labels[(i+rootNoteShift)%12];
-			});
-		};
 
 		this.start = function() {
 			pointGroup = this.svg.append("g");
@@ -126,8 +158,8 @@ define([], function() {
 		this.notifyUnitStable = function(interval) {
 			pointGroup.append("rect")
 				.attr("x", x(tickCount * refreshTime))
-				.attr("y", y(interval * 100) - height / 19 + 1)
-				.attr("height", height / 19 - 1)
+				.attr("y", y(noteScale(interval)) - keyHeight)
+				.attr("height", keyHeight)
 				// .attr("y", y(interval * 100))
 				.attr("width", 5)
 				// .attr("height", 20)
@@ -154,7 +186,8 @@ define([], function() {
 				.attr("id", "flash")
 				.attr("font-size", 25)
 				.attr("x", width / 2)
-				.attr("y", height / 2)
+				.attr("y", height * .4)
+				.attr("fill", "#F16236")
 				.attr("text-anchor", "middle")
 				.text(message);
 		};
@@ -178,8 +211,9 @@ define([], function() {
 			var playRect = this.svg.append("rect")
 				.attr("class", "playRect")
 				.attr("x", 0)
-				.attr("y", y(interval * 100) - height / 19)
-				.attr("height", height / 19 - 1)
+				// .attr("y", y(interval) - height / 19)
+				.attr("y", y(noteScale(interval)) - keyHeight)
+				.attr("height", keyHeight)
 				.attr("width", 0)
 				.attr("opacity", 0.2);
 
