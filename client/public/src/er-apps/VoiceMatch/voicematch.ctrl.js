@@ -6,7 +6,7 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
     var labels = ['Pa', '', 'Dha', '', 'Ni', 'Sa', '', 'Re', '', 'Ga', 'ma', '', 'Pa', '', 'Dha', '', 'Ni', 'Sa\''];
     var scale = ['kali#3','safed#5', 'kali#4', 'safed#6', 'kali#5', 'Safed#7', 'Safed#1', 'Kali#1', 'Safed#2', 'Kali#2', 'Safed#3', 'Safed#4', 'Kali#3', 'Safed#5', 'Kali#4', 'Safed#6', 'Kali#5', 'Safed#7', 'Safed#1'];
 
-    app.controller('VoiceMatchCtrl', function($scope, PitchModel, DialModel, ScoreService, $interval) {
+    app.controller('VoiceMatchCtrl', function($scope, PitchModel, DialModel, ScoreService, $interval, User, $window) {
       var currentNote;
       var playDuration = 1000;
       var timeRange = 3000;
@@ -16,7 +16,6 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
       $scope.level = levels[0];
       $scope.rootNote = 47;
       var display = new Display(timeRange);
-      display.draw($scope.level.notes, $scope.rootNote);
       var detector = PitchDetector.getDetector('wavelet', audioContext.sampleRate);
       var stabilityDetector = new StabilityDetector(unitStabilityDetected, aggStabilityDetected);
       var micStream;
@@ -25,7 +24,12 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
       $scope.isPending = false;
       $scope.total = 0;
       $scope.right = 0;
-      display.setFlash("Start Mic");
+
+      User.get({
+        id: $window.localStorage.userId
+      }).$promise.then(function(user) {
+        $scope.gender = user.gender;
+      });
 
       var updatePitch = function(data) {
         var pitch = detector.findPitch(data);
@@ -46,12 +50,11 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
           $scope.rootNote = 58;
         }
         PitchModel.rootFreq = MusicCalc.midiNumToFreq($scope.rootNote);
-        $scope.reset();
       });
 
       $scope.$watch('level', function() {
           display.draw($scope.level.notes);
-          $scope.reset();
+          if (!$scope.signalOn) display.setFlash("Start Mic");
       });
 
       $scope.reset = function() {
