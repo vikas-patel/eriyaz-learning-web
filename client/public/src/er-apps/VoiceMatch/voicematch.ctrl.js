@@ -50,10 +50,12 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
           $scope.rootNote = 58;
         }
         PitchModel.rootFreq = MusicCalc.midiNumToFreq($scope.rootNote);
+        display.drawLevel($scope.level, $scope.rootNote);
       });
 
       $scope.$watch('level', function() {
-          display.draw($scope.level.notes);
+          display.draw();
+          display.drawLevel($scope.level, $scope.rootNote);
           if (!$scope.signalOn) display.setFlash("Start Mic");
       });
 

@@ -3,7 +3,7 @@ define([], function() {
 	var Chart = function(displayTimeRange) {
 		var margin = {
 			top: 10,
-			right: 20,
+			right: 30,
 			bottom: 10,
 			left: 30
 		};
@@ -19,32 +19,42 @@ define([], function() {
 			var invalidNotes = ["2C", "2C#", "2D", "2D#", "2E", "2E#"];
 			var position = 0;
 			var keys = [];
+			var midi = 41;
 			octaves.forEach(function(octave) {
 				steps.forEach(function(step) {
-		          var whiteKey = {octave:octave, position:position, step:step, note:octave+step, white:true};
+		          var whiteKey = {octave:octave, position:position, step:step, note:octave+step, white:true, midi:midi};
 		          if (invalidNotes.indexOf(whiteKey.note) > -1) {
 		          		return true;
 		          }
 		          keys.push(whiteKey);
+		          if (step != "E" && step != "B") {
+		        		midi++;midi++;
+		        	} else {
+		        		midi++;
+		        	}
 		          position += 2;
 		        });
 		    });
 		    position = 0.8;
+		    midi = 42;
 		    octaves.forEach(function(octave) {
 		        steps.forEach(function(step) {
-		        	var blackKey = {octave:octave, position:position, step:step, note:octave+step+'#', white:false};
+		        	var blackKey = {octave:octave, position:position, step:step, note:octave+step+'#', white:false, midi:midi};
 	        		if (invalidNotes.indexOf(blackKey.note) > -1) {
 			          	return true;
 			          }
 		        	if (step != "E" && step != "B") {
 		        		keys.push(blackKey);
+		        		midi++;midi++;
+		        	} else {
+		        		midi++;
 		        	}
 		          	position += 2;
 		        });
 		    });
 	        return keys;
 		};
-
+		
 		var x = d3.time.scale()
 			.domain([0, displayTimeRange])
 			.range([0, width]);
@@ -65,6 +75,7 @@ define([], function() {
 			this.svg.selectAll("rect")
 					    .data(keys).enter()
 					    .append("rect")
+					    .attr("id", function(d) {return "midi-"+d.midi})
 					    .attr("class", function(d) {
 					     	return "key key--" + (d.white ?  "white" : "black");
 					 	})
@@ -84,18 +95,76 @@ define([], function() {
 			this.svg.selectAll("text")
 					.data(keys).enter()
 					.append("text")
-				    .attr("x", -25)
-				    .attr("y", function(d) {return y(d.position) - keyHeight/2;})
+				    .attr("x", -margin.left/4)
+				    .attr("y", function(d) {return y(Math.round(d.position)) - keyHeight/2;})
 				    .attr("font-size", "0.8em")
+				    .style("text-anchor", "end")
 				    .attr("dy", ".35em")
 				    .text(function(d) { return d.note });
 		};
 
-		this.draw = function(noteOptions) {
+		this.draw = function(noteOptions, rootNote) {
 			if (this.svg) $('#chartdiv').html("");
-			this.noteOptions = noteOptions;
+			// this.noteOptions = noteOptions;
+			// this.rootNote = rootNote;
 			this.svg = this.createRootElement();
 			this.drawRectNotes();
+			var defs = this.svg.append("defs")
+			defs.append("marker")
+					.attr({
+						"id":"arrow",
+						"viewBox":"0 -5 10 10",
+						"refX":5,
+						"refY":0,
+						"markerWidth":4,
+						"markerHeight":4,
+						"orient":"auto"
+					})
+					.append("path")
+						.attr("d", "M0,-5L10,0L0,5")
+						.attr("class","arrowHead");
+			// this.drawArrowHead();
+		}
+
+		this.drawLevel = function(level, rootNote) {
+			if (!this.svg) return;
+			this.svg.selectAll("line.arrow").remove();
+			this.svg.selectAll("text.level").remove();
+			var max = rootNote + _.max(level.notes);
+			var min = rootNote + _.min(level.notes);
+			var maxNoteElm = d3.select("rect#midi-"+max);
+			var minNoteElm = d3.select("rect#midi-"+min);
+			var maxH = Number(maxNoteElm.attr("y"));
+			var minH = Number(minNoteElm.attr("y")) + Number(minNoteElm.attr("height"));
+			var midH = (maxH + minH)/2;
+			this.svg.append('line')
+				.attr({
+					"class":"arrow",
+					"marker-end":"url(#arrow)",
+					"x1":width + margin.right/2,
+					"y1":midH + 25,
+					"x2":width + margin.right/2,
+					"y2":minH
+				});
+			this.svg.append('line')
+				.attr({
+					"class":"arrow",
+					"marker-end":"url(#arrow)",
+					"x1":width + margin.right/2,
+					"y1":midH - 35,
+					"x2":width + margin.right/2,
+					"y2":maxH
+				});
+			this.svg.append("text")
+				.attr("x", width + margin.right/2)
+				.attr("y", midH)
+				.attr("class", "level")
+				.attr("font-size", "1.1em")
+				.style("text-anchor", "middle")
+				.style("writing-mode", "tb")
+				//.style("letter-spacing", 2)
+				.text(level.name);
+
 		}
 
 		this.createRootElement = function() {

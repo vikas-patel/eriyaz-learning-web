@@ -1301,6 +1301,11 @@ core-drawer-panel:not([narrow]) #navicon {
   fill: #333;
   stroke: #000;
 }
+/* line 27, ../../../er-apps/VoiceMatch/main.scss */
+#voicematch .arrow {
+  stroke-width: 2;
+  stroke: #777;
+}
 
 /* line 2, ../../../er-apps/FreestylePhrases/main.scss */
 #freestylephrases .container-toplevel {
