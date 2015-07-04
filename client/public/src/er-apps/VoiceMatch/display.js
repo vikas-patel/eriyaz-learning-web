@@ -2,7 +2,7 @@ define([], function() {
 
 	var Chart = function(displayTimeRange) {
 		var margin = {
-			top: 10,
+			top: 20,
 			right: 30,
 			bottom: 10,
 			left: 30
@@ -255,7 +255,7 @@ define([], function() {
 				.attr("id", "flash")
 				.attr("font-size", 25)
 				.attr("x", width / 2)
-				.attr("y", height * .4)
+				.attr("y", 0)
 				.attr("fill", "#F16236")
 				.attr("text-anchor", "middle")
 				.text(message);
@@ -276,20 +276,42 @@ define([], function() {
 			this.svg.selectAll(".playRect").remove();
 		};
 
-		this.playAnimate = function(interval, duration) {
+		this.playAnimate = function(interval, duration, type) {
+			var color = "#FFCCCC";
+			var text = "You Sang.."
+			if (type == "actual") {
+				color = "#FF9999";
+				text = "Actual..";
+			}
+			var note = d3.select("#midi-"+interval);
+
 			var playRect = this.svg.append("rect")
 				.attr("class", "playRect")
-				.attr("x", 0)
-				// .attr("y", y(interval) - height / 19)
-				.attr("y", y(noteScale(interval)) - keyHeight)
-				.attr("height", keyHeight)
+				.attr("x", note.attr("x"))
+				.attr("y", note.attr("y"))
+				.attr("height", note.attr("height"))
 				.attr("width", 0)
-				.attr("opacity", 0.2);
+				.style("fill", color)
+				//.attr("opacity", 0.5);
 
 			playRect
 				.transition()
 				.duration(duration)
-				.attr("width", width);
+				.attr("width", note.attr("width"));
+			this.svg.append("text")
+				.attr("class", "playRect " + type)
+				.attr("x", note.attr("width")/2)
+				.attr("y", Number(note.attr("y")) + Number(note.attr("height")/2))
+				.attr("dy", 5)
+				.attr("font-size", "1.5em")
+				.style("text-anchor", "middle")
+				.text(text);
+		};
+
+		this.setResult = function(message) {
+			this.svg.selectAll("text.playRect")
+				.filter(".actual")
+				.text(message);
 		};
 
 	};

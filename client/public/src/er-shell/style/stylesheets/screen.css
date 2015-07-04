@@ -1274,34 +1274,25 @@ core-drawer-panel:not([narrow]) #navicon {
   margin: 1% 0 0 0;
 }
 /* line 6, ../../../er-apps/VoiceMatch/main.scss */
-#voicematch button, #voicematch select {
-  margin: 0 0 0 1px;
-}
-/* line 10, ../../../er-apps/VoiceMatch/main.scss */
 #voicematch button {
   font-size: 0.73em;
 }
-/* line 14, ../../../er-apps/VoiceMatch/main.scss */
+/* line 10, ../../../er-apps/VoiceMatch/main.scss */
 #voicematch .key {
   stroke-width: 1.5px;
   transition: fill 250ms linear, stroke 250ms linear;
-  transition-delay: 150ms;
 }
-/* line 20, ../../../er-apps/VoiceMatch/main.scss */
-#voicematch .key:hover {
-  transition-delay: 0;
-}
-/* line 24, ../../../er-apps/VoiceMatch/main.scss */
+/* line 15, ../../../er-apps/VoiceMatch/main.scss */
 #voicematch .key--white {
   fill: #fff;
   stroke: #777;
 }
-/* line 25, ../../../er-apps/VoiceMatch/main.scss */
+/* line 16, ../../../er-apps/VoiceMatch/main.scss */
 #voicematch .key--black {
   fill: #333;
   stroke: #000;
 }
-/* line 27, ../../../er-apps/VoiceMatch/main.scss */
+/* line 18, ../../../er-apps/VoiceMatch/main.scss */
 #voicematch .arrow {
   stroke-width: 2;
   stroke: #777;

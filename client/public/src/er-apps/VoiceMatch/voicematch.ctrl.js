@@ -143,20 +143,18 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
         display.stop();
         display.setFlash("Stable Tone Detected!");
         setTimeout(function() {
-          display.setFlash("You Sung..");
           player.playNote(MusicCalc.midiNumToFreq(interval), playDuration);
-          display.playAnimate(interval, playDuration);
+          display.playAnimate(interval, playDuration, 'sang');
           setTimeout(function() {
-            display.setFlash("Actual..");
             player.playNote(MusicCalc.midiNumToFreq(currentNote), playDuration);
-            display.playAnimate(currentNote, playDuration);
+            display.playAnimate(currentNote, playDuration, 'actual');
             setTimeout(function() {
               $scope.total++;
               if (currentNote === interval) {
                 $scope.right++;
-                display.setFlash("Right!");
+                display.setResult("Right!");
               } else {
-                display.setFlash("Wrong :(");
+                display.setResult("Wrong :(");
               }
               $scope.isPending = false;
               $scope.$apply();

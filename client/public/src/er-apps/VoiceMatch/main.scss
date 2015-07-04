@@ -3,22 +3,13 @@
       margin:1% 0 0 0;
     }
 
-    button, select {
-      margin : 0 0 0 1px;
-    }
-
     button {
       font-size:0.73em;
     }
 
-    .key {
+  .key {
 	  stroke-width: 1.5px;
 	  transition: fill 250ms linear, stroke 250ms linear;
-	  transition-delay: 150ms;
-	}
-
-	.key:hover {
-	  transition-delay: 0;
 	}
 
 	.key--white { fill: #fff; stroke: #777; }
