@@ -82,7 +82,7 @@
         href: '#freestylephrases',
         appUrl: 'er-apps/FreestylePhrases/main.html',
         aspectRatio: 5/3,
-        show:true
+        show:false
       }, {
         name: 'SwarMastery',
         thumb: 'er-shell/images/swarmastery.jpg',
@@ -106,7 +106,7 @@
         href: '#timetrainer',
         appUrl: 'er-apps/TimeTrainer/main.html',
         aspectRatio: 9/10,
-        show:true
+        show:false
     },{
         name: 'VoiceRange',
         thumb: 'er-shell/images/voicerange.jpg',
@@ -114,7 +114,7 @@
         href: '#voicerange',
         appUrl: 'er-apps/VoiceRange/main.html',
         aspectRatio: 41/20,
-        show:true
+        show:false
       }];
       appsInfo.selectedIndex = -1;
       TimeMe.setIdleDurationInSeconds(60);

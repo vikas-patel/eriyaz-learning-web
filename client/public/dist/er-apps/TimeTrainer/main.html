@@ -1,0 +1,13 @@
+<div id="timetrainer" ng-controller="TimeTrainerCtrl as ctrl">
+    <div class="container-toplevel">
+            
+                <paper-icon-button icon="settings-voice" ng-click="startMic()"></paper-icon-button>
+                
+                <button ng-click="newRhythm()">new</button>
+                <button ng-click="check()">check</button>
+                <div id="chartdiv"></div>
+                <div id="intensityDiv"></div>
+
+                <div id="tapper" ng-mousedown="tapped($event)" ng-mouseup="tapped($event)" ng style="width:100%;height:30px;background-color:blue"></div>	
+        </div>
+</div>

@@ -1,32 +1,22 @@
 <div id="voicematch" ng-controller="VoiceMatchCtrl as ctrl">
-    <div class="container-toplevel">
-            <div id="score">
-                <span>Score: </span>
-                {{right}}/{{total}}
-            </div>
-            <div class="container">
-                <paper-icon-button icon="settings-voice" ng-click="startMic()"></paper-icon-button>
-                <select ng-model="rootNote">
-                    <option value="47">Safed 7 (B)</option>
-                    <option value="48">Safed 1 (C)</option>
-                    <option value="49">Kali 1 (C#)</option>
-                    <option value="50">Safed 2 (D)</option>
-                    <option value="51">Kali 2 (D#)</option>
-                    <option value="52">Safed 3 (E)</option>
-                    <option value="53">Safed 4 (F)</option>
-                    <option value="54">Kali 3 (F#)</option>
-                    <option value="55">Safed 5 (G)</option>
-                    <option value="56">Kali 4 (G#)</option>
-                    <option value="57">Safed 6 (A)</option>
-                    <option value="58">Kali 5 (A#)</option>
-                </select>   
-                
-            </div>
-            <div>
-                <button ng-click="new()" ng-disabled="isPending || !signalOn">New</button>
-                <button ng-click="repeat()" ng-disabled="!signalOn">Repeat</button>
-            </div>
-                <div id="chartdiv"></div>
-
+    <div horizontal layout center justified>
+        <div>
+            <paper-icon-button icon="settings-voice" ng-click="startMic()"></paper-icon-button>
         </div>
+        <div>
+            <select ng-model="gender">
+                <option value="">--Set User--</option>
+                <option value="woman">Woman</option>
+                <option value="child">Child</option>
+                <option value="man">Man</option>
+            </select>
+            <button ng-click="new()" ng-disabled="isPending || !signalOn || !gender">New</button>
+            <button ng-click="repeat()" ng-disabled="!signalOn">Repeat</button>
+            <select ng-model="level" ng-options="l.name for l in levels"></select>
+        </div>
+        <div flex></div>
+        <div>Score: {{right}}/{{total}}</div>
+    </div>
+    <div id="chartdiv"></div>
+    <overlay restart="restart()" right='right' level='level' total='total' />
 </div>
