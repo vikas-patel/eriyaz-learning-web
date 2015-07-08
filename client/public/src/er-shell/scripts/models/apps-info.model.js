@@ -109,12 +109,12 @@
         show:false
     },{
         name: 'VoiceRange',
-        thumb: 'er-shell/images/voicerange.jpg',
-        desc: 'Know your voice range.',
+        thumb: 'er-shell/images/voicerange.jpg'
+,        desc: 'Know your voice range.',
         href: '#voicerange',
         appUrl: 'er-apps/VoiceRange/main.html',
         aspectRatio: 41/20,
-        show:false
+        show:true
       }];
       appsInfo.selectedIndex = -1;
       TimeMe.setIdleDurationInSeconds(60);

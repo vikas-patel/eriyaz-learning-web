@@ -21,19 +21,21 @@ define(['./module', 'jquery', 'mic-util', 'currentaudiocontext', 'audiobuffer', 
 			$scope.signalOn = false;
 			$scope.stopSignal = true;
 			$scope.rootNote = 53;
+			$scope.isHigh = true;
+			$scope.offsetDuration = 2000;
 			$scope.rootFreq = MusicCalc.midiNumToFreq($scope.rootNote);
 			$scope.user = User.get({
 				id: $window.localStorage.userId
 			}, function() {
 				
 			});
+			//setMessage("Sing");
 
 			function initVariables () {
 				lastExpNote = 0;
 				notesArray = [];
 				maxNote = -99;
 				minNote = 99;
-				$scope.isHigh = false;
 			}
 
 			$scope.startOrPause = function() {
@@ -82,8 +84,12 @@ define(['./module', 'jquery', 'mic-util', 'currentaudiocontext', 'audiobuffer', 
 
 			$scope.$on('chartOver', function() {
 				$scope.stopSignal = true;
-				$scope.showOverlay = true;
+				//$scope.showOverlay = true;
 				$scope.$apply();
+				if ($scope.isHigh) {
+					$scope.isHigh = false;
+					$scope.restart();
+				}
 			})
 
 			function init() {
@@ -101,6 +107,10 @@ define(['./module', 'jquery', 'mic-util', 'currentaudiocontext', 'audiobuffer', 
 						$scope.$apply();
 					}
 				);
+			}
+
+			function setMessage(message) {
+				$('#countdown').text(message);
 			}
 
 			function updatePitch(data) {
