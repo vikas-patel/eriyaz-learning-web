@@ -117,14 +117,12 @@ define(['./module', 'jquery', 'mic-util', 'currentaudiocontext', 'audiobuffer', 
 				if ($scope.isHigh) {
 					if (meanNote > maxNote) {
 						maxNote = meanNote;
-						console.log("maxNote:"+maxNote);
 						$scope.lastMaxNote = MusicCalc.midiNumToNotation($scope.rootNote+maxNote);
 						$scope.$apply();
 					}
 				} else {
 					if (meanNote < minNote) {
 						minNote = meanNote;
-						console.log("minNote:"+minNote);
 						$scope.lastMinNote = MusicCalc.midiNumToNotation($scope.rootNote+minNote);
 						$scope.$apply();
 					}

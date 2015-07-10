@@ -57,6 +57,8 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
           display.draw();
           display.drawLevel($scope.level, $scope.rootNote);
           if (!$scope.signalOn) display.setFlash("Start Mic");
+          if (stopBeep) $interval.cancel(stopBeep);
+          $scope.isPending = false;
       });
 
       $scope.reset = function() {
@@ -96,6 +98,7 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
       $scope.$on('$destroy', function() {
         if (micStream)
           micStream.stop();
+        if (stopBeep) $interval.cancel(stopBeep);
       });
 
       $scope.new = function() {
