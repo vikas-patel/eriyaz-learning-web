@@ -1,20 +1,25 @@
 define(['./module', 'chart', 'd3', 'webaudioplayer', 'note', 'melody'], function(app, Chart, d3, Player, Note, Melody) {
-	var labelsAxis = ["F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E"];
-	var labelsNote = ["F3", "F3#", "G3", "G3#", "A3", "A3#", "B3", "C4", "C4#", "D4", "D4#", "E4",
+	var womanAxis = ["G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G"];
+	var manAxis = ["B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#"];
+	var womanlabelsNote = ["G3#", "A3", "A3#", "B3", "C4", "C4#", "D4", "D4#", "E4",
 	 "F4", "F4#", "G4", "G4#", "A4", "A4#", "B4", "C5", "C5#", "D5", "D5#", "E5",
 	 "F5", "F5#", "G5", "G5#", "A5", "A5#"];
-	var exerciseHigh = {notes:[0, -100, 1],
+	 var manlabelsNote = ["B2", "C3", "C3#", "D3", "D3#", "E3", "F3", "F3#", "G3", "G3#", "A3", "A3#", "B3", "C4", "C4#", "D4", "D4#", "E4",
+	 "F4", "F4#", "G4", "G4#", "A4", "A4#", "B4", "C5", "C5#", "D5", "D5#", "E5",
+	 "F5", "F5#", "G5", "G5#", "A5", "A5#"];
+	var exerciseHigh = {notes:[0, -100, 1, -100, 2, -101],
 							//-100, 2, -100, 3],
 							// -100, 4, -100, 5, -100, 6, -100, 7, -100, 8, -100, 9, -100,
 							//10, -100, 11, -100, 12, -100, 13, -100, 14, -100, 15, -100, 16, -100, 
 							//17, -100, 18, -100, 19, -100, 20, -100, 21, -100, 22, -100, 23, -100, 24], 
 					noteDuration: 2000, breakDuration: 1000, 
-					midBreakDuration: 0};
-	var exerciseLow = {notes:[0, -100, -1, -100, -2, -100, -3],
+					midBreakDuration: 100};
+	var exerciseLow = {notes:[0, -100, -1, -100, -2, -101],
+							// -1, -100, -2, -100, -3],
 							// -100, -4, -100, -5, -100, -6, -100, -7, -100, -8, -100, -9, -100
 							//-10, -100, -11, -100, -12, -100, -13, -100, -14], 
 					noteDuration: 2000, breakDuration: 1000, 
-					midBreakDuration: 0};
+					midBreakDuration: 100};
 	var ChartMotion = function(containerId, $scope, parentWidth, parentHeight, labels){
 		this.parent = Chart.Class;
 		// super constructor
@@ -48,6 +53,14 @@ define(['./module', 'chart', 'd3', 'webaudioplayer', 'note', 'melody'], function
 	}
 
 	ChartMotion.prototype.redraw = function() {
+		if (this.$scope.gender == "man") {
+			this.settings.labels = manAxis;
+			this.settings.labels12 = manlabelsNote;
+		} else {
+			this.settings.labels = womanAxis;
+			this.settings.labels12 = womanlabelsNote;
+		}
+		
 		this.parent.prototype.redraw.call(this);
 		this.startTime = null;
 		if (this.$scope.isHigh) {
@@ -82,6 +95,7 @@ define(['./module', 'chart', 'd3', 'webaudioplayer', 'note', 'melody'], function
 			chart.currentNote = chart.melody.shift();
 			chart.nextTick += chart.currentNote.duration;
 			chart.player.playNote(chart.currentNote.freq, chart.currentNote.duration);
+			if (chart.currentNote.freq <= 0) chart.$scope.$broadcast("note-change");
 		}
 		return false;
 	}
@@ -128,8 +142,8 @@ define(['./module', 'chart', 'd3', 'webaudioplayer', 'note', 'melody'], function
 					marginRight:20,
 					marginBottom:20,
 					marginLeft:30,
-					labels: labelsAxis,
-					labels12: labelsNote,
+					labels: womanAxis,
+					labels12: womanlabelsNote,
 					yTicks: 38,
 					timeSpan:10000,
 					precision: 0

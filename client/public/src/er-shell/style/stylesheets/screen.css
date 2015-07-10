@@ -541,10 +541,9 @@ core-drawer-panel:not([narrow]) #navicon {
 #appDialog .center {
   margin: auto;
   position: absolute;
-  width: 150px;
   height: 50px;
   color: red;
-  font-size: 5em;
+  font-size: 3em;
   top: 0;
   left: 0;
   right: 0;
@@ -852,10 +851,10 @@ core-drawer-panel:not([narrow]) #navicon {
 #sing-alankars .center {
   margin: auto;
   position: absolute;
-  width: 150px;
+  text-align: center;
   height: 50px;
   color: red;
-  font-size: 5em;
+  font-size: 4em;
   top: 0;
   left: 0;
   right: 0;

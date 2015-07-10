@@ -6,7 +6,7 @@ define(['angular', './module'], function(angular, app) {
             scope: {
                 duration: '='
             },
-            template: '<div id="countdown" class="center"></div>',
+            template: '<div id="countdown" align="center" class="center"></div>',
           controller: function($scope, $element, $interval) {
             var count;
             function updateCounter() {

@@ -116,7 +116,7 @@ define(['d3'], function(d3) {
 
 	Chart.prototype.exerciseNote = function(time) {
 		// remove start offset
-		if (time < this.offsetTime) return -1;
+		if (time < this.offsetTime) return -100;
 		time = time - this.offsetTime;
 		var timeTotal = 0;
 		var notes = this.exercise.notes;

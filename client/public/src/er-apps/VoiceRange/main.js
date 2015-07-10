@@ -7,38 +7,49 @@ define(['./module', 'jquery', 'mic-util', 'currentaudiocontext', 'audiobuffer', 
 		//other globals;
 		var context;
 		var buffer;
-		var renderTimeShift = 70;
+		var renderTimeShift = 0;
 		var lastExpNote;
 		var notesArray;
 		var maxNote;
 		var minNote;
-		app.controller('VoiceRangeCtrl', function($scope, User, $window) {
+		app.controller('VoiceRangeCtrl', function($scope, User, $window, $timeout) {
 			init();
 			initVariables();
 			$scope.operation = 'start';
 			$scope.showOverlay = false;
-			//$scope.partNumber = 0;
 			$scope.signalOn = false;
 			$scope.stopSignal = true;
-			$scope.rootNote = 53;
 			$scope.isHigh = true;
 			$scope.offsetDuration = 2000;
-			$scope.rootFreq = MusicCalc.midiNumToFreq($scope.rootNote);
 			$scope.user = User.get({
 				id: $window.localStorage.userId
 			}, function() {
-				
+				$scope.gender = $scope.user.gender;
 			});
-			//setMessage("Sing");
+
+			$scope.$watch('gender', function() {
+		        if ($scope.gender == "man") {
+		            $scope.rootNote = 47;
+		        } else {
+		          $scope.rootNote = 56;
+		        }
+		        $scope.rootFreq = MusicCalc.midiNumToFreq($scope.rootNote);
+		        $scope.chart.redraw();
+		      });
 
 			function initVariables () {
 				lastExpNote = 0;
 				notesArray = [];
 				maxNote = -99;
 				minNote = 99;
+				$scope.isHigh = true;
 			}
 
 			$scope.startOrPause = function() {
+				 if (!$scope.gender) {
+		            setMessage("Please set user type first.");
+		            return; 
+		        }
 				switch ($scope.operation) {
 					case 'start':
 						if ($scope.signalOn) {
@@ -84,13 +95,42 @@ define(['./module', 'jquery', 'mic-util', 'currentaudiocontext', 'audiobuffer', 
 
 			$scope.$on('chartOver', function() {
 				$scope.stopSignal = true;
-				//$scope.showOverlay = true;
-				$scope.$apply();
 				if ($scope.isHigh) {
-					$scope.isHigh = false;
-					$scope.restart();
+					setMessage("Get Ready to Sing Descending notes");
+					$timeout(function(){
+						$scope.isHigh = false;
+						notesArray = [];
+						$scope.chart.redraw();
+						$scope.operation = 'reset';
+						start();
+					}, 3000);
+				} else {
+					$scope.showOverlay = true;
+					$scope.octaveRange = (maxNote - minNote + 1)/12;
 				}
+				$scope.$apply();
 			})
+
+			$scope.$on('note-change', function() {
+				if (notesArray.length == 0) return;
+				var meanNote = Number(_.chain(notesArray).countBy().pairs().max(_.last).head().value());
+				if ($scope.isHigh) {
+					if (meanNote > maxNote) {
+						maxNote = meanNote;
+						console.log("maxNote:"+maxNote);
+						$scope.lastMaxNote = MusicCalc.midiNumToNotation($scope.rootNote+maxNote);
+						$scope.$apply();
+					}
+				} else {
+					if (meanNote < minNote) {
+						minNote = meanNote;
+						console.log("minNote:"+minNote);
+						$scope.lastMinNote = MusicCalc.midiNumToNotation($scope.rootNote+minNote);
+						$scope.$apply();
+					}
+				}
+				notesArray = [];
+			});
 
 			function init() {
 				context = CurrentAudioContext.getInstance();
@@ -121,27 +161,6 @@ define(['./module', 'jquery', 'mic-util', 'currentaudiocontext', 'audiobuffer', 
 				if (waveletFreq == 0) return;
 				var renderedTime = $scope.chart.getTimeRendered() - renderTimeShift;
 				var expNote = $scope.chart.exerciseNote(renderedTime);
-				if (expNote != lastExpNote && lastExpNote != -1 && notesArray.length > 0) {
-					// find mean value of notesArray.
-					var meanNote = Number(_.chain(notesArray).countBy().pairs().max(_.last).head().value());
-					if ($scope.isHigh) {
-						if (meanNote > maxNote) {
-							maxNote = meanNote;
-							$scope.lastMaxNote = MusicCalc.midiNumToNotation($scope.rootNote+maxNote);
-							$scope.$apply();
-						}
-					} else {
-						if (meanNote < minNote) {
-							
-							minNote = meanNote;
-							console.log("minNote:"+minNote);
-							$scope.lastMinNote = MusicCalc.midiNumToNotation($scope.rootNote+minNote);
-							$scope.$apply();
-						}
-					}
-					notesArray = [];
-				}
-				lastExpNote = expNote;
 				// don't update score; break, mid break or offset time.
 				if (expNote < -99) return;
 				var expFreq = Math.pow(2, expNote/12)*$scope.rootFreq;
