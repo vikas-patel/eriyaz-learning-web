@@ -27,7 +27,8 @@ define([
     'swarmastery',
     'melodygraph2',
     'timetrainer',
-    'voicerange'
+    'voicerange',
+    'swarsense',
 ], function(angular) {
     'use strict';
 
@@ -53,6 +54,7 @@ define([
         'melodygraph2',
         'timetrainer',
         'voicerange',
+        'swarsense',
         
         'ngResource',
         'angulartics',

@@ -153,6 +153,10 @@ requirejs.config({
         name: 'timetrainer',
         location: 'er-apps/TimeTrainer',
         main: 'index'
+    }, {    
+        name: 'swarsense',
+        location: 'er-apps/SwarSense',
+        main: 'index'
     }, {
         name: 'tanpura',
         location: 'er-libs/tanpura',
