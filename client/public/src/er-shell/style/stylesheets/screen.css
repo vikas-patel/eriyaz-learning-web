@@ -648,10 +648,21 @@ core-drawer-panel:not([narrow]) #navicon {
   margin: 20px 0 10px 25px;
 }
 /* line 19, ../sass/pages/_history.scss */
+#history .timespent {
+  margin: 20px 0 10px 25px;
+}
+/* line 21, ../sass/pages/_history.scss */
+#history .timespent dt {
+  float: left;
+  clear: left;
+  width: 225px;
+  text-align: left;
+}
+/* line 29, ../sass/pages/_history.scss */
 #history dl {
   margin: 0 0 0 50px;
 }
-/* line 23, ../sass/pages/_history.scss */
+/* line 33, ../sass/pages/_history.scss */
 #history dt {
   float: left;
   clear: left;
