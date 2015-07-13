@@ -37,6 +37,12 @@
               desc: 'Get familiar with ups and downs in the songs.',
               href: '#melodygraph',
               appUrl: 'er-apps/MelodyGraph/main.html',
+              hotkeys: [
+                  ['n', 'newSequence()'],
+                  ['r', 'repeat()'],
+                  ['p', 'playMyGraph()'],
+                  ['c', 'check()']
+              ],
               aspectRatio: 9 / 10,
               show: true
           }, {
@@ -45,6 +51,10 @@
               desc: 'Develop a sense of space between two notes - how far apart they are?',
               href: '#swarspace',
               appUrl: 'er-apps/SwarSpace/main.html',
+              hotkeys: [
+                  ['n', 'newInterval()'],
+                  ['r', 'repeatPlay()']
+              ],
               aspectRatio: 9 / 10,
               show: true
           }, {
@@ -53,6 +63,10 @@
               desc: 'Practice regonizing the exact swar, by using its position in the sargam.',
               href: '#swarposition',
               appUrl: 'er-apps/SwarPosition/main.html',
+              hotkeys: [
+                  ['n', 'newInterval()'],
+                  ['r', 'repeatPlay()']
+              ],
               aspectRatio: 9 / 10,
               show: true
           }, {
@@ -98,6 +112,10 @@
               desc: 'Practice matching your voice to the tone of the instrument.',
               href: '#swarmastery',
               appUrl: 'er-apps/SwarMastery/main.html',
+              hotkeys: [
+                  ['n', 'newNote()'],
+                  ['m', 'startMic()']
+              ],
               aspectRatio: 2 / 3,
               show: true
           }, {
