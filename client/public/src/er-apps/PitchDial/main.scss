@@ -26,7 +26,6 @@ $landscape : min-aspect-ratio 1/1;
 		right: 0;
 
     	margin: 5px;
-    	padding: 5px;
 
     	// width:100%;
     	// padding-bottom:100%;
@@ -64,35 +63,4 @@ $landscape : min-aspect-ratio 1/1;
 			// height:700px;
 		}
 	}
-
-	paper-icon-button {
-		margin-top:-10px;
-		float:left;
-	}
-
-	#scale {
-		// display:inline;
-		float:left;
-	}
-	button {
-		width : 30%;
-		// height: 7%;
-		text-overflow:clip;
-
-		
-		&:focus {
-			outline:0;
-
-		}
-
-		&:hover {
-			cursor:pointer;
-		}
-
-		&:active {
-			border-bottom:solid;
-		}
-	}
-
-
 }

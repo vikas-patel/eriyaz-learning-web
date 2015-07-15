@@ -1,6 +1,6 @@
 define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'webaudioplayer', 
-  'pitchdetector', 'music-calc', 'stabilitydetector', './levels'],
-  function(app, Display, MicUtil, CurrentAudioContext, AudioBuffer, WebAudioPlayer, PitchDetector, MusicCalc, StabilityDetector, levels) {
+  'pitchdetector', 'music-calc', 'stabilitydetector', './levels', 'tanpura'],
+  function(app, Display, MicUtil, CurrentAudioContext, AudioBuffer, WebAudioPlayer, PitchDetector, MusicCalc, StabilityDetector, levels, Tanpura) {
     var audioContext = CurrentAudioContext.getInstance();
     var player = new WebAudioPlayer(audioContext);
     var labels = ['Pa', '', 'Dha', '', 'Ni', 'Sa', '', 'Re', '', 'Ga', 'ma', '', 'Pa', '', 'Dha', '', 'Ni', 'Sa\''];
@@ -24,6 +24,7 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
       $scope.isPending = false;
       $scope.total = 0;
       $scope.right = 0;
+      var tanpura = null;
 
       User.get({
         id: $window.localStorage.userId
@@ -57,12 +58,12 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
           display.draw();
           display.drawLevel($scope.level, $scope.rootNote);
           if (!$scope.signalOn) display.setFlash("Start Mic");
-          if (stopBeep) $interval.cancel(stopBeep);
+          stopIntervals();
           $scope.isPending = false;
       });
 
       $scope.reset = function() {
-          if (stopBeep) $interval.cancel(stopBeep);
+          stopIntervals();
           $scope.resetScore();
           display.clear();
       };
@@ -98,7 +99,7 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
       $scope.$on('$destroy', function() {
         if (micStream)
           micStream.stop();
-        if (stopBeep) $interval.cancel(stopBeep);
+          stopIntervals();
       });
 
       $scope.new = function() {
@@ -113,12 +114,18 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
         display.clear();
         var randomNote = $scope.level.notes[Math.floor(Math.random()*$scope.level.notes.length)];
         currentNote = $scope.rootNote + randomNote;
-        player.playNote(MusicCalc.midiNumToFreq(currentNote), playDuration);
-        if ($scope.level.isBeepPersistent) {
+        if ($scope.level.isTanpura) {
+            tanpura = Tanpura.getInstance();
+            tanpura.setTuning(currentNote, 7, function(message, progress) {if (progress === 100) {tanpura.play();}});
+        } else if ($scope.level.isBeepRepeat) {
+            player.playNote(MusicCalc.midiNumToFreq(currentNote), playDuration);
             stopBeep = $interval(function() {
               player.playNote(MusicCalc.midiNumToFreq(currentNote), playDuration);
             }, 2000);
+        } else {
+            player.playNote(MusicCalc.midiNumToFreq(currentNote), playDuration);
         }
+        
         
         $scope.isPending = true;
         setTimeout(function() {
@@ -136,12 +143,20 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
           $scope.right = 0;
       }
 
+      function stopIntervals() {
+          if (stopBeep) $interval.cancel(stopBeep);
+          if (tanpura) {
+              tanpura.stop();
+              tanpura = null;
+          }
+      }
+
       function unitStabilityDetected(interval) {
         display.notifyUnitStable(interval);
       }
 
       function aggStabilityDetected(interval) {
-        if (stopBeep) $interval.cancel(stopBeep);
+        stopIntervals();
         display.notifyAggStable(interval);
         display.stop();
         display.setFlash("Stable Tone Detected!");

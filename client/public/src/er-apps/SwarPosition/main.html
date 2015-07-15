@@ -2,7 +2,6 @@
 	<div class="buttons">
         <button ng-click="newInterval();" ng-disabled="isLooping()">New</button>
         <button ng-click="repeatPlay();" ng-disabled="isLooping()">Repeat</button>
-        <button ng-click="checkAnswer();" ng-disabled="isLooping()">Check</button>
          <select ng-model="level" ng-options="l.name for l in levels">
         </select>
     <div id="score">  <span>Remaining: </span>

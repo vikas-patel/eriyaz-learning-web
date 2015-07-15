@@ -5,10 +5,11 @@ define([], function() {
 
 	MusicCalc.freqToMidiNum = function(freq) {
 		var num = 12.0 * (Math.log(freq / 440.0) / Math.log(2)) + 69;
+		return num;
 		//assign a number if within 5 cents.
-		if (Math.abs(num - Math.round(num)) < 0.05)
-			return Math.round(num);
-		else return;
+		// if (Math.abs(num - Math.round(num)) < 0.05)
+		// 	return Math.round(num);
+		// else return;
 	};
 
 	MusicCalc.midiNumToFreq = function(midiNumber) {

@@ -2,7 +2,7 @@
  * In this file you should write your main styles. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
-/* line 5, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 5, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -24,45 +24,45 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 22, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 24, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 26, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 28, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 30, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 103, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 32, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 116, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
   display: block;
 }
@@ -112,7 +112,7 @@ body #error dd {
 /* line 1, ../sass/pages/_front.scss */
 #front {
   font-family: sans-serif;
-  background-image: url('../../images/fort.jpg?1424756334'), radial-gradient(closest-side at 35% 45%, #e02006, #f16236, #e02006);
+  background-image: url('../../images/fort.jpg?1424883674'), radial-gradient(closest-side at 35% 45%, #e02006, #f16236, #e02006);
   /* Background image is centered vertically and horizontally at all times */
   background-position: center center;
   /* Background image doesn't tile */
@@ -648,10 +648,21 @@ core-drawer-panel:not([narrow]) #navicon {
   margin: 20px 0 10px 25px;
 }
 /* line 19, ../sass/pages/_history.scss */
+#history .timespent {
+  margin: 20px 0 10px 25px;
+}
+/* line 21, ../sass/pages/_history.scss */
+#history .timespent dt {
+  float: left;
+  clear: left;
+  width: 225px;
+  text-align: left;
+}
+/* line 29, ../sass/pages/_history.scss */
 #history dl {
   margin: 0 0 0 50px;
 }
-/* line 23, ../sass/pages/_history.scss */
+/* line 33, ../sass/pages/_history.scss */
 #history dt {
   float: left;
   clear: left;
@@ -709,55 +720,28 @@ core-drawer-panel:not([narrow]) #navicon {
   bottom: 0;
   right: 0;
   margin: 5px;
-  padding: 5px;
 }
-/* line 35, ../../../er-apps/PitchDial/main.scss */
+/* line 34, ../../../er-apps/PitchDial/main.scss */
 #pitch-dial #progress-overlay {
   float: left;
   margin-left: 12px;
   clear: both;
 }
-/* line 40, ../../../er-apps/PitchDial/main.scss */
+/* line 39, ../../../er-apps/PitchDial/main.scss */
 #pitch-dial #progress-overlay span {
   display: inline-block;
   vertical-align: text-top;
   margin-top: -5px;
 }
-/* line 48, ../../../er-apps/PitchDial/main.scss */
+/* line 47, ../../../er-apps/PitchDial/main.scss */
 #pitch-dial #dial-container {
   position: absolute;
   top: 10%;
   width: 100%;
 }
-/* line 52, ../../../er-apps/PitchDial/main.scss */
+/* line 51, ../../../er-apps/PitchDial/main.scss */
 #pitch-dial #dial-container canvas {
   width: 100%;
-}
-/* line 68, ../../../er-apps/PitchDial/main.scss */
-#pitch-dial paper-icon-button {
-  margin-top: -10px;
-  float: left;
-}
-/* line 73, ../../../er-apps/PitchDial/main.scss */
-#pitch-dial #scale {
-  float: left;
-}
-/* line 77, ../../../er-apps/PitchDial/main.scss */
-#pitch-dial button {
-  width: 30%;
-  text-overflow: clip;
-}
-/* line 83, ../../../er-apps/PitchDial/main.scss */
-#pitch-dial button:focus {
-  outline: 0;
-}
-/* line 88, ../../../er-apps/PitchDial/main.scss */
-#pitch-dial button:hover {
-  cursor: pointer;
-}
-/* line 92, ../../../er-apps/PitchDial/main.scss */
-#pitch-dial button:active {
-  border-bottom: solid;
 }
 
 /* line 2, ../../../er-apps/SingAlankars/main.scss */
@@ -1626,4 +1610,37 @@ core-drawer-panel:not([narrow]) #navicon {
 #swarsense .close-button:hover {
   cursor: pointer;
   cursor: hand;
+}
+
+/* line 2, ../../../er-apps/VoiceRange/main.scss */
+#voicerange #chartdiv {
+  margin: 1% 0 0 0;
+}
+/* line 7, ../../../er-apps/VoiceRange/main.scss */
+#voicerange .start::before {
+  content: "Start";
+}
+/* line 11, ../../../er-apps/VoiceRange/main.scss */
+#voicerange .reset::before {
+  content: "Reset";
+}
+/* line 15, ../../../er-apps/VoiceRange/main.scss */
+#voicerange .key {
+  stroke-width: 1.5px;
+  transition: fill 250ms linear, stroke 250ms linear;
+}
+/* line 20, ../../../er-apps/VoiceRange/main.scss */
+#voicerange .key--white {
+  fill: #fff;
+  stroke: #777;
+}
+/* line 21, ../../../er-apps/VoiceRange/main.scss */
+#voicerange .key--black {
+  fill: #333;
+  stroke: #000;
+}
+/* line 23, ../../../er-apps/VoiceRange/main.scss */
+#voicerange .arrow {
+  stroke-width: 2;
+  stroke: #777;
 }

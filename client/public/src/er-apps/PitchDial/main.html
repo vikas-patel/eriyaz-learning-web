@@ -3,12 +3,9 @@
 <div class="container-toplevel">
 
     <div class="container">
-        <!-- <paper-button raised ng-click="startMic()">test</paper-button> -->
-
-        <!-- <button ng-click="startMic()">START MIC</button> -->
-        <div>
+        <div horizontal layout center>
 	        <paper-icon-button icon="settings-voice" ng-click="startMic()"></paper-icon-button>
-	        <div id="scale">
+	        <div id="scale" style="padding: 0 5px 0 0">
 		        Scale:
 		        <select ng-model="rootNote">
 					<option value="47">Safed 7 (B)</option>
@@ -25,6 +22,7 @@
 					<option value="58">Kali 5 (A#)</option>
 				</select>	
 			</div>	
+			<label>Tanpura: </label><input ng-click="enableTanpura()" type="checkbox" ng-model="isTanpuraEnabled"/>
 		</div>
         <div id="dial-container">
         	<ng-dial ></ng-dial>

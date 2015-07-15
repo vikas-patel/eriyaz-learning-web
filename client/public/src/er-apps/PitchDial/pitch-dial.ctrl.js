@@ -4,6 +4,7 @@
       app.controller('PitchDialCtrl', function($scope, PitchModel, DialModel, $rootScope) {
         $scope.rootNote = 56;
         $scope.progress = 0;
+        $scope.isTanpuraEnabled = true;
         $scope.loading = false;
         var tanpura = null;
         var micStream;
@@ -17,6 +18,7 @@
             if (progress === 100) {
               tanpura.play();
               $scope.loading = false;
+              $scope.isTanpuraEnabled = true;
               // $scope.$apply();
             }
           };
@@ -40,6 +42,14 @@
             DialModel.setValue(PitchModel.currentInterval);
           }
         };
+
+        $scope.enableTanpura = function() {
+          if ($scope.isTanpuraEnabled){
+              tanpura.play();
+          } else {
+              tanpura.stop();
+          }
+        }
 
 
         $scope.startMic = function() {
