@@ -333,6 +333,18 @@
              resolve: {
                  onLoggedOutRedirect: checkLoginAndRedirect
              }
+         }).
+         state('rapidintervals', {
+             url: '/rapidintervals',
+             onEnter: function(UIModel, AppsInfoModel) {
+                 UIModel.uiModel.showLoginDialog = false;
+                 UIModel.uiModel.showMenu = true;
+                 AppsInfoModel.setSelected(15);
+                 UIModel.uiModel.showAppDialog = true;
+             },
+             resolve: {
+                 onLoggedOutRedirect: checkLoginAndRedirect
+             }
          });
      });
  });

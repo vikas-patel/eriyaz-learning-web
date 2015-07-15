@@ -29,6 +29,7 @@ define([
     'timetrainer',
     'voicerange',
     'swarsense',
+    'rapidintervals',
 ], function(angular) {
     'use strict';
 
@@ -55,6 +56,7 @@ define([
         'timetrainer',
         'voicerange',
         'swarsense',
+        'rapidintervals',
         
         'ngResource',
         'angulartics',

@@ -70,7 +70,7 @@
               href: '#singgraph',
               appUrl: 'er-apps/SingGraph/main.html',
               aspectRatio: 5 / 3,
-              show: false
+              show: true
           }, {
               name: 'VoiceMatch',
               thumb: 'er-shell/images/voicematch.jpg',
@@ -91,7 +91,7 @@
               href: '#freestylephrases',
               appUrl: 'er-apps/FreestylePhrases/main.html',
               aspectRatio: 5 / 3,
-              show: false
+              show: true
           }, {
               name: 'SwarMastery',
               thumb: 'er-shell/images/swarmastery.jpg',
@@ -127,9 +127,17 @@
           }, {
               name: 'SwarSense',
               thumb: 'er-shell/images/swarsense.jpg',
-              desc: 'Know your voice range.',
+              desc: 'Practice recognizing notes with reference to tanpura.',
               href: '#swarsense',
               appUrl: 'er-apps/SwarSense/main.html',
+              aspectRatio: 2/3,
+              show: true
+          }, {
+              name: 'RapidIntervals',
+              thumb: 'er-shell/images/rapidintervals.jpg',
+              desc: 'Learn to differentiate between two close intervals with fast rapidfire practice.',
+              href: '#rapidintervals',
+              appUrl: 'er-apps/RapidIntervals/main.html',
               aspectRatio: 2/3,
               show: true
           }];

@@ -157,6 +157,10 @@ requirejs.config({
         name: 'swarsense',
         location: 'er-apps/SwarSense',
         main: 'index'
+    }, {    
+        name: 'rapidintervals',
+        location: 'er-apps/RapidIntervals',
+        main: 'index'
     }, {
         name: 'tanpura',
         location: 'er-libs/tanpura',
