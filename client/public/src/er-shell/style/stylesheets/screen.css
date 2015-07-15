@@ -1611,3 +1611,36 @@ core-drawer-panel:not([narrow]) #navicon {
   cursor: pointer;
   cursor: hand;
 }
+
+/* line 2, ../../../er-apps/VoiceRange/main.scss */
+#voicerange #chartdiv {
+  margin: 1% 0 0 0;
+}
+/* line 7, ../../../er-apps/VoiceRange/main.scss */
+#voicerange .start::before {
+  content: "Start";
+}
+/* line 11, ../../../er-apps/VoiceRange/main.scss */
+#voicerange .reset::before {
+  content: "Reset";
+}
+/* line 15, ../../../er-apps/VoiceRange/main.scss */
+#voicerange .key {
+  stroke-width: 1.5px;
+  transition: fill 250ms linear, stroke 250ms linear;
+}
+/* line 20, ../../../er-apps/VoiceRange/main.scss */
+#voicerange .key--white {
+  fill: #fff;
+  stroke: #777;
+}
+/* line 21, ../../../er-apps/VoiceRange/main.scss */
+#voicerange .key--black {
+  fill: #333;
+  stroke: #000;
+}
+/* line 23, ../../../er-apps/VoiceRange/main.scss */
+#voicerange .arrow {
+  stroke-width: 2;
+  stroke: #777;
+}

@@ -140,7 +140,7 @@
               desc: 'Know your voice range.',
               href: '#voicerange',
               appUrl: 'er-apps/VoiceRange/main.html',
-              aspectRatio: 41 / 20,
+              aspectRatio: 80/100,
               show: true
           }, {
               name: 'SwarSense',
