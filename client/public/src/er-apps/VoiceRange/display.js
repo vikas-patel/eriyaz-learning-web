@@ -3,9 +3,9 @@ define([], function() {
 	var Chart = function(displayTimeRange) {
 		var margin = {
 			top: 20,
-			right: 45,
+			right: 52,
 			bottom: 10,
-			left: 30
+			left: 40
 		};
 
 		var width = 480;
@@ -119,7 +119,6 @@ define([], function() {
 					.append("path")
 						.attr("d", "M0,-5L10,0L0,5")
 						.attr("class","arrowHead");
-			// this.drawArrowHead();
 		}
 
 		this.drawLevel = function(max, min) {
@@ -130,12 +129,21 @@ define([], function() {
 			var maxH = Number(maxNoteElm.attr("y"));
 			var minH = Number(minNoteElm.attr("y")) + Number(minNoteElm.attr("height"));
 			var midH = (maxH + minH)/2;
+			var midMinH;
+			var midMaxH;
+			if (max - min < 3) {
+				midMinH = minH + 15;
+				midMaxH = maxH - 15;
+			} else {
+				midMinH = midH + 25;
+				midMaxH = midH - 35;
+			}
 			this.svg.append('line')
 				.attr({
 					"class":"arrow",
 					"marker-end":"url(#arrow)",
 					"x1":width + margin.right/2,
-					"y1":midH + 25,
+					"y1":midMinH,
 					"x2":width + margin.right/2,
 					"y2":minH
 				});
@@ -144,7 +152,7 @@ define([], function() {
 					"class":"arrow",
 					"marker-end":"url(#arrow)",
 					"x1":width + margin.right/2,
-					"y1":midH - 35,
+					"y1":midMaxH,
 					"x2":width + margin.right/2,
 					"y2":maxH
 				});
@@ -152,9 +160,9 @@ define([], function() {
 				.attr("x", width + margin.right/2)
 				.attr("y", midH)
 				.attr("class", "level")
-				.attr("font-size", "1.1em")
+				.attr("font-size", "1.3em")
 				.style("text-anchor", "middle")
-				.style("writing-mode", function() { if (max - min > 3) return "tb"; return ""})
+				.style("writing-mode", function() { if (max - min > 2) return "tb"; return ""})
 				//.style("letter-spacing", 2)
 				.text("Range");
 
@@ -201,10 +209,10 @@ define([], function() {
 		};
 
 		var tickId;
-
 		this.start = function() {
 			pointGroup = this.svg.append("g");
 			var local = this;
+			if (tickId) clearInterval(tickId);
 			tickId = setInterval(function() {
 				local.tick();
 			}, refreshTime);

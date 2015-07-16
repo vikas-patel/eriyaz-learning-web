@@ -59,6 +59,8 @@ define(['./module', 'jquery', './display', 'mic-util', 'currentaudiocontext', 'a
 
 			$scope.reset = function() {
 				initVariables();
+				display.draw();
+				display.setFlash("Click 'Start'");
 				$scope.operation = 'start';
 				$scope.stopSignal = true;
 			}

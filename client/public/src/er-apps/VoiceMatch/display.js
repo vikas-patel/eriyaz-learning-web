@@ -214,6 +214,7 @@ define([], function() {
 		this.start = function() {
 			pointGroup = this.svg.append("g");
 			var local = this;
+			if (tickId) clearInterval(tickId);
 			tickId = setInterval(function() {
 				local.tick();
 			}, refreshTime);
