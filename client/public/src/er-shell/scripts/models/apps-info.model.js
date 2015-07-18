@@ -156,6 +156,11 @@
               desc: 'Learn to differentiate between two close intervals with fast rapidfire practice.',
               href: '#rapidintervals',
               appUrl: 'er-apps/RapidIntervals/main.html',
+              hotkeys: [
+                  ['up', 'repeat()'],
+                  ['left', 'leftClick()'],
+                  ['right', 'rightClick()']
+              ],
               aspectRatio: 2/3,
               show: true
           }];

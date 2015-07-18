@@ -1,81 +1,89 @@
-define(['./module', './problem-gen', './display', 'webaudioplayer', 'currentaudiocontext', './levels-data'],
-    function(app, ProblemGen, Display, Player, CurrentAudioContext, levels) {
-        var getIntegerArray = function(start, end) {
-            var arr = [];
-            var j = start;
-            while (j <= end) {
-                arr.push(j);
-                j++;
-            }
-            return arr;
-        };
+define(['./module', 'webaudioplayer', 'currentaudiocontext', 'melody', 'note'],
+    function(app, Player, CurrentAudioContext, Melody, Note) {
 
-        var problem;
+
         var audioContext = CurrentAudioContext.getInstance();
         var player = new Player(audioContext);
 
-        var marker = 0;
-        var playTime = 1000;
-        var currLoopId;
+        var playTime = 500;
 
-        app.controller('UpOrDownCtrl', function($scope, ScoreService) {
-            $scope.levels = levels;
-            $scope.level = levels[0];
-            $scope.testNotes = [1,2];
-            var display = new Display();
+        var MIDDLE_C = 60;
+        var currBase;
+        var currInterval;
 
-            $scope.right = 0;
-            $scope.count = 0;
+        app.controller('RapidIntervalsCtrl', function($scope, ScoreService, $interval) {
+            $scope.timeout = true;
+            $scope.leftInterval = 0;
+            $scope.rightInterval = 0;
+            $scope.intervals = ["Sa-Sa", "Sa-re", "Sa-Re", "Sa-ga", "Sa-Ga", "Sa-ma", "Sa-Ma", "Sa-Pa", "Sa-dha", "Sa-Dha", "Sa-ni", "Sa-Ni", "Sa-Sa'"];
 
-            $scope.$watch('level', function() {
-                display.showLevel($scope.level);
-                $scope.testNotes = $scope.level.testNotes;
-                resetScore();
-            });
+            $scope.correct = 0;
+            $scope.remainingTime = "01:00";
+            var timeout = true;
 
-            $scope.$watch('count', function() {
-                if ($scope.count == $scope.level.total) {
-                    // Display score & save
-                    $scope.score = $scope.right / $scope.count;
-                    $scope.showOverlay = true;
-                    ScoreService.save("UpOrDown", $scope.level.name, $scope.score);
-                    //resetScore();
+            $scope.leftClick = function() {
+                checkAnswer(parseInt($scope.leftInterval));
+            };
+
+            $scope.rightClick = function() {
+                checkAnswer(parseInt($scope.rightInterval));
+            };
+
+            $scope.start = function() {
+                timeout = false;
+                startTimer(60);
+                newProblem();
+            };
+
+            function checkAnswer(guess) {
+                if (!timeout) {
+                    if (guess === currInterval) {
+                        $scope.correct++;
+                    }
+                    newProblem();
                 }
-            });
+            }
 
-            $scope.newProblem = function() {
-                display.setFeedback("");
-                problem = ProblemGen.getNewProblem($scope.level);
-                playProblem();
-                $scope.repeatBtn=true;
-                $scope.repBtn=true;
+            function startTimer(duration) {
+                var timer = duration,
+                    minutes, seconds;
+                var timerHandle = $interval(function() {
+                    minutes = parseInt(timer / 60, 10);
+                    seconds = parseInt(timer % 60, 10);
+
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                    $scope.remainingTime = minutes + ":" + seconds;
+
+                    if (--timer < 0) {
+                        $scope.showOverlay = true;
+                        $interval.cancel(timerHandle);
+                        timeout = true;
+                    }
+                }, 1000);
+            }
+
+            var newProblem = function() {
+                currBase = MIDDLE_C - Math.floor(Math.random() * 24);
+                currInterval = Math.random() < 0.5 ? parseInt($scope.leftInterval) : parseInt($scope.rightInterval);
+                playCurrent();
+            };
+
+            var playCurrent = function() {
+                var melody = new Melody();
+                melody.addNote(Note.createFromMidiNum(currBase, playTime));
+                melody.addNote(Note.createFromMidiNum(currBase + currInterval, playTime));
+                player.playMelody(melody);
             };
 
             $scope.repeat = function() {
-                playProblem();
+                playCurrent();
             };
 
-            $scope.isUp = function() {
-                $scope.count++;
-                display.setFeedback("Wrong :(");
-                if (problem.isUp()) {
-                    display.setFeedback("Right!");
-                    $scope.right++;
-                }
-                $scope.repBtn=false;
-
-            };
-
-            $scope.isDown = function() {
-                $scope.count++;
-                display.setFeedback("Wrong :(");
-                if (problem.isDown()) {
-                    display.setFeedback("Right!");
-                    $scope.right++;
-                }
-                $scope.repBtn=false;
-
-            };
+            function resetScore() {
+                $scope.correct = 0;
+            }
 
             $scope.closeOverlay = function() {
                 $scope.showOverlay = false;
@@ -85,34 +93,8 @@ define(['./module', './problem-gen', './display', 'webaudioplayer', 'currentaudi
             $scope.restart = function() {
                 $scope.showOverlay = false;
                 resetScore();
-                $scope.newProblem();
+                $scope.start();
             };
 
-            function resetScore() {
-                $scope.count = 0;
-                $scope.right = 0;
-            }
-
-            function playProblem() {
-                cancelCurrentLoop();
-                var startTime = audioContext.currentTime + playTime / 1000;
-                currLoopId = setInterval(function() {
-                    noteStartTime = startTime + playTime * marker / 1000;
-                    display.markNote(marker);
-                    player.scheduleNote(problem.freqs[marker], noteStartTime, playTime);
-                    marker++;
-                    if (marker >= problem.freqs.length) {
-                        cancelCurrentLoop();
-                    }
-                }, playTime);
-            }
-
-            function cancelCurrentLoop() {
-                marker = 0;
-                clearInterval(currLoopId);
-                setTimeout(function() {
-                    display.markNone();
-                }, playTime);
-            }
         });
     });
