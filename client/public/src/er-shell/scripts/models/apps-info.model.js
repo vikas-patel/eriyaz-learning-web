@@ -140,6 +140,9 @@
               desc: 'Know your voice range.',
               href: '#voicerange',
               appUrl: 'er-apps/VoiceRange/main.html',
+              hotkeys: [
+                  ['s', 'startOrPause()']
+              ],
               aspectRatio: 80/100,
               show: true
           }, {

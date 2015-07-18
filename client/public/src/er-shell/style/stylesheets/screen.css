@@ -1612,6 +1612,31 @@ core-drawer-panel:not([narrow]) #navicon {
   cursor: hand;
 }
 
+/* line 2, ../../../er-apps/RapidIntervals/main.scss */
+#rapidintervals .container-toplevel {
+  width: 100%;
+}
+/* line 11, ../../../er-apps/RapidIntervals/main.scss */
+#rapidintervals #backdrop {
+  fill: #252525;
+}
+/* line 14, ../../../er-apps/RapidIntervals/main.scss */
+#rapidintervals h4 {
+  margin-bottom: 15px;
+}
+/* line 20, ../../../er-apps/RapidIntervals/main.scss */
+#rapidintervals #display, #rapidintervals #top-panel, #rapidintervals #bottom-panel {
+  width: 95%;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* line 27, ../../../er-apps/RapidIntervals/main.scss */
+#rapidintervals #score {
+  float: right;
+  margin-right: 5px;
+}
+
 /* line 2, ../../../er-apps/VoiceRange/main.scss */
 #voicerange #chartdiv {
   margin: 1% 0 0 0;
