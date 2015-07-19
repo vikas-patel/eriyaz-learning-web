@@ -84,7 +84,7 @@
               href: '#singgraph',
               appUrl: 'er-apps/SingGraph/main.html',
               aspectRatio: 5 / 3,
-              show: true
+              show: false
           }, {
               name: 'VoiceMatch',
               thumb: 'er-shell/images/voicematch.jpg',
