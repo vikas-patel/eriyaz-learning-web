@@ -105,7 +105,7 @@
               href: '#freestylephrases',
               appUrl: 'er-apps/FreestylePhrases/main.html',
               aspectRatio: 5 / 3,
-              show: true
+              show: false
           }, {
               name: 'SwarMastery',
               thumb: 'er-shell/images/swarmastery.jpg',
@@ -152,7 +152,7 @@
               href: '#swarsense',
               appUrl: 'er-apps/SwarSense/main.html',
               aspectRatio: 2/3,
-              show: true
+              show: false
           }, {
               name: 'RapidIntervals',
               thumb: 'er-shell/images/rapidintervals.jpg',
@@ -165,7 +165,7 @@
                   ['right', 'rightClick()']
               ],
               aspectRatio: 2/3,
-              show: true
+              show: false
           }];
           appsInfo.selectedIndex = -1;
           TimeMe.setIdleDurationInSeconds(60);

@@ -1,0 +1,30 @@
+<div id="rapidintervals" ng-controller="RapidIntervalsCtrl as ctrl">
+    <div class="container-toplevel">
+         <div id="score">
+            <span>Remaining Time: </span> {{remainingTime}}
+            <span>Correct: </span> {{correct}}
+        </div>
+        <button ng-click="start()">Start</button>
+        
+        <select ng-model="leftInterval">
+            <option ng-repeat="interval in intervals" ng-value="$index">{{interval}}</option>
+        </select>
+       
+        <select ng-model="rightInterval">
+            <option ng-repeat="interval in intervals" ng-value="$index">{{interval}}</option>
+        </select>
+        {{leftInterval + " " + rightInterval}}
+        <button ng-click="leftClick()">{{intervals[leftInterval]}}</button>
+        <button ng-click="repeat()">repeat</button>
+        <button ng-click="rightClick()">{{intervals[rightInterval]}}</button>
+    </div>
+    <div id="overlay" ng-show="showOverlay"></div>
+    <div id="overlay-content" ng-show="showOverlay">
+        <div class="padding5"><h1>Exercise Ends</h1></div>
+        <div class="padding5"><h2>Your Score: <span id="overlay-score">{{correct}} correct</span></h2></div>
+        <div class="padding5">
+            <button ng-click="restart()" id="play-again">Restart</button>
+            <button ng-click="closeOverlay()" id="close-overlay">Close</button>
+        </div>
+    <div>
+</div>

@@ -1,0 +1,52 @@
+<div id="swarsense" ng-controller='SwarSenseCtrl as ctrl'>
+    <div>
+        <dl id="score">
+        	<dt>Total</dt>
+        	<dd>{{total}}</dd>
+
+        	<dt>Correct</dt> 
+        	<dd>{{correct}}</dd>
+	    </dl>
+    </div>
+            <paper-icon-button icon="settings" ng-click="showSettings()"></paper-icon-button>
+
+    <paper-dialog autoCloseDisabled opened="{{isSettings}}" layered="false" opened="true" id="setting-dialog">
+        <a class="close-button" ng-click="isSettings=false;">x</a>
+        <div id="buttons">
+            Scale:
+            <select ng-model="rootNote">
+                <option value="47">Safed 7 (B)</option>
+                <option value="48">Safed 1 (C)</option>
+                <option value="49">Kali 1 (C#)</option>
+                <option value="50">Safed 2 (D)</option>
+                <option value="51">Kali 2 (D#)</option>
+                <option value="52">Safed 3 (E)</option>
+                <option value="53">Safed 4 (F)</option>
+                <option value="54">Kali 3 (F#)</option>
+                <option value="55">Safed 5 (G)</option>
+                <option value="56">Kali 4 (G#)</option>
+                <option value="57">Safed 6 (A)</option>
+                <option value="58">Kali 5 (A#)</option>
+            </select>   
+        </div> 
+        <h4>Select Notes</h4>
+        <ul>
+            <li ng-repeat="note in notes"> 
+                <input type="checkbox" ng-model="selected[$index]"> {{note}}
+            </li>
+        </ul>  
+    </paper-dialog>
+            
+    <button ng-click="newNote()"  ng-disabled="isPending">New</button>
+    <button ng-click="repeatPlay()">Repeat</button>
+
+    
+    <div id="feedback" class="container">
+        {{feedback}}
+    </div>
+
+    <div>
+        <button class="click-note" ng-repeat="note in notes" ng-disabled="!selected[$index]" ng-click="checkAns($index)">{{note}}</button>
+    </div>
+    
+</div>

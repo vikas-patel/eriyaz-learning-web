@@ -537,6 +537,19 @@ core-drawer-panel:not([narrow]) #navicon {
 #appDialog #overlay-content button {
   font-size: 1em;
 }
+/* line 93, ../sass/pages/_app-modal.scss */
+#appDialog .center {
+  margin: auto;
+  position: absolute;
+  height: 50px;
+  color: red;
+  font-size: 3em;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
 
 /* line 1, ../sass/pages/_profile.scss */
 #profile {
@@ -635,10 +648,21 @@ core-drawer-panel:not([narrow]) #navicon {
   margin: 20px 0 10px 25px;
 }
 /* line 19, ../sass/pages/_history.scss */
+#history .timespent {
+  margin: 20px 0 10px 25px;
+}
+/* line 21, ../sass/pages/_history.scss */
+#history .timespent dt {
+  float: left;
+  clear: left;
+  width: 225px;
+  text-align: left;
+}
+/* line 29, ../sass/pages/_history.scss */
 #history dl {
   margin: 0 0 0 50px;
 }
-/* line 23, ../sass/pages/_history.scss */
+/* line 33, ../sass/pages/_history.scss */
 #history dt {
   float: left;
   clear: left;
@@ -696,55 +720,28 @@ core-drawer-panel:not([narrow]) #navicon {
   bottom: 0;
   right: 0;
   margin: 5px;
-  padding: 5px;
 }
-/* line 35, ../../../er-apps/PitchDial/main.scss */
+/* line 34, ../../../er-apps/PitchDial/main.scss */
 #pitch-dial #progress-overlay {
   float: left;
   margin-left: 12px;
   clear: both;
 }
-/* line 40, ../../../er-apps/PitchDial/main.scss */
+/* line 39, ../../../er-apps/PitchDial/main.scss */
 #pitch-dial #progress-overlay span {
   display: inline-block;
   vertical-align: text-top;
   margin-top: -5px;
 }
-/* line 48, ../../../er-apps/PitchDial/main.scss */
+/* line 47, ../../../er-apps/PitchDial/main.scss */
 #pitch-dial #dial-container {
   position: absolute;
   top: 10%;
   width: 100%;
 }
-/* line 52, ../../../er-apps/PitchDial/main.scss */
+/* line 51, ../../../er-apps/PitchDial/main.scss */
 #pitch-dial #dial-container canvas {
   width: 100%;
-}
-/* line 68, ../../../er-apps/PitchDial/main.scss */
-#pitch-dial paper-icon-button {
-  margin-top: -10px;
-  float: left;
-}
-/* line 73, ../../../er-apps/PitchDial/main.scss */
-#pitch-dial #scale {
-  float: left;
-}
-/* line 77, ../../../er-apps/PitchDial/main.scss */
-#pitch-dial button {
-  width: 30%;
-  text-overflow: clip;
-}
-/* line 83, ../../../er-apps/PitchDial/main.scss */
-#pitch-dial button:focus {
-  outline: 0;
-}
-/* line 88, ../../../er-apps/PitchDial/main.scss */
-#pitch-dial button:hover {
-  cursor: pointer;
-}
-/* line 92, ../../../er-apps/PitchDial/main.scss */
-#pitch-dial button:active {
-  border-bottom: solid;
 }
 
 /* line 2, ../../../er-apps/SingAlankars/main.scss */
@@ -838,10 +835,10 @@ core-drawer-panel:not([narrow]) #navicon {
 #sing-alankars .center {
   margin: auto;
   position: absolute;
-  width: 150px;
+  text-align: center;
   height: 50px;
   color: red;
-  font-size: 5em;
+  font-size: 4em;
   top: 0;
   left: 0;
   right: 0;
@@ -1561,4 +1558,114 @@ core-drawer-panel:not([narrow]) #navicon {
 #timetrainer .tick {
   stroke: red;
   stroke-width: 1px;
+}
+
+/* line 2, ../../../er-apps/SwarSense/main.scss */
+#swarsense #score {
+  float: right;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+/* line 6, ../../../er-apps/SwarSense/main.scss */
+#swarsense #score dt {
+  float: left;
+  clear: left;
+  width: 100px;
+  text-align: left;
+}
+/* line 14, ../../../er-apps/SwarSense/main.scss */
+#swarsense #score dt:after {
+  content: ":";
+}
+/* line 17, ../../../er-apps/SwarSense/main.scss */
+#swarsense #score dd {
+  margin: 0 0 0 100px;
+}
+/* line 24, ../../../er-apps/SwarSense/main.scss */
+#swarsense button.click-note {
+  display: block;
+  width: 100%;
+  padding: 5px;
+  margin: 5px;
+}
+/* line 31, ../../../er-apps/SwarSense/main.scss */
+#swarsense #feedback {
+  font-weight: bold;
+  border: none;
+}
+/* line 36, ../../../er-apps/SwarSense/main.scss */
+#swarsense .close-button {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  color: black;
+  text-decoration: none;
+  font-size: 1.5em;
+  font-weight: 300;
+}
+/* line 47, ../../../er-apps/SwarSense/main.scss */
+#swarsense .close-button:hover {
+  cursor: pointer;
+  cursor: hand;
+}
+
+/* line 2, ../../../er-apps/RapidIntervals/main.scss */
+#rapidintervals .container-toplevel {
+  width: 100%;
+}
+/* line 11, ../../../er-apps/RapidIntervals/main.scss */
+#rapidintervals #backdrop {
+  fill: #252525;
+}
+/* line 14, ../../../er-apps/RapidIntervals/main.scss */
+#rapidintervals h4 {
+  margin-bottom: 15px;
+}
+/* line 20, ../../../er-apps/RapidIntervals/main.scss */
+#rapidintervals #display, #rapidintervals #top-panel, #rapidintervals #bottom-panel {
+  width: 95%;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* line 27, ../../../er-apps/RapidIntervals/main.scss */
+#rapidintervals #score {
+  float: right;
+  margin-right: 5px;
+}
+
+/* line 2, ../../../er-apps/VoiceRange/main.scss */
+#voicerange #chartdiv {
+  margin: 1% 0 0 0;
+}
+/* line 7, ../../../er-apps/VoiceRange/main.scss */
+#voicerange .start::before {
+  content: "Start";
+}
+/* line 11, ../../../er-apps/VoiceRange/main.scss */
+#voicerange .reset::before {
+  content: "Reset";
+}
+/* line 15, ../../../er-apps/VoiceRange/main.scss */
+#voicerange .key {
+  stroke-width: 1.5px;
+  transition: fill 250ms linear, stroke 250ms linear;
+}
+/* line 20, ../../../er-apps/VoiceRange/main.scss */
+#voicerange .key--white {
+  fill: #fff;
+  stroke: #777;
+}
+/* line 21, ../../../er-apps/VoiceRange/main.scss */
+#voicerange .key--black {
+  fill: #333;
+  stroke: #000;
+}
+/* line 23, ../../../er-apps/VoiceRange/main.scss */
+#voicerange .arrow {
+  stroke-width: 2;
+  stroke: #777;
 }
