@@ -12,7 +12,7 @@
 		</div>
 		<div id="daily" ng-show="{{uiModel.userType == 'admin'}}" ng-repeat="day in dailyScore">
 			<h1>{{day.completionTime | date2:'doo MMM, EEE'}}</h1>
-			<h2>Time Spent</h2>
+			<div class="timespent"><dt>Time Spent</dt><dd>{{sum(day.times)}}</dd></div>
 			<dl>
 				<dt ng-repeat-start="time in day.times">{{time.appName}}</dt>
 				<dd ng-repeat-end>{{secondsToTime(time.time)}}</dd>

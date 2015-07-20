@@ -1,13 +1,21 @@
-<div id="sing-alankars" ng-controller="VoiceRangeCtrl">
+<div id="voicerange" ng-controller="VoiceRangeCtrl">
     <div horizontal layout center justified class="header">
-        <div style="padding: 0 5px 0 0"><button ng-click="startOrPause()" ng-class="{start:operation==='start',
+        <div style="padding: 0 5px 0 0">
+                <button ng-click="startOrPause()" ng-class="{start:operation==='start',
                     reset:operation==='reset'||operation==='over'}"></button>
-                    </div>
+        </div>
         <div flex></div>
-      <div ng-show="{{isHigh}}">Highest Note: {{lastMaxNote}}</div>
-      <div ng-show="{{!isHigh}}">Lowest Note: {{lastMinNote}}</div>
+      <div>Range: {{1 + maxNote - minNote | minRange}} notes</div>
     </div>
-    <div id="vr-containerId">
-        <div voice-range-chart class='svg-container' id="voice-range-chart"></div>
+    <div id="chartdiv"></div>
+    <div id="overlay" ng-show="showOverlay"></div>
+    <div id="overlay-content" ng-show="showOverlay">
+        <div class="padding5"><h2>Your Highest Note: {{lastMaxNote}}</h2></div>
+        <div class="padding5"><h2>Your Lowest Note: {{lastMinNote}}</h2></div>
+        <div class="padding5"><h2>Your Range: {{octaveRange | number:2}} Ocate</h2></div>
+        <div class="padding5">
+            <button ng-click="closeOverlay()">Close</button>
+            <button ng-click="restart()">Replay</button>
+        </div>
     </div>
 </div>
