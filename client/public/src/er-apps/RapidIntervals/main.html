@@ -1,5 +1,4 @@
 <div id="rapidintervals" ng-controller="RapidIntervalsCtrl as ctrl">
-    <div class="container-toplevel">
          <div id="score">
             <span>Remaining Time: </span> {{remainingTime}}
             <span>Correct: </span> {{correct}}
@@ -13,11 +12,16 @@
         <select ng-model="rightInterval">
             <option ng-repeat="interval in intervals" ng-value="$index">{{interval}}</option>
         </select>
-        {{leftInterval + " " + rightInterval}}
-        <button ng-click="leftClick()">{{intervals[leftInterval]}}</button>
-        <button ng-click="repeat()">repeat</button>
-        <button ng-click="rightClick()">{{intervals[rightInterval]}}</button>
+
+    <div class="controls">
+        <div class="filler"></div>
+        <button id="repeatbutton" ng-click="repeat()">repeat</button>
+        <div class="filler"></div>
+        <button id="leftbutton" ng-click="leftClick()">{{intervals[leftInterval]}}</button>
+        <img src="er-apps/RapidIntervals/arrows.png">
+        <button id="rightbutton" ng-click="rightClick()">{{intervals[rightInterval]}}</button>
     </div>
+
     <div id="overlay" ng-show="showOverlay"></div>
     <div id="overlay-content" ng-show="showOverlay">
         <div class="padding5"><h1>Exercise Ends</h1></div>

@@ -1,3 +1,8 @@
+$controls : (
+    columns:3,
+  // debug: (image:show)
+);
+
 #rapidintervals {
     .container-toplevel {
         // position:relative;
@@ -27,5 +32,24 @@
     #score {
         float:right;
         margin-right:5px;
+    }
+
+
+    .controls {
+        margin-top:30%;
+        padding-left:10%;
+        // @with-layout(gutters:0);
+        // @with-layout(columns:3,debug(image:show));
+        @include container($controls 80%); 
+        @include clearfix;
+        .filler,img,button {
+            display:block;
+            float:left;
+            width:span(1 of 3);
+            height:4em;
+        }
+        #leftbutton,#rightbutton,img {
+            margin-top:-10px;
+        }
     }
 }
