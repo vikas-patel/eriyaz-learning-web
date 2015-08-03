@@ -20,7 +20,8 @@ var UserSchema = new mongoose.Schema({
         rootNote: Number,
         playInstrument: String,
         isPlayTanpura: Boolean
-    }
+    },
+	last_login: { type : Date}
 });
 
 // methods ======================

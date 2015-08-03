@@ -91,7 +91,6 @@ module.exports = function(passport) {
         passwordField : 'password',
     },
     function(email, password, done) { // callback with email and password from our form
-
         // find a user whose email is the same as the forms email
         // we are checking to see if the user trying to login already exists
         User.findOne({ 'local.email' :  email }, function(err, user) {
@@ -106,9 +105,15 @@ module.exports = function(passport) {
             // if the user is found but the password is wrong
             if (!user.validPassword(password))
                 return done(null, false,'Oops! Wrong password.'); // create the loginMessage and save it to session as flashdata
+			
+			User.update({ '_id' :  user._id },{$set:{'last_login':new Date()}},function(err, cnt){
+				if(err!=null)
+					console.log(err)
+				console.log('%s logged in', user.local.email)
+				// all is well, return successful user
+				return done(null, user);
+			})
 
-            // all is well, return successful user
-            return done(null, user);
         });
 
     }));
