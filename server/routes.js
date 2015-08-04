@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path');
 var userDao = require('./dao/userDao.js');
 var exerciseDao = require('./dao/exerciseDao.js');
+
 // app/routes.js
 module.exports = function(app, passport) {
 
@@ -11,6 +12,7 @@ module.exports = function(app, passport) {
 	// app.use('/static',isLoggedIn);
 	// app.use('/:var', isLoggedIn);
 	// app.use(express.static(path.join(__dirname, '..', 'public')));
+	
 	app.use('/protected', isLoggedIn, express.static(path.join(__dirname, '..', 'protected')));
 
 	if ('development' == app.get('env')) {
@@ -36,23 +38,23 @@ module.exports = function(app, passport) {
 			customJsonCalback(req, res, next, err, user, info);
 		})(req, res, next);
 	});
-
-	app.post('/users', userDao.save);
+	
+	app.post('/users', isLoggedIn, userDao.save);
 	app.put('/users/:id', userDao.update);
-	app.get('/assignExercise', userDao.assignExercise);
-	app.get('/users', userDao.findAll);
-	app.get('/users/:id', userDao.find);
+	app.get('/assignExercise', isLoggedIn, userDao.assignExercise);
+	app.get('/users', isLoggedIn, userDao.findAll);
+	app.get('/users/:id', isLoggedIn, userDao.find);
 	app.delete('/users/:id', userDao.remove);
 
-	app.post('/users/score', userDao.saveScore);
-	app.get('/users/topScore/:id', userDao.findTopScoresByDate);
-	app.get('/users/score/:id', userDao.findAllScores);
+	app.post('/users/score', isLoggedIn, userDao.saveScore);
+	app.get('/users/topScore/:id', isLoggedIn, userDao.findTopScoresByDate);
+	app.get('/users/score/:id', isLoggedIn, userDao.findAllScores);
 
-	app.post('/users/time', userDao.addTime);
-	app.get('/users/time/:id', userDao.findTime);
+	app.post('/users/time', isLoggedIn, userDao.addTime);
+	app.get('/users/time/:id', isLoggedIn, userDao.findTime);
 
-	app.get('/teachers', userDao.findAllTeachers);
-	app.get('/teachers/students/:id', userDao.findAllStudentsByTeacher);
+	app.get('/teachers', isLoggedIn, userDao.findAllTeachers);
+	app.get('/teachers/students/:id', isLoggedIn, userDao.findAllStudentsByTeacher);
 
 	function customJsonCalback(req, res, next, err, user, info) {
 		if (err) {
@@ -77,12 +79,16 @@ module.exports = function(app, passport) {
 
 	// route middleware to make sure
 	function isLoggedIn(req, res, next) {
-
 		// if user is authenticated in the session, carry on
 		if (req.isAuthenticated())
+		{
+			//update last_login every time server is accessed
+			userDao.updateLastLogin(req.user.local.email);
 			return next();
-
+		}
+		
+		console.log("Redirecting");
 		// if they aren't redirect them to the home page
-		res.redirect('/');
+		res.redirect('/#/login');
 	}
 };

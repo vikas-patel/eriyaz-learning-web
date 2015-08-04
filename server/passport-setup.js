@@ -106,13 +106,9 @@ module.exports = function(passport) {
             if (!user.validPassword(password))
                 return done(null, false,'Oops! Wrong password.'); // create the loginMessage and save it to session as flashdata
 			
-			User.update({ '_id' :  user._id },{$set:{'last_login':new Date()}},function(err, cnt){
-				if(err!=null)
-					console.log(err)
-				console.log('%s logged in', user.local.email)
-				// all is well, return successful user
-				return done(null, user);
-			})
+			console.log('%s logged in', user.local.email)
+			// all is well, return successful user
+			return done(null, user);
 
         });
 

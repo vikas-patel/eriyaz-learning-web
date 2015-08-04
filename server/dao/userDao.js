@@ -217,3 +217,13 @@ exports.findAllStudentsByTeacher = function(req, res) {
 			res.json(students);
 		});
 }
+
+exports.updateLastLogin = function(email) {
+	User
+		.update({
+			'local.email': email
+		},{$set:{'last_login':new Date()}})
+		.exec(function(err, cnt) {
+			if (err) console.log("Error while updating last_login");
+		});
+}
