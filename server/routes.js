@@ -86,9 +86,9 @@ module.exports = function(app, passport) {
 			userDao.updateLastLogin(req.user.local.email);
 			return next();
 		}
-		
-		console.log("Redirecting");
-		// if they aren't redirect them to the home page
-		res.redirect('/#/login');
+		// Unauthorized
+		res.statusCode = 401;
+	    var json_resp = {};
+	    res.json(json_resp);
 	}
 };

@@ -33,8 +33,9 @@
              },
              resolve: {
                  onLoggedInRedirect: function($q, $location, $window) {
-                     if ($window.localStorage.userId !== undefined)
-                         $location.path('/home');
+                     if ($window.localStorage.userId) {
+                        $location.path('/home');
+                     }
                      return true;
                  }
              }
@@ -346,5 +347,26 @@
                  onLoggedOutRedirect: checkLoginAndRedirect
              }
          });
-     });
+     })
+    .factory('authHttpResponseInterceptor',['$q','$location', '$window',function($q,$location, $window){
+        return {
+            response: function(response){
+                return response || $q.when(response);
+            },
+            responseError: function(rejection) {
+                if (rejection.status === 401) {
+                    console.log("Response Error 401",rejection);
+                    $window.localStorage.userId = "";
+                    $location.path('/login');
+                    //TODO: redirect to original page.
+                    //$location.path('/login').search('returnTo', $location.path());
+                }
+                return $q.reject(rejection);
+            }
+        }
+    }])
+    .config(['$httpProvider',function($httpProvider) {
+        //Http Intercpetor to check auth failures for xhr requests
+        $httpProvider.interceptors.push('authHttpResponseInterceptor');
+    }]);
  });
