@@ -9,11 +9,14 @@
     					<span class="sortorder" ng-show="sortType === 'name'" ng-class="{sortReverse:sortReverse}"></span></td>
     					<td><a href="" ng-click="sortType = 'local.email'; sortReverse = !sortReverse">email</a>
     					<span class="sortorder" ng-show="sortType === 'local.email'" ng-class="{sortReverse:sortReverse}"></span></td>
+						<td><a href="" ng-click="sortType = 'last_login'; sortReverse = !sortReverse">Last login time</a>
+    					<span class="sortorder" ng-show="sortType === 'last_login'" ng-class="{sortReverse:sortReverse}"></span></td>
   					</tr>
   			</thead>
 			<tr ng-repeat="student in students | orderBy:sortType:sortReverse">
 				<td><a href="#history/{{student._id}}">{{student.name}}</a></td>
 				<td><a href="#history/{{student._id}}">{{student.local.email}}</a></td>
+				<td><a href="#history/{{student._id}}">{{student.last_login}}</a></td>
 			</tr>
 		</table>
 	</div>
