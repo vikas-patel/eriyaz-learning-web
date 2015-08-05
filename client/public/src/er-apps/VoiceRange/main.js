@@ -1,7 +1,7 @@
 define(['./module', 'jquery', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'pitchdetector', 'note',
-		'music-calc', 'octaveError', 'stabilitydetector'
+		'music-calc', 'stabilitydetector'
 	],
-	function(app, $, Display, MicUtil, CurrentAudioContext, AudioBuffer, PitchDetector, Note, MusicCalc, octaveError, StabilityDetector) {
+	function(app, $, Display, MicUtil, CurrentAudioContext, AudioBuffer, PitchDetector, Note, MusicCalc, StabilityDetector) {
 		//constants
 		var detector;
 		//other globals;
