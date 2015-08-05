@@ -71,6 +71,11 @@ define(['./module', './display', './problem','./levels', 'melody', 'note', 'weba
                 var playTime = 1000;
                 var intervalSequence = problem.getAnswerSeqDegs();
                 var freqsSequence = problem.getAnswerSeqFreqs();
+                // if answer is correct, don't play intermediate notes.
+                if (display.getSelected() === problem.getDegree()) {
+                    intervalSequence = intervalSequence.slice(-2);
+                    freqsSequence = freqsSequence.slice(-2);
+                }
                 currLoopId = setInterval(function() {
                     display.markNote(intervalSequence[tracker]);
                     player.playNote(freqsSequence[tracker], playTime);
