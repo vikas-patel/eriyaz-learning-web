@@ -201,7 +201,8 @@ define([], function() {
 					.attr("y", y(noteScale(currCents/100)) - keyHeight/2)
 					//.attr("y", y(currCents) - height / 19 / 2)
 					.attr("width", 5)
-					.attr("height", 5);
+					.attr("height", 5)
+					.attr("fill","#F16236");
 				points.push(newPoint);
 				isPendingValue = false;
 
@@ -229,7 +230,7 @@ define([], function() {
 				.attr("y", y(noteScale(interval)) - keyHeight)
 				.attr("height", keyHeight)
 				// .attr("y", y(interval * 100))
-				.attr("width", 5)
+				.attr("width", 10)
 				// .attr("height", 20)
 				.attr("fill", "green")
 				.attr("opacity", 0.5);
