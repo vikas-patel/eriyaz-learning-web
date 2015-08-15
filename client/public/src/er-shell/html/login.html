@@ -15,18 +15,67 @@
 			</form>
 		</div>
 		<div ng-if="loginSignupDialogModel.selection == 'signup'">
-			<form ng-submit="submit()" ng-controller="SignupCtrl">
+			<form ng-submit="submit()" name="signup_form" novalidate ng-controller="SignupCtrl">
 				<div><h4>Sign Up</h4></div>
-				<div><input type="text" name="name" placeholder="Name" ng-model="name" required></div>
-				<div><input type="text" name="email" placeholder="email" ng-model="email" required></div>
-				<div><input type="password" name="password" placeholder="password" ng-model="password" required></div>
+				<div><input type="text" name="name" placeholder="Name" ng-model="name" required />
+					<div class="error-container" ng-show="signup_form.submitted && signup_form.name.$invalid">
+					    <small class="error" 
+					        ng-show="signup_form.name.$error.required">
+					        Your name is required.
+					    </small>
+					</div>
+				</div>
+				<div><input type="email" name="email" placeholder="email" ng-model="email" required />
+					<div class="error-container" 
+				         ng-show="signup_form.submitted && signup_form.email.$invalid">
+				      <small class="error" 
+				             ng-show="signup_form.email.$error.required">
+				             Your email is required.
+				      </small>
+				      <small class="error" 
+				             ng-show="signup_form.email.$error && !signup_form.email.$error.required">
+				             That is not a valid email.
+				      </small>
+				     </div>
+				</div>
+				<div><input type="password" name="password" placeholder="password" ng-model="password" required />
+					<div class="error-container" 
+				         ng-show="signup_form.password.submitted && signup_form.password.$invalid">
+				      <small class="error" 
+				             ng-show="signup_form.password.$error.required">
+				             Your password is required.
+				      </small>
+				     </div>
+				</div>
+				<div><input type="text" name="mobile" placeholder="mobile" ng-model="mobile" 
+					ng-maxlength="10" ng-minlength="10" ng-pattern="/^\d{10}$/" required />
+					<div class="error-container" 
+				         ng-show="signup_form.submitted && signup_form.mobile.$invalid">
+				      <small class="error" 
+				             ng-show="signup_form.mobile.$error.required">
+				             Your mobile is required.
+				      </small>
+				      <small class="error"
+				             ng-show="signup_form.mobile.$error && !signup_form.mobile.$error.required">
+				             Number should be of 10 digits.
+				      </small>
+				     </div>
+				</div>
 				<div><input type="radio" name="gender" value="man" ng-model="gender" required/>
-				<level for="man">Man</level>
-				<input type="radio" name="gender" value="woman" ng-model="gender" />
-				<level for="woman">Woman</level>
-				<input type="radio" name="gender" value="child" ng-model="gender" />
-				<level for="child">Child</level></div>
-				<div>{{flashMessage}}</div>
+					<level for="man">Man</level>
+					<input type="radio" name="gender" value="woman" ng-model="gender" required />
+					<level for="woman">Woman</level>
+					<input type="radio" name="gender" value="child" ng-model="gender" required />
+					<level for="child">Child</level>
+					<div class="error-container" 
+				         ng-show="signup_form.submitted && signup_form.gender.$invalid">
+				      <small class="error" 
+				             ng-show="signup_form.gender.$error.required">
+				             Please select your type.
+				      </small>
+				     </div>
+				</div>
+				<div class="error-container">{{flashMessage}}</div>
 				<div><input type="submit" value="Sign Up"><span class="or">or <a href ng-click="loginSignupDialogModel.selection='login'">login</a></span></div>
 			</form>
 		</div>

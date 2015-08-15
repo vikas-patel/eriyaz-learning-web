@@ -25,7 +25,10 @@
     "passport-local": "~0.1.6",
     "underscore": "^1.8.2",
     "passport-twitter": "~1.0.2",
-    "mongoose-schema-extend": "latest"
+    "mongoose-schema-extend": "latest",
+    "agenda": "latest",
+    "nodemailer": "latest",
+    "xoauth2": "~1.1.0"
   },
   "devDependencies": {
     "async": "^0.9.0",
