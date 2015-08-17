@@ -4,9 +4,10 @@ define(['melody','note'],function(Melody,Note) {
 	var middleC = 60;
 	var scale = [-5,-3,-1,0,2,4,5,7,9,11,12];
 	var MelodyGen = function() {
-		this.getNewMelody = function(numNotes) {
+		this.getNewMelody = function(numNotes,rootNote) {
 			var melody = new Melody();
-			var baseNote = middleC - Math.floor(Math.random() *12);
+			// var baseNote = middleC - Math.floor(Math.random() *12);
+			var baseNote = rootNote;
 			melody.addNote(Note.createFromMidiNum(baseNote,getRandomDuration()));
 
 			var prevIndex = 3;
