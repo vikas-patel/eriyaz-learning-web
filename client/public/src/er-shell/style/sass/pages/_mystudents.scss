@@ -6,30 +6,10 @@
     color:black;
   }
 
-  .mytable {
-    -moz-border-radius:9px;
-  -webkit-border-bottom:9px;
-  border-bottom:9px;
-  }
   table, thead, td {
     border: 1px solid black;
     text-align: center;
     padding: 12px;
   }
 }
-.mytable thead {
-    font-size:25px;
-    background-color:#FF3300;
-  }
-.mytable tr:nth-child(2n+2) {
-    background-color: #99FF99;
-    font-size:15px; 
-  }
-
-.sortorder:after {
-    content: '\25b2';
-  }
-  .sortorder.sortReverse:after {
-    content: '\25bc';
-  }
 

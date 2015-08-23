@@ -22,6 +22,7 @@ var UserSchema = new mongoose.Schema({
         isPlayTanpura: Boolean
     },
 	last_login: { type : Date},
+    isActive: { type : Boolean, default: true},
 	nodebb : {
 		uid: Number
 	}

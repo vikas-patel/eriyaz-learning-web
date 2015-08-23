@@ -66,13 +66,14 @@ module.exports = function(passport) {
                 newUser.gender = req.body.gender;
                 newUser.name=req.body.name;
                 newUser.phone = req.body.mobile
+                newUser.isActive = false;
                 
 
 				// save the user
                 newUser.save(function(err) {
                     if (err)
                         throw err;
-                    return done(null, newUser);
+                    return done(null, newUser, 'Waiting for admin approval.');
                 });
             }
 
@@ -107,6 +108,9 @@ module.exports = function(passport) {
             if (!user.validPassword(password))
                 return done(null, false,'Oops! Wrong password.'); // create the loginMessage and save it to session as flashdata
 			
+            if (!user.isActive)
+                return done(null, false,'Waiting for admin approval.');
+
 			console.log('%s logged in', user.local.email)
 			// all is well, return successful user
 			return done(null, user);

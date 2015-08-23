@@ -14,5 +14,20 @@
   					console.log(data);
   				});
   		};
+
+      $scope.register = function() {
+        if ($scope.signup_form.$valid) {
+          LoginSignupService.register($scope.name, $scope.email, $scope.mobile).success(function(data) {
+            $scope.flashMessage = data.info;
+          }).error(function(status, data) {
+            $scope.flashMessage = "Something wrong: Please contact +91 8287459406 or eriyazonline@gmail.com for registration.";
+            console.log(status);
+            console.log(data);
+          });
+        } else {
+          $scope.signup_form.submitted = true;
+        }
+      };
+
   	});
   });

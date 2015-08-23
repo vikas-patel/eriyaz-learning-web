@@ -134,7 +134,7 @@ body #error dd {
 /* line 32, ../sass/pages/_front.scss */
 #front #header {
   margin-right: 30px;
-  margin-top: 20px;
+  margin-top: 0px;
   height: 20%;
 }
 @media (max-height: 280px) {
@@ -215,31 +215,33 @@ body #error dd {
   text-align: right;
   width: 70px;
   text-decoration: none;
+  font-size: 125%;
 }
-/* line 109, ../sass/pages/_front.scss */
+/* line 110, ../sass/pages/_front.scss */
 #front #login:hover, #signup:hover {
   text-decoration: underline;
 }
 
-/* line 115, ../sass/pages/_front.scss */
+/* line 116, ../sass/pages/_front.scss */
 #front #try, #try a {
   color: black;
   margin-top: 10px;
 }
 
-/* line 121, ../sass/pages/_front.scss */
+/* line 122, ../sass/pages/_front.scss */
 #front #desc, #eriyaz, #join, #try {
   display: block;
   text-align: center;
   margin: 10px;
 }
 
-/* line 129, ../sass/pages/_front.scss */
+/* line 130, ../sass/pages/_front.scss */
 #front #desc {
-  color: black;
+  color: white;
+  font-size: 90%;
 }
 
-/* line 133, ../sass/pages/_front.scss */
+/* line 135, ../sass/pages/_front.scss */
 #front #join {
   color: white;
   background-color: #652218;
@@ -255,29 +257,120 @@ body #error dd {
   box-shadow: 0 0 28px 5px #652218;
 }
 @media (max-width: 640px), (max-height: 420px) {
-  /* line 133, ../sass/pages/_front.scss */
+  /* line 135, ../sass/pages/_front.scss */
   #front #join {
     line-height: 40px;
     width: 150px;
   }
 }
 
-/* line 154, ../sass/pages/_front.scss */
+/* line 156, ../sass/pages/_front.scss */
 #front #join:hover {
   box-shadow: 0 0 28px 6px #652218;
   text-shadow: 0 0 15px #FFFFFF;
 }
 
-/* line 160, ../sass/pages/_front.scss */
+/* line 162, ../sass/pages/_front.scss */
 #front #eriyaz {
-  font-size: 500%;
-  color: #652218;
+  font-size: 150%;
+  color: white;
 }
 @media (max-width: 640px), (max-height: 420px) {
-  /* line 160, ../sass/pages/_front.scss */
+  /* line 162, ../sass/pages/_front.scss */
   #front #eriyaz {
-    font-size: 300%;
+    font-size: 200%;
   }
+}
+
+/* line 171, ../sass/pages/_front.scss */
+#front #signup-form {
+  display: block;
+  text-align: center;
+}
+/* line 176, ../sass/pages/_front.scss */
+#front #signup-form h4 {
+  color: #652218;
+  text-align: center;
+  font-weight: 800;
+  font-size: x-large;
+  width: 250px;
+}
+/* line 184, ../sass/pages/_front.scss */
+#front #signup-form #scroller {
+  border-radius: 5px;
+  margin: 0px;
+  border: 0px;
+}
+/* line 190, ../sass/pages/_front.scss */
+#front #signup-form .error-container {
+  color: white;
+  width: 250px;
+}
+/* line 195, ../sass/pages/_front.scss */
+#front #signup-form input {
+  height: 30px;
+  margin-top: 10px;
+  text-align: center;
+  border-radius: 5px;
+  border-color: #983923;
+  border-width: 1px;
+  border-style: solid;
+}
+/* line 204, ../sass/pages/_front.scss */
+#front #signup-form input .placeholder {
+  text-align: center;
+}
+/* line 208, ../sass/pages/_front.scss */
+#front #signup-form input[type="submit"] {
+  background-color: #652218;
+  color: white;
+  border: none;
+  width: 150px;
+  text-decoration: none;
+  border-radius: 10px;
+  border-color: #983923;
+  border-width: 1px;
+  border-style: solid;
+  font-size: 120%;
+  height: 45px;
+  box-shadow: 0 0 28px 5px #652218;
+}
+@media (max-width: 640px), (max-height: 420px) {
+  /* line 208, ../sass/pages/_front.scss */
+  #front #signup-form input[type="submit"] {
+    line-height: 40px;
+    width: 150px;
+  }
+}
+/* line 229, ../sass/pages/_front.scss */
+#front #signup-form input[type="submit"]:hover {
+  box-shadow: 0 0 28px 6px #652218;
+  text-shadow: 0 0 15px #FFFFFF;
+}
+/* line 234, ../sass/pages/_front.scss */
+#front #signup-form input[type="radio"] {
+  margin-right: 1px;
+  vertical-align: middle;
+  margin-top: -2px;
+}
+/* line 241, ../sass/pages/_front.scss */
+#front #signup-form input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+@media (max-height: 280px) {
+  /* line 195, ../sass/pages/_front.scss */
+  #front #signup-form input {
+    height: 20px;
+    margin-top: none;
+  }
+  /* line 248, ../sass/pages/_front.scss */
+  #front #signup-form input[type="submit"] {
+    height: 40px;
+  }
+}
+/* line 254, ../sass/pages/_front.scss */
+#front #signup-form a {
+  color: #652218;
 }
 
 /* line 1, ../sass/pages/_login-dialog.scss */
@@ -285,35 +378,35 @@ body #error dd {
   border-radius: 5px;
   background-color: white;
 }
-/* line 17, ../sass/pages/_login-dialog.scss */
-#loginDialog /deep/ h4 {
+/* line 14, ../sass/pages/_login-dialog.scss */
+#loginDialog h4 {
   color: #F16236;
   text-align: center;
   font-weight: 800;
   font-size: x-large;
 }
-/* line 24, ../sass/pages/_login-dialog.scss */
-#loginDialog /deep/ #scroller {
+/* line 21, ../sass/pages/_login-dialog.scss */
+#loginDialog #scroller {
   border-radius: 5px;
   margin: 0px;
   border: 0px;
 }
-/* line 30, ../sass/pages/_login-dialog.scss */
-#loginDialog /deep/ .error-container {
+/* line 27, ../sass/pages/_login-dialog.scss */
+#loginDialog .error-container {
   color: red;
 }
-/* line 34, ../sass/pages/_login-dialog.scss */
-#loginDialog /deep/ input {
+/* line 31, ../sass/pages/_login-dialog.scss */
+#loginDialog input {
   height: 40px;
   margin-top: 5.26316%;
   text-align: center;
 }
-/* line 39, ../sass/pages/_login-dialog.scss */
-#loginDialog /deep/ input .placeholder {
+/* line 36, ../sass/pages/_login-dialog.scss */
+#loginDialog input .placeholder {
   text-align: center;
 }
-/* line 43, ../sass/pages/_login-dialog.scss */
-#loginDialog /deep/ input[type="submit"] {
+/* line 40, ../sass/pages/_login-dialog.scss */
+#loginDialog input[type="submit"] {
   width: 73.68421%;
   float: left;
   margin-right: 5.26316%;
@@ -322,36 +415,36 @@ body #error dd {
   font-size: 16px;
   border: none;
 }
-/* line 51, ../sass/pages/_login-dialog.scss */
-#loginDialog /deep/ input[type="radio"] {
+/* line 48, ../sass/pages/_login-dialog.scss */
+#loginDialog input[type="radio"] {
   margin-right: 1px;
   vertical-align: middle;
   margin-top: -2px;
 }
-/* line 58, ../sass/pages/_login-dialog.scss */
-#loginDialog /deep/ input:-webkit-autofill {
+/* line 55, ../sass/pages/_login-dialog.scss */
+#loginDialog input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px white inset;
 }
 @media (max-height: 280px) {
-  /* line 34, ../sass/pages/_login-dialog.scss */
-  #loginDialog /deep/ input {
+  /* line 31, ../sass/pages/_login-dialog.scss */
+  #loginDialog input {
     height: 20px;
     margin-top: none;
   }
-  /* line 65, ../sass/pages/_login-dialog.scss */
-  #loginDialog /deep/ input[type="submit"] {
+  /* line 62, ../sass/pages/_login-dialog.scss */
+  #loginDialog input[type="submit"] {
     height: 40px;
   }
 }
-/* line 71, ../sass/pages/_login-dialog.scss */
-#loginDialog /deep/ .or {
+/* line 68, ../sass/pages/_login-dialog.scss */
+#loginDialog .or {
   width: 21.05263%;
   float: right;
   margin-right: 0;
   margin-top: 5.26316%;
 }
-/* line 76, ../sass/pages/_login-dialog.scss */
-#loginDialog /deep/ .close-button {
+/* line 73, ../sass/pages/_login-dialog.scss */
+#loginDialog .close-button {
   position: absolute;
   top: 0px;
   right: 0px;
@@ -361,13 +454,13 @@ body #error dd {
   color: black;
   text-decoration: none;
 }
-/* line 85, ../sass/pages/_login-dialog.scss */
-#loginDialog /deep/ .close-button:hover {
+/* line 82, ../sass/pages/_login-dialog.scss */
+#loginDialog .close-button:hover {
   cursor: pointer;
   cursor: hand;
 }
-/* line 91, ../sass/pages/_login-dialog.scss */
-#loginDialog /deep/ a {
+/* line 88, ../sass/pages/_login-dialog.scss */
+#loginDialog a {
   color: #652218;
 }
 
@@ -600,38 +693,10 @@ core-drawer-panel:not([narrow]) #navicon {
   color: black;
 }
 /* line 9, ../sass/pages/_mystudents.scss */
-#mystudents .mytable {
-  -moz-border-radius: 9px;
-  -webkit-border-bottom: 9px;
-  border-bottom: 9px;
-}
-/* line 14, ../sass/pages/_mystudents.scss */
 #mystudents table, #mystudents thead, #mystudents td {
   border: 1px solid black;
   text-align: center;
   padding: 12px;
-}
-
-/* line 20, ../sass/pages/_mystudents.scss */
-.mytable thead {
-  font-size: 25px;
-  background-color: #FF3300;
-}
-
-/* line 24, ../sass/pages/_mystudents.scss */
-.mytable tr:nth-child(2n+2) {
-  background-color: #99FF99;
-  font-size: 15px;
-}
-
-/* line 29, ../sass/pages/_mystudents.scss */
-.sortorder:after {
-  content: '\25b2';
-}
-
-/* line 32, ../sass/pages/_mystudents.scss */
-.sortorder.sortReverse:after {
-  content: '\25bc';
 }
 
 /* line 1, ../sass/pages/_history.scss */

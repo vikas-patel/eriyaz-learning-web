@@ -37,9 +37,6 @@ requirejs.config({
         'd3': 'ext-libs/d3',
         'pitch-shift': 'ext-libs/pitch-shift',
         'ng-polymer-elements':'ext-libs/bower_components/ng-polymer-elements/ng-polymer-elements.min',
-            //'countdown' : "ext-libs/countdown"
-
-
         'st-core' : 'ext-libs/soundtouch/core',
         'st-pipe' : 'ext-libs/soundtouch/pipe',
         'st-rate-transposer' : 'ext-libs/soundtouch/rate-transposer',
@@ -47,7 +44,8 @@ requirejs.config({
         'st-filter' : 'ext-libs/soundtouch/filter',
         'st-stretch' : 'ext-libs/soundtouch/stretch',
         'soundtouch' : 'ext-libs/soundtouch/soundtouch',
-        'timeMe' : 'ext-libs/TimeMe/TImeMe'
+        'timeMe' : 'ext-libs/TimeMe/TImeMe',
+        'ng-table' : "ext-libs/bower_components/ng-table/dist/ng-table.min"
     },
 
     // Add modules that do not support AMD

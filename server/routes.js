@@ -1,4 +1,5 @@
 var express = require('express');
+var request = require('request');
 var path = require('path');
 var userDao = require('./dao/userDao.js');
 var exerciseDao = require('./dao/exerciseDao.js');
@@ -38,6 +39,25 @@ module.exports = function(app, passport) {
 			customJsonCalback(req, res, next, err, user, info);
 		})(req, res, next);
 	});
+
+	app.post('/register', function(req, res, next) {
+		request.post(
+			// Google Form: Learn to Sing (Web)
+		    'https://docs.google.com/forms/d/1vr-vtuEDsbKB5H6mn-b6LAtTZe5PSEL3Mj2ZnrLeDMs/formResponse',
+		    {form:req.body},
+		    function (error, response, body) {
+		        if (!error && response.statusCode == 200) {
+		        	var json_resp = {"info":"Thank you for registering. We will contact you in two days time."};
+	    			res.json(json_resp);
+		        } else {
+		        	var json_resp = {};
+		        	res.statusCode = 400;
+	    			res.json(json_resp);
+		        }
+		    }
+		);
+	    
+	});
 	
 	app.post('/users', isLoggedIn, userDao.save);
 	app.put('/users/:id', userDao.update);
@@ -60,7 +80,7 @@ module.exports = function(app, passport) {
 		if (err) {
 			return next(err);
 		}
-		if (!user) {
+		if (!user || !user.isActive) {
 			return res.json({
 				status: 'fail',
 				info: info
