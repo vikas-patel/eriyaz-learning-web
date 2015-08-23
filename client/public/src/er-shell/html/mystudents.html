@@ -12,6 +12,10 @@
 					<a ng-if="!user.$edit" href="#history/{{user._id}}">{{user.local.email}}</a>
 					<div ng-if="user.$edit"><input class="form-control" type="text" ng-model="user.local.email" /></div>
 				</td>
+				<td data-title="'Phone'" sortable="'phone'">
+					<a ng-if="!user.$edit" href="#history/{{user._id}}">{{user.phone}}</a>
+					<div ng-if="user.$edit"><input class="form-control" type="text" ng-model="user.phone" /></div>
+				</td>
 				<td data-title="'Active'" sortable="'isActive'">
 					<a ng-if="!user.$edit" href="#history/{{user._id}}">{{user.isActive}}</a>
 					<div ng-if="user.$edit"><input class="form-control" type="checkbox" ng-model="user.isActive" /></div>

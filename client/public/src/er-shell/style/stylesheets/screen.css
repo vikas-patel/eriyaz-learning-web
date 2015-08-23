@@ -683,16 +683,11 @@ core-drawer-panel:not([narrow]) #navicon {
   margin: 10px 50px 0 0;
 }
 
-/* line 1, ../sass/pages/_mystudents.scss */
-#mystudents {
-  margin-top: 50px;
-  color: black;
-}
-/* line 5, ../sass/pages/_mystudents.scss */
+/* line 2, ../sass/pages/_mystudents.scss */
 #mystudents a {
   color: black;
 }
-/* line 9, ../sass/pages/_mystudents.scss */
+/* line 6, ../sass/pages/_mystudents.scss */
 #mystudents table, #mystudents thead, #mystudents td {
   border: 1px solid black;
   text-align: center;
