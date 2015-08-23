@@ -21,7 +21,10 @@ var UserSchema = new mongoose.Schema({
         playInstrument: String,
         isPlayTanpura: Boolean
     },
-	last_login: { type : Date}
+	last_login: { type : Date},
+	nodebb : {
+		uid: Number
+	}
 });
 
 // methods ======================
