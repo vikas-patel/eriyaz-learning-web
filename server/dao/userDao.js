@@ -227,27 +227,3 @@ exports.updateLastLogin = function(email) {
 			if (err) console.log("Error while updating last_login");
 		});
 }
-
-exports.findAllUsersNotInNodeBB = function(cb) {
-	User
-		.find({
-			'nodebb.uid': {$exists:0}
-		})
-		.exec(function(err, users) {
-			if (err){
-				console.log("Error while updating nodebb_uid");
-				cb(err,null)
-			}
-			cb(null,users);
-		});
-}
-
-exports.updateNodeBBUID = function(id,nodebb_uid) {
-	User
-		.update({
-			'_id': id
-		},{$set:{'nodebb':{'uid':nodebb_uid}}})
-		.exec(function(err, cnt) {
-			if (err) console.log("Error while updating nodebb_uid");
-		});
-}
