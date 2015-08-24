@@ -118,10 +118,7 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
             tanpura = Tanpura.getInstance();
             tanpura.setTuning(currentNote, 7, function(message, progress) {if (progress === 100) {tanpura.play();}});
         } else if ($scope.level.isBeepRepeat) {
-            player.playNote(MusicCalc.midiNumToFreq(currentNote), playDuration);
-            stopBeep = $interval(function() {
-              player.playNote(MusicCalc.midiNumToFreq(currentNote), playDuration);
-            }, 2000);
+            stopBeep = player.playInfinite(MusicCalc.midiNumToFreq(currentNote));
         } else {
             player.playNote(MusicCalc.midiNumToFreq(currentNote), playDuration);
         }
@@ -144,7 +141,7 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
       }
 
       function stopIntervals() {
-          if (stopBeep) $interval.cancel(stopBeep);
+          if (stopBeep) stopBeep.stop();
           if (tanpura) {
               tanpura.stop();
               tanpura = null;
