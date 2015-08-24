@@ -121,7 +121,6 @@ module.exports = function(passport) {
                 return done(null, false,'Waiting for admin approval.');
 			
 			//if user is not created on NodeBB attempt to create one
-			console.log(user.nodebb.uid)
 			if(!user.nodebb.uid){
 				console.log("Creating user in NodeBB");
 				nodebb.createUser(user.name, password, email, function(err, uid){

@@ -9,8 +9,6 @@ var url = config.nodebb.url
 var  headers = {"Content-Type": "application/json",
   'authorization': "Bearer "+token};
 
-// registering remote methods 
-client.registerMethod("createUser", url+"/api/v1/users", "POST");
 client.registerMethod("deleteUser", url+"/api/v1/users/${uid}", "DELETE");
 
 exports.createUser = function(username, password, email, cb){
@@ -23,8 +21,8 @@ exports.createUser = function(username, password, email, cb){
 	  'headers':headers
 	};
 
-	client.methods.createUser(args, function callback(data,response){
-	 var res = JSON.parse(data);
+	var req = client.post(url+"/api/v1/users", args, function(data, response){
+		var res = JSON.parse(data);
 		//console.log(res);
 		if(res.code == 'ok'){
 			console.log("Sucessfully created user :",res.payload.uid);
@@ -35,6 +33,19 @@ exports.createUser = function(username, password, email, cb){
 			cb("error",null)
 		}
 	});
+ 
+	req.on('requestTimeout',function(req){
+		console.log('Request to NodeBB has expired!');
+		req.abort();
+	});
+	
+	req.on('responseTimeout',function(res){
+		console.log('Response from NodeBB has expired!');
+    });
+ 
+	req.on('error', function(err){
+		console.log('Error while acessing NodeBB :',err.code);
+	});
 }
 
 exports.deleteUser = function(uid,cb){
@@ -42,7 +53,7 @@ exports.deleteUser = function(uid,cb){
 		'path' : { 'uid': uid},
 		'headers':headers
 	};
-	client.methods.deleteUser(args, function callback(data,response){
+	var req = client.delete(url+"/api/v1/users/${uid}", args, function(data, response){
 	 var res = JSON.parse(data);
 		//console.log(res);
 		if(res.code == 'ok'){
@@ -53,6 +64,19 @@ exports.deleteUser = function(uid,cb){
 			console.log("Error while deletig user:",uid,":",res.message);
 			cb("error")
 		}
+	});
+	
+	req.on('requestTimeout',function(req){
+		console.log('Request to NodeBB has expired!');
+		req.abort();
+	});
+	
+	req.on('responseTimeout',function(res){
+		console.log('Response from NodeBB has expired!');
+    });
+ 
+	req.on('error', function(err){
+		console.log('Error while acessing NodeBB :',err.code);
 	});
 }
 
