@@ -62,6 +62,7 @@ define(['./module', './display', './problem','./levels', 'melody', 'note', 'weba
             function playInterval() {
                 var playTime = 1000;
                 var melody = new Melody();
+                // console.log("base freq:"+problem.getBaseFreq() + " note freq:"+ problem.getNoteFreq());
                 melody.addNote(Note.createFromFreq(problem.getBaseFreq(), playTime));
                 melody.addNote(Note.createFromFreq(problem.getNoteFreq(), playTime));
                 player.playMelody(melody);

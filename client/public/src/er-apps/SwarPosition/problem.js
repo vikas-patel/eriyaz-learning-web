@@ -3,7 +3,15 @@ define(['music-calc'], function(MusicCalc) {
 
 	var Problem = function(scale,level) {
 		var baseFreq = MusicCalc.MIDDLE_C_FREQ - Math.floor(Math.random() * 24);
+		var baseFreq = MusicCalc.MIDDLE_C_FREQ;
 		var asc = level.direction==="asc";
+		if (level.isRootVary) {
+			if (asc) {
+				baseFreq = Math.floor(baseFreq*(1-0.5*Math.random()));
+			} else {
+				baseFreq = Math.floor(baseFreq*(1+Math.random()));
+			}
+		}
 
 		// var index = 1 + Math.floor(Math.random() * (scale.length - 2));
 		var degree = level.notes[Math.floor(Math.random()*level.notes.length)];
