@@ -101,7 +101,7 @@
           }, {
               name: 'FreestylePhrases',
               thumb: 'er-shell/images/freestylephrases.jpg',
-              desc: 'Practice matching your voice to the tone of the instrument.',
+              desc: 'Practice small phrases with quick changes in pitches',
               href: '#freestylephrases',
               appUrl: 'er-apps/FreestylePhrases/main.html',
               aspectRatio: 5 / 3,
@@ -109,7 +109,7 @@
           }, {
               name: 'SwarMastery',
               thumb: 'er-shell/images/swarmastery.jpg',
-              desc: 'Practice matching your voice to the tone of the instrument.',
+              desc: 'Practice hitting random individual notes correctly.',
               href: '#swarmastery',
               appUrl: 'er-apps/SwarMastery/main.html',
               hotkeys: [
@@ -121,7 +121,7 @@
           }, {
               name: 'MelodyGraph2',
               thumb: 'er-shell/images/melodygraph2.jpg',
-              desc: 'Practice matching your voice to the tone of the instrument.',
+              desc: 'Practice finding exact notes in small melodic phrases.',
               href: '#melodygraph2',
               appUrl: 'er-apps/MelodyGraph2/main.html',
               aspectRatio: 9 / 10,
@@ -129,7 +129,7 @@
           }, {
               name: 'TimeTrainer',
               thumb: 'er-shell/images/timetrainer.jpg',
-              desc: 'Practice matching your voice to the tone of the instrument.',
+              desc: 'Basic rhythm training.',
               href: '#timetrainer',
               appUrl: 'er-apps/TimeTrainer/main.html',
               aspectRatio: 9 / 10,
