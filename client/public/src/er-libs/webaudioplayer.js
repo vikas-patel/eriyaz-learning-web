@@ -2,6 +2,24 @@ define([], function() {
 	var WebAudioPlayer = function(audioContext) {
 		this.audioContext = audioContext;
 		this.beatLength = 0.05;
+
+		this.playInfinite = function(freq) {
+			var osc = this.audioContext.createOscillator();
+			osc.frequency.value = freq;
+			osc.type = 'square';
+
+			this.smoothingFilter = this.audioContext.createBiquadFilter();
+			this.smoothingFilter.frequency = 1000;
+
+			this.amp = this.audioContext.createGain();
+			this.amp.gain.value = 1;
+
+			osc.connect(this.smoothingFilter);
+			this.smoothingFilter.connect(this.amp);
+			this.amp.connect(this.audioContext.destination);
+			osc.start();
+			return osc;
+		};
 		
 		this.playNote = function(freq, duration, delay) {
 			if (!delay) delay = 0;

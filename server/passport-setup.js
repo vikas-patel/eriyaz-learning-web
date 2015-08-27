@@ -1,3 +1,4 @@
+var nodebb = require("./nodebb/userAPI")
 // config/passport.js
 
 // load all the things we need
@@ -66,13 +67,22 @@ module.exports = function(passport) {
                 newUser.gender = req.body.gender;
                 newUser.name=req.body.name;
                 newUser.phone = req.body.mobile
+                newUser.isActive = false;
                 
+				//creating NodeBB user
+				console.log("Creating user in NodeBB");
+				nodebb.createUser(newUser.name, password, email, function(err, uid){
+					if(!err)
+					{
+						newUser.nodebb.uid = uid;
+					}
+				});
 
 				// save the user
                 newUser.save(function(err) {
                     if (err)
                         throw err;
-                    return done(null, newUser);
+                    return done(null, newUser, 'Waiting for admin approval.');
                 });
             }
 
@@ -106,6 +116,24 @@ module.exports = function(passport) {
             // if the user is found but the password is wrong
             if (!user.validPassword(password))
                 return done(null, false,'Oops! Wrong password.'); // create the loginMessage and save it to session as flashdata
+			
+            if (!user.isActive)
+                return done(null, false,'Waiting for admin approval.');
+			
+			//if user is not created on NodeBB attempt to create one
+			if(!user.nodebb.uid){
+				console.log("Creating user in NodeBB");
+				nodebb.createUser(user.name, password, email, function(err, uid){
+					if(!err)
+					{
+						user.nodebb.uid = uid;
+						user.save();
+					}
+				});
+			}
+			else{
+				console.log("%s userid in NodeBB", user.nodebb.uid);
+			}
 			
 			console.log('%s logged in', user.local.email)
 			// all is well, return successful user

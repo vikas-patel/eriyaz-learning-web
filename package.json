@@ -9,6 +9,7 @@
     "node": "0.10.29"
   },
   "dependencies": {
+    "agenda": "latest",
     "bcrypt-nodejs": "latest",
     "body-parser": "~1.0.0",
     "compression": "^1.4.1",
@@ -18,17 +19,18 @@
     "express": "~4.9.0",
     "express-session": "~1.0.3",
     "mongoose": "~3.8.1",
+    "mongoose-schema-extend": "latest",
     "morgan": "~1.0.0",
+    "node-rest-client": "^1.5.1",
+    "nodemailer": "latest",
     "passport": "~0.1.17",
     "passport-facebook": "~1.0.2",
     "passport-google-oauth": "~0.1.5",
     "passport-local": "~0.1.6",
-    "underscore": "^1.8.2",
     "passport-twitter": "~1.0.2",
-    "mongoose-schema-extend": "latest",
-    "agenda": "latest",
-    "nodemailer": "latest",
-    "xoauth2": "~1.1.0"
+    "underscore": "^1.8.2",
+    "xoauth2": "~1.1.0",
+    "request": "~2.61.0"
   },
   "devDependencies": {
     "async": "^0.9.0",

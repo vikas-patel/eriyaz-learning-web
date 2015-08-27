@@ -2,24 +2,31 @@
   href="../external-libs/bower_components/paper-shadow/paper-shadow.html"> -->
 <div id="mystudents">
 	<div ng-controller='MyStudentsCtrl'>
-		<table class="mytable">
-			<thead>
-					<tr>
-    					<td> <a href="" ng-click="sortType = 'name'; sortReverse = !sortReverse">Name</a>
-    					<span class="sortorder" ng-show="sortType === 'name'" ng-class="{sortReverse:sortReverse}"></span></td>
-    					<td><a href="" ng-click="sortType = 'local.email'; sortReverse = !sortReverse">email</a>
-    					<span class="sortorder" ng-show="sortType === 'local.email'" ng-class="{sortReverse:sortReverse}"></span></td>
-						<td><a href="" ng-click="sortType = 'last_login'; sortReverse = !sortReverse">Last login time</a>
-    					<span class="sortorder" ng-show="sortType === 'last_login'" ng-class="{sortReverse:sortReverse}"></span></td>
-  					</tr>
-  			</thead>
-			<tr ng-repeat="student in students | orderBy:sortType:sortReverse">
-				<td><a href="#history/{{student._id}}">{{student.name}}</a></td>
-				<td><a href="#history/{{student._id}}">{{student.local.email}}</a></td>
-				<td><a href="#history/{{student._id}}">{{student.last_login}}</a></td>
+		<table ng-table="tableParams" class="table">
+			<tr ng-repeat="user in $data">
+				<td data-title="'Name'" sortable="'name'">
+					<a ng-if="!user.$edit" href="#history/{{user._id}}">{{user.name}}</a>
+					<div ng-if="user.$edit"><input class="form-control" type="text" ng-model="user.name" /></div>
+				</td>
+				<td data-title="'Email'" sortable="'local.email'">
+					<a ng-if="!user.$edit" href="#history/{{user._id}}">{{user.local.email}}</a>
+					<div ng-if="user.$edit"><input class="form-control" type="text" ng-model="user.local.email" /></div>
+				</td>
+				<td data-title="'Phone'" sortable="'phone'">
+					<a ng-if="!user.$edit" href="#history/{{user._id}}">{{user.phone}}</a>
+					<div ng-if="user.$edit"><input class="form-control" type="text" ng-model="user.phone" /></div>
+				</td>
+				<td data-title="'Active'" sortable="'isActive'">
+					<a ng-if="!user.$edit" href="#history/{{user._id}}">{{user.isActive}}</a>
+					<div ng-if="user.$edit"><input class="form-control" type="checkbox" ng-model="user.isActive" /></div>
+				</td>
+				<td data-title="'Last Login'" sortable="'last_login'"><a href="#history/{{user._id}}">{{user.last_login | date2:'doo MMM, EEE'}}</a></td>
+				<td data-title="'Joining Date'" sortable="'join_date'"><a href="#history/{{user._id}}">{{user.join_date | date2:'doo MMM, EEE'}}</a></td>
+				<td data-title="'Edit'" width="200">
+					<a ng-if="!user.$edit" href="" class="btn btn-default btn-xs" ng-click="user.$edit = true">Edit</a>
+                	<a ng-if="user.$edit" href="" class="btn btn-primary btn-xs" ng-click="update(user);">Save</a>
+				</td>
 			</tr>
 		</table>
 	</div>
 </div>
-
-
