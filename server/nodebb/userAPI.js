@@ -80,3 +80,40 @@ exports.deleteUser = function(uid,cb){
 	});
 }
 
+exports.changePassword = function(uid,password,cb){
+	var args = {
+		'data' : {'newPassword':password,'uid':uid},
+		'path' : { 'uid': '2'},
+		'headers':headers
+	};
+	var req = client.put(url+"/api/v1/users/${uid}/password_reset", args, function(data, response){
+	 var res = JSON.parse(data);
+		console.log(res);
+		if(res.code == 'ok'){
+			console.log("Sucessfully updated password for user :",uid);
+			cb(null)
+		}
+		else{
+			console.log("Error while updating password:",uid,":",res.message);
+			cb("error")
+		}
+	});
+	
+	req.on('requestTimeout',function(req){
+		console.log('Request to NodeBB has expired!');
+		req.abort();
+	});
+	
+	req.on('responseTimeout',function(res){
+		console.log('Response from NodeBB has expired!');
+    });
+ 
+	req.on('error', function(err){
+		console.log('Error while acessing NodeBB :',err.code);
+	});
+}
+
+//changePassword('3','abcd',function(err){
+//	console.log(err)
+//});
+
