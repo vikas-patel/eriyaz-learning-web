@@ -166,6 +166,18 @@
               ],
               aspectRatio: 2/3,
               show: false
+          }, {
+              name: 'SargamMemorizer',
+              thumb: 'er-shell/images/sargammemorizer.jpg',
+              desc: 'Recognize out of tune swars of sargam.',
+              href: '#sargammemorizer',
+              appUrl: 'er-apps/SargamMemorizer/main.html',
+              hotkeys: [
+                  ['n', 'newInterval()'],
+                  ['r', 'repeatPlay()']
+              ],
+              aspectRatio: 9 / 10,
+              show: true
           }];
           appsInfo.selectedIndex = -1;
           TimeMe.setIdleDurationInSeconds(60);

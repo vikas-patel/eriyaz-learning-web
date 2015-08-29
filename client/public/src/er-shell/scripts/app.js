@@ -20,6 +20,7 @@ define([
     'melodygraph',
     'swarspace',
     'swarposition',
+    'sargammemorizer',
     'thatmemorizer',
     'singgraph',
     'voicematch',
@@ -47,6 +48,7 @@ define([
         'melodygraph',
         'swarspace',
         'swarposition',
+        'sargammemorizer',
         'thatmemorizer',
         'singgraph',
         'voicematch',
@@ -57,7 +59,6 @@ define([
         'voicerange',
         'swarsense',
         'rapidintervals',
-        
         'ngResource',
         'angulartics',
         'angulartics.google.analytics',

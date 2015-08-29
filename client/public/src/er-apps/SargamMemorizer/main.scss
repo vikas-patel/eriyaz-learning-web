@@ -1,0 +1,38 @@
+#swarposition {
+
+    #score {
+      float:right;
+      margin-right: 10px;
+    }
+
+    svg {
+      margin-top:3%;
+    }
+
+    rect.slot {
+      fill:#E3F2FD;
+    }
+
+    rect.note,rect.selectable {
+      fill:#BBDEFB;
+     
+    }
+
+    rect.selectable:hover {
+        fill:#C5CAE9;
+
+    }
+
+    g.marked rect{
+      fill:#C5CAE9;
+    }
+
+    #marker {
+      fill:#333;
+      // fill:black;
+    }
+
+    #feedback {
+      font-size:30px;
+    } 
+}
