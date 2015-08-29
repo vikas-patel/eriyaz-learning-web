@@ -35,68 +35,103 @@ define(['d3'], function(d3) {
 			.attr("class", "slot")
 			.attr("y", 0)
 			.attr("height", chartHeight)
-			.attr("width", -2+chartWidth / 13)
+			.attr("width", -2 + chartWidth / 13)
 			.attr("fill", "lightgrey")
 			.attr("fill-opacity", 0.5);
 
 
 		var fixedData = [0, 7, 12];
 
-var dragBehavior = d3.behavior.drag()
+		var movableData = [2, 4, 5, 9, 11];
+
+		var dragBehavior = d3.behavior.drag()
 			.on("drag", dragmove);
 
-			function dragmove(d) {
+		function dragmove(d, i) {
 			var m = d3.mouse(svg.node());
-			d= Math.floor(xScale.invert(m[0]));
-			console.log(d);
-			moveRect(d);
+			var newVal = Math.floor(xScale.invert(m[0]));
+
+			if (i === 0 && newVal >= 1 && newVal <= 3) {
+				movableData[i] = newVal;
+				if (movableData[i + 1] === newVal) {
+					movableData[i + 1] = newVal + 1;
+				}
+			}
+
+			if (i === 1 && newVal >= 2 && newVal <= 4) {
+				movableData[i] = newVal;
+				if (movableData[i - 1] === newVal) {
+					movableData[i - 1] = newVal - 1;
+				}
+			}
+
+			if (i === 2 && newVal >= 5 && newVal <= 6) {
+				movableData[i] = newVal;
+			}
+
+			if (i === 3 && newVal >= 8 && newVal <= 10) {
+				movableData[i] = newVal;
+				if (movableData[i + 1] === newVal) {
+					movableData[i + 1] = newVal + 1;
+				}
+			}
+
+			if (i === 4 && newVal >= 9 && newVal <= 11) {
+				movableData[i] = newVal;
+				if (movableData[i - 1] === newVal) {
+					movableData[i - 1] = newVal - 1;
+				}
+			}
+
+			drawMovable();
 		}
 
-		var movableData = [3];
+		drawFixed();
 		drawMovable();
-		function drawMovable() {
-			console.log(movableData);
-		svg.selectAll("rect.movable")
-			.data(movableData)
-			.enter().append("rect")
-			.attr("x", function(d) {
-				return xScale(d);
-			})
-			.attr("class", "movable")
-			.attr("y", 0)
-			.attr("height", chartHeight)
-			.attr("width", -2+chartWidth / 13)
-			.attr("fill", "red")
-			.attr("fill-opacity", 0.5)
-			.call(dragBehavior);
+
+		function drawFixed() {
+			svg.selectAll("rect.fixed").remove();
+
+			svg.selectAll("rect.fixed")
+				.data(fixedData)
+				.enter().append("rect")
+				.attr("x", function(d) {
+					return xScale(d);
+				})
+				.attr("class", "fixed")
+				.attr("y", 0)
+				.attr("height", chartHeight)
+				.attr("width", -2 + chartWidth / 13)
+				.attr("fill", "green")
+				.attr("fill-opacity", 0.5)
+				.call(dragBehavior);
 		}
 
-        function moveRect(pos) {
-        	console.log('here')
-        	svg.selectAll("rect.movable")
-			.attr("x", xScale(pos));
-			
-        }
+		function drawMovable() {
+			svg.selectAll("rect.movable").remove();
+
+			svg.selectAll("rect.movable")
+				.data(movableData)
+				.enter().append("rect")
+				.attr("x", function(d) {
+					return xScale(d);
+				})
+				.attr("class", "movable")
+				.attr("y", 0)
+				.attr("height", chartHeight)
+				.attr("width", -2 + chartWidth / 13)
+				.attr("fill", function(d,i) {
+					if(i===2) return "blue";
+					else return"red";})
+				.attr("fill-opacity", 0.5)
+				.call(dragBehavior);
+		}
+
+
 
 		this.displayThat = function(thatData) {
 			svg.selectAll("rect.note").remove();
-			svg.selectAll("text.label").remove();
 
-			svg.select("#marker").remove();
-			svg.select("#curtain").remove();
-
-			svg.selectAll("text")
-				.data(thatData)
-				.enter()
-				.append("text")
-				.attr("class", "label")
-				.attr("x", function(d) {
-					return xScale(d) + chartWidth / 52;
-				})
-				.attr("y", 0)
-				.text(function(d) {
-					return labelsData[d];
-				});
 
 			svg.selectAll("rect.note")
 				.data(thatData)
@@ -105,11 +140,11 @@ var dragBehavior = d3.behavior.drag()
 				.attr("x", function(d) {
 					return xScale(d);
 				})
-				.attr("y", 0)
-				.attr("height", chartHeight)
-				.attr("width", -2+chartWidth / 13)
+				.attr("y", -25)
+				.attr("height", chartHeight/5)
+				.attr("width", -2 + chartWidth / 13)
 				.attr("fill", "lightblue")
-				.attr("fill-opacity", 0.5);
+				.attr("fill-opacity", 1);
 
 			svg.selectAll("rect.fixed")
 				.data(fixedData)
@@ -120,33 +155,23 @@ var dragBehavior = d3.behavior.drag()
 				})
 				.attr("y", 0)
 				.attr("height", chartHeight)
-				.attr("width", -2+chartWidth / 13)
+				.attr("width", -2 + chartWidth / 13)
 				.attr("fill", "blue")
 				.attr("fill-opacity", 0.5);
 
-			svg.append("rect")
-				.attr("x", 0)
-				.attr("id", "marker")
-				.attr("y", 0)
-				.attr("height", chartHeight)
-				.attr("width", -2+chartWidth / 13)
-				.attr("fill", "black")
-				.attr("fill-opacity", 1);
 
-
-			appendCurtain();
 		};
 
-	
-		this.markNote = function(interval) {
-			svg.select("#marker")
-				.attr("opacity", 1)
-				.attr("x", xScale(interval));
+		this.reset = function() {
+			drawFixed();
+			drawMovable();
+			svg.selectAll("rect.note").remove();
 		};
 
-		this.markNone = function() {
-			svg.select("#marker")
-				.attr("opacity", 0);
+		this.getThat = function() {
+		   var that = [];
+		   that = fixedData.concat(movableData).sort(function(a,b) {return a-b;});	
+		   return that;
 		};
 
 	};

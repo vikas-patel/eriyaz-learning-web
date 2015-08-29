@@ -1,60 +1,17 @@
-define(['./module', './intervalgen', './display', 'note', 'webaudioplayer', 'currentaudiocontext'], function(app, intervalGen, Display, Note, Player, CurrentAudioContext) {
+define(['./module', './thatgen', './display', 'note', 'webaudioplayer', 'currentaudiocontext', 'tanpura','music-calc'], function(app, thatGen, Display, Note, Player, CurrentAudioContext, Tanpura, MusicCalc) {
     var sequence;
     var audioContext = CurrentAudioContext.getInstance();
     var player = new Player(audioContext);
-    var thats =
-        [{
-            name: 'Bilawal',
-            model: [0, 2, 4, 5, 7, 9, 11, 12],
-            enabled: true
-        }, {
-            name: 'Kafi',
-            model: [0, 2, 3, 5, 7, 9, 10, 12],
-            enabled: false
-        }, {
-            name: 'Bhairavi',
-            model: [0, 1, 3, 5, 7, 8, 10, 12],
-            enabled: true
-        }, {
-            name: 'Kalyan',
-            model: [0, 2, 4, 6, 7, 9, 11, 12],
-            enabled: false
-        }, {
-            name: 'Khamaj',
-            model: [0, 2, 4, 5, 7, 9, 10, 12],
-            enabled: false
-        }, {
-            name: 'Asavari',
-            model: [0, 2, 3, 5, 7, 8, 10, 12],
-            enabled: false
-        }, {
-            name: 'Bhairav',
-            model: [0, 1, 4, 5, 7, 8, 11, 12],
-            enabled: false
-        }, {
-            name: 'Marva',
-            model: [0, 1, 4, 6, 7, 9, 11, 12],
-            enabled: false
-        }, {
-            name: 'Purvi',
-            model: [0, 1, 4, 6, 7, 8, 11, 12],
-            enabled: false
-        }, {
-            name: 'Todi',
-            model: [0, 1, 3, 6, 7, 8, 11, 12],
-            enabled: false
-        }];
+
 
     app.controller('MelakartaCtrl', function($scope, $rootScope) {
-        $scope.thats = thats;
-        $scope.total = 0;
-        $scope.correct = 0;
-        $scope.hideNotes = false;
-        $scope.avrohOnly = false;
-        $scope.feedback = "Start with New";
+        $scope.avroh = false;
+        $scope.rootNote = 56;
+        $scope.tanpuraOn = true;
+
+        var tanpura = null;
 
         var display = new Display();
-        var intV;
 
         var currThat;
         var marker = 0;
@@ -63,56 +20,54 @@ define(['./module', './intervalgen', './display', 'note', 'webaudioplayer', 'cur
 
         var currLoopId;
 
-        $scope.$watch('hideNotes', function() {
-            if ($scope.hideNotes) {
-                display.hideDisplay();
-            } else
-                display.showDisplay();
+        $scope.$watch('rootNote', function() {
+            currRoot = parseInt($scope.rootNote);
+            // PitchModel.rootFreq = MusicCalc.midiNumToFreq($scope.rootNote);
+            if (tanpura !== null)
+                tanpura.stop();
+            $scope.loading = true;
+            var progressListener = function(message, progress) {
+                if (progress === 100) {
+                    tanpura.play();
+                    $scope.loading = false;
+                    // $scope.$apply();
+                }
+            };
+            tanpura = Tanpura.getInstance();
+            tanpura.setTuning($scope.rootNote, 7, progressListener);
+            baseFreq = MusicCalc.midiNumToFreq(currRoot);
         });
+
 
         $scope.$on("$destroy", function() {
             cancelCurrentLoop();
+            tanpura.stop();
         });
 
         $scope.newThat = function() {
-
-            if (thats.every(isDisabled)) {
-                $scope.feedback = "Please enable atleast one that, or better yet two";
-            } else {
-                var randomIndex = Math.floor(Math.random() * thats.length);
-                while (!thats[randomIndex].enabled) {
-                    randomIndex = Math.floor(Math.random() * thats.length);
-                }
-                currThat = thats[randomIndex];
-                $scope.feedback = "Which that is playing?";
-                display.displayThat(currThat.model);
-                if ($scope.hideNotes) {
-                    display.hideDisplay();
-                }
-                playThat();
-            }
+            currThat = thatGen.getRandomThat();
+            playThat(currThat);
+            display.reset();
         };
 
         function isDisabled(element, index, array) {
             return !element.enabled;
         }
 
-        function playThat() {
+        function playThat(that) {
             cancelCurrentLoop();
-            var reverseData = currThat.model.slice();
+            var reverseData = that.slice();
             reverseData.reverse();
             var intervalSequence;
-            if ($scope.avrohOnly) {
+            if ($scope.avroh) {
                 intervalSequence = reverseData;
             } else {
-                intervalSequence = currThat.model.concat(reverseData);
+                intervalSequence = that;
             }
             var startTime = audioContext.currentTime + playTime / 1000;
-            display.markNote(intervalSequence[0]);
             currLoopId = setInterval(function() {
                 noteStartTime = startTime + playTime * marker / 1000;
                 var noteFreq = baseFreq * Math.pow(2, intervalSequence[marker] / 12);
-                display.markNote(intervalSequence[marker]);
                 player.scheduleNote(noteFreq, noteStartTime, playTime);
                 marker++;
                 if (marker >= intervalSequence.length) {
@@ -124,29 +79,19 @@ define(['./module', './intervalgen', './display', 'note', 'webaudioplayer', 'cur
         function cancelCurrentLoop() {
             marker = 0;
             clearInterval(currLoopId);
-            setTimeout(function() {
-                display.markNone();
-            }, playTime);
         }
 
-        $scope.repeatPlay = function() {
-            playThat();
-        };
-
-        $scope.checkAnswer = function(thatName) {
-            $scope.total++;
-            if (thatName === currThat.name) {
-                $scope.feedback = "Cool! Correct Answer : " + currThat.name;
-                $scope.correct++;
-
-            } else {
-                $scope.feedback = "Oops! Correct Answer : " + currThat.name;
-            }
+        $scope.repeat = function() {
+            playThat(currThat);
         };
 
         $scope.showAns = function() {
-            display.showDisplay();
-            playThat();
+            display.displayThat(currThat);
+        };
+
+        $scope.playMyGuess = function() {
+            console.log(display.getThat());
+            playThat(display.getThat());
         };
     });
 });

@@ -172,7 +172,7 @@
         desc: 'Exhaustive 72 Scales from the Carnatic Music System.',
         href: '#melakarta',
         appUrl: 'er-apps/Melakarta/main.html',
-        aspectRatio: 2 / 3,
+        aspectRatio: 5 / 3,
       }, {
         name: 'SargamMemorizer',
         thumb: 'er-shell/images/sargammemorizer.jpg',
