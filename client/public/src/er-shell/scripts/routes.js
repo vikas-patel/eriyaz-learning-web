@@ -346,6 +346,18 @@
              resolve: {
                  onLoggedOutRedirect: checkLoginAndRedirect
              }
+         }).
+         state('melakarta', {
+             url: '/melakarta',
+             onEnter: function(UIModel, AppsInfoModel) {
+                 UIModel.uiModel.showLoginDialog = false;
+                 UIModel.uiModel.showMenu = true;
+                 AppsInfoModel.setSelected(16);
+                 UIModel.uiModel.showAppDialog = true;
+             },
+             resolve: {
+                 onLoggedOutRedirect: checkLoginAndRedirect
+             }
          });
      })
     .factory('authHttpResponseInterceptor',['$q','$location', '$window',function($q,$location, $window){

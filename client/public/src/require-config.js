@@ -158,6 +158,10 @@ requirejs.config({
         name: 'rapidintervals',
         location: 'er-apps/RapidIntervals',
         main: 'index'
+    }, {    
+        name: 'melakarta',
+        location: 'er-apps/Melakarta',
+        main: 'index'
     }, {
         name: 'tanpura',
         location: 'er-libs/tanpura',

@@ -30,6 +30,7 @@ define([
     'voicerange',
     'swarsense',
     'rapidintervals',
+    'melakarta',
 ], function(angular) {
     'use strict';
 
@@ -57,6 +58,7 @@ define([
         'voicerange',
         'swarsense',
         'rapidintervals',
+        'melakarta',
         
         'ngResource',
         'angulartics',
