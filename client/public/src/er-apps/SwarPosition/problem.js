@@ -2,7 +2,6 @@ define(['music-calc'], function(MusicCalc) {
 
 
 	var Problem = function(scale,level) {
-		var baseFreq = MusicCalc.MIDDLE_C_FREQ - Math.floor(Math.random() * 24);
 		var baseFreq = MusicCalc.MIDDLE_C_FREQ;
 		var asc = level.direction==="asc";
 		if (level.isRootVary) {
