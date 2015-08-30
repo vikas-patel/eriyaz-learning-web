@@ -20,11 +20,22 @@
 
     rect.selectable:hover {
         fill:#C5CAE9;
-
     }
 
     g.marked rect{
       fill:#C5CAE9;
+    }
+
+    g.marked rect.upOrDown {
+        fill:#C5CAE8;
+    }
+
+    g.marked rect.upOrDown:hover {
+        fill:#778997;
+    }
+
+    g.marked rect.selected {
+        fill:#778997;
     }
 
     #marker {

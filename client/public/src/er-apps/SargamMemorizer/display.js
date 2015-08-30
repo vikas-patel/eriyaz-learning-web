@@ -1,5 +1,5 @@
 define(['d3'], function(d3) {
-	var Display = function(notesData, checkAnswerFn) {
+	var Display = function(notesData, checkAnswer1, checkAnswer2) {
 		var margin = {
 			top: 15,
 			right: 15,
@@ -73,7 +73,7 @@ define(['d3'], function(d3) {
 			createMarkedGroup("reset")
 				.attr("id","selector")
 				.attr("transform", "translate(0," + (yScale(d) - chartHeight / 13) + ")");
-			checkAnswerFn();
+			checkAnswer1();
 		}
 
 		this.markNote = function(degree) {
@@ -125,6 +125,17 @@ define(['d3'], function(d3) {
 						return "right!";
 					else return "wrong :(";
 				});
+		};
+
+		this.setMessage = function(message) {
+			svg.select('#feedback').remove();
+			svg.append("text")
+				.attr("id", "feedback")
+				.attr("text-anchor", "middle")
+				.attr("x", chartWidth / 2)
+				.attr("y", chartHeight / 2)
+				.attr("fill", "green")
+				.text(message);
 		};
 
 		this.showLevel = function(level) {
@@ -226,6 +237,68 @@ define(['d3'], function(d3) {
 				.attr("font-size", 10)
 				.text("✓");
 
+			return group;
+		}
+
+		this.createUpOrDownGroup = function() {
+			svg.select("#selector").remove();
+			var group = svg.append("g")
+				.attr("class", "marked" + " " + "reset");
+			var gap = chartHeight / 13 - 1;
+			var height = gap*8/10;
+			var rectUp = group.append("rect");
+
+			rectUp.attr("y", 0)
+				.attr("x", 0)
+				.attr("height", height)
+				.attr("width", chartWidth)
+				.attr("class", "upOrDown")
+				.on("click", function() {
+					checkAnswer2(true);
+					svg.select("#upText").text("✓");
+					rectUp.attr("class", "selected");
+				})
+				.attr("fill-opacity", 1);
+			group.append("circle")
+				.attr("r", 10)
+				.attr("cx", chartWidth / 2)
+				.attr("cy", height/2)
+				.attr("fill", "white")
+				.attr("fill-opacity", 0.5);
+			group.append("text")
+				.attr("text-anchor", "middle")
+				.attr("x", chartWidth / 2)
+				.attr("id", "upText")
+				.attr("y", height/2 + 4)
+				.attr("font-size", 10)
+				.text("↑");
+
+			var rectDown = group.append("rect");
+			rectDown.attr("y", gap)
+				.attr("x", 0)
+				.attr("height", height)
+				.attr("width", chartWidth)
+				.attr("class", "upOrDown")
+				.on("click", function() {
+					checkAnswer2(false);
+					svg.select("#downText").text("✓");
+					rectDown.attr("class", "selected");
+				})
+				.attr("fill-opacity", 1);
+			group.append("circle")
+				.attr("r", 10)
+				.attr("cx", chartWidth / 2)
+				.attr("cy", height/2 + gap)
+				.attr("fill", "white")
+				.attr("fill-opacity", 0.5);
+			group.append("text")
+				.attr("text-anchor", "middle")
+				.attr("x", chartWidth / 2)
+				.attr("y", height/2 + 4 + gap)
+				.attr("font-size", 10)
+				.attr("id", "downText")
+				.text("↓");
+			group.attr("transform", "translate(0," + (yScale(this.getSelected()) -chartHeight / 13- chartHeight / 26) + ")");
 			return group;
 		}
 	};

@@ -34,22 +34,29 @@ define(['./module', './display', './problem','./levels', 'melody', 'note', 'weba
 
             $scope.checkAnswer = function() {
                 cancelCurrentLoop();
-                display.setFeedback(display.getSelected() === problem.getDegree());
-                $scope.count++;
-                if(display.getSelected() === problem.getDegree())
-                    $scope.right++;
+                if (display.getSelected() === problem.getDegree()) {
+                    display.setMessage("Is up or down?");
+                    display.createUpOrDownGroup();
+                } else {
+                    display.setFeedback(false);
+                    $scope.count++;
+                }
                 $scope.$apply();
-                // playSequence(function() {
-                //     display.setFeedback(display.getSelected() === problem.getDegree());
-                //     $scope.count++;
-                //     if(display.getSelected() === problem.getDegree())
-                //         $scope.right++;
-                //     $scope.$apply();
-                // });
+            };
+
+            $scope.checkAnswer2 = function(isSharp) {
+                if (problem.isSharp() == isSharp) {
+                    display.setFeedback(true);
+                    $scope.right++;
+                } else {
+                    display.setFeedback(false);
+                }
+                $scope.count++;
+                $scope.$apply();
             };
 
 
-            var display = new Display(scale, $scope.checkAnswer);
+            var display = new Display(scale, $scope.checkAnswer, $scope.checkAnswer2);
             var problem;
             var tracker = 0;
             $scope.newInterval = function() {

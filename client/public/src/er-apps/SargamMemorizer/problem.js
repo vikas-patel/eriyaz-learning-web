@@ -30,6 +30,10 @@ define(['music-calc'], function(MusicCalc) {
 			return degree;
 		};
 
+		this.isSharp = function() {
+			return plusOrMinus > 0 ? true : false;
+		}
+
 		this.isAsc = function() {
 			return asc;
 		};
