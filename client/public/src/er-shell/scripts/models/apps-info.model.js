@@ -185,6 +185,13 @@
         ],
         aspectRatio: 9 / 10,
         show: true
+      }, {
+        name: 'Melakarta2',
+        thumb: 'er-shell/images/melakarta2.jpg',
+        desc: 'Exhaustive 72 Scales from the Carnatic Music System.',
+        href: '#melakarta2',
+        appUrl: 'er-apps/Melakarta2/main.html',
+        aspectRatio: 3/4,
       }];
       appsInfo.selectedIndex = -1;
       TimeMe.setIdleDurationInSeconds(60);

@@ -32,6 +32,7 @@ define([
     'swarsense',
     'rapidintervals',
     'melakarta',
+    'melakarta2',
 ], function(angular) {
     'use strict';
 
@@ -61,7 +62,8 @@ define([
         'swarsense',
         'rapidintervals',
         'melakarta',
-        
+        'melakarta2',
+
         'ngResource',
         'angulartics',
         'angulartics.google.analytics',

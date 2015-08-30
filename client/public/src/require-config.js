@@ -166,6 +166,10 @@ requirejs.config({
         name: 'melakarta',
         location: 'er-apps/Melakarta',
         main: 'index'
+    }, {    
+        name: 'melakarta2',
+        location: 'er-apps/Melakarta2',
+        main: 'index'
     }, {
         name: 'tanpura',
         location: 'er-libs/tanpura',
