@@ -56,9 +56,23 @@ define([], function() {
 			total: 10
 		}, {
 			name: "Level 10",
+			direction: "asc",
+			isDiscrete: true,
+			cents: 50,
+			notes: [2, 4, 5, 7, 9, 11, 12],
+			total: 10
+		}, {
+			name: "Level 11",
 			direction: "desc",
 			isDiscrete: true,
 			cents: 100,
+			notes: [11, 9, 7, 5, 4, 2, 0],
+			total: 10
+		}, {
+			name: "Level 12",
+			direction: "desc",
+			isDiscrete: true,
+			cents: 50,
 			notes: [11, 9, 7, 5, 4, 2, 0],
 			total: 10
 		}

@@ -1,7 +1,6 @@
 define(['music-calc'], function(MusicCalc) {
-
+	var baseFreq = MusicCalc.MIDDLE_C_FREQ;
 	var Problem = function(level) {
-		var baseFreq = MusicCalc.MIDDLE_C_FREQ;
 		var asc = level.direction==="asc";
 
 		var index = Math.floor(Math.random()*level.notes.length);
@@ -48,22 +47,6 @@ define(['music-calc'], function(MusicCalc) {
 			return asc;
 		};
 
-		this.getScale = function() {
-			if (level.isDiscrete) {
-				if (asc) {
-					return [0, 2, 0, 4, 0, 5, 0, 7, 0, 9, 0, 11, 0, 12];
-				} else {
-					return [12, 11, 12, 9, 12, 7, 12, 5, 12, 4, 12, 2, 12, 0];
-				}
-			} else {
-				if (asc) {
-					return [0, 2, 4, 5, 7, 9, 11, 12];
-				} else {
-					return [12, 11, 9, 7, 5, 4, 2, 0];
-				}
-			}
-		};
-
 		this.getSequenceFreqs = function() {
 			if (asc)
 				return MusicCalc.getFreqArray(baseFreq, sequence);
@@ -75,6 +58,33 @@ define(['music-calc'], function(MusicCalc) {
 
 	Problem.getNewProblem = function(level) {
 		return new Problem(level);
+	};
+
+	Problem.getPureFreqs = function(level) {
+		if (level.direction == "asc")
+			return MusicCalc.getFreqArray(baseFreq, Problem.getScale(level).map(function(degree) {
+				return degree * 100;
+			}));
+		else 
+			return MusicCalc.getFreqArray(baseFreq, (Problem.getScale(level).map(function(degree) {
+				return degree*100 - 1200;
+			})));
+	};
+
+	Problem.getScale = function(level) {
+		if (level.isDiscrete) {
+			if (level.direction == "asc") {
+				return [0, 2, 0, 4, 0, 5, 0, 7, 0, 9, 0, 11, 0, 12];
+			} else {
+				return [12, 11, 12, 9, 12, 7, 12, 5, 12, 4, 12, 2, 12, 0];
+			}
+		} else {
+			if (level.direction == "asc") {
+				return [0, 2, 4, 5, 7, 9, 11, 12];
+			} else {
+				return [12, 11, 9, 7, 5, 4, 2, 0];
+			}
+		}
 	};
 
 	return Problem;

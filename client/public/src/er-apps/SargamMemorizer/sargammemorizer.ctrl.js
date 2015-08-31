@@ -63,19 +63,21 @@ define(['./module', './display', './problem','./levels', 'melody', 'note', 'weba
                 cancelCurrentLoop();
                 display.reset();
                 problem = Problem.getNewProblem($scope.level);
-                playInterval();
+                playInterval(Problem.getScale($scope.level), problem.getSequenceFreqs());
+            };
+
+            $scope.playPureNotes = function() {
+                playInterval(Problem.getScale($scope.level), Problem.getPureFreqs($scope.level));  
             };
 
             $scope.repeatPlay = function() {
                 cancelCurrentLoop();
-                playInterval();
+                playInterval(Problem.getScale($scope.level), problem.getSequenceFreqs());
             };
 
-            function playInterval() {
+            function playInterval(scale, freqs) {
                 var playTime = 500;
-                var freqs = problem.getSequenceFreqs();
                 var tracker = 0;
-                var scale = problem.getScale();
                 currLoopId = setInterval(function() {
                     display.markNote(scale[tracker]);
                     player.playNote(freqs[tracker], playTime);
