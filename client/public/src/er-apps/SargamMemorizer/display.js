@@ -191,26 +191,6 @@ define(['d3'], function(d3) {
 			createMarkedGroup()
 				.attr("transform", "translate(0," + (yScale(level.direction === "asc" ? 0 : 12) - chartHeight / 13) + ")");
 
-			// rootGroup.append("rect")
-			// 	.attr("y", 0)
-			// 	.attr("x", 0)
-			// 	.attr("height", chartHeight / 13 - 1)
-			// 	.attr("width", chartWidth)
-			// 	.attr("fill", "grey")
-			// 	.attr("fill-opacity", 1);
-			// rootGroup.append("circle")
-			// 	.attr("r", 10)
-			// 	.attr("cx", chartWidth / 2)
-			// 	.attr("cy", chartHeight / 26)
-			// 	.attr("fill", "white")
-			// 	.attr("fill-opacity", 0.5);
-			// rootGroup.append("text")
-			// 	.attr("text-anchor", "middle")
-			// 	.attr("x", chartWidth / 2)
-			// 	.attr("y", chartHeight / 26 + 4)
-			// 	.attr("font-size",10)
-			// 	.text("✓");
-
 		};
 
 		function createMarkedGroup(css) {

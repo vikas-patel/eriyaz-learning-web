@@ -8,12 +8,22 @@ define(['music-calc'], function(MusicCalc) {
 		var degree = level.notes[index];
 		var sequence;
 		var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
-		if (asc) {
-			sequence = [0, 200, 400, 500, 700, 900, 1100, 1200];
-			sequence[index+1] += level.cents*plusOrMinus;
+		if (level.isDiscrete) {
+			if (asc) {
+				sequence = [0, 200, 0, 400, 0, 500, 0, 700, 0, 900, 0, 1100, 0, 1200];
+				sequence[index*2+1] += level.cents*plusOrMinus;
+			} else {
+				sequence = [1200, 1100, 1200, 900, 1200, 700, 1200, 500, 1200, 400, 1200, 200, 1200, 0];
+				sequence[index*2+1] += level.cents*plusOrMinus;
+			}
 		} else {
-			sequence = [1200, 1100, 900, 700, 500, 400, 200, 0];
-			sequence[index+1] += level.cents*plusOrMinus;
+			if (asc) {
+				sequence = [0, 200, 400, 500, 700, 900, 1100, 1200];
+				sequence[index+1] += level.cents*plusOrMinus;
+			} else {
+				sequence = [1200, 1100, 900, 700, 500, 400, 200, 0];
+				sequence[index+1] += level.cents*plusOrMinus;
+			}
 		}
 
 		this.getBaseFreq = function() {
@@ -39,10 +49,18 @@ define(['music-calc'], function(MusicCalc) {
 		};
 
 		this.getScale = function() {
-			if (asc) {
-				return [0, 2, 4, 5, 7, 9, 11, 12];
+			if (level.isDiscrete) {
+				if (asc) {
+					return [0, 2, 0, 4, 0, 5, 0, 7, 0, 9, 0, 11, 0, 12];
+				} else {
+					return [12, 11, 12, 9, 12, 7, 12, 5, 12, 4, 12, 2, 12, 0];
+				}
 			} else {
-				return [12, 11, 9, 7, 5, 4, 2, 0];
+				if (asc) {
+					return [0, 2, 4, 5, 7, 9, 11, 12];
+				} else {
+					return [12, 11, 9, 7, 5, 4, 2, 0];
+				}
 			}
 		};
 
