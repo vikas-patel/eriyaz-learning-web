@@ -15,7 +15,7 @@ define(['./module', './thatgen', './display', 'note', 'webaudioplayer', 'current
         var currThat;
         var marker = 0;
         var baseFreq = 261;
-        var playTime = 500;
+        var playTime = 1200;
 
         var currLoopId;
 
