@@ -1,5 +1,5 @@
-  define(['./module', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'webaudioplayer', 'pitchdetector', 'music-calc', 'tanpura', 'jquery'],
-    function(app, MicUtil, CurrentAudioContext, AudioBuffer, WebAudioPlayer, PitchDetector, MusicCalc, Tanpura, $) {
+  define(['./module', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'webaudioplayer', 'pitchdetector', 'music-calc', 'tanpura', 'jquery', 'intensityfilter'],
+    function(app, MicUtil, CurrentAudioContext, AudioBuffer, WebAudioPlayer, PitchDetector, MusicCalc, Tanpura, $, IntensityFilter) {
       var audioContext = CurrentAudioContext.getInstance();
       app.controller('PitchDialCtrl', function($scope, PitchModel, DialModel, $rootScope) {
         $scope.rootNote = 56;
@@ -8,6 +8,7 @@
         $scope.loading = false;
         var tanpura = null;
         var micStream;
+        $scope.volume = 0;
 
         $scope.$watch('rootNote', function() {
           PitchModel.rootFreq = MusicCalc.midiNumToFreq($scope.rootNote);
@@ -40,6 +41,8 @@
             PitchModel.currentFreq = pitch;
             PitchModel.currentInterval = MusicCalc.getCents(PitchModel.rootFreq, PitchModel.currentFreq) / 100;
             DialModel.setValue(PitchModel.currentInterval);
+            $scope.volume = 2*IntensityFilter.rootMeanSquare(data);
+            $scope.$apply();
           }
         };
 
