@@ -1,4 +1,4 @@
-#swarposition {
+#sargammemorizer {
 
     #score {
       float:right;
@@ -10,32 +10,32 @@
     }
 
     rect.slot {
-      fill:#E3F2FD;
+      fill:#fff3ef;
     }
 
     rect.note,rect.selectable {
-      fill:#BBDEFB;
+      fill:#fcdcd4;
      
     }
 
     rect.selectable:hover {
-        fill:#C5CAE9;
+        fill:#BDA59F;
     }
 
     g.marked rect{
-      fill:#C5CAE9;
+      fill:#BDA59F;
     }
 
     g.marked rect.upOrDown {
-        fill:#C5CAE8;
+        fill:#FAC4B6;
     }
 
     g.marked rect.upOrDown:hover {
-        fill:#778997;
+        fill:#BDA59F;
     }
 
     g.marked rect.selected {
-        fill:#778997;
+        fill:#BDA59F;
     }
 
     #marker {

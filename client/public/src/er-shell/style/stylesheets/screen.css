@@ -1843,48 +1843,48 @@ core-drawer-panel:not([narrow]) #navicon {
 }
 
 /* line 3, ../../../er-apps/SargamMemorizer/main.scss */
-#swarposition #score {
+#sargammemorizer #score {
   float: right;
   margin-right: 10px;
 }
 /* line 8, ../../../er-apps/SargamMemorizer/main.scss */
-#swarposition svg {
+#sargammemorizer svg {
   margin-top: 3%;
 }
 /* line 12, ../../../er-apps/SargamMemorizer/main.scss */
-#swarposition rect.slot {
-  fill: #E3F2FD;
+#sargammemorizer rect.slot {
+  fill: #fff3ef;
 }
 /* line 16, ../../../er-apps/SargamMemorizer/main.scss */
-#swarposition rect.note, #swarposition rect.selectable {
-  fill: #BBDEFB;
+#sargammemorizer rect.note, #sargammemorizer rect.selectable {
+  fill: #fcdcd4;
 }
 /* line 21, ../../../er-apps/SargamMemorizer/main.scss */
-#swarposition rect.selectable:hover {
-  fill: #C5CAE9;
+#sargammemorizer rect.selectable:hover {
+  fill: #BDA59F;
 }
 /* line 25, ../../../er-apps/SargamMemorizer/main.scss */
-#swarposition g.marked rect {
-  fill: #C5CAE9;
+#sargammemorizer g.marked rect {
+  fill: #BDA59F;
 }
 /* line 29, ../../../er-apps/SargamMemorizer/main.scss */
-#swarposition g.marked rect.upOrDown {
-  fill: #C5CAE8;
+#sargammemorizer g.marked rect.upOrDown {
+  fill: #FAC4B6;
 }
 /* line 33, ../../../er-apps/SargamMemorizer/main.scss */
-#swarposition g.marked rect.upOrDown:hover {
-  fill: #778997;
+#sargammemorizer g.marked rect.upOrDown:hover {
+  fill: #BDA59F;
 }
 /* line 37, ../../../er-apps/SargamMemorizer/main.scss */
-#swarposition g.marked rect.selected {
-  fill: #778997;
+#sargammemorizer g.marked rect.selected {
+  fill: #BDA59F;
 }
 /* line 41, ../../../er-apps/SargamMemorizer/main.scss */
-#swarposition #marker {
+#sargammemorizer #marker {
   fill: #333;
 }
 /* line 46, ../../../er-apps/SargamMemorizer/main.scss */
-#swarposition #feedback {
+#sargammemorizer #feedback {
   font-size: 30px;
 }
 

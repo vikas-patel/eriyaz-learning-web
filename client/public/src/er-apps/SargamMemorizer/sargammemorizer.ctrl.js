@@ -24,7 +24,7 @@ define(['./module', './display', './problem','./levels', 'melody', 'note', 'weba
                     // Display score & save
                     $scope.score = $scope.right / $scope.count;
                     $scope.showOverlay = true;
-                    ScoreService.save("SwarPosition", $scope.level.name, $scope.score);
+                    ScoreService.save("SargamMemorizer", $scope.level.name, $scope.score);
                 }
             });
             

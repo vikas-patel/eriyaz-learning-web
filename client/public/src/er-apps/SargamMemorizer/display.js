@@ -155,7 +155,7 @@ define(['d3'], function(d3) {
 				.attr("x", 0)
 				.attr("height", chartHeight / 13 - 1)
 				.attr("width", chartWidth)
-				.attr("fill", "lightblue")
+				.attr("fill", "fff3ef")
 				.attr("fill-opacity", 1)
 				.filter(function(d) {
 					return level.notes.indexOf(d) >= 0;
