@@ -119,8 +119,8 @@ requirejs.config({
         location: 'er-apps/SwarPosition',
         main: 'index'
     }, {    
-        name: 'sargammemorizer',
-        location: 'er-apps/SargamMemorizer',
+        name: 'sargamtuner',
+        location: 'er-apps/SargamTuner',
         main: 'index'
     }, {    
         name: 'thatmemorizer',

@@ -7,7 +7,7 @@ define(['./module', './display', './problem','./levels', 'melody', 'note', 'weba
         var currLoopId = -1;
         var scale = [0, 2, 4, 5, 7, 9, 11, 12];
 
-        app.controller('SargamMemorizerCtrl', function($scope, ScoreService, $timeout) {
+        app.controller('SargamTunerCtrl', function($scope, ScoreService, $timeout) {
             $scope.count = 0;
             $scope.right = 0;
             $scope.levels = levels;
@@ -24,7 +24,7 @@ define(['./module', './display', './problem','./levels', 'melody', 'note', 'weba
                     // Display score & save
                     $scope.score = $scope.right / $scope.count;
                     $scope.showOverlay = true;
-                    ScoreService.save("SargamMemorizer", $scope.level.name, $scope.score);
+                    ScoreService.save("SargamTuner", $scope.level.name, $scope.score);
                 }
             });
             

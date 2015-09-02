@@ -1842,49 +1842,49 @@ core-drawer-panel:not([narrow]) #navicon {
   border: none;
 }
 
-/* line 3, ../../../er-apps/SargamMemorizer/main.scss */
-#sargammemorizer #score {
+/* line 3, ../../../er-apps/SargamTuner/main.scss */
+#sargamtuner #score {
   float: right;
   margin-right: 10px;
 }
-/* line 8, ../../../er-apps/SargamMemorizer/main.scss */
-#sargammemorizer svg {
+/* line 8, ../../../er-apps/SargamTuner/main.scss */
+#sargamtuner svg {
   margin-top: 3%;
 }
-/* line 12, ../../../er-apps/SargamMemorizer/main.scss */
-#sargammemorizer rect.slot {
+/* line 12, ../../../er-apps/SargamTuner/main.scss */
+#sargamtuner rect.slot {
   fill: #fff3ef;
 }
-/* line 16, ../../../er-apps/SargamMemorizer/main.scss */
-#sargammemorizer rect.note, #sargammemorizer rect.selectable {
+/* line 16, ../../../er-apps/SargamTuner/main.scss */
+#sargamtuner rect.note, #sargamtuner rect.selectable {
   fill: #fcdcd4;
 }
-/* line 21, ../../../er-apps/SargamMemorizer/main.scss */
-#sargammemorizer rect.selectable:hover {
+/* line 21, ../../../er-apps/SargamTuner/main.scss */
+#sargamtuner rect.selectable:hover {
   fill: #BDA59F;
 }
-/* line 25, ../../../er-apps/SargamMemorizer/main.scss */
-#sargammemorizer g.marked rect {
+/* line 25, ../../../er-apps/SargamTuner/main.scss */
+#sargamtuner g.marked rect {
   fill: #BDA59F;
 }
-/* line 29, ../../../er-apps/SargamMemorizer/main.scss */
-#sargammemorizer g.marked rect.upOrDown {
+/* line 29, ../../../er-apps/SargamTuner/main.scss */
+#sargamtuner g.marked rect.upOrDown {
   fill: #FAC4B6;
 }
-/* line 33, ../../../er-apps/SargamMemorizer/main.scss */
-#sargammemorizer g.marked rect.upOrDown:hover {
+/* line 33, ../../../er-apps/SargamTuner/main.scss */
+#sargamtuner g.marked rect.upOrDown:hover {
   fill: #BDA59F;
 }
-/* line 37, ../../../er-apps/SargamMemorizer/main.scss */
-#sargammemorizer g.marked rect.selected {
+/* line 37, ../../../er-apps/SargamTuner/main.scss */
+#sargamtuner g.marked rect.selected {
   fill: #BDA59F;
 }
-/* line 41, ../../../er-apps/SargamMemorizer/main.scss */
-#sargammemorizer #marker {
+/* line 41, ../../../er-apps/SargamTuner/main.scss */
+#sargamtuner #marker {
   fill: #333;
 }
-/* line 46, ../../../er-apps/SargamMemorizer/main.scss */
-#sargammemorizer #feedback {
+/* line 46, ../../../er-apps/SargamTuner/main.scss */
+#sargamtuner #feedback {
   font-size: 30px;
 }
 
