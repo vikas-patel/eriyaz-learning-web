@@ -1,4 +1,5 @@
 var nodebb = require("./nodebb/userAPI")
+var notifier = require("./email/notifier")
 // config/passport.js
 
 // load all the things we need
@@ -77,7 +78,15 @@ module.exports = function(passport) {
 						newUser.nodebb.uid = uid;
 					}
 				});
-
+				
+				//Sending email to user
+				console.log("Sending email to user");
+				notifier.SendWelcomeEmail(email, newUser.name);
+				
+				//Sending email to user
+				console.log("Sending email to admin");
+				notifier.NewUserEmail(newUser);
+				
 				// save the user
                 newUser.save(function(err) {
                     if (err)
