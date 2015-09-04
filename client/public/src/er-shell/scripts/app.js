@@ -33,6 +33,7 @@ define([
     'rapidintervals',
     'melakarta',
     'melakarta2',
+    'fasternotes',
 ], function(angular) {
     'use strict';
 
@@ -63,6 +64,7 @@ define([
         'rapidintervals',
         'melakarta',
         'melakarta2',
+        'fasternotes',
 
         'ngResource',
         'angulartics',

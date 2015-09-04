@@ -1907,3 +1907,66 @@ core-drawer-panel:not([narrow]) #navicon {
 #melakarta2 .x.axis path {
   fill: none;
 }
+
+/* line 2, ../../../er-apps/FasterNotes/main.scss */
+#fasternotes #score {
+  float: right;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+/* line 6, ../../../er-apps/FasterNotes/main.scss */
+#fasternotes #score dt {
+  float: left;
+  clear: left;
+  width: 100px;
+  text-align: left;
+}
+/* line 14, ../../../er-apps/FasterNotes/main.scss */
+#fasternotes #score dt:after {
+  content: ":";
+}
+/* line 17, ../../../er-apps/FasterNotes/main.scss */
+#fasternotes #score dd {
+  margin: 0 0 0 100px;
+}
+/* line 24, ../../../er-apps/FasterNotes/main.scss */
+#fasternotes svg {
+  margin-top: 10px;
+}
+/* line 27, ../../../er-apps/FasterNotes/main.scss */
+#fasternotes ul {
+  columns: 3;
+  -webkit-columns: 3;
+  -moz-columns: 3;
+}
+/* line 33, ../../../er-apps/FasterNotes/main.scss */
+#fasternotes li button {
+  width: 60%;
+}
+/* line 46, ../../../er-apps/FasterNotes/main.scss */
+#fasternotes .container {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 3%;
+  border-top: solid;
+  border-width: 1px;
+  border-color: #E3E3E3;
+}
+/* line 59, ../../../er-apps/FasterNotes/main.scss */
+#fasternotes #feedback {
+  font-weight: bold;
+  border: none;
+}
+/* line 68, ../../../er-apps/FasterNotes/main.scss */
+#fasternotes .x.axis line {
+  stroke: #ccc;
+  stroke-width: 1px;
+}
+/* line 73, ../../../er-apps/FasterNotes/main.scss */
+#fasternotes .x.axis .minor {
+  stroke-opacity: .5;
+}
+/* line 77, ../../../er-apps/FasterNotes/main.scss */
+#fasternotes .x.axis path {
+  fill: none;
+}
