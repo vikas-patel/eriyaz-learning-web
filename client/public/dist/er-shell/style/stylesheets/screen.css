@@ -807,6 +807,37 @@ core-drawer-panel:not([narrow]) #navicon {
 #pitch-dial #dial-container canvas {
   width: 100%;
 }
+/* line 67, ../../../er-apps/PitchDial/main.scss */
+#pitch-dial .volume {
+  position: absolute;
+  top: 50%;
+  left: 93%;
+  transform: rotate(270deg);
+}
+/* line 74, ../../../er-apps/PitchDial/main.scss */
+#pitch-dial progress {
+  position: absolute;
+  top: 50%;
+  left: 70%;
+  color: #0063a6;
+  font-size: .6em;
+  line-height: 1.5em;
+  text-indent: .5em;
+  width: 50%;
+  height: 1.8em;
+  border: 1px solid #0063a6;
+  background: #fff;
+  transform: rotate(270deg);
+}
+/* line 89, ../../../er-apps/PitchDial/main.scss */
+#pitch-dial progress::-webkit-progress-bar {
+  background: #fff;
+  background: repeating-linear-gradient(to right, #B0C0E0 25%, #fff 25%, #fff 50%, #B0C0E0 50%, #B0C0E0 75%, #fff 75%);
+}
+/* line 101, ../../../er-apps/PitchDial/main.scss */
+#pitch-dial progress::-webkit-progress-value {
+  background: #0063a6;
+}
 
 /* line 2, ../../../er-apps/SingAlankars/main.scss */
 #sing-alankars {
@@ -1759,4 +1790,163 @@ core-drawer-panel:not([narrow]) #navicon {
 #voicerange .arrow {
   stroke-width: 2;
   stroke: #777;
+}
+
+/* line 2, ../../../er-apps/Melakarta/main.scss */
+#melakarta #score {
+  float: right;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+/* line 6, ../../../er-apps/Melakarta/main.scss */
+#melakarta #score dt {
+  float: left;
+  clear: left;
+  width: 100px;
+  text-align: left;
+}
+/* line 14, ../../../er-apps/Melakarta/main.scss */
+#melakarta #score dt:after {
+  content: ":";
+}
+/* line 17, ../../../er-apps/Melakarta/main.scss */
+#melakarta #score dd {
+  margin: 0 0 0 100px;
+}
+/* line 24, ../../../er-apps/Melakarta/main.scss */
+#melakarta svg {
+  margin-top: 10px;
+}
+/* line 27, ../../../er-apps/Melakarta/main.scss */
+#melakarta ul {
+  columns: 3;
+  -webkit-columns: 3;
+  -moz-columns: 3;
+}
+/* line 33, ../../../er-apps/Melakarta/main.scss */
+#melakarta li button {
+  width: 60%;
+}
+/* line 46, ../../../er-apps/Melakarta/main.scss */
+#melakarta .container {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 3%;
+  border-top: solid;
+  border-width: 1px;
+  border-color: #E3E3E3;
+}
+/* line 59, ../../../er-apps/Melakarta/main.scss */
+#melakarta #feedback {
+  font-weight: bold;
+  border: none;
+}
+
+/* line 3, ../../../er-apps/SargamTuner/main.scss */
+#sargamtuner #score {
+  float: right;
+  margin-right: 10px;
+}
+/* line 8, ../../../er-apps/SargamTuner/main.scss */
+#sargamtuner svg {
+  margin-top: 3%;
+}
+/* line 12, ../../../er-apps/SargamTuner/main.scss */
+#sargamtuner rect.slot {
+  fill: #fff3ef;
+}
+/* line 16, ../../../er-apps/SargamTuner/main.scss */
+#sargamtuner rect.note, #sargamtuner rect.selectable {
+  fill: #fcdcd4;
+}
+/* line 21, ../../../er-apps/SargamTuner/main.scss */
+#sargamtuner rect.selectable:hover {
+  fill: #BDA59F;
+}
+/* line 25, ../../../er-apps/SargamTuner/main.scss */
+#sargamtuner g.marked rect {
+  fill: #BDA59F;
+}
+/* line 29, ../../../er-apps/SargamTuner/main.scss */
+#sargamtuner g.marked rect.upOrDown {
+  fill: #FAC4B6;
+}
+/* line 33, ../../../er-apps/SargamTuner/main.scss */
+#sargamtuner g.marked rect.upOrDown:hover {
+  fill: #BDA59F;
+}
+/* line 37, ../../../er-apps/SargamTuner/main.scss */
+#sargamtuner g.marked rect.selected {
+  fill: #BDA59F;
+}
+/* line 41, ../../../er-apps/SargamTuner/main.scss */
+#sargamtuner #marker {
+  fill: #333;
+}
+/* line 46, ../../../er-apps/SargamTuner/main.scss */
+#sargamtuner #feedback {
+  font-size: 30px;
+}
+
+/* line 2, ../../../er-apps/Melakarta2/main.scss */
+#melakarta2 #score {
+  float: right;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+/* line 6, ../../../er-apps/Melakarta2/main.scss */
+#melakarta2 #score dt {
+  float: left;
+  clear: left;
+  width: 100px;
+  text-align: left;
+}
+/* line 14, ../../../er-apps/Melakarta2/main.scss */
+#melakarta2 #score dt:after {
+  content: ":";
+}
+/* line 17, ../../../er-apps/Melakarta2/main.scss */
+#melakarta2 #score dd {
+  margin: 0 0 0 100px;
+}
+/* line 24, ../../../er-apps/Melakarta2/main.scss */
+#melakarta2 svg {
+  margin-top: 10px;
+}
+/* line 27, ../../../er-apps/Melakarta2/main.scss */
+#melakarta2 ul {
+  columns: 3;
+  -webkit-columns: 3;
+  -moz-columns: 3;
+}
+/* line 33, ../../../er-apps/Melakarta2/main.scss */
+#melakarta2 li button {
+  width: 60%;
+}
+/* line 46, ../../../er-apps/Melakarta2/main.scss */
+#melakarta2 .container {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 3%;
+  border-top: solid;
+  border-width: 1px;
+  border-color: #E3E3E3;
+}
+/* line 59, ../../../er-apps/Melakarta2/main.scss */
+#melakarta2 #feedback {
+  font-weight: bold;
+  border: none;
+}
+/* line 68, ../../../er-apps/Melakarta2/main.scss */
+#melakarta2 .x.axis line {
+  stroke: #ccc;
+  stroke-width: 1px;
+}
+/* line 73, ../../../er-apps/Melakarta2/main.scss */
+#melakarta2 .x.axis .minor {
+  stroke-opacity: .5;
+}
+/* line 77, ../../../er-apps/Melakarta2/main.scss */
+#melakarta2 .x.axis path {
+  fill: none;
 }

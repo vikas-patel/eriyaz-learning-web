@@ -174,11 +174,11 @@
         appUrl: 'er-apps/Melakarta/main.html',
         aspectRatio: 5 / 3,
       }, {
-        name: 'SargamMemorizer',
-        thumb: 'er-shell/images/sargammemorizer.jpg',
+        name: 'SargamTuner',
+        thumb: 'er-shell/images/sargamtuner.jpg',
         desc: 'Recognize out of tune swars of sargam.',
-        href: '#sargammemorizer',
-        appUrl: 'er-apps/SargamMemorizer/main.html',
+        href: '#sargamtuner',
+        appUrl: 'er-apps/SargamTuner/main.html',
         hotkeys: [
           ['n', 'newInterval()'],
           ['r', 'repeatPlay()']

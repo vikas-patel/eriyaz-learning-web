@@ -359,8 +359,8 @@
                      onLoggedOutRedirect: checkLoginAndRedirect
                  }
              }).
-             state('sargammemorizer', {
-                 url: '/sargammemorizer',
+             state('sargamtuner', {
+                 url: '/sargamtuner',
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;

@@ -1,4 +1,4 @@
-#swarposition {
+#sargamtuner {
 
     #score {
       float:right;
@@ -10,21 +10,32 @@
     }
 
     rect.slot {
-      fill:#E3F2FD;
+      fill:#fff3ef;
     }
 
     rect.note,rect.selectable {
-      fill:#BBDEFB;
+      fill:#fcdcd4;
      
     }
 
     rect.selectable:hover {
-        fill:#C5CAE9;
-
+        fill:#BDA59F;
     }
 
     g.marked rect{
-      fill:#C5CAE9;
+      fill:#BDA59F;
+    }
+
+    g.marked rect.upOrDown {
+        fill:#FAC4B6;
+    }
+
+    g.marked rect.upOrDown:hover {
+        fill:#BDA59F;
+    }
+
+    g.marked rect.selected {
+        fill:#BDA59F;
     }
 
     #marker {

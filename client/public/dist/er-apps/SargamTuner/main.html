@@ -1,9 +1,10 @@
-<div id="swarposition" ng-controller='SargamMemorizerCtrl as ctrl'>
+<div id="sargamtuner" ng-controller='SargamTunerCtrl as ctrl'>
 	<div class="buttons">
         <button ng-click="newInterval();" ng-disabled="isLooping()">New</button>
         <button ng-click="repeatPlay();" ng-disabled="isLooping()">Repeat</button>
          <select ng-model="level" ng-options="l.name for l in levels">
         </select>
+        <button ng-click="playPureNotes();" ng-disabled="isLooping()">Pure Notes</button>
     <div id="score">  <span>Remaining: </span>
             {{level.total - count}}
             <span> Score: </span>

@@ -7,7 +7,7 @@ define(['./module', './display', './problem','./levels', 'melody', 'note', 'weba
         var currLoopId = -1;
         var scale = [0, 2, 4, 5, 7, 9, 11, 12];
 
-        app.controller('SargamMemorizerCtrl', function($scope, ScoreService, $timeout) {
+        app.controller('SargamTunerCtrl', function($scope, ScoreService, $timeout) {
             $scope.count = 0;
             $scope.right = 0;
             $scope.levels = levels;
@@ -24,7 +24,7 @@ define(['./module', './display', './problem','./levels', 'melody', 'note', 'weba
                     // Display score & save
                     $scope.score = $scope.right / $scope.count;
                     $scope.showOverlay = true;
-                    ScoreService.save("SwarPosition", $scope.level.name, $scope.score);
+                    ScoreService.save("SargamTuner", $scope.level.name, $scope.score);
                 }
             });
             
@@ -34,41 +34,50 @@ define(['./module', './display', './problem','./levels', 'melody', 'note', 'weba
 
             $scope.checkAnswer = function() {
                 cancelCurrentLoop();
-                display.setFeedback(display.getSelected() === problem.getDegree());
-                $scope.count++;
-                if(display.getSelected() === problem.getDegree())
-                    $scope.right++;
+                if (display.getSelected() === problem.getDegree()) {
+                    display.setMessage("Is up or down?");
+                    display.createUpOrDownGroup();
+                } else {
+                    display.setFeedback(false);
+                    $scope.count++;
+                }
                 $scope.$apply();
-                // playSequence(function() {
-                //     display.setFeedback(display.getSelected() === problem.getDegree());
-                //     $scope.count++;
-                //     if(display.getSelected() === problem.getDegree())
-                //         $scope.right++;
-                //     $scope.$apply();
-                // });
+            };
+
+            $scope.checkAnswer2 = function(isSharp) {
+                if (problem.isSharp() == isSharp) {
+                    display.setFeedback(true);
+                    $scope.right++;
+                } else {
+                    display.setFeedback(false);
+                }
+                $scope.count++;
+                $scope.$apply();
             };
 
 
-            var display = new Display(scale, $scope.checkAnswer);
+            var display = new Display(scale, $scope.checkAnswer, $scope.checkAnswer2);
             var problem;
             var tracker = 0;
             $scope.newInterval = function() {
                 cancelCurrentLoop();
                 display.reset();
                 problem = Problem.getNewProblem($scope.level);
-                playInterval();
+                playInterval(Problem.getScale($scope.level), problem.getSequenceFreqs());
+            };
+
+            $scope.playPureNotes = function() {
+                playInterval(Problem.getScale($scope.level), Problem.getPureFreqs($scope.level));  
             };
 
             $scope.repeatPlay = function() {
                 cancelCurrentLoop();
-                playInterval();
+                playInterval(Problem.getScale($scope.level), problem.getSequenceFreqs());
             };
 
-            function playInterval() {
+            function playInterval(scale, freqs) {
                 var playTime = 500;
-                var freqs = problem.getSequenceFreqs();
                 var tracker = 0;
-                var scale = problem.getScale();
                 currLoopId = setInterval(function() {
                     display.markNote(scale[tracker]);
                     player.playNote(freqs[tracker], playTime);
