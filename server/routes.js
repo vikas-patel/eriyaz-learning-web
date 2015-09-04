@@ -61,6 +61,7 @@ module.exports = function(app, passport) {
 	
 	app.post('/users', isLoggedIn, userDao.save);
 	app.put('/users/:id', userDao.update);
+	app.post('/activate/:id', userDao.activate);
 	app.get('/assignExercise', isLoggedIn, userDao.assignExercise);
 	app.get('/users', isLoggedIn, userDao.findAll);
 	app.get('/users/:id', isLoggedIn, userDao.find);
