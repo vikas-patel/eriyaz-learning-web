@@ -1,0 +1,36 @@
+<div id="fasternotes" ng-controller='FasterNotesCtrl as ctrl'>
+    
+    <div class="container">
+        <input type="checkbox" ng-model="tanpuraOn"> Tanpura
+    </div>
+
+    Duration <input type="text" name="duration" ng-model="duration"><br>
+    <div id="buttons">
+        Scale:
+        <select ng-model="rootNote">
+            <option value="47">Safed 7 (B)</option>
+            <option value="48">Safed 1 (C)</option>
+            <option value="49">Kali 1 (C#)</option>
+            <option value="50">Safed 2 (D)</option>
+            <option value="51">Kali 2 (D#)</option>
+            <option value="52">Safed 3 (E)</option>
+            <option value="53">Safed 4 (F)</option>
+            <option value="54">Kali 3 (F#)</option>
+            <option value="55">Safed 5 (G)</option>
+            <option value="56">Kali 4 (G#)</option>
+            <option value="57">Safed 6 (A)</option>
+            <option value="58">Kali 5 (A#)</option>
+        </select>   
+    </div> 
+
+    <div id="display"></div>
+
+    <div class="container settings">
+                <button class="small" ng-disabled="newDisabled" ng-click="newThat();">new</button>
+                <button class="small" ng-disabled="repeatDisabled" ng-click="repeat();">repeat</button>
+                <button class="large" ng-disabled="playMyDisabled" ng-click="playMyGuess();">play my</button>
+                <button class="large" ng-disabled="checkDisabled" ng-click="showAns();">show ans</button>
+            </div>
+   
+    
+</div>

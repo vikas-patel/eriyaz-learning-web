@@ -170,6 +170,10 @@ requirejs.config({
         name: 'melakarta2',
         location: 'er-apps/Melakarta2',
         main: 'index'
+    }, {    
+        name: 'fasternotes',
+        location: 'er-apps/FasterNotes',
+        main: 'index'
     }, {
         name: 'tanpura',
         location: 'er-libs/tanpura',

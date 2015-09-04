@@ -4,7 +4,7 @@ define(['./module', './thatgen', './display', 'note', 'webaudioplayer', 'current
     var player = new Player(audioContext);
 
 
-    app.controller('Melakarta2Ctrl', function($scope, $rootScope) {
+    app.controller('FasterNotesCtrl', function($scope, $rootScope) {
         $scope.rootNote = 56;
         $scope.tanpuraOn = true;
 
@@ -15,10 +15,11 @@ define(['./module', './thatgen', './display', 'note', 'webaudioplayer', 'current
         var currThat;
         var marker = 0;
         var baseFreq = 261;
-        var playTime = 1200;
+        var playTime = 1800;
 
         var currLoopId;
 
+        $scope.duration = playTime;
         $scope.$watch('rootNote', function() {
             currRoot = parseInt($scope.rootNote);
             // PitchModel.rootFreq = MusicCalc.midiNumToFreq($scope.rootNote);
@@ -37,6 +38,9 @@ define(['./module', './thatgen', './display', 'note', 'webaudioplayer', 'current
             baseFreq = MusicCalc.midiNumToFreq(currRoot);
         });
 
+        $scope.$watch('duration', function() {
+            playTime = parseInt($scope.duration);
+        });
 
         $scope.$on("$destroy", function() {
             cancelCurrentLoop();
@@ -55,7 +59,7 @@ define(['./module', './thatgen', './display', 'note', 'webaudioplayer', 'current
 
         function playThat(that) {
             cancelCurrentLoop();
-            intervalSequence = that;
+            intervalSequence = that.slice(0,4);
             var startTime = audioContext.currentTime + playTime / 1000;
             currLoopId = setInterval(function() {
                 noteStartTime = startTime + playTime * marker / 1000;
@@ -78,7 +82,7 @@ define(['./module', './thatgen', './display', 'note', 'webaudioplayer', 'current
         };
 
         $scope.showAns = function() {
-            display.showNotes(currThat);
+            display.showNotes(currThat.slice(0,4));
         };
 
         $scope.playMyGuess = function() {

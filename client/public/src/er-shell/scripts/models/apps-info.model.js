@@ -192,6 +192,13 @@
         href: '#melakarta2',
         appUrl: 'er-apps/Melakarta2/main.html',
         aspectRatio: 3/4,
+      }, {
+        name: 'FasterNotes',
+        thumb: 'er-shell/images/fasternotes.jpg',
+        desc: 'Exhaustive 72 Scales from the Carnatic Music System.',
+        href: '#melakarta2',
+        appUrl: 'er-apps/FasterNotes/main.html',
+        aspectRatio: 3/4,
       }];
       appsInfo.selectedIndex = -1;
       TimeMe.setIdleDurationInSeconds(60);
