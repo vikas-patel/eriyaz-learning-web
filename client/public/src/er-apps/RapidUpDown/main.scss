@@ -1,0 +1,55 @@
+$controls : (
+    columns:3,
+  // debug: (image:show)
+);
+
+#rapidupdown {
+    .container-toplevel {
+        // position:relative;
+        // border-style:solid; 
+        // border-radius:5px;
+        // border-width:3px;
+        // border-color:#CCCCCC;
+        width: 100%;
+    }
+    
+    #backdrop {
+        fill:#252525;
+    }
+    h4 {
+        // font-weight: bold;
+        // font-size:20px;
+        margin-bottom:15px;
+    }
+    
+    #display,#top-panel,#bottom-panel {
+        width : 95%;
+        margin-top:10px;
+        margin-left:auto;
+        margin-right:auto;
+    }
+    
+    #score {
+        float:right;
+        margin-right:5px;
+    }
+
+
+    .controls {
+        margin-top:30%;
+        padding-left:10%;
+        // @with-layout(gutters:0);
+        // @with-layout(columns:3,debug(image:show));
+        @include container($controls 80%); 
+        @include clearfix;
+        .filler,img,button {
+            display:block;
+            float:left;
+            width:span(1 of 3);
+            height:4em;
+        }
+        #leftbutton,#rightbutton,img {
+            margin-top:-10px;
+        }
+    }
+}

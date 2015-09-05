@@ -34,6 +34,7 @@ define([
     'melakarta',
     'melakarta2',
     'fasternotes',
+    'rapidupdown',
 ], function(angular) {
     'use strict';
 
@@ -65,6 +66,7 @@ define([
         'melakarta',
         'melakarta2',
         'fasternotes',
+        'rapidupdown',
 
         'ngResource',
         'angulartics',

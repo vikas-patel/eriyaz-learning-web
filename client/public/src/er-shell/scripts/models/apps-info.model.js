@@ -195,9 +195,21 @@
       }, {
         name: 'FasterNotes',
         thumb: 'er-shell/images/fasternotes.jpg',
-        desc: 'Exhaustive 72 Scales from the Carnatic Music System.',
+        desc: 'Speed up your note recognition.',
         href: '#melakarta2',
         appUrl: 'er-apps/FasterNotes/main.html',
+        aspectRatio: 3/4,
+      }, {
+        name: 'RapidUpDown',
+        thumb: 'er-shell/images/rapidupdown.jpg',
+        desc: 'Speed Up your Up/Down recognition.',
+        href: '#melakarta2',
+        appUrl: 'er-apps/RapidUpDown/main.html',
+        hotkeys: [
+          ['up', 'isSame()'],
+          ['left', 'isUp()'],
+          ['right', 'isDown()']
+        ],
         aspectRatio: 3/4,
       }];
       appsInfo.selectedIndex = -1;

@@ -174,6 +174,10 @@ requirejs.config({
         name: 'fasternotes',
         location: 'er-apps/FasterNotes',
         main: 'index'
+    }, {    
+        name: 'rapidupdown',
+        location: 'er-apps/RapidUpDown',
+        main: 'index'
     }, {
         name: 'tanpura',
         location: 'er-libs/tanpura',
