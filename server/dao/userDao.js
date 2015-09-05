@@ -22,6 +22,19 @@ exports.update = function(req, res) {
 	});
 }
 
+exports.activate = function(req, res) {
+	User.findById(req.params.id,function(err, user) {
+		if (err) return handleError(err);
+		if(!user.isActive)
+		{
+			require("../email/notifier.js").SendActivationEmail(user.local.email,user.name);
+			user.isActive = true;
+			user.save();
+		}
+		res.send(user);
+	});
+}
+
 exports.find = function(req, res) {
 	User
 		.findOne({
