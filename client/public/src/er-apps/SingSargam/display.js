@@ -82,6 +82,7 @@ define([], function() {
 
 		var pointGroup;
 		var pointGroup2;
+		var pointGroup3;
 		this.plotData = function(data) {
 			pointGroup = svg.append("g");
 			pointGroup.selectAll("rect")
@@ -91,6 +92,7 @@ define([], function() {
 				.attr("x", function(d, i) {
 					return xScale(i * 64 / 48);
 				}).attr("y", function(d) {
+					if (Number.isNaN(d)) return yScale(-100);
 					return yScale(Math.round(d));
 				}).attr("width", 1500/timeRange)
 				.attr("height", 2);
@@ -99,20 +101,20 @@ define([], function() {
 		};
 
 		this.plotData2 = function(data, data2) {
-			// pointGroup = svg.append("g");
-			// pointGroup.selectAll("rect")
-			// 	.data(data)
-			// 	.enter()
-			// 	.append("rect")
-			// 	.attr("x", function(d, i) {
-			// 		return xScale(i * 64 / 48);
-			// 	}).attr("y", function(d) {
-			// 		return yScale(d*10);
-			// 	}).attr("width", 1500/timeRange)
-			// 	.attr("height", 2);
-			var first = data2[0].pitch;
 			pointGroup2 = svg.append("g");
 			pointGroup2.selectAll("rect")
+				.data(data)
+				.enter()
+				.append("rect")
+				.attr("x", function(d, i) {
+					return xScale(i * 64 / 48);
+				}).attr("y", function(d) {
+					return yScale(d*10);
+				}).attr("width", 1500/timeRange)
+				.attr("height", 2);
+			var first = data2[0].pitch;
+			pointGroup3 = svg.append("g");
+			pointGroup3.selectAll("rect")
 				.data(data2)
 				.enter()
 				.append("rect")
@@ -188,6 +190,8 @@ define([], function() {
 				pointGroup.remove();
 			if (pointGroup2)
 				pointGroup2.remove();
+			if (pointGroup3)
+				pointGroup3.remove();
 			svg.selectAll("circle").remove();
 			svg.select('#cursor').remove();
 		};
