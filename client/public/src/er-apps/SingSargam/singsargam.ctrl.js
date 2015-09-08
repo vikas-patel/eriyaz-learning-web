@@ -1,14 +1,15 @@
-  define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'webaudioplayer', 'pitchdetector', 'music-calc', 'recorderworker'],
-    function(app, Display, MicUtil, CurrentAudioContext, AudioBuffer, WebAudioPlayer, PitchDetector, MusicCalc, recorderWorker) {
+  define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'webaudioplayer', 'pitchdetector', 'music-calc', 'recorderworker', 'intensityfilter'],
+    function(app, Display, MicUtil, CurrentAudioContext, AudioBuffer, WebAudioPlayer, PitchDetector, MusicCalc, recorderWorker, IntensityFilter) {
       var audioContext = CurrentAudioContext.getInstance();
-      var isStarted = false;
       var recBufferSize = 8192;
 
-      app.controller('FreestylePhrasesCtrl', function($scope, PitchModel, DialModel) {
+      app.controller('SingSargamCtrl', function($scope, PitchModel, DialModel) {
+        $scope.isStarted = false;
+        $scope.isPlayReady = false;
         var display = new Display();
         var detector = PitchDetector.getDetector('wavelet', audioContext.sampleRate);
         var updatePitch = function(data) {
-          if (isStarted) {
+          if ($scope.isStarted) {
             recorderWorker.postMessage({
               command: 'record',
               floatarray: data
@@ -25,6 +26,8 @@
         recorderWorker.onmessage = function(e) {
           switch (e.data.command) {
             case 'concat':
+              $scope.isPlayReady = true;
+              $scope.$apply();
               computePitchGraph(e.data.floatarray);
               playConcatenated(e.data.floatarray);
               globalArray = e.data.floatarray;
@@ -52,6 +55,9 @@
           var incr = 64;
           var buffsize = 2048;
           var pitchArray = [];
+          var volumeArray = [];
+          var diffVolArray = [];
+          var volLast = 0;
           while (offset + buffsize < floatarray.length) {
             var subarray = new Float32Array(buffsize);
             for (var i = 0; i < buffsize; i++) {
@@ -59,25 +65,57 @@
             }
             // floatarray.subarray(offset,offset+buffsize);
             var pitch = detector.findPitch(subarray);
+            var volume = IntensityFilter.rootMeanSquare(subarray);
             if (pitch !== 0) {
               PitchModel.currentFreq = pitch;
               PitchModel.currentInterval = MusicCalc.getCents(PitchModel.rootFreq, PitchModel.currentFreq) / 100;
-              pitchArray.push(PitchModel.currentInterval);
-            } else pitchArray.push(-100);
+              pitchArray.push(Math.round(PitchModel.currentInterval));
+            } else {
+                pitchArray.push(Number.NaN);
+            }
+            volumeArray.push(volume);
+            diffVolArray.push(volume - volLast);
+            volLast = volume;
             offset = offset + incr;
           }
+          var maxMinArray = [];
+          var lastValue = 0;
+          for (var i=20; i< volumeArray.length; i=i+10) {
+              if (volumeArray[i] > volumeArray[i-10] && volumeArray[i] > volumeArray[i+10]) {
+                maxMinArray.push({index:i, value: volumeArray[i], jump: volumeArray[i]-lastValue});
+                lastValue = volumeArray[i];
+              }
+              if (volumeArray[i] < volumeArray[i-10] && volumeArray[i] < volumeArray[i+10]) {
+                maxMinArray.push({index:i, value: volumeArray[i], jump:volumeArray[i]-lastValue});
+                lastValue = volumeArray[i];
+              }
+          }
           display.plotData(pitchArray);
+          var sortArray = _.sortBy(maxMinArray, function(num){ return -num.jump; });
+          var topArray = sortArray.slice(0, 5);
+          var returnArray = _.sortBy(topArray, function(num) {return num.index;});
+          for (var i=0; i<returnArray.length-1; i++) {
+            var copyArray = pitchArray.slice(returnArray[i].index, (returnArray[i].index + returnArray[i+1].index)/2);
+            console.log(copyArray);
+            var stdDev = IntensityFilter.standardDeviation(copyArray);
+            console.log("stdDev:"+stdDev);
+            var pitch = _.chain(copyArray).countBy().pairs().max(_.last).head().value();
+            returnArray[i].pitch = pitch;
+            console.log("pitch:"+pitch);
+          }
+          display.plotData2(volumeArray, returnArray);
         }
 
 
         $scope.signalOn = false;
-        $scope.startMic = function() {
+        $scope.mic = function() {
           if (!$scope.signalOn) {
             MicUtil.getMicAudioStream(
               function(stream) {
                 buffer = new AudioBuffer(audioContext, stream, recBufferSize);
                 buffer.addProcessor(updatePitch);
                 $scope.signalOn = true;
+                $scope.$apply();
               }
             );
           }
@@ -89,10 +127,10 @@
             command: 'clear'
           });
           display.clear();
-          isStarted = true;
+          $scope.isStarted = true;
         };
         $scope.stop = function() {
-          isStarted = false;
+          $scope.isStarted = false;
           concatBuffers();
         };
 

@@ -176,7 +176,7 @@
       }, {
         name: 'SargamTuner',
         thumb: 'er-shell/images/sargamtuner.jpg',
-        desc: 'Recognize out of tune swars of sargam.',
+        desc: 'Recognize off tune swars of sargam.',
         href: '#sargamtuner',
         appUrl: 'er-apps/SargamTuner/main.html',
         hotkeys: [
@@ -196,14 +196,14 @@
         name: 'FasterNotes',
         thumb: 'er-shell/images/fasternotes.jpg',
         desc: 'Speed up your note recognition.',
-        href: '#melakarta2',
+        href: '#fasternotes',
         appUrl: 'er-apps/FasterNotes/main.html',
         aspectRatio: 3/4,
       }, {
         name: 'RapidUpDown',
         thumb: 'er-shell/images/rapidupdown.jpg',
         desc: 'Speed Up your Up/Down recognition.',
-        href: '#melakarta2',
+        href: '#rapidupdown',
         appUrl: 'er-apps/RapidUpDown/main.html',
         hotkeys: [
           ['up', 'isSame()'],
@@ -211,6 +211,20 @@
           ['right', 'isDown()']
         ],
         aspectRatio: 3/4,
+      },{
+        name: 'SingSargam',
+        thumb: 'er-shell/images/singsargam.jpg',
+        desc: 'Sing Sargam and recognize off tune swars.',
+        href: '#singsargam',
+        appUrl: 'er-apps/SingSargam/main.html',
+        aspectRatio: 5 / 3,
+        hotkeys: [
+          ['r', 'start()'],
+          ['s', 'stop()'],
+          ['m', 'mic()'],
+          ['p', 'play()']
+        ],
+        show: true
       }];
       appsInfo.selectedIndex = -1;
       TimeMe.setIdleDurationInSeconds(60);

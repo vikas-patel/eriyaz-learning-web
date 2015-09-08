@@ -45,7 +45,8 @@ requirejs.config({
         'st-stretch' : 'ext-libs/soundtouch/stretch',
         'soundtouch' : 'ext-libs/soundtouch/soundtouch',
         'timeMe' : 'ext-libs/TimeMe/TImeMe',
-        'ng-table' : "ext-libs/bower_components/ng-table/dist/ng-table.min"
+        'ng-table' : "ext-libs/bower_components/ng-table/dist/ng-table.min",
+        'recorderworker' : 'er-libs/recorderworker'
     },
 
     // Add modules that do not support AMD
@@ -177,6 +178,10 @@ requirejs.config({
     }, {    
         name: 'rapidupdown',
         location: 'er-apps/RapidUpDown',
+        main: 'index'
+    }, {    
+        name: 'singsargam',
+        location: 'er-apps/SingSargam',
         main: 'index'
     }, {
         name: 'tanpura',

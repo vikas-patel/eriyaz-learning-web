@@ -1,4 +1,4 @@
-define(['pitchdetector', 'music-calc'], function(PitchDetector, MusicCalc) {
+define([], function() {
 	// Build a worker from an anonymous function body
 	var blobURL = URL.createObjectURL(new Blob(['(',
 

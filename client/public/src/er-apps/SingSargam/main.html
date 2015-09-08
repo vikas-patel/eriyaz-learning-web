@@ -1,0 +1,12 @@
+<div id="singsargam" ng-controller="SingSargamCtrl">
+            <div horizontal layout center class="header">
+                <paper-icon-button icon="settings-voice" ng-click="mic()"></paper-icon-button>
+		        <button id="setRoot" ng-disabled="!signalOn || isStarted" ng-click="start()">Record</button>
+                <button id="playRoot" ng-disabled="!signalOn || !isStarted" ng-click="stop()">Stop</button>
+		        <button id="playRoot" ng-disabled="!signalOn || isStarted || !isPlayReady" ng-click="replay()">Play</button>
+            </div>
+
+            <div class="container">
+                <div id="chartdiv"></div>
+            </div>
+</div>
