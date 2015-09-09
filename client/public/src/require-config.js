@@ -178,6 +178,10 @@ requirejs.config({
         name: 'rapidupdown',
         location: 'er-apps/RapidUpDown',
         main: 'index'
+    }, {    
+        name: 'extractnotes',
+        location: 'er-apps/ExtractNotes',
+        main: 'index'
     }, {
         name: 'tanpura',
         location: 'er-libs/tanpura',

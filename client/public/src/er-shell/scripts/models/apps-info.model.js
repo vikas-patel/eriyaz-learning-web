@@ -211,6 +211,13 @@
           ['right', 'isDown()']
         ],
         aspectRatio: 3/4,
+      }, {
+        name: 'ExtractNotes',
+        thumb: 'er-shell/images/extractnotes.jpg',
+        desc: 'Extract notes from a fast melody.',
+        href: '#extractnotes',
+        appUrl: 'er-apps/ExtractNotes/main.html',
+        aspectRatio: 3/4,
       }];
       appsInfo.selectedIndex = -1;
       TimeMe.setIdleDurationInSeconds(60);

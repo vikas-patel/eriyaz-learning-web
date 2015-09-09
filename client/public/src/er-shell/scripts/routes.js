@@ -406,6 +406,18 @@
                  resolve: {
                      onLoggedOutRedirect: checkLoginAndRedirect
                  }
+             }).
+             state('extractnotes', {
+                 url: '/extractnotes',
+                 onEnter: function(UIModel, AppsInfoModel) {
+                     UIModel.uiModel.showLoginDialog = false;
+                     UIModel.uiModel.showMenu = true;
+                     AppsInfoModel.setSelected(21);
+                     UIModel.uiModel.showAppDialog = true;
+                 },
+                 resolve: {
+                     onLoggedOutRedirect: checkLoginAndRedirect
+                 }
              });
          })
          .factory('authHttpResponseInterceptor', ['$q', '$location', '$window', function($q, $location, $window) {
