@@ -36,6 +36,7 @@ define([
     'fasternotes',
     'rapidupdown',
     'extractnotes',
+    'singsargam'
 ], function(angular) {
     'use strict';
 
@@ -69,6 +70,7 @@ define([
         'fasternotes',
         'rapidupdown',
         'extractnotes',
+        'singsargam',
 
         'ngResource',
         'angulartics',

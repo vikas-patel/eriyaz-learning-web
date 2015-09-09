@@ -1,14 +1,17 @@
-  define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'webaudioplayer', 'pitchdetector', 'music-calc', 'recorderworker'],
-    function(app, Display, MicUtil, CurrentAudioContext, AudioBuffer, WebAudioPlayer, PitchDetector, MusicCalc, recorderWorker) {
+  define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'webaudioplayer', 'pitchdetector', 'music-calc', 'recorderworker', 'intensityfilter', './melodyextractor'],
+    function(app, Display, MicUtil, CurrentAudioContext, AudioBuffer, WebAudioPlayer, PitchDetector, MusicCalc, recorderWorker, IntensityFilter, MelodyExtractor) {
       var audioContext = CurrentAudioContext.getInstance();
-      var isStarted = false;
       var recBufferSize = 8192;
+      var rootFreq = 123.4;
+      var numOfNotes = 4;
 
-      app.controller('FreestylePhrasesCtrl', function($scope, PitchModel, DialModel) {
+      app.controller('SingSargamCtrl', function($scope, PitchModel, DialModel) {
+        $scope.isStarted = false;
+        $scope.isPlayReady = false;
         var display = new Display();
         var detector = PitchDetector.getDetector('wavelet', audioContext.sampleRate);
         var updatePitch = function(data) {
-          if (isStarted) {
+          if ($scope.isStarted) {
             recorderWorker.postMessage({
               command: 'record',
               floatarray: data
@@ -25,6 +28,8 @@
         recorderWorker.onmessage = function(e) {
           switch (e.data.command) {
             case 'concat':
+              $scope.isPlayReady = true;
+              $scope.$apply();
               computePitchGraph(e.data.floatarray);
               playConcatenated(e.data.floatarray);
               globalArray = e.data.floatarray;
@@ -52,6 +57,8 @@
           var incr = 64;
           var buffsize = 2048;
           var pitchArray = [];
+          var volumeArray = [];
+          var volLast = 0;
           while (offset + buffsize < floatarray.length) {
             var subarray = new Float32Array(buffsize);
             for (var i = 0; i < buffsize; i++) {
@@ -59,25 +66,31 @@
             }
             // floatarray.subarray(offset,offset+buffsize);
             var pitch = detector.findPitch(subarray);
+            var volume = IntensityFilter.rootMeanSquare(subarray);
             if (pitch !== 0) {
-              PitchModel.currentFreq = pitch;
-              PitchModel.currentInterval = MusicCalc.getCents(PitchModel.rootFreq, PitchModel.currentFreq) / 100;
-              pitchArray.push(PitchModel.currentInterval);
-            } else pitchArray.push(-100);
+              currentInterval = MusicCalc.getCents(rootFreq, pitch) / 100;
+              pitchArray.push(Math.round(currentInterval));
+            } else {
+                pitchArray.push(Number.NaN);
+            }
+            volumeArray.push(volume);
             offset = offset + incr;
           }
           display.plotData(pitchArray);
+          var returnArray = MelodyExtractor.getMelody(volumeArray, pitchArray, numOfNotes);
+          display.plotData2(volumeArray, returnArray);
         }
 
 
         $scope.signalOn = false;
-        $scope.startMic = function() {
+        $scope.mic = function() {
           if (!$scope.signalOn) {
             MicUtil.getMicAudioStream(
               function(stream) {
                 buffer = new AudioBuffer(audioContext, stream, recBufferSize);
                 buffer.addProcessor(updatePitch);
                 $scope.signalOn = true;
+                $scope.$apply();
               }
             );
           }
@@ -89,10 +102,10 @@
             command: 'clear'
           });
           display.clear();
-          isStarted = true;
+          $scope.isStarted = true;
         };
         $scope.stop = function() {
-          isStarted = false;
+          $scope.isStarted = false;
           concatBuffers();
         };
 
