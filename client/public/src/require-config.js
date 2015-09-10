@@ -188,6 +188,10 @@ requirejs.config({
         location: 'er-apps/SingSargam',
         main: 'index'
     }, {
+        name: 'countnotes',
+        location: 'er-apps/CountNotes',
+        main: 'index'
+    }, {
         name: 'tanpura',
         location: 'er-libs/tanpura',
         main: 'tanpura'

@@ -232,6 +232,13 @@
           ['p', 'play()']
         ],
         show: true
+      }, {
+        name: 'CountNotes',
+        thumb: 'er-shell/images/countnotes.jpg',
+        desc: 'Extract notes from a fast melody.',
+        href: '#countnotes',
+        appUrl: 'er-apps/CountNotes/main.html',
+        aspectRatio: 3/4,
       }];
       appsInfo.selectedIndex = -1;
       TimeMe.setIdleDurationInSeconds(60);

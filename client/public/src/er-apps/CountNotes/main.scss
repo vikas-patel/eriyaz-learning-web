@@ -1,0 +1,45 @@
+#countnotes {
+    #score {
+      float:right;
+      margin-right: 10px;
+      margin-top:5px;
+      dt {
+        float: left;
+        clear: left;
+        width: 100px;
+        text-align: left;
+        // font-weight: bold;
+        // color:darkgrey;
+      }
+      dt:after {
+        content: ":";
+      }
+      dd {
+        margin: 0 0 0 100px;
+        // color:darkgrey;
+      }
+    }
+
+
+    #feedback {
+      font-weight:bold;
+      border:none;
+    }
+
+    .close-button {
+      position:absolute;
+      top:0px;
+      right:0px;
+      width:40px;
+      height:40px;
+      text-align:center;
+      color:black;
+      text-decoration : none;
+      font-size : 1.5em;
+      font-weight : 300;
+      &:hover {
+        cursor:pointer;
+        cursor:hand;
+      }
+    }
+}
