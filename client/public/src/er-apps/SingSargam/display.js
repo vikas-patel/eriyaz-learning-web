@@ -83,7 +83,7 @@ define([], function() {
 		var pointGroup;
 		var pointGroup2;
 		var pointGroup3;
-		this.plotData = function(data) {
+		this.plotData = function(data, offset) {
 			pointGroup = svg.append("g");
 			pointGroup.selectAll("rect")
 				.data(data)
@@ -93,11 +93,9 @@ define([], function() {
 					return xScale(i * 64 / 48);
 				}).attr("y", function(d) {
 					if (Number.isNaN(d)) return yScale(-100);
-					return yScale(Math.round(d));
+					return yScale(Math.round(d) - offset);
 				}).attr("width", 1500/timeRange)
 				.attr("height", 2);
-			// console.log(data);
-			// console.log(data.length);
 		};
 
 		this.plotData2 = function(data, data2) {
@@ -126,23 +124,7 @@ define([], function() {
 				}).attr("width", 2)
 				.attr("height", 2);
 		}
-
-		this.plotData3 = function(data) {
-			pointGroup = svg.append("g");
-			pointGroup.selectAll("rect")
-				.data(data)
-				.enter()
-				.append("rect")
-				.attr("fill", "red")
-				.attr("x", function(d, i) {
-					return xScale(i * 64 / 48);
-				}).attr("y", function(d) {
-					return yScale(d*1000);
-				}).attr("width", 1500/timeRange)
-				.attr("height", 2);
-		}
-
-
+		
 		var remainingTime;
 		var count;
 		this.playAnimate = function(audioTime) {

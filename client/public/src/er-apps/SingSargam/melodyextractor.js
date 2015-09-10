@@ -1,6 +1,6 @@
 define([], function() {
 	return {
-		getMelody: function(volumeArray, pitchArray, numOfNotes) {
+		getMelody: function(volumeArray, pitchArray, numOfNotes, minSpan) {
 			// peak or bottom points
 			var maxMinArray = [];
           	var lastValue = 0;
@@ -14,18 +14,16 @@ define([], function() {
                 lastValue = volumeArray[i];
               }
           
-			}          
-			var sortArray = _.sortBy(maxMinArray, function(num){ return -num.jump; });
+			     }          
+			     var sortArray = _.sortBy(maxMinArray, function(num){ return -num.jump; });
           	var maxAttempts = 5;
           	var returnArray = [];
           	for (var attempt = 0; attempt < maxAttempts; attempt++) {
-              console.log("attempt:"+attempt);
               if (returnArray.length == numOfNotes) break;
               returnArray = [];
               var topArray = sortArray.slice(0, numOfNotes+attempt);
               topArray = _.sortBy(topArray, function(num) {return num.index;});
               for (var i=0; i<topArray.length; i++) {
-                  console.log("i:"+i);
                   if (returnArray.length >= numOfNotes) {
                     break;
                   }
@@ -41,12 +39,10 @@ define([], function() {
                   var pitch = _.chain(copyArray).countBy().pairs().max(_.last).head().value();
                   topArray[i].pitch = pitch;
                   topArray[i].span = end - start;
-                  if (!Number.isNaN(pitch) && pitch != "NaN") {
+                  if (!Number.isNaN(pitch) && pitch != "NaN" && (end-start > minSpan)) {
                       returnArray.push(topArray[i]);
                   }
               }
-              console.log(topArray);
-              console.log(returnArray);
           }
           return returnArray;
 		}

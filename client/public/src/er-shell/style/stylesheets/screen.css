@@ -2066,7 +2066,6 @@ core-drawer-panel:not([narrow]) #navicon {
   margin-top: -10px;
 }
 
-<<<<<<< HEAD
 /* line 2, ../../../er-apps/ExtractNotes/main.scss */
 #extractnotes #score {
   float: right;
@@ -2116,7 +2115,8 @@ core-drawer-panel:not([narrow]) #navicon {
 #extractnotes .close-button:hover {
   cursor: pointer;
   cursor: hand;
-=======
+}
+
 /* line 3, ../../../er-apps/SingSargam/main.scss */
 #singsargam #chartdiv {
   margin: 1% 0 0 0;
@@ -2151,5 +2151,19 @@ core-drawer-panel:not([narrow]) #navicon {
 /* line 34, ../../../er-apps/SingSargam/main.scss */
 #singsargam text {
   font-size: 10px;
->>>>>>> f152b19122ad4cc527b8a32a0a96d6b9d4384653
+}
+/* line 38, ../../../er-apps/SingSargam/main.scss */
+#singsargam #feedback {
+  font-weight: bold;
+  padding: 2% 0 0 2.5%;
+  border: none;
+}
+/* line 44, ../../../er-apps/SingSargam/main.scss */
+#singsargam .options {
+  padding: 2% 0 0 2.5%;
+  border: none;
+}
+/* line 49, ../../../er-apps/SingSargam/main.scss */
+#singsargam .margin-right {
+  margin: 0 0.5% 0 0;
 }
