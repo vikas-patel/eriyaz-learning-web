@@ -13,13 +13,13 @@
             
     <button ng-click="newSequence()"  ng-disabled="isPending">New</button>
     <button ng-click="repeatPlay()">Repeat</button>
-    <button ng-click="check()">Check</button>
+    <button ng-click="show()">Show</button>
 
     Duration <input type="text" ng-model="playTime"><br>
     Notes <input type="text" ng-model="numNotes"><br>
-    Distinct <input type="text" ng-model="maxDistinct"><br>
+    Max Distinct <input type="text" ng-model="maxDistinct"><br>
 
-    <button ng-repeat="noteCount in numDistinct">{{noteCount}}</button>
+    <button ng-repeat="noteCount in numDistinct" ng-click="check(noteCount)">{{noteCount}}</button>
     <div id="feedback" class="container">
         {{feedback}}
     </div>

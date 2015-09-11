@@ -4,7 +4,7 @@ define(['underscore'], function(_) {
 		var dhaNiOpts = [8,9,10,11];
 		this.getRandomSequence = getRandomSequence;
 
-		function getRandomSequence(maxDistinct,sequenceLength) {
+		function getRandomSequence(minDistinct,maxDistinct,sequenceLength) {
 			var reGa = _.shuffle(reGaOpts);
 			var dhaNi = _.shuffle(dhaNiOpts);
 			var ma = Math.random()>0.5 ? 5 : 6;
@@ -18,7 +18,7 @@ define(['underscore'], function(_) {
 			that.push(dhaNi[1]);
 			that.push(12);
 			
-			var numNotes = Math.floor(Math.random() * (maxDistinct-3)) + 3;
+			var numNotes = Math.floor(Math.random() * (maxDistinct-minDistinct + 1)) + minDistinct;
 			var selectedNotes = _.shuffle(that).slice(0,numNotes);
 
 			var sequence = [];

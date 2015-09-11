@@ -1,5 +1,5 @@
-define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'currentaudiocontext', 'tanpura', 'music-calc','underscore'],
-    function(app, sequenceGen, Display, Note, Player, CurrentAudioContext, Tanpura, MusicCalc,_) {
+define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'currentaudiocontext', 'tanpura', 'music-calc', 'underscore'],
+    function(app, sequenceGen, Display, Note, Player, CurrentAudioContext, Tanpura, MusicCalc, _) {
         var sequence;
         var audioContext = CurrentAudioContext.getInstance();
         var player = new Player(audioContext);
@@ -22,24 +22,40 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
             $scope.rootNote = 56;
             $scope.isSettings = false;
             $scope.isPending = false;
+            $scope.minDistinct = 2;
             $scope.maxDistinct = 4;
-            $scope.numDistinct = [3,4,5,6,7,8];
+            $scope.numDistinct = [3, 4, 5, 6, 7, 8];
             $scope.numNotes = 8;
             $scope.playTime = 500;
 
-            $scope.$watchGroup(['maxDistinct','playTime'])
+            $scope.$watchGroup(['maxDistinct', 'playTime'], function() {
+                playTime = parseInt($scope.playTime);
+                $scope.numDistinct = [];
+                var i = $scope.minDistinct;
+                while (i <= parseInt($scope.maxDistinct)) {
+                    $scope.numDistinct.push(i);
+                    i++;
+                }
+            });
 
             $scope.$on("$destroy", function() {
                 cancelCurrentLoop();
             });
 
-           
-            $scope.check = function(index) {
-                console.log(_.uniq(currSequence).sort());
+
+            $scope.check = function(num) {
+                $scope.total++;
+                if (num === _.uniq(currSequence).length) {
+                    $scope.correct++;
+                }
+            };
+
+            $scope.show = function() {
+                playSequence(_.uniq(currSequence).sort());
             };
 
             $scope.newSequence = function() {
-                currSequence = sequenceGen.getRandomSequence(3,8);
+                currSequence = sequenceGen.getRandomSequence(parseInt($scope.minDistinct),parseInt($scope.maxDistinct), parseInt($scope.numNotes));
                 playSequence(currSequence);
             };
 
@@ -47,8 +63,7 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
                 playSequence(currSequence);
             };
 
-         
-            
+
 
             function playSequence(sequence) {
                 cancelCurrentLoop();

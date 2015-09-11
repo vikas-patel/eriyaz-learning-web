@@ -1,4 +1,4 @@
-define(['./module', './thatgen', './display', 'note', 'webaudioplayer', 'currentaudiocontext', 'tanpura','music-calc'], function(app, thatGen, Display, Note, Player, CurrentAudioContext, Tanpura, MusicCalc) {
+define(['./module', './thatgen', './display', 'note', 'webaudioplayer', 'currentaudiocontext', 'tanpura', 'music-calc'], function(app, thatGen, Display, Note, Player, CurrentAudioContext, Tanpura, MusicCalc) {
     var sequence;
     var audioContext = CurrentAudioContext.getInstance();
     var player = new Player(audioContext);
@@ -8,6 +8,7 @@ define(['./module', './thatgen', './display', 'note', 'webaudioplayer', 'current
         $scope.avroh = false;
         $scope.rootNote = 56;
         $scope.tanpuraOn = true;
+        $scope.duration = 2000;
 
         var tanpura = null;
 
@@ -38,6 +39,10 @@ define(['./module', './thatgen', './display', 'note', 'webaudioplayer', 'current
             baseFreq = MusicCalc.midiNumToFreq(currRoot);
         });
 
+
+        $scope.$watch('duration', function() {
+            playTime = parseInt($scope.duration);
+        });
 
         $scope.$on("$destroy", function() {
             cancelCurrentLoop();
