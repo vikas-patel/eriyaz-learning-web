@@ -36,7 +36,7 @@ define([], function() {
                     end = (topArray[i].index + topArray[i+1].index)/2;
                   }
                   var copyArray = pitchArray.slice(start, end);
-                  var pitch = _.chain(copyArray).countBy().pairs().max(_.last).head().value();
+                  var pitch = _.chain(copyArray).countBy(function(num){return Math.round(num);}).pairs().max(_.last).head().value();
                   topArray[i].pitch = pitch;
                   topArray[i].span = end - start;
                   if (!Number.isNaN(pitch) && pitch != "NaN" && (end-start > minSpan)) {
@@ -44,6 +44,7 @@ define([], function() {
                   }
               }
           }
+          console.log(returnArray);
           return returnArray;
 		}
 	};

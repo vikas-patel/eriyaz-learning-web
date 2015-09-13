@@ -10,9 +10,10 @@ define([], function() {
 
 		var width = 400;
 		var height = 200;
-
+		var barH = height/25;
 
 		var timeRange = 15000;
+		var sargam = [0, 2, 4, 5, 7, 9, 11, 12];
 
 
 
@@ -69,7 +70,13 @@ define([], function() {
 		var yAxisGroup = svg.append("g")
 			.attr("class", "y axis")
 			.attr("transform", "translate(" + width + ",0)")
-			.call(yAxis);
+			.call(yAxis)
+			.call(adjustTextLabels);
+
+		function adjustTextLabels(selection) {
+		    	selection.selectAll('.tick text')
+		        .attr('transform', 'translate(0,-' + barH / 2 + ')');
+		}
 
 		svg.append("svg:line")
 			.attr("id", "center-line")
@@ -83,9 +90,9 @@ define([], function() {
 		var pointGroup;
 		var pointGroup2;
 		var pointGroup3;
-		this.plotData = function(data, offset) {
+		this.plotData = function(data, offset, notes) {
 			pointGroup = svg.append("g");
-			pointGroup.selectAll("rect")
+			pointGroup.selectAll("rect.bar")
 				.data(data)
 				.enter()
 				.append("rect")
@@ -93,9 +100,41 @@ define([], function() {
 					return xScale(i * 64 / 48);
 				}).attr("y", function(d) {
 					if (Number.isNaN(d)) return yScale(-100);
-					return yScale(Math.round(d) - offset);
-				}).attr("width", 1500/timeRange)
-				.attr("height", 2);
+					return yScale(Math.round(d) - offset) - barH;
+				}).attr("width", 1000/timeRange)
+				.attr("height", barH)
+				.attr("fill", "#2BB03B");
+				//.attr("fill", "#E79797");
+
+				pointGroup.selectAll("rect.line")
+				.data(data)
+				.enter()
+				.append("rect")
+				.attr("x", function(d, i) {
+					return xScale(i * 64 / 48);
+				}).attr("y", function(d) {
+					if (Number.isNaN(d)) return yScale(-100);
+					return yScale(d - offset) - barH/2;
+				}).attr("width", 1000/timeRange)
+				.attr("height", 1);
+
+				pointGroup.selectAll("text")
+				.data(notes)
+				.enter()
+				.append("text")
+				.attr("x", function(d, i) {
+					return xScale((d.index + d.span/2)*64/48);
+				})
+				.attr("y", function(d) {
+					return yScale(d.pitch - offset) - barH*1.5;
+				})
+				.attr("class", "tick")
+				.style("text-anchor", "middle")
+				.text(function(d, i) {
+					if (d.pitch - offset == sargam[i]) return "✓";
+					else if (d.pitch - offset < sargam[i]) return "⇩";
+					else return "⇧";
+				});
 		};
 
 		this.plotData2 = function(data, data2) {
@@ -124,7 +163,7 @@ define([], function() {
 				}).attr("width", 2)
 				.attr("height", 2);
 		}
-		
+
 		var remainingTime;
 		var count;
 		this.playAnimate = function(audioTime) {

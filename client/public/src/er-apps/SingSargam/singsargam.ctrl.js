@@ -99,7 +99,7 @@
             
             if (pitch !== 0) {
               currentInterval = MusicCalc.getCents(rootFreq, pitch) / 100;
-              pitchArray.push(Math.round(currentInterval));
+              pitchArray.push(currentInterval);
               validPoints++;
             } else {
                 pitchArray.push(Number.NaN);
@@ -108,7 +108,6 @@
             offset = offset + incr;
           }
           minSpan = validPoints/(numOfNotes*4);
-          console.log("minSpan:"+minSpan);
         }
 
 
@@ -147,7 +146,6 @@
 
         $scope.checkAnswer = function(value) {
             $scope.total++;
-            console.log("answer:"+value);
             if (value == $scope.offTuneNote.value) {
                 $scope.feedback = "Correct! Off tune note  : " + $scope.offTuneNote.name;
                 $scope.correct++;
@@ -155,7 +153,7 @@
                 $scope.feedback = "Oops! Off tune note : " + $scope.offTuneNote.name;
             }
             $scope.showOptions = false;
-            display.plotData(pitchArray, sangNotes[0].pitch);
+            display.plotData(pitchArray, sangNotes[0].pitch, sangNotes);
             //display.plotData2(volumeArray, sangNotes);
         };
       });
