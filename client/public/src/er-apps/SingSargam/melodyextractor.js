@@ -33,18 +33,19 @@ define([], function() {
                     end = start + returnArray[0].span;
                     if (end > pitchArray.length) end = pitchArray.length -1;
                   } else {
-                    end = (topArray[i].index + topArray[i+1].index)/2;
+                    end = topArray[i+1].index;
                   }
-                  var copyArray = pitchArray.slice(start, end);
-                  var pitch = _.chain(copyArray).countBy(function(num){return Math.round(num);}).pairs().max(_.last).head().value();
-                  topArray[i].pitch = pitch;
+                  var subsetPitchArray = pitchArray.slice(start, end);
+                  var pitchNear = _.chain(subsetPitchArray).countBy(function(num){return Math.floor(num);}).pairs().max(_.last).head().value();
+                  var pitchInRange = _.filter(subsetPitchArray, function(num){ return Math.floor(num-pitchNear) == 0 });
+                  var pitch = _.reduce(pitchInRange, function(memo, num){ return memo + num;}, 0) / pitchInRange.length;
+                  topArray[i].pitch = Math.round(pitch*100)/100;
                   topArray[i].span = end - start;
                   if (!Number.isNaN(pitch) && pitch != "NaN" && (end-start > minSpan)) {
                       returnArray.push(topArray[i]);
                   }
               }
           }
-          console.log(returnArray);
           return returnArray;
 		}
 	};

@@ -100,7 +100,7 @@ define([], function() {
 					return xScale(i * 64 / 48);
 				}).attr("y", function(d) {
 					if (Number.isNaN(d)) return yScale(-100);
-					return yScale(Math.round(d) - offset) - barH;
+					return yScale(Math.round(d - offset)) - barH;
 				}).attr("width", 1000/timeRange)
 				.attr("height", barH)
 				.attr("fill", "#2BB03B");
@@ -126,13 +126,13 @@ define([], function() {
 					return xScale((d.index + d.span/2)*64/48);
 				})
 				.attr("y", function(d) {
-					return yScale(d.pitch - offset) - barH*1.5;
+					return yScale(Math.round(d.pitch - offset)) - barH*1.5;
 				})
 				.attr("class", "tick")
 				.style("text-anchor", "middle")
 				.text(function(d, i) {
-					if (d.pitch - offset == sargam[i]) return "✓";
-					else if (d.pitch - offset < sargam[i]) return "⇩";
+					if (Math.round(d.pitch - offset) == sargam[i]) return "✓";
+					else if (Math.round(d.pitch - offset) < sargam[i]) return "⇩";
 					else return "⇧";
 				});
 		};
@@ -176,7 +176,6 @@ define([], function() {
 		function playPage() {
 			if (remainingTime > 0) {
 				if (count > 0) {
-					console.log('ncount');
 					pointGroup.attr("transform", "translate(" + -1 * xScale(timeRange * count) + ",0)");
 				}
 				if (remainingTime > timeRange) {

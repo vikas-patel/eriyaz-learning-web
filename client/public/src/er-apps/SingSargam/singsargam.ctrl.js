@@ -43,7 +43,6 @@
               $scope.$apply();
               computePitch(e.data.floatarray);
               sangNotes = MelodyExtractor.getMelody(volumeArray, pitchArray, numOfNotes, minSpan);
-              console.log(sangNotes);
               findOffTuneNote();
               globalArray = e.data.floatarray;
               $scope.feedback = "Select the first off tune note.";
@@ -57,7 +56,7 @@
             var rootPitch = sangNotes[0].pitch;
             for (var i=1; i<sangNotes.length; i++) {
               var pitch = sangNotes[i].pitch - rootPitch;
-              if (pitch != expectedNotes[i].value) {
+              if (Math.round(pitch) != expectedNotes[i].value) {
                 $scope.offTuneNote = expectedNotes[i];
                 return;
               }
@@ -98,7 +97,7 @@
             var volume = IntensityFilter.rootMeanSquare(subarray);
             
             if (pitch !== 0) {
-              currentInterval = MusicCalc.getCents(rootFreq, pitch) / 100;
+              currentInterval = Math.round(MusicCalc.getCents(rootFreq, pitch)) / 100;
               pitchArray.push(currentInterval);
               validPoints++;
             } else {
@@ -107,7 +106,7 @@
             volumeArray.push(volume);
             offset = offset + incr;
           }
-          minSpan = validPoints/(numOfNotes*4);
+          minSpan = validPoints/(numOfNotes*3);
         }
 
 
