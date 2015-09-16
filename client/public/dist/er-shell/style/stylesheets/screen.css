@@ -734,6 +734,97 @@ core-drawer-panel:not([narrow]) #navicon {
   text-align: left;
 }
 
+/* line 2, ../sass/pages/_journal.scss */
+#journal .selectBox {
+  margin-top: 5px;
+  border: 1px solid #e1e8ed;
+  border-radius: 0.2em;
+  color: gray;
+}
+/* line 9, ../sass/pages/_journal.scss */
+#journal option[value=""] {
+  color: gray;
+}
+/* line 13, ../sass/pages/_journal.scss */
+#journal option {
+  color: black;
+}
+/* line 17, ../sass/pages/_journal.scss */
+#journal .post-box {
+  width: 50%;
+  margin-top: 5px;
+}
+/* line 21, ../sass/pages/_journal.scss */
+#journal textarea {
+  width: 80%;
+  /* the inital width of the textarea */
+  height: 4em;
+  /* the inital height of the textarea */
+  max-width: 40em;
+  /* the maximum width of the textarea */
+  max-height: 10em;
+  /* the maximum height of the textarea */
+  padding: 1em;
+  /* space on all directions */
+  font-family: "Montserrat", "sans-serif";
+  font-size: 1.2em;
+  border: 1px solid #e1e8ed;
+  border-radius: 0.5em;
+  border-color: #BFE0EC !important;
+}
+/* line 37, ../sass/pages/_journal.scss */
+#journal .button-box {
+  width: 85%;
+}
+/* line 41, ../sass/pages/_journal.scss */
+#journal .button-submit {
+  float: right;
+  background: #0084B4;
+  border-color: transparent;
+  color: white;
+  padding: 9px 16px 8px 17px;
+  text-align: center;
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: normal;
+  border-radius: 4px;
+}
+/* line 55, ../sass/pages/_journal.scss */
+#journal .container {
+  text-align: left;
+  width: 50%;
+  clear: both;
+}
+/* line 61, ../sass/pages/_journal.scss */
+#journal .list {
+  border-top: 1px solid #e1e8ed;
+}
+/* line 65, ../sass/pages/_journal.scss */
+#journal .item {
+  background: #fff;
+  border-left: 1px solid #e1e8ed;
+  border-right: 1px solid #e1e8ed;
+  background-clip: padding-box;
+  padding: 9px 12px;
+  border-bottom: 1px solid #e1e8ed;
+  font-size: 14px;
+  text-align: left;
+  line-height: 22px;
+  font-weight: 400;
+}
+/* line 78, ../sass/pages/_journal.scss */
+#journal .small {
+  float: right;
+  color: #8899a6;
+  font-size: 12px;
+}
+/* line 84, ../sass/pages/_journal.scss */
+#journal .post-content {
+  clear: both;
+  font-size: 1.2em;
+}
+
 /* line 1, ../sass/pages/_contact.scss */
 #contact {
   margin: 5%;
@@ -1949,4 +2040,271 @@ core-drawer-panel:not([narrow]) #navicon {
 /* line 77, ../../../er-apps/Melakarta2/main.scss */
 #melakarta2 .x.axis path {
   fill: none;
+}
+
+/* line 2, ../../../er-apps/FasterNotes/main.scss */
+#fasternotes #score {
+  float: right;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+/* line 6, ../../../er-apps/FasterNotes/main.scss */
+#fasternotes #score dt {
+  float: left;
+  clear: left;
+  width: 100px;
+  text-align: left;
+}
+/* line 14, ../../../er-apps/FasterNotes/main.scss */
+#fasternotes #score dt:after {
+  content: ":";
+}
+/* line 17, ../../../er-apps/FasterNotes/main.scss */
+#fasternotes #score dd {
+  margin: 0 0 0 100px;
+}
+/* line 24, ../../../er-apps/FasterNotes/main.scss */
+#fasternotes svg {
+  margin-top: 10px;
+}
+/* line 27, ../../../er-apps/FasterNotes/main.scss */
+#fasternotes ul {
+  columns: 3;
+  -webkit-columns: 3;
+  -moz-columns: 3;
+}
+/* line 33, ../../../er-apps/FasterNotes/main.scss */
+#fasternotes li button {
+  width: 60%;
+}
+/* line 46, ../../../er-apps/FasterNotes/main.scss */
+#fasternotes .container {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 3%;
+  border-top: solid;
+  border-width: 1px;
+  border-color: #E3E3E3;
+}
+/* line 59, ../../../er-apps/FasterNotes/main.scss */
+#fasternotes #feedback {
+  font-weight: bold;
+  border: none;
+}
+/* line 68, ../../../er-apps/FasterNotes/main.scss */
+#fasternotes .x.axis line {
+  stroke: #ccc;
+  stroke-width: 1px;
+}
+/* line 73, ../../../er-apps/FasterNotes/main.scss */
+#fasternotes .x.axis .minor {
+  stroke-opacity: .5;
+}
+/* line 77, ../../../er-apps/FasterNotes/main.scss */
+#fasternotes .x.axis path {
+  fill: none;
+}
+
+/* line 7, ../../../er-apps/RapidUpDown/main.scss */
+#rapidupdown .container-toplevel {
+  width: 100%;
+}
+/* line 16, ../../../er-apps/RapidUpDown/main.scss */
+#rapidupdown #backdrop {
+  fill: #252525;
+}
+/* line 19, ../../../er-apps/RapidUpDown/main.scss */
+#rapidupdown h4 {
+  margin-bottom: 15px;
+}
+/* line 25, ../../../er-apps/RapidUpDown/main.scss */
+#rapidupdown #display, #rapidupdown #top-panel, #rapidupdown #bottom-panel {
+  width: 95%;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* line 32, ../../../er-apps/RapidUpDown/main.scss */
+#rapidupdown #score {
+  float: right;
+  margin-right: 5px;
+}
+/* line 38, ../../../er-apps/RapidUpDown/main.scss */
+#rapidupdown .controls {
+  margin-top: 30%;
+  padding-left: 10%;
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  *zoom: 1;
+}
+/* line 12, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/susy-2.2.2/sass/susy/output/support/_clearfix.scss */
+#rapidupdown .controls:after {
+  content: " ";
+  display: block;
+  clear: both;
+}
+/* line 45, ../../../er-apps/RapidUpDown/main.scss */
+#rapidupdown .controls .filler, #rapidupdown .controls img, #rapidupdown .controls button {
+  display: block;
+  float: left;
+  width: 28.57143%;
+  height: 4em;
+}
+/* line 51, ../../../er-apps/RapidUpDown/main.scss */
+#rapidupdown .controls #leftbutton, #rapidupdown .controls #rightbutton, #rapidupdown .controls img {
+  margin-top: -10px;
+}
+
+/* line 2, ../../../er-apps/ExtractNotes/main.scss */
+#extractnotes #score {
+  float: right;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+/* line 6, ../../../er-apps/ExtractNotes/main.scss */
+#extractnotes #score dt {
+  float: left;
+  clear: left;
+  width: 100px;
+  text-align: left;
+}
+/* line 14, ../../../er-apps/ExtractNotes/main.scss */
+#extractnotes #score dt:after {
+  content: ":";
+}
+/* line 17, ../../../er-apps/ExtractNotes/main.scss */
+#extractnotes #score dd {
+  margin: 0 0 0 100px;
+}
+/* line 24, ../../../er-apps/ExtractNotes/main.scss */
+#extractnotes button.click-note {
+  width: 75%;
+  padding: 5px;
+  margin: 5px;
+}
+/* line 31, ../../../er-apps/ExtractNotes/main.scss */
+#extractnotes #feedback {
+  font-weight: bold;
+  border: none;
+}
+/* line 36, ../../../er-apps/ExtractNotes/main.scss */
+#extractnotes .close-button {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  color: black;
+  text-decoration: none;
+  font-size: 1.5em;
+  font-weight: 300;
+}
+/* line 47, ../../../er-apps/ExtractNotes/main.scss */
+#extractnotes .close-button:hover {
+  cursor: pointer;
+  cursor: hand;
+}
+
+/* line 3, ../../../er-apps/SingSargam/main.scss */
+#singsargam #chartdiv {
+  margin: 1% 0 0 0;
+}
+/* line 7, ../../../er-apps/SingSargam/main.scss */
+#singsargam .line {
+  fill: none;
+  stroke: #999;
+  stroke-width: 1.5px;
+}
+/* line 13, ../../../er-apps/SingSargam/main.scss */
+#singsargam #cursor {
+  stroke: red;
+  stroke-width: 1px;
+}
+/* line 18, ../../../er-apps/SingSargam/main.scss */
+#singsargam #mainline {
+  stroke: blue;
+}
+/* line 22, ../../../er-apps/SingSargam/main.scss */
+#singsargam .axis path,
+#singsargam .axis line {
+  fill: none;
+  stroke: #999;
+  shape-rendering: crispEdges;
+}
+/* line 29, ../../../er-apps/SingSargam/main.scss */
+#singsargam #center-line {
+  stroke: #999;
+  stroke-width: 1px;
+}
+/* line 34, ../../../er-apps/SingSargam/main.scss */
+#singsargam text {
+  font-size: 10px;
+}
+/* line 38, ../../../er-apps/SingSargam/main.scss */
+#singsargam #feedback {
+  font-weight: bold;
+  padding: 2% 0 0 2.5%;
+  border: none;
+}
+/* line 44, ../../../er-apps/SingSargam/main.scss */
+#singsargam .options {
+  padding: 2% 0 0 2.5%;
+  border: none;
+}
+/* line 49, ../../../er-apps/SingSargam/main.scss */
+#singsargam .margin-right {
+  margin: 0 0.5% 0 0;
+}
+/* line 53, ../../../er-apps/SingSargam/main.scss */
+#singsargam text.tick {
+  fill: #B03B2B;
+  font-weight: bold;
+}
+
+/* line 2, ../../../er-apps/CountNotes/main.scss */
+#countnotes #score {
+  float: right;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+/* line 6, ../../../er-apps/CountNotes/main.scss */
+#countnotes #score dt {
+  float: left;
+  clear: left;
+  width: 100px;
+  text-align: left;
+}
+/* line 14, ../../../er-apps/CountNotes/main.scss */
+#countnotes #score dt:after {
+  content: ":";
+}
+/* line 17, ../../../er-apps/CountNotes/main.scss */
+#countnotes #score dd {
+  margin: 0 0 0 100px;
+}
+/* line 24, ../../../er-apps/CountNotes/main.scss */
+#countnotes #feedback {
+  font-weight: bold;
+  border: none;
+}
+/* line 29, ../../../er-apps/CountNotes/main.scss */
+#countnotes .close-button {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  color: black;
+  text-decoration: none;
+  font-size: 1.5em;
+  font-weight: 300;
+}
+/* line 40, ../../../er-apps/CountNotes/main.scss */
+#countnotes .close-button:hover {
+  cursor: pointer;
+  cursor: hand;
 }
