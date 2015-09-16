@@ -734,12 +734,27 @@ core-drawer-panel:not([narrow]) #navicon {
   text-align: left;
 }
 
-/* line 3, ../sass/pages/_journal.scss */
+/* line 2, ../sass/pages/_journal.scss */
+#journal .selectBox {
+  margin-top: 5px;
+  border: 1px solid #e1e8ed;
+  border-radius: 0.2em;
+  color: gray;
+}
+/* line 9, ../sass/pages/_journal.scss */
+#journal option[value=""] {
+  color: gray;
+}
+/* line 13, ../sass/pages/_journal.scss */
+#journal option {
+  color: black;
+}
+/* line 17, ../sass/pages/_journal.scss */
 #journal .post-box {
   width: 50%;
   margin-top: 5px;
 }
-/* line 7, ../sass/pages/_journal.scss */
+/* line 21, ../sass/pages/_journal.scss */
 #journal textarea {
   width: 80%;
   /* the inital width of the textarea */
@@ -757,11 +772,11 @@ core-drawer-panel:not([narrow]) #navicon {
   border-radius: 0.5em;
   border-color: #BFE0EC !important;
 }
-/* line 23, ../sass/pages/_journal.scss */
+/* line 37, ../sass/pages/_journal.scss */
 #journal .button-box {
   width: 85%;
 }
-/* line 27, ../sass/pages/_journal.scss */
+/* line 41, ../sass/pages/_journal.scss */
 #journal .button-submit {
   float: right;
   background: #0084B4;
@@ -775,17 +790,17 @@ core-drawer-panel:not([narrow]) #navicon {
   line-height: normal;
   border-radius: 4px;
 }
-/* line 41, ../sass/pages/_journal.scss */
+/* line 55, ../sass/pages/_journal.scss */
 #journal .container {
   text-align: left;
   width: 50%;
   clear: both;
 }
-/* line 47, ../sass/pages/_journal.scss */
+/* line 61, ../sass/pages/_journal.scss */
 #journal .list {
   border-top: 1px solid #e1e8ed;
 }
-/* line 51, ../sass/pages/_journal.scss */
+/* line 65, ../sass/pages/_journal.scss */
 #journal .item {
   background: #fff;
   border-left: 1px solid #e1e8ed;
@@ -798,13 +813,13 @@ core-drawer-panel:not([narrow]) #navicon {
   line-height: 22px;
   font-weight: 400;
 }
-/* line 64, ../sass/pages/_journal.scss */
+/* line 78, ../sass/pages/_journal.scss */
 #journal .small {
   float: right;
   color: #8899a6;
   font-size: 12px;
 }
-/* line 70, ../sass/pages/_journal.scss */
+/* line 84, ../sass/pages/_journal.scss */
 #journal .post-content {
   clear: both;
   font-size: 1.2em;

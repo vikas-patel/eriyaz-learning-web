@@ -10,7 +10,7 @@
       //         $scope.myteacher = $.grep(resp, function(teacher){return teacher._id == data.teacher; })[0];
       //     });
       // });
-
+      $scope.predefinedMsgs = ["5 mins practice.", "10 mins practice.", "> 30 mins practice", "no practice"];
       $scope.postMessage = function() {
           var userId = $window.localStorage.userId;
           var body = {
@@ -36,7 +36,11 @@
               console.log("failed");
               console.log(data);
           });
-      }
+      };
+
+      $scope.chooseMessage = function() {
+        $scope.post = $scope.selectBox;
+      };
 
       $scope.getAllJournals();
      

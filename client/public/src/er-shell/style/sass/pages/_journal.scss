@@ -1,4 +1,18 @@
 #journal {
+    .selectBox {
+        margin-top:5px;
+        border: 1px solid #e1e8ed;
+        border-radius: 0.2em;
+        color:gray;
+    }
+
+    option[value=""] {
+      color:gray;
+    }
+
+    option {
+      color:black;
+    }
 
     .post-box {
         width: 50%;

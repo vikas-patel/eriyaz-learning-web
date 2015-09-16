@@ -1,4 +1,8 @@
 <div id="journal" ng-controller="JournalCtrl">
+	<div><select ng-model="selectBox" ng-change="chooseMessage()" class="selectBox"
+				ng-options="message for message in predefinedMsgs">
+			   		<option value="">-- Choose from predefined messages (optional) --</option>
+			    </select></div>
 	<div class="post-box">
 			<div>
 			    <textarea name="post" ng-model="post" autofocus='autofocus' placeholder="Write about your todays' practice here..."></textarea>
