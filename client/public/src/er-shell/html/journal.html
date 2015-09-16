@@ -1,0 +1,18 @@
+<div id="journal" ng-controller="JournalCtrl">
+	<div class="post-box">
+			<div>
+			    <textarea name="post" ng-model="post" autofocus='autofocus' placeholder="Write about your todays' practice here..."></textarea>
+			</div>
+		    <div class="button-box">
+			    <button class="button-submit" type="submit" ng-click="postMessage()">Post</button>
+			</div>
+	</div>
+	<div class="container">
+		<ol class="list">
+			<li ng-repeat="journal in journals | orderBy: 'date': true" class="item">
+				<div class="small">{{journal.date | date:'MMM d'}}</div>
+				<div class="post-content">{{journal.message}}</div>
+			</li>
+		</ol>
+	</div>
+</div>

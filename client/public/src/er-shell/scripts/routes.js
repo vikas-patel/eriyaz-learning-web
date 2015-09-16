@@ -113,6 +113,20 @@
                      onLoggedOutRedirect: checkLoginAndRedirect
                  }
              }).
+             state('journal', {
+                 url: '/journal',
+                 onEnter: function(UIModel) {
+                     UIModel.uiModel.showAppDialog = false;
+                     UIModel.uiModel.showLoginDialog = false;
+                     UIModel.uiModel.showFront = false;
+                     UIModel.uiModel.showMenu = true;
+                     UIModel.uiModel.title = 'My Journal';
+                     UIModel.uiModel.contentUrl = 'er-shell/html/journal.html';
+                 },
+                 resolve: {
+                     onLoggedOutRedirect: checkLoginAndRedirect
+                 }
+             }).
              state('profile', {
                  url: '/profile',
                  onEnter: function(UIModel) {

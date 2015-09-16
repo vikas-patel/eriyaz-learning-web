@@ -74,6 +74,9 @@ module.exports = function(app, passport) {
 	app.post('/users/time', isLoggedIn, userDao.addTime);
 	app.get('/users/time/:id', isLoggedIn, userDao.findTime);
 
+	app.post('/journal', userDao.addJournal);
+	app.get('/journal/:id', userDao.findAllJournal);
+
 	app.get('/teachers', isLoggedIn, userDao.findAllTeachers);
 	app.get('/teachers/students/:id', isLoggedIn, userDao.findAllStudentsByTeacher);
 
