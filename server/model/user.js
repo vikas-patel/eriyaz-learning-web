@@ -25,7 +25,9 @@ var UserSchema = new mongoose.Schema({
     isActive: { type : Boolean, default: true},
 	nodebb : {
 		uid: Number
-	}
+	},
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
 });
 
 // methods ======================

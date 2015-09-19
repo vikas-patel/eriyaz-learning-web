@@ -12,6 +12,19 @@
                 });
             },
 
+            reset: function(token, password) {
+                return $http.post(base_url+'/reset/' + token, {
+                    password:password
+                });
+            },
+
+
+            forgot: function(email) {
+                return $http.post(base_url+'/forgot', {
+                    email:email
+                });
+            },
+
             signUp: function(email, password, gender, name, mobile) {
                 return $http.post(base_url + '/signup', {
                     email: email,

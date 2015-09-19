@@ -65,6 +65,27 @@
                      UIModel.uiModel.showFront = true;
                  }
              }).
+             state('forgot', {
+                 url: '/forgot',
+                 onEnter: function(UIModel, LoginSignupDialogModel) {
+                     UIModel.uiModel.showMenu = false;
+                     UIModel.uiModel.showAppDialog = false;
+                     LoginSignupDialogModel.loginSignupDialogModel.selection = 'forgot';
+                     UIModel.uiModel.showFront = true;
+                     UIModel.uiModel.showLoginDialog = true;
+                 }
+             }).
+             state('reset', {
+                 url: '/reset/:token',
+                 onEnter: function(UIModel, LoginSignupDialogModel, $stateParams) {
+                     UIModel.uiModel.showMenu = false;
+                     UIModel.uiModel.showAppDialog = false;
+                     LoginSignupDialogModel.loginSignupDialogModel.selection = 'reset';
+                     LoginSignupDialogModel.loginSignupDialogModel.token = $stateParams.token;
+                     UIModel.uiModel.showFront = true;
+                     UIModel.uiModel.showLoginDialog = true;
+                 }
+             }).
              state('home', {
                  url: '/home',
                  onEnter: function(UIModel, AppsInfoModel) {
