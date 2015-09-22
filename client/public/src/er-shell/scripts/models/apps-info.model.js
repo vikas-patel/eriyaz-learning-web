@@ -231,7 +231,7 @@
           ['m', 'mic()'],
           ['p', 'play()']
         ],
-        show: false
+        show: true
       }, {
         name: 'CountNotes',
         thumb: 'er-shell/images/countnotes.jpg',

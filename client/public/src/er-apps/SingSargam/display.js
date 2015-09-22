@@ -1,6 +1,6 @@
 define([], function() {
 
-	var Display = function() {
+	var Display = function($scope) {
 		var margin = {
 			top: 10,
 			right: 30,
@@ -13,8 +13,6 @@ define([], function() {
 		var barH = height/25;
 
 		var timeRange = 15000;
-		var sargam = [0, 2, 4, 5, 7, 9, 11, 12];
-
 
 
 		var xScale = d3.time.scale()
@@ -22,7 +20,7 @@ define([], function() {
 			.range([0, width]);
 
 		var yScale = d3.scale.linear()
-			.domain([-12, 12])
+			.domain([-12, 16])
 			.range([height, 0]);
 
 		var xAxis = d3.svg.axis()
@@ -131,8 +129,8 @@ define([], function() {
 				.attr("class", "tick")
 				.style("text-anchor", "middle")
 				.text(function(d, i) {
-					if (Math.round(d.pitch - offset) == sargam[i]) return "✓";
-					else if (Math.round(d.pitch - offset) < sargam[i]) return "⇩";
+					if ((Math.round(d.pitch - offset)+12)%12 == $scope.level.notes[i]%12) return "✓";
+					else if ((Math.round(d.pitch - offset)+12)%12 < $scope.level.notes[i]%12) return "⇩";
 					else return "⇧";
 				});
 		};

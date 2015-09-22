@@ -2210,56 +2210,60 @@ core-drawer-panel:not([narrow]) #navicon {
 }
 
 /* line 3, ../../../er-apps/SingSargam/main.scss */
+#singsargam .score {
+  float: right;
+}
+/* line 7, ../../../er-apps/SingSargam/main.scss */
 #singsargam #chartdiv {
   margin: 1% 0 0 0;
 }
-/* line 7, ../../../er-apps/SingSargam/main.scss */
+/* line 11, ../../../er-apps/SingSargam/main.scss */
 #singsargam .line {
   fill: none;
   stroke: #999;
   stroke-width: 1.5px;
 }
-/* line 13, ../../../er-apps/SingSargam/main.scss */
+/* line 17, ../../../er-apps/SingSargam/main.scss */
 #singsargam #cursor {
   stroke: red;
   stroke-width: 1px;
 }
-/* line 18, ../../../er-apps/SingSargam/main.scss */
+/* line 22, ../../../er-apps/SingSargam/main.scss */
 #singsargam #mainline {
   stroke: blue;
 }
-/* line 22, ../../../er-apps/SingSargam/main.scss */
+/* line 26, ../../../er-apps/SingSargam/main.scss */
 #singsargam .axis path,
 #singsargam .axis line {
   fill: none;
   stroke: #999;
   shape-rendering: crispEdges;
 }
-/* line 29, ../../../er-apps/SingSargam/main.scss */
+/* line 33, ../../../er-apps/SingSargam/main.scss */
 #singsargam #center-line {
   stroke: #999;
   stroke-width: 1px;
 }
-/* line 34, ../../../er-apps/SingSargam/main.scss */
+/* line 38, ../../../er-apps/SingSargam/main.scss */
 #singsargam text {
   font-size: 10px;
 }
-/* line 38, ../../../er-apps/SingSargam/main.scss */
+/* line 42, ../../../er-apps/SingSargam/main.scss */
 #singsargam #feedback {
   font-weight: bold;
   padding: 2% 0 0 2.5%;
   border: none;
 }
-/* line 44, ../../../er-apps/SingSargam/main.scss */
+/* line 48, ../../../er-apps/SingSargam/main.scss */
 #singsargam .options {
   padding: 2% 0 0 2.5%;
   border: none;
 }
-/* line 49, ../../../er-apps/SingSargam/main.scss */
+/* line 53, ../../../er-apps/SingSargam/main.scss */
 #singsargam .margin-right {
   margin: 0 0.5% 0 0;
 }
-/* line 53, ../../../er-apps/SingSargam/main.scss */
+/* line 57, ../../../er-apps/SingSargam/main.scss */
 #singsargam text.tick {
   fill: #B03B2B;
   font-weight: bold;
