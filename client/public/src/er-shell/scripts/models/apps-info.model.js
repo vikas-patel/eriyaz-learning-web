@@ -206,7 +206,7 @@
         href: '#rapidupdown',
         appUrl: 'er-apps/RapidUpDown/main.html',
         hotkeys: [
-          ['up', 'isSame()'],
+          ['up', 'restart()'],
           ['left', 'isUp()'],
           ['right', 'isDown()']
         ],
@@ -238,6 +238,13 @@
         desc: 'Extract notes from a fast melody.',
         href: '#countnotes',
         appUrl: 'er-apps/CountNotes/main.html',
+        aspectRatio: 3/4,
+      }, {
+        name: 'TonesMemory',
+        thumb: 'er-shell/images/tonesmemory.jpg',
+        desc: 'Extract notes from a fast melody.',
+        href: '#tonesmemory',
+        appUrl: 'er-apps/TonesMemory/main.html',
         aspectRatio: 3/4,
       }];
       appsInfo.selectedIndex = -1;

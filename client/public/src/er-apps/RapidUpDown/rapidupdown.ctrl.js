@@ -16,6 +16,7 @@ define(['./module', 'webaudioplayer', 'currentaudiocontext', 'melody', 'note', '
         var intsArray = [-2, -1, 1, 2];
 
         var stopBeep;
+        var timerHandle;
 
         app.controller('RapidUpDownCtrl', function($scope, ScoreService, $interval) {
             $scope.timeout = true;
@@ -58,7 +59,7 @@ define(['./module', 'webaudioplayer', 'currentaudiocontext', 'melody', 'note', '
             function startTimer(duration) {
                 var timer = duration,
                     minutes, seconds;
-                var timerHandle = $interval(function() {
+                    timerHandle = $interval(function() {
                     minutes = parseInt(timer / 60, 10);
                     seconds = parseInt(timer % 60, 10);
 
@@ -103,6 +104,8 @@ define(['./module', 'webaudioplayer', 'currentaudiocontext', 'melody', 'note', '
                 currBase = MIDDLE_C;
                 currNote = MIDDLE_C;
                 resetScore();
+                console.log(timerHandle);
+                $interval.cancel(timerHandle);
                 $scope.start();
             };
 

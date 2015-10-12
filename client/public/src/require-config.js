@@ -192,6 +192,10 @@ requirejs.config({
         location: 'er-apps/CountNotes',
         main: 'index'
     }, {
+        name: 'tonesmemory',
+        location: 'er-apps/TonesMemory',
+        main: 'index'
+    }, {
         name: 'tanpura',
         location: 'er-libs/tanpura',
         main: 'tanpura'

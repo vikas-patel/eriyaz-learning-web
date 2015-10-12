@@ -442,6 +442,18 @@
                  resolve: {
                      onLoggedOutRedirect: checkLoginAndRedirect
                  }
+             }).
+             state('tonesmemory', {
+                 url: '/tonesmemory',
+                 onEnter: function(UIModel, AppsInfoModel) {
+                     UIModel.uiModel.showLoginDialog = false;
+                     UIModel.uiModel.showMenu = true;
+                     AppsInfoModel.setSelected(24);
+                     UIModel.uiModel.showAppDialog = true;
+                 },
+                 resolve: {
+                     onLoggedOutRedirect: checkLoginAndRedirect
+                 }
              });
          })
          .factory('authHttpResponseInterceptor', ['$q', '$location', '$window', function($q, $location, $window) {

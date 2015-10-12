@@ -38,6 +38,7 @@ define([
     'extractnotes',
     'singsargam',
     'countnotes',
+    'tonesmemory',
 ], function(angular) {
     'use strict';
 
@@ -73,6 +74,7 @@ define([
         'extractnotes',
         'singsargam',
         'countnotes',
+        'tonesmemory',
 
         'ngResource',
         'angulartics',
