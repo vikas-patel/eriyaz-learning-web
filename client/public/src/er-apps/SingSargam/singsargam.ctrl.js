@@ -1,5 +1,5 @@
-  define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'webaudioplayer', 'pitchdetector', 'music-calc', 'recorderworker', 'intensityfilter', './melodyextractor'],
-    function(app, Display, MicUtil, CurrentAudioContext, AudioBuffer, WebAudioPlayer, PitchDetector, MusicCalc, recorderWorker, IntensityFilter, MelodyExtractor) {
+  define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'webaudioplayer', 'pitchdetector', 'music-calc', 'recorderworker', 'intensityfilter', './melodyextractor', './levels'],
+    function(app, Display, MicUtil, CurrentAudioContext, AudioBuffer, WebAudioPlayer, PitchDetector, MusicCalc, recorderWorker, IntensityFilter, MelodyExtractor, levels) {
       var audioContext = CurrentAudioContext.getInstance();
       var recBufferSize = 8192;
       var rootFreq = 123.4;
@@ -8,19 +8,37 @@
       var volumeArray = [];
       var sangNotes = [];
       var minSpan;
-      var options = [{'name':'Re', 'value': 2}, {'name':'Ga', 'value': 4},
-                      {'name':'Ma', 'value': 5}, {'name':'None', 'value': -1}];
       var expectedNotes = [{'name':'Sa', 'value': 0}, {'name':'Re', 'value': 2}, {'name':'Ga', 'value': 4},
                       {'name':'Ma', 'value': 5}];
-
+      
       app.controller('SingSargamCtrl', function($scope, PitchModel, DialModel) {
         $scope.isStarted = false;
         $scope.isPlayReady = false;
-        $scope.options = options;
         $scope.showOptions = false;
-        var display = new Display();
+        var display = new Display($scope);
         $scope.feedback = "Start Mic";
         var detector = PitchDetector.getDetector('wavelet', audioContext.sampleRate);
+        $scope.count = 0;
+        $scope.right = 0;
+        $scope.levels = levels;
+        $scope.level = levels[0];
+        numOfNotes = levels[0].notes.length;
+        $scope.noteLabelMap = {0:"Sa", 2:"Re", 4:"Ga", 5:"Ma", 7:"Pa", 9:"Dha", 11:"Ni", 12:"Sa"};
+
+
+        $scope.$watch('level', function() {
+            numOfNotes = $scope.level.notes.length;
+        });
+
+        $scope.$watch('count', function() {
+            if ($scope.count == $scope.level.total) {
+                // Display score & save
+                $scope.score = $scope.right / $scope.count;
+                $scope.showOverlay = true;
+                ScoreService.save("SargamTuner", $scope.level.name, $scope.score);
+            }
+        });
+
         var updatePitch = function(data) {
           if ($scope.isStarted) {
             recorderWorker.postMessage({
@@ -43,7 +61,6 @@
               $scope.$apply();
               computePitch(e.data.floatarray);
               sangNotes = MelodyExtractor.getMelody(volumeArray, pitchArray, numOfNotes, minSpan);
-              console.log(sangNotes);
               findOffTuneNote();
               globalArray = e.data.floatarray;
               $scope.feedback = "Select the first off tune note.";
@@ -55,14 +72,16 @@
 
         function findOffTuneNote() {
             var rootPitch = sangNotes[0].pitch;
+            console.log(sangNotes);
             for (var i=1; i<sangNotes.length; i++) {
               var pitch = sangNotes[i].pitch - rootPitch;
-              if (pitch != expectedNotes[i].value) {
-                $scope.offTuneNote = expectedNotes[i];
+              if (pitch < 0) pitch +=12;
+              if (Math.round(pitch) != $scope.level.notes[i]) {
+                $scope.offTuneNote = $scope.level.notes[i];
                 return;
               }
             }
-            $scope.offTuneNote = {'name':'None', value: -1};
+            $scope.offTuneNote = -1;
         }
 
         function playConcatenated(floatarray) {
@@ -98,7 +117,7 @@
             var volume = IntensityFilter.rootMeanSquare(subarray);
             
             if (pitch !== 0) {
-              currentInterval = MusicCalc.getCents(rootFreq, pitch) / 100;
+              currentInterval = Math.round(MusicCalc.getCents(rootFreq, pitch)) / 100;
               pitchArray.push(currentInterval);
               validPoints++;
             } else {
@@ -107,7 +126,7 @@
             volumeArray.push(volume);
             offset = offset + incr;
           }
-          minSpan = validPoints/(numOfNotes*4);
+          minSpan = validPoints/(numOfNotes*3);
         }
 
 
@@ -132,8 +151,9 @@
           });
           display.clear();
           $scope.isStarted = true;
-          $scope.feedback = "Recording...";
+          $scope.feedback = "Sing " + noteLabels() + "\nRecording...";
         };
+
         $scope.stop = function() {
           $scope.isStarted = false;
           concatBuffers();
@@ -145,16 +165,32 @@
         };
 
         $scope.checkAnswer = function(value) {
-            $scope.total++;
-            if (value == $scope.offTuneNote.value) {
-                $scope.feedback = "Correct! Off tune note  : " + $scope.offTuneNote.name;
-                $scope.correct++;
+            $scope.count++;
+            console.log("offTuneNote:"+$scope.offTuneNote);
+            var offTuneNoteLabel = $scope.offTuneNote == -1 ? "None": $scope.noteLabelMap[$scope.offTuneNote];
+            if (value == $scope.offTuneNote) {
+                $scope.feedback = "Correct! Off tune note  : " + offTuneNoteLabel;
+                $scope.right++;
             } else {
-                $scope.feedback = "Oops! Off tune note : " + $scope.offTuneNote.name;
+                $scope.feedback = "Oops! Off tune note : " + offTuneNoteLabel;
             }
             $scope.showOptions = false;
             display.plotData(pitchArray, sangNotes[0].pitch, sangNotes);
             //display.plotData2(volumeArray, sangNotes);
         };
+
+        $scope.closeOverlay = function() {
+            $scope.showOverlay = false;
+            resetScore();
+        };
+
+        function resetScore() {
+            $scope.count = 0;
+            $scope.right = 0;
+        }
+
+        function noteLabels() {
+            return _.reduce($scope.level.notes, function(memo, num){ return memo + $scope.noteLabelMap[num]; }, "");
+        }
       });
     });

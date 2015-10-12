@@ -20,6 +20,16 @@ exports.SendWelcomeEmail = function(email_id,name){
 	mailgun.SendEMail(email);
 }
 
+exports.ResetPasswordEmail = function(emailAddress, req, token) {
+	var subject = "eRiyaz Password Reset";
+	var text = 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+	          'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+	          'http://' + req.headers.host + '#/reset/' + token + '\n\n' +
+	          'If you did not request this, please ignore this email and your password will remain unchanged.\n';
+	var email = {from:'passwordreset@eriyaz.com', to:emailAddress, subject:subject, text:text};
+	mailgun.SendEMail(email);
+}
+
 exports.NewUserEmail = function(user){
 	var welcomeSubject = "New user on eRiyaz"
 	var welcomeText = ""

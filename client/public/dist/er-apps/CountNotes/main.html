@@ -1,0 +1,28 @@
+<div id="countnotes" ng-controller='CountNotesCtrl as ctrl'>
+    <div>
+        <dl id="score">
+        	<dt>Total</dt>
+        	<dd>{{total}}</dd>
+
+        	<dt>Correct</dt> 
+        	<dd>{{correct}}</dd>
+	    </dl>
+    </div>
+
+    
+            
+    <button ng-click="newSequence()"  ng-disabled="isPending">New</button>
+    <button ng-click="repeatPlay()">Repeat</button>
+    <button ng-click="show()">Show</button>
+
+    Duration <input type="text" ng-model="playTime"><br>
+    Notes <input type="text" ng-model="numNotes"><br>
+    Max Distinct <input type="text" ng-model="maxDistinct"><br>
+
+    <button ng-repeat="noteCount in numDistinct" ng-click="check(noteCount)">{{noteCount}}</button>
+    <div id="feedback" class="container">
+        {{feedback}}
+    </div>
+
+    
+</div>

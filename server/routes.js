@@ -3,6 +3,12 @@ var request = require('request');
 var path = require('path');
 var userDao = require('./dao/userDao.js');
 var exerciseDao = require('./dao/exerciseDao.js');
+var userSchema  = require('./model/user.js');
+var mongoose = require('mongoose');
+var User = mongoose.model('User', userSchema);
+var async = require('async');
+var crypto = require('crypto');
+var notifier = require("./email/notifier")
 
 // app/routes.js
 module.exports = function(app, passport) {
@@ -74,8 +80,67 @@ module.exports = function(app, passport) {
 	app.post('/users/time', isLoggedIn, userDao.addTime);
 	app.get('/users/time/:id', isLoggedIn, userDao.findTime);
 
+	app.post('/journal', userDao.addJournal);
+	app.get('/journal/:id', userDao.findAllJournal);
+
 	app.get('/teachers', isLoggedIn, userDao.findAllTeachers);
 	app.get('/teachers/students/:id', isLoggedIn, userDao.findAllStudentsByTeacher);
+
+	app.post('/reset/:token', function(req, res) {
+	  async.waterfall([
+	    function(done) {
+	      User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+	        if (!user) {
+	          return res.status(404).send('Password reset token is invalid or has expired.');
+	        }
+	        user.local.password = user.generateHash(req.body.password);
+	        user.resetPasswordToken = undefined;
+	        user.resetPasswordExpires = undefined;
+
+	        user.save(function(err) {
+	          req.logIn(user, function(err) {
+	            done(err, user);
+	          });
+	        });
+	      });
+	    }
+	  ], function(err) {
+	  	if (err) return next(err);
+	  	res.status(200).send("Password updated successfully.");
+	  });
+	});
+
+	app.post('/forgot', function(req, res, next) {
+	  async.waterfall([
+	    function(done) {
+	      crypto.randomBytes(20, function(err, buf) {
+	        var token = buf.toString('hex');
+	        done(err, token);
+	      });
+	    },
+	    function(token, done) {
+	      User.findOne({ 'local.email': req.body.email }, function(err, user) {
+	        if (!user) {
+	          return res.status(404).send('No account with that email address exists.');
+	        }
+
+	        user.resetPasswordToken = token;
+	        user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+
+	        user.save(function(err) {
+	          done(err, token, user);
+	        });
+	      });
+	    },
+	    function(token, user, done) {
+	      notifier.ResetPasswordEmail(user.local.email, req, token);
+	      res.send('Password reset link has been mailed to : ' + req.body.email);
+	    }
+	  ], function(err) {
+	    if (err) return next(err);
+	    res.status(500).send("Internal error while resetting password");
+	  });
+	});
 
 	function customJsonCalback(req, res, next, err, user, info) {
 		if (err) {

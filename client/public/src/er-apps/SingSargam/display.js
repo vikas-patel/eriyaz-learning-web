@@ -1,6 +1,6 @@
 define([], function() {
 
-	var Display = function() {
+	var Display = function($scope) {
 		var margin = {
 			top: 10,
 			right: 30,
@@ -13,8 +13,6 @@ define([], function() {
 		var barH = height/25;
 
 		var timeRange = 15000;
-		var sargam = [0, 2, 4, 5, 7, 9, 11, 12];
-
 
 
 		var xScale = d3.time.scale()
@@ -22,7 +20,7 @@ define([], function() {
 			.range([0, width]);
 
 		var yScale = d3.scale.linear()
-			.domain([-12, 12])
+			.domain([-12, 16])
 			.range([height, 0]);
 
 		var xAxis = d3.svg.axis()
@@ -100,7 +98,7 @@ define([], function() {
 					return xScale(i * 64 / 48);
 				}).attr("y", function(d) {
 					if (Number.isNaN(d)) return yScale(-100);
-					return yScale(Math.round(d) - offset) - barH;
+					return yScale(Math.round(d - offset)) - barH;
 				}).attr("width", 1000/timeRange)
 				.attr("height", barH)
 				.attr("fill", "#2BB03B");
@@ -126,13 +124,13 @@ define([], function() {
 					return xScale((d.index + d.span/2)*64/48);
 				})
 				.attr("y", function(d) {
-					return yScale(d.pitch - offset) - barH*1.5;
+					return yScale(Math.round(d.pitch - offset)) - barH*1.5;
 				})
 				.attr("class", "tick")
 				.style("text-anchor", "middle")
 				.text(function(d, i) {
-					if (d.pitch - offset == sargam[i]) return "✓";
-					else if (d.pitch - offset < sargam[i]) return "⇩";
+					if ((Math.round(d.pitch - offset)+12)%12 == $scope.level.notes[i]%12) return "✓";
+					else if ((Math.round(d.pitch - offset)+12)%12 < $scope.level.notes[i]%12) return "⇩";
 					else return "⇧";
 				});
 		};
@@ -176,7 +174,6 @@ define([], function() {
 		function playPage() {
 			if (remainingTime > 0) {
 				if (count > 0) {
-					console.log('ncount');
 					pointGroup.attr("transform", "translate(" + -1 * xScale(timeRange * count) + ",0)");
 				}
 				if (remainingTime > timeRange) {

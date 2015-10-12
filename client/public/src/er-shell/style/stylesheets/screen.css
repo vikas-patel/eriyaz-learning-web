@@ -393,19 +393,20 @@ body #error dd {
 }
 /* line 27, ../sass/pages/_login-dialog.scss */
 #loginDialog .error-container {
+  clear: both;
   color: red;
 }
-/* line 31, ../sass/pages/_login-dialog.scss */
+/* line 32, ../sass/pages/_login-dialog.scss */
 #loginDialog input {
   height: 40px;
   margin-top: 5.26316%;
   text-align: center;
 }
-/* line 36, ../sass/pages/_login-dialog.scss */
+/* line 37, ../sass/pages/_login-dialog.scss */
 #loginDialog input .placeholder {
   text-align: center;
 }
-/* line 40, ../sass/pages/_login-dialog.scss */
+/* line 41, ../sass/pages/_login-dialog.scss */
 #loginDialog input[type="submit"] {
   width: 73.68421%;
   float: left;
@@ -415,35 +416,35 @@ body #error dd {
   font-size: 16px;
   border: none;
 }
-/* line 48, ../sass/pages/_login-dialog.scss */
+/* line 49, ../sass/pages/_login-dialog.scss */
 #loginDialog input[type="radio"] {
   margin-right: 1px;
   vertical-align: middle;
   margin-top: -2px;
 }
-/* line 55, ../sass/pages/_login-dialog.scss */
+/* line 56, ../sass/pages/_login-dialog.scss */
 #loginDialog input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px white inset;
 }
 @media (max-height: 280px) {
-  /* line 31, ../sass/pages/_login-dialog.scss */
+  /* line 32, ../sass/pages/_login-dialog.scss */
   #loginDialog input {
     height: 20px;
     margin-top: none;
   }
-  /* line 62, ../sass/pages/_login-dialog.scss */
+  /* line 63, ../sass/pages/_login-dialog.scss */
   #loginDialog input[type="submit"] {
     height: 40px;
   }
 }
-/* line 68, ../sass/pages/_login-dialog.scss */
+/* line 69, ../sass/pages/_login-dialog.scss */
 #loginDialog .or {
   width: 21.05263%;
   float: right;
   margin-right: 0;
   margin-top: 5.26316%;
 }
-/* line 73, ../sass/pages/_login-dialog.scss */
+/* line 74, ../sass/pages/_login-dialog.scss */
 #loginDialog .close-button {
   position: absolute;
   top: 0px;
@@ -454,12 +455,12 @@ body #error dd {
   color: black;
   text-decoration: none;
 }
-/* line 82, ../sass/pages/_login-dialog.scss */
+/* line 83, ../sass/pages/_login-dialog.scss */
 #loginDialog .close-button:hover {
   cursor: pointer;
   cursor: hand;
 }
-/* line 88, ../sass/pages/_login-dialog.scss */
+/* line 89, ../sass/pages/_login-dialog.scss */
 #loginDialog a {
   color: #652218;
 }
@@ -732,6 +733,97 @@ core-drawer-panel:not([narrow]) #navicon {
   clear: left;
   width: 200px;
   text-align: left;
+}
+
+/* line 2, ../sass/pages/_journal.scss */
+#journal .selectBox {
+  margin-top: 5px;
+  border: 1px solid #e1e8ed;
+  border-radius: 0.2em;
+  color: gray;
+}
+/* line 9, ../sass/pages/_journal.scss */
+#journal option[value=""] {
+  color: gray;
+}
+/* line 13, ../sass/pages/_journal.scss */
+#journal option {
+  color: black;
+}
+/* line 17, ../sass/pages/_journal.scss */
+#journal .post-box {
+  width: 50%;
+  margin-top: 5px;
+}
+/* line 21, ../sass/pages/_journal.scss */
+#journal textarea {
+  width: 80%;
+  /* the inital width of the textarea */
+  height: 4em;
+  /* the inital height of the textarea */
+  max-width: 40em;
+  /* the maximum width of the textarea */
+  max-height: 10em;
+  /* the maximum height of the textarea */
+  padding: 1em;
+  /* space on all directions */
+  font-family: "Montserrat", "sans-serif";
+  font-size: 1.2em;
+  border: 1px solid #e1e8ed;
+  border-radius: 0.5em;
+  border-color: #BFE0EC !important;
+}
+/* line 37, ../sass/pages/_journal.scss */
+#journal .button-box {
+  width: 85%;
+}
+/* line 41, ../sass/pages/_journal.scss */
+#journal .button-submit {
+  float: right;
+  background: #0084B4;
+  border-color: transparent;
+  color: white;
+  padding: 9px 16px 8px 17px;
+  text-align: center;
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: normal;
+  border-radius: 4px;
+}
+/* line 55, ../sass/pages/_journal.scss */
+#journal .container {
+  text-align: left;
+  width: 50%;
+  clear: both;
+}
+/* line 61, ../sass/pages/_journal.scss */
+#journal .list {
+  border-top: 1px solid #e1e8ed;
+}
+/* line 65, ../sass/pages/_journal.scss */
+#journal .item {
+  background: #fff;
+  border-left: 1px solid #e1e8ed;
+  border-right: 1px solid #e1e8ed;
+  background-clip: padding-box;
+  padding: 9px 12px;
+  border-bottom: 1px solid #e1e8ed;
+  font-size: 14px;
+  text-align: left;
+  line-height: 22px;
+  font-weight: 400;
+}
+/* line 78, ../sass/pages/_journal.scss */
+#journal .small {
+  float: right;
+  color: #8899a6;
+  font-size: 12px;
+}
+/* line 84, ../sass/pages/_journal.scss */
+#journal .post-content {
+  clear: both;
+  font-size: 1.2em;
 }
 
 /* line 1, ../sass/pages/_contact.scss */
@@ -2118,56 +2210,60 @@ core-drawer-panel:not([narrow]) #navicon {
 }
 
 /* line 3, ../../../er-apps/SingSargam/main.scss */
+#singsargam .score {
+  float: right;
+}
+/* line 7, ../../../er-apps/SingSargam/main.scss */
 #singsargam #chartdiv {
   margin: 1% 0 0 0;
 }
-/* line 7, ../../../er-apps/SingSargam/main.scss */
+/* line 11, ../../../er-apps/SingSargam/main.scss */
 #singsargam .line {
   fill: none;
   stroke: #999;
   stroke-width: 1.5px;
 }
-/* line 13, ../../../er-apps/SingSargam/main.scss */
+/* line 17, ../../../er-apps/SingSargam/main.scss */
 #singsargam #cursor {
   stroke: red;
   stroke-width: 1px;
 }
-/* line 18, ../../../er-apps/SingSargam/main.scss */
+/* line 22, ../../../er-apps/SingSargam/main.scss */
 #singsargam #mainline {
   stroke: blue;
 }
-/* line 22, ../../../er-apps/SingSargam/main.scss */
+/* line 26, ../../../er-apps/SingSargam/main.scss */
 #singsargam .axis path,
 #singsargam .axis line {
   fill: none;
   stroke: #999;
   shape-rendering: crispEdges;
 }
-/* line 29, ../../../er-apps/SingSargam/main.scss */
+/* line 33, ../../../er-apps/SingSargam/main.scss */
 #singsargam #center-line {
   stroke: #999;
   stroke-width: 1px;
 }
-/* line 34, ../../../er-apps/SingSargam/main.scss */
+/* line 38, ../../../er-apps/SingSargam/main.scss */
 #singsargam text {
   font-size: 10px;
 }
-/* line 38, ../../../er-apps/SingSargam/main.scss */
+/* line 42, ../../../er-apps/SingSargam/main.scss */
 #singsargam #feedback {
   font-weight: bold;
   padding: 2% 0 0 2.5%;
   border: none;
 }
-/* line 44, ../../../er-apps/SingSargam/main.scss */
+/* line 48, ../../../er-apps/SingSargam/main.scss */
 #singsargam .options {
   padding: 2% 0 0 2.5%;
   border: none;
 }
-/* line 49, ../../../er-apps/SingSargam/main.scss */
+/* line 53, ../../../er-apps/SingSargam/main.scss */
 #singsargam .margin-right {
   margin: 0 0.5% 0 0;
 }
-/* line 53, ../../../er-apps/SingSargam/main.scss */
+/* line 57, ../../../er-apps/SingSargam/main.scss */
 #singsargam text.tick {
   fill: #B03B2B;
   font-weight: bold;

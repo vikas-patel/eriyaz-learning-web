@@ -65,6 +65,27 @@
                      UIModel.uiModel.showFront = true;
                  }
              }).
+             state('forgot', {
+                 url: '/forgot',
+                 onEnter: function(UIModel, LoginSignupDialogModel) {
+                     UIModel.uiModel.showMenu = false;
+                     UIModel.uiModel.showAppDialog = false;
+                     LoginSignupDialogModel.loginSignupDialogModel.selection = 'forgot';
+                     UIModel.uiModel.showFront = true;
+                     UIModel.uiModel.showLoginDialog = true;
+                 }
+             }).
+             state('reset', {
+                 url: '/reset/:token',
+                 onEnter: function(UIModel, LoginSignupDialogModel, $stateParams) {
+                     UIModel.uiModel.showMenu = false;
+                     UIModel.uiModel.showAppDialog = false;
+                     LoginSignupDialogModel.loginSignupDialogModel.selection = 'reset';
+                     LoginSignupDialogModel.loginSignupDialogModel.token = $stateParams.token;
+                     UIModel.uiModel.showFront = true;
+                     UIModel.uiModel.showLoginDialog = true;
+                 }
+             }).
              state('home', {
                  url: '/home',
                  onEnter: function(UIModel, AppsInfoModel) {
@@ -108,6 +129,20 @@
                      });
 
                      UIModel.uiModel.contentUrl = 'er-shell/html/history.html';
+                 },
+                 resolve: {
+                     onLoggedOutRedirect: checkLoginAndRedirect
+                 }
+             }).
+             state('journal', {
+                 url: '/journal',
+                 onEnter: function(UIModel) {
+                     UIModel.uiModel.showAppDialog = false;
+                     UIModel.uiModel.showLoginDialog = false;
+                     UIModel.uiModel.showFront = false;
+                     UIModel.uiModel.showMenu = true;
+                     UIModel.uiModel.title = 'My Journal';
+                     UIModel.uiModel.contentUrl = 'er-shell/html/journal.html';
                  },
                  resolve: {
                      onLoggedOutRedirect: checkLoginAndRedirect

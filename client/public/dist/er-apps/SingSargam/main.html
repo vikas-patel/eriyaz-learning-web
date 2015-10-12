@@ -1,0 +1,19 @@
+<div id="singsargam" ng-controller="SingSargamCtrl">
+            <div horizontal layout center class="header">
+                <paper-icon-button icon="settings-voice" ng-click="mic()"></paper-icon-button>
+		        <button class="margin-right" id="setRoot" ng-disabled="!signalOn || isStarted" ng-click="start()">Record</button>
+                <button class="margin-right" id="playRoot" ng-disabled="!signalOn || !isStarted" ng-click="stop()">Stop</button>
+		        <button id="playRoot" ng-disabled="!signalOn || isStarted || !isPlayReady" ng-click="replay()">Play</button>
+            </div>
+            <div id="feedback" class="container">
+                {{feedback}}
+            </div>
+            <div horizontal layout center class="options" ng-show="showOptions">
+                <div ng-repeat="option in options" class="margin-right">
+                    <button ng-click="checkAnswer(option.value)">{{option.name}}</button>
+                </div>
+            </div>
+            <div class="container">
+                <div id="chartdiv"></div>
+            </div>
+</div>

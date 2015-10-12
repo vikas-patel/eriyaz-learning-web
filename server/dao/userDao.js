@@ -1,6 +1,7 @@
 var User = require('../model/user.js');
 var Score = require('../model/score.js');
 var UserTime = require('../model/user-time.js');
+var Journal = require('../model/journal.js');
 var mongoose = require('mongoose');
 var _ = require('underscore');
 //TODO:
@@ -99,6 +100,24 @@ exports.findTime = function(req, res) {
 		.exec(function(err, userTimes) {
 			if (err) res.send(err);
 			res.json(userTimes);
+		});
+}
+
+exports.addJournal = function(req, res) {
+	new Journal(req.body).save(function (err, journal) {
+	  	if (err) return res.send(err);
+	  	res.json(journal);
+	});
+}
+
+exports.findAllJournal = function(req, res) {
+	Journal
+		.find({
+			user: new mongoose.Types.ObjectId(req.params.id)
+		})
+		.exec(function(err, journals) {
+			if (err) res.send(err);
+			res.json(journals);
 		});
 }
 

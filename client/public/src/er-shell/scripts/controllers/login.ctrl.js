@@ -1,5 +1,5 @@
   define(['./module'], function(app) {
-  	app.controller("LoginCtrl", function($scope, $location, $window, LoginSignupService) {
+  	app.controller("LoginCtrl", function($scope, $location, $window, LoginSignupService, LoginSignupDialogModel) {
   		$scope.submit = function() {
   			if ($scope.email !== undefined && $scope.password !== undefined) {
   				LoginSignupService.logIn($scope.email, $scope.password).success(function(data) {
@@ -16,5 +16,22 @@
   				});
   			}
   		};
+
+      $scope.forgot = function() {
+          LoginSignupService.forgot($scope.email).success(function(data) {
+            $scope.flashMessage = data;
+          }).error(function(data, status) {
+            $scope.flashMessage = data;
+          });
+      };
+
+      $scope.reset = function() {
+          LoginSignupService.reset(LoginSignupDialogModel.loginSignupDialogModel.token, $scope.password).success(function(data) {
+            $scope.flashMessage = data;
+            $scope.success = true;
+          }).error(function(data, status) {
+            $scope.flashMessage = data;
+          });
+      };
   	});
   });

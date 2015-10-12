@@ -1,19 +1,35 @@
 <div id="singsargam" ng-controller="SingSargamCtrl">
-            <div horizontal layout center class="header">
-                <paper-icon-button icon="settings-voice" ng-click="mic()"></paper-icon-button>
-		        <button class="margin-right" id="setRoot" ng-disabled="!signalOn || isStarted" ng-click="start()">Record</button>
-                <button class="margin-right" id="playRoot" ng-disabled="!signalOn || !isStarted" ng-click="stop()">Stop</button>
-		        <button id="playRoot" ng-disabled="!signalOn || isStarted || !isPlayReady" ng-click="replay()">Play</button>
-            </div>
-            <div id="feedback" class="container">
-                {{feedback}}
-            </div>
-            <div horizontal layout center class="options" ng-show="showOptions">
-                <div ng-repeat="option in options" class="margin-right">
-                    <button ng-click="checkAnswer(option.value)">{{option.name}}</button>
-                </div>
-            </div>
-            <div class="container">
-                <div id="chartdiv"></div>
-            </div>
+    <div horizontal layout center class="header">
+        <paper-icon-button icon="settings-voice" ng-click="mic()"></paper-icon-button>
+        <button class="margin-right" id="setRoot" ng-disabled="!signalOn || isStarted" ng-click="start()">Record</button>
+        <button class="margin-right" id="playRoot" ng-disabled="!signalOn || !isStarted" ng-click="stop()">Stop</button>
+        <button class="margin-right" id="playRoot" ng-disabled="!signalOn || isStarted || !isPlayReady" ng-click="replay()">Play</button>
+        <select ng-model="level" ng-options="l.name for l in levels"></select>
+        <div flex> </div>
+        <span class="margin-right">Remaining: {{level.total - count}}</span>
+        <span class="margin-right"> Right: {{right | number:0}}</span>
+    </div>
+    
+    <div id="feedback" class="container">
+        {{feedback}}
+    </div>
+    <div horizontal layout center class="options" ng-show="showOptions">
+        <div ng-repeat="note in level.notes" class="margin-right">
+            <button ng-click="checkAnswer(note)">{{noteLabelMap[note]}}</button>
+        </div>
+        <div class="margin-right">
+            <button ng-click="checkAnswer(-1)">None</button>
+        </div>
+    </div>
+    <div class="container">
+        <div id="chartdiv"></div>
+    </div>
+    <div id="overlay" ng-show="showOverlay"></div>
+    <div id="overlay-content" ng-show="showOverlay">
+        <div class="padding5"><h1>Exercise Ends</h1></div>
+        <div class="padding5"><h2>Your Score: <span id="overlay-score">{{right*100/count  | number:0}}%</span></h2></div>
+        <div class="padding5">
+            <button ng-click="closeOverlay()" id="close-overlay">Close</button>
+        </div>
+    <div>
 </div>
