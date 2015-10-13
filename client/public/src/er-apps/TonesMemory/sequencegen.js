@@ -4,7 +4,7 @@ define(['underscore'], function(_) {
 		var dhaNiOpts = [8,9,10,11];
 		this.getRandomSequence = getRandomSequence;
 
-		function getRandomSequence(numNoets) {
+		function getRandomSequence(numNotes) {
 			var reGa = _.shuffle(reGaOpts);
 			var dhaNi = _.shuffle(dhaNiOpts);
 			var ma = Math.random()>0.5 ? 5 : 6;

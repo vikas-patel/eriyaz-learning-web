@@ -8,14 +8,16 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
 
 
         app.controller('TonesMemoryCtrl', function($scope, $rootScope, PitchModel) {
-            $scope.rootNote = 56;
+            $scope.rootNote = 50;
             $scope.isPending = true;
             $scope.playTime = 500;
             $scope.numNotes = 3;
- 
+
             var display = new Display();
 
+            var currRoot;
             var currThat;
+
             var marker = 0;
             var baseFreq = 261;
             var playTime = 1200;
@@ -28,7 +30,6 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
 
             var currActiveNote = 0;
 
-            display.start(currActiveNote);
             var updatePitch = function(data) {
                 var pitch = detector.findPitch(data);
                 if (pitch !== 0) {
@@ -42,10 +43,10 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
             };
 
             $scope.$watch('rootNote', function() {
-                currRoot = parseInt($scope.rootNote) - 12;
+                currRoot = parseInt($scope.rootNote);
 
                 baseFreq = MusicCalc.midiNumToFreq(currRoot);
-                PitchModel.rootFreq = MusicCalc.midiNumToFreq($scope.rootNote);
+                PitchModel.rootFreq = MusicCalc.midiNumToFreq(currRoot);
             });
 
 
@@ -59,6 +60,9 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
                 currThat = sequenceGen.getRandomSequence(parseInt($scope.numNotes));
                 playThat(currThat);
                 display.reset();
+                currActiveNote = 0;
+                display.start(currActiveNote);
+
             };
 
             $scope.startMic = function() {
@@ -73,7 +77,7 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
                         }
                     );
                 }
-                display.setFlash("Click 'New' to hear Tone");
+                display.setFlash("Click 'New' to hear Tones");
             };
 
             function isDisabled(element, index, array) {
@@ -124,8 +128,8 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
                 display.clearPoints();
                 display.setFlash("Stable Tone Detected!");
                 setTimeout(function() {
-                    player.playNote(MusicCalc.midiNumToFreq(interval+currRoot-1), playTime);
-                    display.playAnimate(interval-1, playTime, currActiveNote);
+                    player.playNote(MusicCalc.midiNumToFreq(interval + currRoot), playTime);
+                    display.playAnimate(interval, playTime, currActiveNote);
                     display.start(++currActiveNote);
                 }, 100);
             }

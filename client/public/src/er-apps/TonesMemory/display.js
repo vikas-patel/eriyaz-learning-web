@@ -79,7 +79,7 @@ define(['d3'], function(d3) {
 
 
 
-		var notesData = [0, 2, 4, 5, 7, 9, 11, 12];
+		var notesData = [];
 
 
 		this.getNotes = function() {
@@ -107,9 +107,9 @@ define(['d3'], function(d3) {
 		};
 
 		this.reset = function() {
-			svg.selectAll("rect.ans").remove();
-			notesData = [0, 2, 4, 5, 7, 9, 11, 12];
-			drawNotes();
+			// svg.selectAll("rect.ans").remove();
+			this.clear();
+			notesData = [];
 		};
 
 
@@ -149,7 +149,7 @@ define(['d3'], function(d3) {
 				console.log(currCents)
 				var newPoint = pointGroup.append("rect")
 					.attr("x", xScale(currActiveNote) + timeScale(tickCount * refreshTime))
-					.attr("y", yScale(currCents / 100))
+					.attr("y", yScale(currCents / 100) - chartHeight / 26)
 					//.attr("y", yScale(currCents) - height / 19 / 2)
 					.attr("width", 2)
 					.attr("height", 2);
@@ -163,21 +163,11 @@ define(['d3'], function(d3) {
 
 		this.start = function(numNote) {
 			currActiveNote = numNote;
-
-
-
 			
-
 			pointGroup = staticGroup.append("g");
-			// pointGroup.attr("clip-path", "url(#clip)");
 			clip.attr("transform", "translate(" + xScale(numNote)+",0)");
 
-			svg.append("circle")
-				.attr("cx", 0)
-				.attr("cy", 0)
-				.attr("r", 100)
-				.attr("clip-path", "url(#clip)");
-
+			
 			var local = this;
 			if (tickId) clearInterval(tickId);
 			tickId = setInterval(function() {
@@ -193,7 +183,7 @@ define(['d3'], function(d3) {
 		this.notifyUnitStable = function(interval) {
 			pointGroup.append("rect")
 				.attr("x", xScale(currActiveNote) + timeScale(tickCount * refreshTime))
-				.attr("y", yScale(interval))
+				.attr("y", yScale(interval) - chartHeight / 13)
 				.attr("height", chartHeight / 13)
 				// .attr("y", yScale(interval * 100))
 				.attr("width", 5)
@@ -238,24 +228,19 @@ define(['d3'], function(d3) {
 		this.clear = function() {
 			if (pointGroup)
 				pointGroup.remove();
-			// if (clip)
-			// 	clip.remove();
-			// svg.select("#clip").remove();
 			this.clearFlash();
+			svg.selectAll("rect.ans").remove();
 			svg.selectAll(".playRect").remove();
 		};
 
 		this.clearPoints = function() {
 			if (pointGroup)
 				pointGroup.remove();
-			// if (clip)
-			// 	clip.remove();
 		};
 
 		this.playAnimate = function(interval, duration, noteNum) {
+			notesData.push(interval);
 			var color = "#FFCCCC";
-
-			var note = d3.select("#midi-" + interval);
 
 			var playRect = svg.append("rect")
 				.attr("class", "playRect")
