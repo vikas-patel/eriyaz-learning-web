@@ -193,12 +193,9 @@ define(['d3'], function(d3) {
 		};
 
 		this.notifyAggStable = function(interval) {
-			// svg.append("text")
-			// 	.attr("x", width / 2)
-			// 	.attr("y", height / 2)
-			// 	.attr("font-size", 15)
-			// 	.text("Stable Pitch Detected!");
+			//do not delete this function.
 		};
+
 		this.notifyInterval = function(newValue) {
 			currCents = newValue * 100;
 			isPendingValue = true;
