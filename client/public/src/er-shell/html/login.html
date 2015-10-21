@@ -10,6 +10,7 @@
 				<div><input type="text" name="email" placeholder="email" ng-model="email" required></div>
 				<div><input type="password" name="password" placeholder="password" ng-model="password" required></div>
 				<div><input type="submit" value="Log In"></div>
+				<div><span class="or">or <a href ng-click="loginSignupDialogModel.selection='signup'">signup</a></span></div>
 				<div><a href ng-click="loginSignupDialogModel.selection='forgot'">Forgot password?</a></div>
 				<div class="error-container">{{flashMessage}}</div>
 			</form>
