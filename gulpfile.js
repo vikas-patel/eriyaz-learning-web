@@ -119,7 +119,7 @@ gulp.task('vulcanize', function() {
 });
 
 gulp.task('copy', function() {
-  return gulp.src(['client/public/src/**/*.{html,jpg,css,json,mp3}', '!**/{ext-libs,dist}/**', '!**/{imports,index}.html'], {
+  return gulp.src(['client/public/src/**/*.{html,jpg,css,json,mp3}', 'client/public/src/landing/**/*.js', '!**/{ext-libs,dist}/**', '!**/{imports,index}.html'], {
       base: './client/public/src'
     })
     .pipe(gulp.dest('client/public/dist'));
