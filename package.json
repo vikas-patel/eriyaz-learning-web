@@ -31,10 +31,10 @@
     "passport-twitter": "~1.0.2",
     "request": "~2.61.0",
     "underscore": "^1.8.2",
-    "xoauth2": "~1.1.0"
+    "xoauth2": "~1.1.0",
+    "async": "^1.4.2"
   },
   "devDependencies": {
-    "async": "^0.9.0",
     "del": "^1.1.1",
     "event-stream": "^3.2.2",
     "gulp": "^3.8.10",
