@@ -5,7 +5,7 @@
 <!-- /.website title -->
 <title>Learn to Sing</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="keywords" content="how learn online beginner singing lessons indian hindi hindustani bollywood classical music raag song tune swar taal school practice"><meta name="description" content="Learn to Sing 10x Faster Online with technology assisted curriculum">
+<meta name="description" content="Learn to Sing 10x Faster with technology assisted curriculum">
 <!-- CSS Files -->
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/font-awesome.min.css" rel="stylesheet">
@@ -63,6 +63,10 @@
     color: white;
 }
 
+#message{
+	font-weight: bold;
+}
+
 </style>
 <!-- Google Fonts -->
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
@@ -97,8 +101,6 @@
 						<p>Have you ever wanted to sing better? Register for your FREE first class NOW.</p>
 						<p>Remember, you do not need good voice to learn to singing, even 10 mins of daily practice improves your voice and gives great results.</p>
 					</div>				  
-	
-		  
 
 				</div> 
 				
@@ -107,25 +109,22 @@
 				
 					<div class="signup-header wow fadeInUp">
 						<h3 class="form-title text-center">Register for your FREE first class</h3>
-						<form class="form-header" action="http://moxdesign.us10.list-manage.com/subscribe/post" role="form" method="POST" id="#">
-						<input type="hidden" name="u" value="503bdae81fde8612ff4944435">
-						<input type="hidden" name="id" value="bfdba52708">
+						<form class="form-header" action="" role="form" id="register-form">
 							<div class="form-group">
-								<input class="form-control input-lg" name="MERGE1" id="name" type="text" placeholder="Your name" required>
+								<input class="form-control input-lg" name="name" id="name" type="text" placeholder="Your name">
 							</div>
 							<div class="form-group">
-								<input class="form-control input-lg" name="MERGE0" id="email" type="email" placeholder="Email address" required>
+								<input class="form-control input-lg" name="email" id="email" type="email" placeholder="Email address">
 							</div>
 							<div class="form-group">
-								<input class="form-control input-lg" name="MERGE0" id="phone" type="phone" placeholder="Mobile number" required>
+								<input class="form-control input-lg" name="phone" id="phone" type="text" placeholder="Mobile number">
 							</div>
 							<div class="form-group last">
-								<input type="submit" class="btn btn-warning btn-block btn-lg" value="Register">
+								<input id="submit" type="submit" class="btn btn-warning btn-block btn-lg" value="Register">
 							</div>
-							<p class="privacy text-center"></p>
+							<p id="message" class="message text-center"></p>
 						</form>
-					</div>				
-				
+					</div>
 				</div>
 			</div>
 		</div> 
@@ -200,6 +199,8 @@
 </div>
 	<!-- /.javascript files -->
     <script src="js/jquery.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+    <script src="js/additional-methods.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/custom.js"></script>
     <script src="js/jquery.sticky.js"></script>
@@ -207,6 +208,47 @@
 	<script src="js/owl.carousel.min.js"></script>
 	<script>
 		new WOW().init();
+		$(document).ready(function () {
+			$('#register-form').validate({ // initialize the plugin
+		        rules: {
+		        	name: {
+		                required: true
+		            },
+		            email: {
+		                required: true,
+		                email: true
+		            },
+		            phone: {
+		                required: true,
+		                minlength: 10,
+		                maxlength: 10
+		            }
+		        },
+		        messages: {
+                    name: "Please enter your name",
+                    email: "Please enter a valid email address",
+                    phone: "Please enter 10 digits number."
+                },
+		       submitHandler: function (form) {
+					var dataJson = {'entry.1769033687': $("input#name").val(),
+                    	'entry.109852712': $("input#email").val(),
+                    	'entry.1154736723':$("input#phone").val()};	  
+		            $.ajax({
+					    type: "POST",
+					    url: "/register",
+					    data: dataJson,
+					    success: function(data) {
+					    	$('#message').html(data.info);
+					    	$('#register-form').trigger("reset");
+					    },
+					    error: function() {
+					    	$('#message').html("Something wrong: Please contact +91 9623443789 or eriyazonline@gmail.com for registration.");
+					   }
+					  });
+		            return false; // for demo
+		        }
+		    });
+		});
 	</script>
   </body>
 </html>
