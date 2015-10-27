@@ -7,13 +7,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="description" content="Learn to Sing 10x Faster with technology assisted curriculum">
 <!-- CSS Files -->
-<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<!--link href="css/bootstrap.min.css" rel="stylesheet" media="screen"-->
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link href="css/font-awesome.min.css" rel="stylesheet">
 <link href="css/animate.min.css" rel="stylesheet" media="screen">
 <link href="css/owl.theme.css" rel="stylesheet">
 <!-- Colors -->
 <link href="css/css-index.css" rel="stylesheet" media="screen">
 <style>
+body {
+    background: #f6f6f6;
+}
+
 .logo {
     margin: 40px 0 40px 0;
 }
@@ -35,8 +41,11 @@
 	max-width: 100%;
 }
 
-#client {
-    background: #f6f6f6;
+#team {
+    padding: 5px 0 5px;
+}
+
+#contact {
     padding: 5px 0 5px;
 }
 
@@ -50,7 +59,7 @@
 	transform-origin: 50% 0%;
 }
 
-#client img {
+#team img {
     max-height: 70px;
 }
 
@@ -63,14 +72,46 @@
     color: white;
 }
 
+#contact h2 {
+    color: #777;
+}
+
+.ul-address li {
+    color: #777;
+}
+
 #message{
 	font-weight: bold;
+}
+
+.contact-details span {
+    //margin-left: 15px;
+    //position: absolute;
+    left: 0;
+    color: #3eb0f7;
+    font-size: 25px;
+    line-height: 30px;
+	padding-right: 5px;
+	vertical-align:middle;
+}
+
+.action {
+    color: #777;
+}
+
+#howItWorks .action {
+	color: black;
+	font-size: 15px;
+}
+
+.navbar-nav>li>a {
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 </style>
 <!-- Google Fonts -->
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
-
 </head>
   
 <body data-spy="scroll" data-target="#navbar-scroll">
@@ -131,14 +172,27 @@
 	</div> 
 </div>
 
+<!-- NAVIGATION -->
+<div id="menu">
+	<nav class="navbar-wrapper navbar-default" role="navigation">
+		<div class="container">
 
+	 
+			  <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#team" data-toggle="tab">Team</a></li>
+					<li><a href="#howItWorks" data-toggle="tab">How it works</a></li>
+					<li><a href="#contact" data-toggle="tab">Contact</a></li>
+				</ul>
+			  </div>
+		</div>
+	</nav>
+</div>
+	
+<div id="my-tab-content" class="tab-content">
 <!-- /.client section -->
-<div id="client"> 
+<div id="team" class="tab-pane active"> 
 		<div class="container scale2">
-			<div class="text-center">
-				<h2 class="wow fadeInLeft team-header">Team</h2>
-				<div class="title-line wow fadeInRight"></div>
-			</div>
 			<div class="row team">
 				<div class="col-sm-3">
 				  <div class="price-box wow fadeInUp">
@@ -195,7 +249,36 @@
 				</div>
 				</div>
 			</div>
-		</div>	
+		</div>
+
+<div id="howItWorks" class="tab-pane">
+	<div class="action">
+		<div class="container">
+			<div class="col-md-9 col-md-offset-2 col-sm-12">
+				<p class="download-text wow fadeInLeft">Music learning is all about practice. At eRiyaz we have a variety of apps to give you immediate feedback on your singing. The experience is like a most accomplished guru watching over you during all of your practices right at your home.<br>
+				But that is not to say you will be alone in your journey to becoming a great singer. When you join our course, you will be assigned a mentor to guide you through the exercises, clear doubts and provide motivation, and cover other aspects which cannot be covered by a software. The course fee is Rs 999 per month. You will have weekly two online sessions with mentor.</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="contact" class="tab-pane">
+	<div class="contact">
+			<div class="container">
+				<div class="row">
+					<!-- /.address and contact -->
+					<div class="col-sm-8 col-sm-offset-4 wow fadeInUp">
+						<h2><span class="highlight">Get</span> in touch</h2>
+						<div class="contact-details">
+							<span class="glyphicon glyphicon-phone"></span><strong>+91 9623443789</strong></br>
+							<span class="glyphicon glyphicon-envelope"></span><a href="mailto:eriyazonline@gmail.com">eriyazonline@gmail.com</a>
+							<br><strong>Mailing Address: </strong>Sector 50, Gurgaon - 122018
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
+</div>
 </div>
 	<!-- /.javascript files -->
     <script src="js/jquery.js"></script>
