@@ -109,6 +109,13 @@ body {
     padding-bottom: 10px;
 }
 
+.form-horizontal {
+	padding-top: 15px;
+}
+
+.navbar-nav {
+	font-size: 18px;
+}
 </style>
 <!-- Google Fonts -->
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
@@ -175,13 +182,12 @@ body {
 <!-- NAVIGATION -->
 <div id="menu">
 	<nav class="navbar-wrapper navbar-default" role="navigation">
-		<div class="container">
-
-	 
+		<div class="container scale1">
 			  <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="#team" data-toggle="tab">Team</a></li>
 					<li><a href="#howItWorks" data-toggle="tab">How it works</a></li>
+					<li><a href="#login" data-toggle="tab">Login</a></li>
 					<li><a href="#contact" data-toggle="tab">Contact</a></li>
 				</ul>
 			  </div>
@@ -262,6 +268,29 @@ body {
 	</div>
 </div>
 
+<div id="login" class="tab-pane">
+			<div class="container">
+				<div class="row">
+					<!-- /.address and contact -->
+					<div class="col-sm-4 col-sm-offset-4 wow fadeInUp">
+					<form id="login-form" class="form-horizontal form-group" action="">
+					<div class="form-group">
+						<input type="text" name="loginEmail" id="loginEmail" class="form-control wow fadeInUp" placeholder="Email" required/>
+					</div>
+					<div class="form-group">
+						<input type="password" name="password" id="password" class="form-control wow fadeInUp" placeholder="Password" required/>
+					</div>
+					<div id="login-message" class="message hide text-center"></div>
+					<div class="form-group">
+						<input type="submit" name="submit" value="Submit" class="btn btn-success wow fadeInUp" />
+					</div>
+					<div> </div>
+					</form>
+					</div>
+				</div>
+			</div>
+</div>
+
 <div id="contact" class="tab-pane">
 	<div class="contact">
 			<div class="container">
@@ -291,6 +320,52 @@ body {
 	<script src="js/owl.carousel.min.js"></script>
 	<script>
 		new WOW().init();
+		$(document).ready(function () {
+			$('#login-form').validate({ // initialize the plugin
+		        rules: {
+		        	password: {
+		                required: true
+		            },
+		            loginEmail: {
+		                required: true,
+		                email: true
+		            }
+		        },
+		        messages: {
+                    password: "Please enter your password",
+                    loginEmail: "Please enter a valid email address"
+                },
+		       submitHandler: function (form) {
+				   var dataJson = {
+						'email': $("input#loginEmail").val(),
+						'password': $("input#password").val()
+					};
+					console.log(dataJson);
+		            $.ajax({
+					    type: "POST",
+					    url: "/login",
+					    data: dataJson,
+					    success: function(data) {
+					    	console.log(data);
+							if (data.status === "success") {
+								localStorage.userId = data.user._id;
+								// localStorage.setItem('userId', data.user._id);
+								localStorage.userType = data.user.userType;
+								window.location.href = '/#/home';
+							} else {
+								$('#login-message').removeClass("hide");
+								$('#login-message').html(data.info);
+							}
+					    },
+					    error: function() {
+							$('#login-message').html("Something went wrong: Try again.");
+						}
+					  });
+		            return false; // for demo
+		        }
+		    });
+		});
+	
 		$(document).ready(function () {
 			$('#register-form').validate({ // initialize the plugin
 		        rules: {

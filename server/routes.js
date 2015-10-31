@@ -20,8 +20,15 @@ module.exports = function(app, passport) {
 	// app.use('/:var', isLoggedIn);
 	// app.use(express.static(path.join(__dirname, '..', 'public')));
 	
+	app.get('/', function(req, res, next){
+		if (!req.isAuthenticated()) {
+			res.redirect("/landing/main.html");
+		} else {
+			next();
+		}
+	});
+	
 	app.use('/protected', isLoggedIn, express.static(path.join(__dirname, '..', 'protected')));
-
 	if ('development' == app.get('env')) {
 		app.use(express.static(path.join(__dirname, '..', 'client', 'public', 'src')));
 		app.use('/dist',express.static(path.join(__dirname, '..', 'client', 'public', 'dist')));
