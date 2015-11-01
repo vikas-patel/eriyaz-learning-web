@@ -246,6 +246,16 @@
         href: '#tonesmemory',
         appUrl: 'er-apps/TonesMemory/main.html',
         aspectRatio: 3/4,
+      }, {
+        name: 'Poorvanga',
+        thumb: 'er-shell/images/poorvanga.jpg',
+        desc: 'Extract notes from a fast melody.',
+        href: '#poorvanga',
+        appUrl: 'er-apps/Poorvanga/main.html',
+        aspectRatio: 3/4,
+        hotkeys: [
+          ['f', 'newThat()']
+        ]
       }];
       appsInfo.selectedIndex = -1;
       TimeMe.setIdleDurationInSeconds(60);

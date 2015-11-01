@@ -2376,3 +2376,53 @@ core-drawer-panel:not([narrow]) #navicon {
 #tonesmemory .x.axis path {
   fill: none;
 }
+
+/* line 2, ../../../er-apps/Poorvanga/main.scss */
+#poorvanga #score {
+  float: right;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+/* line 6, ../../../er-apps/Poorvanga/main.scss */
+#poorvanga #score dt {
+  float: left;
+  clear: left;
+  width: 100px;
+  text-align: left;
+}
+/* line 14, ../../../er-apps/Poorvanga/main.scss */
+#poorvanga #score dt:after {
+  content: ":";
+}
+/* line 17, ../../../er-apps/Poorvanga/main.scss */
+#poorvanga #score dd {
+  margin: 0 0 0 100px;
+}
+/* line 24, ../../../er-apps/Poorvanga/main.scss */
+#poorvanga svg {
+  margin-top: 10px;
+}
+/* line 27, ../../../er-apps/Poorvanga/main.scss */
+#poorvanga ul {
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+}
+/* line 33, ../../../er-apps/Poorvanga/main.scss */
+#poorvanga li button {
+  width: 60%;
+}
+/* line 46, ../../../er-apps/Poorvanga/main.scss */
+#poorvanga .container {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 3%;
+  border-top: solid;
+  border-width: 1px;
+  border-color: #E3E3E3;
+}
+/* line 59, ../../../er-apps/Poorvanga/main.scss */
+#poorvanga #feedback {
+  font-weight: bold;
+  border: none;
+}

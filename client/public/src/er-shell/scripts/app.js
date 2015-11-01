@@ -39,6 +39,7 @@ define([
     'singsargam',
     'countnotes',
     'tonesmemory',
+    'poorvanga',
 ], function(angular) {
     'use strict';
 
@@ -75,7 +76,8 @@ define([
         'singsargam',
         'countnotes',
         'tonesmemory',
-
+        'poorvanga',
+        
         'ngResource',
         'angulartics',
         'angulartics.google.analytics',

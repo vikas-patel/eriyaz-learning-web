@@ -196,6 +196,10 @@ requirejs.config({
         location: 'er-apps/TonesMemory',
         main: 'index'
     }, {
+        name: 'poorvanga',
+        location: 'er-apps/Poorvanga',
+        main: 'index'
+    }, {
         name: 'tanpura',
         location: 'er-libs/tanpura',
         main: 'tanpura'
