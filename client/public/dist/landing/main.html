@@ -410,6 +410,7 @@ body {
 					    success: function(data) {
 					    	$('#message').html(data.info);
 					    	$('#register-form').trigger("reset");
+					    	ga('send', 'event', 'lead', 'register');
 					    },
 					    error: function() {
 					    	$('#message').html("Something wrong: Please contact +91 9623443789 or eriyazonline@gmail.com for registration.");
