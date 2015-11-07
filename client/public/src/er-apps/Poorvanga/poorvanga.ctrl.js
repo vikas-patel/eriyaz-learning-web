@@ -146,7 +146,7 @@ define(['./module', 'note', 'webaudioplayer', 'currentaudiocontext','tanpura', '
         $scope.checkAnswer = function(thatName) {
             $scope.total++;
             if (thatName === currThat.name) {
-                $scope.feedback = "Cool! Correct Answer : " + currThat.name;
+                $scope.feedback = "Cool!";
                 $scope.correct++;
 
             } else {

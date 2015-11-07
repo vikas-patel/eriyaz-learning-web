@@ -8,7 +8,7 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
 
 
         app.controller('TonesMemoryCtrl', function($scope, $rootScope, PitchModel) {
-            $scope.rootNote = 50;
+            $scope.rootNote = 46;
             $scope.isPending = true;
             $scope.playTime = 500;
             $scope.numNotes = 3;
@@ -20,7 +20,7 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
 
             var marker = 0;
             var baseFreq = 261;
-            var playTime = 1200;
+            var playTime = 500;
 
             var currLoopId;
 
