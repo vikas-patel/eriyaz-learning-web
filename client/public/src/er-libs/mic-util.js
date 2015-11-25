@@ -4,8 +4,9 @@ define([], function() {
 			var dictionary = {
 				audio:true	
 			};
-			var error = function() {
+			var error = function(err) {
 				 alert('Problem with mic input. Try reloading.');
+				 console.log(err);
 			};
 			try {
 				navigator.getUserMedia =
