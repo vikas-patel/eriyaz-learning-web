@@ -20,6 +20,17 @@ module.exports = function(app, passport) {
 	// app.use('/:var', isLoggedIn);
 	// app.use(express.static(path.join(__dirname, '..', 'public')));
 	
+	if ('development' != app.get('env')) {
+		app.use(function(req, res, next) {
+		    if (req.headers['x-forwarded-proto'] != 'https') {
+		        res.redirect('https://' + req.headers.host + req.path);
+		    }
+		    else {
+		        return next();
+		    }
+		});
+	}
+	
 	app.get('/', function(req, res, next){
 		if (!req.isAuthenticated()) {
 			res.redirect("/landing/main.html");
