@@ -17,7 +17,7 @@ exports.save = function(req, res) {
 exports.update = function(req, res) {
 	User.findByIdAndUpdate(req.params.id, {
 		$set: req.body
-	}, function(err, user) {
+	}, {new: true}, function(err, user) {
 		if (err) return handleError(err);
 		res.send(user);
 	});
