@@ -199,6 +199,10 @@
         href: '#fasternotes',
         appUrl: 'er-apps/FasterNotes/main.html',
         aspectRatio: 3/4,
+        hotkeys: [
+          ['f', 'newThat()'],
+          ['a', 'showAns()']
+        ]
       }, {
         name: 'RapidUpDown',
         thumb: 'er-shell/images/rapidupdown.jpg',
