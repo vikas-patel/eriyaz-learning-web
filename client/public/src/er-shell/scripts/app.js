@@ -40,6 +40,7 @@ define([
     'countnotes',
     'tonesmemory',
     'poorvanga',
+    'phraseshape',
 ], function(angular) {
     'use strict';
 
@@ -77,6 +78,7 @@ define([
         'countnotes',
         'tonesmemory',
         'poorvanga',
+        'phraseshape',
         
         'ngResource',
         'angulartics',
