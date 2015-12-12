@@ -40,6 +40,7 @@ define([
     'countnotes',
     'tonesmemory',
     'poorvanga',
+    'flappybird'
 ], function(angular) {
     'use strict';
 
@@ -77,7 +78,7 @@ define([
         'countnotes',
         'tonesmemory',
         'poorvanga',
-        
+        'flappybird',
         'ngResource',
         'angulartics',
         'angulartics.google.analytics',

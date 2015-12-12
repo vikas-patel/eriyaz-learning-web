@@ -7,6 +7,7 @@ requirejs.config({
     waitSeconds: 60,
     baseUrl: '/',
     paths: {
+        'phaser': 'ext-libs/bower_components/phaser/build/phaser.min',
         'polymer-wecomponents': 'ext-libs/bower_components/webcomponentsjs/webcomponents.min',
         'domReady': 'ext-libs/bower_components/requirejs-domready/domready',
         'angular': 'ext-libs/bower_components/angular/angular',
@@ -84,6 +85,9 @@ requirejs.config({
         },
         'jquery': {
             exports: '$'
+        },
+        'phaser': {
+            exports: 'Phaser'
         },
 
         //sountouch load order
@@ -198,6 +202,10 @@ requirejs.config({
     }, {
         name: 'poorvanga',
         location: 'er-apps/Poorvanga',
+        main: 'index'
+    }, {
+        name: 'flappybird',
+        location: 'er-apps/FlappyBird',
         main: 'index'
     }, {
         name: 'tanpura',

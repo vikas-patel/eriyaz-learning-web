@@ -256,6 +256,14 @@
         hotkeys: [
           ['f', 'newThat()']
         ]
+      }, {
+        name: 'FlappyBird',
+        thumb: 'er-shell/images/background.png',
+        desc: 'Flappy Bird Game.',
+        href: '#flappybird',
+        appUrl: 'er-apps/FlappyBird/main.html',
+        aspectRatio: 8/7,
+        show: true
       }];
       appsInfo.selectedIndex = -1;
       TimeMe.setIdleDurationInSeconds(60);

@@ -501,6 +501,18 @@
                  resolve: {
                      onLoggedOutRedirect: checkLoginAndRedirect
                  }
+             }).
+             state('flappybird', {
+                 url: '/flappybird',
+                 onEnter: function(UIModel, AppsInfoModel) {
+                     UIModel.uiModel.showLoginDialog = false;
+                     UIModel.uiModel.showMenu = true;
+                     AppsInfoModel.setSelected(26);
+                     UIModel.uiModel.showAppDialog = true;
+                 },
+                 resolve: {
+                     onLoggedOutRedirect: checkLoginAndRedirect
+                 }
              });
          })
          .factory('authHttpResponseInterceptor', ['$q', '$location', '$window', function($q, $location, $window) {
