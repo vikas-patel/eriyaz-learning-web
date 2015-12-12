@@ -64,7 +64,7 @@ define(['./module', 'note', 'webaudioplayer', 'currentaudiocontext','tanpura', '
         var currThat;
         var marker = 0;
         var baseFreq = 261;
-        var playTime = 500;
+        var playTime = 100;
         var tanpura = null;
 
         var currLoopId;

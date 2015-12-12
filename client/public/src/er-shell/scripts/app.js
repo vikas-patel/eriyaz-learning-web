@@ -40,7 +40,8 @@ define([
     'countnotes',
     'tonesmemory',
     'poorvanga',
-    'flappybird'
+    'flappybird',
+    'phraseshape'
 ], function(angular) {
     'use strict';
 
@@ -79,6 +80,7 @@ define([
         'tonesmemory',
         'poorvanga',
         'flappybird',
+        'phraseshape',
         'ngResource',
         'angulartics',
         'angulartics.google.analytics',

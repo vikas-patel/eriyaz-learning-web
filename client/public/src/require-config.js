@@ -208,6 +208,10 @@ requirejs.config({
         location: 'er-apps/FlappyBird',
         main: 'index'
     }, {
+        name: 'phraseshape',
+        location: 'er-apps/PhraseShape',
+        main: 'index'
+    }, {
         name: 'tanpura',
         location: 'er-libs/tanpura',
         main: 'tanpura'

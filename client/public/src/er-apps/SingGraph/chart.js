@@ -55,7 +55,7 @@ define([], function() {
 			})
 			.y(function(d, i) {
 				return y(d);
-			}).interpolate("step-before");
+			}).interpolate("linear");
 
 		function customYFormat(yValue) {
 			var labels = ['Sa', '', 'Re', '', 'Ga', 'Ma', '', 'Pa', '', 'Dha', '', 'Ni', 'Sa'];
@@ -226,7 +226,8 @@ define([], function() {
 		};
 
 		this.notify = function(newValue) {
-			intervalValue = Math.round(newValue);
+			// intervalValue = Math.round(newValue);
+			intervalValue = newValue;
 		};
 
 

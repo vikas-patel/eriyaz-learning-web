@@ -199,6 +199,10 @@
         href: '#fasternotes',
         appUrl: 'er-apps/FasterNotes/main.html',
         aspectRatio: 3/4,
+        hotkeys: [
+          ['f', 'newThat()'],
+          ['a', 'showAns()']
+        ]
       }, {
         name: 'RapidUpDown',
         thumb: 'er-shell/images/rapidupdown.jpg',
@@ -264,6 +268,16 @@
         appUrl: 'er-apps/FlappyBird/main.html',
         aspectRatio: 8/7,
         show: true
+      }, {
+        name: 'PhraseShape',
+        thumb: 'er-shell/images/phraseshape.jpg',
+        desc: 'Extract notes from a fast melody.',
+        href: '#phraseshape',
+        appUrl: 'er-apps/PhraseShape/main.html',
+        aspectRatio: 3/4,
+        hotkeys: [
+          ['f', 'restartf()']
+        ]
       }];
       appsInfo.selectedIndex = -1;
       TimeMe.setIdleDurationInSeconds(60);
