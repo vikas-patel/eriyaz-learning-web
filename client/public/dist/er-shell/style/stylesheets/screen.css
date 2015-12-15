@@ -2426,3 +2426,55 @@ core-drawer-panel:not([narrow]) #navicon {
   font-weight: bold;
   border: none;
 }
+
+/* line 7, ../../../er-apps/PhraseShape/main.scss */
+#phraseshape .container-toplevel {
+  width: 100%;
+}
+/* line 16, ../../../er-apps/PhraseShape/main.scss */
+#phraseshape #backdrop {
+  fill: #252525;
+}
+/* line 19, ../../../er-apps/PhraseShape/main.scss */
+#phraseshape h4 {
+  margin-bottom: 15px;
+}
+/* line 25, ../../../er-apps/PhraseShape/main.scss */
+#phraseshape #display, #phraseshape #top-panel, #phraseshape #bottom-panel {
+  width: 95%;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* line 32, ../../../er-apps/PhraseShape/main.scss */
+#phraseshape #score {
+  float: right;
+  margin-right: 5px;
+}
+/* line 38, ../../../er-apps/PhraseShape/main.scss */
+#phraseshape .controls {
+  margin-top: 30%;
+  padding-left: 10%;
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  *zoom: 1;
+}
+/* line 12, C:/Ruby193/lib/ruby/gems/1.9.1/gems/susy-2.2.2/sass/susy/output/support/_clearfix.scss */
+#phraseshape .controls:after {
+  content: " ";
+  display: block;
+  clear: both;
+}
+/* line 45, ../../../er-apps/PhraseShape/main.scss */
+#phraseshape .controls .filler, #phraseshape .controls img, #phraseshape .controls button {
+  display: block;
+  float: left;
+  width: 28.57143%;
+  height: 4em;
+}
+/* line 51, ../../../er-apps/PhraseShape/main.scss */
+#phraseshape .controls #leftbutton, #phraseshape .controls #rightbutton, #phraseshape .controls img {
+  margin-top: -10px;
+}
