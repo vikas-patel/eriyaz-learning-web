@@ -1,5 +1,5 @@
-define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../prefabs/pipeGroup', '../prefabs/scoreboard', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'pitchdetector', 'music-calc'], 
-    function (d3, Bird, Ground, Pipe, PipeGroup, Scoreboard, MicUtil, CurrentAudioContext, AudioBuffer, PitchDetector, MusicCalc) {
+define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../prefabs/pipeGroup', '../prefabs/starGroup', '../prefabs/scoreboard', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'pitchdetector', 'music-calc'], 
+    function (d3, Bird, Ground, Pipe, PipeGroup, StarGroup, Scoreboard, MicUtil, CurrentAudioContext, AudioBuffer, PitchDetector, MusicCalc) {
     function Play() {
     }
     Play.prototype = {
@@ -11,11 +11,16 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         // give our world an initial gravity of 1200
         this.game.physics.arcade.gravity.y = 0;
 
+        this.maxPipeCount = 20;
+        this.pipeCount = 0;
+        this.game.level = 1;
+
         // add the background sprite
         this.background = this.game.add.sprite(0,0,'background');
 
         // create and add a group to hold our pipeGroup prefabs
         this.pipes = this.game.add.group();
+        this.stars = this.game.add.group();
         
         // create and add a new Bird object
         this.bird = new Bird(this.game, 100, this.game.height/2);
@@ -36,7 +41,7 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
           );
         var audioContext = CurrentAudioContext.getInstance();
         var detector = PitchDetector.getDetector('wavelet', audioContext.sampleRate);
-        var rootNote = 47;
+        var rootNote = this.game.rootNote;
         var rootFreq = MusicCalc.midiNumToFreq(rootNote);
         var y = d3.scale.linear()
             .domain([0, 11])
@@ -74,7 +79,8 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
 
         this.instructionGroup = this.game.add.group();
         this.instructionGroup.add(this.game.add.sprite(this.game.width/2, 100,'getReady'));
-        this.instructionGroup.add(this.game.add.sprite(this.game.width/2, 325,'instructions'));
+        this.instructionGroup.add(this.game.add.sprite(this.game.width/2, 225,'instructions'));
+        this.instructionGroup.add(this.game.add.sprite(this.game.width/2, 355,'startButton'));
         this.instructionGroup.setAll('anchor.x', 0.5);
         this.instructionGroup.setAll('anchor.y', 0.5);
 
@@ -85,6 +91,7 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         this.pipeHitSound = this.game.add.audio('pipeHit');
         this.groundHitSound = this.game.add.audio('groundHit');
         this.scoreSound = this.game.add.audio('score');
+        //TODO: star collect sound
         
       },
       update: function() {
@@ -96,6 +103,10 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
             this.pipes.forEach(function(pipeGroup) {
                 this.checkScore(pipeGroup);
                 this.game.physics.arcade.collide(this.bird, pipeGroup, this.deathHandler, null, this);
+            }, this);
+
+            this.stars.forEach(function(starGroup) {
+                this.game.physics.arcade.overlap(this.bird, starGroup, this.collectStar, null, this);
             }, this);
         }
       },
@@ -125,15 +136,19 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
             this.scoreSound.play();
         }
       },
+      collectStar: function(bird, star) {
+            // Removes star from screen
+            star.kill();
+            this.score++;
+            this.scoreText.setText(this.score.toString());
+            this.scoreSound.play();
+      },
       deathHandler: function(bird, enemy) {
-        if(enemy instanceof Ground && !this.bird.onGround) {
-            this.groundHitSound.play();
-            this.scoreboard = new Scoreboard(this.game);
+        if (enemy instanceof Pipe){
+            this.pipeHitSound.play();
+            this.scoreboard = new Scoreboard(this.game, false);
             this.game.add.existing(this.scoreboard);
             this.scoreboard.show(this.score);
-            this.bird.onGround = true;
-        } else if (enemy instanceof Pipe){
-            this.pipeHitSound.play();
         }
 
         if(!this.gameover) {
@@ -143,20 +158,42 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
             this.pipeGenerator.timer.stop();
             this.ground.stopScroll();
             this.game.physics.arcade.gravity.y = 1200;
-            console.log("gameover");
         }
         
       },
+      levelCompleted: function() {
+            this.scoreboard = new Scoreboard(this.game, true);
+            this.game.add.existing(this.scoreboard);
+            this.scoreboard.show(this.score);
+
+            this.gameover = true;
+            this.bird.kill();
+            this.pipes.callAll('stop');
+            this.pipeGenerator.timer.stop();
+            this.ground.stopScroll();
+      },
       generatePipes: function() {
-        console.log("generatePipes");
+        if (this.pipeCount > this.maxPipeCount) {
+            // Level Complete
+            this.levelCompleted();
+        }
+        var delay = Math.max(this.pipeGenerator.delay - 50, 1500);
         var pipeY = this.game.rnd.integerInRange(-100, 100);
         var pipeGroup = this.pipes.getFirstExists(false);
         if(!pipeGroup) {
             pipeGroup = new PipeGroup(this.game, this.pipes);  
         }
+        var starY = this.game.rnd.integerInRange(this.game.height/10, this.game.height*9/10);
+        var pipeSpace = delay/1000*200;
+        var starX = pipeSpace + this.game.rnd.integerInRange(pipeSpace*2/10, pipeSpace*7/10);
+        var starGroup = this.stars.getFirstExists(false);
+        if (!starGroup) {
+            starGroup = new StarGroup(this.game, this.stars);
+        }
+        starGroup.reset(starX, starY);
+        
         pipeGroup.reset(this.game.width, pipeY);
-        console.log("duration:"+this.pipeGenerator.delay);
-        var delay = Math.max(this.pipeGenerator.delay - 50, 1500);
+        this.pipeCount++;
         this.pipeGenerator = this.game.time.events.add(delay, this.generatePipes, this);
       }
     };

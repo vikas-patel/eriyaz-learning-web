@@ -34,7 +34,11 @@ define(['phaser'], function (Phaser) {
     // check to see if our angle is less than 90
     // if it is rotate the bird towards the ground by 2.5 degrees
     if(this.angle < 90 && this.alive) {
-      this.angle += 2.5;
+      if (this.angle > 1) {
+        this.angle -= 2;
+      } else if (this.angle < -1) {
+        this.angle += 2;
+      }
     }
 
     if(!this.alive) {

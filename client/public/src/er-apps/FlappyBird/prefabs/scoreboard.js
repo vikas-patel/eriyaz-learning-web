@@ -1,20 +1,27 @@
 define(['phaser'], function (Phaser) {
 
-  var Scoreboard = function(game) {
+  var Scoreboard = function(game, isLevelCompleted) {
     
-    var gameover;
-    
+    var title;
+    this.isLevelCompleted = isLevelCompleted;
+
     Phaser.Group.call(this, game);
-    gameover = this.create(this.game.width / 2, 100, 'gameover');
-    gameover.anchor.setTo(0.5, 0.5);
+    if (isLevelCompleted) {
+        var style = { font: "30px Snap ITC", fill: "#FCA048", align: "center" };
+        title = this.game.add.text(this.game.width / 2, 100, "Level Up", style);
+        this.add(title);
+    } else {
+        title = this.create(this.game.width / 2, 100, 'gameover');
+    }
+    title.anchor.setTo(0.5, 0.5);
 
     this.scoreboard = this.create(this.game.width / 2, 200, 'scoreboard');
     this.scoreboard.anchor.setTo(0.5, 0.5);
     
-    this.scoreText = this.game.add.bitmapText(this.scoreboard.width, 180, 'flappyfont', '', 18);
+    this.scoreText = this.game.add.bitmapText(this.scoreboard.width*1.5, 180, 'flappyfont', '', 18);
     this.add(this.scoreText);
     
-    this.bestText = this.game.add.bitmapText(this.scoreboard.width, 230, 'flappyfont', '', 18);
+    this.bestText = this.game.add.bitmapText(this.scoreboard.width*1.5, 230, 'flappyfont', '', 18);
     this.add(this.bestText);
 
     // add our start button with a callback
@@ -32,7 +39,7 @@ define(['phaser'], function (Phaser) {
   Scoreboard.prototype.constructor = Scoreboard;
 
   Scoreboard.prototype.show = function(score) {
-    var coin, bestScore;
+    var medals, bestScore;
     this.scoreText.setText(score.toString());
     if(!!localStorage) {
       bestScore = localStorage.getItem('bestScore');
@@ -46,54 +53,38 @@ define(['phaser'], function (Phaser) {
 
     this.bestText.setText(bestScore.toString());
 
-    if(score >= 10 && score < 20)
+    if(score >= 20 && score < 30)
     {
-      coin = this.game.add.sprite(-65 , 7, 'medals', 1);
-    } else if(score >= 20) {
-      coin = this.game.add.sprite(-65 , 7, 'medals', 0);
+      medals = this.game.add.sprite(this.scoreboard.width-30, 150,'levels-trans', 1);
+      this.totalStars = 1;
+    } else if(score >= 30 && score < 40) {
+      medals = this.game.add.sprite(this.scoreboard.width-30, 150,'levels-trans', 2);
+      this.totalStars = 2;
+    } else if (score >= 40) {
+      medals = this.game.add.sprite(this.scoreboard.width-30, 150,'levels-trans', 3);
+      this.totalStars = 3;
     }
+
+    if (medals) this.add(medals);
 
     this.game.add.tween(this).to({y: 0}, 1000, Phaser.Easing.Bounce.Out, true);
+  };
 
-    if (coin) {
-      
-      coin.anchor.setTo(0.5, 0.5);
-      this.scoreboard.addChild(coin);
-      
-       // Emitters have a center point and a width/height, which extends from their center point to the left/right and up/down
-      var emitter = this.game.add.emitter(coin.x, coin.y, 400);
-      this.scoreboard.addChild(emitter);
-      emitter.width = coin.width;
-      emitter.height = coin.height;
-
-
-      //  This emitter will have a width of 800px, so a particle can emit from anywhere in the range emitter.x += emitter.width / 2
-      // emitter.width = 800;
-
-      emitter.makeParticles('particle');
-
-      // emitter.minParticleSpeed.set(0, 300);
-      // emitter.maxParticleSpeed.set(0, 600);
-
-      emitter.setRotation(-100, 100);
-      emitter.setXSpeed(0,0);
-      emitter.setYSpeed(0,0);
-      emitter.minParticleScale = 0.25;
-      emitter.maxParticleScale = 0.5;
-      emitter.setAll('body.allowGravity', false);
-
-      emitter.start(false, 1000, 1000);
-      
+  Scoreboard.prototype.startClick = function(button) {
+    if (this.isLevelCompleted) {
+        // did we improved our stars in current level?
+        if(this.game.starArray[this.game.level-1]<this.totalStars){
+          this.game.starArray[this.game.level-1] = this.totalStars;
+        }
+        // if we completed a level and next level is locked - and exists - then unlock it
+        if(this.totalStars>0 && this.game.starArray[this.game.level]==4 && this.game.level<this.game.starArray.length){
+          this.game.starArray[this.game.level] = 0;
+        }
+        this.game.state.start("levels");
+    } else {
+        this.game.state.start('play');
     }
   };
-
-  Scoreboard.prototype.startClick = function() {
-    this.game.state.start('play');
-  };
-
-
-
-
 
   Scoreboard.prototype.update = function() {
     // write your prefab's specific update code here
