@@ -1,4 +1,4 @@
-define(['phaser'], function (Phaser) {
+define([], function () {
 
   var Scoreboard = function(game, isLevelCompleted) {
     

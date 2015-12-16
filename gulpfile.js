@@ -77,10 +77,11 @@ gulp.task('rjs', function(cb) {
       mainConfigFile: 'client/public/src/require-config.js',
       optimize: 'none',
       findNestedDependencies: true,
+      exclude: ['phaser'],
       insertRequire: ['main']
     })
-    .pipe(ngAnnotate())
-    .pipe(uglify())
+    // .pipe(ngAnnotate())
+    // .pipe(uglify())
     .pipe(gulp.dest('client/public/dist'));
   cb();
 });
@@ -88,13 +89,14 @@ gulp.task('rjs', function(cb) {
 
 gulp.task('buildjs', function() {
   return gulp.src(['client/public/src/ext-libs/bower_components/webcomponentsjs/webcomponents.min.js',
+      'client/public/src/ext-libs/bower_components/phaser/build/phaser.min.js',
       'client/public/src/ext-libs/bower_components/ifvisible.js/src/ifvisible.min.js',
       'client/public/src/ext-libs/require.min.js',
       'client/public/dist/app.js'
     ])
     .pipe(concat('build.js'))
-    // .pipe(ngAnnotate())
-    // .pipe(uglify())
+    .pipe(ngAnnotate())
+    .pipe(uglify())
     .pipe(gulp.dest('client/public/dist'));
 });
 

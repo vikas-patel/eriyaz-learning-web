@@ -1,4 +1,4 @@
-define(['phaser'], function (Phaser) {
+define([], function () {
 
   var StarGroup = function(game, parent) {
 

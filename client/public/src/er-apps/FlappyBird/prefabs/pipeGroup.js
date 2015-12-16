@@ -1,4 +1,4 @@
-define(['phaser', './pipe'], function (Phaser, Pipe) {
+define(['./pipe'], function (Pipe) {
 
   var PipeGroup = function(game, parent) {
 

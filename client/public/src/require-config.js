@@ -7,7 +7,6 @@ requirejs.config({
     waitSeconds: 60,
     baseUrl: '/',
     paths: {
-        'phaser': 'ext-libs/bower_components/phaser/build/phaser.min',
         'polymer-wecomponents': 'ext-libs/bower_components/webcomponentsjs/webcomponents.min',
         'domReady': 'ext-libs/bower_components/requirejs-domready/domready',
         'angular': 'ext-libs/bower_components/angular/angular',
@@ -47,7 +46,8 @@ requirejs.config({
         'soundtouch' : 'ext-libs/soundtouch/soundtouch',
         'timeMe' : 'ext-libs/TimeMe/TImeMe',
         'ng-table' : "ext-libs/bower_components/ng-table/dist/ng-table.min",
-        'recorderworker' : 'er-libs/recorderworker'
+        'recorderworker' : 'er-libs/recorderworker',
+        'phaser': 'ext-libs/bower_components/phaser/build/phaser.min'
     },
 
     // Add modules that do not support AMD

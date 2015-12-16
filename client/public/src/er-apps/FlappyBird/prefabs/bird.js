@@ -1,4 +1,4 @@
-define(['phaser'], function (Phaser) {
+define([], function () {
 
   var Bird = function(game, x, y, frame) {
     Phaser.Sprite.call(this, game, x, y, 'bird', frame);
