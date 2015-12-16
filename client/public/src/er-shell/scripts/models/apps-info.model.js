@@ -262,8 +262,8 @@
         ]
       }, {
         name: 'FlappyBird',
-        thumb: 'er-shell/images/background.png',
-        desc: 'Flappy Bird Game.',
+        thumb: 'er-shell/images/flappybird.jpg',
+        desc: 'Control your voice pitch.',
         href: '#flappybird',
         appUrl: 'er-apps/FlappyBird/main.html',
         aspectRatio: 8/7,
