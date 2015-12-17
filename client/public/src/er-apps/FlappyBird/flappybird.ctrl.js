@@ -13,8 +13,6 @@ define(['./module', './states/boot', './states/menu', './states/preload', './sta
             game.starArray = [0, 4, 4, 4];
 
             game.state.start('boot');
-            //TODO: Replace with volume intensity
-            //TODO: Bird movement more sensitive
             // Set flexible root note.
             User.get({
                 id: $window.localStorage.userId

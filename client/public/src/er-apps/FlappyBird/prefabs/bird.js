@@ -60,11 +60,12 @@ define([], function () {
           this.y = this.y - (this.y - y)/10;
           this.game.add.tween(this).to({angle: -40}, 100).start();
         }
-      }      //this.body.velocity.y = -400;
-      // rotate the bird to -40 degrees
-      
+      }
+      // stay above ground.
+      if (this.y > 388) this.y = 388;
     }
   };
+
 
   Bird.prototype.revived = function() { 
   };

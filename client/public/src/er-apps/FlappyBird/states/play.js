@@ -9,7 +9,7 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
 
 
         // give our world an initial gravity of 1200
-        this.game.physics.arcade.gravity.y = 0;
+        //this.game.physics.arcade.gravity.y = 1200;
 
         this.maxPipeCount = 20;
         this.pipeCount = 0;
@@ -35,7 +35,7 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
 
         MicUtil.getMicAudioStream(
             function(stream) {
-              buffer = new AudioBuffer(audioContext, stream, 2048);
+              buffer = new AudioBuffer(audioContext, stream, 1024);
               buffer.addProcessor(updatePitch);
             }
           );
@@ -47,16 +47,17 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
             .domain([0, 11])
             .range([this.game.height - 120, 0]);
         var playObj = this;
-        //TODO: ignore random/outOfRange pitches.
         var updatePitch = function(data) {
-          var pitch = detector.findPitch(data);
-          if (pitch !== 0) {
-            currInterval = Math.round(1200 * (Math.log(pitch/rootFreq) / Math.log(2)) / 100);
-            if (currInterval > -4 && currInterval < 15) {
-                playObj.bird.flap(y(currInterval));
+            // range 0-1
+            // var volume = 2*IntensityFilter.rootMeanSquare(data);
+            // if (volume < 0.15) return;
+            var pitch = detector.findPitch(data);
+            if (pitch !== 0) {
+                currInterval = Math.round(1200 * (Math.log(pitch/rootFreq) / Math.log(2)) / 100);
+                if (currInterval > -6 && currInterval < 18) {
+                    playObj.bird.flap(y(currInterval));
+                }
             }
-            
-          }
         };
         // add keyboard controls
         this.flapKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -149,15 +150,21 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
             this.scoreboard = new Scoreboard(this.game, false);
             this.game.add.existing(this.scoreboard);
             this.scoreboard.show(this.score);
-        }
 
-        if(!this.gameover) {
             this.gameover = true;
             this.bird.kill();
             this.pipes.callAll('stop');
             this.pipeGenerator.timer.stop();
             this.ground.stopScroll();
-            this.game.physics.arcade.gravity.y = 1200;
+        }
+
+        if(!this.gameover) {
+            // this.gameover = true;
+            // this.bird.kill();
+            // this.pipes.callAll('stop');
+            // this.pipeGenerator.timer.stop();
+            // this.ground.stopScroll();
+            // this.game.physics.arcade.gravity.y = 1200;
         }
         
       },
