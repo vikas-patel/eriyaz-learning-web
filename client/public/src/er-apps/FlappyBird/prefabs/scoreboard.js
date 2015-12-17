@@ -82,7 +82,7 @@ define([], function () {
         }
         this.game.state.start("levels");
     } else {
-        this.game.state.start('play');
+        this.game.state.start('level1');
     }
   };
 
