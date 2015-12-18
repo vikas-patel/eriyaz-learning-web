@@ -13,7 +13,11 @@ define(['./module', './states/boot', './states/menu', './states/preload', './sta
             game.starArray = [0, 4, 4, 4];
 
             game.state.start('boot');
+            // TODO: small range in level 1
             // Set flexible root note.
+            // Position stars better
+            // Highest score
+            // End of level: flag or trophy
             User.get({
                 id: $window.localStorage.userId
               }).$promise.then(function(user) {

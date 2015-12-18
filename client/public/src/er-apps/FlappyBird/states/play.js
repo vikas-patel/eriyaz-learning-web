@@ -1,6 +1,7 @@
-define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../prefabs/pipeGroup', '../prefabs/starGroup', '../prefabs/scoreboard', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'pitchdetector', 'music-calc'], 
-    function (d3, Bird, Ground, Pipe, PipeGroup, StarGroup, Scoreboard, MicUtil, CurrentAudioContext, AudioBuffer, PitchDetector, MusicCalc) {
+define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../prefabs/pipeGroup', '../prefabs/starGroup', '../prefabs/scoreboard', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'pitchdetector', 'music-calc', 'intensityfilter'], 
+    function (d3, Bird, Ground, Pipe, PipeGroup, StarGroup, Scoreboard, MicUtil, CurrentAudioContext, AudioBuffer, PitchDetector, MusicCalc, IntensityFilter) {
     function Play() {
+        
     }
     Play.prototype = {
       create: function() {
@@ -42,22 +43,19 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         var audioContext = CurrentAudioContext.getInstance();
         var detector = PitchDetector.getDetector('wavelet', audioContext.sampleRate);
         var rootNote = this.game.rootNote;
-        var rootFreq = MusicCalc.midiNumToFreq(rootNote);
-        var y = d3.scale.linear()
-            .domain([0, 11])
-            .range([this.game.height - 120, 0]);
+        this.rootFreq = MusicCalc.midiNumToFreq(rootNote);
+        this.setYScale();
         var playObj = this;
         var updatePitch = function(data) {
-            // range 0-1
-            // var volume = 2*IntensityFilter.rootMeanSquare(data);
-            // if (volume < 0.15) return;
+           
             var pitch = detector.findPitch(data);
-            if (pitch !== 0) {
-                currInterval = Math.round(1200 * (Math.log(pitch/rootFreq) / Math.log(2)) / 100);
-                if (currInterval > -6 && currInterval < 18) {
-                    playObj.bird.flap(y(currInterval));
-                }
+             // range 0-1
+            var volume = 2*IntensityFilter.rootMeanSquare(data);
+            // if (volume < 0.15) return;
+            if (pitch !== 0 && volume > 0.15) {
+                playObj.updatePitch(pitch);
             }
+            
         };
         // add keyboard controls
         this.flapKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -94,6 +92,18 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         this.scoreSound = this.game.add.audio('score');
         //TODO: star collect sound
         
+      },
+      setYScale: function() {
+        console.log("play");
+        this.yScale = d3.scale.linear()
+            .domain([0, 11])
+            .range([this.game.height - 120, 0]);
+        },
+      updatePitch: function(pitch) {
+            currInterval = Math.round(1200 * (Math.log(pitch/this.rootFreq) / Math.log(2)) / 100);
+            if (currInterval > -6 && currInterval < 18) {
+                this.bird.flap(this.yScale(currInterval));
+            }
       },
       update: function() {
         // enable collisions between the bird and the ground

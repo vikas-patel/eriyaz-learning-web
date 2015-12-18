@@ -15,6 +15,13 @@ define(['./play', '../prefabs/PipeGroup', '../prefabs/starGroup'], function (Pla
         }
       };
 
+    Level1.prototype.setYScale = function() {
+        console.log("level1");
+        this.yScale = d3.scale.linear()
+            .domain([0, 11])
+            .range([this.game.height - 120, 0]);
+    };
+
 	Level1.prototype.generatePipes = function() {
         if (this.pipeCount > this.maxPipeCount) {
             // Level Complete
