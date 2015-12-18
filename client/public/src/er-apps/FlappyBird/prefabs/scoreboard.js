@@ -42,10 +42,10 @@ define([], function () {
     var medals, bestScore;
     this.scoreText.setText(score.toString());
     if(!!localStorage) {
-      bestScore = localStorage.getItem('bestScore');
+      bestScore = localStorage.getItem('bestScore' + this.game.level);
       if(!bestScore || bestScore < score) {
         bestScore = score;
-        localStorage.setItem('bestScore', bestScore);
+        localStorage.setItem('bestScore' + this.game.level, bestScore);
       }
     } else {
       bestScore = 'N/A';
@@ -82,7 +82,7 @@ define([], function () {
         }
         this.game.state.start("levels");
     } else {
-        this.game.state.start('level1');
+        this.game.state.start('level' + this.game.level);
     }
   };
 

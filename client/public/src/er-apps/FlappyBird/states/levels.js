@@ -48,7 +48,7 @@ define([], function () {
       thumbClicked: function(button) {
         // the level is playable, then play the level!!
         if(button.frame < 4){
-            this.game.state.start('level1');
+            this.game.state.start('level' + button.levelNumber);
         }
         // else, let's shake the locked levels
         else{

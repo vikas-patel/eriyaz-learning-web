@@ -14,7 +14,7 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
 
         this.maxPipeCount = 20;
         this.pipeCount = 0;
-        this.game.level = 1;
+        //this.game.level = 1;
 
         // add the background sprite
         this.background = this.game.add.sprite(0,0,'background');
@@ -44,7 +44,9 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         var detector = PitchDetector.getDetector('wavelet', audioContext.sampleRate);
         var rootNote = this.game.rootNote;
         this.rootFreq = MusicCalc.midiNumToFreq(rootNote);
-        this.setYScale();
+        this.yScale = d3.scale.linear()
+            .domain([0, 11])
+            .range([this.game.height - 120, 0]);
         var playObj = this;
         var updatePitch = function(data) {
            
@@ -90,15 +92,14 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         this.pipeHitSound = this.game.add.audio('pipeHit');
         this.groundHitSound = this.game.add.audio('groundHit');
         this.scoreSound = this.game.add.audio('score');
+        this.postCreate();
         //TODO: star collect sound
         
       },
-      setYScale: function() {
-        console.log("play");
-        this.yScale = d3.scale.linear()
-            .domain([0, 11])
-            .range([this.game.height - 120, 0]);
-        },
+      postCreate: function() {
+        // Abstract method
+        // Initialize level specific variables
+      },
       updatePitch: function(pitch) {
             currInterval = Math.round(1200 * (Math.log(pitch/this.rootFreq) / Math.log(2)) / 100);
             if (currInterval > -6 && currInterval < 18) {
@@ -166,17 +167,8 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
             this.pipes.callAll('stop');
             this.pipeGenerator.timer.stop();
             this.ground.stopScroll();
+            this.game.physics.arcade.gravity.y = 1200;
         }
-
-        if(!this.gameover) {
-            // this.gameover = true;
-            // this.bird.kill();
-            // this.pipes.callAll('stop');
-            // this.pipeGenerator.timer.stop();
-            // this.ground.stopScroll();
-            // this.game.physics.arcade.gravity.y = 1200;
-        }
-        
       },
       levelCompleted: function() {
             this.scoreboard = new Scoreboard(this.game, true);

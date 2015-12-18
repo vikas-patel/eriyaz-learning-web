@@ -14,11 +14,10 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup'], function (Le
             this.scoreSound.play();
         }
       };
-
-    Level1.prototype.setYScale = function() {
-        console.log("level1");
+    Level1.prototype.postCreate = function() {
+        this.game.level = 1;
         this.yScale = d3.scale.linear()
-            .domain([0, 11])
+            .domain([3, 9])
             .range([this.game.height - 120, 0]);
     };
 
