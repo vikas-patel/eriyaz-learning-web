@@ -1,5 +1,5 @@
-define(['./module', './states/boot', './states/menu', './states/preload', './states/levels', './states/play', './states/level1'], 
-    function(app, Boot, Menu, Preload, Levels, Play, Level1) {
+define(['./module', './states/boot', './states/menu', './states/preload', './states/levels', './states/level', './states/level1'], 
+    function(app, Boot, Menu, Preload, Levels, Level, Level1) {
         app.controller('FlappyBirdCtrl', function($scope, User, $window) {
             
             var game = new Phaser.Game(576, 505, Phaser.AUTO, 'flappyBird');
@@ -9,7 +9,7 @@ define(['./module', './states/boot', './states/menu', './states/preload', './sta
             game.state.add('preload', Preload);
             game.state.add('levels', Levels);
             game.state.add("level1", Level1);
-            game.state.add('play', Play);
+            game.state.add('level', Level);
             game.starArray = [0, 4, 4, 4];
 
             game.state.start('boot');

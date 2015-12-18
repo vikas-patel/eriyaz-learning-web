@@ -1,10 +1,10 @@
-define(['./play', '../prefabs/PipeGroup', '../prefabs/starGroup'], function (Play, PipeGroup, StarGroup) {
+define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup'], function (Level, PipeGroup, StarGroup) {
 
 	function Level1() {
 	}
 
-	Level1.prototype = Object.create(Play.prototype);
-	Level1.prototype.constructor = Play;
+	Level1.prototype = Object.create(Level.prototype);
+	Level1.prototype.constructor = Level;
 	Level1.prototype.checkScore = function(pipeGroup) {
         if(pipeGroup.exists && !pipeGroup.hasScored && 
         	(pipeGroup.topPipe.world.x <= this.bird.world.x || pipeGroup.bottomPipe.world.x <= this.bird.world.x)) {

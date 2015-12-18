@@ -1,9 +1,9 @@
 define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../prefabs/pipeGroup', '../prefabs/starGroup', '../prefabs/scoreboard', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'pitchdetector', 'music-calc', 'intensityfilter'], 
     function (d3, Bird, Ground, Pipe, PipeGroup, StarGroup, Scoreboard, MicUtil, CurrentAudioContext, AudioBuffer, PitchDetector, MusicCalc, IntensityFilter) {
-    function Play() {
+    function Level() {
         
     }
-    Play.prototype = {
+    Level.prototype = {
       create: function() {
         // start the phaser arcade physics engine
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -214,5 +214,5 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         this.pipeGenerator = this.game.time.events.add(delay, this.generatePipes, this);
       }
     };
-    return Play;
+    return Level;
 });
