@@ -41,14 +41,9 @@ define([], function () {
   Scoreboard.prototype.show = function(score) {
     var medals, bestScore;
     this.scoreText.setText(score.toString());
-    if(!!localStorage) {
-      bestScore = localStorage.getItem('bestScore' + this.game.level);
-      if(!bestScore || bestScore < score) {
-        bestScore = score;
-        localStorage.setItem('bestScore' + this.game.level, bestScore);
-      }
-    } else {
-      bestScore = 'N/A';
+    var bestScore = this.game.starArray[this.game.level-1].score;
+    if(!bestScore || bestScore < score) {
+      bestScore = score;
     }
 
     this.bestText.setText(bestScore.toString());
@@ -68,21 +63,18 @@ define([], function () {
     if (medals) this.add(medals);
 
     this.game.add.tween(this).to({y: 0}, 1000, Phaser.Easing.Bounce.Out, true);
+    if (this.isLevelCompleted) {
+      this.game.events.onLevelCompleted.dispatch(this.game.level, this.totalStars, score);
+    } else {
+      this.game.events.onLevelCompleted.dispatch(this.game.level, 0, score);
+    }
   };
 
   Scoreboard.prototype.startClick = function(button) {
     if (this.isLevelCompleted) {
-        // did we improved our stars in current level?
-        if(this.game.starArray[this.game.level-1]<this.totalStars){
-          this.game.starArray[this.game.level-1] = this.totalStars;
-        }
-        // if we completed a level and next level is locked - and exists - then unlock it
-        if(this.totalStars>0 && this.game.starArray[this.game.level]==4 && this.game.level<this.game.starArray.length){
-          this.game.starArray[this.game.level] = 0;
-        }
         this.game.state.start("levels");
     } else {
-        this.game.state.start('level' + this.game.level);
+        this.game.state.restart();
     }
   };
 

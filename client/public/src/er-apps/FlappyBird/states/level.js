@@ -8,7 +8,6 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         // start the phaser arcade physics engine
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-
         // give our world an initial gravity of 1200
         //this.game.physics.arcade.gravity.y = 1200;
 
