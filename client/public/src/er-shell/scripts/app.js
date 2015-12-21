@@ -41,6 +41,7 @@ define([
     'tonesmemory',
     'poorvanga',
     'phraseshape',
+    'singinggame',
 ], function(angular) {
     'use strict';
 
@@ -79,6 +80,7 @@ define([
         'tonesmemory',
         'poorvanga',
         'phraseshape',
+        'singinggame',
         
         'ngResource',
         'angulartics',
