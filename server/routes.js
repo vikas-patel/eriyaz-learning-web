@@ -101,6 +101,9 @@ module.exports = function(app, passport) {
 	app.post('/journal', userDao.addJournal);
 	app.get('/journal/:id', userDao.findAllJournal);
 
+	app.post('/medal', userDao.updateMedal);
+	app.get('/medal/:id/:appName', userDao.findAllMedalByApp);
+
 	app.get('/teachers', isLoggedIn, userDao.findAllTeachers);
 	app.get('/teachers/students/:id', isLoggedIn, userDao.findAllStudentsByTeacher);
 

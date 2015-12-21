@@ -46,7 +46,8 @@ requirejs.config({
         'soundtouch' : 'ext-libs/soundtouch/soundtouch',
         'timeMe' : 'ext-libs/TimeMe/TImeMe',
         'ng-table' : "ext-libs/bower_components/ng-table/dist/ng-table.min",
-        'recorderworker' : 'er-libs/recorderworker'
+        'recorderworker' : 'er-libs/recorderworker',
+        'phaser': 'ext-libs/bower_components/phaser/build/phaser.min'
     },
 
     // Add modules that do not support AMD
@@ -84,6 +85,9 @@ requirejs.config({
         },
         'jquery': {
             exports: '$'
+        },
+        'phaser': {
+            exports: 'Phaser'
         },
 
         //sountouch load order
@@ -198,6 +202,10 @@ requirejs.config({
     }, {
         name: 'poorvanga',
         location: 'er-apps/Poorvanga',
+        main: 'index'
+    }, {
+        name: 'flappybird',
+        location: 'er-apps/FlappyBird',
         main: 'index'
     }, {
         name: 'phraseshape',

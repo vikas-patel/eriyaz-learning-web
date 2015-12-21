@@ -261,6 +261,14 @@
           ['f', 'newThat()']
         ]
       }, {
+        name: 'FlappyBird',
+        thumb: 'er-shell/images/flappybird.jpg',
+        desc: 'Control your voice pitch.',
+        href: '#flappybird',
+        appUrl: 'er-apps/FlappyBird/main.html',
+        aspectRatio: 8/7,
+        show: true
+      }, {
         name: 'PhraseShape',
         thumb: 'er-shell/images/phraseshape.jpg',
         desc: 'Recognize melodic shape of a 4 note phrase.',

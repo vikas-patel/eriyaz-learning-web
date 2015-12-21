@@ -1,0 +1,63 @@
+define(['./module', './states/boot', './states/menu', './states/preload', './states/levels', './states/level2', './states/level1'], 
+    function(app, Boot, Menu, Preload, Levels, Level2, Level1) {
+        app.controller('FlappyBirdCtrl', function($scope, User, $window, $http) {
+            
+            var game = new Phaser.Game(576, 505, Phaser.AUTO, 'flappyBird');
+            // Game States
+            game.state.add('boot', Boot);
+            game.state.add('menu', Menu);
+            game.state.add('preload', Preload);
+            game.state.add('levels', Levels);
+            game.state.add("level1", Level1);
+            game.state.add('level2', Level2);
+
+            game.state.start('boot');
+            // TODO: small range in level 1
+            // Set flexible root note.
+            // Position stars better
+            // Variable star numbers
+            // Highest score
+            // End of level: flag or trophy
+            User.get({
+                id: $window.localStorage.userId
+              }).$promise.then(function(user) {
+                $scope.gender = user.gender;
+                if ($scope.gender == 'man') {
+                    game.rootNote = 47;
+                } else {
+                    game.rootNote = 58;
+                }
+              });
+              if (!game.events) game.events = {};
+              game.events.onLevelCompleted = new Phaser.Signal();
+              //game.events.onLevelCompleted.add(function() {console.log("message")});
+              game.events.onLevelCompleted.add(onLevelCompleted);
+              // Load user medals
+              $http.get('/medal/' + $window.localStorage.userId + "/flappybird")
+                  .success(function(data) {
+                      game.starArray = data;
+                      console.log(data);
+                  }).error(function(status, data) {
+                      console.log("failed");
+                      console.log(data);
+                  });
+
+            function onLevelCompleted(level, medal, score) {
+                console.log("level completed " + medal + " " + score);
+                var levelScore = game.starArray[level-1];
+                if (levelScore.medal >= medal && levelScore.score >= score) {
+                    return;
+                }
+                levelScore.medal = Math.max(levelScore.medal, medal);
+                levelScore.score = Math.max(levelScore.score, score);
+                var userId = $window.localStorage.userId;
+                  $http.post('/medal', levelScore).success(function(data) {
+                    console.log("update success");
+                    console.log(data);
+                  }).error(function(status, data) {
+                      console.log("failed");
+                      console.log(data);
+                  });
+            }
+        });
+    });

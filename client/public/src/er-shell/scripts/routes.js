@@ -502,12 +502,24 @@
                      onLoggedOutRedirect: checkLoginAndRedirect
                  }
              }).
+             state('flappybird', {
+                 url: '/flappybird',
+                 onEnter: function(UIModel, AppsInfoModel) {
+                     UIModel.uiModel.showLoginDialog = false;
+                     UIModel.uiModel.showMenu = true;
+                     AppsInfoModel.setSelected(26);
+                     UIModel.uiModel.showAppDialog = true;
+                 },
+                 resolve: {
+                     onLoggedOutRedirect: checkLoginAndRedirect
+                 }
+             }).
              state('phraseshape', {
                  url: '/phraseshape',
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(26);
+                     AppsInfoModel.setSelected(27);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -526,7 +538,6 @@
                      onLoggedOutRedirect: checkLoginAndRedirect
                  }
              });
-
          })
          .factory('authHttpResponseInterceptor', ['$q', '$location', '$window', function($q, $location, $window) {
              return {

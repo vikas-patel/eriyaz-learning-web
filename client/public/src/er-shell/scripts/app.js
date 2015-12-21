@@ -42,6 +42,8 @@ define([
     'poorvanga',
     'phraseshape',
     'singinggame',
+    'flappybird',
+    
 ], function(angular) {
     'use strict';
 
@@ -79,6 +81,7 @@ define([
         'countnotes',
         'tonesmemory',
         'poorvanga',
+        'flappybird',
         'phraseshape',
         'singinggame',
         

@@ -2,6 +2,7 @@ var User = require('../model/user.js');
 var Score = require('../model/score.js');
 var UserTime = require('../model/user-time.js');
 var Journal = require('../model/journal.js');
+var Medal = require('../model/medal.js');
 var mongoose = require('mongoose');
 var _ = require('underscore');
 //TODO:
@@ -17,6 +18,7 @@ exports.save = function(req, res) {
 exports.update = function(req, res) {
 	User.findByIdAndUpdate(req.params.id, {
 		$set: req.body
+		// {new:true} option to return modified object.
 	}, {new: true}, function(err, user) {
 		if (err) return handleError(err);
 		res.send(user);
@@ -101,6 +103,41 @@ exports.findTime = function(req, res) {
 			if (err) res.send(err);
 			res.json(userTimes);
 		});
+}
+// Find all medals by user and app name.
+exports.findAllMedalByApp = function(req, res) {
+	Medal.find({
+		user: new mongoose.Types.ObjectId(req.params.id),
+		appName: req.params.appName
+	}).sort({level:1})
+	.select('-time')
+	.exec(function(err, medals) {
+		if (err) res.send(err);
+		res.json(medals);
+	});
+}
+
+// Insert or Update level medal tally.
+// Check don't allow to decrement top score or medal tally.
+exports.updateMedal = function(req, res) {
+	var obj = req.body;
+	Medal.findById(obj._id, function(err, data){
+	    if (!data){
+	    	console.log("obj id not found." + req.body);
+	        new Medal(obj).save(function(err, data){
+	        	if (err) return res.send(err);
+	  			res.json(data);
+	        });
+	    } else {
+	    	console.log("obj id found." + req.body);
+	    	if (obj.medal < data.medal) obj.medal = data.medal;
+	    	if (obj.score < data.score) obj.score = data.score;
+	        Medal.findByIdAndUpdate(obj._id, obj, {new: true}, function(err, data){
+	            if (err) return res.send(err);
+	  			res.json(data);
+	        });
+	    }
+	});
 }
 
 exports.addJournal = function(req, res) {
