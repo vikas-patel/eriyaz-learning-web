@@ -20,26 +20,42 @@ define(['./module', 'webaudioplayer', 'currentaudiocontext', 'melody', 'note', '
 
             $scope.total = 0;
             $scope.correct = 0;
-            $scope.remainingTime = "02:00";
+            $scope.remainingTime = "10:00";
             $scope.shapes = ['/', '\\', '/\\', '\\/', '/\\/', '\\/\\'];
+            $scope.correctAns = '';
+
             var timeout = true;
 
             $scope.start = function() {
                 timeout = false;
-                startTimer(60);
+                startTimer(600);
                 newProblem();
             };
 
             $scope.checkAns = function(index) {
                 var problem = problemGen.getNewProblem();
                 $scope.total++;
+                $scope.correctAns = $scope.shapes[currProblem.getShape()];
                 if (index === currProblem.getShape()) {
                     $scope.correct++;
                 }
-                newProblem();
-
             };
 
+            $scope.newProblem = function() {
+                playTime = 100;
+                newProblem();
+            };
+
+            $scope.repeat = function() {
+                playTime = 100;
+                
+                playMelody();
+            };
+
+            $scope.repeatSlow = function() {
+                playTime = 400;
+                playMelody();
+            };
 
             function startTimer(duration) {
                 var timer = duration,
@@ -68,6 +84,7 @@ define(['./module', 'webaudioplayer', 'currentaudiocontext', 'melody', 'note', '
                     currProblem = problemGen.getNewProblem();
                     playMelody();
                 }
+                // $scope.correctAns = '';
             };
 
 

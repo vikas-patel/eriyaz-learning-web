@@ -212,6 +212,10 @@ requirejs.config({
         location: 'er-apps/PhraseShape',
         main: 'index'
     }, {
+        name: 'singinggame',
+        location: 'er-apps/SingingGame',
+        main: 'index'
+    }, {
         name: 'tanpura',
         location: 'er-libs/tanpura',
         main: 'tanpura'

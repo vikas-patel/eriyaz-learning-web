@@ -191,14 +191,14 @@
         desc: 'Exhaustive 72 Scales from the Carnatic Music System.',
         href: '#melakarta2',
         appUrl: 'er-apps/Melakarta2/main.html',
-        aspectRatio: 3/4,
+        aspectRatio: 3 / 4,
       }, {
         name: 'FasterNotes',
         thumb: 'er-shell/images/fasternotes.jpg',
         desc: 'Speed up your note recognition.',
         href: '#fasternotes',
         appUrl: 'er-apps/FasterNotes/main.html',
-        aspectRatio: 3/4,
+        aspectRatio: 3 / 4,
         hotkeys: [
           ['f', 'newThat()'],
           ['a', 'showAns()']
@@ -214,15 +214,15 @@
           ['left', 'isUp()'],
           ['right', 'isDown()']
         ],
-        aspectRatio: 3/4,
+        aspectRatio: 3 / 4,
       }, {
         name: 'ExtractNotes',
         thumb: 'er-shell/images/extractnotes.jpg',
         desc: 'Extract notes from a fast melody.',
         href: '#extractnotes',
         appUrl: 'er-apps/ExtractNotes/main.html',
-        aspectRatio: 3/4,
-      },{
+        aspectRatio: 3 / 4,
+      }, {
         name: 'SingSargam',
         thumb: 'er-shell/images/singsargam.jpg',
         desc: 'Sing Sargam and recognize off tune swars.',
@@ -242,21 +242,21 @@
         desc: 'Extract notes from a fast melody.',
         href: '#countnotes',
         appUrl: 'er-apps/CountNotes/main.html',
-        aspectRatio: 3/4,
+        aspectRatio: 3 / 4,
       }, {
         name: 'TonesMemory',
         thumb: 'er-shell/images/tonesmemory.jpg',
         desc: 'Extract notes from a fast melody.',
         href: '#tonesmemory',
         appUrl: 'er-apps/TonesMemory/main.html',
-        aspectRatio: 3/4,
+        aspectRatio: 3 / 4,
       }, {
         name: 'Poorvanga',
         thumb: 'er-shell/images/poorvanga.jpg',
-        desc: 'Extract notes from a fast melody.',
+        desc: 'Practice recognizing among 12 possible first of the Thats.',
         href: '#poorvanga',
         appUrl: 'er-apps/Poorvanga/main.html',
-        aspectRatio: 3/4,
+        aspectRatio: 3 / 4,
         hotkeys: [
           ['f', 'newThat()']
         ]
@@ -271,13 +271,22 @@
       }, {
         name: 'PhraseShape',
         thumb: 'er-shell/images/phraseshape.jpg',
-        desc: 'Extract notes from a fast melody.',
+        desc: 'Recognize melodic shape of a 4 note phrase.',
         href: '#phraseshape',
         appUrl: 'er-apps/PhraseShape/main.html',
-        aspectRatio: 3/4,
+        aspectRatio: 3 / 4,
         hotkeys: [
-          ['f', 'restartf()']
+          ['f', 'newProblem()'],
+          ['d', 'repeat()'],
+          ['s', 'repeatSlow()']
         ]
+      }, {
+        name: 'SingingGame',
+        thumb: 'er-shell/images/singinggame.jpg',
+        desc: 'Extract notes from a fast melody.',
+        href: '#singinggame',
+        appUrl: 'er-apps/SingingGame/main.html',
+        aspectRatio: 3 / 4,
       }];
       appsInfo.selectedIndex = -1;
       TimeMe.setIdleDurationInSeconds(60);
