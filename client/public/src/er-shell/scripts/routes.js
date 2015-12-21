@@ -531,7 +531,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(27);
+                     AppsInfoModel.setSelected(28);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
