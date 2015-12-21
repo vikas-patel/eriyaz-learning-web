@@ -7,7 +7,6 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup'], function (Le
 	Level2.prototype.constructor = Level;
 
     Level2.prototype.postCreate = function() {
-        this.game.level = 2;
     };
 
 	return Level2;

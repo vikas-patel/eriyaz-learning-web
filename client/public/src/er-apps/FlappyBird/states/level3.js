@@ -46,14 +46,19 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup'], function (Le
             starGroup = new StarGroup(this.game, this.stars);
         }
         starGroup.reset(starX, starY);
-        if (this.game.rnd.integerInRange(0, 1) == 0) {
+        var random = this.game.rnd.integerInRange(0, 2);
+        if (random == 0) {
         	pipeGroup.reset(this.game.width, 100);
         	pipeGroup.bottomPipe.visible = false;
         	//pipeGroup.topPipe.visible = true;
-        } else {
+        } else if (random == 1) {
         	pipeGroup.reset(this.game.width, -150);
         	pipeGroup.topPipe.visible = false;
         	//pipeGroup.bottomPipe.visible = true;
+        } else {
+            pipeGroup.reset(this.game.width, -40);
+            pipeGroup.bottomPipe.reset(0, 480);
+            pipeGroup.bottomPipe.body.velocity.x = -200;
         }
         
         this.pipeCount++;
