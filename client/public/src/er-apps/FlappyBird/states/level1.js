@@ -25,6 +25,13 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup'], function (Le
         if (this.pipeCount > this.maxPipeCount) {
             // Level Complete
             this.levelCompleted();
+            return;
+        }
+        if (this.pipeCount == this.maxPipeCount) {
+            // don't generate pipes anymore.
+            this.pipeCount++;
+            this.pipeGenerator = this.game.time.events.add(1500, this.generatePipes, this);
+            return;
         }
         var delay = Math.max(this.pipeGenerator.delay - 50, 1500);
         var pipeY = this.game.rnd.integerInRange(-100, 100);

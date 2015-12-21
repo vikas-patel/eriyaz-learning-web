@@ -30,20 +30,17 @@ define(['./module', './states/boot', './states/menu', './states/preload', './sta
               });
               if (!game.events) game.events = {};
               game.events.onLevelCompleted = new Phaser.Signal();
-              //game.events.onLevelCompleted.add(function() {console.log("message")});
               game.events.onLevelCompleted.add(onLevelCompleted);
               // Load user medals
               $http.get('/medal/' + $window.localStorage.userId + "/flappybird")
                   .success(function(data) {
                       game.starArray = data;
-                      console.log(data);
                   }).error(function(status, data) {
                       console.log("failed");
                       console.log(data);
                   });
 
             function onLevelCompleted(level, medal, score) {
-                console.log("level completed " + medal + " " + score);
                 var levelScore = game.starArray[level-1];
                 if (levelScore.medal >= medal && levelScore.score >= score) {
                     return;
@@ -52,8 +49,9 @@ define(['./module', './states/boot', './states/menu', './states/preload', './sta
                 levelScore.score = Math.max(levelScore.score, score);
                 var userId = $window.localStorage.userId;
                   $http.post('/medal', levelScore).success(function(data) {
-                    console.log("update success");
-                    console.log(data);
+                    if (data && data.level) {
+                      game.starArray[level-1] = data;
+                    }
                   }).error(function(status, data) {
                       console.log("failed");
                       console.log(data);
