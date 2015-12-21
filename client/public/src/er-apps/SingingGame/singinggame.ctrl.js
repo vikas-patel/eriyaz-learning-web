@@ -7,7 +7,7 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
         var player = new Player(audioContext);
 
 
-        app.controller('TonesMemoryCtrl', function($scope, $rootScope, PitchModel) {
+        app.controller('SingingGameCtrl', function($scope, $rootScope, PitchModel) {
             $scope.rootNote = 46;
             $scope.isPending = true;
             $scope.playTime = 500;
