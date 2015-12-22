@@ -49,6 +49,9 @@ define([], function () {
         // add our start button with a callback
         this.startButton = this.game.add.button(this.game.width/2, 300, 'startButton', this.startClick, this);
         this.startButton.anchor.setTo(0.5,0.5);
+
+        this.flapKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+        this.flapKey.onDown.addOnce(this.startClick, this);
       },
       startClick: function() {
         // start button click handler

@@ -1,6 +1,6 @@
 define(['./module', './states/boot', './states/menu', './states/preload',
- './states/levels', './states/level2', './states/level1', './states/level3'], 
-    function(app, Boot, Menu, Preload, Levels, Level2, Level1, Level3) {
+ './states/levels', './states/level2', './states/level1', './states/level3', './states/level4'], 
+    function(app, Boot, Menu, Preload, Levels, Level2, Level1, Level3, Level4) {
         app.controller('FlappyBirdCtrl', function($scope, User, $window, $http) {
             
             var game = new Phaser.Game(576, 505, Phaser.AUTO, 'flappyBird');
@@ -11,7 +11,8 @@ define(['./module', './states/boot', './states/menu', './states/preload',
             game.state.add('levels', Levels);
             game.state.add("level1", Level1);
             game.state.add('level2', Level3);
-            game.state.add('level3', Level2);
+            game.state.add('level3', Level4);
+            game.state.add('level4', Level2);
 
             game.state.start('boot');
             // TODO: small range in level 1

@@ -180,6 +180,16 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
             this.pipeGenerator.timer.stop();
             this.ground.stopScroll();
       },
+      createStars: function(delay) {
+            var starY = this.game.rnd.integerInRange(0, this.game.height-this.ground.height-20);
+            var pipeSpace = delay/1000*200;
+            var starX = this.game.width + this.game.rnd.integerInRange(50, pipeSpace - 250);
+            var starGroup = this.stars.getFirstExists(false);
+            if (!starGroup) {
+                starGroup = new StarGroup(this.game, this.stars);
+            }
+            starGroup.reset(starX, starY);
+        },   
       generatePipes: function() {
         if (this.pipeCount > this.maxPipeCount) {
             // Level Complete
@@ -191,15 +201,7 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         if(!pipeGroup) {
             pipeGroup = new PipeGroup(this.game, this.pipes);  
         }
-        var starY = this.game.rnd.integerInRange(this.game.height/10, this.game.height*9/10);
-        var pipeSpace = delay/1000*200;
-        var starX = pipeSpace + this.game.rnd.integerInRange(pipeSpace*2/10, pipeSpace*7/10);
-        var starGroup = this.stars.getFirstExists(false);
-        if (!starGroup) {
-            starGroup = new StarGroup(this.game, this.stars);
-        }
-        starGroup.reset(starX, starY);
-        
+        this.createStars(delay);
         pipeGroup.reset(this.game.width, pipeY);
         this.pipeCount++;
         this.pipeGenerator = this.game.time.events.add(delay, this.generatePipes, this);
