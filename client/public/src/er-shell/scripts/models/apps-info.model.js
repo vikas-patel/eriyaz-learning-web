@@ -287,6 +287,14 @@
         href: '#singinggame',
         appUrl: 'er-apps/SingingGame/main.html',
         aspectRatio: 3 / 4,
+      }, {
+        name: 'FruitNinja',
+        thumb: 'er-shell/images/fruitninja.jpg',
+        desc: 'Can you tell if the second node higher or lower than the first note?',
+        href: '#fruitninja',
+        appUrl: 'er-apps/FruitNinja/main.html',
+        aspectRatio: 8/7,
+        show: true
       }];
       appsInfo.selectedIndex = -1;
       TimeMe.setIdleDurationInSeconds(60);
