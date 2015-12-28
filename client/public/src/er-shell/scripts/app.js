@@ -43,6 +43,7 @@ define([
     'phraseshape',
     'singinggame',
     'flappybird',
+    'fruitninja'
     
 ], function(angular) {
     'use strict';
@@ -82,6 +83,7 @@ define([
         'tonesmemory',
         'poorvanga',
         'flappybird',
+        'fruitninja',
         'phraseshape',
         'singinggame',
         

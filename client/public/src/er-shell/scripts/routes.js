@@ -537,6 +537,18 @@
                  resolve: {
                      onLoggedOutRedirect: checkLoginAndRedirect
                  }
+             }).
+             state('fruitninja', {
+                 url: '/fruitninja',
+                 onEnter: function(UIModel, AppsInfoModel) {
+                     UIModel.uiModel.showLoginDialog = false;
+                     UIModel.uiModel.showMenu = true;
+                     AppsInfoModel.setSelected(29);
+                     UIModel.uiModel.showAppDialog = true;
+                 },
+                 resolve: {
+                     onLoggedOutRedirect: checkLoginAndRedirect
+                 }
              });
          })
          .factory('authHttpResponseInterceptor', ['$q', '$location', '$window', function($q, $location, $window) {
