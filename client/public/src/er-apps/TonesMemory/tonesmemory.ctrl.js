@@ -49,7 +49,10 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
                 PitchModel.rootFreq = MusicCalc.midiNumToFreq(currRoot);
             });
 
-
+            $scope.$watch('playTime', function() {
+                playTime = parseInt($scope.playTime);
+            });
+            
             $scope.$on("$destroy", function() {
                 cancelCurrentLoop();
                 if (micStream)

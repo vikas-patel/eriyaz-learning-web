@@ -65,6 +65,7 @@ define(['./module', 'note', 'webaudioplayer', 'currentaudiocontext','tanpura', '
         var marker = 0;
         var baseFreq = 261;
         var playTime = 100;
+        var slowPlayTime = 400;
         var tanpura = null;
 
         var currLoopId;
@@ -104,7 +105,7 @@ define(['./module', 'note', 'webaudioplayer', 'currentaudiocontext','tanpura', '
                 }
                 currThat = thats[randomIndex];
                 $scope.feedback = "Which that is playing?";
-                playThat(currThat.model);
+                playThat(currThat.model,playTime);
             }
         };
 
@@ -112,7 +113,7 @@ define(['./module', 'note', 'webaudioplayer', 'currentaudiocontext','tanpura', '
             return !element.enabled;
         }
 
-        function playThat(that) {
+        function playThat(that,playDuration) {
             cancelCurrentLoop();
             var reverseData = that.slice();
             reverseData.reverse();
@@ -122,16 +123,16 @@ define(['./module', 'note', 'webaudioplayer', 'currentaudiocontext','tanpura', '
             } else {
                 intervalSequence = that;
             }
-            var startTime = audioContext.currentTime + playTime / 1000;
+            var startTime = audioContext.currentTime + playDuration / 1000;
             currLoopId = setInterval(function() {
-                noteStartTime = startTime + playTime * marker / 1000;
+                noteStartTime = startTime + playDuration * marker / 1000;
                 var noteFreq = baseFreq * Math.pow(2, intervalSequence[marker] / 12);
-                player.scheduleNote(noteFreq, noteStartTime, playTime);
+                player.scheduleNote(noteFreq, noteStartTime, playDuration);
                 marker++;
                 if (marker >= intervalSequence.length) {
                     cancelCurrentLoop();
                 }
-            }, playTime);
+            }, playDuration);
         }
 
         function cancelCurrentLoop() {
@@ -139,8 +140,12 @@ define(['./module', 'note', 'webaudioplayer', 'currentaudiocontext','tanpura', '
             clearInterval(currLoopId);
         }
 
-        $scope.repeatPlay = function() {
-            playThat();
+        $scope.repeat = function() {
+            playThat(currThat.model,playTime);
+        };
+
+         $scope.slowRepeat = function() {
+            playThat(currThat.model,slowPlayTime);
         };
 
         $scope.checkAnswer = function(thatName) {
@@ -154,8 +159,6 @@ define(['./module', 'note', 'webaudioplayer', 'currentaudiocontext','tanpura', '
             }
         };
 
-        $scope.showAns = function() {
-            playThat();
-        };
+       
     });
 });

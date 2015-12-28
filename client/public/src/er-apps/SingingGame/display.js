@@ -82,20 +82,17 @@ define(['d3'], function(d3) {
 		var notesData = [];
 
 
-		this.getNotes = function() {
-			return notesData;
-		};
 
-		this.showNotes = function(ansData) {
-			svg.selectAll("rect.ans").remove();
+		this.loadExercise = function(excData) {
+			svg.selectAll("rect.exc").remove();
 
-			svg.selectAll("rect.ans")
-				.data(ansData)
+			svg.selectAll("rect.exc")
+				.data(excData)
 				.enter().append("rect")
 				.attr("x", function(d, i) {
 					return xScale(i);
 				})
-				.attr("class", "ans")
+				.attr("class", "exc")
 				.attr("y", function(d) {
 					return yScale(d + 1);
 				})
@@ -106,83 +103,29 @@ define(['d3'], function(d3) {
 
 		};
 
-		this.reset = function() {
-			// svg.selectAll("rect.ans").remove();
-			this.clear();
-			notesData = [];
-		};
-
-
-		var displayTimeRange = 1000;
-		var currCents = 0;
-		var isPendingValue = false;
-		var pointGroup;
-		var clip;
-		var tickCount = 0;
-		var points = [];
-		var currActiveNote;
-		var staticGroup = svg.append("g").attr("clip-path", "url(#clip)");
-		clip = svg.append("defs").append("svg:clipPath")
-				.attr("id", "clip")
-				.append("svg:rect")
-				.attr("id", "clip-rect")
-				.attr("x", 0)
-				.attr("y", "0")
-				.attr("width", chartWidth / 8)
-				.attr("height", chartHeight);
-
-		this.tick = function() {
-			tickCount++;
-			if (tickCount * refreshTime > displayTimeRange) {
-
-				pointGroup
-					.transition()
-					.duration(refreshTime)
-					.ease("linear")
-					.attr("transform", "translate(" + (timeScale(displayTimeRange - tickCount * refreshTime)) + ",0)");
-				if (isPendingValue && points.length > Math.round(displayTimeRange / refreshTime)) {
-					var oldestPoint = points.shift();
-					oldestPoint.remove();
-				}
-			}
-			if (isPendingValue) {
-				console.log(currCents)
-				var newPoint = pointGroup.append("rect")
-					.attr("x", xScale(currActiveNote) + timeScale(tickCount * refreshTime))
-					.attr("y", yScale(currCents / 100) - chartHeight / 26)
-					//.attr("y", yScale(currCents) - height / 19 / 2)
-					.attr("width", 2)
-					.attr("height", 2);
-				points.push(newPoint);
-				isPendingValue = false;
-
-			}
-		};
-
-		var tickId;
-
-		this.start = function(numNote) {
-			currActiveNote = numNote;
-			
-			pointGroup = staticGroup.append("g");
-			clip.attr("transform", "translate(" + xScale(numNote)+",0)");
-
-			
-			var local = this;
-			if (tickId) clearInterval(tickId);
-			tickId = setInterval(function() {
-				local.tick();
-			}, refreshTime);
-		};
-
-		this.stop = function() {
-			clearInterval(tickId);
-			tickCount = 0;
-		};
-
-		this.notifyUnitStable = function(interval) {
+		var pointGroup = svg.append("g");
+		this.markPitch = function(interval, time) {
 			pointGroup.append("rect")
-				.attr("x", xScale(currActiveNote) + timeScale(tickCount * refreshTime))
+				.attr("x", timeScale(time))
+				.attr("y", yScale(interval) - chartHeight / 26)
+				//.attr("y", yScale(currCents) - height / 19 / 2)
+				.attr("width", 2)
+				.attr("height", 2);
+		};
+
+		this.clearPitchMarkers = function() {
+			pointGroup.remove();
+			pointGroup = svg.append("g");
+		};
+		this.clearPlayMarkers = function() {
+			svg.selectAll("rect.playRct").remove();
+		};
+
+
+		
+		this.notifyUnitStable = function(interval,time) {
+			pointGroup.append("rect")
+				.attr("x", timeScale(time))
 				.attr("y", yScale(interval) - chartHeight / 13)
 				.attr("height", chartHeight / 13)
 				// .attr("y", yScale(interval * 100))
@@ -194,11 +137,6 @@ define(['d3'], function(d3) {
 
 		this.notifyAggStable = function(interval) {
 			//do not delete this function.
-		};
-
-		this.notifyInterval = function(newValue) {
-			currCents = newValue * 100;
-			isPendingValue = true;
 		};
 
 
@@ -236,6 +174,7 @@ define(['d3'], function(d3) {
 		};
 
 		this.playAnimate = function(interval, duration, noteNum) {
+			console.log('playAnimate');
 			notesData.push(interval);
 			var color = "#FFCCCC";
 

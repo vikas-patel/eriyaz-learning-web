@@ -258,7 +258,9 @@
         appUrl: 'er-apps/Poorvanga/main.html',
         aspectRatio: 3 / 4,
         hotkeys: [
-          ['f', 'newThat()']
+          ['f', 'newThat()'],
+          ['d','repeat()'],
+          ['s','slowRepeat()']
         ]
       }, {
         name: 'FlappyBird',

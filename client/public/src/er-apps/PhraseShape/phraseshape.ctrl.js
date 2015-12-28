@@ -12,7 +12,7 @@ define(['./module', 'webaudioplayer', 'currentaudiocontext', 'melody', 'note', '
         var timerHandle;
 
         var marker = 0;
-        var playTime = 100;
+        var playTime = 55;
         var currLoopId;
 
         app.controller('PhraseShapeCtrl', function($scope, ScoreService, $interval) {
@@ -42,12 +42,12 @@ define(['./module', 'webaudioplayer', 'currentaudiocontext', 'melody', 'note', '
             };
 
             $scope.newProblem = function() {
-                playTime = 100;
+                playTime = 55;
                 newProblem();
             };
 
             $scope.repeat = function() {
-                playTime = 100;
+                playTime = 55;
                 
                 playMelody();
             };
