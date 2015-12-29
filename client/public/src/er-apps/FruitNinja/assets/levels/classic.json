@@ -38,19 +38,6 @@
                 "velocity_y": {"min": 100, "max": 200},
                 "frames": [20, 21, 23, 35, 38]
             }
-        },
-   
-        "special_fruit_spawner": {
-            "type": "special_fruit_spawner",
-            "position": {"x": 0, "y": 0},
-            "properties": {
-                "texture": "",
-                "group": "spawners",
-                "pool": "special_fruits",
-                "spawn_time": {"min": 5, "max": 10},
-                "velocity_x": {"min": 0, "max": 0},
-                "velocity_y": {"min": 100, "max": 200}
-            }
         }
     }
 }

@@ -31,6 +31,7 @@ Cuttable.prototype.reset = function (position_x, position_y, velocity) {
     // this.body.velocity.y = -velocity.y;
     this.body.velocity.y = velocity.y;
     this.body.velocity.x = velocity.x;
+    this.scale.setTo(5);
 };
 
 Cuttable.prototype.cut = function () {
