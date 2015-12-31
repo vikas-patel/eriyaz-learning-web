@@ -1,4 +1,4 @@
-define(['d3'], function(d3) {
+define(['d3','./scorer'], function(d3,scorer) {
 	var Display = function() {
 
 		var margin = {
@@ -113,17 +113,7 @@ define(['d3'], function(d3) {
 				.attr("height", 2);
 		};
 
-		this.clearPitchMarkers = function() {
-			pointGroup.remove();
-			pointGroup = svg.append("g");
-		};
-		this.clearPlayMarkers = function() {
-			svg.selectAll("rect.playRct").remove();
-		};
-
-
-		
-		this.notifyUnitStable = function(interval,time) {
+		this.markPitchFeedback = function(interval,time,status) {
 			pointGroup.append("rect")
 				.attr("x", timeScale(time))
 				.attr("y", yScale(interval) - chartHeight / 13)
@@ -131,13 +121,26 @@ define(['d3'], function(d3) {
 				// .attr("y", yScale(interval * 100))
 				.attr("width", 5)
 				// .attr("height", 20)
-				.attr("fill", "green")
+				.attr("fill", function() {
+					if (status === scorer.statuses.SPOT_ON)
+						return "green";
+					else if (status === scorer.statuses.NEAR_MISS)
+						return "yellow";
+					else return "red";
+				})
 				.attr("opacity", 0.5);
 		};
 
-		this.notifyAggStable = function(interval) {
-			//do not delete this function.
+		this.clearPitchMarkers = function() {
+			pointGroup.remove();
+			pointGroup = svg.append("g");
 		};
+		this.clearPlayMarkers = function() {
+			svg.selectAll("rect.playRect").remove();
+		};
+
+
+		
 
 
 		this.setFlash = function(message) {
