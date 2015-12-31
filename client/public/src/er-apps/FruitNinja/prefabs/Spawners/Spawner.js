@@ -11,6 +11,7 @@ var Spawner = function (game_state, name, position, properties) {
     
     this.velocity_x = properties.velocity_x;
     this.velocity_y = properties.velocity_y;
+    this.time = this.spawn_time.max;
     
     this.spawn_timer = this.game_state.time.create();
     this.schedule_spawn();
@@ -21,11 +22,12 @@ Spawner.prototype.constructor = Spawner;
 
 Spawner.prototype.schedule_spawn = function () {
     "use strict";
-    var time;
     // add a new spawn event with random time between a range
-    time = this.game_state.rnd.between(this.spawn_time.min, this.spawn_time.max);
-    this.spawn_timer.add(Phaser.Timer.SECOND * time, this.spawn, this);
+    //time = this.game_state.rnd.between(this.spawn_time.min, this.spawn_time.max);
+    this.spawn_timer.add(Phaser.Timer.SECOND * this.time, this.spawn, this);
     this.spawn_timer.start();
+    // min time gap 1 sec
+    this.time = Math.max(0.9*this.time, 1);
 };
 
 Spawner.prototype.spawn = function () {

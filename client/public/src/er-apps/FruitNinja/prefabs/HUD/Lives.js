@@ -23,6 +23,7 @@ Lives.prototype.constructor = Lives;
 
 Lives.prototype.die = function () {
     "use strict";
+    if (this.lives === 0) return;
     var life;
     this.lives -= 1;
     // kill the last life

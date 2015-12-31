@@ -1,4 +1,5 @@
-define(['./JSONLevel', '../prefabs/HUD/Score', '../prefabs/Cuttables/Cut', '../prefabs/HUD/GameOverPanel'], function (JSONLevel, Score, Cut, GameOverPanel) {
+define(['./JSONLevel', '../prefabs/HUD/Score', '../prefabs/Cuttables/Cut', '../prefabs/HUD/GameOverPanel', '../problem'], 
+    function (JSONLevel, Score, Cut, GameOverPanel, Problem) {
 
 var Level = function () {
     "use strict";
@@ -27,12 +28,65 @@ Level.prototype.init = function (level_data) {
 Level.prototype.create = function () {
     "use strict";
     JSONLevel.prototype.create.call(this);
+
+    this.problem = new Problem();
     
     // add events to check for swipe
     this.game.input.onDown.add(this.start_swipe, this);
     this.game.input.onUp.add(this.end_swipe, this);
+
+    this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
+    this.upKey.onDown.add(this.updownKeyHandler, this, 0, true);
     
+    this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+    this.downKey.onDown.add(this.updownKeyHandler, this, 0, false);
+    this.waitingAudio = true;
+    this.problem.play(500);
+
     this.init_hud();
+};
+
+Level.prototype.update = function() {
+    if (!this.waitingAudio) return;
+    //this.currentFruit = this.groups.fruits.getFirstExists(true);
+    this.currentFruit = this.firstFruit();
+    if (null == this.currentFruit) return;
+    this.currentFruit.scale.setTo(2);
+    this.problem.next();
+    this.waitingAudio = false;
+};
+
+Level.prototype.firstFruit = function() {
+    var firstFruit;
+    this.groups.fruits.forEachAlive(function(fruit) {
+      if (fruit.visible && fruit.inCamera) {
+        if (firstFruit == null) {
+            firstFruit = fruit;
+        } else if (firstFruit.y < fruit.y) {
+            firstFruit = fruit;
+        }
+      }
+    });
+    return firstFruit;
+};
+
+Level.prototype.updownKeyHandler = function(key, isUp) {
+    if (this.waitingAudio) return;
+    this.currentFruit.cut();
+
+    if ((this.problem.isUp && isUp) || (!this.problem.isUp && !isUp)) {
+        this.score += 1;
+    } else {
+        this.prefabs.lives.die();
+    }
+    var fruit = this.firstFruit();
+    if (null == fruit) {
+        this.waitingAudio = true;
+    } else {
+        this.currentFruit = fruit;
+        this.currentFruit.scale.setTo(2);
+        this.problem.next();
+    }
 };
 
 Level.prototype.start_swipe = function (pointer) {
