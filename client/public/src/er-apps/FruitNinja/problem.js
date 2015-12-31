@@ -33,7 +33,14 @@ define(['music-calc', 'webaudioplayer', 'currentaudiocontext'], function(MusicCa
         }
         return randomSign * (Math.floor(Math.random() * (max - min)) + min);
     }
-
-    return Problem;
+    var instance;
+    return {
+        getInstance: function () {
+            if (!instance) {
+                instance = new Problem();
+            }
+            return instance;
+        }
+    };
 
 });

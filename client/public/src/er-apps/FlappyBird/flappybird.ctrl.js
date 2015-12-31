@@ -23,6 +23,7 @@ define(['./module', './states/boot', './states/menu', './states/preload',
             // hard coded px
             // rounded note
             // base selection
+            // get rid of logout
             User.get({
                 id: $window.localStorage.userId
               }).$promise.then(function(user) {

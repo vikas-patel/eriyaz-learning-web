@@ -33,9 +33,9 @@
                 "texture": "",
                 "group": "spawners",
                 "pool": "fruits",
-                "spawn_time": {"min": 1, "max": 3},
+                "spawn_time": {"min": 1, "max": 1},
                 "velocity_x": {"min": 0, "max": 0},
-                "velocity_y": {"min": 100, "max": 200},
+                "velocity_y": {"min": 100, "max": 100},
                 "frames": [20, 21, 23, 35, 38]
             }
         }

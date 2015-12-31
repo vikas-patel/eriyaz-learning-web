@@ -11,6 +11,8 @@ var MenuItem = function (game_state, name, position, properties) {
     this.on_selection_animation.to({x: 1.5 * this.scale.x, y: 1.5 * this.scale.y}, 500);
     this.on_selection_animation.to({x: this.scale.x, y: this.scale.y}, 500);
     this.on_selection_animation.repeatAll(-1);
+    this.inputEnabled = true;
+    this.events.onInputDown.add(this.select, this);
 };
 
 MenuItem.prototype = Object.create(TextPrefab.prototype);

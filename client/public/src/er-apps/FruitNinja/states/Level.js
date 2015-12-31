@@ -29,7 +29,7 @@ Level.prototype.create = function () {
     "use strict";
     JSONLevel.prototype.create.call(this);
 
-    this.problem = new Problem();
+    //this.problem = new Problem();
     
     // add events to check for swipe
     this.game.input.onDown.add(this.start_swipe, this);
@@ -41,18 +41,38 @@ Level.prototype.create = function () {
     this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
     this.downKey.onDown.add(this.updownKeyHandler, this, 0, false);
     this.waitingAudio = true;
-    this.problem.play(500);
-
+    //this.problem.play(500);
+    this.slashes = this.game.add.graphics(0, 0);
+    this.points = [];
     this.init_hud();
 };
 
 Level.prototype.update = function() {
+    this.points.push({
+        x: this.game.input.x,
+        y: this.game.input.y
+    });
+    this.points = this.points.splice(this.points.length-10, this.points.length);
+    //game.add.sprite(game.input.x, game.input.y, 'hit');
+
+    if (this.points.length >= 1 && this.points[0].x>0) {
+        this.slashes.clear();
+        this.slashes.beginFill(0xFFFFFF);
+        this.slashes.lineStyle(2, 0x00FF00, 1);
+        this.slashes.alpha = .5;
+        this.slashes.moveTo(this.points[0].x, this.points[0].y);
+        for (var i=1; i<this.points.length; i++) {
+            this.slashes.lineTo(this.points[i].x, this.points[i].y);
+        } 
+        this.slashes.endFill();
+    }
+
     if (!this.waitingAudio) return;
     //this.currentFruit = this.groups.fruits.getFirstExists(true);
     this.currentFruit = this.firstFruit();
     if (null == this.currentFruit) return;
     this.currentFruit.scale.setTo(2);
-    this.problem.next();
+    //this.problem.next();
     this.waitingAudio = false;
 };
 

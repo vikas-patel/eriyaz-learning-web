@@ -6,7 +6,7 @@ Cuttable = function (game_state, name, position, properties) {
     Prefab.call(this, game_state, name, position, properties);
     
     this.anchor.setTo(0.5);
-    this.scale.setTo(5);
+    this.scale.setTo(3);
     
     this.game_state.game.physics.arcade.enable(this);
     
@@ -31,7 +31,7 @@ Cuttable.prototype.reset = function (position_x, position_y, velocity) {
     // this.body.velocity.y = -velocity.y;
     this.body.velocity.y = velocity.y;
     this.body.velocity.x = velocity.x;
-    this.scale.setTo(5);
+    this.scale.setTo(3);
 };
 
 Cuttable.prototype.cut = function () {

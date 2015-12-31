@@ -12,7 +12,7 @@ RemainingTime.prototype.constructor = RemainingTime;
 RemainingTime.prototype.update = function () {
     "use strict";
     // update the text to show the remaining time in seconds
-    this.text = "Remaining time: " + this.game_state.remaining_time / Phaser.Timer.SECOND;
+    this.text = "Time Left: " + Math.ceil(this.game_state.remaining_time / Phaser.Timer.SECOND);
 };
 return RemainingTime;
 });
