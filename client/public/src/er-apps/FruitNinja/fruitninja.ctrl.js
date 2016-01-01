@@ -1,19 +1,22 @@
-define(['./module','webaudioplayer', 'currentaudiocontext', './states/Boot', './states/Loading', './states/Title',
+define(['./module','webaudioplayer', 'currentaudiocontext', './states/Boot', './states/Loading', './states/Levels', './states/Title',
  './states/Classic', './states/TimeAttack'], 
-    function(app, Player, CurrentAudioContext, Boot, Loading, Title, Classic, TimeAttack) {
+    function(app, Player, CurrentAudioContext, Boot, Loading, Levels, Title, Classic, TimeAttack) {
         app.controller('FruitNinjaCtrl', function($scope, User, $window, $http) {
             
             var game = new Phaser.Game(576, 505, Phaser.AUTO, 'fruitNinja');
 
-            var audioContext = CurrentAudioContext.getInstance();
-            game.player = new Player(audioContext);
+            // var audioContext = CurrentAudioContext.getInstance();
+            // game.player = new Player(audioContext);
+            game.starArray = {};
+
             // Game States
             game.state.add("Boot", new Boot);
             game.state.add("Loading", new Loading);
+            game.state.add("Levels", new Levels);
             game.state.add("Title", new Title);
             game.state.add("Classic", new Classic);
             game.state.add("TimeAttack", new TimeAttack);
-            game.state.start("Boot", true, false, "er-apps/FruitNinja/assets/levels/title_screen.json", "Title");
+            game.state.start("Boot", true, false, "er-apps/FruitNinja/assets/levels/title_screen.json", "Title", true);
 
             // TODO: small range in level 1
             // Set flexible root note.

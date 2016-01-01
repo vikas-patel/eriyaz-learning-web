@@ -8,10 +8,11 @@ define([], function () {
     Boot.prototype = Object.create(Phaser.State.prototype);
     Boot.prototype.constructor = Boot;
 
-    Boot.prototype.init = function (level_file, next_state) {
+    Boot.prototype.init = function (level_file, next_state, showLevels) {
         "use strict";
         this.level_file = level_file;
         this.next_state = next_state;
+        this.showLevels = showLevels;
     };
 
     Boot.prototype.preload = function () {
@@ -24,7 +25,7 @@ define([], function () {
         var level_text, level_data;
         level_text = this.game.cache.getText("level1");
         level_data = JSON.parse(level_text);
-        this.game.state.start("Loading", true, false, level_data, this.next_state);
+        this.game.state.start("Loading", true, false, level_data, this.next_state, this.showLevels);
     };
 
     return Boot;

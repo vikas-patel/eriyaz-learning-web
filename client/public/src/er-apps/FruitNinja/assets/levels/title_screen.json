@@ -1,6 +1,8 @@
 {
     "assets": {
         "background_image": {"type": "image", "source": "er-apps/FruitNinja/assets/images/background-short.png"},
+        "logo_image": {"type":"image", "source": "er-apps/FruitNinja/assets/images/logo.png"},
+        "levels_image": {"type":"spritesheet", "source": "er-apps/FruitNinja/assets/images/levels.png", "frame_width": 64, "frame_height": 64},
         "blade_image": {"type":"image", "source": "er-apps/FruitNinja/assets/images/blade.png"}
     },
     "groups": [

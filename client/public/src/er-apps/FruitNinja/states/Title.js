@@ -19,28 +19,33 @@ Title.prototype.create = function () {
     JSONLevel.prototype.create.call(this);
     
     // adding title
-    title_position = new Phaser.Point(0.6 * this.game.world.width, 0.25 * this.game.world.height);
+    title_position = new Phaser.Point(0.6 * this.game.world.width, 0.4 * this.game.world.height);
     title_style = {font: "24px Shojumaru", fill: "#FFF"};
     title = new TextPrefab(this, "title", title_position, {text: "Strike Right", style: title_style, group: "hud"});
     title.anchor.setTo(0.5);
 
-    var highTextPosition = new Phaser.Point(0.7 * this.game.world.width, 0.15 * this.game.world.height);
+    var readyTextPosition = new Phaser.Point(0.5 * this.game.world.width, 0.10 * this.game.world.height);
+    var ready_style = {font: "42px Shojumaru", fill: "#FFF"};
+    var readyText = new TextPrefab(this, "title", readyTextPosition, {text: "Get Ready", style: ready_style, group: "hud"});
+    readyText.anchor.setTo(0.5);
+
+    var highTextPosition = new Phaser.Point(0.7 * this.game.world.width, 0.30 * this.game.world.height);
     var highText = new TextPrefab(this, "title", highTextPosition, {text: "High Pitch", style: title_style, group: "hud"});
     highText.anchor.setTo(0.5);
 
-    var blade = new Phaser.Sprite(this.game, 0.6 * this.game.world.width, 0.2 * this.game.world.height, "blade_image");
+    var blade = new Phaser.Sprite(this.game, 0.6 * this.game.world.width, 0.35 * this.game.world.height, "blade_image");
     blade.anchor.setTo(0.5);
     this.groups.hud.add(blade);
 
-    var lowTextPosition = new Phaser.Point(0.4 * this.game.world.width, 0.45 * this.game.world.height);
+    var lowTextPosition = new Phaser.Point(0.4 * this.game.world.width, 0.50 * this.game.world.height);
     var lowText = new TextPrefab(this, "title", lowTextPosition, {text: "Low Pitch", style: title_style, group: "hud"});
     lowText.anchor.setTo(0.5);
 
-    var leftTextPosition = new Phaser.Point(0.3 * this.game.world.width, 0.55 * this.game.world.height);
+    var leftTextPosition = new Phaser.Point(0.3 * this.game.world.width, 0.60 * this.game.world.height);
     var leftText = new TextPrefab(this, "title", leftTextPosition, {text: "Strike Left", style: title_style, group: "hud"});
     leftText.anchor.setTo(0.5);
 
-    var bladeLeft = new Phaser.Sprite(this.game, 0.4 * this.game.world.width, 0.5 * this.game.world.height, "blade_image");
+    var bladeLeft = new Phaser.Sprite(this.game, 0.4 * this.game.world.width, 0.55 * this.game.world.height, "blade_image");
     bladeLeft.anchor.setTo(0.5, 0.5);
     bladeLeft.angle += 180;
     this.groups.hud.add(bladeLeft);
