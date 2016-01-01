@@ -12,7 +12,6 @@ Levels.prototype.init = function (level_data, next_state) {
     "use strict";
     this.level_data = level_data;
     this.next_state = next_state;
-    console.log("init:"+next_state);
 };
 
 Levels.prototype.create = function () {
@@ -93,7 +92,6 @@ Levels.prototype.create = function () {
         this.levelThumbsGroup.add(levelThumb);
         count++;
     }
-    console.log(count);
 };
 
 Levels.prototype.thumbClicked = function (button) {

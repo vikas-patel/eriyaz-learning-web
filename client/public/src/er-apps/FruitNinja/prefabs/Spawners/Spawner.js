@@ -49,6 +49,10 @@ Spawner.prototype.spawn = function () {
     this.schedule_spawn();
 };
 
+Spawner.prototype.stop = function () {
+    this.spawn_timer.destroy();
+};
+
 Spawner.prototype.spawnOnly = function () {
     "use strict";
     var object_name, object_position, object, object_velocity;

@@ -61,8 +61,7 @@ Fruit.prototype.mouseOut = function() {
 };
 
 Fruit.prototype.outBoundHandler = function() {
-    console.log("on invisible");
-    //this.game_state.prefabs.lives.die();
+    // out of bound
 };
 
 return Fruit;

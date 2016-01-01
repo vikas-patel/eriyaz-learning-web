@@ -11,7 +11,6 @@ define(['music-calc', 'webaudioplayer', 'currentaudiocontext'], function(MusicCa
         // range C1-C7 (32-2100)
         // reset
         if (this.currentNote < 32 || this.currentNote > 2093) this.currentNote = 261;
-        console.log("currentNote:"+this.currentNote);
         if (this.currentNote > this.lastNote){
             this.isUp = true;
         } else {
