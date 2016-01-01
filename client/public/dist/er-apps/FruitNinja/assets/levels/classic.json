@@ -4,6 +4,7 @@
         "background_image": {"type": "image", "source": "er-apps/FruitNinja/assets/images/background.png"},
         "sword_image": {"type": "image", "source": "er-apps/FruitNinja/assets/images/sword.png"},
         "particle_image": {"type": "image", "source": "er-apps/FruitNinja/assets/images/particle.png"},
+        "medals": {"type": "spritesheet", "source": "er-apps/FruitNinja/assets/images/medals.gif", "frame_width": 64, "frame_height": 64},
         "fruits_spritesheet": {"type": "spritesheet", "source": "er-apps/FruitNinja/assets/images/fruits.png", "frame_width": 28, "frame_height": 28}
     },
     "groups": [
@@ -33,23 +34,10 @@
                 "texture": "",
                 "group": "spawners",
                 "pool": "fruits",
-                "spawn_time": {"min": 1, "max": 3},
+                "spawn_time": {"min": 1, "max": 1},
                 "velocity_x": {"min": 0, "max": 0},
-                "velocity_y": {"min": 100, "max": 200},
+                "velocity_y": {"min": 100, "max": 100},
                 "frames": [20, 21, 23, 35, 38]
-            }
-        },
-   
-        "special_fruit_spawner": {
-            "type": "special_fruit_spawner",
-            "position": {"x": 0, "y": 0},
-            "properties": {
-                "texture": "",
-                "group": "spawners",
-                "pool": "special_fruits",
-                "spawn_time": {"min": 5, "max": 10},
-                "velocity_x": {"min": 0, "max": 0},
-                "velocity_y": {"min": 100, "max": 200}
             }
         }
     }

@@ -291,7 +291,7 @@
         aspectRatio: 3 / 4,
       }, {
         name: 'FruitNinja',
-        thumb: 'er-shell/images/fruitninja.jpg',
+        thumb: 'er-shell/images/fruitninja.png',
         desc: 'Can you tell if the second node higher or lower than the first note?',
         href: '#fruitninja',
         appUrl: 'er-apps/FruitNinja/main.html',
