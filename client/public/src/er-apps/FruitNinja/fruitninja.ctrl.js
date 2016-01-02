@@ -18,12 +18,6 @@ define(['./module','webaudioplayer', 'currentaudiocontext', './states/Boot', './
             game.state.add("TimeAttack", new TimeAttack);
             game.state.start("Boot", true, false, "er-apps/FruitNinja/assets/levels/title_screen.json", "Title", true);
 
-            // TODO: small range in level 1
-            // Set flexible root note.
-            // Position stars better
-            // Variable star numbers
-            // Highest score
-            // End of level: flag or trophy
             if (!game.events) game.events = {};
             game.events.onLevelCompleted = new Phaser.Signal();
             game.events.onLevelCompleted.add(onLevelCompleted);

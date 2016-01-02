@@ -1,6 +1,6 @@
 define(['./Level', '../prefabs/Spawners/FruitSpawner', '../prefabs/Spawners/BombSpawner', '../prefabs/Spawners/SpecialFruitSpawner', 
-    '../prefabs/Prefab', '../prefabs/HUD/Lives', '../prefabs/HUD/RemainingTime'], 
-    function (Level, FruitSpawner, BombSpawner, SpecialFruitSpawner, Prefab, Lives, RemainingTime) {
+    '../prefabs/Prefab', '../prefabs/HUD/Lives', '../prefabs/HUD/RemainingTime', '../problem'], 
+    function (Level, FruitSpawner, BombSpawner, SpecialFruitSpawner, Prefab, Lives, RemainingTime, ProblemFactory) {
 
 Classic = function () {
     "use strict";
@@ -20,14 +20,22 @@ Classic.prototype.constructor = Classic;
 Classic.prototype.init = function (level_data) {
     "use strict";
     Level.prototype.init.call(this, level_data);
-    
+    this.note_diff = level_data.note_diff;
     this.lives = 5;
     this.remaining_time = Phaser.Timer.SECOND * 60;
     this.highest_score = "classic_score";
 };
 
+Classic.prototype.create = function () {
+    "use strict";
+    Level.prototype.create.call(this);
+    this.problem = ProblemFactory.getInstance(this.note_diff);
+    this.problem.next();
+}
+
 Classic.prototype.update = function () {
     "use strict";
+    Level.prototype.update.call(this);
     if (this.remaining_time > 0) {
         this.remaining_time -= this.game.time.elapsed;
         if (this.remaining_time <= 0) {

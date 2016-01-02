@@ -58,7 +58,8 @@ Spawner.prototype.spawnOnly = function () {
     var object_name, object_position, object, object_velocity;
     // get new random position and velocity
     // object_position = new Phaser.Point(this.game_state.rnd.between(0.2 * this.game_state.game.world.width, 0.8 * this.game_state.game.world.width), this.game_state.game.world.height);
-    object_position = new Phaser.Point(0.5*this.game_state.game.world.width, 0);
+    var xPos = this.game_state.rnd.pick([0.4, 0.5, 0.6]);
+    object_position = new Phaser.Point(xPos*this.game_state.game.world.width, 0);
     object_velocity = this.object_velocity();
     // get first dead object from the pool
     object = this.pool.getFirstDead();

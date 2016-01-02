@@ -24,6 +24,10 @@ define(['./module', './states/boot', './states/menu', './states/preload',
             // rounded note
             // base selection
             // get rid of logout
+            // loading bar
+            // blade mark
+            // easy level
+            // splash sound
             User.get({
                 id: $window.localStorage.userId
               }).$promise.then(function(user) {
