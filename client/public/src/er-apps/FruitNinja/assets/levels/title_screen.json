@@ -10,6 +10,15 @@
         "hud",
         "menu_items"
     ],
+    "levels": [
+        {
+            "level_file": "er-apps/FruitNinja/assets/levels/classic.json",
+            "state_name": "Classic"
+        }, {
+            "level_file": "er-apps/FruitNinja/assets/levels/level2.json",
+            "state_name": "Level2"
+        }
+    ],
     "prefabs": {
         "background": {
             "type": "background",

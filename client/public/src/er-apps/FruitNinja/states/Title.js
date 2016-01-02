@@ -5,7 +5,6 @@ var Title = function () {
     JSONLevel.call(this);
     
     this.prefab_classes = {
-        "start_game_item": StartGameItem.prototype.constructor,
         "background": Prefab.prototype.constructor
     };
 };
@@ -51,14 +50,33 @@ Title.prototype.create = function () {
     this.groups.hud.add(bladeLeft);
     
     // adding menu
-    menu_position = new Phaser.Point(0, 0);
-    menu_items = [];
-    this.groups.menu_items.forEach(function (menu_item) {
-        menu_items.push(menu_item);
-    }, this);
-    menu_properties = {texture: "", group: "background", menu_items: menu_items};
-    menu = new Menu(this, "menu", menu_position, menu_properties);
+    var startTextPosition = new Phaser.Point(0.5 * this.game.world.width, 0.8 * this.game.world.height);
+    var start_style = {font: "32px Shojumaru", fill: "#FFF"};
+    var leftText = new TextPrefab(this, "title", startTextPosition, {text: "Start", style: start_style, group: "hud"});
+    leftText.anchor.setTo(0.5);
+    leftText.inputEnabled = true;
+    leftText.events.onInputDown.add(this.select, this);
+    this.spaceKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    this.spaceKey.onDown.addOnce(this.select, this);
+    leftText.on_selection_animation = this.game.add.tween(leftText.scale);
+    leftText.on_selection_animation.to({x: 1.5 * leftText.scale.x, y: 1.5 * leftText.scale.y}, 500);
+    leftText.on_selection_animation.to({x: leftText.scale.x, y: leftText.scale.y}, 500);
+    leftText.on_selection_animation.repeatAll(-1);
+    leftText.on_selection_animation.start();
+    // menu_position = new Phaser.Point(0, 0);
+    // menu_items = [];
+    // menu_items.push(this.groups.menu_items.children[0]);
+    // // this.groups.menu_items.forEach(function (menu_item) {
+    // //     menu_items.push(menu_item);
+    // // }, this);
+    // menu_properties = {texture: "", group: "background", menu_items: menu_items};
+    // menu = new Menu(this, "menu", menu_position, menu_properties);
 };
+
+Title.prototype.select = function () {
+    var level = this.level_data.levels[this.game.level-1];
+    this.state.start("Boot", true, false, level.level_file, level.state_name);
+}
 
 return Title;
 });
