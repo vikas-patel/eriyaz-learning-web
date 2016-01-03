@@ -6,6 +6,8 @@ define(['./module', './states/Boot', './states/Loading', './states/Levels', './s
             var game = new Phaser.Game(576, 505, Phaser.AUTO, 'fruitNinja');
             game.starArray = {};
 
+            //TODO:
+            // onclose, fruit sound still playing
             // Game States
             game.state.add("Boot", new Boot);
             game.state.add("Loading", new Loading);

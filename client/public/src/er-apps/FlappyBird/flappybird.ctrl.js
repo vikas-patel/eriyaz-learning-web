@@ -13,7 +13,6 @@ define(['./module', './states/boot', './states/menu', './states/preload',
             game.state.add('level2', Level3);
             game.state.add('level3', Level4);
             game.state.add('level4', Level2);
-
             game.state.start('boot');
             // TODO:
             // Set flexible root note.
@@ -21,6 +20,7 @@ define(['./module', './states/boot', './states/menu', './states/preload',
             // hard coded px
             // base selection
             // get rid of logout
+            // landing page on mobile
             User.get({
                 id: $window.localStorage.userId
               }).$promise.then(function(user) {
