@@ -17,6 +17,7 @@ define([], function () {
 
     Boot.prototype.preload = function () {
         "use strict";
+        this.load.image('preloader', 'er-apps/FruitNinja/assets/images/preloader.gif');
         this.load.text("level1", this.level_file);
     };
 

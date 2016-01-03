@@ -19,6 +19,9 @@ define([], function () {
         "use strict";
         var assets, asset_loader, asset_key, asset;
         assets = this.level_data.assets;
+        this.preloader = this.add.sprite(0,this.game.height/2, 'preloader');
+        this.preloader.anchor.setTo(0.5, 0.5);
+        this.load.setPreloadSprite(this.preloader);
         for (asset_key in assets) { // load assets according to asset key
             if (assets.hasOwnProperty(asset_key)) {
                 asset = assets[asset_key];

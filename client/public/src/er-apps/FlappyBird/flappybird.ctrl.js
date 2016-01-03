@@ -17,14 +17,10 @@ define(['./module', './states/boot', './states/menu', './states/preload',
             game.state.start('boot');
             // TODO:
             // Set flexible root note.
-            // Variable star numbers
             // Highest score
-            // End of level: flag or trophy
             // hard coded px
-            // rounded note
             // base selection
             // get rid of logout
-            // loading bar
             User.get({
                 id: $window.localStorage.userId
               }).$promise.then(function(user) {
