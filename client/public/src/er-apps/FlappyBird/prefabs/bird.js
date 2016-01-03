@@ -48,8 +48,6 @@ define([], function () {
 
   Bird.prototype.flap = function(y) {
     if(!!this.alive) {
-      //this.flapSound.play();
-      //cause our bird to "jump" upward
       if (Math.abs(y-this.y) < 4) {
         this.y = y;
       } else {

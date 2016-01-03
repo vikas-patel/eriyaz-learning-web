@@ -44,6 +44,7 @@ Fruit.prototype.reset = function (position_x, position_y, velocity) {
 Fruit.prototype.cut = function (isRight) {
     "use strict";
     Cuttable.prototype.cut.call(this);
+    this.game_state.splashSound.play();
     if (this.isUp && isRight) this.game_state.score++;
     else if (!this.isUp && !isRight) this.game_state.score++;
     else this.game_state.prefabs.lives.die();
@@ -57,7 +58,6 @@ Fruit.prototype.mouseOver = function(pointer) {
 Fruit.prototype.mouseOut = function() {
     var isRight = this.game.input.x > this.overPointerX ? true : false;
     this.cut(isRight);
-    
 };
 
 Fruit.prototype.outBoundHandler = function() {

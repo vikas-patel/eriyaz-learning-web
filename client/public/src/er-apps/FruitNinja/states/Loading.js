@@ -29,6 +29,9 @@ define([], function () {
                 case "spritesheet":
                     this.load.spritesheet(asset_key, asset.source, asset.frame_width, asset.frame_height, asset.frames, asset.margin, asset.spacing);
                     break;
+                case "audio":
+                    this.load.audio(asset_key, asset.source);
+                    break;
                 }
             }
         }

@@ -75,8 +75,6 @@ GameOverPanel.prototype.show_game_over = function () {
 
     this.game.events.onLevelCompleted.dispatch(this.game.level, this.totalStars, score);
     this.game_state.prefabs.fruit_spawner.stop();
-    // console.log(this.game_state.prefabs.fruit_spawner);
-    // console.log(this.game_state.groups.spawners);
 };
 return GameOverPanel;
 });

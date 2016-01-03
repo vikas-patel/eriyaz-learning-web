@@ -2,11 +2,14 @@
     "assets": {
         "bomb_image": {"type": "image", "source": "er-apps/FruitNinja/assets/images/bomb.png"},
         "background_image": {"type": "image", "source": "er-apps/FruitNinja/assets/images/background.png"},
+        "splash_audio": {"type": "audio", "source": "er-apps/FruitNinja/assets/splash.mp3"},
+        "game_over_audio": {"type": "audio", "source": "er-apps/FruitNinja/assets/game_over.wav"},
         "sword_image": {"type": "image", "source": "er-apps/FruitNinja/assets/images/sword.png"},
         "particle_image": {"type": "image", "source": "er-apps/FruitNinja/assets/images/particle.png"},
         "medals": {"type": "spritesheet", "source": "er-apps/FruitNinja/assets/images/medals.gif", "frame_width": 64, "frame_height": 64},
         "fruits_spritesheet": {"type": "spritesheet", "source": "er-apps/FruitNinja/assets/images/fruits.png", "frame_width": 28, "frame_height": 28}
     },
+    "note_diff": {"min":1500, "max": 1800},
     "groups": [
         "background",
         "spawners",

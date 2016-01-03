@@ -29,6 +29,8 @@ Level.prototype.create = function () {
     "use strict";
     JSONLevel.prototype.create.call(this);
     this.slashes = this.game.add.graphics(0, 0);
+    this.splashSound = this.game.add.audio('splash_audio');
+    this.gameOverAudio = this.game.add.audio('game_over_audio');
     this.points = [];
     this.init_hud();
 };
@@ -66,11 +68,7 @@ Level.prototype.init_hud = function () {
 Level.prototype.game_over = function () {
     "use strict";
     var game_over_panel, game_over_position, game_over_bitmap, panel_text_style;
-    // if current score is higher than highest score, update it
-    if (!localStorage[this.highest_score] || this.score > localStorage[this.highest_score]) {
-        localStorage[this.highest_score] = this.score;
-    }
-    
+    this.gameOverAudio.play();
     // create a bitmap do show the game over panel
     game_over_position = new Phaser.Point(0, this.game.world.height);
     game_over_bitmap = this.add.bitmapData(this.game.world.width, this.game.world.height);
