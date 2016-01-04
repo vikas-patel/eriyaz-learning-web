@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "agenda": "latest",
+    "async": "^1.4.2",
     "bcrypt-nodejs": "latest",
     "body-parser": "~1.0.0",
     "compression": "^1.4.1",
     "connect-flash": "~0.1.1",
+    "connect-mongo": "^1.1.0",
     "cookie-parser": "~1.0.1",
     "ejs": "latest",
     "express": "~4.9.0",
@@ -31,8 +33,7 @@
     "passport-twitter": "~1.0.2",
     "request": "~2.61.0",
     "underscore": "^1.8.2",
-    "xoauth2": "~1.1.0",
-    "async": "^1.4.2"
+    "xoauth2": "~1.1.0"
   },
   "devDependencies": {
     "del": "^1.1.1",

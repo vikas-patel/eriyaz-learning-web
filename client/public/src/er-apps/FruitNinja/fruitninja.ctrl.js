@@ -15,7 +15,6 @@ define(['./module', './states/Boot', './states/Loading', './states/Levels', './s
             game.state.add("Title", new Title);
             game.state.add("Classic", new Classic);
             game.state.add("Level2", new Level2);
-            //game.state.add("TimeAttack", new TimeAttack);
             game.state.start("Boot", true, false, "er-apps/FruitNinja/assets/levels/title_screen.json", "Title", true);
 
             if (!game.events) game.events = {};

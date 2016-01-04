@@ -17,10 +17,10 @@ define(['./module', './states/boot', './states/menu', './states/preload',
             // TODO:
             // Set flexible root note.
             // Highest score
-            // hard coded px
             // base selection
             // get rid of logout
             // landing page on mobile
+            // new levels
             User.get({
                 id: $window.localStorage.userId
               }).$promise.then(function(user) {
