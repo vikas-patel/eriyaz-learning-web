@@ -4,6 +4,7 @@
         "background_image": {"type": "image", "source": "er-apps/FruitNinja/assets/images/background.png"},
         "sword_image": {"type": "image", "source": "er-apps/FruitNinja/assets/images/sword.png"},
         "splash_audio": {"type": "audio", "source": "er-apps/FruitNinja/assets/splash.mp3"},
+        "start_button_image": {"type": "image", "source": "er-apps/FruitNinja/assets/images/start-button.png"},
         "game_over_audio": {"type": "audio", "source": "er-apps/FruitNinja/assets/game_over.wav"},
         "particle_image": {"type": "image", "source": "er-apps/FruitNinja/assets/images/particle.png"},
         "medals": {"type": "spritesheet", "source": "er-apps/FruitNinja/assets/images/medals.gif", "frame_width": 64, "frame_height": 64},

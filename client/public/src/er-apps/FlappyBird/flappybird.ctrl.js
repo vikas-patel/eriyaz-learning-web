@@ -18,7 +18,6 @@ define(['./module', './states/boot', './states/menu', './states/preload',
             // Set flexible root note.
             // Highest score
             // base selection
-            // get rid of logout
             // landing page on mobile
             // new levels
             User.get({

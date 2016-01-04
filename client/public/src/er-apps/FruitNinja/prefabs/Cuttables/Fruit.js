@@ -21,8 +21,8 @@ Fruit = function (game_state, name, position, properties) {
     this.problem.next();
     this.isUp = this.problem.isUp;
     this.on_selection_animation = this.game_state.game.add.tween(this.scale);
-    this.on_selection_animation.to({x: 1.2 * this.scale.x, y: 1.2 * this.scale.y}, 500);
-    this.on_selection_animation.to({x: this.scale.x, y: this.scale.y}, 500);
+    this.on_selection_animation.to({x: 1.2 * this.scale.x, y: 1.2 * this.scale.y}, 250);
+    this.on_selection_animation.to({x: this.scale.x, y: this.scale.y}, 250);
     this.on_selection_animation.start();
 };
 

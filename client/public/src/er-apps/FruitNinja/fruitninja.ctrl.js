@@ -1,6 +1,6 @@
 define(['./module', './states/Boot', './states/Loading', './states/Levels', './states/Title',
- './states/Classic', './states/TimeAttack', './states/Level2'], 
-    function(app, Boot, Loading, Levels, Title, Classic, TimeAttack, Level2) {
+ './states/Classic'], 
+    function(app, Boot, Loading, Levels, Title, Classic) {
         app.controller('FruitNinjaCtrl', function($scope, User, $window, $http) {
             
             var game = new Phaser.Game(576, 505, Phaser.AUTO, 'fruitNinja');
@@ -9,12 +9,15 @@ define(['./module', './states/Boot', './states/Loading', './states/Levels', './s
             //TODO:
             // onclose, fruit sound still playing
             // Game States
+            // restart button
             game.state.add("Boot", new Boot);
             game.state.add("Loading", new Loading);
             game.state.add("Levels", new Levels);
             game.state.add("Title", new Title);
             game.state.add("Classic", new Classic);
-            game.state.add("Level2", new Level2);
+            game.state.add("Level2", new Classic);
+            game.state.add("Level3", new Classic);
+            game.state.add("Level4", new Classic);
             game.state.start("Boot", true, false, "er-apps/FruitNinja/assets/levels/title_screen.json", "Title", true);
 
             if (!game.events) game.events = {};
