@@ -45,6 +45,10 @@ Classic.prototype.update = function () {
     }
 };
 
+Classic.prototype.shutdown = function() {
+    this.prefabs.fruit_spawner.stop();
+};
+
 Classic.prototype.init_hud = function () {
     "use strict";
     Level.prototype.init_hud.call(this);

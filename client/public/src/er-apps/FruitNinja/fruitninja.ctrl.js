@@ -7,9 +7,7 @@ define(['./module', './states/Boot', './states/Loading', './states/Levels', './s
             game.starArray = {};
 
             //TODO:
-            // onclose, fruit sound still playing
-            // Game States
-            // restart button
+            // onclose: webgl graphics broken
             game.state.add("Boot", new Boot);
             game.state.add("Loading", new Loading);
             game.state.add("Levels", new Levels);
@@ -23,6 +21,10 @@ define(['./module', './states/Boot', './states/Loading', './states/Levels', './s
             if (!game.events) game.events = {};
             game.events.onLevelCompleted = new Phaser.Signal();
             game.events.onLevelCompleted.add(onLevelCompleted);
+
+            $scope.$on("$destroy", function() {
+                game.state.getCurrentState().shutdown();
+            });
             // Load user medals
             $http.get('/medal/' + $window.localStorage.userId + "/fruitninja")
                 .success(function(data) {
