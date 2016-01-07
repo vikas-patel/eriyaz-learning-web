@@ -1,17 +1,17 @@
 define(['music-calc', 'webaudioplayer', 'currentaudiocontext'], function(MusicCalc, Player, CurrentAudioContext) {
-    function Problem(level) {
+    function Problem(note_diff) {
         this.playTime = 500;
         this.lastNote = 261;
+        this.note_diff = note_diff;
         var audioContext = CurrentAudioContext.getInstance();
         this.player = new Player(audioContext);
     };
 
     Problem.prototype.next = function() {
-        this.currentNote = MusicCalc.getFreq(this.lastNote, getRandomCents(900, 1200));
+        this.currentNote = MusicCalc.getFreq(this.lastNote, getRandomCents(this.note_diff.min, this.note_diff.max));
         // range C1-C7 (32-2100)
         // reset
         if (this.currentNote < 32 || this.currentNote > 2093) this.currentNote = 261;
-        console.log("currentNote:"+this.currentNote);
         if (this.currentNote > this.lastNote){
             this.isUp = true;
         } else {
@@ -33,7 +33,14 @@ define(['music-calc', 'webaudioplayer', 'currentaudiocontext'], function(MusicCa
         }
         return randomSign * (Math.floor(Math.random() * (max - min)) + min);
     }
-
-    return Problem;
+    var instance;
+    return {
+        getInstance: function (note_diff) {
+            if (note_diff) {
+                instance = new Problem(note_diff);
+            }
+            return instance;
+        }
+    };
 
 });

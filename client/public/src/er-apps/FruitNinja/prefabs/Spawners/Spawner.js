@@ -14,6 +14,8 @@ var Spawner = function (game_state, name, position, properties) {
     this.time = this.spawn_time.max;
     
     this.spawn_timer = this.game_state.time.create();
+    this.count = 0;
+    this.nextDouble = 80;
     this.schedule_spawn();
 };
 
@@ -24,18 +26,40 @@ Spawner.prototype.schedule_spawn = function () {
     "use strict";
     // add a new spawn event with random time between a range
     //time = this.game_state.rnd.between(this.spawn_time.min, this.spawn_time.max);
-    this.spawn_timer.add(Phaser.Timer.SECOND * this.time, this.spawn, this);
-    this.spawn_timer.start();
+    if (this.count == this.nextDouble) {
+        this.spawn_timer.add(Phaser.Timer.SECOND * this.time, this.spawnOnly, this);
+        this.spawn_timer.start();
+        this.spawn_timer.add(Phaser.Timer.SECOND * (this.time+this.spawn_time.min), this.spawn, this);
+        this.spawn_timer.start();
+        this.nextDouble = Math.max(4, this.nextDouble - 1);
+        this.count = 0;
+    } else {
+        this.spawn_timer.add(Phaser.Timer.SECOND * this.time, this.spawn, this);
+        this.spawn_timer.start();
+    }
+    
+    this.count++;
     // min time gap 1 sec
-    this.time = Math.max(0.9*this.time, 1);
+    //this.time = Math.max(0.95*this.time, 1);
 };
 
 Spawner.prototype.spawn = function () {
+    this.spawnOnly();
+    // schedule next spawn
+    this.schedule_spawn();
+};
+
+Spawner.prototype.stop = function () {
+    this.spawn_timer.destroy();
+};
+
+Spawner.prototype.spawnOnly = function () {
     "use strict";
     var object_name, object_position, object, object_velocity;
     // get new random position and velocity
     // object_position = new Phaser.Point(this.game_state.rnd.between(0.2 * this.game_state.game.world.width, 0.8 * this.game_state.game.world.width), this.game_state.game.world.height);
-    object_position = new Phaser.Point(this.game_state.rnd.between(0.2 * this.game_state.game.world.width, 0.8 * this.game_state.game.world.width), 0);
+    var xPos = this.game_state.rnd.pick([0.4, 0.5, 0.6]);
+    object_position = new Phaser.Point(xPos*this.game_state.game.world.width, 0);
     object_velocity = this.object_velocity();
     // get first dead object from the pool
     object = this.pool.getFirstDead();
@@ -47,9 +71,6 @@ Spawner.prototype.spawn = function () {
         // if there is a dead object, reset it to the new position and velocity
         object.reset(object_position.x, object_position.y, object_velocity);
     }
-    
-    // schedule next spawn
-    this.schedule_spawn();
 };
 
 Spawner.prototype.object_velocity = function () {

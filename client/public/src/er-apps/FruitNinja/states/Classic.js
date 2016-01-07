@@ -1,5 +1,6 @@
-define(['./Level', '../prefabs/Spawners/FruitSpawner', '../prefabs/Spawners/BombSpawner', 
-    '../prefabs/Spawners/SpecialFruitSpawner', '../prefabs/Prefab', '../prefabs/HUD/Lives'], function (Level, FruitSpawner, BombSpawner, SpecialFruitSpawner, Prefab, Lives) {
+define(['./Level', '../prefabs/Spawners/FruitSpawner', '../prefabs/Spawners/BombSpawner', '../prefabs/Spawners/SpecialFruitSpawner', 
+    '../prefabs/Prefab', '../prefabs/HUD/Lives', '../prefabs/HUD/RemainingTime', '../problem'], 
+    function (Level, FruitSpawner, BombSpawner, SpecialFruitSpawner, Prefab, Lives, RemainingTime, ProblemFactory) {
 
 Classic = function () {
     "use strict";
@@ -19,10 +20,33 @@ Classic.prototype.constructor = Classic;
 Classic.prototype.init = function (level_data) {
     "use strict";
     Level.prototype.init.call(this, level_data);
-    
-    this.lives = 3;
-    
+    this.note_diff = level_data.note_diff;
+    this.lives = 5;
+    this.remaining_time = Phaser.Timer.SECOND * 60;
     this.highest_score = "classic_score";
+};
+
+Classic.prototype.create = function () {
+    "use strict";
+    Level.prototype.create.call(this);
+    this.problem = ProblemFactory.getInstance(this.note_diff);
+    this.problem.next();
+}
+
+Classic.prototype.update = function () {
+    "use strict";
+    Level.prototype.update.call(this);
+    if (this.remaining_time > 0) {
+        this.remaining_time -= this.game.time.elapsed;
+        if (this.remaining_time <= 0) {
+            this.game_over();
+            this.remaining_time = 0;
+        }
+    }
+};
+
+Classic.prototype.shutdown = function() {
+    this.prefabs.fruit_spawner.stop();
 };
 
 Classic.prototype.init_hud = function () {
@@ -30,8 +54,15 @@ Classic.prototype.init_hud = function () {
     Level.prototype.init_hud.call(this);
     var lives_position, lives;
     // create lives prefab
-    lives_position = new Phaser.Point(0.75 * this.game.world.width, 20);
-    lives = new Lives(this, "lives", lives_position, {texture: "sword_image", group: "hud", "lives": 3, "lives_spacing": 50});
+    lives_position = new Phaser.Point(0.70 * this.game.world.width, 40);
+    lives = new Lives(this, "lives", lives_position, {texture: "sword_image", group: "hud", "lives": 5, "lives_spacing": 25});
+
+    var remaining_time_position, remaining_time_style, remaining_time;
+    // show remaining time
+    remaining_time_position = new Phaser.Point(0.65 * this.game.world.width, 10);
+    remaining_time_style = {font: "32px Shojumaru", fill: "#fff"};
+    remaining_time = new RemainingTime(this, "remaining_time", remaining_time_position, {text: "Remaining time: ", style: remaining_time_style, group: "hud"});
+
 };
 return Classic;
 });

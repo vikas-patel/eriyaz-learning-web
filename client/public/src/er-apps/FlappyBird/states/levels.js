@@ -4,8 +4,8 @@ define([], function () {
       preload: function() {
       },
       create: function() {
+
         var totalLevels = 4;
-        console.log("create levels");
         if (this.game.starArray.length == 0) {
             // default level 1 is unlocked
             this.game.starArray.push({

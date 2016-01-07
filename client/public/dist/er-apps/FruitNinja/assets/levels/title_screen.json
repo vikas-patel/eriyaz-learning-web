@@ -1,11 +1,23 @@
 {
     "assets": {
-        "background_image": {"type": "image", "source": "er-apps/FruitNinja/assets/images/background-short.png"}
+        "background_image": {"type": "image", "source": "er-apps/FruitNinja/assets/images/background-short.png"},
+        "logo_image": {"type":"image", "source": "er-apps/FruitNinja/assets/images/logo.png"},
+        "levels_image": {"type":"spritesheet", "source": "er-apps/FruitNinja/assets/images/levels.png", "frame_width": 64, "frame_height": 64},
+        "blade_image": {"type":"image", "source": "er-apps/FruitNinja/assets/images/blade.png"}
     },
     "groups": [
         "background",
         "hud",
         "menu_items"
+    ],
+    "levels": [
+        {
+            "level_file": "er-apps/FruitNinja/assets/levels/classic.json",
+            "state_name": "Classic"
+        }, {
+            "level_file": "er-apps/FruitNinja/assets/levels/level2.json",
+            "state_name": "Level2"
+        }
     ],
     "prefabs": {
         "background": {
@@ -18,24 +30,13 @@
         },
         "classic_item": {
             "type": "start_game_item",
-            "position": {"x": 0.5, "y": 0.6},
+            "position": {"x": 0.5, "y": 0.8},
             "properties": {
-                "text": "Classic mode",
+                "text": "Start",
                 "style": {"font": "32px Shojumaru", "fill": "#FFF"},
                 "group": "menu_items",
                 "level_file": "er-apps/FruitNinja/assets/levels/classic.json",
                 "state_name": "Classic"
-            }
-        },
-        "time_item": {
-            "type": "start_game_item",
-            "position": {"x": 0.5, "y": 0.8},
-            "properties": {
-                "text": "Time attack mode",
-                "style": {"font": "32px Shojumaru", "fill": "#FFF"},
-                "group": "menu_items",
-                "level_file": "er-apps/FruitNinja/assets/levels/time_attack.json",
-                "state_name": "TimeAttack"
             }
         }
     }

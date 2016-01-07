@@ -1,29 +1,30 @@
-define(['./module','webaudioplayer', 'currentaudiocontext', './states/Boot', './states/Loading', './states/Title',
- './states/Classic', './states/TimeAttack'], 
-    function(app, Player, CurrentAudioContext, Boot, Loading, Title, Classic, TimeAttack) {
+define(['./module', './states/Boot', './states/Loading', './states/Levels', './states/Title',
+ './states/Classic'], 
+    function(app, Boot, Loading, Levels, Title, Classic) {
         app.controller('FruitNinjaCtrl', function($scope, User, $window, $http) {
             
             var game = new Phaser.Game(576, 505, Phaser.AUTO, 'fruitNinja');
+            game.starArray = {};
 
-            var audioContext = CurrentAudioContext.getInstance();
-            game.player = new Player(audioContext);
-            // Game States
+            //TODO:
+            // onclose: webgl graphics broken
             game.state.add("Boot", new Boot);
             game.state.add("Loading", new Loading);
+            game.state.add("Levels", new Levels);
             game.state.add("Title", new Title);
             game.state.add("Classic", new Classic);
-            game.state.add("TimeAttack", new TimeAttack);
-            game.state.start("Boot", true, false, "er-apps/FruitNinja/assets/levels/title_screen.json", "Title");
+            game.state.add("Level2", new Classic);
+            game.state.add("Level3", new Classic);
+            game.state.add("Level4", new Classic);
+            game.state.start("Boot", true, false, "er-apps/FruitNinja/assets/levels/title_screen.json", "Title", true);
 
-            // TODO: small range in level 1
-            // Set flexible root note.
-            // Position stars better
-            // Variable star numbers
-            // Highest score
-            // End of level: flag or trophy
             if (!game.events) game.events = {};
             game.events.onLevelCompleted = new Phaser.Signal();
             game.events.onLevelCompleted.add(onLevelCompleted);
+
+            $scope.$on("$destroy", function() {
+                game.state.getCurrentState().shutdown();
+            });
             // Load user medals
             $http.get('/medal/' + $window.localStorage.userId + "/fruitninja")
                 .success(function(data) {

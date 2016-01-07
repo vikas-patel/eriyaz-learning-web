@@ -100,7 +100,7 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         // Initialize level specific variables
       },
       updatePitch: function(pitch) {
-            currInterval = Math.round(1200 * (Math.log(pitch/this.rootFreq) / Math.log(2)) / 100);
+            currInterval = Math.round(1200 * Math.log(pitch/this.rootFreq) / Math.log(2))/100;
             if (currInterval > -6 && currInterval < 18) {
                 this.bird.flap(this.yScale(currInterval));
             }

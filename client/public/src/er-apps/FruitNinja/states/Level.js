@@ -1,5 +1,5 @@
 define(['./JSONLevel', '../prefabs/HUD/Score', '../prefabs/Cuttables/Cut', '../prefabs/HUD/GameOverPanel', '../problem'], 
-    function (JSONLevel, Score, Cut, GameOverPanel, Problem) {
+    function (JSONLevel, Score, Cut, GameOverPanel, ProblemFactory) {
 
 var Level = function () {
     "use strict";
@@ -28,107 +28,31 @@ Level.prototype.init = function (level_data) {
 Level.prototype.create = function () {
     "use strict";
     JSONLevel.prototype.create.call(this);
-
-    this.problem = new Problem();
-    
-    // add events to check for swipe
-    this.game.input.onDown.add(this.start_swipe, this);
-    this.game.input.onUp.add(this.end_swipe, this);
-
-    this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
-    this.upKey.onDown.add(this.updownKeyHandler, this, 0, true);
-    
-    this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-    this.downKey.onDown.add(this.updownKeyHandler, this, 0, false);
-    this.waitingAudio = true;
-    this.problem.play(500);
-
+    this.slashes = this.game.add.graphics(0, 0);
+    this.splashSound = this.game.add.audio('splash_audio');
+    this.gameOverAudio = this.game.add.audio('game_over_audio');
+    this.points = [];
     this.init_hud();
 };
 
 Level.prototype.update = function() {
-    if (!this.waitingAudio) return;
-    //this.currentFruit = this.groups.fruits.getFirstExists(true);
-    this.currentFruit = this.firstFruit();
-    if (null == this.currentFruit) return;
-    this.currentFruit.scale.setTo(2);
-    this.problem.next();
-    this.waitingAudio = false;
-};
-
-Level.prototype.firstFruit = function() {
-    var firstFruit;
-    this.groups.fruits.forEachAlive(function(fruit) {
-      if (fruit.visible && fruit.inCamera) {
-        if (firstFruit == null) {
-            firstFruit = fruit;
-        } else if (firstFruit.y < fruit.y) {
-            firstFruit = fruit;
-        }
-      }
+    this.points.push({
+        x: this.game.input.x,
+        y: this.game.input.y
     });
-    return firstFruit;
-};
+    this.points = this.points.splice(this.points.length-10, this.points.length);
+    //game.add.sprite(game.input.x, game.input.y, 'hit');
 
-Level.prototype.updownKeyHandler = function(key, isUp) {
-    if (this.waitingAudio) return;
-    this.currentFruit.cut();
-
-    if ((this.problem.isUp && isUp) || (!this.problem.isUp && !isUp)) {
-        this.score += 1;
-    } else {
-        this.prefabs.lives.die();
-    }
-    var fruit = this.firstFruit();
-    if (null == fruit) {
-        this.waitingAudio = true;
-    } else {
-        this.currentFruit = fruit;
-        this.currentFruit.scale.setTo(2);
-        this.problem.next();
-    }
-};
-
-Level.prototype.start_swipe = function (pointer) {
-    "use strict";
-    this.start_swipe_point = new Phaser.Point(pointer.x, pointer.y);
-};
-
-Level.prototype.end_swipe = function (pointer) {
-    "use strict";
-    var swipe_length, cut_style, cut;
-    this.end_swipe_point = new Phaser.Point(pointer.x, pointer.y);
-    swipe_length = Phaser.Point.distance(this.end_swipe_point, this.start_swipe_point);
-    // if the swipe length is greater than the minimum, a swipe is detected
-    if (swipe_length >= this.MINIMUM_SWIPE_LENGTH) {
-        // create a new line as the swipe and check for collisions
-        cut_style = {line_width: 5, color: 0xE82C0C, alpha: 1};
-        cut = new Cut(this, "cut", {x: 0, y: 0}, {group: "cuts", start: this.start_swipe_point, end: this.end_swipe_point, duration: 0.3, style: cut_style});
-        this.swipe = new Phaser.Line(this.start_swipe_point.x, this.start_swipe_point.y, this.end_swipe_point.x, this.end_swipe_point.y);
-        this.groups.fruits.forEachAlive(this.check_collision, this);
-        this.groups.bombs.forEachAlive(this.check_collision, this);
-        this.groups.special_fruits.forEachAlive(this.check_collision, this);
-        this.groups.time_bombs.forEachAlive(this.check_collision, this);
-        this.groups.clocks.forEachAlive(this.check_collision, this);
-    }
-};
-
-Level.prototype.check_collision = function (object) {
-    "use strict";
-    var object_rectangle, line1, line2, line3, line4, intersection;
-    // create a rectangle for the object body
-    object_rectangle = new Phaser.Rectangle(object.body.x, object.body.y, object.body.width, object.body.height);
-    // check for intersections with each rectangle edge
-    line1 = new Phaser.Line(object_rectangle.left, object_rectangle.bottom, object_rectangle.left, object_rectangle.top);
-    line2 = new Phaser.Line(object_rectangle.left, object_rectangle.top, object_rectangle.right, object_rectangle.top);
-    line3 = new Phaser.Line(object_rectangle.right, object_rectangle.top, object_rectangle.right, object_rectangle.bottom);
-    line4 = new Phaser.Line(object_rectangle.right, object_rectangle.bottom, object_rectangle.left, object_rectangle.bottom);
-    intersection = this.swipe.intersects(line1) || this.swipe.intersects(line2) || this.swipe.intersects(line3) || this.swipe.intersects(line4);
-    if (intersection) {
-        // if an intersection is found, cut the object
-        var isRight = this.swipe.end.x > this.swipe.start.x ? true: false;
-        console.log("isRight:"+isRight);
-        object.cut(isRight);
+    if (this.points.length >= 1 && this.points[0].x>0) {
+        this.slashes.clear();
+        this.slashes.beginFill(0xFFFFFF);
+        this.slashes.lineStyle(2, 0x00FF00, 1);
+        this.slashes.alpha = .5;
+        this.slashes.moveTo(this.points[0].x, this.points[0].y);
+        for (var i=1; i<this.points.length; i++) {
+            this.slashes.lineTo(this.points[i].x, this.points[i].y);
+        } 
+        this.slashes.endFill();
     }
 };
 
@@ -144,11 +68,7 @@ Level.prototype.init_hud = function () {
 Level.prototype.game_over = function () {
     "use strict";
     var game_over_panel, game_over_position, game_over_bitmap, panel_text_style;
-    // if current score is higher than highest score, update it
-    if (!localStorage[this.highest_score] || this.score > localStorage[this.highest_score]) {
-        localStorage[this.highest_score] = this.score;
-    }
-    
+    this.gameOverAudio.play();
     // create a bitmap do show the game over panel
     game_over_position = new Phaser.Point(0, this.game.world.height);
     game_over_bitmap = this.add.bitmapData(this.game.world.width, this.game.world.height);
