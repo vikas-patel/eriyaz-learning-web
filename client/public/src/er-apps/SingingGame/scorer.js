@@ -7,15 +7,23 @@ define([],function() {
 			NEAR_MISS : 1,
 			FAR_OFF : 2
 		},
+		updateScore : function(latest) {
+			this.score = (this.score * this.count + latest)/++this.count;
+		},
 		scorePoint : function(actual,reference) {
 			var diff = Math.abs(actual-reference);
-			score = (this.score * this.count + 1/(1+diff))/this.count+1;
-			this.count ++;
+			
 			if(diff === 0) {
+				this.updateScore(1);
 				return this.statuses.SPOT_ON;
 			} else if(diff === 1) {
+				this.updateScore(0.5);
+
 				return this.statuses.NEAR_MISS;
-			} else return this.statuses.FAR_OFF;
+			} else {
+				this.updateScore(0);
+				return this.statuses.FAR_OFF;
+			}
 		},
 		getExerciseScore : function() {
 			return this.score;
