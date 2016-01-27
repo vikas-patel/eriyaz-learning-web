@@ -3,6 +3,17 @@ var mailgun = require('./mailgun.js');
 var from = 'postmaster@eriyaz.com'
 var admin_email_id = "eriyazonline@gmail.com"
 
+exports.SendLevelCompletionEmail = function(email_id, userName, appName, levelName){
+	var subject = "Well done!! You have completed " + appName + "-" + levelName;
+	var text = userName + ",\n"
+	text+="Well Done!! You  have completed "+appName + "-" + levelName +".\n"
+	text+="Regards,\n"
+	text+="eRiyaz Team,\n"
+	text+="eriyazonline@gmail.com\n"
+	var email = {from:from, to:email_id, subject:subject, text:text};
+	mailgun.SendEMail(email);
+}
+
 exports.SendWelcomeEmail = function(email_id,name){
 	var welcomeSubject = "Welcome to eRiyaz"
 	var welcomeText = ""

@@ -1,7 +1,7 @@
 define(['./module', './states/Boot', './states/Loading', './states/Levels', './states/Title',
  './states/Classic'], 
     function(app, Boot, Loading, Levels, Title, Classic) {
-        app.controller('FruitNinjaCtrl', function($scope, User, $window, $http) {
+        app.controller('FruitNinjaCtrl', function($scope, User, $window, $http, ScoreService) {
             
             var game = new Phaser.Game(576, 505, Phaser.AUTO, 'fruitNinja');
             game.starArray = {};
@@ -35,6 +35,8 @@ define(['./module', './states/Boot', './states/Loading', './states/Levels', './s
                 });
 
             function onLevelCompleted(level, medal, score) {
+                // Save Score
+                ScoreService.save("fruitninja", level, score);
                 var levelScore = game.starArray[level-1];
                 if (levelScore.medal >= medal && levelScore.score >= score) {
                     return;

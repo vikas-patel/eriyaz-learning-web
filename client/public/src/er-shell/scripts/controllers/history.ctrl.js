@@ -21,6 +21,15 @@
         return seconds + "s";
     };
 
+    $scope.scoreText = function(score) {
+      if (score.appName == 'flappybird' || score.appName == 'fruitninja') {
+        return score.score
+      } else {
+        return Math.round(score.score*100) + '%';
+      }
+
+    };
+
       $scope.sum = function(times) {
         var sum = _.reduce(times, function(start, time){ return start + time.time; }, 0);
         return $scope.secondsToTime(sum);

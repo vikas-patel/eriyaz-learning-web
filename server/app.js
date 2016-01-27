@@ -52,6 +52,7 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 app.use(compression());
 
 require('./routes')(app, passport); // load our routes and pass in our app and fully configured passport
+//require('./jobs/ruleEngine');
 //require('./agenda');
 //require("./email/email-client");
 var server = app.listen(port, function() {

@@ -7,7 +7,7 @@
 			<h2>Best Scores</h2>
 			<dl>
 				<dt ng-repeat-start="score in day.scores">{{score.appName}}: {{score.exercise}}</dt>
-				<dd ng-repeat-end>{{score.score*100 | number:1}}%</dd>
+				<dd ng-repeat-end>{{scoreText(score)}}</dd>
 			</dl>
 		</div>
 		<div id="daily" ng-show="{{uiModel.userType == 'admin'}}" ng-repeat="day in dailyScore">
@@ -20,7 +20,7 @@
 			<h2>Scores</h2>
 			<dl>
 				<dt ng-repeat-start="score in day.scores">{{score.appName}}: {{score.exercise}}</dt>
-				<dd ng-repeat-end>{{score.score*100 | number:1}}%</dd>
+				<dd ng-repeat-end>{{scoreText(score)}}</dd>
 			</dl>
 		</div>	
 	</div>

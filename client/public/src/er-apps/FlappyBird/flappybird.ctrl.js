@@ -1,7 +1,7 @@
 define(['./module', './states/boot', './states/menu', './states/preload',
  './states/levels', './states/level2', './states/level1', './states/level3', './states/level4'], 
     function(app, Boot, Menu, Preload, Levels, Level2, Level1, Level3, Level4) {
-        app.controller('FlappyBirdCtrl', function($scope, User, $window, $http) {
+        app.controller('FlappyBirdCtrl', function($scope, User, $window, $http, ScoreService) {
             
             var game = new Phaser.Game(576, 505, Phaser.AUTO, 'flappyBird');
             // Game States
@@ -43,6 +43,9 @@ define(['./module', './states/boot', './states/menu', './states/preload',
                   });
 
             function onLevelCompleted(level, medal, score) {
+                // Save Score
+                ScoreService.save("flappybird", level, score);
+                // Save Medals
                 var levelScore = game.starArray[level-1];
                 if (levelScore.medal >= medal && levelScore.score >= score) {
                     return;

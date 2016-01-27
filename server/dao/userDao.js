@@ -2,6 +2,7 @@ var User = require('../model/user.js');
 var Score = require('../model/score.js');
 var UserTime = require('../model/user-time.js');
 var Journal = require('../model/journal.js');
+var Rule = require('../model/rule.js');
 var Medal = require('../model/medal.js');
 var mongoose = require('mongoose');
 var _ = require('underscore');
@@ -156,6 +157,31 @@ exports.findAllJournal = function(req, res) {
 			if (err) res.send(err);
 			res.json(journals);
 		});
+}
+
+exports.addRule = function(req, res) {
+	new Rule(req.body).save(function (err, rule) {
+	  	if (err) return res.send(err);
+	  	res.json(rule);
+	});
+}
+
+exports.findAllRule = function(req, res) {
+	Rule.find()
+		.exec(function(err, rules) {
+			if (err) res.send(err);
+			res.json(rules);
+		});
+}
+
+exports.updateRule = function(req, res) {
+	Rule.findByIdAndUpdate(req.params.id, {
+		$set: req.body
+		// {new:true} option to return modified object.
+	}, {new: true}, function(err, rule) {
+		if (err) return handleError(err);
+		res.send(rule);
+	});
 }
 
 exports.findAllScores = function(req, res) {
