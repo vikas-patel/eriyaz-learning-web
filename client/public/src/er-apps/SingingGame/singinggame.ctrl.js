@@ -9,10 +9,9 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
 
         app.controller('SingingGameCtrl', function($scope, $rootScope, PitchModel) {
             $scope.rootNote = 46;
-            $scope.isPending = true;
             $scope.playTime = 500;
             $scope.numNotes = 3;
-
+            $scope.score = 0;
             var display = new Display();
 
             var currRoot;
@@ -46,7 +45,6 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
 
                 this.start = function() {
                     console.log("start");
-                    console.log(this.watcher);
                     var local = this;
                     intervalId = setInterval(function() {
                         player.scheduleNote(880, startTime1, 40);
@@ -62,7 +60,6 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
                 this.scheduleNote = function(noteNum) {
                     //schedule note for next beep.  
                     player.scheduleNote(MusicCalc.midiNumToFreq(noteNum), startTime1, beatDuration);
-
                 };
 
                 this.scheduleAction = function(callback) {
@@ -82,11 +79,14 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
                 setState: function(state) {
                     this.state = state;
                 },
+                setIntervalHandler: function(handler) {
+                    this.intervalHandler = handler;
+                },
                 handleBeep: function() {
                     this.state.handleBeep();
                 },
                 handleNewInterval: function(interval) {
-                    this.state.handleNewInterval(interval);
+                    this.intervalHandler(interval);
                 }
             };
 
@@ -98,11 +98,16 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
                 var beepCount = 0;
                 this.handleBeep = function() {
                     clock.scheduleAction(function() {
+                        gameController.setIntervalHandler(function(interval) {
+                            display.markPitch(interval, Date.now() - singTime);
+                        });
                         beepCount++;
                         if (beepCount === 1) {
                             gameController.setState(new PlayState(0));
                         }
+
                     });
+
                 };
                 this.handleNewInterval = function() {
                     display.markPitch(interval, Date.now() - singTime);
@@ -116,68 +121,67 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
                 var local = this;
 
                 this.handleBeep = function() {
-                    if (beatCount === 0) {
-                        clock.scheduleAction(function() {
+                    clock.scheduleNote(this.exercise[currentNoteIdx] + $scope.rootNote);
+                    clock.scheduleAction(function() {
+                        if (beatCount === 0) {
                             display.clearPlayMarkers();
                             display.clearPitchMarkers();
                             display.loadExercise(local.exercise);
                             singTime = Date.now() + 1000;
-                        });
-                    } else {
-                        clock.scheduleNote(this.exercise[currentNoteIdx] + $scope.rootNote);
-                        clock.scheduleAction(function() {
+                            gameController.setIntervalHandler(function(interval) {
+                                display.markPitch(interval, Date.now() - singTime);
+                            });
+                        }
 
+                        display.playAnimate(local.exercise[currentNoteIdx], beatDuration, currentNoteIdx);
+                        if (currentNoteIdx < local.exercise.length - 1)
+                            currentNoteIdx++;
+                        else {
 
-                            display.playAnimate(local.exercise[currentNoteIdx], beatDuration, currentNoteIdx);
-                            if (currentNoteIdx < local.exercise.length - 1)
-                                currentNoteIdx++;
-                            else {
+                            gameController.setState(new SingState(exerciseIndex));
+                        }
+                        beatCount++;
+                    });
 
-                                gameController.setState(new SingState(exerciseIndex));
-
-                            }
-                        });
-                    }
-                    beatCount++;
-                };
-
-                this.handleNewInterval = function(interval) {
-                    display.markPitch(interval, Date.now() - singTime);
                 };
             };
 
             var SingState = function(exerciseIndex) {
                 this.exercise = exercises[exerciseIndex];
-                var currentNoteIdx = -1;
+                var currentNoteIdx = 0;
                 var beatCount = 0;
                 var local = this;
                 this.handleBeep = function() {
-                    if (beatCount === 0) {
-                        clock.scheduleAction(function() {
+                    clock.scheduleAction(function() {
+                        if (beatCount === 0) {
                             display.clearPlayMarkers();
                             display.clearPitchMarkers();
-                            singTime = Date.now() + 1000;
+                            singTime = Date.now();
 
-                        });
-                    } else
-
-                    {
-                        clock.scheduleAction(function() {
-                            console.log('singtate');
-                            if (currentNoteIdx < local.exercise.length - 1)
-                                currentNoteIdx++;
-                            else {
+                        }
+                        (function(noteIndex) {
+                            gameController.setIntervalHandler(function(interval) {
+                                display.markPitch(interval, Date.now() - singTime);
+                                var roundedInterval = Math.round(interval);
+                                display.markPitchFeedback(roundedInterval, Date.now() - singTime, scorer.scorePoint(roundedInterval, local.exercise[noteIndex]));
+                                $scope.score = scorer.getExerciseScore();
+                                $scope.$apply();
+                            });
+                        })(currentNoteIdx);
+                        if (currentNoteIdx < local.exercise.length - 1)
+                            currentNoteIdx++;
+                        else {
+                            if (scorer.getExerciseScore() > 0.7)
                                 gameController.setState(new PlayState(exerciseIndex + 1));
-                            }
-                        });
-                    }
-                    beatCount++;
-                };
+                            else gameController.setState(new PlayState(exerciseIndex));
+                            scorer.reset();
+                            $scope.score = 0;
+                            $scope.$apply();
 
-                local.handleNewInterval = function(interval) {
-                    display.markPitch(interval, Date.now() - singTime);
-                    var roundedInterval = Math.round(interval);
-                    display.markPitchFeedback(roundedInterval, Date.now() - singTime, scorer.scorePoint(roundedInterval, this.exercise[currentNoteIdx]));
+                        }
+                        beatCount++;
+                    });
+
                 };
             };
 
@@ -189,9 +193,11 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
                 if (pitch !== 0) {
                     PitchModel.currentFreq = pitch;
                     PitchModel.currentInterval = MusicCalc.getCents(PitchModel.rootFreq, PitchModel.currentFreq) / 100;
-                    if ($scope.isPending) {
-                        gameController.handleNewInterval(PitchModel.currentInterval);
-                    }
+                    // if ($scope.isPending) {
+                    gameController.handleNewInterval(PitchModel.currentInterval);
+                    // }
+                } else {
+                    gameController.handleNewInterval(NaN);
                 }
             };
 
@@ -204,7 +210,7 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
 
 
             $scope.$on("$destroy", function() {
-                cancelCurrentLoop();
+                clock.stop();
                 if (micStream)
                     micStream.stop();
             });
@@ -266,7 +272,6 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
             };
 
             $scope.playMyGuess = function() {
-                console.log(display.getNotes());
                 playThat(display.getNotes());
             };
 
