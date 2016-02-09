@@ -1,4 +1,4 @@
-define(['d3','./scorer'], function(d3,scorer) {
+define(['d3', './scorer'], function(d3, scorer) {
 	var Display = function() {
 
 		var margin = {
@@ -9,7 +9,7 @@ define(['d3','./scorer'], function(d3,scorer) {
 		};
 
 		var chartWidth = 300,
-			chartHeight = 200;
+			chartHeight = 300;
 
 
 		var refreshTime = 40;
@@ -18,9 +18,11 @@ define(['d3','./scorer'], function(d3,scorer) {
 		var slotsData = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 		var labelsData = ["S", "r", "R", "g", "G", "m", "M", "P", "d", "D", "n", "N", "S'"];
 
-
+		var yMin = -5;
+		var yMax = 18;
+		var nYDivs = yMax - yMin;
 		var yScale = d3.scale.linear()
-			.domain([0, 13])
+			.domain([yMin, yMax])
 			.range([chartHeight, 0]);
 
 		var xScale = d3.scale.linear()
@@ -38,26 +40,14 @@ define(['d3','./scorer'], function(d3,scorer) {
 			.append("g")
 			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-		svg.selectAll("rect.slot")
-			.data(slotsData)
-			.enter().append("rect")
-			.attr("x", 0)
-			.attr("class", "slot")
-			.attr("y", function(d) {
-				return yScale(d + 1);
-			})
-			.attr("height", chartHeight / 13)
-			.attr("width", chartWidth)
-			.attr("fill", function(d, i) {
-				if (i === 0 || i === 7 || i === 12) {
-					return "green";
-				} else if (i === 5 || i == 6) {
-					return "blue";
-				} else {
-					return "red";
-				}
-			})
-			.attr("fill-opacity", 0.5);
+			svg.append("rect")
+			.attr("x",0)
+			.attr("y",0)
+			.attr("width",chartWidth)
+			.attr("height",chartHeight)
+			.attr("fill","lightgrey");
+
+		
 
 		var xAxis = d3.svg.axis()
 			.scale(xScale)
@@ -70,14 +60,26 @@ define(['d3','./scorer'], function(d3,scorer) {
 			.tickFormat('')
 			.tickSubdivide(true);
 
-
+		var yAxis = d3.svg.axis()
+			.scale(yScale)
+			.orient("right")
+			.innerTickSize([chartWidth])
+			.outerTickSize([chartWidth])
+			.ticks(nYDivs)
+			// .outerTickSize([10])
+			// .outerTickSize([20])
+			.tickFormat('')
+			.tickSubdivide(true);
 
 		svg.append("g")
 			.attr("class", "x axis")
 			.attr("transform", "translate(0," + chartHeight + ")")
 			.call(xAxis);
 
-
+		svg.append("g")
+			.attr("class", "y axis")
+			// .attr("transform", "translate(0," + chartWidth + ")")
+			.call(yAxis);
 
 		var notesData = [];
 
@@ -96,7 +98,7 @@ define(['d3','./scorer'], function(d3,scorer) {
 				.attr("y", function(d) {
 					return yScale(d + 1);
 				})
-				.attr("height", chartHeight / 13)
+				.attr("height", chartHeight / nYDivs)
 				.attr("width", chartWidth / 8)
 				.attr("fill", "white")
 				.attr("fill-opacity", 1);
@@ -107,17 +109,17 @@ define(['d3','./scorer'], function(d3,scorer) {
 		this.markPitch = function(interval, time) {
 			pointGroup.append("rect")
 				.attr("x", timeScale(time))
-				.attr("y", yScale(interval) - chartHeight / 26)
+				.attr("y", yScale(interval) - chartHeight / (2 * nYDivs))
 				//.attr("y", yScale(currCents) - height / 19 / 2)
 				.attr("width", 2)
 				.attr("height", 2);
 		};
 
-		this.markPitchFeedback = function(interval,time,status) {
+		this.markPitchFeedback = function(interval, time, status) {
 			pointGroup.append("rect")
 				.attr("x", timeScale(time))
-				.attr("y", yScale(interval) - chartHeight / 13)
-				.attr("height", chartHeight / 13)
+				.attr("y", yScale(interval) - chartHeight / nYDivs)
+				.attr("height", chartHeight / nYDivs)
 				// .attr("y", yScale(interval * 100))
 				.attr("width", 5)
 				// .attr("height", 20)
@@ -139,8 +141,6 @@ define(['d3','./scorer'], function(d3,scorer) {
 			svg.selectAll("rect.playRect").remove();
 		};
 
-
-		
 
 
 		this.setFlash = function(message) {
@@ -184,8 +184,8 @@ define(['d3','./scorer'], function(d3,scorer) {
 			var playRect = svg.append("rect")
 				.attr("class", "playRect")
 				.attr("x", xScale(noteNum))
-				.attr("y", yScale(interval) - chartHeight / 13)
-				.attr("height", chartHeight / 13 - 1)
+				.attr("y", yScale(interval) - chartHeight / nYDivs)
+				.attr("height", chartHeight / nYDivs - 1)
 				.attr("width", 0)
 				.style("fill", color);
 			//.attr("opacity", 0.5);

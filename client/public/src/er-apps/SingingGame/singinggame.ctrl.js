@@ -9,8 +9,6 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
 
         app.controller('SingingGameCtrl', function($scope, $rootScope, PitchModel) {
             $scope.rootNote = 46;
-            $scope.playTime = 500;
-            $scope.numNotes = 3;
             $scope.score = 0;
             var display = new Display();
 
@@ -215,15 +213,7 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
                     micStream.stop();
             });
 
-            $scope.newSequence = function() {
-                currThat = sequenceGen.getRandomSequence(parseInt($scope.numNotes));
-                playThat(currThat);
-                display.reset();
-                currActiveNote = 0;
-                display.start(currActiveNote);
-
-            };
-
+          
             $scope.startMic = function() {
                 if (!$scope.signalOn) {
                     MicUtil.getMicAudioStream(
@@ -243,39 +233,13 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
                 return !element.enabled;
             }
 
-            function playThat(that) {
-                cancelCurrentLoop();
-                intervalSequence = that;
-                var startTime = audioContext.currentTime + playTime / 1000;
-                currLoopId = setInterval(function() {
-                    noteStartTime = startTime + playTime * marker / 1000;
-                    var noteFreq = baseFreq * Math.pow(2, intervalSequence[marker] / 12);
-                    player.scheduleNote(noteFreq, noteStartTime, playTime);
-                    marker++;
-                    if (marker >= intervalSequence.length) {
-                        cancelCurrentLoop();
-                    }
-                }, playTime);
-            }
-
+          
             function cancelCurrentLoop() {
                 marker = 0;
                 clearInterval(currLoopId);
             }
 
-            $scope.repeat = function() {
-                playThat(currThat);
-            };
-
-            $scope.showAns = function() {
-                display.showNotes(currThat);
-            };
-
-            $scope.playMyGuess = function() {
-                playThat(display.getNotes());
-            };
-
-
+           
 
         });
     });

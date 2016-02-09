@@ -3,20 +3,12 @@
     <div>
         <paper-icon-button icon="settings-voice" ng-click="startMic()"></paper-icon-button>
     </div>
-    Duration <input type="text" ng-model="playTime"><br>
-    Notes <input type="text" ng-model="numNotes"><br>
     Root Note <input type="text" ng-model="rootNote"><br>
-    Score : {{score}}
+    Score : {{score * 100 | number:1}}%
     
 
     <div id="display"></div>
 
-    <div class="container settings">
-                <button class="small" ng-disabled="newDisabled" ng-click="newSequence();">new</button>
-                <button class="small" ng-disabled="repeatDisabled" ng-click="repeat();">repeat</button>
-                <button class="large" ng-disabled="playMyDisabled" ng-click="playMyGuess();">play my</button>
-                <button class="large" ng-disabled="checkDisabled" ng-click="showAns();">show ans</button>
-            </div>
    
     
 </div>

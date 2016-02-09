@@ -2530,7 +2530,7 @@ core-drawer-panel:not([narrow]) #navicon {
 }
 /* line 68, ../../../er-apps/SingingGame/main.scss */
 #singinggame .x.axis line {
-  stroke: #ccc;
+  stroke: #eee;
   stroke-width: 1px;
 }
 /* line 73, ../../../er-apps/SingingGame/main.scss */
@@ -2539,5 +2539,18 @@ core-drawer-panel:not([narrow]) #navicon {
 }
 /* line 77, ../../../er-apps/SingingGame/main.scss */
 #singinggame .x.axis path {
+  fill: none;
+}
+/* line 82, ../../../er-apps/SingingGame/main.scss */
+#singinggame .y.axis line {
+  stroke: #eee;
+  stroke-width: 1px;
+}
+/* line 87, ../../../er-apps/SingingGame/main.scss */
+#singinggame .y.axis .minor {
+  stroke-opacity: .5;
+}
+/* line 91, ../../../er-apps/SingingGame/main.scss */
+#singinggame .y.axis path {
   fill: none;
 }
