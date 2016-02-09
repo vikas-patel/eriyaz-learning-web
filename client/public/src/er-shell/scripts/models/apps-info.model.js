@@ -268,7 +268,7 @@
         desc: 'Control your voice pitch.',
         href: '#flappybird',
         appUrl: 'er-apps/FlappyBird/main.html',
-        aspectRatio: 8/7,
+        aspectRatio: 720/505,
         show: true
       }, {
         name: 'PhraseShape',

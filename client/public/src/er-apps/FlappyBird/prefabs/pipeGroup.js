@@ -1,11 +1,11 @@
 define(['./pipe'], function (Pipe) {
 
-  var PipeGroup = function(game, parent) {
+  var PipeGroup = function(game, parent, bottomY) {
 
     Phaser.Group.call(this, game, parent);
-
+    this.bottomY = bottomY ? bottomY : 440;
     this.topPipe = new Pipe(this.game, 0, 0, 0);
-    this.bottomPipe = new Pipe(this.game, 0, 440, 1);
+    this.bottomPipe = new Pipe(this.game, 0, this.bottomY, 1);
     this.add(this.topPipe);
     this.add(this.bottomPipe);
     this.hasScored = false;
@@ -29,7 +29,7 @@ define(['./pipe'], function (Pipe) {
 
   PipeGroup.prototype.reset = function(x, y) {
     this.topPipe.reset(0,0);
-    this.bottomPipe.reset(0,440);
+    this.bottomPipe.reset(0,this.bottomY);
     this.x = x;
     this.y = y;
     this.setAll('body.velocity.x', -200);

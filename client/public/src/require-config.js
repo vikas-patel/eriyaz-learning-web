@@ -22,6 +22,7 @@ requirejs.config({
         'music-calc' : 'er-libs/music-calc',
         'mic-util': 'er-libs/mic-util',
         'pitchdetector': 'er-libs/pitchdetector',
+        'pitchcustomdetector': 'er-libs/pitchcustomdetector',
         'intensityfilter': 'er-libs/intensityfilter',
         'stabilitydetector': 'er-libs/stabilitydetector',
         'currentaudiocontext': 'er-libs/currentaudiocontext',

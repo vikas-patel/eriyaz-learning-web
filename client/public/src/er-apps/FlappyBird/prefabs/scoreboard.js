@@ -18,10 +18,10 @@ define([], function () {
     this.scoreboard = this.create(this.game.width / 2, 200, 'scoreboard');
     this.scoreboard.anchor.setTo(0.5, 0.5);
     
-    this.scoreText = this.game.add.bitmapText(this.scoreboard.width*1.5, 180, 'flappyfont', '', 18);
+    this.scoreText = this.game.add.bitmapText(this.game.width/2 + this.scoreboard.width*0.25, 180, 'flappyfont', '', 18);
     this.add(this.scoreText);
     
-    this.bestText = this.game.add.bitmapText(this.scoreboard.width*1.5, 230, 'flappyfont', '', 18);
+    this.bestText = this.game.add.bitmapText(this.game.width/2 + this.scoreboard.width*0.25, 230, 'flappyfont', '', 18);
     this.add(this.bestText);
 
     // add our start button with a callback
@@ -50,13 +50,13 @@ define([], function () {
 
     if(score >= 20 && score < 30)
     {
-      medals = this.game.add.sprite(this.scoreboard.width-30, 150,'levels-trans', 1);
+      medals = this.game.add.sprite(this.game.width/2 - this.scoreboard.width*0.4, 150,'levels-trans', 1);
       this.totalStars = 1;
     } else if(score >= 30 && score < 40) {
-      medals = this.game.add.sprite(this.scoreboard.width-30, 150,'levels-trans', 2);
+      medals = this.game.add.sprite(this.game.width/2 - this.scoreboard.width*0.4, 150,'levels-trans', 2);
       this.totalStars = 2;
     } else if (score >= 40) {
-      medals = this.game.add.sprite(this.scoreboard.width-30, 150,'levels-trans', 3);
+      medals = this.game.add.sprite(this.game.width/2 - this.scoreboard.width*0.4, 150,'levels-trans', 3);
       this.totalStars = 3;
     }
 
@@ -74,7 +74,8 @@ define([], function () {
     if (this.isLevelCompleted) {
         this.game.state.start("levels");
     } else {
-        this.game.state.restart();
+        // pass paramter true, doen't show menu
+        this.game.state.restart(true, false, true);
     }
   };
 

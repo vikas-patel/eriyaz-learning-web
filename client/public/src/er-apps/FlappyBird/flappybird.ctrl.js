@@ -1,18 +1,26 @@
 define(['./module', './states/boot', './states/menu', './states/preload',
- './states/levels', './states/level2', './states/level1', './states/level3', './states/level4'], 
-    function(app, Boot, Menu, Preload, Levels, Level2, Level1, Level3, Level4) {
+ './states/levels', './states/level2', './states/level-updown', './states/level-middle', 
+ './states/level4', './states/level-cloud', './states/level-stone', './states/level-ascend', 
+ './states/level-step', './states/level-step-down', './states/level-random', './states/level-wave'], 
+    function(app, Boot, Menu, Preload, Levels, Level2, LevelUpDown, LevelMiddle, Level4, LevelCloud, 
+      LevelStone, LevelAscend, LevelStep, LevelStepDown, LevelRandom, LevelWave) {
         app.controller('FlappyBirdCtrl', function($scope, User, $window, $http, ScoreService) {
             
-            var game = new Phaser.Game(576, 505, Phaser.AUTO, 'flappyBird');
+            var game = new Phaser.Game(720, 505, Phaser.AUTO, 'flappyBird');
             // Game States
             game.state.add('boot', Boot);
             game.state.add('menu', Menu);
             game.state.add('preload', Preload);
             game.state.add('levels', Levels);
-            game.state.add("level1", Level1);
-            game.state.add('level2', Level3);
-            game.state.add('level3', Level4);
-            game.state.add('level4', Level2);
+            game.state.add("level1", LevelUpDown);
+            game.state.add('level2', LevelMiddle);
+            game.state.add('level3', LevelRandom);
+            game.state.add('level7', LevelCloud);
+            game.state.add('level5', LevelStep);
+            game.state.add('level8', LevelAscend);
+            game.state.add('level4', LevelStepDown);
+            game.state.add('level6', LevelWave);
+            game.state.add('level9', LevelStone);
             game.state.start('boot');
             // TODO:
             // Set flexible root note.
@@ -25,9 +33,11 @@ define(['./module', './states/boot', './states/menu', './states/preload',
               }).$promise.then(function(user) {
                 $scope.gender = user.gender;
                 if ($scope.gender == 'man') {
+                    game.isMan = true;
                     game.rootNote = 47;
                 } else {
                     game.rootNote = 58;
+                    game.isMan = false;
                 }
               });
               if (!game.events) game.events = {};

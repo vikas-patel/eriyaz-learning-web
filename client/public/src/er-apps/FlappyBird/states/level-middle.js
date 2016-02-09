@@ -16,7 +16,7 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup'], function (Pa
       };
     Level.prototype.postCreate = function() {
         this.yScale = d3.scale.linear()
-            .domain([3, 9])
+            .domain([0, 9])
             .range([this.game.height - 120, 0]);
     };
 
@@ -48,8 +48,8 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup'], function (Pa
         	pipeGroup.topPipe.visible = false;
         	//pipeGroup.bottomPipe.visible = true;
         } else {
-            pipeGroup.reset(this.game.width, -40);
-            pipeGroup.bottomPipe.reset(0, 480);
+            pipeGroup.reset(this.game.width, -90);
+            pipeGroup.bottomPipe.reset(0, 560);
             pipeGroup.bottomPipe.body.velocity.x = -200;
         }
         
