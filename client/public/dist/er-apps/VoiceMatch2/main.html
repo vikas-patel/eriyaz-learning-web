@@ -1,14 +1,14 @@
-<div id="tonesmemory" ng-controller='TonesMemoryCtrl as ctrl'>
+<div id="voicematch2" ng-controller='VoiceMatch2Ctrl as ctrl'>
     
     <div>
         <paper-icon-button icon="settings-voice" ng-click="startMic()"></paper-icon-button>
     </div>
-    Duration <input type="text" ng-model="playTime"><br>
-    Notes <input type="text" ng-model="numNotes"><br>
-    Root Note <input type="text" ng-model="rootNote"><br>
+    Gender: <select ng-model="gender">
+                <option value="man">Man</option>
+                <option value="woman">Woman</option>
+            </select><br>
     Score: {{score}}<br>
-    Attempt: {{attempt}}<br>
-    Time: {{timeLeft}}
+    Best Score: {{bestScore}}
 
     <div id="display"></div>
 
