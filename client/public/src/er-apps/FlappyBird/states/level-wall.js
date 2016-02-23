@@ -20,14 +20,19 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup', '../prefabs/w
         this.yScale = d3.scale.linear()
             .domain([0, 12])
             .range([this.game.height - 80, 0]);
+        this.maxPipeCount = 40;
     };
 
-    // Level.prototype.update = function() {
-    //     Parent.prototype.update.call(this);
-    //     if(!this.gameover) {
-    //         this.game.physics.arcade.overlap(this.bird, this.brickGroup, this.deathHandler, null, this);
-    //     }
-    // };
+    Level.prototype.createStars = function(delay) {
+        var starY = this.game.rnd.integerInRange(50, this.game.height-this.ground.height-50);
+        var pipeSpace = delay/1000*200;
+        var starX = this.game.width + this.game.rnd.integerInRange(pipeSpace*0.3, pipeSpace*0.6);
+        var starGroup = this.stars.getFirstExists(false);
+        if (!starGroup) {
+            starGroup = new StarGroup(this.game, this.stars);
+        }
+        starGroup.reset(starX, starY);
+    };
 
     // Level.prototype.deathHandler = function() {
     //     if(!this.gameover) {
@@ -41,13 +46,19 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup', '../prefabs/w
             this.levelCompleted();
             return;
         }
-        this.pipeCount++;
-        var random = this.game.rnd.integerInRange(1, 5);
+        var random;
+        if (this.pipeCount < 8) {
+            random = this.game.rnd.integerInRange(1, 2);
+        } else {
+            random = this.game.rnd.integerInRange(2, 7);
+        }
 
         for (var i = 0; i < random; i++) {
             this.subPipeGenerator = this.game.time.events.add(Phaser.Timer.SECOND*0.2*i, this.generateSubPipes, this, -200);
             this.subPipeGenerator.timer.start();
         }
+        this.createStars(Phaser.Timer.SECOND*5);
+        this.createStars(Phaser.Timer.SECOND*5);
         this.pipeGenerator = this.game.time.events.add(Phaser.Timer.SECOND*5, this.generatePipes, this);
       };
 

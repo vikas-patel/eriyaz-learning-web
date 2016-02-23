@@ -21,6 +21,7 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
 
         this.maxPipeCount = 20;
         this.pipeCount = 0;
+        this.pipeDelay = 3200;
         //this.game.level = 1;
 
         // add the background sprite
@@ -139,7 +140,7 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
             this.bird.alive = true;
             // add a timer
             //this.pipeGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 1.25, this.generatePipes, this);
-            this.pipeGenerator = this.game.time.events.add(Phaser.Timer.SECOND*3.2, this.generatePipes, this);
+            this.pipeGenerator = this.game.time.events.add(Phaser.Timer.SECOND*0.5, this.generatePipes, this);
             this.pipeGenerator.timer.start();
 
             this.instructionGroup.destroy();

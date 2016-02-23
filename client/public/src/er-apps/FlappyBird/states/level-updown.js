@@ -32,7 +32,7 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup'], function (Le
             this.pipeGenerator = this.game.time.events.add(1500, this.generatePipes, this);
             return;
         }
-        var delay = Math.max(this.pipeGenerator.delay - 50, 1500);
+        this.pipeDelay = Math.max(this.pipeDelay - 50, 1500);
         var pipeY = this.game.rnd.integerInRange(-100, 100);
         var pipeGroup = this.pipes.getFirstExists(false);
         if(!pipeGroup) {
@@ -48,9 +48,9 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup'], function (Le
         	pipeGroup.topPipe.visible = false;
         	//pipeGroup.bottomPipe.visible = true;
         }
-        this.createStars(delay);
+        this.createStars(this.pipeDelay);
         this.pipeCount++;
-        this.pipeGenerator = this.game.time.events.add(delay, this.generatePipes, this);
+        this.pipeGenerator = this.game.time.events.add(this.pipeDelay, this.generatePipes, this);
       };
 
 	return Level1;
