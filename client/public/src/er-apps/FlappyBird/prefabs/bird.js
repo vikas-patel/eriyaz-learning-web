@@ -10,8 +10,6 @@ define([], function () {
 
     this.name = 'bird';
     this.alive = false;
-    this.onGround = false;
-
 
     // enable physics on the bird
     // and disable gravity on the bird
@@ -19,12 +17,7 @@ define([], function () {
     this.game.physics.arcade.enableBody(this);
     this.body.allowGravity = false;
     this.body.collideWorldBounds = true;
-
-
     this.events.onKilled.add(this.onKilled, this);
-
-    
-    
   };
 
   Bird.prototype = Object.create(Phaser.Sprite.prototype);

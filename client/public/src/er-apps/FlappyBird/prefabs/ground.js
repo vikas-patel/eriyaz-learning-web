@@ -13,17 +13,16 @@ define([], function () {
     // to be affected by gravity or external forces
     this.body.allowGravity = false;
     this.body.immovable = true;
-
-
+    this.body.collideWorldBounds = true;
   };
 
   Ground.prototype = Object.create(Phaser.TileSprite.prototype);
   Ground.prototype.constructor = Ground;
 
-  Ground.prototype.update = function() {
+  // Ground.prototype.update = function() {
     
-    // write your prefab's specific update code here
+  //   // write your prefab's specific update code here
     
-  };
+  // };
   return Ground;
 });

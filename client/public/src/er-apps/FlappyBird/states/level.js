@@ -17,7 +17,7 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
         // give our world an initial gravity of 1200
-        //this.game.physics.arcade.gravity.y = 1200;
+        // this.game.physics.arcade.gravity.y = 200;
 
         this.maxPipeCount = 20;
         this.pipeCount = 0;
@@ -29,14 +29,14 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         // create and add a group to hold our pipeGroup prefabs
         this.pipes = this.game.add.group();
         this.stars = this.game.add.group();
-        
-        // create and add a new Bird object
-        this.bird = new Bird(this.game, 100, this.game.height/2);
-        this.game.add.existing(this.bird);
 
         // create and add a new Ground object
         this.ground = new Ground(this.game, 0, 400, 720, 112);
         this.game.add.existing(this.ground);
+        
+        // create and add a new Bird object
+        this.bird = new Bird(this.game, 100, this.game.height/2);
+        this.game.add.existing(this.bird);
 
         MicUtil.getMicAudioStream(
             function(stream) {
@@ -58,7 +58,7 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
              // range 0-1
             var volume = 2*IntensityFilter.rootMeanSquare(data);
             if (pitch == 0) return;
-            if (volume < 0.08) return;
+            if (volume < 0.04) return;
             // can't be human voice
             if (pitch > 1400) return;
             playObj.updatePitch(pitch);
@@ -105,16 +105,16 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
       },
       updatePitch: function(pitch) {
             currInterval = Math.round(1200 * Math.log(pitch/this.rootFreq) / Math.log(2))/100;
-            console.log(Math.floor(currInterval));
+            // console.log(Math.floor(currInterval));
             if (currInterval > -6 && currInterval < 18) {
                 this.bird.flap(this.yScale(currInterval));
             }
       },
       update: function() {
-
+        this.game.physics.arcade.collide(this.bird, this.ground);
         if(!this.gameover) {
             // enable collisions between the bird and the ground
-            //this.game.physics.arcade.collide(this.bird, this.ground, this.deathHandler, null, this);
+            // this.game.physics.arcade.collide(this.bird, this.ground, this.deathHandler, null, this);
 
             // enable collisions between the bird and each group in the pipes group
             this.pipes.forEach(function(pipeGroup) {
