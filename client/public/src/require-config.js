@@ -221,6 +221,10 @@ requirejs.config({
         location: 'er-apps/SingingGame',
         main: 'index'
     }, {
+        name: 'voicematch2',
+        location: 'er-apps/VoiceMatch2',
+        main: 'index'
+    }, {
         name: 'tanpura',
         location: 'er-libs/tanpura',
         main: 'tanpura'

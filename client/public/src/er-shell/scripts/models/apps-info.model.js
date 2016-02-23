@@ -250,6 +250,13 @@
         href: '#tonesmemory',
         appUrl: 'er-apps/TonesMemory/main.html',
         aspectRatio: 3 / 4,
+        hotkeys: [
+          ['n', 'newSequence()'],
+           ['r','repeat()'],
+           ['p', 'playMyGuess()'],
+           ['m', 'startMic()'],
+          ['s','showAns()']
+        ]
       }, {
         name: 'Poorvanga',
         thumb: 'er-shell/images/poorvanga.jpg',
@@ -297,6 +304,20 @@
         appUrl: 'er-apps/FruitNinja/main.html',
         aspectRatio: 8/7,
         show: true
+      }, {
+        name: 'VoiceMatch2',
+        thumb: 'er-shell/images/tonesmemory.jpg',
+        desc: 'Practice matching your voice to the tone of human voice.',
+        href: '#voicematch2',
+        appUrl: 'er-apps/VoiceMatch2/main.html',
+        aspectRatio: 3 / 4,
+        hotkeys: [
+          ['n', 'newSequence()'],
+           ['r','repeat()'],
+           ['p', 'playMyGuess()'],
+           ['m', 'startMic()'],
+          ['s','showAns()']
+        ]
       }];
       appsInfo.selectedIndex = -1;
       TimeMe.setIdleDurationInSeconds(60);

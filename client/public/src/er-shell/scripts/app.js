@@ -43,7 +43,8 @@ define([
     'phraseshape',
     'singinggame',
     'flappybird',
-    'fruitninja'
+    'fruitninja',
+    'voicematch2'
     
 ], function(angular) {
     'use strict';
@@ -86,7 +87,7 @@ define([
         'fruitninja',
         'phraseshape',
         'singinggame',
-        
+        'voicematch2',
         'ngResource',
         'angulartics',
         'angulartics.google.analytics',
