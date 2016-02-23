@@ -1,9 +1,10 @@
 define(['./module', './states/boot', './states/menu', './states/preload',
  './states/levels', './states/level2', './states/level-updown', './states/level-middle', 
  './states/level4', './states/level-cloud', './states/level-stone', './states/level-ascend', 
- './states/level-step', './states/level-step-down', './states/level-random', './states/level-wave', './states/level-wall'], 
+ './states/level-step', './states/level-step-down', './states/level-random', './states/level-wave', 
+ './states/level-wall', './states/level-wall-high'], 
     function(app, Boot, Menu, Preload, Levels, Level2, LevelUpDown, LevelMiddle, Level4, LevelCloud, 
-      LevelStone, LevelAscend, LevelStep, LevelStepDown, LevelRandom, LevelWave, LevelWall) {
+      LevelStone, LevelAscend, LevelStep, LevelStepDown, LevelRandom, LevelWave, LevelWall, LevelWallHigh) {
         app.controller('FlappyBirdCtrl', function($scope, User, $window, $http, ScoreService) {
             
             var game = new Phaser.Game(720, 505, Phaser.AUTO, 'flappyBird');
@@ -16,7 +17,7 @@ define(['./module', './states/boot', './states/menu', './states/preload',
             game.state.add('level2', LevelMiddle);
             game.state.add('level3', LevelRandom);
             game.state.add('level7', LevelCloud);
-            game.state.add('level5', LevelStep);
+            game.state.add('level5', LevelWallHigh);
             game.state.add('level8', LevelAscend);
             game.state.add('level4', LevelWall);
             game.state.add('level6', LevelWave);
