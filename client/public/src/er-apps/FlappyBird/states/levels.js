@@ -5,7 +5,7 @@ define([], function () {
       },
       create: function() {
 
-        var totalLevels = 8;
+        var totalLevels = 9;
         if (this.game.starArray.length == 0) {
             // default level 1 is unlocked
             this.game.starArray.push({
@@ -25,7 +25,7 @@ define([], function () {
                     "medal": 0
             });
         }
-        this.title = this.game.add.sprite(this.game.width/2, this.game.height/4,'title');
+        this.title = this.game.add.sprite(this.game.width/2, this.game.height/10,'title');
         this.title.anchor.setTo(0.5, 0.5);
         // creation of the thumbails group
         this.levelThumbsGroup = this.game.add.group();
@@ -39,13 +39,14 @@ define([], function () {
         var thumbSpacing = 8;
         var i = 0;
         var l = 0;
-        var thumbRows = 2;
+        var thumbRows = 3;
         var offsetX = (this.game.width - thumbCols*(this.thumbWidth + thumbSpacing))/2;
-        var offsetY = 20 + this.game.height*0.4;
+        var offsetY = 20 + this.game.height*0.15;
         for(var i = 0; i < thumbRows; i ++){
             for (var j = 0; j < thumbCols; j++) {
                  // which level does the thumbnail refer?
                 var levelNumber = i*thumbCols+j+l*(thumbRows*thumbCols);
+                if (levelNumber >= totalLevels) break;
                 // adding the thumbnail, as a button which will call thumbClicked function if clicked           
                 var levelThumb = this.game.add.button(offsetX+j*(this.thumbWidth+thumbSpacing), offsetY+i*(this.thumbHeight+thumbSpacing), "levels", this.thumbClicked, this);  
                 // shwoing proper frame

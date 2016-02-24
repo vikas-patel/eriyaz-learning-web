@@ -2,9 +2,11 @@ define(['./module', './states/boot', './states/menu', './states/preload',
  './states/levels', './states/level2', './states/level-updown', './states/level-middle', 
  './states/level4', './states/level-cloud', './states/level-stone', './states/level-ascend', 
  './states/level-step', './states/level-step-down', './states/level-random', './states/level-wave', 
- './states/level-wall', './states/level-wall-high', './states/level-wall-random'], 
+ './states/level-wall', './states/level-wall-high', './states/level-wall-random', './states/level-wall-ascend',
+ './states/level-wall-descend', './states/level-wall-mix'], 
     function(app, Boot, Menu, Preload, Levels, Level2, LevelUpDown, LevelMiddle, Level4, LevelCloud, 
-      LevelStone, LevelAscend, LevelStep, LevelStepDown, LevelRandom, LevelWave, LevelWall, LevelWallHigh, LevelWallRandom) {
+      LevelStone, LevelAscend, LevelStep, LevelStepDown, LevelRandom, LevelWave, LevelWall, LevelWallHigh, 
+      LevelWallRandom, LevelWallAscend, LevelWallDecend, LevelWallMix) {
         app.controller('FlappyBirdCtrl', function($scope, User, $window, $http, ScoreService) {
             
             var game = new Phaser.Game(720, 505, Phaser.AUTO, 'flappyBird');
@@ -16,12 +18,12 @@ define(['./module', './states/boot', './states/menu', './states/preload',
             game.state.add("level1", LevelUpDown);
             game.state.add('level2', LevelMiddle);
             game.state.add('level3', LevelRandom);
-            game.state.add('level7', LevelCloud);
+            game.state.add('level7', LevelWallAscend);
             game.state.add('level5', LevelWallHigh);
-            game.state.add('level8', LevelAscend);
+            game.state.add('level8', LevelWallDecend);
             game.state.add('level4', LevelWall);
             game.state.add('level6', LevelWallRandom);
-            game.state.add('level9', LevelStone);
+            game.state.add('level9', LevelWallMix);
             game.state.start('boot');
             // TODO:
             // Set flexible root note.
@@ -36,10 +38,14 @@ define(['./module', './states/boot', './states/menu', './states/preload',
                 if ($scope.gender == 'man') {
                     game.isMan = true;
                     game.rootNote = 47;
-                } else {
+                } else if ($scope.gender == 'child'){
                     game.rootNote = 62;
                     game.isMan = false;
+                } else {
+                    game.rootNote = 58;
+                    game.isMan = false;
                 }
+                console.log("root note:"+ game.rootNote);
               });
               if (!game.events) game.events = {};
               game.events.onLevelCompleted = new Phaser.Signal();
