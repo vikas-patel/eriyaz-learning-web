@@ -40,7 +40,8 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup'], function (Pa
         pipeGroup.reset(this.game.width, random);
         this.pipeCount++;
 
-        this.createStars(Phaser.Timer.SECOND*3);
+        this.createStars(Phaser.Timer.SECOND*3, random + 200);
+        this.createStars(Phaser.Timer.SECOND*3, random + 200);
         this.pipeGenerator = this.game.time.events.add(Phaser.Timer.SECOND*3, this.generatePipes, this);
       };
 

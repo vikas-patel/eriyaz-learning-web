@@ -187,10 +187,10 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
             this.pipeGenerator.timer.stop();
             this.ground.stopScroll();
       },
-      createStars: function(delay) {
-            var starY = this.game.rnd.integerInRange(0, this.game.height-this.ground.height-20);
+      createStars: function(delay, y) {
+            var starY = this.game.rnd.integerInRange(y-50, y+50);
             var pipeSpace = delay/1000*200;
-            var starX = this.game.width + this.game.rnd.integerInRange(50, pipeSpace - 250);
+            var starX = this.game.width + this.game.rnd.integerInRange(pipeSpace*0.1, pipeSpace*0.5);
             var starGroup = this.stars.getFirstExists(false);
             if (!starGroup) {
                 starGroup = new StarGroup(this.game, this.stars);

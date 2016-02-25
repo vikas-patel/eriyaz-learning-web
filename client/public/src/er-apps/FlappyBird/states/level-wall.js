@@ -24,7 +24,7 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup', '../prefabs/w
     };
 
     Level.prototype.createStars = function(delay) {
-        var starY = this.game.rnd.integerInRange(50, this.game.height-this.ground.height-50);
+        var starY = this.game.rnd.integerInRange(100, this.game.height-this.ground.height-50);
         var pipeSpace = delay/1000*200;
         var starX = this.game.width + this.game.rnd.integerInRange(pipeSpace*0.3, pipeSpace*0.6);
         var starGroup = this.stars.getFirstExists(false);

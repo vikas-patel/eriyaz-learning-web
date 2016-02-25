@@ -42,13 +42,14 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup'], function (Le
         if (this.game.rnd.integerInRange(0, 1) == 0) {
         	pipeGroup.reset(this.game.width, 100);
         	pipeGroup.bottomPipe.visible = false;
-        	//pipeGroup.topPipe.visible = true;
+            this.createStars(this.pipeDelay, 320);
+            this.createStars(this.pipeDelay, 320);
         } else {
         	pipeGroup.reset(this.game.width, -150);
         	pipeGroup.topPipe.visible = false;
-        	//pipeGroup.bottomPipe.visible = true;
+            this.createStars(this.pipeDelay, 50);
+            this.createStars(this.pipeDelay, 50);
         }
-        this.createStars(this.pipeDelay);
         this.pipeCount++;
         this.pipeGenerator = this.game.time.events.add(this.pipeDelay, this.generatePipes, this);
       };
