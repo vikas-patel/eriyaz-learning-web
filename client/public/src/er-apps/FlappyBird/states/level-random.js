@@ -14,11 +14,6 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup'], function (Pa
             this.scoreSound.play();
         }
       };
-    Level.prototype.postCreate = function() {
-        this.yScale = d3.scale.linear()
-            .domain([0, 9])
-            .range([this.game.height - 120, 0]);
-    };
 
 	Level.prototype.generatePipes = function() {
         if (this.pipeCount > this.maxPipeCount) {

@@ -3,10 +3,10 @@ define(['./module', './states/boot', './states/menu', './states/preload',
  './states/level4', './states/level-cloud', './states/level-stone', './states/level-ascend', 
  './states/level-step', './states/level-step-down', './states/level-random', './states/level-wave', 
  './states/level-wall', './states/level-wall-high', './states/level-wall-random', './states/level-wall-ascend',
- './states/level-wall-descend', './states/level-wall-mix'], 
+ './states/level-wall-descend', './states/level-wall-mix', './states/level-wall-setting'], 
     function(app, Boot, Menu, Preload, Levels, Level2, LevelUpDown, LevelMiddle, Level4, LevelCloud, 
       LevelStone, LevelAscend, LevelStep, LevelStepDown, LevelRandom, LevelWave, LevelWall, LevelWallHigh, 
-      LevelWallRandom, LevelWallAscend, LevelWallDecend, LevelWallMix) {
+      LevelWallRandom, LevelWallAscend, LevelWallDecend, LevelWallMix, LevelWallSetting) {
         app.controller('FlappyBirdCtrl', function($scope, User, $window, $http, ScoreService) {
             
             var game = new Phaser.Game(720, 505, Phaser.AUTO, 'flappyBird');
@@ -15,6 +15,7 @@ define(['./module', './states/boot', './states/menu', './states/preload',
             game.state.add('menu', Menu);
             game.state.add('preload', Preload);
             game.state.add('levels', Levels);
+            game.state.add('level0', LevelWallSetting);
             game.state.add("level1", LevelUpDown);
             game.state.add('level2', LevelMiddle);
             game.state.add('level3', LevelRandom);
@@ -31,25 +32,27 @@ define(['./module', './states/boot', './states/menu', './states/preload',
             // base selection
             // landing page on mobile
             // new levels
-            User.get({
+              User.get({
                 id: $window.localStorage.userId
               }).$promise.then(function(user) {
+                $scope.user = user;
                 $scope.gender = user.gender;
+                game.upperNote = user.settings.upperNote;
+                game.lowerNote = user.settings.lowerNote;
+                game.gender = user.gender;
                 if ($scope.gender == 'man') {
                     game.isMan = true;
-                    game.rootNote = 47;
-                } else if ($scope.gender == 'child'){
-                    game.rootNote = 62;
-                    game.isMan = false;
                 } else {
-                    game.rootNote = 58;
                     game.isMan = false;
                 }
-                console.log("root note:"+ game.rootNote);
               });
               if (!game.events) game.events = {};
+              // save score event
               game.events.onLevelCompleted = new Phaser.Signal();
               game.events.onLevelCompleted.add(onLevelCompleted);
+              // save settings event
+              game.events.onSettingSaved = new Phaser.Signal();
+              game.events.onSettingSaved.add(onSettingSaved);
               // Load user medals
               $http.get('/medal/' + $window.localStorage.userId + "/flappybird")
                   .success(function(data) {
@@ -78,6 +81,18 @@ define(['./module', './states/boot', './states/menu', './states/preload',
                       console.log("failed");
                       console.log(data);
                   });
+            }
+
+            function onSettingSaved(note, isHigh) {
+              if (isHigh) {
+                game.upperNote = note;
+                $scope.user.settings.upperNote = note;
+              } else {
+                game.lowerNote = note;
+                $scope.user.settings.lowerNote = note;
+              }
+                $scope.user.$update(function() {
+                });
             }
         });
     });

@@ -47,10 +47,18 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
           );
         var audioContext = CurrentAudioContext.getInstance();
         var detector = PitchDetector.getDetector(audioContext.sampleRate, this.game.isMan);
-        var rootNote = this.game.rootNote;
-        this.rootFreq = MusicCalc.midiNumToFreq(rootNote);
+        if (this.game.gender == "man") {
+            this.upperNoteLimit = 63;
+            this.lowerNoteLimit = 43;
+        } else if (this.game.gender == "child") {
+            this.upperNoteLimit = 74;
+            this.lowerNoteLimit = 54;
+        } else {
+            this.upperNoteLimit = 74;
+            this.lowerNoteLimit = 54;
+        }
         this.yScale = d3.scale.linear()
-            .domain([0, 11])
+            .domain([this.game.lowerNote, this.game.upperNote])
             .range([this.game.height - 120, 0]);
         var playObj = this;
         var updatePitch = function(data) {
@@ -105,10 +113,9 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         // Initialize level specific variables
       },
       updatePitch: function(pitch) {
-            currInterval = Math.round(1200 * Math.log(pitch/this.rootFreq) / Math.log(2))/100;
-            // console.log(Math.floor(currInterval));
-            if (currInterval > -6 && currInterval < 18) {
-                this.bird.flap(this.yScale(currInterval));
+            currentNote = MusicCalc.freqToMidiNum(pitch);
+            if (currentNote >= this.lowerNoteLimit && currentNote <= this.upperNoteLimit) {
+                this.bird.flap(this.yScale(currentNote));
             }
       },
       update: function() {

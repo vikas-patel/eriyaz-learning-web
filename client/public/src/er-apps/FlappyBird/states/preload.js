@@ -16,6 +16,7 @@ define([], function () {
       this.load.image('cloud', 'er-apps/FlappyBird/assets/cloud.png');
       this.load.image('stone', 'er-apps/FlappyBird/assets/stone.png');
       this.load.image('title', 'er-apps/FlappyBird/assets/title.png');
+      this.load.image('setting', 'er-apps/FlappyBird/assets/setting.png');
       this.load.spritesheet('bird', 'er-apps/FlappyBird/assets/bird.png', 34,24,3);
       this.load.spritesheet('pipe', 'er-apps/FlappyBird/assets/pipes.png', 54,320,2);
       this.load.image('wall', 'er-apps/FlappyBird/assets/wall_40x360.png');

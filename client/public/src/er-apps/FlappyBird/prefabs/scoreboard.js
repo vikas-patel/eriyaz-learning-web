@@ -48,14 +48,14 @@ define([], function () {
 
     this.bestText.setText(bestScore.toString());
 
-    if(score >= 20 && score < 30)
+    if(score >= 20 && score < 40)
     {
       medals = this.game.add.sprite(this.game.width/2 - this.scoreboard.width*0.4, 150,'levels-trans', 1);
       this.totalStars = 1;
-    } else if(score >= 30 && score < 40) {
+    } else if(score >= 40 && score < 60) {
       medals = this.game.add.sprite(this.game.width/2 - this.scoreboard.width*0.4, 150,'levels-trans', 2);
       this.totalStars = 2;
-    } else if (score >= 40) {
+    } else if (score >= 60) {
       medals = this.game.add.sprite(this.game.width/2 - this.scoreboard.width*0.4, 150,'levels-trans', 3);
       this.totalStars = 3;
     }

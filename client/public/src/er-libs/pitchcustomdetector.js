@@ -2,9 +2,9 @@ define(['wavelet-pitch'], function() {
 	var WaveletAlgo = function(sampleRate, isMan) {
 		if (isMan) {
 			// midi 41
-			pitchtracker.minFreq = 87*(44100/sampleRate);
+			pitchtracker.minFreq = 98*(44100/sampleRate);
 			// midi 61
-			pitchtracker.maxFreq = 277*(44100/sampleRate);
+			pitchtracker.maxFreq = 311*(44100/sampleRate);
 		} else {
 			// midi 54
 			pitchtracker.minFreq = 184*(44100/sampleRate);

@@ -14,12 +14,7 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup'], function (Le
             this.scoreSound.play();
         }
       };
-    Level1.prototype.postCreate = function() {
-        this.yScale = d3.scale.linear()
-            .domain([3, 9])
-            .range([this.game.height - 120, 0]);
-    };
-
+      
 	Level1.prototype.generatePipes = function() {
         if (this.pipeCount > this.maxPipeCount) {
             // Level Complete

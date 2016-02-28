@@ -18,6 +18,8 @@ var UserSchema = new mongoose.Schema({
         ref: 'User'},
     settings : {
         rootNote: Number,
+        upperNote: Number,
+        lowerNote: Number,
         playInstrument: String,
         isPlayTanpura: Boolean
     },

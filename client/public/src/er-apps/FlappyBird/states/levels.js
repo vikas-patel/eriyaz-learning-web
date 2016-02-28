@@ -46,17 +46,39 @@ define([], function () {
             for (var j = 0; j < thumbCols; j++) {
                  // which level does the thumbnail refer?
                 var levelNumber = i*thumbCols+j+l*(thumbRows*thumbCols);
-                if (levelNumber >= totalLevels) break;
+                if (levelNumber > totalLevels) break;
+                if (levelNumber == 0) {
+                    var levelThumb = this.game.add.button(offsetX, offsetY, "setting", this.thumbClicked, this);
+                    levelThumb.frame = 0;
+                    levelThumb.levelNumber = levelNumber;
+                    levelThumb.scale.setTo(2, 2);
+                    // adding the level thumb to the group
+                    this.levelThumbsGroup.add(levelThumb);
+                    // if the level is playable, also write level number
+                    var style = {
+                        font: "28px Arial",
+                        fill: "#ffffff",
+                        wordWrap: true, 
+                        wordWrapWidth: this.thumbWidth,
+                        align: "center"
+                    };
+                    var levelText = this.game.add.text(levelThumb.x,levelThumb.y+5,"Set Voice\nRange",style);
+                    // levelText.anchor.setTo(0.5, 0);
+                    // levelText.width = this.thumbWidth;
+                    levelText.setShadow(2, 2, 'rgba(0,0,0,0.5)', 1);
+                    this.levelThumbsGroup.add(levelText);
+                    continue;
+                }
                 // adding the thumbnail, as a button which will call thumbClicked function if clicked           
                 var levelThumb = this.game.add.button(offsetX+j*(this.thumbWidth+thumbSpacing), offsetY+i*(this.thumbHeight+thumbSpacing), "levels", this.thumbClicked, this);  
                 // shwoing proper frame
-                if (levelNumber < this.game.starArray.length) {
-                    levelThumb.frame = this.game.starArray[levelNumber].medal;
+                if (levelNumber <= this.game.starArray.length && this.game.upperNote && this.game.lowerNote) {
+                    levelThumb.frame = this.game.starArray[levelNumber-1].medal;
                 } else {
                     levelThumb.frame = 4;
                 }
                 // custom attribute 
-                levelThumb.levelNumber = levelNumber+1;
+                levelThumb.levelNumber = levelNumber;
                 levelThumb.scale.setTo(2, 2);
                 // adding the level thumb to the group
                 this.levelThumbsGroup.add(levelThumb);
@@ -65,7 +87,7 @@ define([], function () {
                     font: "28px Arial",
                     fill: "#ffffff"
                 };
-                var levelText = this.game.add.text(levelThumb.x+5,levelThumb.y+5,levelNumber+1,style);
+                var levelText = this.game.add.text(levelThumb.x+5,levelThumb.y+5,levelNumber,style);
                 levelText.setShadow(2, 2, 'rgba(0,0,0,0.5)', 1);
                 this.levelThumbsGroup.add(levelText);
             }

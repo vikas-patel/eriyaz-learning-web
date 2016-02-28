@@ -17,9 +17,6 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup', '../prefabs/w
     Level.prototype.postCreate = function() {
         this.game.physics.arcade.gravity.y = 50;
         this.bird.body.allowGravity = true;
-        this.yScale = d3.scale.linear()
-            .domain([0, 12])
-            .range([this.game.height - 80, 0]);
         this.maxPipeCount = 40;
     };
 
