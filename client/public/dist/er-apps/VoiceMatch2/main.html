@@ -1,14 +1,20 @@
 <div id="voicematch2" ng-controller='VoiceMatch2Ctrl as ctrl'>
-    
+    <div horizontal layout center justified>
     <div>
         <paper-icon-button icon="settings-voice" ng-click="startMic()"></paper-icon-button>
     </div>
-    Gender: <select ng-model="gender">
-                <option value="man">Man</option>
-                <option value="woman">Woman</option>
-            </select><br>
-    Score: {{score}}<br>
-    Best Score: {{bestScore}}
+    <select ng-model="gender">
+        <option value="man">Man</option>
+        <option value="woman">Woman</option>
+    </select> &nbsp;
+    <select ng-model="level" ng-options="l.name for l in levels"></select>
+    <div flex></div>
+    </div>
+    <div horizontal layout center justified>
+        <div style="padding: 0px 8px">Score: {{score}}</div>
+        <div>Best Score: {{bestScore}}</div>
+        <div flex></div>
+    </div>
 
     <div id="display"></div>
 
