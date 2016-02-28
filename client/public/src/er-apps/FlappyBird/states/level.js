@@ -59,7 +59,7 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         }
         this.yScale = d3.scale.linear()
             .domain([this.game.lowerNote, this.game.upperNote])
-            .range([this.game.height - 120, 0]);
+            .range([this.game.height - 124, 0]);
         var playObj = this;
         var updatePitch = function(data) {
            
@@ -114,6 +114,7 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
       },
       updatePitch: function(pitch) {
             currentNote = MusicCalc.freqToMidiNum(pitch);
+            // if (!this.gameover) console.log(Math.round(currentNote));
             if (currentNote >= this.lowerNoteLimit && currentNote <= this.upperNoteLimit) {
                 this.bird.flap(this.yScale(currentNote));
             }

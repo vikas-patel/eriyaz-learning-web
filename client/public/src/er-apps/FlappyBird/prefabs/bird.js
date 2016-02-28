@@ -53,7 +53,7 @@ define([], function () {
         }
       }
       // stay above ground.
-      if (this.y > 388) this.y = 388;
+      if (this.y > 381) this.y = 381;
     }
   };
 

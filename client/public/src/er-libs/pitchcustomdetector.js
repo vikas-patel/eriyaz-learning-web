@@ -45,7 +45,7 @@ define(['wavelet-pitch'], function() {
 		//
 		var estimatedPitch = -1;
 		var acceptedError = 0.2;
-		var maxConfidence = 5;
+		var maxConfidence = 7;
 		
 		if (pitch != -1) {
 			// I have a pitch here

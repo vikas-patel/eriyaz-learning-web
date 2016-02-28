@@ -5,7 +5,7 @@ define([], function () {
       },
       create: function() {
 
-        var totalLevels = 9;
+        var totalLevels = 10;
         if (this.game.starArray.length == 0) {
             // default level 1 is unlocked
             this.game.starArray.push({

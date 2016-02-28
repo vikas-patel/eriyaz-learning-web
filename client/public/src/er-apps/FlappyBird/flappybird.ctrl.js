@@ -3,10 +3,11 @@ define(['./module', './states/boot', './states/menu', './states/preload',
  './states/level4', './states/level-cloud', './states/level-stone', './states/level-ascend', 
  './states/level-step', './states/level-step-down', './states/level-random', './states/level-wave', 
  './states/level-wall', './states/level-wall-high', './states/level-wall-random', './states/level-wall-ascend',
- './states/level-wall-descend', './states/level-wall-mix', './states/level-wall-setting'], 
+ './states/level-wall-descend', './states/level-wall-mix', './states/level-wall-setting', './states/level-random-gravity',
+ './states/level-wall-easy'], 
     function(app, Boot, Menu, Preload, Levels, Level2, LevelUpDown, LevelMiddle, Level4, LevelCloud, 
       LevelStone, LevelAscend, LevelStep, LevelStepDown, LevelRandom, LevelWave, LevelWall, LevelWallHigh, 
-      LevelWallRandom, LevelWallAscend, LevelWallDecend, LevelWallMix, LevelWallSetting) {
+      LevelWallRandom, LevelWallAscend, LevelWallDecend, LevelWallMix, LevelWallSetting, LevelRandomGravity, LevelWallEasy) {
         app.controller('FlappyBirdCtrl', function($scope, User, $window, $http, ScoreService) {
             
             var game = new Phaser.Game(720, 505, Phaser.AUTO, 'flappyBird');
@@ -19,19 +20,15 @@ define(['./module', './states/boot', './states/menu', './states/preload',
             game.state.add("level1", LevelUpDown);
             game.state.add('level2', LevelMiddle);
             game.state.add('level3', LevelRandom);
-            game.state.add('level7', LevelWallAscend);
-            game.state.add('level5', LevelWallHigh);
-            game.state.add('level8', LevelWallDecend);
-            game.state.add('level4', LevelWall);
-            game.state.add('level6', LevelWallRandom);
-            game.state.add('level9', LevelWallMix);
+            // game.state.add('level4', LevelRandomGravity);
+            game.state.add('level4', LevelWallEasy);
+            game.state.add('level5', LevelWall);
+            game.state.add('level6', LevelWallHigh);
+            game.state.add('level7', LevelWallRandom);
+            game.state.add('level8', LevelWallAscend);
+            game.state.add('level9', LevelWallDecend);
+            game.state.add('level10', LevelWallMix);
             game.state.start('boot');
-            // TODO:
-            // Set flexible root note.
-            // Highest score
-            // base selection
-            // landing page on mobile
-            // new levels
               User.get({
                 id: $window.localStorage.userId
               }).$promise.then(function(user) {

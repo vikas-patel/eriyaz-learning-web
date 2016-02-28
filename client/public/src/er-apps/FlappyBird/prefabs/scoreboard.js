@@ -28,6 +28,9 @@ define([], function () {
     this.startButton = this.game.add.button(this.game.width/2, 300, 'startButton', this.startClick, this);
     this.startButton.anchor.setTo(0.5,0.5);
 
+    this.startKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    this.startKey.onDown.addOnce(this.startClick, this);
+
     this.add(this.startButton);
 
     this.y = this.game.height;
