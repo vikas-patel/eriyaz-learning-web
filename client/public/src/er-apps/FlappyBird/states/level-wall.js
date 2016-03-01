@@ -5,9 +5,9 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup', '../prefabs/w
 
 	Level.prototype = Object.create(Parent.prototype);
 	Level.prototype.constructor = Parent;
-	Level.prototype.checkScore = function(pipeGroup) {
+    Level.prototype.checkScore = function(pipeGroup) {
         if(pipeGroup.exists && !pipeGroup.hasScored && 
-        	(pipeGroup.topWall.world.x <= this.bird.world.x)) {
+            (pipeGroup.topWall.world.x <= this.bird.world.x)) {
             pipeGroup.hasScored = true;
             this.score++;
             this.scoreText.setText(this.score.toString());
@@ -18,24 +18,21 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup', '../prefabs/w
         this.game.physics.arcade.gravity.y = 50;
         this.bird.body.allowGravity = true;
         this.maxPipeCount = 40;
+        this.starY1 = 160;
+        this.starY2 = this.game.height-this.ground.height-50;
+        this.starXRange = 100;
     };
 
-    Level.prototype.createStars = function(delay) {
-        var starY = this.game.rnd.integerInRange(100, this.game.height-this.ground.height-50);
-        var pipeSpace = delay/1000*200;
-        var starX = this.game.width + this.game.rnd.integerInRange(pipeSpace*0.3, pipeSpace*0.6);
+    Level.prototype.createStars = function(starX1) {
+        var starY = this.game.rnd.integerInRange(this.starY1, this.starY2);
+        // var pipeSpace = delay/1000*200;
+        var starX = this.game.rnd.integerInRange(starX1, starX1 + this.starXRange);
         var starGroup = this.stars.getFirstExists(false);
         if (!starGroup) {
             starGroup = new StarGroup(this.game, this.stars);
         }
         starGroup.reset(starX, starY);
     };
-
-    // Level.prototype.deathHandler = function() {
-    //     if(!this.gameover) {
-    //         // this.pipeHitSound.play();
-    //     }
-    // };
 
 	Level.prototype.generatePipes = function() {
         if (this.pipeCount > this.maxPipeCount) {
@@ -44,19 +41,23 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup', '../prefabs/w
             return;
         }
         var random;
-        if (this.pipeCount < 8) {
+        if (this.pipeCount < this.maxPipeCount/5) {
             random = this.game.rnd.integerInRange(1, 2);
+        } else if (this.pipeCount < this.maxPipeCount/3){
+            random = this.game.rnd.integerInRange(2, 4);
+        } else if (this.pipeCount < this.maxPipeCount/2) {
+            random = this.game.rnd.integerInRange(3, 5);
         } else {
-            random = this.game.rnd.integerInRange(2, 7);
+            random = this.game.rnd.integerInRange(3, 7);
         }
 
         for (var i = 0; i < random; i++) {
             this.subPipeGenerator = this.game.time.events.add(Phaser.Timer.SECOND*0.2*i, this.generateSubPipes, this, -200);
             this.subPipeGenerator.timer.start();
         }
-        this.createStars(Phaser.Timer.SECOND*5);
-        this.createStars(Phaser.Timer.SECOND*5);
-        this.pipeGenerator = this.game.time.events.add(Phaser.Timer.SECOND*5, this.generatePipes, this);
+        this.createStars(3.5*200 + random*40 + 50);
+        this.createStars(3.5*200 + random*40 + 50);
+        this.pipeGenerator = this.game.time.events.add(Phaser.Timer.SECOND*(3.5+0.2*random), this.generatePipes, this);
       };
 
     Level.prototype.generateSubPipes = function(y) {

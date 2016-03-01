@@ -114,8 +114,8 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
       },
       updatePitch: function(pitch) {
             currentNote = MusicCalc.freqToMidiNum(pitch);
-            // if (!this.gameover) console.log(Math.round(currentNote));
-            if (currentNote >= this.lowerNoteLimit && currentNote <= this.upperNoteLimit) {
+            if (!this.gameover) console.log(Math.round(currentNote));
+            if (currentNote >= this.game.lowerNote-1 && currentNote <= this.game.upperNote+1) {
                 this.bird.flap(this.yScale(currentNote));
             }
       },

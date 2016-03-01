@@ -1,41 +1,10 @@
-define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup', '../prefabs/wallGroup'], function (Parent, PipeGroup, StarGroup, WallGroup) {
+define(['./level-wall', '../prefabs/PipeGroup', '../prefabs/starGroup', '../prefabs/wallGroup'], function (Parent, PipeGroup, StarGroup, WallGroup) {
 
 	function Level() {
 	}
 
 	Level.prototype = Object.create(Parent.prototype);
 	Level.prototype.constructor = Parent;
-	Level.prototype.checkScore = function(pipeGroup) {
-        if(pipeGroup.exists && !pipeGroup.hasScored && 
-        	(pipeGroup.topWall.world.x <= this.bird.world.x)) {
-            pipeGroup.hasScored = true;
-            this.score++;
-            this.scoreText.setText(this.score.toString());
-            this.scoreSound.play();
-        }
-      };
-    Level.prototype.postCreate = function() {
-        this.game.physics.arcade.gravity.y = 50;
-        this.bird.body.allowGravity = true;
-        this.maxPipeCount = 40;
-    };
-
-    Level.prototype.createStars = function(delay) {
-        var starY = this.game.rnd.integerInRange(50, this.game.height-this.ground.height-150);
-        var pipeSpace = delay/1000*200;
-        var starX = this.game.width + this.game.rnd.integerInRange(pipeSpace*0.3, pipeSpace*0.6);
-        var starGroup = this.stars.getFirstExists(false);
-        if (!starGroup) {
-            starGroup = new StarGroup(this.game, this.stars);
-        }
-        starGroup.reset(starX, starY);
-    };
-
-    // Level.prototype.deathHandler = function() {
-    //     if(!this.gameover) {
-    //         // this.pipeHitSound.play();
-    //     }
-    // };
 
 	Level.prototype.generatePipes = function() {
         if (this.pipeCount > this.maxPipeCount) {
@@ -54,9 +23,11 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup', '../prefabs/w
             this.subPipeGenerator = this.game.time.events.add(Phaser.Timer.SECOND*0.2*i, this.generateSubPipes, this, randomH);
             this.subPipeGenerator.timer.start();
         }
-        this.createStars(Phaser.Timer.SECOND*5);
-        this.createStars(Phaser.Timer.SECOND*5);
-        this.pipeGenerator = this.game.time.events.add(Phaser.Timer.SECOND*5, this.generatePipes, this);
+        this.starY1 = randomH + 360;
+        this.starY2 = this.starY1 + 160;
+        this.createStars(3.5*200 + random*40 + 50);
+        this.createStars(3.5*200 + random*40 + 50);
+        this.pipeGenerator = this.game.time.events.add(Phaser.Timer.SECOND*(3.5+0.2*random), this.generatePipes, this);
       };
 
     Level.prototype.generateSubPipes = function(y) {
