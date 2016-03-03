@@ -31,6 +31,8 @@ requirejs.config({
         'jquery': 'ext-libs/jquery/jquery',
         'webaudio-tools': 'ext-libs/webaudio/webaudio-tools',
         'webaudioplayer': 'er-libs/webaudioplayer',
+        'bufferloader': 'er-libs/bufferloader',
+        'voiceplayer': 'er-libs/voiceplayer',
         'chart': 'er-libs/chart',
         'melody': 'er-libs/melody',
         'note': 'er-libs/note',

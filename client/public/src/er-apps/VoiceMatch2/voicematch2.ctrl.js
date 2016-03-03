@@ -1,11 +1,10 @@
-define(['./module', './player', './display', 'note', 'webaudioplayer', 'currentaudiocontext',
+define(['./module', 'voiceplayer', './display', 'note', 'webaudioplayer', 'currentaudiocontext',
         'music-calc', 'mic-util', 'pitchdetector', 'stabilitydetector', 'audiobuffer', './levels'],
     function(app, Player, Display, Note, WebPlayer, CurrentAudioContext, MusicCalc, MicUtil, 
         PitchDetector, StabilityDetector, AudioBuffer, levels) {
         var sequence;
         var audioContext = CurrentAudioContext.getInstance();
         var webPlayer = new WebPlayer(audioContext);
-
 
         app.controller('VoiceMatch2Ctrl', function($scope, $rootScope, PitchModel) {
             $scope.rootNote = 47;
@@ -67,10 +66,11 @@ define(['./module', './player', './display', 'note', 'webaudioplayer', 'currenta
             $scope.$watch('gender', function() {
                 if ($scope.gender == "man") {
                     $scope.rootNote = 47;
-                    player = new Player($scope.rootNote, notes, 'male');
+                    // player = new Player($scope.rootNote, notes, 'male');
+                    player = new Player(audioContext, 'male');
                 } else {
                   $scope.rootNote = 58;
-                  player = new Player($scope.rootNote, notes, 'female');
+                  player = new Player(audioContext, 'female');
                 }
                 reset();
             });
@@ -125,7 +125,7 @@ define(['./module', './player', './display', 'note', 'webaudioplayer', 'currenta
 
             function playThat(note) {
                 isPlaying = true;
-                player.play(note, function(){isPlaying = false;}, $scope.level.duration);
+                player.play($scope.rootNote + note, function(){isPlaying = false;}, $scope.level.duration);
             }
 
             function playThatLoop(note) {
