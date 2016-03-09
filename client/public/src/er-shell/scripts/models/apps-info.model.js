@@ -318,6 +318,13 @@
            ['m', 'startMic()'],
           ['s','showAns()']
         ]
+      }, {
+        name: 'SingingGame2',
+        thumb: 'er-shell/images/singinggame.jpg',
+        desc: 'Extract notes from a fast melody.',
+        href: '#singinggame2',
+        appUrl: 'er-apps/SingingGame2/main.html',
+        aspectRatio: 3 / 4,
       }];
       appsInfo.selectedIndex = -1;
       TimeMe.setIdleDurationInSeconds(60);

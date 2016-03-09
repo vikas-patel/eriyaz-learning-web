@@ -223,6 +223,10 @@ requirejs.config({
         location: 'er-apps/SingingGame',
         main: 'index'
     }, {
+        name: 'singinggame2',
+        location: 'er-apps/SingingGame2',
+        main: 'index'
+    }, {
         name: 'voicematch2',
         location: 'er-apps/VoiceMatch2',
         main: 'index'

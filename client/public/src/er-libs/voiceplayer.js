@@ -37,5 +37,17 @@ define(['bufferloader'], function(BufferLoader) {
 		source.onended = callbackFn;
 	};
 
+	Player.prototype.schedule = function(midi, startTime, duration) {
+		var source = this.context.createBufferSource();
+		source.buffer = this.bufferMap.get(midi);
+		source.connect(this.context.destination);
+		if (duration) {
+			source.start(startTime, 1.0);
+			source.stop(startTime + duration/1000);
+		} else {
+			source.start(startTime);
+		}
+	};
+
 	return Player;
 });

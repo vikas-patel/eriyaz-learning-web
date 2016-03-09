@@ -42,6 +42,7 @@ define([
     'poorvanga',
     'phraseshape',
     'singinggame',
+    'singinggame2',
     'flappybird',
     'fruitninja',
     'voicematch2'
@@ -87,6 +88,7 @@ define([
         'fruitninja',
         'phraseshape',
         'singinggame',
+        'singinggame2',
         'voicematch2',
         'ngResource',
         'angulartics',
