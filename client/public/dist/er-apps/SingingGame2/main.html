@@ -1,0 +1,17 @@
+<div id="singinggame" ng-controller='SingingGame2Ctrl as ctrl'>
+    <div horizontal layout center justified>
+	    <div>
+	        <paper-icon-button icon="settings-voice" ng-click="startMic()"></paper-icon-button>
+	    </div>
+	    <div>
+	        <select ng-model="gender">
+	        <option value="man">Man</option>
+	        <option value="woman">Woman</option>
+	    </select>
+		</div>
+		<div flex></div>
+		<div>Score : {{score * 100 | number:1}}%</div>
+	</div>
+    <br>
+    <div id="display"></div>
+</div>
