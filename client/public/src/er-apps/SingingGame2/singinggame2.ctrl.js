@@ -1,18 +1,24 @@
-define(['./module', './sequencegen', './display', './exercises', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontext',
-        'music-calc', 'mic-util', 'pitchdetector', 'stabilitydetector', 'audiobuffer', './scorer'
-    ],
-    function(app, sequenceGen, Display, exercises, Note, Player, VoicePlayer, CurrentAudioContext, MusicCalc, MicUtil, PitchDetector, StabilityDetector, AudioBuffer, scorer) {
+define(['./module', './display', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontext',
+        'music-calc', 'mic-util', 'pitchdetector', 'stabilitydetector', 'audiobuffer', './scorer', './levels'],
+    function(app, Display, Note, Player, VoicePlayer, CurrentAudioContext, MusicCalc, MicUtil, 
+        PitchDetector, StabilityDetector, AudioBuffer, scorer, levels) {
         var sequence;
         var audioContext = CurrentAudioContext.getInstance();
         var player = new Player(audioContext);
         var voicePlayer;
 
         app.controller('SingingGame2Ctrl', function($scope, $rootScope, PitchModel) {
+            $scope.levels = levels;
+            $scope.level = levels[0];
+            exercises = $scope.level.exercises;
             $scope.rootNote = 47;
             $scope.score = 0;
+            $scope.totalScore = 0;
             $scope.gender = "man";
             $scope.scoreByNote = [];
             $scope.attempt = 0;
+            var maxAttempt = 5;
+            var maxBlindAttempt = 3;
             var display = new Display();
 
             var currRoot;
@@ -36,7 +42,7 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
                     console.log("null action");
                 };
                 this.nextBeepAction = nullAction;
-                var startTime1 = audioContext.currentTime + beatDuration / 1000;
+                var startTime1;
 
                 this.registerWatcher = function(watcher) {
                     this.watcher = watcher;
@@ -44,6 +50,7 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
 
                 this.start = function() {
                     console.log("start");
+                    startTime1 = audioContext.currentTime + beatDuration / 1000;
                     var local = this;
                     intervalId = setInterval(function() {
                         player.scheduleNote(880, startTime1, 40);
@@ -128,7 +135,7 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
                             display.clearPitchMarkers();
                             display.clearAnswerMarkers();
                             display.clearExercise();
-                            if ($scope.attempt > 2) {
+                            if ($scope.attempt >= maxBlindAttempt) {
                                 display.loadExercise(local.exercise, beatDuration);
                             }
                             
@@ -163,6 +170,15 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
                 this.handleBeep = function() {
                     clock.scheduleAction(function() {
                         if (beatCount === 0) {
+                            beatCount++;
+                            if (exerciseIndex == exercises.length) {
+                                alert('Level Completed. Your Score: '+ $scope.totalScore);
+                                return;
+                            }
+                            if ($scope.attempt >= maxAttempt) {
+                                alert('Game Over. Your Score: '+ $scope.totalScore);
+                                return;
+                            }
                             // do nothing
                             if (nextState === 'sing') {
                                 display.drawRange(yRange, local.exercise.length, beatDuration, true);
@@ -172,7 +188,6 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
                                 gameController.setState(new PlayState(exerciseIndex));    
                             }
                         }
-                        beatCount++;
                     });
 
                 };
@@ -184,6 +199,7 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
                 var currentNoteIdx = 0;
                 var beatCount = 0;
                 var local = this;
+                var score = 0;
                 this.handleBeep = function() {
                     clock.scheduleAction(function() {
                         if (beatCount === 0) {
@@ -193,10 +209,10 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
                         }
                         (function(noteIndex) {
                             gameController.setIntervalHandler(function(interval) {
+                                interval = pitchCorrection(interval, local.exercise[noteIndex]);
                                 display.markPitch(interval, Date.now() - singTime);
                                 var roundedInterval = Math.round(interval);
                                 display.markPitchFeedback(roundedInterval, Date.now() - singTime, scorer.scorePoint(roundedInterval, local.exercise[noteIndex]));
-                                $scope.score = scorer.getExerciseScore();
                                 // $scope.$apply();
                             });
                         })(currentNoteIdx);
@@ -207,10 +223,13 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
                         } else if (currentNoteIdx < local.exercise.length) {
                             display.traversePosition(yRange, beatDuration, currentNoteIdx, beatDuration);
                             $scope.scoreByNote.push(scorer.getAnswer(local.exercise[currentNoteIdx-1]));
+                            score += scorer.getExerciseScore()/local.exercise.length;
                             currentNoteIdx++;
                             scorer.reset();
                         } else {
                             $scope.scoreByNote.push(scorer.getAnswer(local.exercise[currentNoteIdx-1]));
+                            score += scorer.getExerciseScore()/local.exercise.length;
+                            $scope.score = Math.round(10*score);
                             var allCorrect = true;
                             $scope.scoreByNote.forEach(function(interval, index) {
                                 display.markAnswer(interval, index*1000 + 500, local.exercise[index] == interval, beatDuration);
@@ -218,6 +237,7 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
                             });
                             if (allCorrect) {
                                 $scope.attempt = 0;
+                                $scope.totalScore += $scope.score;
                                 gameController.setState(new IdleState(exerciseIndex + 1, 'play'));
                             }
                             else {
@@ -231,7 +251,6 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
 
                             scorer.reset();
                              $scope.scoreByNote = [];
-                            $scope.score = 0;
                             $scope.$apply();
 
                         }
@@ -264,7 +283,6 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
                 PitchModel.rootFreq = MusicCalc.midiNumToFreq(currRoot);
             });
 
-
             $scope.$on("$destroy", function() {
                 clock.stop();
                 if (micStream)
@@ -276,9 +294,14 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
                     $scope.rootNote = 47;
                     voicePlayer = new VoicePlayer(audioContext, 'male');
                 } else {
-                    $scope.rootNote = 60;
+                    $scope.rootNote = 59;
                     voicePlayer = new VoicePlayer(audioContext, 'female');
                 }
+            });
+
+            $scope.$watch('level', function() {
+                exercises = $scope.level.exercises;
+                reset();
             });
           
             $scope.startMic = function() {
@@ -296,6 +319,17 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
                 display.setFlash("Click 'New' to hear Tones");
             };
 
+            function reset() {
+                $scope.score = 0;
+                $scope.totalScore = 0;
+                $scope.scoreByNote = [];
+                $scope.attempt = 0;
+                singTime = Date.now();
+                clock.stop();
+                clock.start();
+                gameController.setState(new StartingState());
+            }
+
             function isDisabled(element, index, array) {
                 return !element.enabled;
             }
@@ -306,7 +340,16 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
                 clearInterval(currLoopId);
             }
 
-           
+            function pitchCorrection(actual, expected) {
+                var diff = (actual - expected)%12;
+                if (diff >= 10) {
+                    diff = diff - 12;
+                } else if (diff <= -10) {
+                    diff = diff + 12;
+                }
+                console.log(actual + " " + (expected+diff));
+                return expected + diff;
+            }
 
         });
     });
