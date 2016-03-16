@@ -23,6 +23,8 @@ define(['./level-wall', '../prefabs/PipeGroup', '../prefabs/starGroup', '../pref
             random = this.game.rnd.integerInRange(3, 7);
         }
         var randomSeq = this.game.rnd.integerInRange(1, 4);
+        // 7 downward steps become too hard.
+        if (randomSeq == 4 && random == 7) random = 6;
 
         for (var i = 0; i < random; i++) {
             if (randomSeq == 1) {
@@ -35,8 +37,8 @@ define(['./level-wall', '../prefabs/PipeGroup', '../prefabs/starGroup', '../pref
                 this.subPipeGenerator = this.game.time.events.add(Phaser.Timer.SECOND*0.2*i, this.generateSubPipes, this, -180 - 30*i);
                 this.starY1 = -180 - 30*(random-1) + 360;
             } else if (randomSeq == 4) {
-                this.subPipeGenerator = this.game.time.events.add(Phaser.Timer.SECOND*0.2*i, this.generateSubPipes, this, -330 + 30*i);
-                this.starY1 = -330 + 30*(random-1) + 360;
+                this.subPipeGenerator = this.game.time.events.add(Phaser.Timer.SECOND*0.2*i, this.generateSubPipes, this, -300 + 30*i);
+                this.starY1 = -300 + 30*(random-1) + 360;
             }
             this.subPipeGenerator.timer.start();
         }

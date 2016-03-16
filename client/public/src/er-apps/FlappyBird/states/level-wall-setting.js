@@ -27,9 +27,9 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/wall', 'music-calc', '../
     };
     Level.prototype.postCreate = function() {
         if (this.highPitchSet) {
-            this.game.physics.arcade.gravity.y = -2;
+            this.game.physics.arcade.gravity.y = -1;
         } else {
-            this.game.physics.arcade.gravity.y = 2;
+            this.game.physics.arcade.gravity.y = 1;
         }
         this.bird.body.allowGravity = true;
         this.yScale = d3.scale.linear()

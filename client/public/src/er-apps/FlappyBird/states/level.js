@@ -1,5 +1,7 @@
-define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../prefabs/pipeGroup', '../prefabs/starGroup', '../prefabs/scoreboard', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'pitchcustomdetector', 'music-calc', 'intensityfilter'], 
-    function (d3, Bird, Ground, Pipe, PipeGroup, StarGroup, Scoreboard, MicUtil, CurrentAudioContext, AudioBuffer, PitchDetector, MusicCalc, IntensityFilter) {
+define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../prefabs/slider', '../prefabs/pipeGroup', '../prefabs/starGroup', 
+    '../prefabs/scoreboard', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'pitchcustomdetector', 'music-calc', 'intensityfilter'], 
+    function (d3, Bird, Ground, Pipe, Slider, PipeGroup, StarGroup, Scoreboard, MicUtil, CurrentAudioContext, AudioBuffer, PitchDetector, 
+        MusicCalc, IntensityFilter) {
     function Level() {
         
     }
@@ -22,6 +24,7 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         this.maxPipeCount = 20;
         this.pipeCount = 0;
         this.pipeDelay = 3200;
+        this.start = false;
         //this.game.level = 1;
 
         // add the background sprite
@@ -66,8 +69,11 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
             var pitch = detector.findPitch(data);
              // range 0-1
             var volume = 2*IntensityFilter.rootMeanSquare(data);
+            if (volume < playObj.game.noise/100) return;
+            if (!playObj.start) {
+                if (!playObj.bird.animate().isRunning) playObj.bird.animate().start();
+            }
             if (pitch == 0) return;
-            if (volume < 0.04) return;
             // can't be human voice
             if (pitch > 1400) return;
             playObj.updatePitch(pitch);
@@ -86,14 +92,18 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
             this.flapKey.onDown.addOnce(this.startGame, this);
             //this.flapKey.onDown.add(this.bird.flap, this.bird);
             // add mouse/touch controls
-            this.game.input.onDown.addOnce(this.startGame, this);
+            // this.game.input.onDown.addOnce(this.startGame, this);
             //this.game.input.onDown.add(this.bird.flap, this.bird);
         
             // keep the spacebar from propogating up to the browser
             this.game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
-            this.instructionGroup.add(this.game.add.sprite(this.game.width/2, 100,'getReady'));
-            this.instructionGroup.add(this.game.add.sprite(this.game.width/2, 225,'instructions'));
-            this.instructionGroup.add(this.game.add.sprite(this.game.width/2, 355,'startButton'));
+            this.instructionGroup.add(this.game.add.sprite(this.game.width/2, 60,'getReady'));
+            this.instructionGroup.add(this.game.add.sprite(this.game.width/2, 185,'instructions'));
+            var startButton = this.game.add.sprite(this.game.width/2, 355,'startButton');
+            startButton.inputEnabled = true;
+            startButton.events.onInputDown.add(this.startGame, this);
+            this.instructionGroup.add(startButton);
+            this.slider = new Slider(this.game, this.instructionGroup, this.game.width/2, 285, 100);
             this.instructionGroup.setAll('anchor.x', 0.5);
             this.instructionGroup.setAll('anchor.y', 0.5);
         } else {
@@ -114,7 +124,7 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
       },
       updatePitch: function(pitch) {
             currentNote = MusicCalc.freqToMidiNum(pitch);
-            if (!this.gameover) console.log(Math.round(currentNote));
+            // if (!this.gameover) console.log(Math.round(currentNote));
             if (currentNote >= this.game.lowerNote-1 && currentNote <= this.game.upperNote+1) {
                 this.bird.flap(this.yScale(currentNote));
             }
@@ -146,6 +156,7 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         if(!this.bird.alive && !this.gameover) {
             this.bird.body.allowGravity = true;
             this.bird.alive = true;
+            this.start = true;
             // add a timer
             //this.pipeGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 1.25, this.generatePipes, this);
             this.pipeGenerator = this.game.time.events.add(Phaser.Timer.SECOND*0.5, this.generatePipes, this);

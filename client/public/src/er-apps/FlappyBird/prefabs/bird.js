@@ -61,6 +61,15 @@ define([], function () {
   Bird.prototype.revived = function() { 
   };
 
+  Bird.prototype.animate = function() {
+    this.animation = this.game.add.tween(this);
+    // this.animation.from({y: this.game.height/2 + 50}, 20, 'Linear');
+
+    this.animation.to({y: this.y>this.game.width/2 ? this.game.width/2 - 20: this.game.width/2 + 20}, 40, 'Linear');
+    // this.animation.repeatAll(-1);
+    return this.animation;
+  }
+
   Bird.prototype.onKilled = function() {
     this.exists = true;
     this.visible = true;

@@ -31,6 +31,7 @@ define([], function () {
       this.load.image('levelup', 'er-apps/FlappyBird/assets/levelup.png');
       this.load.image('particle', 'er-apps/FlappyBird/assets/particle.png');
       this.load.image('star', 'er-apps/FlappyBird/assets/star.png');
+      this.load.image('knob', 'er-apps/FlappyBird/assets/knob.png');
       this.load.spritesheet("levels", "er-apps/FlappyBird/assets/levels.png", 64, 64, 5);
       this.load.spritesheet("levels-trans", "er-apps/FlappyBird/assets/levels-trans.gif", 64, 64, 5);
 
