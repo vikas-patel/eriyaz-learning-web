@@ -1,41 +1,47 @@
 <div ng-controller="AppCtrl">
   <div ng-include="'er-shell/html/front.html'"  ng-show="uiModel.showFront"></div>
   <div ng-include="'er-shell/html/login.html'"></div>
-  <core-drawer-panel id="drawerPanel" ng-show="uiModel.showMenu" drawerWidth='200px'>
 
-    <core-header-panel id="drawer" drawer >
-      <core-toolbar id="navheader">
+ 
+
+  <paper-drawer-panel id="drawerPanel" ng-show="uiModel.showMenu" drawerWidth='200px'>
+
+    <paper-header-panel id="drawer" drawer >
+      <paper-toolbar id="navheader">
         <span>Menu</span>
-      </core-toolbar>
+      </paper-toolbar>
+      
+      <paper-menu>
+        <paper-submenu>
+        <paper-item class="menu-trigger">Apps</paper-item>
+        <paper-menu class="menu-content">
+          <div><paper-item  ng-repeat="app in appsInfo.apps" ng-show="app.show">
+            <a href="{{app.href}}" target="_self">{{app.name}}</a>
+          </paper-item></div>
+        </paper-menu>
+        </paper-submenu>
+        <paper-submenu label="User">
+          <paper-item label="Students" ng-show="{{uiModel.userType == 'teacher' || uiModel.userType == 'admin'}}"><a href="#students" target="_self"></a></paper-item>
+          <paper-item label="History"><a href="#history" target="_self"></a></paper-item>
+          <paper-item label="Journal"><a href="#journal" target="_self"></a></paper-item>
+          <paper-item label="Profile"><a href="#profile" target="_self"></a></paper-item>
+          <paper-item label="logout"><a href="#logout" target="_self"></a></paper-item>
+        </paper-submenu>
+          <paper-item label="Contact"><a href="#contact" target="_self"></a></paper-item>
 
-      <core-menu>
-        <core-submenu label="Apps">
-          <core-item label="{{app.name}}" ng-repeat="app in appsInfo.apps" ng-show="app.show">
-            <a href="{{app.href}}" target="_self"></a>
-          </core-item>
-        </core-submenu>
-        <core-submenu label="User">
-          <core-item label="Students" ng-show="{{uiModel.userType == 'teacher' || uiModel.userType == 'admin'}}"><a href="#students" target="_self"></a></core-item>
-          <core-item label="History"><a href="#history" target="_self"></a></core-item>
-          <core-item label="Journal"><a href="#journal" target="_self"></a></core-item>
-          <core-item label="Profile"><a href="#profile" target="_self"></a></core-item>
-          <core-item label="logout"><a href="#logout" target="_self"></a></core-item>
-        </core-submenu>
-          <core-item label="Contact"><a href="#contact" target="_self"></a></core-item>
+      </paper-menu>
+    </paper-header-panel>
 
-      </core-menu>
-    </core-header-panel>
-
-    <core-header-panel id="main-panel" main>
-      <core-toolbar id="mainheader">
+    <paper-header-panel id="main-panel" main>
+      <paper-toolbar id="mainheader">
         <paper-icon-button id="navicon" icon="menu" onclick="document.getElementById('drawerPanel').togglePanel();"></paper-icon-button>
         <span flex>{{uiModel.title}}</span>
-      </core-toolbar>
+      </paper-toolbar>
       <div ng-include="uiModel.contentUrl"></div>
-    </core-header-panel>
+    </paper-header-panel>
    
 
-  </core-drawer-panel>
+  </paper-drawer-panel>
 
   <paper-dialog backdrop autoCloseDisabled layered="false" opened={{uiModel.showAppDialog}} id="appDialog">
     <paper-shadow id="app-container" z="1" ng-style="style()" ng-resize>
