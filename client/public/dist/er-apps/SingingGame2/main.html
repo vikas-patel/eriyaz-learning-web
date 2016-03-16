@@ -5,12 +5,15 @@
 	    </div>
 	    <div>
 	        <select ng-model="gender">
-	        <option value="man">Man</option>
-	        <option value="woman">Woman</option>
-	    </select>
+		        <option value="man">Man</option>
+		        <option value="woman">Woman</option>
+		    </select>
+		    <select ng-model="level" ng-options="l.name for l in levels"></select>
 		</div>
 		<div flex></div>
-		<div>Score : {{score * 100 | number:1}}%</div>
+		&nbsp;
+		<div>Total Score:{{totalScore}}</div>&nbsp;
+		<div>Last Score:{{score}}</div>
 	</div>
     <br>
     <div id="display"></div>

@@ -121,7 +121,7 @@ gulp.task('vulcanize', function() {
 });
 
 gulp.task('copy', function() {
-  return gulp.src(['client/public/src/**/*.{html,jpg,gif,css,json,mp3,png,fnt,wav}', 'client/public/src/landing/**/*.js', '!**/{ext-libs,dist}/**', '!**/{imports,index}.html'], {
+  return gulp.src(['client/public/src/**/*.{html,jpg,gif,css,json,mp3,png,fnt,wav,m4a}', 'client/public/src/landing/**/*.js', '!**/{ext-libs,dist}/**', '!**/{imports,index}.html'], {
       base: './client/public/src'
     })
     .pipe(gulp.dest('client/public/dist'));
