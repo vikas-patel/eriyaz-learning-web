@@ -9,6 +9,7 @@
     </core-header-panel>
   </core-drawer-panel> -->
   <!--  -->
+<div ng-show="uiModel.showMenu">
   <div id="menuleftcontent">
 <core-toolbar id="navheader">
         <span>Menu</span>
@@ -36,6 +37,7 @@
         <span flex>{{uiModel.title}}</span>
       </core-toolbar>
       <div ng-include="uiModel.contentUrl"></div>
+</div>
 </div>
       <!--  -->
 
