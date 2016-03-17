@@ -1,14 +1,19 @@
 <div ng-controller="AppCtrl">
   <div ng-include="'er-shell/html/front.html'"  ng-show="uiModel.showFront"></div>
   <div ng-include="'er-shell/html/login.html'"></div>
-  <core-drawer-panel id="drawerPanel" ng-show="uiModel.showMenu" drawerWidth='200px'>
-
+<!--   <core-drawer-panel id="drawerPanel" ng-show="uiModel.showMenu" drawerWidth='200px'>
     <core-header-panel id="drawer" drawer >
-      <core-toolbar id="navheader">
+    </core-header-panel>
+
+    <core-header-panel id="main-panel" main>   
+    </core-header-panel>
+  </core-drawer-panel> -->
+  <!--  -->
+  <div id="menuleftcontent">
+<core-toolbar id="navheader">
         <span>Menu</span>
       </core-toolbar>
-
-      <core-menu>
+  <core-menu>
         <core-submenu label="Apps">
           <core-item label="{{app.name}}" ng-repeat="app in appsInfo.apps" ng-show="app.show">
             <a href="{{app.href}}" target="_self"></a>
@@ -24,18 +29,15 @@
           <core-item label="Contact"><a href="#contact" target="_self"></a></core-item>
 
       </core-menu>
-    </core-header-panel>
-
-    <core-header-panel id="main-panel" main>
+    </div>
+<!--  -->
+<div id="maincontent">
       <core-toolbar id="mainheader">
-        <paper-icon-button id="navicon" icon="menu" onclick="document.getElementById('drawerPanel').togglePanel();"></paper-icon-button>
         <span flex>{{uiModel.title}}</span>
       </core-toolbar>
       <div ng-include="uiModel.contentUrl"></div>
-    </core-header-panel>
-   
-
-  </core-drawer-panel>
+</div>
+      <!--  -->
 
   <paper-dialog backdrop autoCloseDisabled layered="false" opened={{uiModel.showAppDialog}} id="appDialog">
     <paper-shadow id="app-container" z="1" ng-style="style()" ng-resize>
