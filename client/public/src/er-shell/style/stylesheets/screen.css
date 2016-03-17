@@ -542,6 +542,18 @@ core-drawer-panel:not([narrow]) #navicon {
   display: none;
 }
 
+/* line 45, ../sass/pages/_scaffold.scss */
+#maincontent {
+  float: right;
+  width: 85%;
+}
+
+/* line 49, ../sass/pages/_scaffold.scss */
+#menuleftcontent {
+  float: left;
+  width: 15%;
+}
+
 /* line 1, ../sass/pages/_app-modal.scss */
 #appDialog {
   width: 90%;

@@ -42,3 +42,11 @@ core-drawer-panel:not([narrow]) #navicon {
   display: none;
 }
 
+#maincontent {
+    float: right;
+    width: 85%;
+}
+#menuleftcontent{
+    float: left;
+    width: 15%;
+}
