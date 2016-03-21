@@ -1,13 +1,21 @@
 define(['./module', './display', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontext',
-        'music-calc', 'mic-util', 'pitchdetector', 'stabilitydetector', 'audiobuffer', './scorer', './levels'],
+        'music-calc', 'mic-util', 'pitchdetector', 'stabilitydetector', 'audiobuffer', './scorer', './levels',
+        './states/boot', './states/level', './states/preload', './states/levelboard'],
     function(app, Display, Note, Player, VoicePlayer, CurrentAudioContext, MusicCalc, MicUtil, 
-        PitchDetector, StabilityDetector, AudioBuffer, scorer, levels) {
+        PitchDetector, StabilityDetector, AudioBuffer, scorer, levels, Boot, Level, Preload, Levelboard) {
         var sequence;
         var audioContext = CurrentAudioContext.getInstance();
         var player = new Player(audioContext);
         var voicePlayer;
 
-        app.controller('SingingGame2Ctrl', function($scope, $rootScope, PitchModel) {
+        app.controller('SingingGame2Ctrl', function($scope, $rootScope, PitchModel, User, $http, $window, ScoreService) {
+            var game = new Phaser.Game(505, 576, Phaser.AUTO, 'singinggame2');
+            // Game States
+            game.state.add('boot', Boot);
+            game.state.add('level', Level);
+            game.state.add('levelboard', Levelboard);
+            game.state.add('preload', Preload);
+
             $scope.levels = levels;
             $scope.level = levels[0];
             exercises = $scope.level.exercises;
@@ -35,6 +43,75 @@ define(['./module', './display', 'note', 'webaudioplayer', 'voiceplayer', 'curre
 
             var currActiveNote = 0;
             var singTime = Date.now();
+            // Load user medals
+            $http.get('/medal/' + $window.localStorage.userId + "/singinggame2")
+              .success(function(data) {
+                  game.starArray = data;
+                  game.state.start('boot');
+              }).error(function(status, data) {
+                  console.log("failed");
+                  console.log(data);
+              });
+
+             User.get({
+                id: $window.localStorage.userId
+              }).$promise.then(function(user) {
+                $scope.gender = user.gender;
+                if ($scope.gender == "man") {
+                    $scope.rootNote = 47;
+                    voicePlayer = new VoicePlayer(audioContext, 'male');
+                } else {
+                    $scope.rootNote = 59;
+                    voicePlayer = new VoicePlayer(audioContext, 'female');
+                }
+              });
+
+            $scope.startMic = function() {
+                if (!$scope.signalOn) {
+                    MicUtil.getMicAudioStream(
+                        function(stream) {
+                            micStream = stream;
+                            buffer = new AudioBuffer(audioContext, stream, 2048);
+                            buffer.addProcessor(updatePitch);
+                            $scope.signalOn = true;
+                            $scope.$apply();
+                        }
+                    );
+                }
+                // display.setFlash("Click 'New' to hear Tones");
+            };
+
+            game.start = function() {
+                exercises = $scope.levels[game.level-1].exercises;
+                reset();
+            }
+
+             if (!game.events) game.events = {};
+              // save score event
+              game.events.onLevelCompleted = new Phaser.Signal();
+              game.events.onLevelCompleted.add(onLevelCompleted);
+
+              function onLevelCompleted(level, medal, score) {
+                // Save Score
+                ScoreService.save("singinggame2", level, score);
+                // Save Medals
+                var levelScore = game.starArray[level-1];
+                if (levelScore.medal >= medal && levelScore.score >= score) {
+                    return;
+                }
+                levelScore.medal = Math.max(levelScore.medal, medal);
+                levelScore.score = Math.max(levelScore.score, score);
+                var userId = $window.localStorage.userId;
+                  $http.post('/medal', levelScore).success(function(data) {
+                    if (data && data.level) {
+                      game.starArray[level-1] = data;
+                    }
+                  }).error(function(status, data) {
+                      console.log("failed");
+                      console.log(data);
+                  });
+            }
+
             var Clock = function(tickDuration) {
                 var intervalId = 0;
                 this.watcher = null;
@@ -50,6 +127,7 @@ define(['./module', './display', 'note', 'webaudioplayer', 'voiceplayer', 'curre
 
                 this.start = function() {
                     console.log("start");
+                    $scope.startMic();
                     startTime1 = audioContext.currentTime + beatDuration / 1000;
                     var local = this;
                     intervalId = setInterval(function() {
@@ -98,7 +176,7 @@ define(['./module', './display', 'note', 'webaudioplayer', 'voiceplayer', 'curre
 
             var clock = new Clock(beatDuration);
             clock.registerWatcher(gameController);
-            clock.start();
+            // clock.start();
 
             var StartingState = function() {
                 var beepCount = 0;
@@ -131,22 +209,24 @@ define(['./module', './display', 'note', 'webaudioplayer', 'voiceplayer', 'curre
                     clock.scheduleNote(this.exercise[currentNoteIdx] + $scope.rootNote);
                     clock.scheduleAction(function() {
                         if (beatCount === 0) {
+                            game.state.getCurrentState().clear();
                             display.clearPlayMarkers();
                             display.clearPitchMarkers();
                             display.clearAnswerMarkers();
                             display.clearExercise();
                             if ($scope.attempt >= maxBlindAttempt) {
+                                game.state.getCurrentState().drawExercise(local.exercise, beatDuration);
                                 display.loadExercise(local.exercise, beatDuration);
                             }
-                            
+                            game.state.getCurrentState().drawRange(yRange, local.exercise.length, beatDuration, false);
                             display.drawRange(yRange, local.exercise.length, beatDuration, false);
                             singTime = Date.now() + beatDuration;
                             gameController.setIntervalHandler(function(interval) {
-
+                                // game.state.getCurrentState().markPitch(interval, Date.now()-singTime);
                                 // display.markPitch(interval, Date.now() - singTime);
                             });
                         }
-
+                        game.state.getCurrentState().animateMarker(yRange, beatDuration, currentNoteIdx, beatDuration, 'Play');
                         // display.playAnimate(local.exercise[currentNoteIdx], beatDuration, currentNoteIdx);
                         display.traversePosition(yRange, beatDuration, currentNoteIdx, beatDuration);
                         if (currentNoteIdx < local.exercise.length - 1)
@@ -172,16 +252,17 @@ define(['./module', './display', 'note', 'webaudioplayer', 'voiceplayer', 'curre
                         if (beatCount === 0) {
                             beatCount++;
                             if (exerciseIndex == exercises.length) {
-                                alert('Level Completed. Your Score: '+ $scope.totalScore);
+                                game.state.getCurrentState().levelCompleted();
                                 return;
                             }
                             if ($scope.attempt >= maxAttempt) {
-                                alert('Game Over. Your Score: '+ $scope.totalScore);
+                                game.state.getCurrentState().gameOver();
                                 return;
                             }
                             // do nothing
                             if (nextState === 'sing') {
                                 display.drawRange(yRange, local.exercise.length, beatDuration, true);
+                                game.state.getCurrentState().animateMarker(yRange, beatDuration, 0, 0, 'Sing');
                                 display.traversePosition(yRange, beatDuration, 0, 0);
                                 gameController.setState(new SingState(exerciseIndex));
                             } else {
@@ -212,15 +293,19 @@ define(['./module', './display', 'note', 'webaudioplayer', 'voiceplayer', 'curre
                                 interval = pitchCorrection(interval, local.exercise[noteIndex]);
                                 display.markPitch(interval, Date.now() - singTime);
                                 var roundedInterval = Math.round(interval);
+                                game.state.getCurrentState().markPitchFeedback(roundedInterval, Date.now() - singTime, scorer.scorePoint(roundedInterval, local.exercise[noteIndex]));
+                                game.state.getCurrentState().markPitch(interval, Date.now()-singTime);
                                 display.markPitchFeedback(roundedInterval, Date.now() - singTime, scorer.scorePoint(roundedInterval, local.exercise[noteIndex]));
                                 // $scope.$apply();
                             });
                         })(currentNoteIdx);
                         if (currentNoteIdx == 0) {
+                            game.state.getCurrentState().animateMarker(yRange, beatDuration, currentNoteIdx, beatDuration, 'Sing');
                             display.traversePosition(yRange, beatDuration, currentNoteIdx, beatDuration);
                             currentNoteIdx++;
                             // do nothing
                         } else if (currentNoteIdx < local.exercise.length) {
+                            game.state.getCurrentState().animateMarker(yRange, beatDuration, currentNoteIdx, beatDuration, 'Sing');
                             display.traversePosition(yRange, beatDuration, currentNoteIdx, beatDuration);
                             $scope.scoreByNote.push(scorer.getAnswer(local.exercise[currentNoteIdx-1]));
                             score += scorer.getExerciseScore()/local.exercise.length;
@@ -233,17 +318,19 @@ define(['./module', './display', 'note', 'webaudioplayer', 'voiceplayer', 'curre
                             var allCorrect = true;
                             $scope.scoreByNote.forEach(function(interval, index) {
                                 display.markAnswer(interval, index*1000 + 500, local.exercise[index] == interval, beatDuration);
+                                game.state.getCurrentState().markAnswer(interval, index*1000 + 500, local.exercise[index] == interval, beatDuration);
                                 if (local.exercise[index] != interval) allCorrect = false;
-                            });
+                            })
                             if (allCorrect) {
+                                game.state.getCurrentState().addScore($scope.score - $scope.attempt);
                                 $scope.attempt = 0;
                                 $scope.totalScore += $scope.score;
                                 gameController.setState(new IdleState(exerciseIndex + 1, 'play'));
                             }
                             else {
+                                game.state.getCurrentState().failed();
                                 gameController.setState(new IdleState(exerciseIndex, 'play'));
                                 $scope.attempt++;
-
                             }
                             gameController.setIntervalHandler(function(interval) {
                                 // display.markPitch(interval, Date.now() - singTime);
@@ -289,36 +376,6 @@ define(['./module', './display', 'note', 'webaudioplayer', 'voiceplayer', 'curre
                     micStream.stop();
             });
 
-            $scope.$watch('gender', function() {
-                if ($scope.gender == "man") {
-                    $scope.rootNote = 47;
-                    voicePlayer = new VoicePlayer(audioContext, 'male');
-                } else {
-                    $scope.rootNote = 59;
-                    voicePlayer = new VoicePlayer(audioContext, 'female');
-                }
-            });
-
-            $scope.$watch('level', function() {
-                exercises = $scope.level.exercises;
-                reset();
-            });
-          
-            $scope.startMic = function() {
-                if (!$scope.signalOn) {
-                    MicUtil.getMicAudioStream(
-                        function(stream) {
-                            micStream = stream;
-                            buffer = new AudioBuffer(audioContext, stream, 2048);
-                            buffer.addProcessor(updatePitch);
-                            $scope.signalOn = true;
-                            $scope.$apply();
-                        }
-                    );
-                }
-                display.setFlash("Click 'New' to hear Tones");
-            };
-
             function reset() {
                 $scope.score = 0;
                 $scope.totalScore = 0;
@@ -347,7 +404,6 @@ define(['./module', './display', 'note', 'webaudioplayer', 'voiceplayer', 'curre
                 } else if (diff <= -10) {
                     diff = diff + 12;
                 }
-                console.log(actual + " " + (expected+diff));
                 return expected + diff;
             }
 

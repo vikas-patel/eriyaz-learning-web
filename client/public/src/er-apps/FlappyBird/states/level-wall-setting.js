@@ -39,9 +39,9 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/wall', 'music-calc', '../
         if (this.game.gender == "man") {
             this.rootNote = 50;
         } else if (this.game.gender == "child") {
-            this.rootNote = 68;
+            this.rootNote = 65;
         } else {
-            this.rootNote = 64;
+            this.rootNote = 61;
         }
         this.rootFreq = MusicCalc.midiNumToFreq(this.rootNote);
     };
