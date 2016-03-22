@@ -1,7 +1,7 @@
-define(['./module', './display', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontext',
+define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontext',
         'music-calc', 'mic-util', 'pitchdetector', 'stabilitydetector', 'audiobuffer', './scorer', './levels',
         './states/boot', './states/level', './states/preload', './states/levelboard'],
-    function(app, Display, Note, Player, VoicePlayer, CurrentAudioContext, MusicCalc, MicUtil, 
+    function(app, Note, Player, VoicePlayer, CurrentAudioContext, MusicCalc, MicUtil, 
         PitchDetector, StabilityDetector, AudioBuffer, scorer, levels, Boot, Level, Preload, Levelboard) {
         var sequence;
         var audioContext = CurrentAudioContext.getInstance();
@@ -27,7 +27,6 @@ define(['./module', './display', 'note', 'webaudioplayer', 'voiceplayer', 'curre
             $scope.attempt = 0;
             var maxAttempt = 5;
             var maxBlindAttempt = 3;
-            var display = new Display();
 
             var currRoot;
             var currThat;
@@ -78,7 +77,6 @@ define(['./module', './display', 'note', 'webaudioplayer', 'voiceplayer', 'curre
                         }
                     );
                 }
-                // display.setFlash("Click 'New' to hear Tones");
             };
 
             game.start = function() {
@@ -183,7 +181,7 @@ define(['./module', './display', 'note', 'webaudioplayer', 'voiceplayer', 'curre
                 this.handleBeep = function() {
                     clock.scheduleAction(function() {
                         gameController.setIntervalHandler(function(interval) {
-                            display.markPitch(interval, Date.now() - singTime);
+                            // display.markPitch(interval, Date.now() - singTime);
                         });
                         beepCount++;
                         if (beepCount === 1) {
@@ -194,7 +192,7 @@ define(['./module', './display', 'note', 'webaudioplayer', 'voiceplayer', 'curre
 
                 };
                 this.handleNewInterval = function() {
-                    display.markPitch(interval, Date.now() - singTime);
+                    // display.markPitch(interval, Date.now() - singTime);
                 };
             };
 
@@ -210,29 +208,19 @@ define(['./module', './display', 'note', 'webaudioplayer', 'voiceplayer', 'curre
                     clock.scheduleAction(function() {
                         if (beatCount === 0) {
                             game.state.getCurrentState().clear();
-                            display.clearPlayMarkers();
-                            display.clearPitchMarkers();
-                            display.clearAnswerMarkers();
-                            display.clearExercise();
                             if ($scope.attempt >= maxBlindAttempt) {
                                 game.state.getCurrentState().drawExercise(local.exercise, beatDuration);
-                                display.loadExercise(local.exercise, beatDuration);
                             }
                             game.state.getCurrentState().drawRange(yRange, local.exercise.length, beatDuration, false);
-                            display.drawRange(yRange, local.exercise.length, beatDuration, false);
                             singTime = Date.now() + beatDuration;
                             gameController.setIntervalHandler(function(interval) {
                                 // game.state.getCurrentState().markPitch(interval, Date.now()-singTime);
-                                // display.markPitch(interval, Date.now() - singTime);
                             });
                         }
                         game.state.getCurrentState().animateMarker(yRange, beatDuration, currentNoteIdx, beatDuration, 'Play');
-                        // display.playAnimate(local.exercise[currentNoteIdx], beatDuration, currentNoteIdx);
-                        display.traversePosition(yRange, beatDuration, currentNoteIdx, beatDuration);
                         if (currentNoteIdx < local.exercise.length - 1)
                             currentNoteIdx++;
                         else {
-
                             gameController.setState(new IdleState(exerciseIndex, 'sing'));
                         }
                         beatCount++;
@@ -261,9 +249,7 @@ define(['./module', './display', 'note', 'webaudioplayer', 'voiceplayer', 'curre
                             }
                             // do nothing
                             if (nextState === 'sing') {
-                                display.drawRange(yRange, local.exercise.length, beatDuration, true);
                                 game.state.getCurrentState().animateMarker(yRange, beatDuration, 0, 0, 'Sing');
-                                display.traversePosition(yRange, beatDuration, 0, 0);
                                 gameController.setState(new SingState(exerciseIndex));
                             } else {
                                 gameController.setState(new PlayState(exerciseIndex));    
@@ -284,29 +270,22 @@ define(['./module', './display', 'note', 'webaudioplayer', 'voiceplayer', 'curre
                 this.handleBeep = function() {
                     clock.scheduleAction(function() {
                         if (beatCount === 0) {
-                            display.clearPlayMarkers();
-                            display.clearPitchMarkers();
                             singTime = Date.now() - beatDuration;
                         }
                         (function(noteIndex) {
                             gameController.setIntervalHandler(function(interval) {
                                 interval = pitchCorrection(interval, local.exercise[noteIndex]);
-                                display.markPitch(interval, Date.now() - singTime);
                                 var roundedInterval = Math.round(interval);
                                 game.state.getCurrentState().markPitchFeedback(roundedInterval, Date.now() - singTime, scorer.scorePoint(roundedInterval, local.exercise[noteIndex]));
                                 game.state.getCurrentState().markPitch(interval, Date.now()-singTime);
-                                display.markPitchFeedback(roundedInterval, Date.now() - singTime, scorer.scorePoint(roundedInterval, local.exercise[noteIndex]));
-                                // $scope.$apply();
                             });
                         })(currentNoteIdx);
                         if (currentNoteIdx == 0) {
                             game.state.getCurrentState().animateMarker(yRange, beatDuration, currentNoteIdx, beatDuration, 'Sing');
-                            display.traversePosition(yRange, beatDuration, currentNoteIdx, beatDuration);
                             currentNoteIdx++;
                             // do nothing
                         } else if (currentNoteIdx < local.exercise.length) {
                             game.state.getCurrentState().animateMarker(yRange, beatDuration, currentNoteIdx, beatDuration, 'Sing');
-                            display.traversePosition(yRange, beatDuration, currentNoteIdx, beatDuration);
                             $scope.scoreByNote.push(scorer.getAnswer(local.exercise[currentNoteIdx-1]));
                             score += scorer.getExerciseScore()/local.exercise.length;
                             currentNoteIdx++;
@@ -317,7 +296,6 @@ define(['./module', './display', 'note', 'webaudioplayer', 'voiceplayer', 'curre
                             $scope.score = Math.round(10*score);
                             var allCorrect = true;
                             $scope.scoreByNote.forEach(function(interval, index) {
-                                display.markAnswer(interval, index*1000 + 500, local.exercise[index] == interval, beatDuration);
                                 game.state.getCurrentState().markAnswer(interval, index*1000 + 500, local.exercise[index] == interval, beatDuration);
                                 if (local.exercise[index] != interval) allCorrect = false;
                             })

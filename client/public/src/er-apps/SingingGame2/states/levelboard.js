@@ -31,7 +31,7 @@ define([], function () {
         // number of thumbnail cololumns
         var thumbCols = 4;
         // width of a thumbnail, in pixels
-        this.thumbWidth = this.game.width/thumbCols - thumbSpacing;
+        this.thumbWidth = 64*2;
         // height of a thumbnail, in pixels
         this.thumbHeight = 64*2;
         // space among thumbnails, in pixels
