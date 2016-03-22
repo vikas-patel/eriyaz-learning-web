@@ -324,7 +324,7 @@
         desc: 'Extract notes from a fast melody.',
         href: '#singinggame2',
         appUrl: 'er-apps/SingingGame2/main.html',
-        aspectRatio: 7/8,
+        aspectRatio: 8/7,
       }];
       appsInfo.selectedIndex = -1;
       TimeMe.setIdleDurationInSeconds(60);

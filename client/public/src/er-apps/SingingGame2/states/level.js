@@ -10,9 +10,10 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
 	  create: function() {
 	  	this.game.stage.backgroundColor = 0x996E99;
 	  	this.background = this.game.add.sprite(0,0,'background');
-	  	this.background.scale.setTo(0.55,0.6);
+	  	this.background.scale.setTo(654/1000,0.6);
 	  	this.score = 0;
-        this.scoreText = this.game.add.bitmapText(this.game.width/2, 10, 'flappyfont',this.score.toString(), 24);
+        this.scoreText = this.game.add.bitmapText(this.game.width/2, 10, 'flappyfont',this.score.toString(), 26);
+        this.scoreText.anchor.setTo(0.5, 0);
 
 	  	var yMin = -2;
 		var yMax = 12;
@@ -78,10 +79,11 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
 	    this.answerGroup = this.game.add.group();
 	    this.style = {font: "12px Snap ITC", fill: "#FFFFFF", align: "center"};
 	    this.rangeGraphics = this.game.add.graphics();
-	    this.scoreSound = this.game.add.audio('match');
-	    this.lostSound = this.game.add.audio('miss');
+	    this.scoreSound = this.game.add.audio('success');
+	    this.lostSound = this.game.add.audio('failure');
 	    this.gameOverSound = this.game.add.audio('gameover');
 	    this.levelUpSound = this.game.add.audio('levelup');
+	    this.scoreTotalTween = this.game.add.tween(this.scoreText.scale).to({ x: 1.5, y: 1.5}, 200, Phaser.Easing.Linear.In).to({ x: 1, y: 1}, 200, Phaser.Easing.Linear.In);
 	    this.game.start();
 	  },
 	  markPitch: function(interval, time) {
@@ -169,12 +171,24 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
 	  	this.lostSound.play();
 	  },
 	  addScore: function(score) {
+	  	var me = this;
 	  	this.scoreSound.play();
 	  	this.score += score;
-        this.scoreText.setText(this.score.toString());
+	  	var scoreFont = "30px Arial";
+	  	var scoreText = score == 10 ? "Perfect 10": '+'+score.toString();
+    	//Create a new label for the score
+    	var scoreAnimation = this.game.add.text(this.game.width/2, this.game.height - this.chartHeight/2, scoreText, {font: scoreFont, fill: "#39d179", stroke: "#ffffff", strokeThickness: 5}); 
+		scoreAnimation.anchor.setTo(0.5, 0);
+	    scoreAnimation.align = 'center';
+	    //Tween this score label to the total score label
+	    var scoreTween = this.game.add.tween(scoreAnimation).to({x:this.game.width/2, y: 10}, 800, Phaser.Easing.Exponential.In, true);
+	    //When the animation finishes, destroy this score label, trigger the total score labels animation and add the score
+	    scoreTween.onComplete.add(function(){
+	        scoreAnimation.destroy();
+	        me.scoreText.setText(me.score.toString());
+	        me.scoreTotalTween.start();
+	    }, me);
 	  }
 	};
-
 	return Level;
 });
-

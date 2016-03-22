@@ -20,8 +20,8 @@ define([], function () {
       this.load.spritesheet("levels", "er-apps/FlappyBird/assets/levels.png", 64, 64, 5);
       this.load.spritesheet("levels-trans", "er-apps/FlappyBird/assets/levels-trans.gif", 64, 64, 5);
       // sound
-      this.load.audio('match', 'er-apps/SingingGame2/assets/yeah.wav');
-      this.load.audio('miss', 'er-apps/SingingGame2/assets/ohh.wav');
+      this.load.audio('success', 'er-apps/SingingGame2/assets/success.wav');
+      this.load.audio('failure', 'er-apps/SingingGame2/assets/failure.wav');
       this.load.audio('gameover', 'er-apps/SingingGame2/assets/game-over.wav');
       this.load.audio('levelup', 'er-apps/SingingGame2/assets/level-up.wav');
       // font

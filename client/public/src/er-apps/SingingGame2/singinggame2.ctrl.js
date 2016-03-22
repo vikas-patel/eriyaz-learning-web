@@ -9,7 +9,7 @@ define(['./module', './display', 'note', 'webaudioplayer', 'voiceplayer', 'curre
         var voicePlayer;
 
         app.controller('SingingGame2Ctrl', function($scope, $rootScope, PitchModel, User, $http, $window, ScoreService) {
-            var game = new Phaser.Game(505, 576, Phaser.AUTO, 'singinggame2');
+            var game = new Phaser.Game(654, 572, Phaser.AUTO, 'singinggame2');
             // Game States
             game.state.add('boot', Boot);
             game.state.add('level', Level);
