@@ -1,26 +1,14 @@
 define([], function () {
 
-  var Settingboard = function(game, isLevelCompleted) {
+  var Settingboard = function(game) {
     
     var title;
-    this.isLevelCompleted = isLevelCompleted;
 
     Phaser.Group.call(this, game);
-    if (!isLevelCompleted) {
-        var style = { font: "30px Snap ITC", fill: "#FCA048", align: "center" };
-        title = this.game.add.text(this.game.width / 2, 150, "Upper Range Set", style);
-        this.add(title);
-    } else {
-        var style = { font: "30px Snap ITC", fill: "#FCA048", align: "center" };
-        title = this.game.add.text(this.game.width / 2, 150, "Lower Range Set", style);
-        this.add(title);
-    }
+    var style = { font: "30px Snap ITC", fill: "#FCA048", align: "center" };
+    title = this.game.add.text(this.game.width / 2, 150, "Your Voice Range Set", style);
+    this.add(title);
     title.anchor.setTo(0.5, 0.5);
-
-    // // add our start button with a callback
-    // this.startButton = this.game.add.button(this.game.width/2, 250, 'startButton', this.startClick, this);
-    // this.startButton.anchor.setTo(0.5,0.5);
-    // this.add(this.startButton);
 
     retry_label = this.game.add.text(this.game.width/2 - 80, 250, 'Retry', { font: '32px Arial', fill: '#fff' });
     retry_label.anchor.setTo(0.5, 0.5);
@@ -41,27 +29,20 @@ define([], function () {
   Settingboard.prototype = Object.create(Phaser.Group.prototype);
   Settingboard.prototype.constructor = Settingboard;
 
-  Settingboard.prototype.show = function(score) {
+  Settingboard.prototype.show = function(upperNote, lowerNote) {
+    this.upperNote = upperNote;
+    this.lowerNote = lowerNote;
     this.game.add.tween(this).to({y: 0}, 1000, Phaser.Easing.Bounce.Out, true);
-    this.game.events.onSettingSaved.dispatch(score, !this.isLevelCompleted);
   };
 
   Settingboard.prototype.saveClick = function() {
-    if (this.isLevelCompleted) {
-        this.game.state.start("levels");
-    } else {
-        // pass paramter doen't show menu (true) & high pitch set (true)
-        this.game.state.restart(true, false, true, true);
-    }
+    this.game.events.onSettingSaved.dispatch(this.game, this.upperNote, this.lowerNote);
+    this.game.state.start("levels");
   };
 
   Settingboard.prototype.retryClick = function() {
       // pass paramter doen't show menu (true)
-      if (this.isLevelCompleted) {
-        this.game.state.restart(true, false, true, true);
-      } else {
-        this.game.state.restart(true, false, true);
-      }
+      this.game.state.restart(true, false, true);
   };
 
   Settingboard.prototype.update = function() {

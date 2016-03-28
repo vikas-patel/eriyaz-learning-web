@@ -32,8 +32,10 @@ define(['./module', './states/boot', './states/menu', './states/preload',
               }).$promise.then(function(user) {
                 $scope.user = user;
                 $scope.gender = user.gender;
-                game.upperNote = user.settings.upperNote;
-                game.lowerNote = user.settings.lowerNote;
+                if (user.settings) {
+                  game.upperNote = user.settings.upperNote;
+                  game.lowerNote = user.settings.lowerNote;
+                }
                 game.gender = user.gender;
                 if ($scope.gender == 'man') {
                     game.isMan = true;
@@ -78,14 +80,12 @@ define(['./module', './states/boot', './states/menu', './states/preload',
                   });
             }
 
-            function onSettingSaved(note, isHigh) {
-              if (isHigh) {
-                game.upperNote = note;
-                $scope.user.settings.upperNote = note;
-              } else {
-                game.lowerNote = note;
-                $scope.user.settings.lowerNote = note;
-              }
+            function onSettingSaved(game, upperNote, lowerNote) {
+                game.upperNote = upperNote;
+                if (!$scope.user.settings) $scope.user.settings = {};
+                $scope.user.settings.upperNote = upperNote;
+                game.lowerNote = lowerNote;
+                $scope.user.settings.lowerNote = lowerNote;
                 $scope.user.$update(function() {
                 });
             }
