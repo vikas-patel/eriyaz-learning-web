@@ -310,7 +310,7 @@
         desc: 'Practice matching your voice to the tone of human voice.',
         href: '#voicematch2',
         appUrl: 'er-apps/VoiceMatch2/main.html',
-        aspectRatio: 3 / 4,
+        aspectRatio: 8/7,
         hotkeys: [
           ['n', 'newSequence()'],
            ['r','repeat()'],

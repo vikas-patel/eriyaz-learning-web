@@ -22,7 +22,7 @@
     };
 
     $scope.scoreText = function(score) {
-      if (score.appName == 'flappybird' || score.appName == 'fruitninja') {
+      if (score.appName == 'flappybird' || score.appName == 'fruitninja' || score.appName == 'singinggame2' || score.appName == 'voicematch2') {
         return score.score
       } else {
         return Math.round(score.score*100) + '%';

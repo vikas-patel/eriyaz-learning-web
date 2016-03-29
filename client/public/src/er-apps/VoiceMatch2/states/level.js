@@ -19,7 +19,7 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
 		var yMax = 12;
 		this.yDivs = yMax - yMin;
 		this.chartHeight = this.game.height - this.background.height;
-		this.xDivs = 5;
+		this.xDivs = 3;
 		this.yScale = d3.scale.linear()
 			.domain([yMin, yMax])
 			.range([this.game.height, this.background.height]);
@@ -29,14 +29,15 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
 			.range([0, this.game.width]);
 
 		this.timeScale = d3.scale.linear()
-			.domain([0, 1000])
+			.domain([0, this.game.beatDuration])
 			.range([0, this.game.width / this.xDivs]);
 	  	var xWidth = this.game.width/this.xDivs;
 	  	var graphics = this.game.add.graphics();
 	  	graphics.lineStyle(0);
     	graphics.beginFill(0xB66DBF, 1);
-    	var maxNotes = Levels[this.game.level-1].exercises[0].length;
-    	graphics.drawRect(xWidth, this.background.height, xWidth*maxNotes, this.chartHeight);
+    	var notes = Levels[this.game.level-1].notes;
+    	graphics.drawRect(xWidth, this.yScale(_.max(notes) + 1), xWidth, 
+    		this.chartHeight*(_.max(notes)-_.min(notes)+1)/this.yDivs);
     	graphics.endFill();
 	  	graphics.lineStyle(1, 0xd3d3d3, 1);
     	for (var i = yMin; i <= yMax; i++) {
@@ -59,26 +60,28 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
     	this.animGraphics = this.game.add.graphics();
     	this.animGraphics.lineStyle(3, 0xFFCCCC, 1);
     	this.animGraphics.moveTo(0, 0);
-    	this.animGraphics.lineTo(0, this.yScale(0) - this.yScale(4));
+    	this.animGraphics.lineTo(0, this.chartHeight*(_.max(notes)-_.min(notes)+1)/this.yDivs);
 
-    	this.markLinePlay = this.game.add.sprite(this.xScale(0) + this.timeScale(1000), this.yScale(4), this.animGraphics.generateTexture());
+    	this.markLinePlay = this.game.add.sprite(this.xScale(0) + this.timeScale(this.game.beatDuration), 
+    		this.yScale(_.max(notes)+1), this.animGraphics.generateTexture());
     	this.markLinePlay.visible = false;
     	
     	this.animGraphics.clear();
     	this.animGraphics.lineStyle(3, 0x00FF00, 1);
     	this.animGraphics.moveTo(0, 0);
-    	this.animGraphics.lineTo(0, this.yScale(0) - this.yScale(4));
-    	this.markLineSing = this.game.add.sprite(this.xScale(0) + this.timeScale(1000), this.yScale(4), this.animGraphics.generateTexture());
+    	this.animGraphics.lineTo(0, this.chartHeight*(_.max(notes)-_.min(notes)+1)/this.yDivs);
+    	this.markLineSing = this.game.add.sprite(this.xScale(0) + this.timeScale(this.game.beatDuration), 
+    		this.yScale(_.max(notes)+1), this.animGraphics.generateTexture());
     	this.markLineSing.visible = false;
-    	this.markLinePlay.anchor.setTo(0.5, 1.0);
-    	this.markLineSing.anchor.setTo(0.5, 1.0);
+    	this.markLinePlay.anchor.setTo(0.5, 0);
+    	this.markLineSing.anchor.setTo(0.5, 0);
+
 	    //  And destroy the original graphics object
 	    this.animGraphics.destroy();
 	    //animate
 	    this.answerGraphics = this.game.add.graphics();
 	    this.answerGroup = this.game.add.group();
 	    this.style = {font: "12px Snap ITC", fill: "#FFFFFF", align: "center"};
-	    this.rangeGraphics = this.game.add.graphics();
 	    this.scoreSound = this.game.add.audio('success');
 	    this.lostSound = this.game.add.audio('failure');
 	    this.gameOverSound = this.game.add.audio('gameover');
@@ -89,34 +92,45 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
 	  markPitch: function(interval, time) {
 	  	this.pitchGraphics.drawRect(this.timeScale(time), this.yScale(interval)-this.chartHeight/(2*this.yDivs), 3, 3);
 	  },
-	  drawExercise: function(excData, offset) {
-	  	for (var i = 0; i < excData.length; i++) {
-	  		this.exerciseGraphics.drawRect(this.xScale(i) + this.timeScale(offset), this.yScale(excData[i] + 1), 
+	  drawExercise: function(note, offset) {
+	  		this.exerciseGraphics.drawRect(this.xScale(0) + this.timeScale(offset), this.yScale(note + 1), 
 	  			this.game.width/this.xDivs, this.chartHeight/this.yDivs);
-	  	}
 	  },
 	  drawRange: function(interval, count, offset, isSing) {
-	  	this.markLinePlay.height = this.chartHeight*(interval+1)/this.yDivs;
-	  	this.markLineSing.height = this.chartHeight*(interval+1)/this.yDivs;
 	  	this.markLinePlay.x = this.xScale(0) + this.timeScale(offset);
-		this.markLinePlay.y = this.yScale(0);
 		this.markLineSing.x = this.xScale(0);
-		this.markLineSing.y = this.yScale(0);
-	  	this.rangeGraphics.drawRect(this.xScale(0) + this.timeScale(offset),  this.yScale(interval) - this.chartHeight/this.yDivs,
-	  		this.game.width*count/this.xDivs, this.chartHeight*(interval+1)/this.yDivs);
 	  },
-	  markAnswer: function(interval, time, isCorrect, offset) {
+	  markAnswer: function(interval, time, diff, offset, isHint) {
 	  	var cy = this.yScale(interval) - this.chartHeight/(2*this.yDivs);
 		var cx = this.timeScale(time) + this.timeScale(offset);
-	  	if (isCorrect) {
+		var symbol;
+		var angle = 0;
+		if (diff == 0) {
+			symbol = "✔";
+		} else if (!isHint) {
+			symbol = "✖";
+		} else if (diff < 0) {
+			// can't find html5 upward heavy arrow.
+			symbol = "➔";
+			angle = -90;
+		} else if (diff > 0) {
+			symbol = "➔";
+			angle = 90;
+		}
+	  	if (diff == 0) {
 	  		this.answerGraphics.beginFill(0x00CC00, 1);
 	  	} else {
 	  		this.answerGraphics.beginFill(0xC82736, 1);
 	  	}
 	  	this.answerGraphics.lineStyle(0.5, 0x000000, 1);
 	  	this.answerGraphics.drawCircle(cx, cy, this.chartHeight/(this.yDivs));
-        var answer = this.game.add.text(cx, cy, isCorrect?"✔":"✖", this.style);
-        answer.anchor.setTo(0.5, 0.3);
+        var answer = this.game.add.text(cx, cy, symbol, this.style);
+        if (angle == 0) {
+        	answer.anchor.setTo(0.5, 0.3);
+        } else {
+        	answer.anchor.setTo(0.5, 0.4);
+        }
+        answer.angle = angle;
         this.answerGroup.add(answer);
 	  },
 	  clear: function() {
@@ -126,10 +140,10 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
 	  	this.feedbackGraphics.clear();
 	  	this.pitchGraphics.clear();
 	  	this.pitchGraphics.beginFill(0x000000, 1);
-		this.answerGroup.removeAll();
+	  },
+	  clearAnswer: function() {
+	  	this.answerGroup.removeAll();
 		this.answerGraphics.clear();
-		this.rangeGraphics.clear();
-		this.rangeGraphics.lineStyle(1, 0x00CC00, 1);
 	  },
 	  markPitchFeedback: function(interval, time, status) {
 	  	if (status === scorer.statuses.SPOT_ON)
