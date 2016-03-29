@@ -189,13 +189,48 @@
                  resolve: {
                      onLoggedOutRedirect: checkLoginAndRedirect
                  }
+             }).state('flappybird', {
+                 url: '/flappybird',
+                 onEnter: function(UIModel, AppsInfoModel) {
+                     UIModel.uiModel.showLoginDialog = false;
+                     UIModel.uiModel.showMenu = true;
+                     AppsInfoModel.setSelected(0);
+                     UIModel.uiModel.showAppDialog = true;
+                 },
+                 resolve: {
+                     onLoggedOutRedirect: checkLoginAndRedirect
+                 }
+             }).
+             state('voicematch2', {
+                 url: '/voicematch2',
+                 onEnter: function(UIModel, AppsInfoModel) {
+                     UIModel.uiModel.showLoginDialog = false;
+                     UIModel.uiModel.showMenu = true;
+                     AppsInfoModel.setSelected(1);
+                     UIModel.uiModel.showAppDialog = true;
+                 },
+                 resolve: {
+                     onLoggedOutRedirect: checkLoginAndRedirect
+                 }
+             }).
+             state('singinggame2', {
+                 url: '/singinggame2',
+                 onEnter: function(UIModel, AppsInfoModel) {
+                     UIModel.uiModel.showLoginDialog = false;
+                     UIModel.uiModel.showMenu = true;
+                     AppsInfoModel.setSelected(2);
+                     UIModel.uiModel.showAppDialog = true;
+                 },
+                 resolve: {
+                     onLoggedOutRedirect: checkLoginAndRedirect
+                 }
              }).
              state('alankars', {
                  url: '/alankars',
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(0);
+                     AppsInfoModel.setSelected(3);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -207,7 +242,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(1);
+                     AppsInfoModel.setSelected(4);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -219,7 +254,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(2);
+                     AppsInfoModel.setSelected(5);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -231,7 +266,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(3);
+                     AppsInfoModel.setSelected(6);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -243,7 +278,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(4);
+                     AppsInfoModel.setSelected(7);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -255,31 +290,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(5);
-                     UIModel.uiModel.showAppDialog = true;
-                 },
-                 resolve: {
-                     onLoggedOutRedirect: checkLoginAndRedirect
-                 }
-             }).
-             state('thatmemorizer', {
-                 url: '/thatmemorizer',
-                 onEnter: function(UIModel, AppsInfoModel) {
-                     UIModel.uiModel.showLoginDialog = false;
-                     UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(6);
-                     UIModel.uiModel.showAppDialog = true;
-                 },
-                 resolve: {
-                     onLoggedOutRedirect: checkLoginAndRedirect
-                 }
-             }).
-             state('singgraph', {
-                 url: '/singgraph',
-                 onEnter: function(UIModel, AppsInfoModel) {
-                     UIModel.uiModel.showLoginDialog = false;
-                     UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(7);
+                     AppsInfoModel.setSelected(8);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -288,18 +299,6 @@
              }).
              state('voicematch', {
                  url: '/voicematch',
-                 onEnter: function(UIModel, AppsInfoModel) {
-                     UIModel.uiModel.showLoginDialog = false;
-                     UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(8);
-                     UIModel.uiModel.showAppDialog = true;
-                 },
-                 resolve: {
-                     onLoggedOutRedirect: checkLoginAndRedirect
-                 }
-             }).
-             state('freestylephrases', {
-                 url: '/freestylephrases',
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
@@ -502,18 +501,6 @@
                      onLoggedOutRedirect: checkLoginAndRedirect
                  }
              }).
-             state('flappybird', {
-                 url: '/flappybird',
-                 onEnter: function(UIModel, AppsInfoModel) {
-                     UIModel.uiModel.showLoginDialog = false;
-                     UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(26);
-                     UIModel.uiModel.showAppDialog = true;
-                 },
-                 resolve: {
-                     onLoggedOutRedirect: checkLoginAndRedirect
-                 }
-             }).
              state('phraseshape', {
                  url: '/phraseshape',
                  onEnter: function(UIModel, AppsInfoModel) {
@@ -543,6 +530,18 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
+                     AppsInfoModel.setSelected(28);
+                     UIModel.uiModel.showAppDialog = true;
+                 },
+                 resolve: {
+                     onLoggedOutRedirect: checkLoginAndRedirect
+                 }
+             }).
+             state('thatmemorizer', {
+                 url: '/thatmemorizer',
+                 onEnter: function(UIModel, AppsInfoModel) {
+                     UIModel.uiModel.showLoginDialog = false;
+                     UIModel.uiModel.showMenu = true;
                      AppsInfoModel.setSelected(29);
                      UIModel.uiModel.showAppDialog = true;
                  },
@@ -550,8 +549,8 @@
                      onLoggedOutRedirect: checkLoginAndRedirect
                  }
              }).
-             state('voicematch2', {
-                 url: '/voicematch2',
+             state('singgraph', {
+                 url: '/singgraph',
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
@@ -562,8 +561,8 @@
                      onLoggedOutRedirect: checkLoginAndRedirect
                  }
              }).
-             state('singinggame2', {
-                 url: '/singinggame2',
+             state('freestylephrases', {
+                 url: '/freestylephrases',
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
