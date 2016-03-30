@@ -11,7 +11,7 @@
         show: true
       }, {
         name: 'VoiceMatch2',
-        thumb: 'er-shell/images/tonesmemory.jpg',
+        thumb: 'er-shell/images/voicematch2.png',
         desc: 'Practice matching your voice to the tone of human voice.',
         href: '#voicematch2',
         appUrl: 'er-apps/VoiceMatch2/main.html',
@@ -19,7 +19,7 @@
         show: true
       }, {
         name: 'SingingGame2',
-        thumb: 'er-shell/images/singinggame.jpg',
+        thumb: 'er-shell/images/singinggame2.png',
         desc: 'Extract notes from a fast melody.',
         href: '#singinggame2',
         appUrl: 'er-apps/SingingGame2/main.html',

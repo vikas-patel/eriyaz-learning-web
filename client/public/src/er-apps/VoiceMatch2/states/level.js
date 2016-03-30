@@ -8,9 +8,13 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
 	  	
 	  },
 	  create: function() {
-	  	this.game.stage.backgroundColor = 0x996E99;
-	  	this.background = this.game.add.sprite(0,0,'background');
-	  	this.background.scale.setTo(654/1000,0.6);
+	  	// this.game.stage.backgroundColor = 0x996E99;
+	  	this.game.stage.backgroundColor = 0xffffff;
+	  	this.offsetTop = 35;
+	  	this.background = this.game.add.sprite(this.game.width/2, this.offsetTop,'encourage');
+	  	this.background.anchor.setTo(0.5, 0);
+	  	// this.background = this.game.add.sprite(0,0,'background');
+	  	// this.background.scale.setTo(654/1000,0.6);
 	  	this.score = 0;
         this.scoreText = this.game.add.bitmapText(this.game.width/2, 10, 'flappyfont',this.score.toString(), 26);
         this.scoreText.anchor.setTo(0.5, 0);
@@ -18,11 +22,11 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
 	  	var yMin = -2;
 		var yMax = 12;
 		this.yDivs = yMax - yMin;
-		this.chartHeight = this.game.height - this.background.height;
+		this.chartHeight = this.game.height - this.background.height - this.offsetTop;
 		this.xDivs = 3;
 		this.yScale = d3.scale.linear()
 			.domain([yMin, yMax])
-			.range([this.game.height, this.background.height]);
+			.range([this.game.height, this.background.height + this.offsetTop]);
 
 		this.xScale = d3.scale.linear()
 			.domain([0, this.xDivs])
@@ -34,7 +38,12 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
 	  	var xWidth = this.game.width/this.xDivs;
 	  	var graphics = this.game.add.graphics();
 	  	graphics.lineStyle(0);
-    	graphics.beginFill(0xB66DBF, 1);
+	  	graphics.beginFill(0x329DD5, 1);
+	  	// graphics.beginFill(0x329DD5, 1);
+	  	graphics.drawRect(0, this.background.height+this.offsetTop, this.game.width, this.game.height - (this.background.height+this.offsetTop));
+	  	graphics.endFill();
+    	// graphics.beginFill(0xED3883, 0.8);
+    	graphics.beginFill(0x078CFD, 1);
     	var notes = Levels[this.game.level-1].notes;
     	graphics.drawRect(xWidth, this.yScale(_.max(notes) + 1), xWidth, 
     		this.chartHeight*(_.max(notes)-_.min(notes)+1)/this.yDivs);
@@ -44,10 +53,10 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
     		graphics.moveTo(0, this.yScale(i));
     		graphics.lineTo(this.game.width, this.yScale(i));
     	}
-
+    	// y axis
     	for (var j = 1; j < this.xDivs; j++) {
     		graphics.moveTo(this.xScale(j), this.game.height);
-    		graphics.lineTo(this.xScale(j), this.background.height);
+    		graphics.lineTo(this.xScale(j), this.background.height + this.offsetTop);
     	}
     	this.exerciseGraphics = this.game.add.graphics();
     	this.exerciseGraphics.beginFill(0xffffff, 0.7);
@@ -157,11 +166,13 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
 	  },
 	  animateMarker: function(interval, duration, noteNum, offset, state) {
 	  	if (state == 'Play') {
+	  		this.background.loadTexture('encourage');
 	  		this.markLinePlay.visible = true;
 		  	this.animPlay = this.game.add.tween(this.markLinePlay);
 	    	this.animPlay.to({x: this.xScale(noteNum+1) + this.timeScale(offset)}, duration/2, 'Linear', true);
 	    	// this.animPlay.start();
 	  	} else {
+	  		this.background.loadTexture('listen');
 	  		this.markLineSing.visible = true;
 	  		this.animSing = this.game.add.tween(this.markLineSing);
 	    	this.animSing.to({x: this.xScale(noteNum+1) + this.timeScale(offset)}, duration/2, 'Linear');
@@ -183,10 +194,12 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
       },
       failed: function() {
 	  	this.lostSound.play();
+	  	this.background.loadTexture('sad');
 	  },
 	  addScore: function(score) {
 	  	var me = this;
 	  	this.scoreSound.play();
+	  	this.background.loadTexture('happy');
 	  	this.score += score;
 	  	var scoreFont = "30px Arial";
 	  	var scoreText = score == 10 ? "Perfect 10": '+'+score.toString();

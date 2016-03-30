@@ -11,8 +11,10 @@ define([], function () {
 
       this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
       this.load.setPreloadSprite(this.asset);
-      this.load.image('background', 'er-apps/SingingGame2/assets/background.jpg');
-
+      this.load.image('encourage', 'er-apps/voicematch2/assets/encourage.jpg');
+      this.load.image('listen', 'er-apps/voicematch2/assets/listen.jpg');
+      this.load.image('sad', 'er-apps/voicematch2/assets/sad.jpg');
+      this.load.image('happy', 'er-apps/voicematch2/assets/happy.jpg');
       this.load.image('startButton', 'er-apps/FlappyBird/assets/start-button.png');
       this.load.image('scoreboard', 'er-apps/FlappyBird/assets/scoreboard.png');
       this.load.image('gameover', 'er-apps/FlappyBird/assets/gameover.png');
