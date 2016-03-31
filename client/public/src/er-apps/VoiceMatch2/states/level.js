@@ -156,11 +156,11 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
 	  },
 	  markPitchFeedback: function(interval, time, status) {
 	  	if (status === scorer.statuses.SPOT_ON)
-			this.feedbackGraphics.beginFill(0x00FF00, 0.5);
+			this.feedbackGraphics.beginFill(0x00FF00, 0.8);
 		else if (status === scorer.statuses.NEAR_MISS)
-			this.feedbackGraphics.beginFill(0xFFFF00, 0.5);
+			this.feedbackGraphics.beginFill(0xFFFF00, 0.8);
 		else 
-			this.feedbackGraphics.beginFill(0xFF0000, 0.5);
+			this.feedbackGraphics.beginFill(0xFF0000, 0.8);
 		this.feedbackGraphics.drawRect(this.timeScale(time), this.yScale(interval+1), 5, this.chartHeight/this.yDivs);
 		this.feedbackGraphics.endFill();
 	  },
