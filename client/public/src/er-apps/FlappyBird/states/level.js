@@ -37,7 +37,12 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         // create and add a new Ground object
         this.ground = new Ground(this.game, 0, 400, 720, 112);
         this.game.add.existing(this.ground);
-        
+        this.graphics = this.game.add.graphics();
+        this.graphics.lineStyle(2, 0xD6D6D6, 1);
+        this.graphics.moveTo(0, 1);
+        this.graphics.lineTo(this.game.width, 1);
+        this.graphics.lineStyle(2, 0xF12B24, 1);
+        this.graphics.moveTo(0,1);
         // create and add a new Bird object
         this.bird = new Bird(this.game, 100, this.game.height/2);
         this.game.add.existing(this.bird);
@@ -145,6 +150,12 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
                 this.game.physics.arcade.overlap(this.bird, starGroup, this.collectStar, null, this);
             }, this);
         }
+        if (this.bird.alive && this.duration) {
+            this.timeElapsed = this.game.time.totalElapsedSeconds();
+            var percentage = this.timeElapsed/this.duration;
+            this.graphics.moveTo(this.graphics.x, 1);
+            this.graphics.lineTo(this.game.width*percentage, 1);
+        }
       },
       shutdown: function() {
         this.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR);
@@ -157,6 +168,7 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
             this.bird.body.allowGravity = true;
             this.bird.alive = true;
             this.start = true;
+            this.game.time.reset();
             // add a timer
             //this.pipeGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 1.25, this.generatePipes, this);
             this.pipeGenerator = this.game.time.events.add(Phaser.Timer.SECOND*0.5, this.generatePipes, this);

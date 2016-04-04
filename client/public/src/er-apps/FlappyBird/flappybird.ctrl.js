@@ -3,10 +3,10 @@ define(['./module', './states/boot', './states/menu', './states/preload',
  './states/level4', './states/level-cloud', './states/level-stone', './states/level-ascend', 
  './states/level-step', './states/level-step-down', './states/level-random', './states/level-wave', 
  './states/level-wall', './states/level-wall-high', './states/level-wall-random', './states/level-wall-ascend',
- './states/level-wall-descend', './states/level-wall-mix', './states/level-wall-setting', './states/level-wall-easy'], 
+ './states/level-wall-descend', './states/level-wall-mix', './states/level-wall-setting', './states/level-wall-easy', './states/level-voice'], 
     function(app, Boot, Menu, Preload, Levels, Level2, LevelUpDown, LevelMiddle, Level4, LevelCloud, 
       LevelStone, LevelAscend, LevelStep, LevelStepDown, LevelRandom, LevelWave, LevelWall, LevelWallHigh, 
-      LevelWallRandom, LevelWallAscend, LevelWallDecend, LevelWallMix, LevelWallSetting, LevelWallEasy) {
+      LevelWallRandom, LevelWallAscend, LevelWallDecend, LevelWallMix, LevelWallSetting, LevelWallEasy, LevelVoice) {
         app.controller('FlappyBirdCtrl', function($scope, User, $window, $http, ScoreService) {
             
             var game = new Phaser.Game(720, 505, Phaser.AUTO, 'flappyBird');
@@ -15,7 +15,8 @@ define(['./module', './states/boot', './states/menu', './states/preload',
             game.state.add('menu', Menu);
             game.state.add('preload', Preload);
             game.state.add('levels', Levels);
-            game.state.add('level0', LevelWallSetting);
+            // game.state.add('level0', LevelWallSetting);
+            game.state.add('level0', LevelVoice);
             game.state.add("level1", LevelUpDown);
             game.state.add('level2', LevelMiddle);
             game.state.add('level3', LevelRandom);
@@ -50,6 +51,9 @@ define(['./module', './states/boot', './states/menu', './states/preload',
               // save settings event
               game.events.onSettingSaved = new Phaser.Signal();
               game.events.onSettingSaved.add(onSettingSaved);
+              // save root note
+              game.events.onVoiceSaved = new Phaser.Signal();
+              game.events.onVoiceSaved.add(onVoiceSaved);
               // Load user medals
               $http.get('/medal/' + $window.localStorage.userId + "/flappybird")
                   .success(function(data) {
@@ -86,6 +90,14 @@ define(['./module', './states/boot', './states/menu', './states/preload',
                 $scope.user.settings.upperNote = upperNote;
                 game.lowerNote = lowerNote;
                 $scope.user.settings.lowerNote = lowerNote;
+                $scope.user.$update(function() {
+                });
+            }
+
+            function onVoiceSaved(game, rootNote) {
+                game.rootNote = rootNote;
+                if (!$scope.user.settings) $scope.user.settings = {};
+                $scope.user.settings.rootNote = rootNote;
                 $scope.user.$update(function() {
                 });
             }
