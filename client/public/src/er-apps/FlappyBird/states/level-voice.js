@@ -100,7 +100,7 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/slider',
             if (currentNote >= this.lowerNoteLimit && currentNote <= this.upperNoteLimit) {
                 if (this.start) {
                     this.arrayPitch.push(Math.round(currentNote));
-                    this.bird.x += 10;
+                    this.bird.x += 5;
                 }
             }
       },

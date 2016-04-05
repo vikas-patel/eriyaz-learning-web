@@ -14,7 +14,7 @@ requirejs.config({
         'angulartics': 'ext-libs/bower_components/angulartics/dist/angulartics.min',
         'angulartics-ga': 'ext-libs/bower_components/angulartics/dist/angulartics-ga.min',
         'angular-resource': 'ext-libs/bower_components/angular-resource/angular-resource',
-        'underscore': 'ext-libs/underscore',
+        'underscore': 'ext-libs/underscore-min',
         'order': 'ext-libs/requirejs-order.min',
         'ng-infinite-scroll': 'ext-libs/ng-infinite-scroll',
         'hot-keys': 'ext-libs/bower_components/angular-hotkeys/build/hotkeys',

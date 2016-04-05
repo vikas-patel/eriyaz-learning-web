@@ -1,13 +1,12 @@
 define(['./module', './states/boot', './states/menu', './states/preload',
- './states/levels', './states/level2', './states/level-updown', './states/level-middle', 
- './states/level4', './states/level-cloud', './states/level-stone', './states/level-ascend', 
- './states/level-step', './states/level-step-down', './states/level-random', './states/level-wave', 
+ './states/levels', './states/level-updown', './states/level-middle', './states/level-random',
  './states/level-wall', './states/level-wall-high', './states/level-wall-random', './states/level-wall-ascend',
  './states/level-wall-descend', './states/level-wall-mix', './states/level-wall-setting', './states/level-wall-easy',
- './states/level-voice', './states/level-slow'], 
-    function(app, Boot, Menu, Preload, Levels, Level2, LevelUpDown, LevelMiddle, Level4, LevelCloud, 
-      LevelStone, LevelAscend, LevelStep, LevelStepDown, LevelRandom, LevelWave, LevelWall, LevelWallHigh, 
-      LevelWallRandom, LevelWallAscend, LevelWallDecend, LevelWallMix, LevelWallSetting, LevelWallEasy, LevelVoice, LevelSlow) {
+ './states/level-voice', './states/level-slow', './states/level-normal-speed'], 
+    function(app, Boot, Menu, Preload, Levels, LevelUpDown, LevelMiddle,
+      LevelRandom, LevelWall, LevelWallHigh, 
+      LevelWallRandom, LevelWallAscend, LevelWallDecend, LevelWallMix, LevelWallSetting, LevelWallEasy, LevelVoice, 
+      LevelSlow, LevelNormalSpeed) {
         app.controller('FlappyBirdCtrl', function($scope, User, $window, $http, ScoreService) {
             
             var game = new Phaser.Game(720, 505, Phaser.AUTO, 'flappyBird');
@@ -16,19 +15,22 @@ define(['./module', './states/boot', './states/menu', './states/preload',
             game.state.add('menu', Menu);
             game.state.add('preload', Preload);
             game.state.add('levels', Levels);
-            // game.state.add('level0', LevelWallSetting);
+            
             game.state.add('level0', LevelVoice);
-            // game.state.add("level1", LevelUpDown);
             game.state.add("level1", LevelSlow);
-            game.state.add('level2', LevelMiddle);
-            game.state.add('level3', LevelRandom);
-            game.state.add('level4', LevelWallEasy);
-            game.state.add('level5', LevelWall);
-            game.state.add('level6', LevelWallHigh);
-            game.state.add('level7', LevelWallRandom);
-            game.state.add('level8', LevelWallAscend);
-            game.state.add('level9', LevelWallDecend);
-            game.state.add('level10', LevelWallMix);
+            game.state.add('level2', LevelNormalSpeed);
+            game.state.add('level3', LevelWallSetting);
+            game.state.add("level4", LevelUpDown);
+            game.state.add('level5', LevelMiddle);
+            
+            game.state.add('level6', LevelRandom);
+            game.state.add('level7', LevelWallEasy);
+            game.state.add('level8', LevelWall);
+            game.state.add('level9', LevelWallHigh);
+            game.state.add('level10', LevelWallRandom);
+            game.state.add('level11', LevelWallAscend);
+            game.state.add('level12', LevelWallDecend);
+            game.state.add('level13', LevelWallMix);
             game.state.start('boot');
               User.get({
                 id: $window.localStorage.userId
@@ -60,7 +62,8 @@ define(['./module', './states/boot', './states/menu', './states/preload',
               // Load user medals
               $http.get('/medal/' + $window.localStorage.userId + "/flappybird")
                   .success(function(data) {
-                      game.starArray = data;
+                      game.starArray = _.indexBy(data, 'level');
+                      // game.starArray = data;
                   }).error(function(status, data) {
                       console.log("failed");
                       console.log(data);
@@ -70,7 +73,7 @@ define(['./module', './states/boot', './states/menu', './states/preload',
                 // Save Score
                 ScoreService.save("flappybird", level, score);
                 // Save Medals
-                var levelScore = game.starArray[level-1];
+                var levelScore = game.starArray[level];
                 if (levelScore.medal >= medal && levelScore.score >= score) {
                     return;
                 }
@@ -79,7 +82,7 @@ define(['./module', './states/boot', './states/menu', './states/preload',
                 var userId = $window.localStorage.userId;
                   $http.post('/medal', levelScore).success(function(data) {
                     if (data && data.level) {
-                      game.starArray[level-1] = data;
+                      game.starArray[level] = data;
                     }
                   }).error(function(status, data) {
                       console.log("failed");

@@ -15,23 +15,25 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup', 'music-calc']
         }
       };
 
-    Level.prototype.postCreate = function() {
+    Level1.prototype.postCreate = function() {
+        this.velocity = -150;
+        this.ground.autoScroll(this.velocity,0);
         this.maxPipeCount = 4;
-        this.pipeDelay = Phaser.Timer.SECOND*4;
+        this.pipeDelay = Phaser.Timer.SECOND*5;
         this.yScale = d3.scale.linear()
             .domain([this.game.rootNote - 2, this.game.rootNote + 2])
             .range([this.game.height - this.ground.height, 0]);
     };
 
-    Level.prototype.updatePitch = function(pitch) {
+    Level1.prototype.updatePitch = function(pitch) {
         currentNote = MusicCalc.freqToMidiNum(pitch);
-        // if (!this.gameover) console.log(Math.round(currentNote));
+        if (!this.gameover) console.log(Math.round(currentNote));
         if (currentNote >= this.game.lowerNote-1 && currentNote <= this.game.upperNote+1) {
             this.bird.flap(this.yScale(currentNote));
         }
     };
 
-    Level.prototype.createStars = function(delay, y) {
+    Level1.prototype.createStars = function(delay, y) {
         var starY = this.game.rnd.integerInRange(y-50, y+50);
         var pipeSpace = delay/1000*200;
         var starX = this.game.width + this.game.rnd.integerInRange(pipeSpace*0.05, pipeSpace*0.2);
@@ -40,6 +42,7 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup', 'music-calc']
             starGroup = new StarGroup(this.game, this.stars);
         }
         starGroup.reset(starX, starY);
+        starGroup.setAll('body.velocity.x', this.velocity);
     };
       
 	Level1.prototype.generatePipes = function() {
@@ -70,6 +73,7 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup', 'music-calc']
             this.createStars(this.pipeDelay, 100);
             this.createStars(this.pipeDelay, 100);
         }
+        pipeGroup.setAll('body.velocity.x', this.velocity);
         this.pipeCount++;
         this.pipeGenerator = this.game.time.events.add(this.pipeDelay, this.generatePipes, this);
       };

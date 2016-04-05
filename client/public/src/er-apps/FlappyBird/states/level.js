@@ -192,12 +192,23 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
             this.scoreText.setText(this.score.toString());
             this.scoreSound.play();
       },
+      medals: function(score) {
+            var medals = 0;
+            if(score >= this.maxPipeCount && score < 2*this.maxPipeCount) {
+                medals = 1;
+            } else if(score >= 2*this.maxPipeCount && score < 3*this.maxPipeCount) {
+                medals = 2;
+            } else if (score >= 3*this.maxPipeCount) {
+                medals = 3;
+            }
+            return medals;
+      },
       deathHandler: function(bird, enemy) {
         //if (enemy instanceof Pipe || enemy instanceof Saw){
             this.pipeHitSound.play();
             this.scoreboard = new Scoreboard(this.game, false);
             this.game.add.existing(this.scoreboard);
-            this.scoreboard.show(this.score);
+            this.scoreboard.show(this.score, this.medals(this.score));
 
             this.gameover = true;
             this.bird.kill();
@@ -210,7 +221,7 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
       levelCompleted: function() {
             this.scoreboard = new Scoreboard(this.game, true);
             this.game.add.existing(this.scoreboard);
-            this.scoreboard.show(this.score);
+            this.scoreboard.show(this.score, this.medals(this.score));
 
             this.gameover = true;
             this.bird.kill();

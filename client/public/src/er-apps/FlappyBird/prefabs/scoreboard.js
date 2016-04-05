@@ -41,26 +41,21 @@ define([], function () {
   Scoreboard.prototype = Object.create(Phaser.Group.prototype);
   Scoreboard.prototype.constructor = Scoreboard;
 
-  Scoreboard.prototype.show = function(score) {
+  Scoreboard.prototype.show = function(score, stars) {
     var medals, bestScore;
+    this.totalStars = stars;
     this.scoreText.setText(score.toString());
-    var bestScore = this.game.starArray[this.game.level-1].score;
+    var bestScore = this.game.starArray[this.game.level].score;
     if(!bestScore || bestScore < score) {
       bestScore = score;
     }
-
     this.bestText.setText(bestScore.toString());
-
-    if(score >= 20 && score < 40)
-    {
+    if(stars == 1) {
       medals = this.game.add.sprite(this.game.width/2 - this.scoreboard.width*0.4, 150,'levels-trans', 1);
-      this.totalStars = 1;
-    } else if(score >= 40 && score < 60) {
+    } else if(stars == 2) {
       medals = this.game.add.sprite(this.game.width/2 - this.scoreboard.width*0.4, 150,'levels-trans', 2);
-      this.totalStars = 2;
-    } else if (score >= 60) {
+    } else if (stars == 3) {
       medals = this.game.add.sprite(this.game.width/2 - this.scoreboard.width*0.4, 150,'levels-trans', 3);
-      this.totalStars = 3;
     }
 
     if (medals) this.add(medals);
