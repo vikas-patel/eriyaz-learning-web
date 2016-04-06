@@ -29,9 +29,7 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup', 'music-calc']
     Level1.prototype.updatePitch = function(pitch) {
         currentNote = MusicCalc.freqToMidiNum(pitch);
         if (!this.gameover) console.log(Math.round(currentNote));
-        if (currentNote >= this.game.lowerNote-1 && currentNote <= this.game.upperNote+1) {
-            this.bird.flap(this.yScale(currentNote));
-        }
+        this.bird.flap(this.yScale(currentNote));
     };
 
     Level1.prototype.createStars = function(delay, y) {
