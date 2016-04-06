@@ -101,7 +101,7 @@ define(['./module', './states/boot', './states/menu', './states/preload',
             }
 
             function onVoiceSaved(game, rootNote) {
-                game.rootNote = rootNote;
+                game.rootNote = parseInt(rootNote);
                 if (!$scope.user.settings) $scope.user.settings = {};
                 $scope.user.settings.rootNote = rootNote;
                 $scope.user.$update(function() {
