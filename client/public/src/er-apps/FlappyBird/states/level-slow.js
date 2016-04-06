@@ -20,6 +20,7 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup', 'music-calc']
         this.ground.autoScroll(this.velocity,0);
         this.maxPipeCount = 4;
         this.pipeDelay = Phaser.Timer.SECOND*5;
+        this.duration = 0.5 + this.maxPipeCount*5 + 1.5;
         this.yScale = d3.scale.linear()
             .domain([this.game.rootNote - 2, this.game.rootNote + 2])
             .range([this.game.height - this.ground.height, 0]);

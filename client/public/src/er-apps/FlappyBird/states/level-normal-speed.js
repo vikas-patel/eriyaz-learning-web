@@ -10,6 +10,7 @@ define(['./level-slow', '../prefabs/PipeGroup', '../prefabs/starGroup'], functio
         this.velocity = -200;
         this.maxPipeCount = 8;
         this.pipeDelay = Phaser.Timer.SECOND*3.5;
+        this.duration = 0.5 + this.maxPipeCount*3.5 + 1.5;
         this.yScale = d3.scale.linear()
             .domain([this.game.rootNote - 2, this.game.rootNote + 2])
             .range([this.game.height - this.ground.height, 0]);
