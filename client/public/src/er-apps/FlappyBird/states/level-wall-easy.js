@@ -8,7 +8,7 @@ define(['./level-wall', '../prefabs/PipeGroup', '../prefabs/starGroup', '../pref
 
     Level.prototype.postCreate = function() {
         Parent.prototype.postCreate.call(this);
-        this.maxPipeCount = 20;
+        this.maxPipeCount = 15;
     };
 
     Level.prototype.medals = function(score) {
@@ -36,7 +36,7 @@ define(['./level-wall', '../prefabs/PipeGroup', '../prefabs/starGroup', '../pref
         } else if (this.pipeCount < this.maxPipeCount/3) {
             random = 2;
         } else {
-            random = 3;
+            random = this.game.rnd.integerInRange(2, 4);;
         }
         for (var i = 0; i < random; i++) {
             this.subPipeGenerator = this.game.time.events.add(Phaser.Timer.SECOND*0.2*i, this.generateSubPipes, this, -200);
