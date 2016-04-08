@@ -9,13 +9,13 @@ define([], function () {
         var voiceLevel = 0;
         var rangeLevel = 3;
         var keys = _.keys(this.game.starArray);
+        keys = _.map(keys, function(num){ return parseInt(num);});
         
         var keysVoice = _.filter(keys, function(num){ return num<rangeLevel });
-        var maxKeyVoice = parseInt(_.max(keysVoice));
+        var maxKeyVoice = _.max(keysVoice);
 
         var keysRange = _.filter(keys, function(num){ return num<totalLevels+1});
-        var maxKeyRange = parseInt(_.max(keysRange));
-
+        var maxKeyRange = _.max(keysRange);
         if (this.game.rootNote){
             if (!this.game.starArray[voiceLevel+1]) {
                 this.game.starArray[voiceLevel+1] = {
@@ -44,7 +44,7 @@ define([], function () {
                     "score": 0,
                     "medal": 0
                 }
-            } else if (maxKeyRange < totalLevels-1 && this.game.starArray[maxKeyRange].medal > 0) {
+            } else if (maxKeyRange < totalLevels && this.game.starArray[maxKeyRange].medal > 0) {
                 this.game.starArray[maxKeyRange+1] = {
                     "user": localStorage.userId,
                     "appName": "flappybird",

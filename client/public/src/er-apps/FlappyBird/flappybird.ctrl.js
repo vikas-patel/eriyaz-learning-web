@@ -63,7 +63,6 @@ define(['./module', './states/boot', './states/menu', './states/preload',
               $http.get('/medal/' + $window.localStorage.userId + "/flappybird")
                   .success(function(data) {
                       game.starArray = _.indexBy(data, 'level');
-                      // game.starArray = data;
                   }).error(function(status, data) {
                       console.log("failed");
                       console.log(data);

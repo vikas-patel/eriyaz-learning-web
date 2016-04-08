@@ -17,7 +17,7 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup', '../prefabs/w
     Level.prototype.postCreate = function() {
         this.game.physics.arcade.gravity.y = 50;
         this.bird.body.allowGravity = true;
-        this.maxPipeCount = 40;
+        this.maxPipeCount = 15;
         this.starY1 = 160;
         this.starY2 = this.game.height-this.ground.height-50;
         this.starXRange = 100;
@@ -34,7 +34,26 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup', '../prefabs/w
         starGroup.reset(starX, starY);
     };
 
+    Level.prototype.updateProgress = function() {
+        var percentage = (this.pipeCount)/(this.maxPipeCount+1);
+        this.graphics.moveTo(this.graphics.x, 1);
+        this.graphics.lineTo(this.game.width*percentage, 1);
+    };
+
+    Level.prototype.medals = function(score) {
+        var medals = 0;
+        if(score >= this.maxPipeCount*4/3 && score < 3*this.maxPipeCount) {
+            medals = 1;
+        } else if(score >= 3*this.maxPipeCount && score < 4*this.maxPipeCount) {
+            medals = 2;
+        } else if (score >= 4*this.maxPipeCount) {
+            medals = 3;
+        }
+        return medals;
+    }
+
 	Level.prototype.generatePipes = function() {
+       this.updateProgress();
         if (this.pipeCount > this.maxPipeCount) {
             // Level Complete
             this.levelCompleted();
@@ -58,6 +77,7 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup', '../prefabs/w
         this.createStars(3.5*200 + random*40 + 50);
         this.createStars(3.5*200 + random*40 + 50);
         this.pipeGenerator = this.game.time.events.add(Phaser.Timer.SECOND*(3.5+0.2*random), this.generatePipes, this);
+        this.pipeCount++;
       };
 
     Level.prototype.generateSubPipes = function(y) {
@@ -66,7 +86,6 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup', '../prefabs/w
             wallGroup = new WallGroup(this.game, this.pipes, 160);
         }
         wallGroup.reset(this.game.width, y);
-        this.pipeCount++;
     };
 
 	return Level;

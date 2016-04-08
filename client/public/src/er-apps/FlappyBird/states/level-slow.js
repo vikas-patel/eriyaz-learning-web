@@ -28,7 +28,7 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup', 'music-calc']
 
     Level1.prototype.updatePitch = function(pitch) {
         currentNote = MusicCalc.freqToMidiNum(pitch);
-        if (!this.gameover) console.log(Math.round(currentNote));
+        // if (!this.gameover) console.log(Math.round(currentNote));
         this.bird.flap(this.yScale(currentNote));
     };
 

@@ -7,13 +7,14 @@ define(['./level-wall', '../prefabs/PipeGroup', '../prefabs/starGroup', '../pref
 	Level.prototype.constructor = Parent;
 
 	Level.prototype.generatePipes = function() {
+        this.updateProgress();
         if (this.pipeCount > this.maxPipeCount) {
             // Level Complete
             this.levelCompleted();
             return;
         }
         var random;
-        if (this.pipeCount < 8) {
+        if (this.pipeCount < this.maxPipeCount/5) {
             random = this.game.rnd.integerInRange(1, 2);
         } else {
             random = this.game.rnd.integerInRange(2, 7);
@@ -28,6 +29,7 @@ define(['./level-wall', '../prefabs/PipeGroup', '../prefabs/starGroup', '../pref
         this.createStars(3.5*200 + random*40 + 50);
         this.createStars(3.5*200 + random*40 + 50);
         this.pipeGenerator = this.game.time.events.add(Phaser.Timer.SECOND*(3.5+0.2*random), this.generatePipes, this);
+        this.pipeCount++;
       };
 
     Level.prototype.generateSubPipes = function(y) {
@@ -36,7 +38,6 @@ define(['./level-wall', '../prefabs/PipeGroup', '../prefabs/starGroup', '../pref
             wallGroup = new WallGroup(this.game, this.pipes, 160);
         }
         wallGroup.reset(this.game.width, y);
-        this.pipeCount++;
     };
 
 	return Level;
