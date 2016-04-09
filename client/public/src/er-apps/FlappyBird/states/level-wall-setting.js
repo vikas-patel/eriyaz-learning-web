@@ -48,7 +48,8 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/wall', 'music-calc', '../
         this.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR);
         this.bird.destroy();
         this.pipes.destroy();
-        this.board.destroy();
+        if (this.board) this.board.destroy();
+        this.stream.getTracks()[0].stop();
     };
 
     Level.prototype.update = function() {
@@ -99,7 +100,6 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/wall', 'music-calc', '../
 
     Level.prototype.updatePitch = function(pitch) {
         currInterval = Math.round(1200 * Math.log(pitch/this.rootFreq) / Math.log(2))/100;
-        console.log(currInterval);
         if (currInterval > -15 && currInterval < 18) {
             this.bird.flap(this.yScale(currInterval));
         }

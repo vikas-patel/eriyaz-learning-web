@@ -37,6 +37,13 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         // create and add a new Ground object
         this.ground = new Ground(this.game, 0, 400, 720, 112);
         this.game.add.existing(this.ground);
+
+        var back_button = this.game.add.text(20, 15, '➜', { font: '28px Arial', fill: '#fff' });
+        back_button.anchor.setTo(0.5, 0.5);
+        back_button.angle = 180;
+        back_button.inputEnabled = true;
+        back_button.events.onInputUp.add(function() {this.game.state.start("levels");}, this);
+
         this.graphics = this.game.add.graphics();
         this.graphics.lineStyle(2, 0xD6D6D6, 1);
         this.graphics.moveTo(0, 1);
@@ -46,9 +53,10 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         // create and add a new Bird object
         this.bird = new Bird(this.game, 100, this.game.height/2);
         this.game.add.existing(this.bird);
-
+        var playObj = this;
         MicUtil.getMicAudioStream(
             function(stream) {
+              playObj.stream = stream;
               buffer = new AudioBuffer(audioContext, stream, 1024);
               buffer.addProcessor(updatePitch);
             }
@@ -68,7 +76,6 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         this.yScale = d3.scale.linear()
             .domain([this.game.lowerNote, this.game.upperNote])
             .range([this.game.height - 124, 0]);
-        var playObj = this;
         var updatePitch = function(data) {
            
             var pitch = detector.findPitch(data);
@@ -160,8 +167,9 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
       shutdown: function() {
         this.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR);
         this.bird.destroy();
-        this.pipes.destroy();
-        this.scoreboard.destroy();
+        if (this.pipes) this.pipes.destroy();
+        if (this.scoreboard) this.scoreboard.destroy();
+        this.stream.getTracks()[0].stop();
       },
       startGame: function() {
         if(!this.bird.alive && !this.gameover) {

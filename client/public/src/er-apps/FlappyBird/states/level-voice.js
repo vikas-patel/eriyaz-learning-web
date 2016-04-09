@@ -29,6 +29,13 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/slider',
         this.game.add.existing(this.ground);
         this.exit = this.game.add.sprite(this.game.width, this.game.height-this.ground.height,'exit');
         this.exit.anchor.setTo(1, 1);
+
+        var back_button = this.game.add.text(20, 15, '➜', { font: '28px Arial', fill: '#fff' });
+        back_button.anchor.setTo(0.5, 0.5);
+        back_button.angle = 180;
+        back_button.inputEnabled = true;
+        back_button.events.onInputUp.add(function() {this.game.state.start("levels");}, this);
+
         // create and add a new Bird object
         this.bird = new Bird(this.game, 100, this.game.height/2);
         this.game.add.existing(this.bird);
@@ -40,9 +47,10 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/slider',
             this.upperNoteLimit = 76;
             this.lowerNoteLimit = 51;
         }
-
+        var playObj = this;
         MicUtil.getMicAudioStream(
             function(stream) {
+                playObj.stream = stream;
               buffer = new AudioBuffer(audioContext, stream, 1024);
               buffer.addProcessor(updatePitch);
             }
@@ -50,7 +58,6 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/slider',
         var audioContext = CurrentAudioContext.getInstance();
         var detector = PitchDetector.getDetector(audioContext.sampleRate, this.game.isMan);
 
-        var playObj = this;
         var updatePitch = function(data) {
            
             var pitch = detector.findPitch(data);
@@ -113,7 +120,8 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/slider',
       shutdown: function() {
         this.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR);
         this.bird.destroy();
-        this.scoreboard.destroy();
+        if(this.scoreboard) this.scoreboard.destroy();
+        this.stream.getTracks()[0].stop();
       },
       startGame: function() {
         if(!this.bird.alive && !this.gameover) {
