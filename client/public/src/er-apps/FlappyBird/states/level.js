@@ -44,6 +44,8 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         back_button.inputEnabled = true;
         back_button.events.onInputUp.add(function() {this.game.state.start("levels");}, this);
 
+        this.slider = new Slider(this.game, this.game.width-21, this.game.height/2-140, 200);
+
         this.graphics = this.game.add.graphics();
         this.graphics.lineStyle(2, 0xD6D6D6, 1);
         this.graphics.moveTo(0, 1);
@@ -54,13 +56,12 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         this.bird = new Bird(this.game, 100, this.game.height/2);
         this.game.add.existing(this.bird);
         var playObj = this;
-        MicUtil.getMicAudioStream(
-            function(stream) {
-              playObj.stream = stream;
+        MicUtil.getMicAudioStream(function(stream) {
+              // playObj.stream = stream;
               buffer = new AudioBuffer(audioContext, stream, 1024);
               buffer.addProcessor(updatePitch);
             }
-          );
+        );
         var audioContext = CurrentAudioContext.getInstance();
         var detector = PitchDetector.getDetector(audioContext.sampleRate, this.game.isMan);
         if (this.game.gender == "man") {
@@ -77,14 +78,12 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
             .domain([this.game.lowerNote, this.game.upperNote])
             .range([this.game.height - 124, 0]);
         var updatePitch = function(data) {
-           
+            
             var pitch = detector.findPitch(data);
              // range 0-1
             var volume = 2*IntensityFilter.rootMeanSquare(data);
+            playObj.slider.setVolume(volume);
             if (volume < playObj.game.noise/100) return;
-            if (!playObj.start) {
-                if (!playObj.bird.animate().isRunning) playObj.bird.animate().start();
-            }
             if (pitch == 0) return;
             // can't be human voice
             if (pitch > 1400) return;
@@ -115,7 +114,6 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
             startButton.inputEnabled = true;
             startButton.events.onInputDown.add(this.startGame, this);
             this.instructionGroup.add(startButton);
-            this.slider = new Slider(this.game, this.instructionGroup, this.game.width/2, 285, 100);
             this.instructionGroup.setAll('anchor.x', 0.5);
             this.instructionGroup.setAll('anchor.y', 0.5);
         } else {
@@ -169,7 +167,8 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         this.bird.destroy();
         if (this.pipes) this.pipes.destroy();
         if (this.scoreboard) this.scoreboard.destroy();
-        this.stream.getTracks()[0].stop();
+        // this.stream.getTracks()[0].stop();
+        this.slider.destroy();
       },
       startGame: function() {
         if(!this.bird.alive && !this.gameover) {
