@@ -36,6 +36,8 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/slider',
         back_button.inputEnabled = true;
         back_button.events.onInputUp.add(function() {this.game.state.start("levels");}, this);
 
+        this.slider = new Slider(this.game, this.game.width-21, this.game.height/2-140, 200);
+
         // create and add a new Bird object
         this.bird = new Bird(this.game, 100, this.game.height/2);
         this.game.add.existing(this.bird);
@@ -63,10 +65,8 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/slider',
             var pitch = detector.findPitch(data);
              // range 0-1
             var volume = 2*IntensityFilter.rootMeanSquare(data);
+            playObj.slider.setVolume(volume);
             if (volume < playObj.game.noise/100) return;
-            if (!playObj.start) {
-                if (!playObj.bird.animate().isRunning) playObj.bird.animate().start();
-            }
             if (pitch == 0) return;
             // can't be human voice
             if (pitch > 1400) return;
@@ -93,7 +93,6 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/slider',
             startButton.inputEnabled = true;
             startButton.events.onInputDown.add(this.startGame, this);
             this.instructionGroup.add(startButton);
-            this.slider = new Slider(this.game, this.instructionGroup, this.game.width/2, 265, 100);
             this.instructionGroup.setAll('anchor.x', 0.5);
             this.instructionGroup.setAll('anchor.y', 0.5);
         } else {
@@ -121,7 +120,7 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/slider',
         this.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR);
         this.bird.destroy();
         if(this.scoreboard) this.scoreboard.destroy();
-        this.stream.getTracks()[0].stop();
+        this.slider.destroy();
       },
       startGame: function() {
         if(!this.bird.alive && !this.gameover) {

@@ -49,7 +49,6 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/wall', 'music-calc', '../
         this.bird.destroy();
         this.pipes.destroy();
         if (this.board) this.board.destroy();
-        this.stream.getTracks()[0].stop();
     };
 
     Level.prototype.update = function() {
@@ -101,6 +100,7 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/wall', 'music-calc', '../
     Level.prototype.updatePitch = function(pitch) {
         currInterval = Math.round(1200 * Math.log(pitch/this.rootFreq) / Math.log(2))/100;
         if (currInterval > -15 && currInterval < 18) {
+            if (!this.gameover) console.log(Math.round(currInterval));
             this.bird.flap(this.yScale(currInterval));
         }
     };
