@@ -75,7 +75,7 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
             this.lowerNoteLimit = 54;
         }
         this.yScale = d3.scale.linear()
-            .domain([this.game.lowerNote, this.game.upperNote])
+            .domain([this.game.lowerNote+1, this.game.upperNote-1])
             .range([this.game.height - 124, 0]);
         var updatePitch = function(data) {
             
@@ -126,7 +126,6 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         this.scoreSound = this.game.add.audio('score');
         this.postCreate();
         //TODO: star collect sound
-        
       },
       postCreate: function() {
         // Abstract method

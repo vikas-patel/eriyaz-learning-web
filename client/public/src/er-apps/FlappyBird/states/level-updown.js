@@ -28,22 +28,21 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup'], function (Le
             return;
         }
         this.pipeDelay = Math.max(this.pipeDelay - 50, 1500);
-        var pipeY = this.game.rnd.integerInRange(-100, 100);
         var pipeGroup = this.pipes.getFirstExists(false);
         if(!pipeGroup) {
             pipeGroup = new PipeGroup(this.game, this.pipes);  
         }
 
         if (this.game.rnd.integerInRange(0, 1) == 0) {
-        	pipeGroup.reset(this.game.width, 100);
+        	pipeGroup.reset(this.game.width, 90);
         	pipeGroup.bottomPipe.visible = false;
-            this.createStars(this.pipeDelay, 320);
-            this.createStars(this.pipeDelay, 320);
+            this.createStars(this.pipeDelay, 310);
+            this.createStars(this.pipeDelay, 310);
         } else {
-        	pipeGroup.reset(this.game.width, -150);
+        	pipeGroup.reset(this.game.width, -130);
         	pipeGroup.topPipe.visible = false;
-            this.createStars(this.pipeDelay, 50);
-            this.createStars(this.pipeDelay, 50);
+            this.createStars(this.pipeDelay, 70);
+            this.createStars(this.pipeDelay, 70);
         }
         this.pipeCount++;
         this.pipeGenerator = this.game.time.events.add(this.pipeDelay, this.generatePipes, this);
