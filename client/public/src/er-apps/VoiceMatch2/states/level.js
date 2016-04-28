@@ -23,7 +23,8 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
 		var yMax = 12;
 		this.yDivs = yMax - yMin;
 		this.chartHeight = this.game.height - this.background.height - this.offsetTop;
-		this.xDivs = 3;
+		var maxNotes = Levels[this.game.level-1].maxNotes;
+		this.xDivs = 2 + maxNotes;
 		this.yScale = d3.scale.linear()
 			.domain([yMin, yMax])
 			.range([this.game.height, this.background.height + this.offsetTop]);
@@ -45,8 +46,11 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
     	// graphics.beginFill(0xED3883, 0.8);
     	graphics.beginFill(0x078CFD, 1);
     	var notes = Levels[this.game.level-1].notes;
-    	graphics.drawRect(xWidth, this.yScale(_.max(notes) + 1), xWidth, 
+    	for (var i = 1; i<= maxNotes; i = i+2) {
+    		graphics.drawRect(xWidth*i, this.yScale(_.max(notes) + 1), xWidth, 
     		this.chartHeight*(_.max(notes)-_.min(notes)+1)/this.yDivs);
+    	}
+    	
     	graphics.endFill();
 	  	graphics.lineStyle(1, 0xd3d3d3, 1);
     	for (var i = yMin; i <= yMax; i++) {
@@ -91,9 +95,9 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
 	    this.answerGraphics = this.game.add.graphics();
 	    this.answerGroup = this.game.add.group();
 	    this.style = {font: "12px Snap ITC", fill: "#FFFFFF", align: "center"};
-	    this.scoreSound = this.game.add.audio('success');
-	    this.lostSound = this.game.add.audio('failure');
-	    this.gameOverSound = this.game.add.audio('gameover');
+	    this.scoreSound = this.game.add.audio('success', 0.2);
+	    this.lostSound = this.game.add.audio('failure', 0.2);
+	    this.gameOverSound = this.game.add.audio('gameover', 0.2);
 	    this.levelUpSound = this.game.add.audio('levelup');
 	    this.scoreTotalTween = this.game.add.tween(this.scoreText.scale).to({ x: 1.5, y: 1.5}, 200, Phaser.Easing.Linear.In).to({ x: 1, y: 1}, 200, Phaser.Easing.Linear.In);
 	    this.game.start();

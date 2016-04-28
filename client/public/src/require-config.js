@@ -50,7 +50,8 @@ requirejs.config({
         'timeMe' : 'ext-libs/TimeMe/TImeMe',
         'ng-table' : "ext-libs/bower_components/ng-table/dist/ng-table.min",
         'recorderworker' : 'er-libs/recorderworker',
-        'phaser': 'ext-libs/bower_components/phaser/build/phaser.min'
+        'phaser': 'ext-libs/bower_components/phaser/build/phaser.min',
+        'tone': 'ext-libs/bower_components/tone/build/Tone.min'
     },
 
     // Add modules that do not support AMD
@@ -92,7 +93,9 @@ requirejs.config({
         'phaser': {
             exports: 'Phaser'
         },
-
+        'tone': {
+            exports: 'Tone'
+        },
         //sountouch load order
         'soundtouch' : {
             deps: ['underscore','st-core','st-pipe','st-rate-transposer','st-buffer','st-filter','st-stretch']

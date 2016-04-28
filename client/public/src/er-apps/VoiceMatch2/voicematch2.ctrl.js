@@ -27,7 +27,7 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
             var repeat = false;
             var maxAttempt = 5;
             var maxBlindAttempt = 3;
-            var maxBeatCount = 1;
+            var maxBeatCount;
             var maxExerciseCount = 10;
 
             var currRoot;
@@ -45,6 +45,19 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
 
             var currActiveNote = 0;
             var singTime = Date.now();
+            var synth = new Tone.PolySynth(3, Tone.SimpleSynth).set({
+                'volume' : 4,
+                'oscillator' : {
+                    'type' : 'triangle17',
+                    // 'partials' : [16, 8, 4, 2, 1, 0.5, 1, 2]
+                },
+                'envelope' : {
+                    'attack' : 0.01,
+                    'decay' : 0.1,
+                    'sustain' : 0.2,
+                    'release' : 1.7,
+                }
+            }).toMaster();
             // Load user medals
             $http.get('/medal/' + $window.localStorage.userId + "/voicematch2")
               .success(function(data) {
@@ -84,6 +97,7 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
 
             game.start = function() {
                 level = Levels[game.level-1];
+                maxBeatCount = level.maxNotes;
                 reset();
             }
 
@@ -143,8 +157,12 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
                 };
 
                 this.scheduleNote = function(noteNum) {
-                    //schedule note for next beep.
-                    voicePlayer.schedule(noteNum, startTime1, level.duration);
+                    if (level.isInstrument) {
+                        synth.triggerAttackRelease(MusicCalc.midiNumToFreq(noteNum), level.duration/1000, '+'+(startTime1- audioContext.currentTime));
+                    } else {
+                        //schedule note for next beep.
+                        voicePlayer.schedule(noteNum, startTime1, level.duration);
+                    }
                 };
 
                 this.scheduleAction = function(callback) {
@@ -208,13 +226,16 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
                 var local = this;
 
                 this.handleBeep = function() {
-                    clock.scheduleNote(currentNote + $scope.rootNote);
+                    // play alternate beat
+                    if (beatCount%2 == 0) clock.scheduleNote(currentNote + $scope.rootNote);
                     clock.scheduleAction(function() {
                         if (beatCount === 0) {
                             game.state.getCurrentState().clear();
                             if (!repeat) game.state.getCurrentState().clearAnswer();
                             if ($scope.attempt >= maxBlindAttempt) {
-                                game.state.getCurrentState().drawExercise(currentNote, beatDuration);
+                                for (var i = 1; i <= maxBeatCount; i = i+2) {
+                                    game.state.getCurrentState().drawExercise(currentNote, beatDuration*i);
+                                }
                             }
                             game.state.getCurrentState().drawRange(yRange, maxBeatCount, beatDuration, false);
                             singTime = Date.now() + beatDuration;
@@ -277,8 +298,10 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
                             gameController.setIntervalHandler(function(interval) {
                                 interval = pitchCorrection(interval, note);
                                 var roundedInterval = Math.round(interval);
-                                game.state.getCurrentState().markPitchFeedback(roundedInterval, Date.now() - singTime, scorer.scorePoint(roundedInterval, note));
-                                game.state.getCurrentState().markPitch(interval, Date.now()-singTime);
+                                if (beatCount%2 == 1) {
+                                    game.state.getCurrentState().markPitchFeedback(roundedInterval, Date.now() - singTime, scorer.scorePoint(roundedInterval, note));
+                                    game.state.getCurrentState().markPitch(interval, Date.now()-singTime);
+                                }
                             });
                         })(currentNote);
                         if (beatCount == 0) {
@@ -286,16 +309,20 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
                             // do nothing
                         } else if (beatCount < maxBeatCount) {
                             game.state.getCurrentState().animateMarker(yRange, beatDuration, beatCount, beatDuration, 'Sing');
-                            $scope.scoreByNote.push(scorer.getAnswer(currentNote));
-                            score += scorer.getExerciseScore()/maxBeatCount;
-                            scorer.reset();
+                            if (beatCount%2==1) {
+                                $scope.scoreByNote.push(scorer.getAnswer(currentNote));
+                                if (maxBeatCount == 1) score += scorer.getExerciseScore()/maxBeatCount;
+                                else score += scorer.getExerciseScore()/(maxBeatCount/2 + 0.5);
+                                scorer.reset();
+                            }
                         } else {
                             $scope.scoreByNote.push(scorer.getAnswer(currentNote));
-                            score += scorer.getExerciseScore()/maxBeatCount;
+                            if (maxBeatCount == 1) score += scorer.getExerciseScore()/maxBeatCount;
+                            else score += scorer.getExerciseScore()/(maxBeatCount/2 + 0.5);
                             $scope.score = Math.round(10*score);
                             var allCorrect = true;
                             $scope.scoreByNote.forEach(function(interval, index) {
-                                game.state.getCurrentState().markAnswer(interval, index*beatDuration + beatDuration/2, 
+                                game.state.getCurrentState().markAnswer(interval, 2*index*beatDuration + beatDuration/2, 
                                     interval - currentNote, beatDuration, $scope.attempt != 0);
                                 if (currentNote != interval) allCorrect = false;
                             })
