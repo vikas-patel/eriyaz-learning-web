@@ -163,7 +163,6 @@ define(['d3'], function(d3) {
 
 		this.start = function(numNote) {
 			currActiveNote = numNote;
-			
 			pointGroup = staticGroup.append("g");
 			clip.attr("transform", "translate(" + xScale(numNote)+",0)");
 

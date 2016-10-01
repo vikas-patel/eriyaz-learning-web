@@ -42,7 +42,12 @@
       // vertical-align: bottom;
       // margin:0;
     }
-
+    
+    li div {
+      display:inline;
+      width:2px;
+      background-color:green;
+    }
     .container {
       box-sizing : border-box;
       // border:solid;

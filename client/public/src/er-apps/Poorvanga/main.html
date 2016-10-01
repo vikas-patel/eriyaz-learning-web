@@ -25,6 +25,7 @@
             <li ng-repeat="that in thats">
                 <input type="checkbox" ng-model="that.enabled">
                 <button ng-disabled="!that.enabled" ng-click="checkAnswer(that.name)">{{that.name}}</button>
+                <div ng-show="that.correct">!</div>
             </li>
         </ul>
     </div>

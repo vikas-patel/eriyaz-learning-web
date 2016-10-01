@@ -1,7 +1,7 @@
 define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'currentaudiocontext',
-        'music-calc', 'mic-util', 'pitchdetector', 'stabilitydetector', 'audiobuffer'
+    'music-calc', 'mic-util', 'pitchdetector', 'stabilitydetector', 'audiobuffer','tanpura'
     ],
-    function(app, sequenceGen, Display, Note, Player, CurrentAudioContext, MusicCalc, MicUtil, PitchDetector, StabilityDetector, AudioBuffer) {
+    function(app, sequenceGen, Display, Note, Player, CurrentAudioContext, MusicCalc, MicUtil, PitchDetector, StabilityDetector, AudioBuffer,Tanpura) {
         var sequence;
         var audioContext = CurrentAudioContext.getInstance();
         var player = new Player(audioContext);
@@ -13,6 +13,9 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
             $scope.playTime = 500;
             $scope.numNotes = 3;
 
+            $scope.isTanpuraEnabled = true;
+            $scope.loading = false;
+            
             var display = new Display();
 
             var currRoot;
@@ -27,6 +30,7 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
             var detector = PitchDetector.getDetector('wavelet', audioContext.sampleRate);
             var stabilityDetector = new StabilityDetector(unitStabilityDetected, aggStabilityDetected);
             var micStream;
+            var tanpura = null;
 
             var currActiveNote = 0;
 
@@ -44,10 +48,23 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
 
             $scope.$watch('rootNote', function() {
                 currRoot = parseInt($scope.rootNote);
+                if (tanpura !== null)
+                    tanpura.stop();
+                $scope.loading = true;
+                var progressListener = function(message, progress) {
+                    if (progress === 100) {
+                      tanpura.play();
+                      $scope.loading = false;
+                      $scope.isTanpuraEnabled = true;
+                          // $scope.$apply();
+                      }
+                  };
+                  tanpura = Tanpura.getInstance();
+                  tanpura.setTuning($scope.rootNote, 7, progressListener);
 
-                baseFreq = MusicCalc.midiNumToFreq(currRoot);
-                PitchModel.rootFreq = MusicCalc.midiNumToFreq(currRoot);
-            });
+                  baseFreq = MusicCalc.midiNumToFreq(currRoot);
+                  PitchModel.rootFreq = MusicCalc.midiNumToFreq(currRoot);
+              });
 
             $scope.$watch('playTime', function() {
                 playTime = parseInt($scope.playTime);
@@ -78,7 +95,7 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
                             $scope.signalOn = true;
                             $scope.$apply();
                         }
-                    );
+                        );
                 }
                 display.setFlash("Click 'New' to hear Tones");
             };
@@ -137,4 +154,4 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
                 }, 100);
             }
         });
-    });
+});

@@ -6,51 +6,63 @@ define(['./module', 'note', 'webaudioplayer', 'currentaudiocontext','tanpura', '
         [{
             name: 's r1 g1 m1',
             model: [0, 1, 2, 5],
-            enabled: true
+            enabled: true,
+            correct: false
         }, {
             name: 's r1 g2 m1',
             model: [0, 1, 3, 5],
-            enabled: true
+            enabled: true,
+            correct: false
         },{
             name: 's r1 g3 m1',
             model: [0, 1, 4, 5],
-            enabled: true
+            enabled: true,
+            correct: false
         },{
             name: 's r2 g2 m1',
             model: [0, 2, 3, 5],
-            enabled: true
+            enabled: true,
+            correct: false
         },{
             name: 's r2 g3 m1',
             model: [0, 2, 4, 5],
-            enabled: true
+            enabled: true,
+            correct: false
         },{
             name: 's r3 g3 m1',
             model: [0, 3, 4, 5],
-            enabled: true
+            enabled: true,
+            correct: false
         },{
             name: 's r1 g1 m2',
             model: [0, 1, 2, 6],
-            enabled: true
+            enabled: true,
+            correct: false
         }, {
             name: 's r1 g2 m2',
             model: [0, 1, 3, 6],
-            enabled: true
+            enabled: true,
+            correct: false
         },{
             name: 's r1 g3 m2',
             model: [0, 1, 4, 6],
-            enabled: true
+            enabled: true,
+            correct: false
         },{
             name: 's r2 g2 m2',
             model: [0, 2, 3, 6],
-            enabled: true
+            enabled: true,
+            correct: false
         },{
             name: 's r2 g3 m2',
             model: [0, 2, 4, 6],
-            enabled: true
+            enabled: true,
+            correct: false
         },{
             name: 's r3 g3 m2',
             model: [0, 3, 4, 6],
-            enabled: true
+            enabled: true,
+            correct: false
         }];
 
     app.controller('PoorvangaCtrl', function($scope, $rootScope) {
@@ -95,7 +107,8 @@ define(['./module', 'note', 'webaudioplayer', 'currentaudiocontext','tanpura', '
         });
 
         $scope.newThat = function() {
-
+            if(currThat)
+                currThat.correct = false;
             if (thats.every(isDisabled)) {
                 $scope.feedback = "Please enable atleast one that, or better yet two";
             } else {
@@ -150,6 +163,7 @@ define(['./module', 'note', 'webaudioplayer', 'currentaudiocontext','tanpura', '
 
         $scope.checkAnswer = function(thatName) {
             $scope.total++;
+            currThat.correct = true;
             if (thatName === currThat.name) {
                 $scope.feedback = "Cool!";
                 $scope.correct++;
