@@ -49,7 +49,7 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
     		graphics.lineTo(this.xScale(j), this.background.height);
     	}
     	this.exerciseGraphics = this.game.add.graphics();
-    	this.exerciseGraphics.beginFill(0xffffff, 1);
+    	this.exerciseGraphics.beginFill(0xffffff, 0.7);
     	this.exerciseGraphics.lineStyle(0);
 
     	this.feedbackGraphics = this.game.add.graphics();
@@ -121,7 +121,7 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
 	  },
 	  clear: function() {
 	  	this.exerciseGraphics.clear();
-	  	this.exerciseGraphics.beginFill(0xffffff, 1);
+	  	this.exerciseGraphics.beginFill(0xffffff, 0.7);
     	this.exerciseGraphics.lineStyle(0);
 	  	this.feedbackGraphics.clear();
 	  	this.pitchGraphics.clear();

@@ -2,6 +2,30 @@
     app.factory('AppsInfoModel', function(ScoreService, $window) {
       var appsInfo = {};
       appsInfo.apps = [{
+        name: 'FlappyBird',
+        thumb: 'er-shell/images/flappybird.jpg',
+        desc: 'Control your voice pitch.',
+        href: '#flappybird',
+        appUrl: 'er-apps/FlappyBird/main.html',
+        aspectRatio: 720/505,
+        show: true
+      }, {
+        name: 'VoiceMatch2',
+        thumb: 'er-shell/images/voicematch2.png',
+        desc: 'Practice matching your voice to the tone of human voice.',
+        href: '#voicematch2',
+        appUrl: 'er-apps/VoiceMatch2/main.html',
+        aspectRatio: 8/7,
+        show: true
+      }, {
+        name: 'SingingGame2',
+        thumb: 'er-shell/images/singinggame2.png',
+        desc: 'Extract notes from a fast melody.',
+        href: '#singinggame2',
+        appUrl: 'er-apps/SingingGame2/main.html',
+        aspectRatio: 8/7,
+        show: true
+      }, {
         name: 'Alankars',
         thumb: 'er-shell/images/singalankars.jpg',
         desc: 'Do step by step guided singing exercises from easy to difficult.',
@@ -70,22 +94,6 @@
         aspectRatio: 9 / 10,
         show: true
       }, {
-        name: 'ThatMemorizer',
-        thumb: 'er-shell/images/thatmemorizer.jpg',
-        desc: 'Learn to differentiate between Thats. Start with selecting just two of them and add more one by one.',
-        href: '#thatmemorizer',
-        appUrl: 'er-apps/ThatMemorizer/main.html',
-        aspectRatio: 9 / 10,
-        show: true
-      }, {
-        name: 'SingGraph',
-        thumb: 'er-shell/images/singgraph.jpg',
-        desc: 'Practice free flow singing with immediate feedback on your pitch.',
-        href: '#singgraph',
-        appUrl: 'er-apps/SingGraph/main.html',
-        aspectRatio: 5 / 3,
-        show: false
-      }, {
         name: 'VoiceMatch',
         thumb: 'er-shell/images/voicematch.jpg',
         desc: 'Practice matching your voice to the tone of the instrument.',
@@ -98,14 +106,6 @@
         ],
         aspectRatio: 80 / 100,
         show: true
-      }, {
-        name: 'FreestylePhrases',
-        thumb: 'er-shell/images/freestylephrases.jpg',
-        desc: 'Practice small phrases with quick changes in pitches',
-        href: '#freestylephrases',
-        appUrl: 'er-apps/FreestylePhrases/main.html',
-        aspectRatio: 5 / 3,
-        show: false
       }, {
         name: 'SwarMastery',
         thumb: 'er-shell/images/swarmastery.jpg',
@@ -270,14 +270,6 @@
           ['s','slowRepeat()']
         ]
       }, {
-        name: 'FlappyBird',
-        thumb: 'er-shell/images/flappybird.jpg',
-        desc: 'Control your voice pitch.',
-        href: '#flappybird',
-        appUrl: 'er-apps/FlappyBird/main.html',
-        aspectRatio: 720/505,
-        show: true
-      }, {
         name: 'PhraseShape',
         thumb: 'er-shell/images/phraseshape.jpg',
         desc: 'Recognize melodic shape of a 4 note phrase.',
@@ -305,26 +297,29 @@
         aspectRatio: 8/7,
         show: true
       }, {
-        name: 'VoiceMatch2',
-        thumb: 'er-shell/images/tonesmemory.jpg',
-        desc: 'Practice matching your voice to the tone of human voice.',
-        href: '#voicematch2',
-        appUrl: 'er-apps/VoiceMatch2/main.html',
-        aspectRatio: 3 / 4,
-        hotkeys: [
-          ['n', 'newSequence()'],
-           ['r','repeat()'],
-           ['p', 'playMyGuess()'],
-           ['m', 'startMic()'],
-          ['s','showAns()']
-        ]
+        name: 'ThatMemorizer',
+        thumb: 'er-shell/images/thatmemorizer.jpg',
+        desc: 'Learn to differentiate between Thats. Start with selecting just two of them and add more one by one.',
+        href: '#thatmemorizer',
+        appUrl: 'er-apps/ThatMemorizer/main.html',
+        aspectRatio: 9 / 10,
+        show: true
       }, {
-        name: 'SingingGame2',
-        thumb: 'er-shell/images/singinggame.jpg',
-        desc: 'Extract notes from a fast melody.',
-        href: '#singinggame2',
-        appUrl: 'er-apps/SingingGame2/main.html',
-        aspectRatio: 8/7,
+        name: 'SingGraph',
+        thumb: 'er-shell/images/singgraph.jpg',
+        desc: 'Practice free flow singing with immediate feedback on your pitch.',
+        href: '#singgraph',
+        appUrl: 'er-apps/SingGraph/main.html',
+        aspectRatio: 5 / 3,
+        show: false
+      }, {
+        name: 'FreestylePhrases',
+        thumb: 'er-shell/images/freestylephrases.jpg',
+        desc: 'Practice small phrases with quick changes in pitches',
+        href: '#freestylephrases',
+        appUrl: 'er-apps/FreestylePhrases/main.html',
+        aspectRatio: 5 / 3,
+        show: false
       }];
       appsInfo.selectedIndex = -1;
       TimeMe.setIdleDurationInSeconds(60);

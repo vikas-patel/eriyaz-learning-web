@@ -233,7 +233,11 @@ body {
 					    url: "/signup",
 					    data: dataJson,
 					    success: function(data) {
-					    	$('#message').html(data.info);
+					    	if (data.status == "success") {
+					    		window.location.href = '/#/home';
+					    	} else {
+					    		$('#message').html(data.info);
+					    	}
 					    },
 					    error: function() {
 					    	$('#message').html("Something wrong: Try again.");

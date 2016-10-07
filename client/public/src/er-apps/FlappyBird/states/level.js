@@ -37,17 +37,31 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         // create and add a new Ground object
         this.ground = new Ground(this.game, 0, 400, 720, 112);
         this.game.add.existing(this.ground);
-        
+
+        var back_button = this.game.add.text(20, 15, '➜', { font: '28px Arial', fill: '#fff' });
+        back_button.anchor.setTo(0.5, 0.5);
+        back_button.angle = 180;
+        back_button.inputEnabled = true;
+        back_button.events.onInputUp.add(function() {this.game.state.start("levels");}, this);
+
+        this.slider = new Slider(this.game, this.game.width-21, this.game.height/2-140, 200);
+
+        this.graphics = this.game.add.graphics();
+        this.graphics.lineStyle(2, 0xD6D6D6, 1);
+        this.graphics.moveTo(0, 1);
+        this.graphics.lineTo(this.game.width, 1);
+        this.graphics.lineStyle(2, 0xF12B24, 1);
+        this.graphics.moveTo(0,1);
         // create and add a new Bird object
         this.bird = new Bird(this.game, 100, this.game.height/2);
         this.game.add.existing(this.bird);
-
-        MicUtil.getMicAudioStream(
-            function(stream) {
+        var playObj = this;
+        MicUtil.getMicAudioStream(function(stream) {
+              // playObj.stream = stream;
               buffer = new AudioBuffer(audioContext, stream, 1024);
               buffer.addProcessor(updatePitch);
             }
-          );
+        );
         var audioContext = CurrentAudioContext.getInstance();
         var detector = PitchDetector.getDetector(audioContext.sampleRate, this.game.isMan);
         if (this.game.gender == "man") {
@@ -61,18 +75,15 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
             this.lowerNoteLimit = 54;
         }
         this.yScale = d3.scale.linear()
-            .domain([this.game.lowerNote, this.game.upperNote])
+            .domain([this.game.lowerNote+1, this.game.upperNote-1])
             .range([this.game.height - 124, 0]);
-        var playObj = this;
         var updatePitch = function(data) {
-           
+            
             var pitch = detector.findPitch(data);
              // range 0-1
             var volume = 2*IntensityFilter.rootMeanSquare(data);
+            playObj.slider.setVolume(volume);
             if (volume < playObj.game.noise/100) return;
-            if (!playObj.start) {
-                if (!playObj.bird.animate().isRunning) playObj.bird.animate().start();
-            }
             if (pitch == 0) return;
             // can't be human voice
             if (pitch > 1400) return;
@@ -103,7 +114,6 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
             startButton.inputEnabled = true;
             startButton.events.onInputDown.add(this.startGame, this);
             this.instructionGroup.add(startButton);
-            this.slider = new Slider(this.game, this.instructionGroup, this.game.width/2, 285, 100);
             this.instructionGroup.setAll('anchor.x', 0.5);
             this.instructionGroup.setAll('anchor.y', 0.5);
         } else {
@@ -116,7 +126,6 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         this.scoreSound = this.game.add.audio('score');
         this.postCreate();
         //TODO: star collect sound
-        
       },
       postCreate: function() {
         // Abstract method
@@ -145,18 +154,27 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
                 this.game.physics.arcade.overlap(this.bird, starGroup, this.collectStar, null, this);
             }, this);
         }
+        if (this.bird.alive && this.duration) {
+            this.timeElapsed = this.game.time.totalElapsedSeconds();
+            var percentage = this.timeElapsed/this.duration;
+            this.graphics.moveTo(this.graphics.x, 1);
+            this.graphics.lineTo(this.game.width*percentage, 1);
+        }
       },
       shutdown: function() {
         this.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR);
         this.bird.destroy();
-        this.pipes.destroy();
-        this.scoreboard.destroy();
+        if (this.pipes) this.pipes.destroy();
+        if (this.scoreboard) this.scoreboard.destroy();
+        // this.stream.getTracks()[0].stop();
+        this.slider.destroy();
       },
       startGame: function() {
         if(!this.bird.alive && !this.gameover) {
             this.bird.body.allowGravity = true;
             this.bird.alive = true;
             this.start = true;
+            this.game.time.reset();
             // add a timer
             //this.pipeGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 1.25, this.generatePipes, this);
             this.pipeGenerator = this.game.time.events.add(Phaser.Timer.SECOND*0.5, this.generatePipes, this);
@@ -180,12 +198,23 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
             this.scoreText.setText(this.score.toString());
             this.scoreSound.play();
       },
+      medals: function(score) {
+            var medals = 0;
+            if(score >= this.maxPipeCount && score < 2*this.maxPipeCount) {
+                medals = 1;
+            } else if(score >= 2*this.maxPipeCount && score < 3*this.maxPipeCount) {
+                medals = 2;
+            } else if (score >= 3*this.maxPipeCount) {
+                medals = 3;
+            }
+            return medals;
+      },
       deathHandler: function(bird, enemy) {
         //if (enemy instanceof Pipe || enemy instanceof Saw){
             this.pipeHitSound.play();
             this.scoreboard = new Scoreboard(this.game, false);
             this.game.add.existing(this.scoreboard);
-            this.scoreboard.show(this.score);
+            this.scoreboard.show(this.score, this.medals(this.score));
 
             this.gameover = true;
             this.bird.kill();
@@ -198,7 +227,7 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
       levelCompleted: function() {
             this.scoreboard = new Scoreboard(this.game, true);
             this.game.add.existing(this.scoreboard);
-            this.scoreboard.show(this.score);
+            this.scoreboard.show(this.score, this.medals(this.score));
 
             this.gameover = true;
             this.bird.kill();

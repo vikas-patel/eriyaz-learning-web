@@ -1,29 +1,2 @@
 <div id="voicematch2" ng-controller='VoiceMatch2Ctrl as ctrl'>
-    <div horizontal layout center justified>
-    <div>
-        <paper-icon-button icon="settings-voice" ng-click="startMic()"></paper-icon-button>
-    </div>
-    <select ng-model="gender">
-        <option value="man">Man</option>
-        <option value="woman">Woman</option>
-    </select> &nbsp;
-    <select ng-model="level" ng-options="l.name for l in levels"></select>
-    <div flex></div>
-    </div>
-    <div horizontal layout center justified>
-        <div style="padding: 0px 8px">Score: {{score}}</div>
-        <div>Best Score: {{bestScore}}</div>
-        <div flex></div>
-    </div>
-
-    <div id="display"></div>
-
-    <div class="container settings">
-                <button class="small" ng-disabled="newDisabled" ng-click="newSequence();">new</button>
-                <button class="small" ng-disabled="repeatDisabled" ng-click="repeat();">repeat</button>
-                <button class="large" ng-disabled="playMyDisabled" ng-click="playMyGuess();">play my</button>
-                <button class="large" ng-disabled="checkDisabled" ng-click="showAns();">show ans</button>
-            </div>
-   
-    
 </div>

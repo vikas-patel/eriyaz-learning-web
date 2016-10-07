@@ -42,7 +42,8 @@ define(['bufferloader'], function(BufferLoader) {
 		source.buffer = this.bufferMap.get(midi);
 		source.connect(this.context.destination);
 		if (duration) {
-			source.start(startTime, 1.0);
+			// some mp3 files have gaps at start
+			source.start(startTime, 0.8);
 			source.stop(startTime + duration/1000);
 		} else {
 			source.start(startTime);

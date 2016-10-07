@@ -5,6 +5,9 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup'], function (Pa
 
 	Level.prototype = Object.create(Parent.prototype);
 	Level.prototype.constructor = Parent;
+    Level.prototype.postCreate = function() {
+        this.duration = 0.5 + this.maxPipeCount*3 + 1.5;
+    };
 	Level.prototype.checkScore = function(pipeGroup) {
         if(pipeGroup.exists && !pipeGroup.hasScored && 
         	(pipeGroup.topPipe.world.x <= this.bird.world.x || pipeGroup.bottomPipe.world.x <= this.bird.world.x)) {

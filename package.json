@@ -20,7 +20,7 @@
     "ejs": "latest",
     "express": "~4.9.0",
     "express-session": "~1.0.3",
-    "mongoose": "~4.1.12",
+    "mongoose": "~4.6.2",
     "mongoose-schema-extend": "latest",
     "morgan": "~1.0.0",
     "node-rest-client": "^1.5.1",

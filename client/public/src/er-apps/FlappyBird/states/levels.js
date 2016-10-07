@@ -5,32 +5,62 @@ define([], function () {
       },
       create: function() {
 
-        var totalLevels = 10;
-        if (this.game.starArray.length == 0) {
-            // default level 1 is unlocked
-            this.game.starArray.push({
+        var totalLevels = 13;
+        var voiceLevel = 0;
+        var rangeLevel = 3;
+        var keys = _.keys(this.game.starArray);
+        keys = _.map(keys, function(num){ return parseInt(num);});
+        
+        var keysVoice = _.filter(keys, function(num){ return num<rangeLevel });
+        var maxKeyVoice = _.max(keysVoice);
+
+        var keysRange = _.filter(keys, function(num){ return num<totalLevels+1});
+        var maxKeyRange = _.max(keysRange);
+        if (this.game.rootNote){
+            if (!this.game.starArray[voiceLevel+1]) {
+                this.game.starArray[voiceLevel+1] = {
                     "user": localStorage.userId,
                     "appName": "flappybird",
-                    "level": this.game.starArray.length+1,
+                    "level": voiceLevel+1,
                     "score": 0,
                     "medal": 0
-            });
-        } else if (this.game.starArray.length < totalLevels && this.game.starArray[this.game.starArray.length-1].medal > 0) {
-            // unlock next level
-            this.game.starArray.push({
+                }
+            } else if (maxKeyVoice < rangeLevel -1 && this.game.starArray[maxKeyVoice].medal > 0) {
+                this.game.starArray[maxKeyVoice+1] = {
                     "user": localStorage.userId,
                     "appName": "flappybird",
-                    "level": this.game.starArray.length+1,
+                    "level": maxKeyVoice+1,
                     "score": 0,
                     "medal": 0
-            });
+                }
+            }
         }
+        if (this.game.upperNote && this.game.lowerNote){
+            if (!this.game.starArray[rangeLevel+1]) {
+                this.game.starArray[rangeLevel+1] = {
+                    "user": localStorage.userId,
+                    "appName": "flappybird",
+                    "level": rangeLevel+1,
+                    "score": 0,
+                    "medal": 0
+                }
+            } else if (maxKeyRange < totalLevels && this.game.starArray[maxKeyRange].medal > 0) {
+                this.game.starArray[maxKeyRange+1] = {
+                    "user": localStorage.userId,
+                    "appName": "flappybird",
+                    "level": maxKeyRange+1,
+                    "score": 0,
+                    "medal": 0
+                }
+            }
+        }
+        
         this.title = this.game.add.sprite(this.game.width/2, this.game.height/10,'title');
         this.title.anchor.setTo(0.5, 0.5);
         // creation of the thumbails group
         this.levelThumbsGroup = this.game.add.group();
         // number of thumbnail cololumns
-        var thumbCols = 4;
+        var thumbCols = 5;
         // width of a thumbnail, in pixels
         this.thumbWidth = 64*2;
         // height of a thumbnail, in pixels
@@ -47,6 +77,29 @@ define([], function () {
                  // which level does the thumbnail refer?
                 var levelNumber = i*thumbCols+j+l*(thumbRows*thumbCols);
                 if (levelNumber > totalLevels) break;
+                if (levelNumber == 3) {
+                    var levelThumb = this.game.add.button(offsetX+j*(this.thumbWidth+thumbSpacing), offsetY+i*(this.thumbHeight+thumbSpacing), "setting", this.thumbClicked, this);
+                    levelThumb.frame = 0;
+                    levelThumb.levelNumber = levelNumber;
+                    levelThumb.scale.setTo(2, 2);
+                    // adding the level thumb to the group
+                    this.levelThumbsGroup.add(levelThumb);
+                    // if the level is playable, also write level number
+                    var style = {
+                        font: "28px Arial",
+                        fill: "#ffffff",
+                        wordWrap: true, 
+                        wordWrapWidth: this.thumbWidth,
+                        align: "center"
+                    };
+                    var levelText = this.game.add.text(levelThumb.x+ this.thumbWidth/2,levelThumb.y+5,"Set\nRange",style);
+                    levelText.anchor.setTo(0.5, 0);
+                    // levelText.width = this.thumbWidth;
+                    levelText.setShadow(2, 2, 'rgba(0,0,0,0.5)', 1);
+                    this.levelThumbsGroup.add(levelText);
+                    continue;
+                }
+
                 if (levelNumber == 0) {
                     var levelThumb = this.game.add.button(offsetX, offsetY, "setting", this.thumbClicked, this);
                     levelThumb.frame = 0;
@@ -62,8 +115,8 @@ define([], function () {
                         wordWrapWidth: this.thumbWidth,
                         align: "center"
                     };
-                    var levelText = this.game.add.text(levelThumb.x,levelThumb.y+5,"Set Voice\nRange",style);
-                    // levelText.anchor.setTo(0.5, 0);
+                    var levelText = this.game.add.text(levelThumb.x+ this.thumbWidth/2,levelThumb.y+5,"Set\nVoice",style);
+                    levelText.anchor.setTo(0.5, 0);
                     // levelText.width = this.thumbWidth;
                     levelText.setShadow(2, 2, 'rgba(0,0,0,0.5)', 1);
                     this.levelThumbsGroup.add(levelText);
@@ -72,8 +125,14 @@ define([], function () {
                 // adding the thumbnail, as a button which will call thumbClicked function if clicked           
                 var levelThumb = this.game.add.button(offsetX+j*(this.thumbWidth+thumbSpacing), offsetY+i*(this.thumbHeight+thumbSpacing), "levels", this.thumbClicked, this);  
                 // shwoing proper frame
-                if (levelNumber <= this.game.starArray.length && this.game.upperNote && this.game.lowerNote) {
-                    levelThumb.frame = this.game.starArray[levelNumber-1].medal;
+                var isVoiceSet = false;
+                if (levelNumber < 3) {
+                    isVoiceSet = this.game.rootNote ? true: false;
+                } else {
+                    isVoiceSet = this.game.upperNote && this.game.lowerNote ? true: false;
+                }
+                if (this.game.starArray[levelNumber] && isVoiceSet) {
+                    levelThumb.frame = this.game.starArray[levelNumber].medal;
                 } else {
                     levelThumb.frame = 4;
                 }

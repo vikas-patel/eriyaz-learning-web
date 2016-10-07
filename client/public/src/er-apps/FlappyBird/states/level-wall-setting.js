@@ -23,10 +23,9 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/wall', 'music-calc', '../
         // }
         this.bird.body.allowGravity = true;
         this.yScale = d3.scale.linear()
-            .domain([-12, 12])
-            .range([this.game.height - 80, 0]);
+            .domain([-12, 14])
+            .range([this.game.height - this.ground.height, 0]);
         this.maxPipeCount = 10;
-        console.log(this.game.gender);
         if (this.game.gender == "man") {
             this.rootNote = 50;
         } else if (this.game.gender == "child") {
@@ -40,7 +39,8 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/wall', 'music-calc', '../
         this.lowerNote = this.rootNote;
         this.isUp = true;
         this.isDown = false;
-        this.pipeInGroup = 10;
+        this.pipeInUpGroup = 12;
+        this.pipeInDownGroup = 10;
         this.lastHighWall = null;
     };
 
@@ -48,7 +48,7 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/wall', 'music-calc', '../
         this.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR);
         this.bird.destroy();
         this.pipes.destroy();
-        this.board.destroy();
+        if (this.board) this.board.destroy();
     };
 
     Level.prototype.update = function() {
@@ -89,7 +89,7 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/wall', 'music-calc', '../
         console.log(this.upperNote + " " + this.lowerNote);
         this.board = new Settingboard(this.game);
         this.game.add.existing(this.board);
-        this.board.show(this.upperNote, this.lowerNote);
+        this.board.show(this.upperNote+1, this.lowerNote-1);
         this.gameover = true;
         this.bird.kill();
         this.pipes.callAll('stop');
@@ -99,8 +99,8 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/wall', 'music-calc', '../
 
     Level.prototype.updatePitch = function(pitch) {
         currInterval = Math.round(1200 * Math.log(pitch/this.rootFreq) / Math.log(2))/100;
-        console.log(currInterval);
         if (currInterval > -15 && currInterval < 18) {
+            // if (!this.gameover) console.log(Math.round(currInterval));
             this.bird.flap(this.yScale(currInterval));
         }
     };
@@ -110,16 +110,16 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/wall', 'music-calc', '../
             this.pipeGenerator = this.game.time.events.add(Phaser.Timer.SECOND*1, this.levelCompleted, this);
             return;
         }
-        var jump = (this.game.height - this.ground.height)/24;
+        var jump = (this.game.height - this.ground.height)/26;
         if (this.iterate == 0) {
             this.isDown = false;
             this.isUp = true;
-            for (var i = 0; i < this.pipeInGroup; i++) {
+            for (var i = 0; i < this.pipeInUpGroup; i++) {
                 this.subPipeGenerator = this.game.time.events.add(Phaser.Timer.SECOND*0.1*i, this.generateHighPitchPipes, this, i*jump);
                 this.subPipeGenerator.timer.start();
             }
         } else {
-            for (var i = 0; i < this.pipeInGroup; i++) {
+            for (var i = 0; i < this.pipeInDownGroup; i++) {
                 this.subPipeGenerator = this.game.time.events.add(Phaser.Timer.SECOND*0.1*i, this.generateLowPitchPipes, this, i*jump);
                 this.subPipeGenerator.timer.start();
             }
@@ -138,7 +138,7 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/wall', 'music-calc', '../
         wallGroup.setAll('body.velocity.x', -200);
         wallGroup.x = this.game.width;
         wallGroup.topPipe.anchor.setTo(0, 1);
-        wallGroup.y = (this.game.height - this.ground.height)/2 + increment;
+        wallGroup.y = this.yScale(0) + increment;
         this.pipeCount++;
     };
 
@@ -152,7 +152,7 @@ define(['./level', '../prefabs/PipeGroup', '../prefabs/wall', 'music-calc', '../
         wallGroup.setAll('body.velocity.x', -200);
         wallGroup.x = this.game.width;
         wallGroup.topPipe.anchor.setTo(0, 0);
-        wallGroup.y = (this.game.height - this.ground.height)/2 - increment;
+        wallGroup.y = this.yScale(0) - increment;
         this.lastHighWall = wallGroup;
         this.pipeCount++;
     };

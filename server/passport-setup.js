@@ -68,7 +68,7 @@ module.exports = function(passport) {
                 newUser.gender = req.body.gender;
                 newUser.name=req.body.name;
                 newUser.phone = req.body.mobile
-                newUser.isActive = false;
+                newUser.isActive = true;
                 
 				//creating NodeBB user
 				console.log("Creating user in NodeBB");

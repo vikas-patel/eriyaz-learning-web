@@ -14,7 +14,7 @@ requirejs.config({
         'angulartics': 'ext-libs/bower_components/angulartics/dist/angulartics.min',
         'angulartics-ga': 'ext-libs/bower_components/angulartics/dist/angulartics-ga.min',
         'angular-resource': 'ext-libs/bower_components/angular-resource/angular-resource',
-        'underscore': 'ext-libs/underscore',
+        'underscore': 'ext-libs/underscore-min',
         'order': 'ext-libs/requirejs-order.min',
         'ng-infinite-scroll': 'ext-libs/ng-infinite-scroll',
         'hot-keys': 'ext-libs/bower_components/angular-hotkeys/build/hotkeys',
@@ -50,7 +50,8 @@ requirejs.config({
         'timeMe' : 'ext-libs/TimeMe/TImeMe',
         'ng-table' : "ext-libs/bower_components/ng-table/dist/ng-table.min",
         'recorderworker' : 'er-libs/recorderworker',
-        'phaser': 'ext-libs/bower_components/phaser/build/phaser.min'
+        'phaser': 'ext-libs/bower_components/phaser/build/phaser.min',
+        'tone': 'ext-libs/bower_components/tone/build/Tone.min'
     },
 
     // Add modules that do not support AMD
@@ -92,7 +93,9 @@ requirejs.config({
         'phaser': {
             exports: 'Phaser'
         },
-
+        'tone': {
+            exports: 'Tone'
+        },
         //sountouch load order
         'soundtouch' : {
             deps: ['underscore','st-core','st-pipe','st-rate-transposer','st-buffer','st-filter','st-stretch']
