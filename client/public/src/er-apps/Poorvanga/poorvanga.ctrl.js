@@ -72,11 +72,11 @@ define(['./module', 'note', 'webaudioplayer', 'currentaudiocontext','tanpura', '
         $scope.avroh = false;
         $scope.feedback = "Start with New";
         $scope.rootNote = 56;
+        $scope.playTime = 200;
 
         var currThat;
         var marker = 0;
         var baseFreq = 261;
-        var playTime = 100;
         var slowPlayTime = 400;
         var tanpura = null;
 
@@ -118,7 +118,7 @@ define(['./module', 'note', 'webaudioplayer', 'currentaudiocontext','tanpura', '
                 }
                 currThat = thats[randomIndex];
                 $scope.feedback = "Which that is playing?";
-                playThat(currThat.model,playTime);
+                playThat(currThat.model,$scope.playTime);
             }
         };
 
@@ -154,7 +154,7 @@ define(['./module', 'note', 'webaudioplayer', 'currentaudiocontext','tanpura', '
         }
 
         $scope.repeat = function() {
-            playThat(currThat.model,playTime);
+            playThat(currThat.model,$scope.playTime);
         };
 
          $scope.slowRepeat = function() {
