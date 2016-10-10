@@ -506,7 +506,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(27);
+                     AppsInfoModel.setSelected(26);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -518,7 +518,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(28);
+                     AppsInfoModel.setSelected(27);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -567,6 +567,18 @@
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
                      AppsInfoModel.setSelected(31);
+                     UIModel.uiModel.showAppDialog = true;
+                 },
+                 resolve: {
+                     onLoggedOutRedirect: checkLoginAndRedirect
+                 }
+             }).
+             state('fastsinging', {
+                 url: '/fastsinging',
+                 onEnter: function(UIModel, AppsInfoModel) {
+                     UIModel.uiModel.showLoginDialog = false;
+                     UIModel.uiModel.showMenu = true;
+                     AppsInfoModel.setSelected(32);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {

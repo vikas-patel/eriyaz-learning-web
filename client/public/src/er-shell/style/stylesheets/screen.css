@@ -2573,43 +2573,43 @@ core-drawer-panel:not([narrow]) #navicon {
   fill: none;
 }
 
-/* line 2, ../../../er-apps/VoiceMatch2/main.scss */
-#voicematch2 #score {
+/* line 2, ../../../er-apps/FastSinging/main.scss */
+#fastsinging #score {
   float: right;
   margin-right: 10px;
   margin-top: 5px;
 }
-/* line 6, ../../../er-apps/VoiceMatch2/main.scss */
-#voicematch2 #score dt {
+/* line 6, ../../../er-apps/FastSinging/main.scss */
+#fastsinging #score dt {
   float: left;
   clear: left;
   width: 100px;
   text-align: left;
 }
-/* line 14, ../../../er-apps/VoiceMatch2/main.scss */
-#voicematch2 #score dt:after {
+/* line 14, ../../../er-apps/FastSinging/main.scss */
+#fastsinging #score dt:after {
   content: ":";
 }
-/* line 17, ../../../er-apps/VoiceMatch2/main.scss */
-#voicematch2 #score dd {
+/* line 17, ../../../er-apps/FastSinging/main.scss */
+#fastsinging #score dd {
   margin: 0 0 0 100px;
 }
-/* line 24, ../../../er-apps/VoiceMatch2/main.scss */
-#voicematch2 svg {
+/* line 24, ../../../er-apps/FastSinging/main.scss */
+#fastsinging svg {
   margin-top: 10px;
 }
-/* line 27, ../../../er-apps/VoiceMatch2/main.scss */
-#voicematch2 ul {
+/* line 27, ../../../er-apps/FastSinging/main.scss */
+#fastsinging ul {
   columns: 3;
   -webkit-columns: 3;
   -moz-columns: 3;
 }
-/* line 33, ../../../er-apps/VoiceMatch2/main.scss */
-#voicematch2 li button {
+/* line 33, ../../../er-apps/FastSinging/main.scss */
+#fastsinging li button {
   width: 60%;
 }
-/* line 46, ../../../er-apps/VoiceMatch2/main.scss */
-#voicematch2 .container {
+/* line 46, ../../../er-apps/FastSinging/main.scss */
+#fastsinging .container {
   box-sizing: border-box;
   width: 100%;
   padding: 3%;
@@ -2617,21 +2617,21 @@ core-drawer-panel:not([narrow]) #navicon {
   border-width: 1px;
   border-color: #E3E3E3;
 }
-/* line 59, ../../../er-apps/VoiceMatch2/main.scss */
-#voicematch2 #feedback {
+/* line 59, ../../../er-apps/FastSinging/main.scss */
+#fastsinging #feedback {
   font-weight: bold;
   border: none;
 }
-/* line 68, ../../../er-apps/VoiceMatch2/main.scss */
-#voicematch2 .x.axis line {
+/* line 68, ../../../er-apps/FastSinging/main.scss */
+#fastsinging .x.axis line {
   stroke: #ccc;
   stroke-width: 1px;
 }
-/* line 73, ../../../er-apps/VoiceMatch2/main.scss */
-#voicematch2 .x.axis .minor {
+/* line 73, ../../../er-apps/FastSinging/main.scss */
+#fastsinging .x.axis .minor {
   stroke-opacity: .5;
 }
-/* line 77, ../../../er-apps/VoiceMatch2/main.scss */
-#voicematch2 .x.axis path {
+/* line 77, ../../../er-apps/FastSinging/main.scss */
+#fastsinging .x.axis path {
   fill: none;
 }

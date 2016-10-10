@@ -74,6 +74,8 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
                 cancelCurrentLoop();
                 if (micStream)
                     micStream.stop();
+                tanpura.stop();
+
             });
 
             $scope.newSequence = function() {

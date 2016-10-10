@@ -234,6 +234,10 @@ requirejs.config({
         location: 'er-apps/VoiceMatch2',
         main: 'index'
     }, {
+        name: 'fastsinging',
+        location: 'er-apps/FastSinging',
+        main: 'index'
+    }, {
         name: 'tanpura',
         location: 'er-libs/tanpura',
         main: 'tanpura'

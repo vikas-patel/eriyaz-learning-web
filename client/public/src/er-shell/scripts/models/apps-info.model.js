@@ -320,6 +320,17 @@
         appUrl: 'er-apps/FreestylePhrases/main.html',
         aspectRatio: 5 / 3,
         show: false
+      }, {
+        name: 'FastSinging',
+        thumb: 'er-shell/images/fastsinging.jpg',
+        desc: 'Extract notes from a fast melody.',
+        href: '#fastsinging',
+        appUrl: 'er-apps/FastSinging/main.html',
+        aspectRatio: 3 / 4,
+        hotkeys: [
+          ['n', 'newSequence()'],
+           ['m', 'startMic()']
+        ]
       }];
       appsInfo.selectedIndex = -1;
       TimeMe.setIdleDurationInSeconds(60);
