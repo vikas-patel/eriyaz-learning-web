@@ -204,6 +204,17 @@
           ['a', 'showAns()']
         ]
       }, {
+        name: 'FasterNotes',
+        thumb: 'er-shell/images/fasternotes2.jpg',
+        desc: 'Speed up your note recognition.',
+        href: '#fasternotes2',
+        appUrl: 'er-apps/FasterNotes2/main.html',
+        aspectRatio: 3 / 4,
+        hotkeys: [
+          ['f', 'newThat()'],
+          ['a', 'showAns()']
+        ]
+      }, {
         name: 'RapidUpDown',
         thumb: 'er-shell/images/rapidupdown.jpg',
         desc: 'Speed Up your Up/Down recognition.',

@@ -2,7 +2,17 @@ define(['underscore'], function(_) {
 	var SequenceGen = function() {
 		var reGaOpts = [1,2,3,4];
 		var dhaNiOpts = [8,9,10,11];
+
+		var poorvangas = [
+			[0,2,4,5],
+			[0,2,3,5],
+			[0,1,3,5],
+			[0,1,4,5]
+		];
 		this.getRandomSequence = getRandomSequence;
+		this.getPoorvanga = getPoorvanga;
+		this.getPoorvangaShuffled = getPoorvangaShuffled;
+		this.getPoorvangaReversed = getPoorvangaReversed;
 
 		function getRandomSequence(numNotes) {
 			var reGa = _.shuffle(reGaOpts);
@@ -20,6 +30,19 @@ define(['underscore'], function(_) {
 			
 			return  _.shuffle(that).slice(0,numNotes);
 
+		}
+
+		function getPoorvanga() {
+			return poorvangas[Math.floor(Math.random()*poorvangas.length)];
+		}
+
+		function getPoorvangaShuffled() {
+			return _.shuffle(this.getPoorvanga());
+		}
+
+		function getPoorvangaReversed() {
+			var sequence = this.getPoorvanga();
+			return sequence.reverse();
 		}
 	};
 

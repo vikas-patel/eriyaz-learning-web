@@ -1,7 +1,9 @@
 define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'currentaudiocontext',
-        'music-calc', 'mic-util', 'pitchdetector', 'stabilitydetector', 'audiobuffer', 'tanpura', 'recorderworker'
+        'music-calc', 'mic-util', 'pitchdetector', 'stabilitydetector', 'audiobuffer', 'tanpura', 'recorderworker',
+        'intensityfilter'
     ],
-    function(app, sequenceGen, Display, Note, Player, CurrentAudioContext, MusicCalc, MicUtil, PitchDetector, StabilityDetector, AudioBuffer, Tanpura, recorderWorker) {
+    function(app, sequenceGen, Display, Note, Player, CurrentAudioContext, MusicCalc, MicUtil, PitchDetector,
+        StabilityDetector, AudioBuffer, Tanpura, recorderWorker, intensityFilter) {
         var sequence;
         var audioContext = CurrentAudioContext.getInstance();
         var player = new Player(audioContext);
@@ -101,7 +103,7 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
             };
 
             var singStartTime = 0;
-            var clock = new Clock(playTime, 14);
+            var clock = new Clock(playTime, 20);
             var sequenceHandler = {
                 noteSequence: [0, 0, 0, 0],
                 handleBeep: function(beepNum) {
@@ -114,7 +116,7 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
                         $scope.isSinging = true;
                     }
 
-                    if (beepNum == 13) {
+                    if (beepNum == 19) {
                         display.showNotes(this.noteSequence);
                         stopAndProcessRecording();
                         $scope.isSinging = false;
@@ -138,7 +140,7 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
 
             var isRecording = false;
             var recorder = function(data) {
-                if (isRecording) {
+                if (isRecording & intensityFilter.meanAbs(data) > 0.001) {
                     recorderWorker.postMessage({
                         command: 'record',
                         floatarray: data
@@ -178,7 +180,7 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
 
             function computePitchGraph(floatarray) {
                 var offset = 0;
-                var incr = 64;
+                var incr = 32;
                 var buffsize = 2048;
                 var pitchArray = [];
                 while (offset + buffsize < floatarray.length) {
@@ -186,7 +188,6 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
                     for (var i = 0; i < buffsize; i++) {
                         subarray[i] = floatarray[offset + i];
                     }
-                    // floatarray.subarray(offset,offset+buffsize);
                     var pitch = detector.findPitch(subarray);
                     if (pitch !== 0) {
                         PitchModel.currentFreq = pitch;
@@ -234,6 +235,7 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
                 clock.start();
 
                 currThat = sequenceGen.getRandomSequence(parseInt($scope.numNotes));
+                //currThat = sequenceGen.getPoorvangaShuffled();
                 sequenceHandler.noteSequence = currThat;
                 //playThat(currThat);
                 display.reset();

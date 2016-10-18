@@ -186,6 +186,10 @@ requirejs.config({
         location: 'er-apps/FasterNotes',
         main: 'index'
     }, {    
+        name: 'fasternotes2',
+        location: 'er-apps/FasterNotes2',
+        main: 'index'
+    }, {    
         name: 'rapidupdown',
         location: 'er-apps/RapidUpDown',
         main: 'index'

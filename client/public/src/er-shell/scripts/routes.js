@@ -429,12 +429,24 @@
                      onLoggedOutRedirect: checkLoginAndRedirect
                  }
              }).
+             state('fasternotes2', {
+                 url: '/fasternotes2',
+                 onEnter: function(UIModel, AppsInfoModel) {
+                     UIModel.uiModel.showLoginDialog = false;
+                     UIModel.uiModel.showMenu = true;
+                     AppsInfoModel.setSelected(20);
+                     UIModel.uiModel.showAppDialog = true;
+                 },
+                 resolve: {
+                     onLoggedOutRedirect: checkLoginAndRedirect
+                 }
+             }).
              state('rapidupdown', {
                  url: '/rapidupdown',
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(20);
+                     AppsInfoModel.setSelected(21);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -446,7 +458,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(21);
+                     AppsInfoModel.setSelected(22);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -458,7 +470,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(22);
+                     AppsInfoModel.setSelected(23);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -470,7 +482,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(23);
+                     AppsInfoModel.setSelected(24);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -482,7 +494,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(24);
+                     AppsInfoModel.setSelected(25);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -494,7 +506,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(25);
+                     AppsInfoModel.setSelected(26);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -506,7 +518,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(26);
+                     AppsInfoModel.setSelected(27);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -518,7 +530,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(27);
+                     AppsInfoModel.setSelected(28);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -530,7 +542,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(28);
+                     AppsInfoModel.setSelected(29);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -542,7 +554,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(29);
+                     AppsInfoModel.setSelected(30);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -554,7 +566,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(30);
+                     AppsInfoModel.setSelected(31);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -566,7 +578,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(31);
+                     AppsInfoModel.setSelected(32);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -578,7 +590,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(32);
+                     AppsInfoModel.setSelected(33);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
