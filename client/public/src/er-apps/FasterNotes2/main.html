@@ -1,10 +1,11 @@
-<div id="fasternotes2" ng-controller='FasterNotesCtrl as ctrl'>
+<div id="fasternotes2" ng-controller='FasterNotes2Ctrl as ctrl'>
     
     <div class="container">
         <input type="checkbox" ng-model="tanpuraOn"> Tanpura
     </div>
 
-    Duration <input type="text" name="duration" ng-model="duration"><br>
+    Note Duration <input type="text" name="noteDuration" ng-model="noteDuration"><br>
+    Transition Duration <input type="text" name="transitionDuration" ng-model="transitionDuration"><br>
     <div id="buttons">
         Scale:
         <select ng-model="rootNote">
@@ -26,7 +27,7 @@
     <div id="display"></div>
 
     <div class="container settings">
-                <button class="small" ng-disabled="newDisabled" ng-click="newThat();">new</button>
+                <button class="small" ng-disabled="newDisabled" ng-click="newSequence();">new</button>
                 <button class="small" ng-disabled="repeatDisabled" ng-click="repeat();">repeat</button>
                 <button class="large" ng-disabled="playMyDisabled" ng-click="playMyGuess();">play my</button>
                 <button class="large" ng-disabled="checkDisabled" ng-click="showAns();">show ans</button>

@@ -109,7 +109,7 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
                 handleBeep: function(beepNum) {
                     console.log(beepNum);
                     if (beepNum >= 2 && beepNum <= 6)
-                        clock.scheduleNote(this.noteSequence[beepNum - 2] + $scope.rootNote);
+                        clock.scheduleNote(this.noteSequence[beepNum - 2] + currRoot);
                     if (beepNum == 9) {
                         singStartTime = Date.now();
                         startRecording();

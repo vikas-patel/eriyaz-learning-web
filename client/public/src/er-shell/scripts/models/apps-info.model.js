@@ -211,7 +211,7 @@
         appUrl: 'er-apps/FasterNotes2/main.html',
         aspectRatio: 3 / 4,
         hotkeys: [
-          ['f', 'newThat()'],
+          ['f', 'newSequence()'],
           ['a', 'showAns()']
         ]
       }, {
