@@ -48,7 +48,8 @@ define([
     'fruitninja',
     'voicematch2',
     'voicematch2',
-    'fastsinging'
+    'fastsinging',
+    'singphrases'
 ], function(angular) {
     'use strict';
 
@@ -94,6 +95,7 @@ define([
         'singinggame2',
         'voicematch2',
         'fastsinging',
+        'singphrases',
         'ngResource',
         'angulartics',
         'angulartics.google.analytics',

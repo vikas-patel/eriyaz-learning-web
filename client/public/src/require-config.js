@@ -46,7 +46,7 @@ requirejs.config({
         'st-buffer' : 'ext-libs/soundtouch/buffer',
         'st-filter' : 'ext-libs/soundtouch/filter',
         'st-stretch' : 'ext-libs/soundtouch/stretch',
-        'soundtouch' : 'ext-libs/soundtouch/soundtouch',
+        'soundtouch' : 'ext-libs/soundtouch/soundtouch.min',
         'timeMe' : 'ext-libs/TimeMe/TImeMe',
         'ng-table' : "ext-libs/bower_components/ng-table/dist/ng-table.min",
         'recorderworker' : 'er-libs/recorderworker',
@@ -96,9 +96,8 @@ requirejs.config({
         'tone': {
             exports: 'Tone'
         },
-        //sountouch load order
         'soundtouch' : {
-            deps: ['underscore','st-core','st-pipe','st-rate-transposer','st-buffer','st-filter','st-stretch']
+            deps: ['underscore']
         }
     },
     packages: [{
@@ -240,6 +239,10 @@ requirejs.config({
     }, {
         name: 'fastsinging',
         location: 'er-apps/FastSinging',
+        main: 'index'
+    }, {
+        name: 'singphrases',
+        location: 'er-apps/SingPhrases',
         main: 'index'
     }, {
         name: 'tanpura',

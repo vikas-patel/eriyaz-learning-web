@@ -2698,3 +2698,66 @@ core-drawer-panel:not([narrow]) #navicon {
 #fastsinging .x.axis path {
   fill: none;
 }
+
+/* line 2, ../../../er-apps/SingPhrases/main.scss */
+#singphrases #score {
+  float: right;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+/* line 6, ../../../er-apps/SingPhrases/main.scss */
+#singphrases #score dt {
+  float: left;
+  clear: left;
+  width: 100px;
+  text-align: left;
+}
+/* line 14, ../../../er-apps/SingPhrases/main.scss */
+#singphrases #score dt:after {
+  content: ":";
+}
+/* line 17, ../../../er-apps/SingPhrases/main.scss */
+#singphrases #score dd {
+  margin: 0 0 0 100px;
+}
+/* line 24, ../../../er-apps/SingPhrases/main.scss */
+#singphrases svg {
+  margin-top: 10px;
+}
+/* line 27, ../../../er-apps/SingPhrases/main.scss */
+#singphrases ul {
+  columns: 3;
+  -webkit-columns: 3;
+  -moz-columns: 3;
+}
+/* line 33, ../../../er-apps/SingPhrases/main.scss */
+#singphrases li button {
+  width: 60%;
+}
+/* line 46, ../../../er-apps/SingPhrases/main.scss */
+#singphrases .container {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 3%;
+  border-top: solid;
+  border-width: 1px;
+  border-color: #E3E3E3;
+}
+/* line 59, ../../../er-apps/SingPhrases/main.scss */
+#singphrases #feedback {
+  font-weight: bold;
+  border: none;
+}
+/* line 68, ../../../er-apps/SingPhrases/main.scss */
+#singphrases .x.axis line {
+  stroke: #ccc;
+  stroke-width: 1px;
+}
+/* line 73, ../../../er-apps/SingPhrases/main.scss */
+#singphrases .x.axis .minor {
+  stroke-opacity: .5;
+}
+/* line 77, ../../../er-apps/SingPhrases/main.scss */
+#singphrases .x.axis path {
+  fill: none;
+}

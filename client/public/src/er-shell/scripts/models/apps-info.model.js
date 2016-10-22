@@ -339,7 +339,18 @@
         appUrl: 'er-apps/FastSinging/main.html',
         aspectRatio: 3 / 4,
         hotkeys: [
-          ['n', 'newSequence()'],
+          ['f', 'newSequence()'],
+           ['m', 'startMic()']
+        ]
+      }, {
+        name: 'SingPhrases',
+        thumb: 'er-shell/images/singphrases.jpg',
+        desc: 'Extract notes from a fast melody.',
+        href: '#singphrases',
+        appUrl: 'er-apps/SingPhrases/main.html',
+        aspectRatio: 3 / 4,
+        hotkeys: [
+          ['f', 'newSequence()'],
            ['m', 'startMic()']
         ]
       }];
