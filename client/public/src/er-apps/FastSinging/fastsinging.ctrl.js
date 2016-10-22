@@ -29,6 +29,7 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
             var baseFreq = 261;
             var playTime = 500;
             var timeAdjustment = 50;
+            var numNotes = 4;
 
             var currLoopId;
 
@@ -37,7 +38,8 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
             var tanpura = null;
 
             var currActiveNote = 0;
-
+            var initialTicks = 2;
+            var extraTicks = 8;
 
             var Clock = function(tickDuration, maxTicks) {
                 var intervalId = 0;
@@ -103,20 +105,20 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
             };
 
             var singStartTime = 0;
-            var clock = new Clock(playTime, 20);
+            var clock = new Clock(playTime, (numNotes + initialTicks) * 2 + extraTicks);
             var sequenceHandler = {
                 noteSequence: [0, 0, 0, 0],
                 handleBeep: function(beepNum) {
                     console.log(beepNum);
-                    if (beepNum >= 2 && beepNum <= 6)
-                        clock.scheduleNote(this.noteSequence[beepNum - 2] + currRoot);
-                    if (beepNum == 9) {
+                    if (beepNum >= initialTicks && beepNum <= initialTicks + numNotes)
+                        clock.scheduleNote(this.noteSequence[beepNum - initialTicks] + currRoot);
+                    if (beepNum == 2* initialTicks +numNotes) {
                         singStartTime = Date.now();
                         startRecording();
                         $scope.isSinging = true;
                     }
 
-                    if (beepNum == 19) {
+                    if (beepNum == (numNotes + initialTicks) * 2 + extraTicks - 1) {
                         display.showNotes(this.noteSequence);
                         stopAndProcessRecording();
                         $scope.isSinging = false;
@@ -180,7 +182,7 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
 
             function computePitchGraph(floatarray) {
                 var offset = 0;
-                var incr = 32;
+                var incr = 16;
                 var buffsize = 2048;
                 var pitchArray = [];
                 while (offset + buffsize < floatarray.length) {
@@ -222,6 +224,11 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
                 playTime = parseInt($scope.playTime);
                 display.setNoteDuration(playTime);
                 clock.setTickDuration(playTime);
+            });
+
+            $scope.$watch('numNotes', function() {
+                numNotes = parseInt($scope.numNotes);
+                clock.setTicks((numNotes + initialTicks) * 2 + extraTicks);
             });
 
             $scope.$on("$destroy", function() {

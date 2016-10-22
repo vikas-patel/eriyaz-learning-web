@@ -200,7 +200,7 @@ define(['d3'], function(d3) {
 				.enter()
 				.append("rect")
 				.attr("x", function(d, i) {
-					return timeScale(i * 32 / 48);
+					return timeScale(i * 16 / 48);
 				}).attr("y", function(d) {
 					return yScale(d);
 				}).attr("width", 1)
