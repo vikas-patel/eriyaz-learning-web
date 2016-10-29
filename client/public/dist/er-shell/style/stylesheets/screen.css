@@ -2,7 +2,7 @@
  * In this file you should write your main styles. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
-/* line 5, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 5, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -24,45 +24,45 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 22, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 24, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 26, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 28, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 30, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 103, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 32, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 116, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
   display: block;
 }
@@ -112,7 +112,7 @@ body #error dd {
 /* line 1, ../sass/pages/_front.scss */
 #front {
   font-family: sans-serif;
-  background-image: url('../../images/fort.jpg?1424883674'), radial-gradient(closest-side at 35% 45%, #e02006, #f16236, #e02006);
+  background-image: url('../../images/fort.jpg?1424756334'), radial-gradient(closest-side at 35% 45%, #e02006, #f16236, #e02006);
   /* Background image is centered vertically and horizontally at all times */
   background-position: center center;
   /* Background image doesn't tile */
@@ -1845,7 +1845,7 @@ core-drawer-panel:not([narrow]) #navicon {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 12, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/susy-2.2.2/sass/susy/output/support/_clearfix.scss */
+/* line 12, C:/Ruby193/lib/ruby/gems/1.9.1/gems/susy-2.2.2/sass/susy/output/support/_clearfix.scss */
 #rapidintervals .controls:after {
   content: " ";
   display: block;
@@ -2118,6 +2118,69 @@ core-drawer-panel:not([narrow]) #navicon {
   fill: none;
 }
 
+/* line 2, ../../../er-apps/FasterNotes2/main.scss */
+#fasternotes2 #score {
+  float: right;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+/* line 6, ../../../er-apps/FasterNotes2/main.scss */
+#fasternotes2 #score dt {
+  float: left;
+  clear: left;
+  width: 100px;
+  text-align: left;
+}
+/* line 14, ../../../er-apps/FasterNotes2/main.scss */
+#fasternotes2 #score dt:after {
+  content: ":";
+}
+/* line 17, ../../../er-apps/FasterNotes2/main.scss */
+#fasternotes2 #score dd {
+  margin: 0 0 0 100px;
+}
+/* line 24, ../../../er-apps/FasterNotes2/main.scss */
+#fasternotes2 svg {
+  margin-top: 10px;
+}
+/* line 27, ../../../er-apps/FasterNotes2/main.scss */
+#fasternotes2 ul {
+  columns: 3;
+  -webkit-columns: 3;
+  -moz-columns: 3;
+}
+/* line 33, ../../../er-apps/FasterNotes2/main.scss */
+#fasternotes2 li button {
+  width: 60%;
+}
+/* line 46, ../../../er-apps/FasterNotes2/main.scss */
+#fasternotes2 .container {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 3%;
+  border-top: solid;
+  border-width: 1px;
+  border-color: #E3E3E3;
+}
+/* line 59, ../../../er-apps/FasterNotes2/main.scss */
+#fasternotes2 #feedback {
+  font-weight: bold;
+  border: none;
+}
+/* line 68, ../../../er-apps/FasterNotes2/main.scss */
+#fasternotes2 .x.axis line {
+  stroke: #ccc;
+  stroke-width: 1px;
+}
+/* line 73, ../../../er-apps/FasterNotes2/main.scss */
+#fasternotes2 .x.axis .minor {
+  stroke-opacity: .5;
+}
+/* line 77, ../../../er-apps/FasterNotes2/main.scss */
+#fasternotes2 .x.axis path {
+  fill: none;
+}
+
 /* line 7, ../../../er-apps/RapidUpDown/main.scss */
 #rapidupdown .container-toplevel {
   width: 100%;
@@ -2152,7 +2215,7 @@ core-drawer-panel:not([narrow]) #navicon {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 12, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/susy-2.2.2/sass/susy/output/support/_clearfix.scss */
+/* line 12, C:/Ruby193/lib/ruby/gems/1.9.1/gems/susy-2.2.2/sass/susy/output/support/_clearfix.scss */
 #rapidupdown .controls:after {
   content: " ";
   display: block;
@@ -2425,6 +2488,12 @@ core-drawer-panel:not([narrow]) #navicon {
   width: 60%;
 }
 /* line 46, ../../../er-apps/Poorvanga/main.scss */
+#poorvanga li div {
+  display: inline;
+  width: 2px;
+  background-color: green;
+}
+/* line 51, ../../../er-apps/Poorvanga/main.scss */
 #poorvanga .container {
   box-sizing: border-box;
   width: 100%;
@@ -2433,7 +2502,7 @@ core-drawer-panel:not([narrow]) #navicon {
   border-width: 1px;
   border-color: #E3E3E3;
 }
-/* line 59, ../../../er-apps/Poorvanga/main.scss */
+/* line 64, ../../../er-apps/Poorvanga/main.scss */
 #poorvanga #feedback {
   font-weight: bold;
   border: none;
@@ -2473,7 +2542,7 @@ core-drawer-panel:not([narrow]) #navicon {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 12, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/susy-2.2.2/sass/susy/output/support/_clearfix.scss */
+/* line 12, C:/Ruby193/lib/ruby/gems/1.9.1/gems/susy-2.2.2/sass/susy/output/support/_clearfix.scss */
 #phraseshape .controls:after {
   content: " ";
   display: block;
@@ -2567,43 +2636,43 @@ core-drawer-panel:not([narrow]) #navicon {
   fill: none;
 }
 
-/* line 2, ../../../er-apps/VoiceMatch2/main.scss */
-#voicematch2 #score {
+/* line 2, ../../../er-apps/FastSinging/main.scss */
+#fastsinging #score {
   float: right;
   margin-right: 10px;
   margin-top: 5px;
 }
-/* line 6, ../../../er-apps/VoiceMatch2/main.scss */
-#voicematch2 #score dt {
+/* line 6, ../../../er-apps/FastSinging/main.scss */
+#fastsinging #score dt {
   float: left;
   clear: left;
   width: 100px;
   text-align: left;
 }
-/* line 14, ../../../er-apps/VoiceMatch2/main.scss */
-#voicematch2 #score dt:after {
+/* line 14, ../../../er-apps/FastSinging/main.scss */
+#fastsinging #score dt:after {
   content: ":";
 }
-/* line 17, ../../../er-apps/VoiceMatch2/main.scss */
-#voicematch2 #score dd {
+/* line 17, ../../../er-apps/FastSinging/main.scss */
+#fastsinging #score dd {
   margin: 0 0 0 100px;
 }
-/* line 24, ../../../er-apps/VoiceMatch2/main.scss */
-#voicematch2 svg {
+/* line 24, ../../../er-apps/FastSinging/main.scss */
+#fastsinging svg {
   margin-top: 10px;
 }
-/* line 27, ../../../er-apps/VoiceMatch2/main.scss */
-#voicematch2 ul {
+/* line 27, ../../../er-apps/FastSinging/main.scss */
+#fastsinging ul {
   columns: 3;
   -webkit-columns: 3;
   -moz-columns: 3;
 }
-/* line 33, ../../../er-apps/VoiceMatch2/main.scss */
-#voicematch2 li button {
+/* line 33, ../../../er-apps/FastSinging/main.scss */
+#fastsinging li button {
   width: 60%;
 }
-/* line 46, ../../../er-apps/VoiceMatch2/main.scss */
-#voicematch2 .container {
+/* line 46, ../../../er-apps/FastSinging/main.scss */
+#fastsinging .container {
   box-sizing: border-box;
   width: 100%;
   padding: 3%;
@@ -2611,21 +2680,84 @@ core-drawer-panel:not([narrow]) #navicon {
   border-width: 1px;
   border-color: #E3E3E3;
 }
-/* line 59, ../../../er-apps/VoiceMatch2/main.scss */
-#voicematch2 #feedback {
+/* line 59, ../../../er-apps/FastSinging/main.scss */
+#fastsinging #feedback {
   font-weight: bold;
   border: none;
 }
-/* line 68, ../../../er-apps/VoiceMatch2/main.scss */
-#voicematch2 .x.axis line {
+/* line 68, ../../../er-apps/FastSinging/main.scss */
+#fastsinging .x.axis line {
   stroke: #ccc;
   stroke-width: 1px;
 }
-/* line 73, ../../../er-apps/VoiceMatch2/main.scss */
-#voicematch2 .x.axis .minor {
+/* line 73, ../../../er-apps/FastSinging/main.scss */
+#fastsinging .x.axis .minor {
   stroke-opacity: .5;
 }
-/* line 77, ../../../er-apps/VoiceMatch2/main.scss */
-#voicematch2 .x.axis path {
+/* line 77, ../../../er-apps/FastSinging/main.scss */
+#fastsinging .x.axis path {
+  fill: none;
+}
+
+/* line 2, ../../../er-apps/SingPhrases/main.scss */
+#singphrases #score {
+  float: right;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+/* line 6, ../../../er-apps/SingPhrases/main.scss */
+#singphrases #score dt {
+  float: left;
+  clear: left;
+  width: 100px;
+  text-align: left;
+}
+/* line 14, ../../../er-apps/SingPhrases/main.scss */
+#singphrases #score dt:after {
+  content: ":";
+}
+/* line 17, ../../../er-apps/SingPhrases/main.scss */
+#singphrases #score dd {
+  margin: 0 0 0 100px;
+}
+/* line 24, ../../../er-apps/SingPhrases/main.scss */
+#singphrases svg {
+  margin-top: 10px;
+}
+/* line 27, ../../../er-apps/SingPhrases/main.scss */
+#singphrases ul {
+  columns: 3;
+  -webkit-columns: 3;
+  -moz-columns: 3;
+}
+/* line 33, ../../../er-apps/SingPhrases/main.scss */
+#singphrases li button {
+  width: 60%;
+}
+/* line 46, ../../../er-apps/SingPhrases/main.scss */
+#singphrases .container {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 3%;
+  border-top: solid;
+  border-width: 1px;
+  border-color: #E3E3E3;
+}
+/* line 59, ../../../er-apps/SingPhrases/main.scss */
+#singphrases #feedback {
+  font-weight: bold;
+  border: none;
+}
+/* line 68, ../../../er-apps/SingPhrases/main.scss */
+#singphrases .x.axis line {
+  stroke: #ccc;
+  stroke-width: 1px;
+}
+/* line 73, ../../../er-apps/SingPhrases/main.scss */
+#singphrases .x.axis .minor {
+  stroke-opacity: .5;
+}
+/* line 77, ../../../er-apps/SingPhrases/main.scss */
+#singphrases .x.axis path {
   fill: none;
 }
