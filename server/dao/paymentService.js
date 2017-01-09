@@ -19,8 +19,9 @@ exports.fetchUpdatePaymentDetails = function(req, res) {
 			res.redirect("/signup/sorry.html");
 			return;
 		}
+		console.log(data);
 		var payment = data.payment;
-		console.log(payment);
+
 		if (!payment) {
 			res.redirect("/signup/sorry.html");
 			return;
