@@ -2,6 +2,7 @@ var express = require('express');
 var request = require('request');
 var path = require('path');
 var userDao = require('./dao/userDao.js');
+var paymentService = require('./dao/paymentService.js');
 var exerciseDao = require('./dao/exerciseDao.js');
 var userSchema  = require('./model/user.js');
 var mongoose = require('mongoose');
@@ -19,7 +20,14 @@ module.exports = function(app, passport) {
 	// app.use('/static',isLoggedIn);
 	// app.use('/:var', isLoggedIn);
 	// app.use(express.static(path.join(__dirname, '..', 'public')));
+	var path_static;
+	if ('development' == app.get('env')) {
+		path_static = path.join(__dirname, '..', 'client', 'public', 'src');
+	} else {
+		path_static = path.join(__dirname, '..', 'client', 'public', 'dist');
+	}
 	
+	// redirect http request to https
 	if ('development' != app.get('env')) {
 		app.use(function(req, res, next) {
 		    if (req.headers['x-forwarded-proto'] != 'https') {
@@ -31,21 +39,21 @@ module.exports = function(app, passport) {
 		});
 	}
 	
-	app.get('/', function(req, res, next){
-		if (!req.isAuthenticated()) {
-			res.redirect("/landing/main.html");
-		} else {
-			next();
-		}
-	});
+	// app.get('/', function(req, res, next){
+	// 	if (!req.isAuthenticated()) {
+	// 		res.redirect("/landing/main.html");
+	// 	} else {
+	// 		next();
+	// 	}
+	// });
 	
 	app.use('/protected', isLoggedIn, express.static(path.join(__dirname, '..', 'protected')));
 	if ('development' == app.get('env')) {
-		app.use(express.static(path.join(__dirname, '..', 'client', 'public', 'src')));
+		app.use(express.static(path_static));
 		app.use('/dist',express.static(path.join(__dirname, '..', 'client', 'public', 'dist')));
 	} else {
 		// app.use('/dev',express.static(path.join(__dirname, '..', 'client', 'public', 'src')));
-		app.use(express.static(path.join(__dirname, '..', 'client', 'public', 'dist')));
+		app.use(express.static(path_static));
 	}
 
 
@@ -81,6 +89,27 @@ module.exports = function(app, passport) {
 		    }
 		);
 	    
+	});
+
+	app.get('/signup/confirmation', function(req, res, next) {
+		paymentService.fetchUpdatePaymentDetails(req, res);
+		// payment status success
+		if (req.query.status == "success") {
+			// show success page
+			//res.sendFile(path.join(path_static, 'signup', 'confirmation.html'));
+		} else {
+			// show failed page
+			//res.sendFile(path.join(path_static, 'signup', 'sorry.html'));
+		}
+	});
+
+	app.post('/signup/confirmation', function(req, res, next) {
+		console.log("webhook post from instamojo.");
+		console.log(req.body);
+		var months = 3;
+		if (req.query.months) months = parseInt(req.query.months);
+		paymentService.updatePaymentDetails(req.body, months);
+		res.send(200);
 	});
 	
 	app.post('/users', isLoggedIn, userDao.save);

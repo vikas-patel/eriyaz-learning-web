@@ -322,3 +322,13 @@ exports.updateLastLogin = function(email) {
 			if (err) console.log("Error while updating last_login");
 		});
 }
+
+exports.updateSubscriptionDate = function(email, start_date, end_date) {
+	User
+		.update({
+			'local.email': email
+		},{$set:{'subscription_start_date':start_date, 'subscription_end_date':end_date}})
+		.exec(function(err, cnt) {
+			if (err) console.log("Error while updating subscription dates");
+		});
+}
