@@ -92,6 +92,7 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/signup/confirmation', function(req, res, next) {
+		console.log("payment confirmation:" + req.query)
 		paymentService.fetchUpdatePaymentDetails(req, res);
 		// payment status success
 		if (req.query.status == "success") {
@@ -106,6 +107,7 @@ module.exports = function(app, passport) {
 	app.post('/signup/confirmation', function(req, res, next) {
 		console.log("webhook post from instamojo.");
 		console.log(req.body);
+		console.log("months:"req.query.months);
 		var months = 3;
 		if (req.query.months) months = parseInt(req.query.months);
 		paymentService.updatePaymentDetails(req.body, months);

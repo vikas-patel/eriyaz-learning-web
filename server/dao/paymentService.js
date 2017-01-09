@@ -6,6 +6,7 @@ var instamojo=require('instamojo-node');
 var api=new instamojo('a8168b9c010af3cbcefb40e81157b08c','678982f4c236c37eed841efb63368814');
 // payment-id: MOJO5c03000J32400262
 exports.fetchUpdatePaymentDetails = function(req, res) {
+	console.log("payment_id:" + req.query.payment_id);
 	if (!req.query.payment_id) {
 		console.error("Error: payment_id is undefined.");
 		res.redirect("/signup/sorry.html");
@@ -19,11 +20,11 @@ exports.fetchUpdatePaymentDetails = function(req, res) {
 			return;
 		}
 		var payment = data.payment;
+		console.log(payment);
 		if (!payment) {
 			res.redirect("/signup/sorry.html");
 			return;
 		}
-		console.log(payment);
 		var months = 3;
 		if (req.query.months) months = parseInt(req.query.months);
 		exports.updatePaymentDetails(payment, months);
