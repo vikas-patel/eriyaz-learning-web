@@ -1,0 +1,18 @@
+<div id="fastsinging" ng-controller='FastSingingCtrl as ctrl'>
+    
+    <div>
+        <paper-icon-button icon="settings-voice" ng-click="startMic()"></paper-icon-button>
+    </div>
+    Duration <input type="text" ng-model="playTime"><br>
+    Notes <input type="text" ng-model="numNotes"><br>
+    Root Note <input type="text" ng-model="rootNote"><br>
+    
+
+    <div id="display"></div>
+
+    <div class="container settings">
+        <button class="small" ng-disabled="newDisabled" ng-click="newSequence();">new</button>
+    </div>
+   
+    
+</div>
