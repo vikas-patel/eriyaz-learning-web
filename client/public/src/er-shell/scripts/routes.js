@@ -225,12 +225,24 @@
                      onLoggedOutRedirect: checkLoginAndRedirect
                  }
              }).
+             state('songpractice', {
+                 url: '/songpractice',
+                 onEnter: function(UIModel, AppsInfoModel) {
+                     UIModel.uiModel.showLoginDialog = false;
+                     UIModel.uiModel.showMenu = true;
+                     AppsInfoModel.setSelected(3);
+                     UIModel.uiModel.showAppDialog = true;
+                 },
+                 resolve: {
+                     onLoggedOutRedirect: checkLoginAndRedirect
+                 }
+             }).
              state('alankars', {
                  url: '/alankars',
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(3);
+                     AppsInfoModel.setSelected(4);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -242,7 +254,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(4);
+                     AppsInfoModel.setSelected(5);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -254,7 +266,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(5);
+                     AppsInfoModel.setSelected(6);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -263,18 +275,6 @@
              }).
              state('melodygraph', {
                  url: '/melodygraph',
-                 onEnter: function(UIModel, AppsInfoModel) {
-                     UIModel.uiModel.showLoginDialog = false;
-                     UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(6);
-                     UIModel.uiModel.showAppDialog = true;
-                 },
-                 resolve: {
-                     onLoggedOutRedirect: checkLoginAndRedirect
-                 }
-             }).
-             state('swarspace', {
-                 url: '/swarspace',
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
@@ -506,7 +506,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(27);
+                     AppsInfoModel.setSelected(26);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -518,7 +518,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(28);
+                     AppsInfoModel.setSelected(27);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -567,6 +567,18 @@
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
                      AppsInfoModel.setSelected(31);
+                     UIModel.uiModel.showAppDialog = true;
+                 },
+                 resolve: {
+                     onLoggedOutRedirect: checkLoginAndRedirect
+                 }
+             }).
+             state('swarspace', {
+                 url: '/swarspace',
+                 onEnter: function(UIModel, AppsInfoModel) {
+                     UIModel.uiModel.showLoginDialog = false;
+                     UIModel.uiModel.showMenu = true;
+                     AppsInfoModel.setSelected(32);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {

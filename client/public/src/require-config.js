@@ -234,6 +234,10 @@ requirejs.config({
         location: 'er-apps/VoiceMatch2',
         main: 'index'
     }, {
+        name: 'songpractice',
+        location: 'er-apps/SongPractice',
+        main: 'index'
+    }, {
         name: 'tanpura',
         location: 'er-libs/tanpura',
         main: 'tanpura'
