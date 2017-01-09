@@ -35,7 +35,7 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
                     console.log("null action");
                 };
                 this.nextBeepAction = nullAction;
-                var startTime1 = audioContext.currentTime + beatDuration / 1000;
+                var startTime1 = audioContext.currentTime + tickDuration / 1000;
 
                 this.registerWatcher = function(watcher) {
                     this.watcher = watcher;
@@ -46,7 +46,7 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
                     var local = this;
                     intervalId = setInterval(function() {
                         player.scheduleNote(880, startTime1, 40);
-                        startTime1 = startTime1 + beatDuration / 1000;
+                        startTime1 = startTime1 + tickDuration / 1000;
                         local.callScheduledAction();
                         local.watcher.handleBeep();
                     }, tickDuration);
@@ -57,7 +57,7 @@ define(['./module', './sequencegen', './display', './exercises', 'note', 'webaud
 
                 this.scheduleNote = function(noteNum) {
                     //schedule note for next beep.  
-                    player.scheduleNote(MusicCalc.midiNumToFreq(noteNum), startTime1, beatDuration);
+                    player.scheduleNote(MusicCalc.midiNumToFreq(noteNum), startTime1, tickDuration);
                 };
 
                 this.scheduleAction = function(callback) {

@@ -34,6 +34,7 @@ define([
     'melakarta',
     'melakarta2',
     'fasternotes',
+    'fasternotes2',
     'rapidupdown',
     'extractnotes',
     'singsargam',
@@ -45,8 +46,10 @@ define([
     'singinggame2',
     'flappybird',
     'fruitninja',
-    'voicematch2'
-    
+    'voicematch2',
+    'voicematch2',
+    'fastsinging',
+    'singphrases'
 ], function(angular) {
     'use strict';
 
@@ -78,6 +81,7 @@ define([
         'melakarta',
         'melakarta2',
         'fasternotes',
+        'fasternotes2',
         'rapidupdown',
         'extractnotes',
         'singsargam',
@@ -90,6 +94,8 @@ define([
         'singinggame',
         'singinggame2',
         'voicematch2',
+        'fastsinging',
+        'singphrases',
         'ngResource',
         'angulartics',
         'angulartics.google.analytics',

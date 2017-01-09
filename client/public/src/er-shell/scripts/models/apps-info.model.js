@@ -204,6 +204,17 @@
           ['a', 'showAns()']
         ]
       }, {
+        name: 'FasterNotes',
+        thumb: 'er-shell/images/fasternotes2.jpg',
+        desc: 'Speed up your note recognition.',
+        href: '#fasternotes2',
+        appUrl: 'er-apps/FasterNotes2/main.html',
+        aspectRatio: 3 / 4,
+        hotkeys: [
+          ['f', 'newSequence()'],
+          ['a', 'showAns()']
+        ]
+      }, {
         name: 'RapidUpDown',
         thumb: 'er-shell/images/rapidupdown.jpg',
         desc: 'Speed Up your Up/Down recognition.',
@@ -320,6 +331,28 @@
         appUrl: 'er-apps/FreestylePhrases/main.html',
         aspectRatio: 5 / 3,
         show: false
+      }, {
+        name: 'FastSinging',
+        thumb: 'er-shell/images/fastsinging.jpg',
+        desc: 'Extract notes from a fast melody.',
+        href: '#fastsinging',
+        appUrl: 'er-apps/FastSinging/main.html',
+        aspectRatio: 3 / 4,
+        hotkeys: [
+          ['f', 'newSequence()'],
+           ['m', 'startMic()']
+        ]
+      }, {
+        name: 'SingPhrases',
+        thumb: 'er-shell/images/singphrases.jpg',
+        desc: 'Extract notes from a fast melody.',
+        href: '#singphrases',
+        appUrl: 'er-apps/SingPhrases/main.html',
+        aspectRatio: 3 / 4,
+        hotkeys: [
+          ['f', 'newSequence()'],
+           ['m', 'startMic()']
+        ]
       }];
       appsInfo.selectedIndex = -1;
       TimeMe.setIdleDurationInSeconds(60);
