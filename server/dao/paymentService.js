@@ -2,9 +2,9 @@ var userDao = require('./userDao.js');
 var Payment = require('../model/payment.js');
 var User = require('../model/user.js');
 var instamojo=require('instamojo-node');
-//var api=new instamojo('afca9951edde252d1210e03634bb4fd2','6a97903415e4f2a3ba9c03da216a4465');
+var api=new instamojo('afca9951edde252d1210e03634bb4fd2','6a97903415e4f2a3ba9c03da216a4465');
 //sandbox
-var api=new instamojo('a8168b9c010af3cbcefb40e81157b08c','678982f4c236c37eed841efb63368814');
+//var api=new instamojo('a8168b9c010af3cbcefb40e81157b08c','678982f4c236c37eed841efb63368814');
 // payment-id: MOJO5c03000J32400262
 exports.fetchUpdatePaymentDetails = function(req, res) {
 	console.log("payment_id:" + req.query.payment_id);
