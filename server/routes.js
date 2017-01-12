@@ -142,6 +142,8 @@ module.exports = function(app, passport) {
 	app.get('/teachers', isLoggedIn, userDao.findAllTeachers);
 	app.get('/teachers/students/:id', isLoggedIn, userDao.findAllStudentsByTeacher);
 
+	app.get('/payments/:email', isLoggedIn, userDao.findPaymentsByEmail);
+
 	app.post('/reset/:token', function(req, res) {
 	  async.waterfall([
 	    function(done) {
@@ -214,7 +216,8 @@ module.exports = function(app, passport) {
 			}
 			return res.json({
 				status: 'success',
-				user: user
+				user: user,
+				info: info
 			});
 		});
 	}

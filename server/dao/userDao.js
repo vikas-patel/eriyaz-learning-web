@@ -4,6 +4,7 @@ var UserTime = require('../model/user-time.js');
 var Journal = require('../model/journal.js');
 var Rule = require('../model/rule.js');
 var Medal = require('../model/medal.js');
+var Payment = require('../model/payment.js');
 var mongoose = require('mongoose');
 var _ = require('underscore');
 //TODO:
@@ -156,6 +157,27 @@ exports.findAllJournal = function(req, res) {
 		.exec(function(err, journals) {
 			if (err) res.send(err);
 			res.json(journals);
+		});
+}
+
+exports.findAllPayments = function(req, res) {
+	Payment
+		.find()
+		.exec(function(err, payments) {
+			if (err) res.send(err);
+			res.json(payments);
+		});
+}
+
+exports.findPaymentsByEmail = function(req, res) {
+	Payment
+		.find({
+			email: req.params.email
+		})
+		.sort({subscription_end_date:-1})
+		.exec(function(err, payments) {
+			if (err) res.send(err);
+			res.json(payments);
 		});
 }
 

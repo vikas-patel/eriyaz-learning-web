@@ -33,6 +33,7 @@
 			
 			.tab-content {
 				color: white;
+				padding-bottom: 5px;
 			}
 			
 			.signup-header h2 {
@@ -45,6 +46,10 @@
 			.im-checkout {
 				margin-left: auto;
 				margin-right: auto;
+			}
+			
+			.im-checkout .im-powered-link {
+				display: none !important;
 			}
 			/* iPads (portrait) ----------- */
 			@media only screen 
@@ -66,9 +71,6 @@
 				}
 			}
 		</style>
-        <!-- Google Fonts -->
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
-
     </head>
 
     <body>
@@ -101,30 +103,43 @@
 											<!-- /.package icon -->
 											<!-- /.package name -->
 											<h2>Quarterly Subscription</h2>
-											<p><i class="fa fa-inr"></i> 499/month</p>
-											<p><i class="fa fa-inr"></i>1497 for every 3 months</p>
+											<p>Rs 499/month</p>
+											<p>Rs 499x3 = Rs 1497 for every 3 months</p>
 											<div class="price-footer text-center">
+												<!--Production>
 												<a href="https://www.instamojo.com/eRiyaz/quarterly-subscription-d7ed4/" rel="im-checkout" data-behaviour="remote" data-style="light" data-text="Continue"></a>
 <script src="https://d2xwmjc4uy2hr5.cloudfront.net/im-embed/im-embed.min.js"></script>
+												<!-- -->
+												<!--Testing-->
+												<a href="https://test.instamojo.com/v_vikas_patel/quarterly-subscription/" rel="im-checkout" data-behaviour="remote" data-style="light" data-text="Continue"></a>
+<script src="https://d2xwmjc4uy2hr5.cloudfront.net/im-embed/im-embed.min.js"></script>
+												<!-- -->
 											</div>  
 										</div>
 										<div class="tab-pane text-center" id="tab2">
 											<!-- /.package icon -->
 											<!-- /.package name -->
 											<h2>Half Yearly Subscription</h2>
-											<p><i class="fa fa-inr"></i> 349/month</p>
-											<p><i class="fa fa-inr"></i>2094 for every 6 months</p>
+											<p>Rs 349/month</p>
+											<p>Rs 349x6 = Rs 2094 for every 6 months</p>
+											
 											<div class="price-footer text-center">
+											<!--Production>
 												<a href="https://www.instamojo.com/eRiyaz/half-yearly-subscription-0d5a6/" rel="im-checkout" data-behaviour="remote" data-style="light" data-text="Continue"></a>
 <script src="https://d2xwmjc4uy2hr5.cloudfront.net/im-embed/im-embed.min.js"></script>
+												<!-- -->
+												<!--Testing-->
+												<a href="https://test.instamojo.com/v_vikas_patel/half-yearly-subscription/" rel="im-checkout" data-behaviour="remote" data-style="light" data-text="Continue"></a>
+<script src="https://d2xwmjc4uy2hr5.cloudfront.net/im-embed/im-embed.min.js"></script>
+												<!-- -->
 											</div>
 										</div>
 										<div class="tab-pane text-center" id="tab3">
 											<!-- /.package icon -->
 											<!-- /.package name -->
 											<h2>Yearly Subscription</h2>
-											<p><i class="fa fa-inr"></i> 199/month</p>
-											<p><i class="fa fa-inr"></i>2388 for every 12 months</p>
+											<p>Rs 199/month</p>
+											<p>Rs 199x12 = Rs 2388 for every 12 months</p>
 											<div class="price-footer text-center">
 												<a href="https://www.instamojo.com/eRiyaz/yearly-subscription-53209/" rel="im-checkout" data-behaviour="remote" data-style="light" data-text="Continue"></a>
 <script src="https://d2xwmjc4uy2hr5.cloudfront.net/im-embed/im-embed.min.js"></script>
@@ -168,6 +183,10 @@
 			var name = allVars['name'];
 			var email = allVars['email'];
 			var phone = allVars['phone'];
+			var tab = allVars['tab'];
+			if (tab != "undefined" && typeof tab != "undefined") {
+				$('.nav-pills a[href="#' + tab + '"]').tab('show');
+			}
 			var paymentLinks = $("a[data-behaviour='remote']");
 			$.each(paymentLinks, function(key, value) {
 				var href = value.getAttribute('href') + "?";

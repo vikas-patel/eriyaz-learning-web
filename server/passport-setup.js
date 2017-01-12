@@ -8,6 +8,7 @@ var LocalStrategy   = require('passport-local').Strategy;
 // load up the user model
 var mongoose = require('mongoose');
 var User  = require('./model/user.js');
+var Payment = require('./model/payment.js');
 //var User = mongoose.model('User', userSchema);
 
 // expose this function to our app using module.exports
@@ -56,20 +57,33 @@ module.exports = function(passport) {
             if (user) {
                 return done(null, false,'That email is already taken.');
             } else {
-
 				// if there is no user with that email
                 // create the user
                 var newUser            = new User();
-
                 // set the user's local credentials
-                
                 newUser.local.email    = email;
                 newUser.local.password = newUser.generateHash(password); // use the generateHash function in our user model
                 newUser.gender = req.body.gender;
                 newUser.name=req.body.name;
                 newUser.phone = req.body.mobile
                 newUser.isActive = true;
-                
+                Payment.find({
+                    email: email
+                }).sort({subscription_end_date:-1})
+                .exec(function(err, payments) {
+                    if (err) return done(err);
+                    if (payments && payments.length > 0) {
+                        payment = payments[0];
+                        newUser.subscription_start_date = new Date();
+                        newUser.subscription_end_date = payment.subscription_end_date;
+                    }
+                    // save the user
+                    newUser.save(function(err) {
+                        if (err)
+                            throw err;
+                        return done(null, newUser, "Account created: <a href='/#/login'>Login</a>");
+                    });
+                });
 				//creating NodeBB user
 				// console.log("Creating user in NodeBB");
 				// nodebb.createUser(newUser.name, password, email, function(err, uid){
@@ -86,13 +100,6 @@ module.exports = function(passport) {
 				//Sending email to user
 				console.log("Sending email to admin");
 				notifier.NewUserEmail(newUser);
-				
-				// save the user
-                newUser.save(function(err) {
-                    if (err)
-                        throw err;
-                    return done(null, newUser, 'Waiting for admin approval.');
-                });
             }
 
         });

@@ -13,6 +13,7 @@ var PaymentSchema = mongoose.Schema({
     unit_price: String,
     amount: String,
     fees: String,
-    created_at: { type : Date, default : Date.now }
+    created_at: { type : Date, default : Date.now },
+    subscription_end_date: Date
 });
 module.exports = mongoose.model('Payment', PaymentSchema);
