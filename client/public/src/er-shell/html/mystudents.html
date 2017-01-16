@@ -22,6 +22,11 @@
 				</td>
 				<td data-title="'Last Login'" sortable="'last_login'"><a href="#history/{{user._id}}">{{user.last_login | date2:'doo MMM, EEE'}}</a></td>
 				<td data-title="'Joining Date'" sortable="'join_date'"><a href="#history/{{user._id}}">{{user.join_date | date2:'doo MMM, EEE'}}</a></td>
+
+				<td data-title="'Subscription Date'" sortable="'subscription_end_date'">
+					<a ng-if="!user.$edit" href="#history/{{user._id}}">{{user.subscription_end_date | date2:'doo MMM, EEE'}}</a>
+					<div ng-if="user.$edit"><input class="form-control" placeholder="yyyy-mm-dd" type="text" ng-model="user.subscription_end_date" /></div>
+				</td>
 				<td data-title="'Edit'" width="200">
 					<a ng-if="!user.$edit" href="" class="btn btn-default btn-xs" ng-click="user.$edit = true">Edit</a>
                 	<a ng-if="user.$edit" href="" class="btn btn-primary btn-xs" ng-click="update(user);">Save</a>
