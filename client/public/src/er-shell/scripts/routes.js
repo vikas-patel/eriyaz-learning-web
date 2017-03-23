@@ -273,8 +273,8 @@
                      onLoggedOutRedirect: checkLoginAndRedirect
                  }
              }).
-             state('swarposition', {
-                 url: '/swarposition',
+             state('swarspace', {
+                 url: '/swarspace',
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
@@ -285,8 +285,8 @@
                      onLoggedOutRedirect: checkLoginAndRedirect
                  }
              }).
-             state('voicematch', {
-                 url: '/voicematch',
+             state('swarposition', {
+                 url: '/swarposition',
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
@@ -297,8 +297,8 @@
                      onLoggedOutRedirect: checkLoginAndRedirect
                  }
              }).
-             state('songpractice', {
-                 url: '/songpractice',
+             state('voicematch', {
+                 url: '/voicematch',
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
@@ -609,12 +609,12 @@
                      onLoggedOutRedirect: checkLoginAndRedirect
                  }
              }).
-             state('swarspace', {
-                 url: '/swarspace',
+             state('songpractice', {
+                 url: '/songpractice',
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(32);
+                     AppsInfoModel.setSelected(9);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
