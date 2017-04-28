@@ -330,7 +330,7 @@
         href: '#freestylephrases',
         appUrl: 'er-apps/FreestylePhrases/main.html',
         aspectRatio: 5 / 3,
-        show: false
+        show: true
       }, {
         name: 'FastSinging',
         thumb: 'er-shell/images/fastsinging.jpg',
