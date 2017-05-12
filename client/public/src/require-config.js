@@ -201,6 +201,10 @@ requirejs.config({
         location: 'er-apps/SingSargam',
         main: 'index'
     }, {
+        name: 'songpractice',
+        location: 'er-apps/SongPractice',
+        main: 'index'
+    }, {
         name: 'countnotes',
         location: 'er-apps/CountNotes',
         main: 'index'

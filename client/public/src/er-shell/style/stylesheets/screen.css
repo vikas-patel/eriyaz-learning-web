@@ -2,7 +2,7 @@
  * In this file you should write your main styles. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
-/* line 5, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 5, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -24,45 +24,45 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 22, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 24, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 26, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 28, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 30, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 103, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 32, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 116, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
   display: block;
 }
@@ -112,7 +112,7 @@ body #error dd {
 /* line 1, ../sass/pages/_front.scss */
 #front {
   font-family: sans-serif;
-  background-image: url('../../images/fort.jpg?1424756334'), radial-gradient(closest-side at 35% 45%, #e02006, #f16236, #e02006);
+  background-image: url('../../images/fort.jpg?1424883674'), radial-gradient(closest-side at 35% 45%, #e02006, #f16236, #e02006);
   /* Background image is centered vertically and horizontally at all times */
   background-position: center center;
   /* Background image doesn't tile */
@@ -1845,7 +1845,7 @@ core-drawer-panel:not([narrow]) #navicon {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 12, C:/Ruby193/lib/ruby/gems/1.9.1/gems/susy-2.2.2/sass/susy/output/support/_clearfix.scss */
+/* line 12, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/susy-2.2.2/sass/susy/output/support/_clearfix.scss */
 #rapidintervals .controls:after {
   content: " ";
   display: block;
@@ -2215,7 +2215,7 @@ core-drawer-panel:not([narrow]) #navicon {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 12, C:/Ruby193/lib/ruby/gems/1.9.1/gems/susy-2.2.2/sass/susy/output/support/_clearfix.scss */
+/* line 12, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/susy-2.2.2/sass/susy/output/support/_clearfix.scss */
 #rapidupdown .controls:after {
   content: " ";
   display: block;
@@ -2542,7 +2542,7 @@ core-drawer-panel:not([narrow]) #navicon {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 12, C:/Ruby193/lib/ruby/gems/1.9.1/gems/susy-2.2.2/sass/susy/output/support/_clearfix.scss */
+/* line 12, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/susy-2.2.2/sass/susy/output/support/_clearfix.scss */
 #phraseshape .controls:after {
   content: " ";
   display: block;
@@ -2759,5 +2759,159 @@ core-drawer-panel:not([narrow]) #navicon {
 }
 /* line 77, ../../../er-apps/SingPhrases/main.scss */
 #singphrases .x.axis path {
+  fill: none;
+}
+
+/* line 9, ../../../er-apps/SongPractice/main.scss */
+#songpractice #score {
+  font-family: Wide Latin;
+  font-size: 28px;
+  color: #FFB729;
+}
+/* line 15, ../../../er-apps/SongPractice/main.scss */
+#songpractice #Bottom {
+  height: 100px;
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  background-color: #f2f2f2;
+  box-shadow: inset 0 10px 10px -10px rgba(0, 0, 0, 0.4);
+}
+/* line 24, ../../../er-apps/SongPractice/main.scss */
+#songpractice #Bottom #Controls {
+  max-width: 300px;
+  width: 100%;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100%;
+}
+/* line 32, ../../../er-apps/SongPractice/main.scss */
+#songpractice #Bottom #Controls .Button {
+  position: absolute;
+  bottom: 20px;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0px 3px 1px rgba(0, 0, 0, 0.2);
+  transition: transform 0.05s;
+}
+/* line 45, ../../../er-apps/SongPractice/main.scss */
+#songpractice #Bottom #Controls .Button:active {
+  transform: scale(1.1);
+}
+/* line 49, ../../../er-apps/SongPractice/main.scss */
+#songpractice #Bottom #Controls #PlayButton {
+  left: 15px;
+  background-color: #16a8f0;
+  font-size: 25px;
+  color: white;
+}
+/* line 59, ../../../er-apps/SongPractice/main.scss */
+#songpractice #Bottom #Controls #SliderContainer {
+  width: calc(100% - 100px);
+  position: absolute;
+  right: 20px;
+  top: 40%;
+}
+/* line 71, ../../../er-apps/SongPractice/main.scss */
+#songpractice #Bottom #Controls #SliderContainer #Tortoise, #songpractice #Bottom #Controls #SliderContainer #Hare {
+  top: -20px;
+  position: absolute;
+  height: 60px;
+  width: 0px;
+  font-size: 60px;
+  line-height: 60px;
+  pointer-events: none;
+  color: #646464;
+}
+/* line 82, ../../../er-apps/SongPractice/main.scss */
+#songpractice #Bottom #Controls #SliderContainer #Hare {
+  right: 0px;
+}
+/* line 86, ../../../er-apps/SongPractice/main.scss */
+#songpractice #Bottom #Controls #SliderContainer #Tortoise {
+  left: -43px;
+}
+/* line 94, ../../../er-apps/SongPractice/main.scss */
+#songpractice paper-slider::shadow #sliderBar {
+  height: 8px;
+}
+/* line 98, ../../../er-apps/SongPractice/main.scss */
+#songpractice paper-slider::shadow #sliderKnobInner,
+#songpractice paper-slider::shadow #sliderKnobInner::before {
+  background-color: #16a8f0;
+  width: 28px;
+  height: 28px;
+}
+/* line 105, ../../../er-apps/SongPractice/main.scss */
+#songpractice paper-slider::shadow #sliderBar::shadow #activeProgress {
+  background-color: #16a8f0;
+}
+/* line 109, ../../../er-apps/SongPractice/main.scss */
+#songpractice paper-slider::shadow .slider-markers::after, #songpractice paper-slider::shadow .slider-marker::after {
+  height: 8px;
+  background-color: white;
+}
+/* line 114, ../../../er-apps/SongPractice/main.scss */
+#songpractice .icon-svg_play:before {
+  content: "\25BA";
+  margin-left: 5px;
+}
+/* line 119, ../../../er-apps/SongPractice/main.scss */
+#songpractice .icon-svg_pause:before {
+  content: "\275A\275A";
+}
+/* line 124, ../../../er-apps/SongPractice/main.scss */
+#songpractice svg {
+  margin-top: 0px;
+}
+/* line 127, ../../../er-apps/SongPractice/main.scss */
+#songpractice ul {
+  columns: 3;
+  -webkit-columns: 3;
+  -moz-columns: 3;
+}
+/* line 133, ../../../er-apps/SongPractice/main.scss */
+#songpractice li button {
+  width: 60%;
+}
+/* line 146, ../../../er-apps/SongPractice/main.scss */
+#songpractice .container {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 3%;
+  border-top: solid;
+  border-width: 1px;
+  border-color: #E3E3E3;
+}
+/* line 163, ../../../er-apps/SongPractice/main.scss */
+#songpractice .x.axis line {
+  stroke: #d1d1d1;
+  stroke-width: 1px;
+}
+/* line 168, ../../../er-apps/SongPractice/main.scss */
+#songpractice .x.axis .minor {
+  stroke-opacity: .5;
+}
+/* line 172, ../../../er-apps/SongPractice/main.scss */
+#songpractice .x.axis path {
+  fill: none;
+}
+/* line 177, ../../../er-apps/SongPractice/main.scss */
+#songpractice .y.axis line {
+  stroke: #d1d1d1;
+  stroke-width: 1px;
+}
+/* line 182, ../../../er-apps/SongPractice/main.scss */
+#songpractice .y.axis .minor {
+  stroke-opacity: .5;
+}
+/* line 186, ../../../er-apps/SongPractice/main.scss */
+#songpractice .y.axis path {
   fill: none;
 }
