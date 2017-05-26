@@ -47,6 +47,7 @@ requirejs.config({
         'st-filter' : 'ext-libs/soundtouch/filter',
         'st-stretch' : 'ext-libs/soundtouch/stretch',
         'soundtouch' : 'ext-libs/soundtouch/soundtouch.min',
+        'phasevocoder' : 'ext-libs/PhaseVocoderJS/PV_fast',
         'timeMe' : 'ext-libs/TimeMe/TImeMe',
         'ng-table' : "ext-libs/bower_components/ng-table/dist/ng-table.min",
         'recorderworker' : 'er-libs/recorderworker',
@@ -98,6 +99,9 @@ requirejs.config({
         },
         'soundtouch' : {
             deps: ['underscore']
+        },
+        'phasevocoder' : {
+            deps: ['ext-libs/PhaseVocoderJS/jensnockert-fft.js/lib/complex.js', 'ext-libs/PhaseVocoderJS/jensnockert-fft.js/lib/real.js']
         }
     },
     packages: [{

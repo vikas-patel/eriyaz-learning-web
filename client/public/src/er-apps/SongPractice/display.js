@@ -9,7 +9,7 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 		};
 
 		var chartWidth = 600,
-			chartHeight = 225;
+			chartHeight = 260;
 
 
 		var refreshTime = 40;
@@ -21,7 +21,7 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 		var yMin = -5;
 		var yMax = 18;
 		var nYDivs = yMax - yMin;
-		var xDivs = 6;
+		var xDivs = 4;
 		var yScale = d3.scale.linear()
 			.domain([yMin, yMax])
 			.range([chartHeight, 0]);
@@ -182,8 +182,10 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 		this.clearPoints = function() {
 			svg.selectAll("rect.play").remove();
 			svg.selectAll("rect.sing").remove();
-			// if (pointGroup)
-			// 	pointGroup.remove();
+		};
+
+		this.clearUserPoints = function() {
+			svg.selectAll("rect.sing").remove();
 		};
 
 		this.playAnimate = function(interval, beatDuration, noteNum, beats) {
@@ -225,7 +227,7 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 				.attr("x2", xScale(noteNum) + beats*chartWidth /xDivs);
 		};
 
-		this.plotData = function(data) {
+		this.plotData = function(data, offset, tempo) {
 			var color = "green";
 			pointGroup = svg.append("g");
 			pointGroup.selectAll("rect")
@@ -234,7 +236,7 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 				.append("rect")
 				.attr("class", "sing")
 				.attr("x", function(d, i) {
-					return xScale(i * 256 / 48000);
+					return xScale(i * 256 / 48000 * tempo + offset);
 				}).attr("y", function(d) {
 					return yScale(d);
 				}).attr("width", 1)
@@ -242,7 +244,7 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 				.style("fill", color);
 		};
 
-		this.plotExerciseData = function(arrayTime, arrayPitch) {
+		this.plotExerciseData = function(arrayTime, arrayPitch, offset) {
 			var x0 = arrayTime[0];
 			pointGroup.selectAll("rect")
 				.data(arrayTime)
@@ -250,7 +252,7 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 				.append("rect")
 				.attr("class", "play")
 				.attr("x", function(d, i) {
-					return xScale(d-x0);
+					return xScale(d-x0+offset);
 				}).attr("y", function(d, i) {
 					return yScale(arrayPitch[i]);
 				}).attr("width", 1)

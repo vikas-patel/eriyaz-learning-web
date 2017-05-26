@@ -340,7 +340,9 @@
         appUrl: 'er-apps/SongPractice/main.html',
         aspectRatio: 5 / 3,
         hotkeys: [
-          ['space', 'playClicked()']
+          ['space', 'playClicked()'],
+          ['r', 'playRecord()'],
+          ['p', 'play()']
         ],
         show: false
       }, {
