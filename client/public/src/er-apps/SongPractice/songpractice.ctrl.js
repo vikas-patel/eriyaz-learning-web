@@ -43,11 +43,9 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
                 loadSound();
                 exerciseIndex = 0;
                 if ($scope.song.isFemale) {
-                    console.log("female");
                     PitchModel.rootFreq = 246.8;
                 } else {
                     PitchModel.rootFreq = 123.4;
-                    console.log("male");
                 }
             });
 
@@ -63,7 +61,6 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
                 this.registerWatcher = function(watcher) {
                     this.watcher = watcher;
                 };
-
                 this.start = function() {
                     var local = this;
                     intervalId = setInterval(function() {
@@ -123,7 +120,7 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
                     gameController.setIntervalHandler(function(interval) {
                         // display.markPitch(interval, Date.now() - singTime);
                     });
-                    loadExercise();
+                    //loadExercise();
                     clock.scheduleAction(function() {
                         beepCount++;
                         if (beepCount == 1) {
@@ -150,6 +147,7 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
                         recorderWorker.postMessage({
                             command: 'clear'
                         });
+                        
                         display.drawIndicator(count, beatDuration, 1, 4, 1);
                     }
                     if (count == totalBeats-1 ) {
@@ -236,6 +234,7 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
               request.onload = function() {
                 audioContext.decodeAudioData(request.response, function(buffer) {
                 songBuffer = buffer;
+                loadExercise();
                 }, function() {console.log("error on loading audio file.")});
               }
               request.send();
