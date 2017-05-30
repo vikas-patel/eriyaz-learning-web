@@ -117,6 +117,7 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
             var StartingState = function() {
                 var beepCount = 0;
                 this.handleBeep = function() {
+                    gameController.setState(new PlayState(exerciseIndex));
                     gameController.setIntervalHandler(function(interval) {
                         // display.markPitch(interval, Date.now() - singTime);
                     });
@@ -124,7 +125,7 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
                     clock.scheduleAction(function() {
                         beepCount++;
                         if (beepCount == 1) {
-                            gameController.setState(new PlayState(exerciseIndex));
+                            //gameController.setState(new PlayState(exerciseIndex));
                         }
 
                     });
@@ -142,6 +143,9 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
 
                 this.handleBeep = function() {
                     if (count == 0) {
+                        //Play now (listen first)
+                        playSound(0);
+                        // sing along this play sound
                         clock.scheduleNote();
                         display.clearUserPoints();
                         recorderWorker.postMessage({
@@ -150,7 +154,7 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
                         
                         display.drawIndicator(count, beatDuration, 1, 4, 1);
                     }
-                    if (count == totalBeats-1 ) {
+                    if (count == 1) {
                         gameController.setState(new FeedbackState(exerciseIndex));
                     }
                     count++;
@@ -190,7 +194,7 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
                     });
                 };
             };
-            gameController.setState(new StartingState());
+            gameController.setState(new PlayState());
             
             gameController.setIntervalHandler(function(interval) {
                 // yet to initialize
@@ -272,7 +276,7 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
                 } else pitchArray.push(-100);
                 offset = offset + incr;
               }
-              display.plotData(pitchArray, 1.0, $scope.tempo);
+              display.plotData(pitchArray, 1.0, 1000/beatDuration);
             };
 
             // $scope.$watch('rootNote', function() {
@@ -324,6 +328,8 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
                 display.clearPoints();
                 var exercise = $scope.song.exercises[exerciseIndex];
                 totalBeats = Math.ceil(exercise.t1 - exercise.t0);
+                defaultBeatDurtion = (exercise.t1 - exercise.t0)*1000 + 300;
+                beatDuration = defaultBeatDurtion/$scope.tempo;
                 startIndex = setIndex(exercise.t0);
                 endIndex = setIndex(exercise.t1);
                 var arrayTime = $scope.song.timeSeries.slice(startIndex-1, endIndex-1);
@@ -333,7 +339,7 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
                     var pitch = MusicCalc.getCents(PitchModel.rootFreq, aPitch[i]) / 100;
                     arrayPitch.push(pitch);
                 }
-                display.plotExerciseData(arrayTime, arrayPitch, 1.0);
+                display.plotExerciseData(arrayTime, arrayPitch, 1.0, 1000/beatDuration);
                 if ($scope.tempo < 1) {
                     calculateStretchedBuffer();
                 } else {
@@ -355,7 +361,7 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
                 clock.registerWatcher(gameController);
                 clock.start();
                 display.setTimeUnit(beatDuration);
-                gameController.setState(new StartingState());
+                gameController.setState(new PlayState());
             }
 
           
@@ -413,7 +419,7 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
             };
 
             $scope.play = function() {
-                playSound(exerciseIndex);
+                playSound(0);
             };
 
             function playConcatenated(floatarray) {

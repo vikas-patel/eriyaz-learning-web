@@ -338,7 +338,7 @@
         desc: 'Sing a Song',
         href: '#songpractice',
         appUrl: 'er-apps/SongPractice/main.html',
-        aspectRatio: 5 / 3,
+        aspectRatio: 43 / 20,
         hotkeys: [
           ['space', 'playClicked()'],
           ['r', 'playRecord()'],

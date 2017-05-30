@@ -1,6 +1,7 @@
 define(['currentaudiocontext', 'phasevocoder'], function(CurrentAudioContext) {
 	var context = CurrentAudioContext.getInstance();
 	var TimeStretcher = function(buffer, tempo, start, end) {
+		console.log("calculating slower audio");
 		var BUFFER_SIZE = 2048;
 		var il = new Float32Array(Math.round(buffer.sampleRate *2* (end-start)));
 		var loriginal = buffer.getChannelData(0);
