@@ -52,7 +52,8 @@ requirejs.config({
         'ng-table' : "ext-libs/bower_components/ng-table/dist/ng-table.min",
         'recorderworker' : 'er-libs/recorderworker',
         'phaser': 'ext-libs/bower_components/phaser/build/phaser.min',
-        'tone': 'ext-libs/bower_components/tone/build/Tone.min'
+        'tone': 'ext-libs/bower_components/tone/build/Tone.min',
+        'nouislider': 'ext-libs/bower_components/nouislider/distribute/nouislider.min'
     },
 
     // Add modules that do not support AMD

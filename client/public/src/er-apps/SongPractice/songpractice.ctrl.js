@@ -1,7 +1,7 @@
-define(['./module', './sequencegen', './display', './songs', 'note', 'webaudioplayer', './timestretcher', 'recorderworker', 'currentaudiocontext',
+define(['./module', './sequencegen', './display', 'nouislider', './songs', 'note', 'webaudioplayer', './timestretcher', 'recorderworker', 'currentaudiocontext',
         'music-calc', 'mic-util', 'pitchdetector', 'stabilitydetector', 'audiobuffer', './scorer'
     ],
-    function(app, sequenceGen, Display, songs, Note, Player, TimeStretcher, recorderWorker, CurrentAudioContext, MusicCalc, MicUtil, PitchDetector, StabilityDetector, AudioBuffer, scorer) {
+    function(app, sequenceGen, Display, noUiSlider, songs, Note, Player, TimeStretcher, recorderWorker, CurrentAudioContext, MusicCalc, MicUtil, PitchDetector, StabilityDetector, AudioBuffer, scorer) {
         var sequence;
         var audioContext = CurrentAudioContext.getInstance();
         var player = new Player(audioContext);
@@ -38,6 +38,26 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
             var wholeBeat = 1;
             var totalBeats;
             var stretchedBuffer;
+            var slider = document.getElementById('slider');
+            noUiSlider.create(slider, {
+                start: [0, 20],
+                connect: true,
+                step: 0.1,
+                behaviour: 'drag',
+                tooltips: true,
+                range: {
+                    'min': 0,
+                    'max': 100
+                },
+                format: {
+                  to: function ( value ) {
+                    return parseFloat(value).toFixed(1) + ' (sec)';
+                  },
+                  from: function ( value ) {
+                    return value.replace(' (sec)', '');
+                  }
+                }
+            });
 
             $scope.$watch('song', function() {
                 loadSound();
@@ -228,6 +248,15 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
                 return j;
             }
 
+            function initSlider() {
+                slider.noUiSlider.updateOptions({
+                    range: {
+                        'min': 0,
+                        'max': songBuffer.duration
+                    }
+                });
+            }
+
             function loadSound() { 
               var url = "er-shell/audio/"+$scope.song.path;
               var request = new XMLHttpRequest();
@@ -238,6 +267,7 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
               request.onload = function() {
                 audioContext.decodeAudioData(request.response, function(buffer) {
                 songBuffer = buffer;
+                initSlider();
                 loadExercise();
                 }, function() {console.log("error on loading audio file.")});
               }
@@ -339,7 +369,7 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
                     var pitch = MusicCalc.getCents(PitchModel.rootFreq, aPitch[i]) / 100;
                     arrayPitch.push(pitch);
                 }
-                display.plotExerciseData(arrayTime, arrayPitch, 1.0, 1000/beatDuration);
+                display.plotExerciseData(arrayTime, arrayPitch, 0.0, 1000/beatDuration);
                 if ($scope.tempo < 1) {
                     calculateStretchedBuffer();
                 } else {
