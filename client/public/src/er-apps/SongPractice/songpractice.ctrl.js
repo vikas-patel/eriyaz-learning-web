@@ -38,16 +38,18 @@ define(['./module', './sequencegen', './display', 'nouislider', './songs', 'note
             var wholeBeat = 1;
             var totalBeats;
             var stretchedBuffer;
+            var arrayTime;
+            var arrayPitch;
             var slider = document.getElementById('slider');
             noUiSlider.create(slider, {
-                start: [0, 20],
+                start: [0, 1],
                 connect: true,
                 step: 0.1,
                 behaviour: 'drag',
                 tooltips: true,
                 range: {
                     'min': 0,
-                    'max': 100
+                    'max': 20
                 },
                 format: {
                   to: function ( value ) {
@@ -165,30 +167,32 @@ define(['./module', './sequencegen', './display', 'nouislider', './songs', 'note
                     if (count == 0) {
                         //Play now (listen first)
                         playSound(0);
-                        // sing along this play sound
-                        clock.scheduleNote();
                         display.clearUserPoints();
                         recorderWorker.postMessage({
                             command: 'clear'
                         });
-                        
-                        display.drawIndicator(count, beatDuration, 1, 4, 1);
                     }
-                    if (count == 1) {
+                    if (count == totalBeats-1) {
+                        // sing along this play sound
+                        clock.scheduleNote();
+                    }
+                    if (count == totalBeats*3-1) {
                         gameController.setState(new FeedbackState(exerciseIndex));
                     }
+                    display.drawIndicator(count, beatDuration, 1, 4, 1, totalBeats*3);
                     count++;
                     
                     clock.scheduleAction(function() {
-                        display.drawIndicator(count, beatDuration, 1, 4, 1);
-                        gameController.setIntervalHandler(function(data) {
-                            recorderWorker.postMessage({
-                              command: 'record',
-                              floatarray: data
+                        //display.drawIndicator(count*totalBeats, beatDuration, totalBeats, 4, 1);
+                        if (count > totalBeats-1) {
+                            gameController.setIntervalHandler(function(data) {
+                                recorderWorker.postMessage({
+                                  command: 'record',
+                                  floatarray: data
+                                });
                             });
-                        });
+                        }
                     });
-
                 };
             };
 
@@ -205,6 +209,7 @@ define(['./module', './sequencegen', './display', 'nouislider', './songs', 'note
                                 command: 'concat'
                               });
                             $scope.playClicked();
+                            display.plotExerciseData(arrayTime, arrayPitch, totalBeats, 1000/beatDuration, true);
                         }
                         if (count == 1) {
                             gameController.setState(new PlayState(exerciseIndex));
@@ -282,8 +287,10 @@ define(['./module', './sequencegen', './display', 'nouislider', './songs', 'note
                 source.start(time);
               } else {
                 source.buffer = songBuffer;                    // tell the source which sound to play
-                var exercise = $scope.song.exercises[exerciseIndex];
-                source.start(time, exercise.t0, exercise.t1-exercise.t0);                           // play the source now
+                // var exercise = $scope.song.exercises[exerciseIndex];
+                var t0 = parseInt(slider.noUiSlider.get()[0]);
+                var t1 = parseInt(slider.noUiSlider.get()[1]);
+                source.start(time, t0, t1-t0);                           // play the source now
               }
             }
 
@@ -306,7 +313,7 @@ define(['./module', './sequencegen', './display', 'nouislider', './songs', 'note
                 } else pitchArray.push(-100);
                 offset = offset + incr;
               }
-              display.plotData(pitchArray, 1.0, 1000/beatDuration);
+              display.plotData(pitchArray, totalBeats, 1000/beatDuration);
             };
 
             // $scope.$watch('rootNote', function() {
@@ -353,23 +360,25 @@ define(['./module', './sequencegen', './display', 'nouislider', './songs', 'note
             function isDisabled(element, index, array) {
                 return !element.enabled;
             }
-
+            
             function loadExercise() {
                 display.clearPoints();
-                var exercise = $scope.song.exercises[exerciseIndex];
-                totalBeats = Math.ceil(exercise.t1 - exercise.t0);
-                defaultBeatDurtion = (exercise.t1 - exercise.t0)*1000 + 300;
+                var t0 = parseFloat(slider.noUiSlider.get()[0]);
+                var t1 = parseFloat(slider.noUiSlider.get()[1]);
+                // var exercise = $scope.song.exercises[exerciseIndex];
+                totalBeats = Math.ceil(t1 - t0);
+                //defaultBeatDurtion = (t1 - t0)*1000 + 300;
                 beatDuration = defaultBeatDurtion/$scope.tempo;
-                startIndex = setIndex(exercise.t0);
-                endIndex = setIndex(exercise.t1);
-                var arrayTime = $scope.song.timeSeries.slice(startIndex-1, endIndex-1);
+                startIndex = setIndex(t0);
+                endIndex = setIndex(t1);
+                arrayTime = $scope.song.timeSeries.slice(startIndex-1, endIndex-1);
                 var aPitch = $scope.song.pitchSeries.slice(startIndex-1, endIndex-1);
-                var arrayPitch = [];
+                arrayPitch = [];
                 for (var i = 0; i < aPitch.length; i++) {
                     var pitch = MusicCalc.getCents(PitchModel.rootFreq, aPitch[i]) / 100;
                     arrayPitch.push(pitch);
                 }
-                display.plotExerciseData(arrayTime, arrayPitch, 0.0, 1000/beatDuration);
+                display.plotExerciseData(arrayTime, arrayPitch, 0.0, 1000/beatDuration, false);
                 if ($scope.tempo < 1) {
                     calculateStretchedBuffer();
                 } else {
@@ -377,9 +386,15 @@ define(['./module', './sequencegen', './display', 'nouislider', './songs', 'note
                 }
             }
 
+            slider.noUiSlider.on('set', function(){
+                loadExercise();
+                display.drawDivideLine(totalBeats);
+            });
+
             function calculateStretchedBuffer() {
-                var exercise = $scope.song.exercises[exerciseIndex];
-                stretcher = new TimeStretcher(songBuffer, $scope.tempo, exercise.t0, exercise.t1);
+                var t0 = parseInt(slider.noUiSlider.get()[0]);
+                var t1 = parseInt(slider.noUiSlider.get()[1]);
+                stretcher = new TimeStretcher(songBuffer, $scope.tempo, t0, t1);
                 stretchedBuffer = stretcher.out();
             }
 
@@ -394,7 +409,6 @@ define(['./module', './sequencegen', './display', 'nouislider', './songs', 'note
                 gameController.setState(new PlayState());
             }
 
-          
             function cancelCurrentLoop() {
                 marker = 0;
                 clearInterval(currLoopId);
@@ -456,9 +470,7 @@ define(['./module', './sequencegen', './display', 'nouislider', './songs', 'note
               var concatenatedArray = floatarray;
               var outBuffer = audioContext.createBuffer(1, concatenatedArray.length, audioContext.sampleRate);
               var l = outBuffer.getChannelData(0);
-              // console.log(concatenatedArray);
               l.set(concatenatedArray);
-              // console.log(l);
               var source = audioContext.createBufferSource();
               source.buffer = outBuffer;
               source.connect(audioContext.destination);

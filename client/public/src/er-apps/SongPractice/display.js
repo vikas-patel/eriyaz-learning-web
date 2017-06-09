@@ -21,7 +21,7 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 		var yMin = -5;
 		var yMax = 18;
 		var nYDivs = yMax - yMin;
-		var xDivs = 3;
+		var xDivs = 6;
 		var yScale = d3.scale.linear()
 			.domain([yMin, yMax])
 			.range([chartHeight, 0]);
@@ -38,10 +38,12 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 			.attr("width", "100%")
 			.attr("height", "100%")
 			.attr("viewBox", "0 0 " + (chartWidth + margin.left + margin.right) + " " + (chartHeight + margin.top + margin.bottom))
-			.append("g")
+			//.append("g")
 			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-			svg.append("rect")
+		var velocity = svg.append("g");
+
+		var rect = svg.append("rect")
 			.attr("x",0)
 			.attr("y",0)
 			.attr("width",chartWidth)
@@ -81,6 +83,16 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 			.attr("class", "y axis")
 			// .attr("transform", "translate(0," + chartWidth + ")")
 			.call(yAxis);
+
+		var zoomListener = d3.behavior.zoom()
+		  .scaleExtent([1, 1])
+		  .on("zoom", zoomHandler);
+		svg.call(zoomListener);
+		// function for handling zoom event
+		function zoomHandler() {
+			console.log(d3.event);
+		  	velocity.attr("transform", "translate(" + d3.event.translate[0] + ",0)");
+		};
 
 		this.loadExercise = function(excData) {
 			svg.selectAll("rect.exc").remove();
@@ -124,7 +136,7 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 
 		};
 
-		var pointGroup = svg.append("g");
+		var pointGroup = velocity.append("g");
 		this.markPitch = function(interval, time) {
 			pointGroup.append("rect")
 				.attr("x", timeScale(time))
@@ -186,6 +198,7 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 
 		this.clearUserPoints = function() {
 			svg.selectAll("rect.sing").remove();
+			velocity.attr("transform", "translate(0,0)");
 		};
 
 		this.playAnimate = function(interval, beatDuration, noteNum, beats) {
@@ -208,9 +221,31 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 
 		};
 
-		this.drawIndicator = function(noteNum, beatDuration, beats, maxNote, minNote) {
+		this.drawDivideLine = function(totalBeats) {
+			svg.selectAll("line.divide").remove();
+			velocity.append("line")
+				 .attr("x1", xScale(totalBeats))
+				 .attr("y1", yScale(yMax))
+				 .attr("x2", xScale(totalBeats))
+				 .attr("y2", yScale(yMin))
+				 .attr("stroke-width", 1)
+				 .attr("stroke-opacity", 0.5)
+				 .attr("stroke", 'blue')
+				 .attr("class", "divide");
+			velocity.append("line")
+				 .attr("x1", xScale(totalBeats*2))
+				 .attr("y1", yScale(yMax))
+				 .attr("x2", xScale(totalBeats*2))
+				 .attr("y2", yScale(yMin))
+				 .attr("stroke-width", 1)
+				 .attr("stroke-opacity", 0.5)
+				 .attr("stroke", 'blue')
+				 .attr("class", "divide");
+		}
+
+		this.drawIndicator = function(noteNum, beatDuration, beats, maxNote, minNote, totalBeats) {
 			svg.selectAll("line.indicator").remove();
-			var singIndicator = svg.append("line")
+			var singIndicator = velocity.append("line")
 								 .attr("x1", xScale(noteNum))
 								 .attr("y1", yScale(maxNote+1))
 								 .attr("x2", xScale(noteNum))
@@ -221,22 +256,30 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 
 			singIndicator
 				.transition()
-				.duration(beatDuration*beats)
+				.duration(beatDuration)
 				.ease("linear")
 				.attr("x1", xScale(noteNum) + beats*chartWidth /xDivs)
 				.attr("x2", xScale(noteNum) + beats*chartWidth /xDivs);
+			if (totalBeats > xDivs) {
+				var shift = (totalBeats - xDivs)*(noteNum+1)/totalBeats;
+				velocity
+					.transition()
+					.duration(beatDuration)
+					.ease("linear")
+					.attr("transform", "translate(-"+ (xScale(shift)) +",0)");
+			}
 		};
 
 		this.plotData = function(data, offset, factor) {
 			var color = "green";
-			pointGroup = svg.append("g");
+			pointGroup = velocity.append("g");
 			pointGroup.selectAll("rect")
 				.data(data)
 				.enter()
 				.append("rect")
 				.attr("class", "sing")
 				.attr("x", function(d, i) {
-					return xScale(i * 256 / 48000 * factor + offset);
+					return xScale(i * 256 / 48000 + offset);
 				}).attr("y", function(d) {
 					return yScale(d);
 				}).attr("width", 1)
@@ -244,15 +287,21 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 				.style("fill", color);
 		};
 
-		this.plotExerciseData = function(arrayTime, arrayPitch, offset, factor) {
+		this.plotExerciseData = function(arrayTime, arrayPitch, offset, factor, withSing) {
+			pointGroup = velocity.append("g");
 			var x0 = arrayTime[0];
 			pointGroup.selectAll("rect")
 				.data(arrayTime)
 				.enter()
 				.append("rect")
-				.attr("class", "play")
+				.attr("class", function(){ 
+							if (withSing)
+								return "sing";
+							else
+								return "play";
+						})
 				.attr("x", function(d, i) {
-					return xScale((d-x0)*factor+offset);
+					return xScale((d-x0)+offset);
 				}).attr("y", function(d, i) {
 					return yScale(arrayPitch[i]);
 				}).attr("width", 1)
