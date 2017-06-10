@@ -1,5 +1,5 @@
 define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
-	var Display = function() {
+	var Display = function(dragCallback) {
 
 		var margin = {
 			top: 0,
@@ -9,7 +9,7 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 		};
 
 		var chartWidth = 600,
-			chartHeight = 260;
+			chartHeight = 200;
 
 
 		var refreshTime = 40;
@@ -22,6 +22,7 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 		var yMax = 18;
 		var nYDivs = yMax - yMin;
 		var xDivs = 6;
+		var t0, t1;
 		var yScale = d3.scale.linear()
 			.domain([yMin, yMax])
 			.range([chartHeight, 0]);
@@ -31,7 +32,7 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 			.range([0, chartWidth]);
 
 		var timeScale = d3.scale.linear()
-			.domain([0, songs.beatDuration])
+			.domain([0, 1])
 			.range([0, chartWidth / xDivs]);
 
 		var svg = d3.select("#display").append("svg")
@@ -84,15 +85,138 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 			// .attr("transform", "translate(0," + chartWidth + ")")
 			.call(yAxis);
 
-		var zoomListener = d3.behavior.zoom()
-		  .scaleExtent([1, 1])
-		  .on("zoom", zoomHandler);
-		svg.call(zoomListener);
-		// function for handling zoom event
-		function zoomHandler() {
-			console.log(d3.event);
-		  	velocity.attr("transform", "translate(" + d3.event.translate[0] + ",0)");
+		// var zoomListener = d3.behavior.zoom()
+		//   .scaleExtent([1, 1])
+		//   .on("zoom", zoomHandler);
+		// svg.call(zoomListener);
+		// // function for handling zoom event
+		// function zoomHandler() {
+		// 	console.log(d3.event);
+		//   	velocity.attr("transform", "translate(" + d3.event.translate[0] + ",0)");
+		// };
+
+		function dragStart() {
+		    var p = d3.mouse(this);
+		    selectionRect.init(p[0], p[1]);
+			selectionRect.removePrevious();
+		}
+
+		function dragMove() {
+			var p = d3.mouse(this);
+		    selectionRect.update(p[0], p[1]);
+		    // attributesText
+		    // 	.text(selectionRect.getCurrentAttributesAsText());
+		}
+
+		function dragEnd() {
+			var finalAttributes = selectionRect.getCurrentAttributes();
+			if(finalAttributes.x2 - finalAttributes.x1 > 1 && finalAttributes.y2 - finalAttributes.y1 > 1){
+				// range selected
+				d3.event.sourceEvent.preventDefault();
+				selectionRect.focus();
+				t0 = selectionRect.getCurrentTime()[0];
+				t1 = selectionRect.getCurrentTime()[1];
+				dragCallback(t0, t1);
+			} else {
+		        // single point selected
+		        selectionRect.remove();
+		        // trigger click event manually
+		    }
+		}
+
+		var dragBehavior = d3.behavior.drag()
+		    .on("drag", dragMove)
+		    .on("dragstart", dragStart)
+		    .on("dragend", dragEnd);
+
+		svg.call(dragBehavior);
+
+		var selectionRect = {
+			element			: null,
+			previousElement : null,
+			currentY		: chartHeight,
+			currentX		: 0,
+			originX			: 0,
+			originY			: 0,
+			setElement: function(ele) {
+				this.previousElement = this.element;
+				this.element = ele;
+			},
+			getNewAttributes: function() {
+				var x = this.currentX<this.originX?this.currentX:this.originX;
+				var y = this.currentY<this.originY?this.currentY:this.originY;
+				var width = Math.abs(this.currentX - this.originX);
+				var height = Math.abs(this.currentY - this.originY);
+				return {
+			        x       : x,
+			        y       : y,
+			        width  	: width,
+			        height  : chartHeight
+				};
+			},
+			getCurrentTime: function() {
+				var attrs = this.getCurrentAttributes();
+				var t0 = timeScale.invert(attrs.x1)
+				var t1 = timeScale.invert(attrs.x2);
+				return [t0, t1];
+			},
+			getCurrentAttributes: function() {
+				// use plus sign to convert string into number
+				var x = +this.element.attr("x");
+				var y = +this.element.attr("y");
+				var width = +this.element.attr("width");
+				var height = +this.element.attr("height");
+				return {
+					x1  : x,
+			        y1	: y,
+			        x2  : x + width,
+			        y2  : y + height
+				};
+			},
+			getCurrentAttributesAsText: function() {
+				var attrs = this.getCurrentAttributes();
+				return "x1: " + attrs.x1 + " x2: " + attrs.x2 + " y1: " + attrs.y1 + " y2: " + attrs.y2;
+			},
+			init: function(newX, newY) {
+				var rectElement = svg.append("rect")
+				    .attr({
+				        x       : 0,
+				        y       : 0,
+				        width   : 0,
+				        height  : 0,
+				        opacity : 0.1
+				    }).style("fill", "blue")
+				    //.style("stroke-width", "0")
+				    .classed("selection", true);
+			    this.setElement(rectElement);
+				this.originX = newX;
+				//this.originY = newY;
+				this.update(newX, newY);
+			},
+			update: function(newX, newY) {
+				this.currentX = newX;
+				this.currentY = newY;
+				this.element.attr(this.getNewAttributes());
+			},
+			focus: function() {
+		        // this.element
+		        //     .style("stroke", "#DE695B")
+		        //     .style("stroke-width", "2.5");
+		    },
+		    remove: function() {
+		    	this.element.remove();
+		    	this.element = null;
+		    },
+		    removePrevious: function() {
+		    	if(this.previousElement) {
+		    		this.previousElement.remove();
+		    	}
+		    }
 		};
+
+		this.getCurrentTime = function() {
+			return selectionRect.getCurrentTime();
+		}
 
 		this.loadExercise = function(excData) {
 			svg.selectAll("rect.exc").remove();
@@ -246,10 +370,10 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 		this.drawIndicator = function(noteNum, beatDuration, beats, maxNote, minNote, totalBeats) {
 			svg.selectAll("line.indicator").remove();
 			var singIndicator = velocity.append("line")
-								 .attr("x1", xScale(noteNum))
-								 .attr("y1", yScale(maxNote+1))
-								 .attr("x2", xScale(noteNum))
-								 .attr("y2", yScale(minNote))
+								 .attr("x1", timeScale(t0))
+								 .attr("y1", yScale(yMax))
+								 .attr("x2", timeScale(t0))
+								 .attr("y2", yScale(yMin))
 								 .attr("stroke-width", 1)
 								 .attr("stroke", 'green')
 								 .attr("class", "indicator");
@@ -258,16 +382,16 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 				.transition()
 				.duration(beatDuration)
 				.ease("linear")
-				.attr("x1", xScale(noteNum) + beats*chartWidth /xDivs)
-				.attr("x2", xScale(noteNum) + beats*chartWidth /xDivs);
-			if (totalBeats > xDivs) {
-				var shift = (totalBeats - xDivs)*(noteNum+1)/totalBeats;
-				velocity
-					.transition()
-					.duration(beatDuration)
-					.ease("linear")
-					.attr("transform", "translate(-"+ (xScale(shift)) +",0)");
-			}
+				.attr("x1", timeScale(t1))
+				.attr("x2", timeScale(t1));
+			// if (totalBeats > xDivs) {
+			// 	var shift = (totalBeats - xDivs)*(noteNum+1)/totalBeats;
+			// 	velocity
+			// 		.transition()
+			// 		.duration(beatDuration)
+			// 		.ease("linear")
+			// 		.attr("transform", "translate(-"+ (xScale(shift)) +",0)");
+			// }
 		};
 
 		this.plotData = function(data, offset, factor) {
@@ -279,7 +403,7 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 				.append("rect")
 				.attr("class", "sing")
 				.attr("x", function(d, i) {
-					return xScale(i * 256 / 48000 + offset);
+					return xScale(i * 256 / 48000) + timeScale(t0);
 				}).attr("y", function(d) {
 					return yScale(d);
 				}).attr("width", 1)
