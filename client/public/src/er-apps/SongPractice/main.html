@@ -4,17 +4,11 @@
     </div-->
     <div><select ng-model="song"
 				ng-options="song.name for song in songs">
-			    </select></div>
+			    </select><button ng-click="play()">Play</button>
+    		<button ng-click="playRecord()">Play Record</button></div>
     <div id="display"></div>
 
     <div id="Bottom">
-    	<div>
-    		<button ng-click="play()">Play</button>
-    		<button ng-click="playRecord()">Play Record</button>
-    		<button ng-click="prev()">Prev</button>
-    		<button ng-click="next()">Next</button>
-    		<button ng-click="last()">Last</button>
-    	</div>
 		<div id="Controls">
 			
 			<div id="PlayButton" class="Button" ng-click="playClicked()">

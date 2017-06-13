@@ -2,7 +2,7 @@
 $blue : rgb(22, 168, 240);
 $lightGrey : rgb(242, 242, 242);
 $darkGrey : rgb(100, 100, 100);
-$bottomHeight : 100px;
+$bottomHeight : 80px;
 $buttonSize : 60px;
 $buttonMargin : 15px;
 
@@ -11,6 +11,11 @@ $buttonMargin : 15px;
   font-size: 28px;
   color:#FFB729;
 }
+
+.brush .extent {
+      fill-opacity: .125;
+      shape-rendering: crispEdges;
+    }
 
 #Bottom {
   height: $bottomHeight;
@@ -51,6 +56,7 @@ $buttonMargin : 15px;
       background-color: $blue;
       font-size: 25px;
       color: white;
+      top: 12.5%;
     }
 
     $iconWidth : 0px;
@@ -60,7 +66,7 @@ $buttonMargin : 15px;
       width: calc(100% - #{$totalButtonWidth + $iconWidth * 2});
       position: absolute;
       right: $buttonMargin + $iconWidth + 5px;
-      top: 40%;
+      top: 30%;
 
       .Slider{
 
