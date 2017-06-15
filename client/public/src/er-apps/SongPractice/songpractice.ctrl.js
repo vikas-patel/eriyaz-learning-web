@@ -265,27 +265,40 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
               }
             }
 
+            var singArray = [];
+
+            function calcPitchArray(floatarray) {
+                var offset = 0;
+                var incr = 128;
+                var buffsize = 2048;
+                var pitchArray = [];
+                while (offset + buffsize < floatarray.length) {
+                    var subarray = new Float32Array(buffsize);
+                    for (var i = 0; i < buffsize; i++) {
+                      subarray[i] = floatarray[offset + i];
+                    }
+                    // floatarray.subarray(offset,offset+buffsize);
+                    var pitch = detector.findPitch(subarray);
+                    if (pitch !== 0) {
+                      PitchModel.currentFreq = pitch;
+                      PitchModel.currentInterval = MusicCalc.getCents(PitchModel.rootFreq, PitchModel.currentFreq) / 100;
+                      pitchArray.push(PitchModel.currentInterval);
+                    } else pitchArray.push(-100);
+                    offset = offset + incr;
+                 }
+                 return pitchArray;
+            }
+
             function computePitchGraph(floatarray) {
-              var offset = 0;
-              var incr = 128;
-              var buffsize = 2048;
-              var pitchArray = [];
-              while (offset + buffsize < floatarray.length) {
-                var subarray = new Float32Array(buffsize);
-                for (var i = 0; i < buffsize; i++) {
-                  subarray[i] = floatarray[offset + i];
+                if (!computePitch) {
+                    singArray = floatarray;
+                    computePitch = true;
+                    return;
                 }
-                // floatarray.subarray(offset,offset+buffsize);
-                var pitch = detector.findPitch(subarray);
-                if (pitch !== 0) {
-                  PitchModel.currentFreq = pitch;
-                  PitchModel.currentInterval = MusicCalc.getCents(PitchModel.rootFreq, PitchModel.currentFreq) / 100;
-                  pitchArray.push(PitchModel.currentInterval);
-                } else pitchArray.push(-100);
-                offset = offset + incr;
-             }
-             display.plotData(pitchArray, totalBeats, 1000/beatDuration, computePitch);
-             computePitch = true;
+                var pitchArray1 = calcPitchArray(singArray);
+                display.plotData(pitchArray1, totalBeats, 1000/beatDuration, false);
+                var pitchArray2 = calcPitchArray(floatarray);
+                display.plotData(pitchArray2, totalBeats, 1000/beatDuration, true);
             };
 
             // $scope.$watch('rootNote', function() {
