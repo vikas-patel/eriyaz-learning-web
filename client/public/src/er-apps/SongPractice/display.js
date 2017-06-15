@@ -5,16 +5,17 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 			top: 0,
 			right: 0,
 			bottom: 0,
-			left: 0
+			left: 10
 		};
 
 		var chartWidth = 600, chartHeight = 190;
-		var miniWidth = 600, miniHeight = 40;
+		var miniWidth = chartWidth, miniHeight = 40;
 
 		var refreshTime = 40;
 
 		var slotsData = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 		var labelsData = ["S", "r", "R", "g", "G", "m", "M", "P", "d", "D", "n", "N", "S'"];
+		var scale = [0, 2, 4, 5, 7, 9, 11];
 
 		var yMin = -5;
 		var yMax = 18;
@@ -39,17 +40,17 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 			.attr("width", "100%")
 			.attr("height", "100%")
 			.attr("viewBox", "0 0 " + (chartWidth + margin.left + margin.right) + " " + (chartHeight + miniHeight + margin.top + margin.bottom))
-			//.append("g")
+			.append("g")
 			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 		var velocity = svg.append("g");
 		
-		var rect = svg.append("rect")
-			.attr("x",0)
-			.attr("y",0)
-			.attr("width",chartWidth)
-			.attr("height",chartHeight)
-			.attr("fill","none");// lightergrey F4F4F4
+		// var rect = svg.append("rect")
+		// 	.attr("x",0)
+		// 	.attr("y",0)
+		// 	.attr("width",chartWidth)
+		// 	.attr("height",chartHeight)
+		// 	.attr("fill","none");// lightergrey F4F4F4
 
 		var xAxis = d3.svg.axis()
 			.scale(xScale)
@@ -62,26 +63,53 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 			.tickFormat('')
 			.tickSubdivide(true);
 
+		var tickValues = [];
+
 		var yAxis = d3.svg.axis()
 			.scale(yScale)
-			.orient("right")
+			.orient("left")
 			.innerTickSize([chartWidth])
 			.outerTickSize([chartWidth])
-			.ticks(nYDivs)
+			// .ticks(nYDivs)
+			.tickValues(tickValues)
+			.tickFormat(customYFormat)
 			// .outerTickSize([10])
 			// .outerTickSize([20])
-			.tickFormat('')
+			//.tickFormat('')
 			.tickSubdivide(true);
+
+		this.createAxis = function () {
+			tickValues = [];
+			tickValues.push(yMin);
+			for (var i = yMin+1; i < yMax; i++) {
+				var note =  ((i+12)%12);
+				if (scale.indexOf(note) > -1) {
+					tickValues.push(i);
+				}
+			}
+			tickValues.push(yMax);
+			yAxis.tickValues(tickValues);
+			// svg.append("g")
+			// 	.attr("class", "y axis")
+			// 	.attr("transform", "translate(" + chartWidth + ",0)")
+			yAxisGroup.call(yAxis);
+		}
+
+		function customYFormat(yValue) {
+			// var labels = ['Sa', '', 'Re', '', 'Ga', 'Ma', '', 'Pa', '', 'Dha', '', 'Ni', 'Sa'];
+			if (yValue == yMin || yValue == yMax) return "";
+			return labelsData[(12 + Math.round(yValue)) % 12];
+		}
 
 		svg.append("g")
 			.attr("class", "x axis")
 			.attr("transform", "translate(0," + chartHeight + ")")
 			.call(xAxis);
 
-		svg.append("g")
+		var yAxisGroup = svg.append("g")
 			.attr("class", "y axis")
-			// .attr("transform", "translate(0," + chartWidth + ")")
-			.call(yAxis);
+			.attr("transform", "translate(" + chartWidth + ",0)");
+		// 	.call(yAxis);
 		var miniGroup = svg.append("g")
             .attr("class","miniGroup")
             .attr("transform","translate(" + 0 + "," + chartHeight + ")");
@@ -150,10 +178,12 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 			dragCallback(t0 + tShift, t1 + tShift);
 		}
 
-		this.init = function(arrayPitch, arrayTime, d) {
+		this.init = function(arrayPitch, arrayTime, aDuration, aScale) {
 			pitchSeries = arrayPitch;
 			timeSeries = arrayTime;
-			this.setDuration(d);
+			this.setDuration(aDuration);
+			scale = aScale;
+			this.createAxis();
 			this.plotExerciseData();
 		}
 
@@ -214,7 +244,7 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 				.append("rect")
 				.attr("class", "sing1")
 				.attr("x", function(d, i) {
-					return xScale(i * 256 / 48000) + timeScale(t0);
+					return xScale(i * 128 / 48000) + timeScale(t0);
 				}).attr("y", function(d) {
 					return yScale(d);
 				}).attr("width", 1)
@@ -227,7 +257,7 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 				.append("rect")
 				.attr("class", "sing2")
 				.attr("x", function(d, i) {
-					return xScale(i * 256 / 48000) + timeScale(t0);
+					return xScale(i * 128 / 48000) + timeScale(t0);
 				}).attr("y", function(d) {
 					return yScale(d);
 				}).attr("width", 1)

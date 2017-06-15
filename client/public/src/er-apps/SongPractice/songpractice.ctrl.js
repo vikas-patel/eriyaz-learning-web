@@ -54,12 +54,12 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
 
             $scope.$watch('song', function() {
                 loadSound();
-                exerciseIndex = 0;
-                if ($scope.song.isFemale) {
-                    PitchModel.rootFreq = 246.8;
-                } else {
-                    PitchModel.rootFreq = 123.4;
-                }
+                PitchModel.rootFreq = MusicCalc.midiNumToFreq($scope.song.rootNote);
+                // if ($scope.song.isFemale) {
+                //     PitchModel.rootFreq = 246.8;
+                // } else {
+                //     PitchModel.rootFreq = 123.4;
+                // }
             });
 
             var Clock = function(tickDuration) {
@@ -182,8 +182,6 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
                                 recorderWorker.postMessage({
                                     command: 'clear'
                                 });
-                                console.log("concat");
-                                console.log("clear");
                             }
                             gameController.setIntervalHandler(function(data) {
                                 recorderWorker.postMessage({
@@ -269,7 +267,7 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
 
             function computePitchGraph(floatarray) {
               var offset = 0;
-              var incr = 256;
+              var incr = 128;
               var buffsize = 2048;
               var pitchArray = [];
               while (offset + buffsize < floatarray.length) {
@@ -288,7 +286,6 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
              }
              display.plotData(pitchArray, totalBeats, 1000/beatDuration, computePitch);
              computePitch = true;
-            console.log(pitchArray);
             };
 
             // $scope.$watch('rootNote', function() {
@@ -346,7 +343,7 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
                     var pitch = MusicCalc.getCents(PitchModel.rootFreq, aPitch[i]) / 100;
                     arrayPitch.push(pitch);
                 }
-                display.init(arrayPitch, arrayTime, songBuffer.duration);
+                display.init(arrayPitch, arrayTime, songBuffer.duration, $scope.song.scale);
                 if ($scope.tempo < 1) {
                     calculateStretchedBuffer();
                 } else {

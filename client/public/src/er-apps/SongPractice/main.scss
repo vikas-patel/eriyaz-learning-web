@@ -12,6 +12,11 @@ $buttonMargin : 15px;
   color:#FFB729;
 }
 
+.tick text {
+    fill: black;
+    font-size: 0.5em;
+  }
+
 .brush .extent {
       fill-opacity: .125;
       shape-rendering: crispEdges;
