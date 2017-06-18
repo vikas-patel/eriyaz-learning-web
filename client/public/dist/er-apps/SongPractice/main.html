@@ -5,7 +5,13 @@
     <div><select ng-model="song"
 				ng-options="song.name for song in songs">
 			    </select><button ng-click="play()">Play</button>
-    		<button ng-click="playRecord()">Play Record</button></div>
+    		<button ng-click="playRecord()">Play Record</button>
+    		<select ng-model="sequence"
+				ng-options="sequence.name for sequence in sequences">
+			    </select>
+			    <label for="isLoop">Loop </label>
+					<input name="isLoop" ng-model="isLoop" type="checkbox" id="isLoop" />
+    </div>
     <div id="display"></div>
 
     <div id="Bottom">

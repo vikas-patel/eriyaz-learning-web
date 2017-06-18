@@ -63,7 +63,7 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 			.tickFormat('')
 			.tickSubdivide(true);
 
-		var tickValues = [];
+		var tickValues = [0, 2, 4, 5, 7, 9, 11];
 
 		var yAxis = d3.svg.axis()
 			.scale(yScale)
@@ -108,8 +108,8 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 
 		var yAxisGroup = svg.append("g")
 			.attr("class", "y axis")
-			.attr("transform", "translate(" + chartWidth + ",0)");
-		// 	.call(yAxis);
+			.attr("transform", "translate(" + chartWidth + ",0)")
+			.call(yAxis);
 		var miniGroup = svg.append("g")
             .attr("class","miniGroup")
             .attr("transform","translate(" + 0 + "," + chartHeight + ")");
@@ -208,16 +208,14 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 
 		this.clearPoints = function() {
 			svg.selectAll("rect.play").remove();
-			svg.selectAll("rect.sing1").remove();
-			svg.selectAll("rect.sing2").remove();
+			svg.selectAll("rect.sing").remove();
 		};
 
 		this.clearUserPoints = function() {
-			svg.selectAll("rect.sing1").remove();
-			svg.selectAll("rect.sing2").remove();
+			svg.selectAll("rect.sing").remove();
 		};
 
-		this.drawIndicator = function(noteNum, beatDuration, beats, maxNote, minNote, totalBeats) {
+		this.drawIndicator = function(beatDuration) {
 			svg.selectAll("line.indicator").remove();
 			var singIndicator = svg.append("line")
 								 .attr("x1", timeScale(t0))
@@ -236,36 +234,19 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 				.attr("x2", timeScale(t1));
 		};
 
-		this.plotData = function(data, offset, factor, withMusic) {
-			if (withMusic) {
-				pointGroup.selectAll("rect.sing1")
-				.data(data)
-				.enter()
-				.append("rect")
-				.attr("class", "sing1")
-				.attr("x", function(d, i) {
-					return xScale(i * 128 / 48000) + timeScale(t0);
-				}).attr("y", function(d) {
-					return yScale(d);
-				}).attr("width", 1)
-				.attr("height", 1)
-				.style("fill", "green");
-			} else {
-				pointGroup.selectAll("rect.sing2")
-				.data(data)
-				.enter()
-				.append("rect")
-				.attr("class", "sing2")
-				.attr("x", function(d, i) {
-					return xScale(i * 128 / 48000) + timeScale(t0);
-				}).attr("y", function(d) {
-					return yScale(d);
-				}).attr("width", 1)
-				.attr("height", 1)
-				.style("fill", "blue");
-			}
-			
-			
+		this.plotData = function(data, factor, withMusic) {
+			pointGroup.selectAll("rect.sing")
+			.data(data)
+			.enter()
+			.append("rect")
+			.attr("class", "sing")
+			.attr("x", function(d, i) {
+				return xScale(i * 128 / 48000)*factor + timeScale(t0);
+			}).attr("y", function(d) {
+				return yScale(d);
+			}).attr("width", 1)
+			.attr("height", 1)
+			.style("fill", "green");
 		};
 
 		this.plotExerciseData = function() {

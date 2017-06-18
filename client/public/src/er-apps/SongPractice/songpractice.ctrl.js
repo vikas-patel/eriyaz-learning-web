@@ -1,7 +1,7 @@
-define(['./module', './sequencegen', './display', './songs', 'note', 'webaudioplayer', './timestretcher', 'recorderworker', 'currentaudiocontext',
+define(['./module', './sequencegen', './display', './songs', 'note', 'webaudioplayer', './timestretcher', 'currentaudiocontext',
         'music-calc', 'mic-util', 'pitchdetector', 'stabilitydetector', 'audiobuffer', './scorer'
     ],
-    function(app, sequenceGen, Display, songs, Note, Player, TimeStretcher, recorderWorker, CurrentAudioContext, MusicCalc, MicUtil, PitchDetector, StabilityDetector, AudioBuffer, scorer) {
+    function(app, sequenceGen, Display, songs, Note, Player, TimeStretcher, CurrentAudioContext, MusicCalc, MicUtil, PitchDetector, StabilityDetector, AudioBuffer, scorer) {
         var sequence;
         var audioContext = CurrentAudioContext.getInstance();
         var player = new Player(audioContext);
@@ -11,6 +11,10 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
             $scope.score = 0;
             $scope.songs = songs;
             $scope.song = songs[0];
+            $scope.sequences = [{name:"sing with & without music", actions:[1, 3, 1, 2]}, 
+                                {name:"sing with music", actions:[1, 3]},
+                                {name:"sing without music", actions:[1, 2]}];
+            $scope.sequence = $scope.sequences[0];
             var display = new Display(setRange);
             var stretcher;
 
@@ -38,7 +42,7 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
             var arrayPitch = [];
             var rStart;
             var rEnd;
-            var computePitch = false;
+            var recorderWorker = new Worker("/worker/pitchworker.js");
 
             function setRange(t0, t1) {
                 rStart = t0;
@@ -55,11 +59,6 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
             $scope.$watch('song', function() {
                 loadSound();
                 PitchModel.rootFreq = MusicCalc.midiNumToFreq($scope.song.rootNote);
-                // if ($scope.song.isFemale) {
-                //     PitchModel.rootFreq = 246.8;
-                // } else {
-                //     PitchModel.rootFreq = 123.4;
-                // }
             });
 
             var Clock = function(tickDuration) {
@@ -125,6 +124,16 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
             var clock = new Clock(beatDuration);
             clock.registerWatcher(gameController);
 
+            var actionSeq = [1, 3, 1, 2];
+
+            var ACTIONS = {
+              PLAY: 1, SING: 2
+            };
+
+            var isActionTrue = function(number, action) {
+              return !!(number & action);
+            };
+
             var StartingState = function() {
                 var beepCount = 0;
                 this.handleBeep = function() {
@@ -154,41 +163,45 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
 
                 this.handleBeep = function() {
                     if (count == 0) {
-                        //Play now (listen first)
-                        recorderWorker.postMessage({
-                        command: 'clear'
-                      });
+                         display.clearUserPoints();
+                    }
+                    //Play now (listen first)
+                    if (isActionTrue($scope.sequence.actions[count], ACTIONS.PLAY)) {
                         playSound(0);
-                        display.clearUserPoints();
                     }
-                    if (count == totalBeats-1) {
-                        // sing along this play sound
-                        clock.scheduleNote();
+                    if (isActionTrue($scope.sequence.actions[count], ACTIONS.SING)) {
+                        recorderWorker.postMessage({
+                            command: 'init',
+                            sampleRate: audioContext.sampleRate,
+                            time: (rEnd - rStart)/$scope.tempo
+                          });
                     }
-                    if (count == totalBeats*3-1) {
+                    // end of sequence
+                    if (count == $scope.sequence.actions.length-1) {
                         gameController.setState(new FeedbackState(exerciseIndex));
                     }
-                    display.drawIndicator(count, beatDuration, 1, 4, 1, totalBeats*3);
+                    display.drawIndicator(beatDuration);
                     count++;
                     
                     clock.scheduleAction(function() {
-                        //display.drawIndicator(count*totalBeats, beatDuration, totalBeats, 4, 1);
-                        if (count > totalBeats-1) {
-                            
-                            if (count > totalBeats) {
-                                recorderWorker.postMessage({
-                                    command: 'concat'
-                                  });
-                                recorderWorker.postMessage({
-                                    command: 'clear'
-                                });
-                            }
+                        if (isActionTrue($scope.sequence.actions[count], ACTIONS.SING)) {
+                            display.clearUserPoints();
                             gameController.setIntervalHandler(function(data) {
                                 recorderWorker.postMessage({
                                   command: 'record',
                                   floatarray: data
                                 });
                             });
+                        }
+                        if (isActionTrue($scope.sequence.actions[count-1], ACTIONS.SING)) {
+                            recorderWorker.postMessage({
+                                    command: 'concat'
+                                  });
+                            recorderWorker.postMessage({
+                                command: 'init',
+                                sampleRate: audioContext.sampleRate,
+                                time: (rEnd - rStart)/$scope.tempo
+                              });
                         }
                     });
                 };
@@ -198,20 +211,16 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
                 var local = this;
                 var count = 0;
                 this.handleBeep = function() {
+                    gameController.setIntervalHandler(function(interval) {
+                        // display.markPitch(interval, Date.now() - singTime);
+                    });
                     clock.scheduleAction(function() {
                         if (count == 0) {
-                            gameController.setIntervalHandler(function(interval) {
-                                // display.markPitch(interval, Date.now() - singTime);
-                            });
-                            // recorderWorker.postMessage({
-                            //     command: 'concat'
-                            //   });
-                            $scope.playClicked();
-                            // display.plotExerciseData(arrayTime, arrayPitch, totalBeats, 1000/beatDuration, true);
-                        }
-                        if (count == 1) {
-                            gameController.setState(new PlayState(exerciseIndex));
-                            // $scope.playClicked();
+                            if ($scope.isLoop) {
+                                gameController.setState(new PlayState(exerciseIndex));
+                            } else {
+                                $scope.playClicked();
+                            }
                         }
                         count++;
                     });
@@ -229,9 +238,8 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
             recorderWorker.onmessage = function(e) {
               switch (e.data.command) {
                 case 'concat':
-                  computePitchGraph(e.data.floatarray);
-                  // playConcatenated(e.data.floatarray);
-                  globalArray = e.data.floatarray;
+                  computePitchGraph(e.data.pitchArray);
+                  globalArray = e.data.recordedArray;
                   break;
               }
             };
@@ -265,40 +273,8 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
               }
             }
 
-            var singArray = [];
-
-            function calcPitchArray(floatarray) {
-                var offset = 0;
-                var incr = 128;
-                var buffsize = 2048;
-                var pitchArray = [];
-                while (offset + buffsize < floatarray.length) {
-                    var subarray = new Float32Array(buffsize);
-                    for (var i = 0; i < buffsize; i++) {
-                      subarray[i] = floatarray[offset + i];
-                    }
-                    // floatarray.subarray(offset,offset+buffsize);
-                    var pitch = detector.findPitch(subarray);
-                    if (pitch !== 0) {
-                      PitchModel.currentFreq = pitch;
-                      PitchModel.currentInterval = MusicCalc.getCents(PitchModel.rootFreq, PitchModel.currentFreq) / 100;
-                      pitchArray.push(PitchModel.currentInterval);
-                    } else pitchArray.push(-100);
-                    offset = offset + incr;
-                 }
-                 return pitchArray;
-            }
-
             function computePitchGraph(floatarray) {
-                if (!computePitch) {
-                    singArray = floatarray;
-                    computePitch = true;
-                    return;
-                }
-                var pitchArray1 = calcPitchArray(singArray);
-                display.plotData(pitchArray1, totalBeats, 1000/beatDuration, false);
-                var pitchArray2 = calcPitchArray(floatarray);
-                display.plotData(pitchArray2, totalBeats, 1000/beatDuration, true);
+                display.plotData(floatarray, $scope.tempo, false);
             };
 
             // $scope.$watch('rootNote', function() {
@@ -377,7 +353,6 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
                 clock.registerWatcher(gameController);
                 clock.start();
                 gameController.setState(new PlayState());
-                computePitch = false;
             }
 
             function pitchCorrection(actual, expected) {
