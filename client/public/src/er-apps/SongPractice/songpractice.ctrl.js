@@ -172,6 +172,7 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
                     if (isActionTrue($scope.sequence.actions[count], ACTIONS.SING)) {
                         recorderWorker.postMessage({
                             command: 'init',
+                            rootFreq: PitchModel.rootFreq,
                             sampleRate: audioContext.sampleRate,
                             time: (rEnd - rStart)/$scope.tempo
                           });
@@ -199,6 +200,7 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
                                   });
                             recorderWorker.postMessage({
                                 command: 'init',
+                                rootFreq: PitchModel.rootFreq,
                                 sampleRate: audioContext.sampleRate,
                                 time: (rEnd - rStart)/$scope.tempo
                               });
