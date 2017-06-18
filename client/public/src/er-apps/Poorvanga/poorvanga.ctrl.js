@@ -1,4 +1,4 @@
-define(['./module', 'note', 'webaudioplayer', 'currentaudiocontext','tanpura', 'music-calc'], function(app, Note, Player, CurrentAudioContext, Tanpura, MusicCalc) {
+define(['./module', 'note', 'webaudioplayer', 'currentaudiocontext','tanpura', 'music-calc','underscore'], function(app, Note, Player, CurrentAudioContext, Tanpura, MusicCalc, _) {
     var sequence;
     var audioContext = CurrentAudioContext.getInstance();
     var player = new Player(audioContext);
@@ -73,6 +73,7 @@ define(['./module', 'note', 'webaudioplayer', 'currentaudiocontext','tanpura', '
         $scope.feedback = "Start with New";
         $scope.rootNote = 56;
         $scope.playTime = 200;
+		$scope.shuffle = false;
 
         var currThat;
         var marker = 0;
@@ -136,6 +137,9 @@ define(['./module', 'note', 'webaudioplayer', 'currentaudiocontext','tanpura', '
             } else {
                 intervalSequence = that;
             }
+			if($scope.shuffle) {
+				intervalSequence = _.shuffle(intervalSequence);
+			}
             var startTime = audioContext.currentTime + playDuration / 1000;
             currLoopId = setInterval(function() {
                 noteStartTime = startTime + playDuration * marker / 1000;

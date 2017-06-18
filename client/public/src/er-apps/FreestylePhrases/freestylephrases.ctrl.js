@@ -49,7 +49,7 @@
 
         function computePitchGraph(floatarray) {
           var offset = 0;
-          var incr = 64;
+          var incr = 16;
           var buffsize = 2048;
           var pitchArray = [];
           while (offset + buffsize < floatarray.length) {

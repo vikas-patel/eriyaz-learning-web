@@ -21,7 +21,7 @@ define([], function() {
 			.range([0, width]);
 
 		var yScale = d3.scale.linear()
-			.domain([-12, 12])
+			.domain([-6, 18])
 			.range([height, 0]);
 
 		var xAxis = d3.svg.axis()
@@ -87,7 +87,7 @@ define([], function() {
 				.enter()
 				.append("rect")
 				.attr("x", function(d, i) {
-					return xScale(i * 64 / 48);
+					return xScale(i * 16 / 48);
 				}).attr("y", function(d) {
 					return yScale(d);
 				}).attr("width", 2)
