@@ -12,9 +12,9 @@ self.onmessage = function(e) {
 	switch (e.data.command) {
 		case 'init':
 			sampleRate = e.data.sampleRate;
-			var time = e.data.time;
 			// one extra buffer 2048
-			processArray = new Float32Array(Math.ceil(time*sampleRate) + 2048);
+			processArray = new Float32Array(Math.ceil(e.data.time*sampleRate) + 2048);
+			rootFreq = e.data.rootFreq;
 			offset = 0;
 			current = 0;
 			pitchArray = [];
