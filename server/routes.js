@@ -2,10 +2,11 @@ var express = require('express');
 var request = require('request');
 var path = require('path');
 var userDao = require('./dao/userDao.js');
+var paymentService = require('./dao/paymentService.js');
 var exerciseDao = require('./dao/exerciseDao.js');
-var userSchema  = require('./model/user.js');
+var User  = require('./model/user.js');
 var mongoose = require('mongoose');
-var User = mongoose.model('User', userSchema);
+//var User = mongoose.model('User', userSchema);
 var async = require('async');
 var crypto = require('crypto');
 var notifier = require("./email/notifier")
@@ -19,7 +20,14 @@ module.exports = function(app, passport) {
 	// app.use('/static',isLoggedIn);
 	// app.use('/:var', isLoggedIn);
 	// app.use(express.static(path.join(__dirname, '..', 'public')));
+	var path_static;
+	if ('development' == app.get('env')) {
+		path_static = path.join(__dirname, '..', 'client', 'public', 'src');
+	} else {
+		path_static = path.join(__dirname, '..', 'client', 'public', 'dist');
+	}
 	
+	// redirect http request to https
 	if ('development' != app.get('env')) {
 		app.use(function(req, res, next) {
 		    if (req.headers['x-forwarded-proto'] != 'https') {
@@ -31,21 +39,21 @@ module.exports = function(app, passport) {
 		});
 	}
 	
-	app.get('/', function(req, res, next){
-		if (!req.isAuthenticated()) {
-			res.redirect("/landing/main.html");
-		} else {
-			next();
-		}
-	});
+	// app.get('/', function(req, res, next){
+	// 	if (!req.isAuthenticated()) {
+	// 		res.redirect("/landing/main.html");
+	// 	} else {
+	// 		next();
+	// 	}
+	// });
 	
 	app.use('/protected', isLoggedIn, express.static(path.join(__dirname, '..', 'protected')));
 	if ('development' == app.get('env')) {
-		app.use(express.static(path.join(__dirname, '..', 'client', 'public', 'src')));
+		app.use(express.static(path_static));
 		app.use('/dist',express.static(path.join(__dirname, '..', 'client', 'public', 'dist')));
 	} else {
 		// app.use('/dev',express.static(path.join(__dirname, '..', 'client', 'public', 'src')));
-		app.use(express.static(path.join(__dirname, '..', 'client', 'public', 'dist')));
+		app.use(express.static(path_static));
 	}
 
 
@@ -82,6 +90,29 @@ module.exports = function(app, passport) {
 		);
 	    
 	});
+
+	app.get('/signup/confirmation', function(req, res, next) {
+		console.log("payment confirmation:" + req.query)
+		paymentService.fetchUpdatePaymentDetails(req, res);
+		// payment status success
+		if (req.query.status == "success") {
+			// show success page
+			//res.sendFile(path.join(path_static, 'signup', 'confirmation.html'));
+		} else {
+			// show failed page
+			//res.sendFile(path.join(path_static, 'signup', 'sorry.html'));
+		}
+	});
+
+	app.post('/signup/confirmation', function(req, res, next) {
+		console.log("webhook post from instamojo.");
+		console.log(req.body);
+		console.log("months:" + req.query.months);
+		var months = 3;
+		if (req.query.months) months = parseInt(req.query.months);
+		paymentService.updatePaymentDetails(req.body, months);
+		res.send(200);
+	});
 	
 	app.post('/users', isLoggedIn, userDao.save);
 	app.put('/users/:id', userDao.update);
@@ -110,6 +141,8 @@ module.exports = function(app, passport) {
 
 	app.get('/teachers', isLoggedIn, userDao.findAllTeachers);
 	app.get('/teachers/students/:id', isLoggedIn, userDao.findAllStudentsByTeacher);
+
+	app.get('/payments/:email', isLoggedIn, userDao.findPaymentsByEmail);
 
 	app.post('/reset/:token', function(req, res) {
 	  async.waterfall([
@@ -183,7 +216,8 @@ module.exports = function(app, passport) {
 			}
 			return res.json({
 				status: 'success',
-				user: user
+				user: user,
+				info: info
 			});
 		});
 	}

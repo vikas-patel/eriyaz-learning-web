@@ -12,7 +12,7 @@
 				<div><input type="submit" value="Log In"></div>
 				<div><span class="or">or <a href ng-click="loginSignupDialogModel.selection='signup'">signup</a></span></div>
 				<div><a href ng-click="loginSignupDialogModel.selection='forgot'">Forgot password?</a></div>
-				<div class="error-container">{{flashMessage}}</div>
+				<div class="error-container" ng-bind-html="flashMessage"></div>
 			</form>
 		</div>
 		<div ng-if="loginSignupDialogModel.selection == 'forgot'">

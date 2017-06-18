@@ -1,0 +1,30 @@
+<div id="songpractice" ng-controller='SongPracticeCtrl as ctrl'>
+    <!--div style="text-align: center">
+    	<div id="score" style="display: inline-block;">{{score * 100 | number:0}}</div>
+    </div-->
+    <div><select ng-model="song"
+				ng-options="song.name for song in songs">
+			    </select><button ng-click="play()">Play</button>
+    		<button ng-click="playRecord()">Play Record</button></div>
+    <div id="display"></div>
+
+    <div id="Bottom">
+		<div id="Controls">
+			
+			<div id="PlayButton" class="Button" ng-click="playClicked()">
+				<span id="play-icon" class="icon-svg_play"></span>
+			</div>
+				<div id="SliderContainer">
+					<div class="Slider">
+						<paper-slider style="height:20px" id="tempoSlider" pin ng-model="tempo" snaps step="0.1" min="0.30" max="1">
+					</paper-slider>
+						<!-- <input type="range" id="Range" min="70" max="200"><div id="Rail"><div id="Fill" style="width: 14px;"></div></div>
+						<div id="Handle" style="left: 0px;"></div> -->
+					</div>
+					<div id="Hare" class="icon-svg_fast_man"></div><div id="Tortoise" class="icon-svg_slow_man"></div>
+			</div>
+		</div>
+	</div>
+   
+    
+</div>

@@ -293,20 +293,13 @@
           ['s', 'repeatSlow()']
         ]
       }, {
-        name: 'SingingGame',
-        thumb: 'er-shell/images/singinggame.jpg',
-        desc: 'Extract notes from a fast melody.',
-        href: '#singinggame',
-        appUrl: 'er-apps/SingingGame/main.html',
-        aspectRatio: 3 / 4,
-      }, {
         name: 'FruitNinja',
         thumb: 'er-shell/images/fruitninja.png',
         desc: 'Can you tell if the second node higher or lower than the first note?',
         href: '#fruitninja',
         appUrl: 'er-apps/FruitNinja/main.html',
         aspectRatio: 8/7,
-        show: true
+        show: false
       }, {
         name: 'ThatMemorizer',
         thumb: 'er-shell/images/thatmemorizer.jpg',
@@ -330,6 +323,27 @@
         href: '#freestylephrases',
         appUrl: 'er-apps/FreestylePhrases/main.html',
         aspectRatio: 5 / 3,
+        show: false
+      }, {
+        name: 'SingingGame',
+        thumb: 'er-shell/images/singinggame.jpg',
+        desc: 'Extract notes from a fast melody.',
+        href: '#singinggame',
+        appUrl: 'er-apps/SingingGame/main.html',
+        show: false,
+        aspectRatio: 3 / 4,
+      }, {
+        name: 'SongPractice',
+        thumb: 'er-shell/images/songpractice.jpg',
+        desc: 'Sing a Song',
+        href: '#songpractice',
+        appUrl: 'er-apps/SongPractice/main.html',
+        aspectRatio: 43 / 20,
+        hotkeys: [
+          ['space', 'playClicked()'],
+          ['r', 'playRecord()'],
+          ['p', 'play()']
+        ],
         show: false
       }, {
         name: 'FastSinging',

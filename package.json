@@ -6,7 +6,7 @@
     "start": "node server/app.js"
   },
   "engines": {
-    "node": "4.1"
+    "node": "6.10.1"
   },
   "dependencies": {
     "agenda": "latest",
@@ -17,10 +17,12 @@
     "connect-flash": "~0.1.1",
     "connect-mongo": "^1.1.0",
     "cookie-parser": "~1.0.1",
+    "d3": "^4.9.1",
     "ejs": "latest",
     "express": "~4.9.0",
     "express-session": "~1.0.3",
-    "mongoose": "~4.6.2",
+    "instamojo-node": "^1.0.1",
+    "mongoose": "4.6.2",
     "mongoose-schema-extend": "latest",
     "morgan": "~1.0.0",
     "node-rest-client": "^1.5.1",

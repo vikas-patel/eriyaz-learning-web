@@ -1,4 +1,4 @@
-var nodebb = require("./nodebb/userAPI")
+//var nodebb = require("./nodebb/userAPI")
 var notifier = require("./email/notifier")
 // config/passport.js
 
@@ -7,8 +7,9 @@ var LocalStrategy   = require('passport-local').Strategy;
 
 // load up the user model
 var mongoose = require('mongoose');
-var userSchema  = require('./model/user.js');
-var User = mongoose.model('User', userSchema);
+var User  = require('./model/user.js');
+var Payment = require('./model/payment.js');
+//var User = mongoose.model('User', userSchema);
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {
@@ -56,28 +57,41 @@ module.exports = function(passport) {
             if (user) {
                 return done(null, false,'That email is already taken.');
             } else {
-
 				// if there is no user with that email
                 // create the user
                 var newUser            = new User();
-
                 // set the user's local credentials
-                
                 newUser.local.email    = email;
                 newUser.local.password = newUser.generateHash(password); // use the generateHash function in our user model
                 newUser.gender = req.body.gender;
                 newUser.name=req.body.name;
                 newUser.phone = req.body.mobile
                 newUser.isActive = true;
-                
+                Payment.find({
+                    email: email
+                }).sort({subscription_end_date:-1})
+                .exec(function(err, payments) {
+                    if (err) return done(err);
+                    if (payments && payments.length > 0) {
+                        payment = payments[0];
+                        newUser.subscription_start_date = new Date();
+                        newUser.subscription_end_date = payment.subscription_end_date;
+                    }
+                    // save the user
+                    newUser.save(function(err) {
+                        if (err)
+                            throw err;
+                        return done(null, newUser, "Account created: <a href='/#/login'>Login</a>");
+                    });
+                });
 				//creating NodeBB user
-				console.log("Creating user in NodeBB");
-				nodebb.createUser(newUser.name, password, email, function(err, uid){
-					if(!err)
-					{
-						newUser.nodebb.uid = uid;
-					}
-				});
+				// console.log("Creating user in NodeBB");
+				// nodebb.createUser(newUser.name, password, email, function(err, uid){
+				// 	if(!err)
+				// 	{
+				// 		newUser.nodebb.uid = uid;
+				// 	}
+				// });
 				
 				//Sending email to user
 				console.log("Sending email to user");
@@ -86,13 +100,6 @@ module.exports = function(passport) {
 				//Sending email to user
 				console.log("Sending email to admin");
 				notifier.NewUserEmail(newUser);
-				
-				// save the user
-                newUser.save(function(err) {
-                    if (err)
-                        throw err;
-                    return done(null, newUser, 'Waiting for admin approval.');
-                });
             }
 
         });
@@ -126,23 +133,37 @@ module.exports = function(passport) {
             if (!user.validPassword(password))
                 return done(null, false,'Oops! Wrong password.'); // create the loginMessage and save it to session as flashdata
 			
-            if (!user.isActive)
-                return done(null, false,'Waiting for admin approval.');
+            // if (!user.isActive)
+            //     return done(null, false,'Waiting for admin approval.');
 			
+            if (user.userType != "admin" && !user.subscription_end_date) {
+                var subscribeUrl = "/signup/payment.html?" + "name="+encodeURIComponent(user.name)+
+                                "&email="+encodeURIComponent(user.local.email)+
+                                "&phone="+encodeURIComponent(user.phone);
+                return done(null, false,"no subscription: <a href=" + subscribeUrl+">Subscribe Here</a>");
+            }
+
+            if (user.userType != "admin" && user.subscription_end_date < new Date()) {
+                var subscribeUrl = "/signup/payment.html?" + "name="+encodeURIComponent(user.name)+
+                                "&email="+encodeURIComponent(user.local.email)+
+                                "&phone="+encodeURIComponent(user.phone);
+                return done(null, false,"subscription expired: <a href=" + subscribeUrl+">Subscribe Here</a>");
+            }
+            
 			//if user is not created on NodeBB attempt to create one
-			if(!user.nodebb.uid){
-				console.log("Creating user in NodeBB");
-				nodebb.createUser(user.name, password, email, function(err, uid){
-					if(!err)
-					{
-						user.nodebb.uid = uid;
-						user.save();
-					}
-				});
-			}
-			else{
-				console.log("%s userid in NodeBB", user.nodebb.uid);
-			}
+			// if(!user.nodebb.uid){
+			// 	console.log("Creating user in NodeBB");
+			// 	nodebb.createUser(user.name, password, email, function(err, uid){
+			// 		if(!err)
+			// 		{
+			// 			user.nodebb.uid = uid;
+			// 			user.save();
+			// 		}
+			// 	});
+			// }
+			// else{
+			// 	console.log("%s userid in NodeBB", user.nodebb.uid);
+			// }
 			
 			console.log('%s logged in', user.local.email)
 			// all is well, return successful user

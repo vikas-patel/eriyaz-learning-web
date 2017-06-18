@@ -29,7 +29,9 @@ var UserSchema = new mongoose.Schema({
 		uid: Number
 	},
     resetPasswordToken: String,
-    resetPasswordExpires: Date
+    resetPasswordExpires: Date,
+    subscription_start_date: Date,
+    subscription_end_date: Date
 });
 
 // methods ======================

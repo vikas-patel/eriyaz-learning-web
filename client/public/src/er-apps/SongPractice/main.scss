@@ -1,0 +1,202 @@
+#songpractice {
+$blue : rgb(22, 168, 240);
+$lightGrey : rgb(242, 242, 242);
+$darkGrey : rgb(100, 100, 100);
+$bottomHeight : 80px;
+$buttonSize : 60px;
+$buttonMargin : 15px;
+
+#score {
+  font-family: Wide Latin;
+  font-size: 28px;
+  color:#FFB729;
+}
+
+.tick text {
+    fill: black;
+    font-size: 0.5em;
+  }
+
+.brush .extent {
+      fill-opacity: .125;
+      shape-rendering: crispEdges;
+    }
+
+#Bottom {
+  height: $bottomHeight;
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  background-color: $lightGrey;
+  box-shadow: inset 0 10px 10px -10px rgba(0,0,0,0.4);
+
+  #Controls {
+    max-width: 300px;
+    width: 100%;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+
+    .Button {
+      position: absolute;
+      bottom: ($bottomHeight - $buttonSize) / 2;
+      width: $buttonSize;
+      height: $buttonSize;
+      line-height: $buttonSize;
+      text-align: center;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 0px 3px 1px rgba(0,0,0,0.2);
+      transition: transform 0.05s;
+    }
+
+    .Button:active {
+      transform: scale(1.1);
+    }
+
+    #PlayButton {
+      left: $buttonMargin;
+      background-color: $blue;
+      font-size: 25px;
+      color: white;
+      top: 12.5%;
+    }
+
+    $iconWidth : 0px;
+    $totalButtonWidth : $buttonSize + $buttonMargin * 2 + 10px;
+
+    #SliderContainer {
+      width: calc(100% - #{$totalButtonWidth + $iconWidth * 2});
+      position: absolute;
+      right: $buttonMargin + $iconWidth + 5px;
+      top: 30%;
+
+      .Slider{
+
+      }
+
+      $iconHeight : 60px;
+
+      #Tortoise, #Hare {
+        top: -20px;
+        position: absolute;
+        height: $iconHeight;
+        width: $iconWidth;
+        font-size: $iconHeight;
+        line-height: $iconHeight;
+        pointer-events: none;
+        color: $darkGrey;
+      }
+
+      #Hare {
+        right: 0px;
+      }
+
+      #Tortoise {
+        left: -43px;
+      }
+    }
+  }
+
+}
+
+paper-slider::shadow #sliderBar {
+  height: 8px;
+}
+
+  paper-slider::shadow #sliderKnobInner,
+  paper-slider::shadow #sliderKnobInner::before {
+    background-color: $blue;
+    width: 28px;
+    height: 28px;
+  }
+
+  paper-slider::shadow #sliderBar::shadow #activeProgress {
+    background-color: $blue;
+  }
+
+paper-slider::shadow .slider-markers::after, paper-slider::shadow .slider-marker::after {
+    height: 8px;
+    background-color: white;
+}
+
+.icon-svg_play:before {
+    content: "\25BA";
+    margin-left: 5px;
+}
+
+.icon-svg_pause:before {
+    content: "\275A\275A";
+}
+
+
+    svg {
+      margin-top:0px;
+    }
+    ul {
+      columns: 3;
+      -webkit-columns: 3;
+      -moz-columns: 3;
+    }
+
+    li button {
+      width:60%;
+      // font-size:10px;
+      // padding:none;
+      // height:15px;
+    }
+
+    li input {
+      // height:15px;
+      // vertical-align: bottom;
+      // margin:0;
+    }
+
+    .container {
+      box-sizing : border-box;
+      // border:solid;
+      width:100%;
+
+      // margin : 20px 0 20px 0;
+      padding:3%;
+      border-top:solid; 
+        // border-radius:5px;
+        border-width:1px;
+        border-color:#E3E3E3;
+    }
+    
+ .axis {
+      // shape-rendering: crispEdges;
+    }
+
+    .x.axis line {
+      stroke: #d1d1d1;
+      stroke-width: 1px;
+    }
+
+    .x.axis .minor {
+      stroke-opacity: .5;
+    }
+
+    .x.axis path {
+      // display: none;
+      fill:none;
+    }
+
+    .y.axis line {
+      stroke: #d1d1d1;
+      stroke-width: 1px;
+    }
+
+    .y.axis .minor {
+      stroke-opacity: .5;
+    }
+
+    .y.axis path {
+      // display: none;
+      fill:none;
+    }
+
+}

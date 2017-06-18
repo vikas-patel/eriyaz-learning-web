@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-KLQPLM4');</script>
+		<!-- End Google Tag Manager -->
+        <!-- /.website title -->
+        <title>eRiyaz - Contact Us</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+        <!-- CSS Files -->
+        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="fonts/icon-7-stroke/css/pe-icon-7-stroke.css" rel="stylesheet">
+
+
+        <!-- Colors -->
+        <link href="css/css-index-green.css" rel="stylesheet" media="screen">
+        <!-- <link href="css/css-index-green.css" rel="stylesheet" media="screen"> -->
+        <!-- <link href="css/css-index-purple.css" rel="stylesheet" media="screen"> -->
+        <!-- <link href="css/css-index-red.css" rel="stylesheet" media="screen"> -->
+        <!-- <link href="css/css-index-orange.css" rel="stylesheet" media="screen"> -->
+        <!-- <link href="css/css-index-yellow.css" rel="stylesheet" media="screen"> -->
+
+        <!-- Google Fonts -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
+
+    </head>
+
+    <body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KLQPLM4"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+        <!-- /.preloader -->
+        <div id="preloader"></div>
+        <div id="top"></div>
+
+        <!-- /.parallax full screen background image -->
+        <div class="fullscreen landing parallax" style="background-image:url('images/bg2.jpg');" data-img-width="2000" data-img-height="1333" data-diff="100">
+			<div class="overlay">
+				<div class="container">
+						<div class="row contact-row">
+
+                            <!-- /.address and contact -->
+                            <div class="col-sm-5 contact-left wow fadeInUp">
+                                <h2><span class="highlight">Get</span> in touch</h2>
+                                <ul class="ul-address">
+                                    <li><i class="pe-7s-map-marker"></i>B-35, 1st Floor, New Rajender Nagar</br>
+                                        New Delhi, India
+                                    </li>
+                                    <li><i class="pe-7s-phone"></i>+91 9623443789
+                                    </li>
+                                    <li><i class="pe-7s-mail"></i><a href="mailto:eriyazonline@gmail.com">eriyazonline@gmail.com </a></li>
+                                    <!--li><i class="pe-7s-look"></i><a href="#">www.yoursite.com</a></li-->
+                                </ul>	
+
+                            </div>
+                        </div>
+				</div>
+			</div>
+		</div>
+		
+        <!-- /.javascript files -->
+        <script src="js/jquery.js"></script>
+		<script src="js/jquery.validate.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/custom.js"></script>
+        <script src="js/wow.min.js"></script>
+        <script>
+            new WOW().init();
+			$(document).ready(function () {
+			$('#register-form').validate({ // initialize the plugin
+		        rules: {
+		        	name: {
+		                required: true
+		            },
+		            email: {
+		                required: true,
+		                email: true
+		            },
+					password: {
+		                required: true
+		            },
+		            phone: {
+		                required: true,
+		                minlength: 10,
+		                maxlength: 10
+		            },
+					gender: {
+						required: true
+					}
+		        },
+		        messages: {
+                    name: "Please enter your name",
+                    email: "Please enter a valid email address",
+					password: "Please enter your password",
+                    phone: "Please enter 10 digits number.",
+					gender: "Please select user type."
+                },
+		       submitHandler: function (form) {
+					var dataJson = {'name': $("input#name").val(),
+                    	'email': $("input#email").val(),
+						'password': $("input#password").val(),
+						'gender': $('input[name=gender]:checked').val(),
+                    	'mobile':$("input#phone").val()};	  
+		            $.ajax({
+					    type: "POST",
+					    url: "/signup",
+					    data: dataJson,
+					    success: function(data) {
+					    	if (data.status == "success") {
+					    		window.location.href = '/#/home';
+					    	} else {
+					    		$('#message').html(data.info);
+					    	}
+					    },
+					    error: function() {
+					    	$('#message').html("Something wrong: Try again.");
+					   }
+					  });
+		            return false; // for demo
+		        }
+		    });
+		});
+        </script>
+    </body>
+</html>
