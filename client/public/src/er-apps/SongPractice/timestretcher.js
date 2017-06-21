@@ -3,50 +3,40 @@ define(['currentaudiocontext', 'phasevocoder'], function(CurrentAudioContext) {
 	var TimeStretcher = function(buffer, tempo, start, end) {
 		console.log("calculating slower audio");
 		var BUFFER_SIZE = 2048;
-		var il = new Float32Array(Math.round(buffer.sampleRate *2* (end-start)));
-		var loriginal = buffer.getChannelData(0);
+		var channels = buffer.numberOfChannels;
 		var startIndex = Math.round(buffer.sampleRate*start);
 		var endIndex = Math.round(buffer.sampleRate*end);
-		for (var j = startIndex; j < endIndex; j++) {
-			il[j - startIndex] = loriginal[j];
+		var iList = new Array(channels);
+		var phasevocoder = new Array(channels);
+		var outBufferList = new Array(channels);
+		for (var i=0; i<channels;i++) {
+			outBufferList[i] = [];
+			phasevocoder[i] = new PhaseVocoder(BUFFER_SIZE/2, buffer.sampleRate); 
+			phasevocoder[i].init();
+			phasevocoder[i].set_alpha(1/tempo);
+			iList[i] = new Float32Array(Math.round(buffer.sampleRate *2* (end-start)));
+			for (var j = startIndex; j < endIndex; j++) {
+				iList[i][j - startIndex] = buffer.getChannelData(i)[j];
+			}
 		}
-		var ir = new Float32Array(Math.round(buffer.sampleRate *2* (end-start)));
-		var roriginal = buffer.getChannelData(1);
-		startIndex = Math.round(buffer.sampleRate*start);
-		endIndex = Math.round(buffer.sampleRate*end);
-		for (var j = startIndex; j < endIndex; j++) {
-			ir[j - startIndex] = roriginal[j];
-		}
-
 		var position = 0;
-		var phasevocoderL = new PhaseVocoder(BUFFER_SIZE/2, 44100); phasevocoderL.init();
-		var phasevocoderR = new PhaseVocoder(BUFFER_SIZE/2, 44100); phasevocoderR.init();
-		phasevocoderL.set_alpha(1/tempo);
-		phasevocoderR.set_alpha(1/tempo);
-		var outBufferL = [];
-		var outBufferR = [];
-
 		do {
-	        var bufL = new Float32Array(BUFFER_SIZE);
-	        var bufR = new Float32Array(BUFFER_SIZE);
-	        bufL = il.subarray(position, position+BUFFER_SIZE);
-	        bufR = ir.subarray(position, position+BUFFER_SIZE);
-	        position += phasevocoderL.get_analysis_hop();
-	        // Process left input channel
-	        outBufferL = outBufferL.concat(phasevocoderL.process(bufL));
-	        // Process right input channel
-	        outBufferR = outBufferR.concat(phasevocoderR.process(bufR));
-	    } while(position < il.length - BUFFER_SIZE);
+			for (var i=0; i<channels;i++) {
+				var buf = new Float32Array(BUFFER_SIZE);
+				buf = iList[i].subarray(position, position+BUFFER_SIZE);
+				outBufferList[i] = outBufferList[i].concat(phasevocoder[i].process(buf));
+			}
+	        position += phasevocoder[0].get_analysis_hop();
+	    } while(position < iList[0].length - BUFFER_SIZE);
 
-	    var outBuffer = context.createBuffer(2, outBufferL.length, context.sampleRate);
-	    var ol = outBuffer.getChannelData(0);
-		var or = outBuffer.getChannelData(1);
-		for (var i = 0; i < outBufferL.length; i++) {
-			ol[i] = outBufferL[i];
-		}
-		for (var i = 0; i < outBufferR.length; i++) {
-			or[i] = outBufferL[i];
-		}
+	    var outBuffer = context.createBuffer(channels, outBufferList[0].length, context.sampleRate);
+	    for (var j=0; j<channels;j++) {
+	    	var o = outBuffer.getChannelData(j);
+	    	for (var i = 0; i < outBufferList[j].length; i++) {
+				o[i] = outBufferList[j][i];
+			}
+	    }
+
 		this.out = function() {
 			return outBuffer;
 		}
