@@ -89,16 +89,14 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 			}
 			tickValues.push(yMax);
 			yAxis.tickValues(tickValues);
-			// svg.append("g")
-			// 	.attr("class", "y axis")
-			// 	.attr("transform", "translate(" + chartWidth + ",0)")
 			yAxisGroup.call(yAxis);
-		}
 
-		function customYFormat(yValue) {
-			// var labels = ['Sa', '', 'Re', '', 'Ga', 'Ma', '', 'Pa', '', 'Dha', '', 'Ni', 'Sa'];
-			if (yValue == yMin || yValue == yMax) return "";
-			return labelsData[(12 + Math.round(yValue)) % 12];
+			yAxisGroup.selectAll("text")
+						  .filter(function(d, i) {return d == 0 || d==12 || d==7})
+						  .attr("fill", "#16a8f0");
+			yAxisGroup.selectAll("line")
+						  .filter(function(d, i) {return d == 0 || d==12 || d==7})
+						  .attr("class", "highlight");
 		}
 
 		svg.append("g")
@@ -132,44 +130,26 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
             .attr("class","brushGroup")
             .attr("transform","translate(" + 0 + "," + chartHeight + ")");
 
-        var mini_xScale = d3.scale.linear().range([0, miniWidth]);
-        mini_xScale.domain([0, miniWidth]);
-	    var brush = d3.svg.brush()
-	        .x(mini_xScale)
-	        .extent([0, miniWidth/4])
-	        .on("brush", brushmove)
-	        .on("brushend", brushend);
+        var mini_xScale, brush;
 
 	    //Set up the visual part of the brush
-	    gBrush = d3.select(".brushGroup").append("g")
-	      .attr("class", "brush")
-	      .call(brush);
-	      //.call(brush.move, [0, miniWidth/2]);
+	    var gBrush = d3.select(".brushGroup").append("g")
+	      .attr("class", "brush");
 
-	    gBrush.selectAll("rect")
-      		.attr("height", miniHeight);
-
+      	this.drawMiniBrush = function(duration) {
+      		var mini_xScale = d3.scale.linear().range([0, miniWidth]);
+      		mini_xScale.domain([0, duration - xDivs]);
+      		brush = d3.svg.brush()
+			        .x(mini_xScale)
+			        .extent([0, xDivs])
+			        .on("brush", brushmove)
+			        .on("brushend", brushend);
+			gBrush.call(brush);
+			gBrush.selectAll("rect")
+      				.attr("height", miniHeight);
+	    }
       	// gBrush.call(brush.move, [10, 50]);
       	display = this;
-
-      	function brushmove() {
-    		var extent = brush.extent();
-    		tShift = (duration - xDivs)*(extent[1] - brushW)/(miniWidth - brushW);
-    		var d = timeScale(tShift);
-    		display.plotExerciseData();
-    		// velocity.attr("transform", "translate(-"+ (d) +",0)");
-    	}
-
-    	function brushend() {
-    		dragCallback(t0 + tShift, t1 + tShift);
-    	}
-
-		function mainBrushEnd() {
-			var extent = mainBrush.extent();
-			t0 = extent[0];
-			t1 = extent[1];
-			dragCallback(t0 + tShift, t1 + tShift);
-		}
 
 		this.setDuration = function(d) {
 			duration = d;
@@ -184,18 +164,11 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 			this.setDuration(aDuration);
 			scale = aScale;
 			this.createAxis();
-			this.plotExerciseData();
+			this.drawMiniBrush(aDuration);
+			this.plotExerciseData(tShift);
 		}
 
 		var pointGroup = velocity.append("g");
-		this.markPitch = function(interval, time) {
-			pointGroup.append("rect")
-				.attr("x", timeScale(time))
-				.attr("y", yScale(interval) - chartHeight / (2 * nYDivs))
-				//.attr("y", yScale(currCents) - height / 19 / 2)
-				.attr("width", 2)
-				.attr("height", 2);
-		};
 
 		this.clearIndicator = function() {
 			svg.selectAll("line.indicator").remove();
@@ -249,10 +222,10 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 			.style("fill", "green");
 		};
 
-		this.plotExerciseData = function() {
+		this.plotExerciseData = function(shift) {
 			pointGroup.selectAll("rect").remove();
-			var ts = tShift;
-			var te = tShift + xDivs;
+			var ts = shift;
+			var te = shift + xDivs;
 			var i0 = getIndex(ts, timeSeries);
 			var i1 = getIndex(te, timeSeries);
 
@@ -271,6 +244,50 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 				}).attr("width", 1)
 				.attr("height", 1)
 				.style("fill", "grey");
+		}
+		var flash = svg.append("text")
+				.attr("id", "flash")
+				.attr("font-size", 15)
+				.attr("x", chartWidth / 2)
+				.attr("y", chartHeight)
+				.attr("fill", "#F16236")
+				.attr("text-anchor", "middle");
+		this.setFlash = function(message) {
+			flash.text(message);
+		};
+
+		this.clearFlash = function() {
+			flash.text("");
+		};
+
+		function brushmove() {
+    		var extent = brush.extent();
+    		var shift = extent[0] - tShift;
+    		// tShift = (duration - xDivs)*(extent[1] - brushW)/(miniWidth - brushW);
+    		mainBrush.extent([t0 - shift, t1 - shift]);
+    		gMainBrush.call(mainBrush);
+    		display.plotExerciseData(extent[0]);
+    	}
+
+    	function brushend() {
+    		tShift = brush.extent()[0];
+    		var extent = mainBrush.extent();
+			t0 = extent[0];
+			t1 = extent[1];
+    		dragCallback(t0 + tShift, t1 + tShift);
+    	}
+
+		function mainBrushEnd() {
+			var extent = mainBrush.extent();
+			t0 = extent[0];
+			t1 = extent[1];
+			dragCallback(t0 + tShift, t1 + tShift);
+		}
+
+		function customYFormat(yValue) {
+			// var labels = ['Sa', '', 'Re', '', 'Ga', 'Ma', '', 'Pa', '', 'Dha', '', 'Ni', 'Sa'];
+			if (yValue == yMin || yValue == yMax) return "";
+			return labelsData[(12 + Math.round(yValue)) % 12];
 		}
 
 		function getIndex(t0, series) {

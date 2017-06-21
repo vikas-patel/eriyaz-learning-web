@@ -34,17 +34,6 @@ function record(floatarray) {
 	calcPitch();
 }
 
-function findPitch(data) {
-	var freq = 0;
-	freq = dywapitch_computepitch(data);
-	freq = freq * (sampleRate/44100);
-	return freq;
-}
-
-function getCents(freq1, freq2) {
-	return Math.floor(1200 * (Math.log(freq2 / freq1) / Math.log(2)));
-}
-
 function calcPitch() {
 	while (current + buffsize < offset) {
         var subarray = new Float32Array(buffsize);
@@ -64,17 +53,31 @@ function calcPitch() {
 }
 
 function concatBuffers() {
-	// var concatenatedArray = new Float32Array(buffArray.length * buffArray[0].length);
-	// var offset = 0;
-	// for (var j = 0; j < buffArray.length; j++) {
-	// 	(function(buffer) {
-	// 		concatenatedArray.set(buffer, offset);
-	// 	})(buffArray[j]);
-	// 	offset += buffArray[j].length;
-	// }
 	self.postMessage({
 		command: 'concat',
 		pitchArray: pitchArray,
 		recordedArray: processArray
 	});
+}
+
+// Helper functions
+function findPitch(data) {
+	var freq = 0;
+	if (rootMeanSquare(data) > 0.01) {
+		freq = dywapitch_computepitch(data);
+		freq = freq * (sampleRate/44100);
+	}
+	return freq;
+}
+
+function rootMeanSquare(data) {
+	var sumSquare = 0;
+	for (var i = 0; i < data.length; i++) {
+		sumSquare += data[i] * data[i];
+	}
+	return Math.sqrt(sumSquare / data.length);
+}
+
+function getCents(freq1, freq2) {
+	return Math.floor(1200 * (Math.log(freq2 / freq1) / Math.log(2)));
 }

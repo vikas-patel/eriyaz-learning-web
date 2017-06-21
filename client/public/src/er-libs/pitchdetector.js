@@ -4,8 +4,8 @@ define(['intensityfilter','wavelet-pitch', 'fft-pitch'], function(IntensityFilte
 			var freq = 0;
 			if (IntensityFilter.rootMeanSquare(data) > 0.01) {
 				freq = dywapitch_computepitch(data);
+				freq = freq * (sampleRate/44100);
 			}
-			freq = freq * (sampleRate/44100);
 			return freq;
 		};
 	};
