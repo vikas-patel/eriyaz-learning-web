@@ -174,6 +174,10 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 			svg.selectAll("line.indicator").remove();
 		};
 
+		this.stopIndicator = function() {
+			svg.selectAll("line.indicator").transition();
+		};
+
 		this.clear = function() {
 			pointGroup.selectAll("rect").remove();
 			svg.selectAll("line.indicator").remove();
