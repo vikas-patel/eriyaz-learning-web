@@ -30,16 +30,12 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
             $scope.tempo = 1;
             var defaultBeatDurtion = 1000;
             var beatDuration = defaultBeatDurtion;
-            var timeSeries = $scope.song.timeSeries;
-            var pitchSeries = $scope.song.pitchSeries;
             var currActiveNote = 0;
             var singTime = Date.now();
             var songBuffer;
             var wholeBeat = 1;
             var totalBeats = 1;
             var stretchedBuffer;
-            var arrayTime;
-            var arrayPitch = [];
             var rStart;
             var rEnd;
             var source;
@@ -158,6 +154,8 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
                             sampleRate: audioContext.sampleRate,
                             time: (rEnd - rStart)/$scope.tempo
                           });
+                    } else {
+                        gameController.setIntervalHandler(function(data) {});
                     }
                     // end of sequence
                     if (count == $scope.sequence.actions.length-1) {
@@ -314,11 +312,19 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
             function loadExercise() {
                 display.clearPoints();
                 beatDuration = defaultBeatDurtion/$scope.tempo;
-                arrayTime = $scope.song.timeSeries;
-                var aPitch = $scope.song.pitchSeries;
-                arrayPitch = [];
-                for (var i = 0; i < aPitch.length; i++) {
-                    var pitch = MusicCalc.getCents(PitchModel.rootFreq, aPitch[i]) / 100;
+                var rawTime = $scope.song.timeSeries;
+                var rawFreq = $scope.song.pitchSeries;
+                var arrayTime = [];
+                var arrayFreq = [];
+                for (var i = 0; i < rawFreq.length; i++) {
+                    if (rawFreq[i] > 0) {
+                        arrayTime.push(rawTime[i]);
+                        arrayFreq.push(rawFreq[i]);
+                    }
+                }
+                var arrayPitch = [];
+                for (var i = 0; i < arrayFreq.length; i++) {
+                    var pitch = MusicCalc.getCents(PitchModel.rootFreq, arrayFreq[i]) / 100;
                     arrayPitch.push(pitch);
                 }
                 display.init(arrayPitch, arrayTime, songBuffer.duration, $scope.song.scale);
@@ -391,6 +397,7 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
                     $("#play-icon").removeClass("icon-svg_pause");
                     display.stopIndicator();
                     source.stop();
+                    gameController.setIntervalHandler(function(data) {});
                 } else {
                     restart();
                     $("#PlayButton").addClass("Playing");
@@ -403,10 +410,6 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
             $scope.playRecord = function() {
                 playConcatenated(globalArray);
             };
-
-            // $scope.play = function() {
-            //     playSound(0);
-            // };
 
             function playConcatenated(floatarray) {
               var concatenatedArray = floatarray;

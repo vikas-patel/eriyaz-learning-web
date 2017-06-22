@@ -114,27 +114,30 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 
         var mainBrushGroup = svg.append("g")
             .attr("class","mainBrushGroup");
-        var mainBrush = d3.svg.brush()
-	        .x(timeScale)
-	        .extent([0, 1])
-	        .on("brushend", mainBrushEnd);
-	    gMainBrush = d3.select(".mainBrushGroup").append("g")
-	      .attr("class", "brush")
-	      .call(mainBrush);
-	      //.call(brush.move, [0, miniWidth/2]);
-
-	    gMainBrush.selectAll("rect")
-      		.attr("height", chartHeight);
+        var gMainBrush = d3.select(".mainBrushGroup").append("g")
+			      .attr("class", "brush");
 
     	var brushGroup = svg.append("g")
             .attr("class","brushGroup")
             .attr("transform","translate(" + 0 + "," + chartHeight + ")");
 
-        var mini_xScale, brush;
+        var mini_xScale, brush, mainBrush;
 
 	    //Set up the visual part of the brush
 	    var gBrush = d3.select(".brushGroup").append("g")
 	      .attr("class", "brush");
+
+
+	    this.drawMainBrush = function() {
+	    	mainBrush = d3.svg.brush()
+		        .x(timeScale)
+		        .extent([0, 1])
+		        .on("brushend", mainBrushEnd);
+		    
+			gMainBrush.call(mainBrush);
+	    	gMainBrush.selectAll("rect")
+      			.attr("height", chartHeight);
+	    }
 
       	this.drawMiniBrush = function(duration) {
       		var mini_xScale = d3.scale.linear().range([0, miniWidth]);
@@ -145,8 +148,10 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 			        .on("brush", brushmove)
 			        .on("brushend", brushend);
 			gBrush.call(brush);
+			// gBrush.on("mousedown", function() {console.log("centered")});
 			gBrush.selectAll("rect")
       				.attr("height", miniHeight);
+      		gBrush.selectAll(".resize").remove();
 	    }
       	// gBrush.call(brush.move, [10, 50]);
       	display = this;
@@ -155,6 +160,7 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 			duration = d;
 			t0 = 0;
 			t1 = 1;
+			tShift = 0;
 			dragCallback(t0 + tShift, t1 + tShift);
 		}
 
@@ -165,6 +171,7 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 			scale = aScale;
 			this.createAxis();
 			this.drawMiniBrush(aDuration);
+			this.drawMainBrush();
 			this.plotExerciseData(tShift);
 		}
 
@@ -278,6 +285,10 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
     		var extent = mainBrush.extent();
 			t0 = extent[0];
 			t1 = extent[1];
+			if (brush.extent()[1] == tShift || brush.extent()[1] - tShift > xDivs) {
+				brush.extent([tShift, tShift + xDivs]);
+				gBrush.call(brush);
+			}
     		dragCallback(t0 + tShift, t1 + tShift);
     	}
 
