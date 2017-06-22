@@ -138,9 +138,9 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 	    	gMainBrush.selectAll("rect")
       			.attr("height", chartHeight);
 	    }
-
+	    var mini_xScale = d3.scale.linear().range([0, miniWidth]);
+	    var mini_yScale = d3.scale.linear().domain([yMin, yMax]).range([miniHeight, 0]);
       	this.drawMiniBrush = function(duration) {
-      		var mini_xScale = d3.scale.linear().range([0, miniWidth]);
       		mini_xScale.domain([0, duration - xDivs]);
       		brush = d3.svg.brush()
 			        .x(mini_xScale)
@@ -172,6 +172,7 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 			this.createAxis();
 			this.drawMiniBrush(aDuration);
 			this.drawMainBrush();
+			// this.plotMiniCurve();
 			this.plotExerciseData(tShift);
 		}
 
@@ -232,6 +233,23 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 			.attr("height", 1)
 			.style("fill", "green");
 		};
+
+		// this.plotMiniCurve = function() {
+		// 	mini_xScale.domain([0, duration]);
+		// 	miniGroup.selectAll("rect.play")
+		// 		.data(timeSeries)
+		// 		.enter()
+		// 		.append("rect")
+		// 		.filter(function(d, i) {return i%50==0 })
+		// 		.attr("class", "play")
+		// 		.attr("x", function(d, i) {
+		// 			return mini_xScale(timeSeries[i*50]);// + offset
+		// 		}).attr("y", function(d, i) {
+		// 			return mini_yScale(pitchSeries[i*50]);
+		// 		}).attr("width", 1)
+		// 		.attr("height", 1)
+		// 		.style("fill", "grey");
+		// }
 
 		this.plotExerciseData = function(shift) {
 			pointGroup.selectAll("rect").remove();
