@@ -2,9 +2,9 @@
 $blue : rgb(22, 168, 240);
 $lightGrey : rgb(242, 242, 242);
 $darkGrey : rgb(100, 100, 100);
-$bottomHeight : 80px;
-$buttonSize : 60px;
-$buttonMargin : 15px;
+$bottomHeight : 12vh;
+$buttonSize : 10vh;
+$buttonMargin : 3vh;
 
 #score {
   font-family: Wide Latin;
@@ -58,18 +58,16 @@ $buttonMargin : 15px;
     #PlayButton {
       left: $buttonMargin;
       background-color: $blue;
-      font-size: 25px;
-      color: white;
-      top: 12.5%;
-    }
+      font-size: 4vh;
+      color: white;    }
 
-    $iconWidth : 0px;
-    $totalButtonWidth : $buttonSize + $buttonMargin * 2 + 10px;
+    $iconWidth : 0vh;
+    $totalButtonWidth : $buttonSize + $buttonMargin * 2 + 2vh;
 
     #SliderContainer {
       width: calc(100% - #{$totalButtonWidth + $iconWidth * 2});
       position: absolute;
-      right: $buttonMargin + $iconWidth + 5px;
+      right: $buttonMargin + $iconWidth + 1vh;
       top: 30%;
 
       .Slider{
@@ -102,14 +100,14 @@ $buttonMargin : 15px;
 }
 
 paper-slider::shadow #sliderBar {
-  height: 8px;
+  height: 1.5vh;
 }
 
   paper-slider::shadow #sliderKnobInner,
   paper-slider::shadow #sliderKnobInner::before {
     background-color: $blue;
-    width: 28px;
-    height: 28px;
+    width: 4.5vh;
+    height: 4.5vh;
   }
 
   paper-slider::shadow #sliderBar::shadow #activeProgress {
@@ -117,7 +115,7 @@ paper-slider::shadow #sliderBar {
   }
 
 paper-slider::shadow .slider-markers::after, paper-slider::shadow .slider-marker::after {
-    height: 8px;
+    height: 1.5vh;
     background-color: white;
 }
 
