@@ -1,6 +1,7 @@
-define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
+define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer, songs, CurrentAudioContext) {
 	var Display = function(dragCallback) {
-
+		var audioContext = CurrentAudioContext.getInstance();
+		var incr = 128;
 		var margin = {
 			top: 0,
 			right: 0,
@@ -219,14 +220,14 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 				.attr("x2", timeScale(t1));
 		};
 
-		this.plotData = function(data, factor, withMusic) {
+		this.plotData = function(data, factor, delay) {
 			pointGroup.selectAll("rect.sing")
 			.data(data)
 			.enter()
 			.append("rect")
 			.attr("class", "sing")
 			.attr("x", function(d, i) {
-				return xScale(i * 128 / 48000)*factor + timeScale(t0);
+				return xScale((i-delay) * incr / audioContext.sampleRate)*factor + timeScale(t0);
 			}).attr("y", function(d) {
 				return yScale(d);
 			}).attr("width", 1)
@@ -274,6 +275,7 @@ define(['d3', './scorer', './songs'], function(d3, scorer, songs) {
 				.attr("height", 1)
 				.style("fill", "grey");
 		}
+
 		var flash = svg.append("text")
 				.attr("id", "flash")
 				.attr("font-size", 15)
