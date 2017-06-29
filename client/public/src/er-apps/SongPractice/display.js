@@ -9,7 +9,7 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 			left: 10
 		};
 
-		var chartWidth = 600, chartHeight = 190;
+		var chartWidth = 600, chartHeight = 206;
 		var miniWidth = chartWidth, miniHeight = 40;
 
 		var refreshTime = 40;

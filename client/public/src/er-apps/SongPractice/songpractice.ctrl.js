@@ -287,7 +287,7 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
 
             function crossCorrelation(aReference, aUser) {
                 var shifts = 20;
-                var shiftNum = 5; // ~15ms
+                var shiftNum = 10; // ~30ms
                 var ratio = aReference.length/aUser.length;
                 var sumArray = [];
                 for (var i=0; i<shifts;i++) {
