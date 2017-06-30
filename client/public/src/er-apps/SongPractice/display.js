@@ -25,6 +25,7 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 		var duration, brushW = miniWidth/4;
 		var pitchSeries = [], timeSeries = [];
 		var t0, t1, tShift = 0;
+		var beats;
 		var yScale = d3.scale.linear()
 			.domain([yMin, yMax])
 			.range([chartHeight, 0]);
@@ -53,18 +54,20 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 		// 	.attr("height",chartHeight)
 		// 	.attr("fill","none");// lightergrey F4F4F4
 
-		var xAxis = d3.svg.axis()
+		var tickValues = [0, 2, 4, 5, 7, 9, 11];
+		var beatValues = [];
+
+		var xAxis = d3.svg.axis() 
 			.scale(xScale)
 			.orient("top")
 			.innerTickSize([chartHeight])
 			.outerTickSize([chartHeight])
-			.ticks(xDivs)
+			.tickValues(beatValues)
+			// .ticks(xDivs)
 			// .outerTickSize([10])
 			// .outerTickSize([20])
 			.tickFormat('')
 			.tickSubdivide(true);
-
-		var tickValues = [0, 2, 4, 5, 7, 9, 11];
 
 		var yAxis = d3.svg.axis()
 			.scale(yScale)
@@ -79,7 +82,22 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 			//.tickFormat('')
 			.tickSubdivide(true);
 
-		this.createAxis = function () {
+		this.setBeats = function (aBeats) {
+			beats = aBeats;
+			this.createBeatAxis();
+		}
+
+		this.createBeatAxis = function () {
+			beatValues = beats.filter(function (value) {
+				return value > tShift && value < tShift + xDivs;
+			});
+			xAxis.tickValues(beatValues);
+			xScale.domain([tShift, tShift+xDivs]);
+			xAxis.scale(xScale);
+			xAxisGroup.call(xAxis);
+		}
+
+		this.createNoteAxis = function () {
 			tickValues = [];
 			tickValues.push(yMin);
 			for (var i = yMin+1; i < yMax; i++) {
@@ -100,7 +118,7 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 						  .attr("class", "highlight");
 		}
 
-		svg.append("g")
+		var xAxisGroup = svg.append("g")
 			.attr("class", "x axis")
 			.attr("transform", "translate(0," + chartHeight + ")")
 			.call(xAxis);
@@ -170,7 +188,7 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 			timeSeries = arrayTime;
 			this.setDuration(aDuration);
 			scale = aScale;
-			this.createAxis();
+			this.createNoteAxis();
 			this.drawMiniBrush(aDuration);
 			this.drawMainBrush();
 			// this.plotMiniCurve();
@@ -227,7 +245,7 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 			.append("rect")
 			.attr("class", "sing")
 			.attr("x", function(d, i) {
-				return xScale((i-delay) * incr / audioContext.sampleRate)*factor + timeScale(t0);
+				return timeScale((i-delay) * incr / audioContext.sampleRate)*factor + timeScale(t0);
 			}).attr("y", function(d) {
 				return yScale(d);
 			}).attr("width", 1)
@@ -309,6 +327,7 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 				brush.extent([tShift, tShift + xDivs]);
 				gBrush.call(brush);
 			}
+			display.createBeatAxis();
     		dragCallback(t0 + tShift, t1 + tShift);
     	}
 
