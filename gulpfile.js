@@ -122,14 +122,7 @@ gulp.task('vulcanize', function() {
 });
 
 gulp.task('copy', function() {
-  return gulp.src(['client/public/src/**/*.{html,jpg,gif,css,json,mp3,png,fnt,wav,m4a,ttf}', 'client/public/src/landing/**/*.js', 'client/public/src/signup/**/*.js', 'client/public/src/worker/*.js', '!**/{ext-libs,dist}/**', '!**/{imports,index}.html'], {
-      base: './client/public/src'
-    })
-    .pipe(gulp.dest('client/public/dist'));
-});
-
-gulp.task('copy-index', function() {
-  return gulp.src(['client/public/src/signup/index.html'], {
+  return gulp.src(['client/public/src/**/*.{html,jpg,gif,css,json,mp3,png,fnt,wav,m4a,ttf,csv}', 'client/public/src/worker/*.js', '!**/{ext-libs,dist}/**', '!**/{imports,index}.html'], {
       base: './client/public/src'
     })
     .pipe(gulp.dest('client/public/dist'));
@@ -155,7 +148,7 @@ gulp.task('clean', function(cb) {
   del(['client/public/dist/*'], cb);
 });
 
-gulp.task('build', ['js-clean', 'vulcanize', 'htmlreplace', 'copy', 'copy-index']);
+gulp.task('build', ['js-clean', 'vulcanize', 'htmlreplace', 'copy']);
 
 
 gulp.task('default', ['compass', 'watch']);

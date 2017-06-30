@@ -42,12 +42,14 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
             var rawTime, arrayPitch;
             var t0, t1;
             var beats;
+            var rawTime = [];
+            var rawFreq = [];
             var recorderWorker = new Worker("/worker/pitchworker.js?v=1");
             var stretchWorker = new Worker("/worker/timestretcher.js?v=1");
             var actionMessage = ["Listen", "Sing", "Listen & Sing"];
             var LOADING_MSG = "Wait... Loading Song's Audio";
-            var LOADING_MSG_BEATS = "Wait... Loading Song's Beats";
-            var LOADING_MSG_NOTES = "Wait... Loading Song's Notes";
+            // var LOADING_MSG_BEATS = "Wait... Loading Song's Beats";
+            // var LOADING_MSG_NOTES = "Wait... Loading Song's Notes";
             var SLOWER_MSG = "Wait... Reducing Song Tempo";
             function setRange(t0, t1) {
                 rStart = t0;
@@ -62,9 +64,17 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
             }
 
             $scope.$watch('song', function() {
+                // loadPitch();
+                // loadBeats();
+                // loadSound();
+                display.setFlash(LOADING_MSG);
                 loadBeats();
-                loadSound();
                 PitchModel.rootFreq = MusicCalc.midiNumToFreq($scope.song.rootNote);
+                $.when(loadPitch(), loadSound())
+                .done(function() {
+                    loadExercise();
+                    display.clearFlash();
+                });
             });
 
             var Clock = function(tickDuration) {
@@ -237,7 +247,7 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
             };
 
             function loadSound() {
-              display.setFlash(LOADING_MSG);
+                var deferred = $.Deferred();
               var url = "er-shell/audio/"+$scope.song.path;
               var request = new XMLHttpRequest();
               request.open('GET', url, true);
@@ -247,16 +257,41 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
               request.onload = function() {
                 audioContext.decodeAudioData(request.response, function(buffer) {
                 songBuffer = buffer;
-                loadExercise();
-                display.clearFlash();
+                
+                // display.clearFlash();
+                deferred.resolve();
                 }, function() {console.log("error on loading audio file.")});
               }
               request.send();
+              return deferred.promise();
+            }
+
+            function loadPitch() {
+                var deferred = $.Deferred();
+                var url = "er-shell/audio/"+$scope.song.path.split("\.")[0]+".csv";
+                var request = new XMLHttpRequest();
+                request.open('GET', url, true);
+                // Decode asynchronously
+                request.onload = function() {
+                    deferred.resolve();
+                    var text = request.responseText;
+                    var lines = text.split('\n');
+                    rawTime = [];
+                    rawFreq = [];
+                    for (var i=0; i<lines.length; i++) {
+                        var line = lines[i].split(",");
+                        rawTime.push(parseFloat(line[0]));
+                        rawFreq.push(parseFloat(line[1]));
+                    }
+                    // loadExercise();
+                    // display.clearFlash();
+                }
+                request.send();
+                return deferred.promise();
             }
 
             function loadBeats() {
-                display.setFlash(LOADING_MSG_BEATS);
-                var url = "er-shell/audio/"+$scope.song.path.split("\.")[0]+"-beats.txt";
+                var url = "er-shell/audio/"+$scope.song.path.split("\.")[0]+"-beats.csv";
                 var request = new XMLHttpRequest();
                 request.open('GET', url, true);
                 // Decode asynchronously
@@ -265,10 +300,10 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
                 var lines = text.split('\n');
                 beats = [];
                 for (var i=0; i<lines.length; i++) {
-                    var line = lines[i].split(/\s+/);
+                    var line = lines[i].split(",");
                     beats.push(parseFloat(line[0]));
                 }
-                display.clearFlash();
+                // display.clearFlash();
                 display.setBeats(beats);
               }
               request.send();
@@ -399,8 +434,8 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
             function loadExercise() {
                 display.clearPoints();
                 beatDuration = defaultBeatDurtion/$scope.tempo;
-                rawTime = $scope.song.timeSeries;
-                rawFreq = $scope.song.pitchSeries;
+                // rawTime = $scope.song.timeSeries;
+                // rawFreq = $scope.song.pitchSeries;
                 var arrayTime = [];
                 var arrayFreq = [];
                 for (var i = 0; i < rawFreq.length; i++) {
