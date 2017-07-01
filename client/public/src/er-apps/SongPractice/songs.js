@@ -56,7 +56,6 @@ return [
 	path:"mana-janab-ne-pukara-nahi.mp3",
 	isFemale:false,
 	beatDuration: 1000,
-	beatDuration: 1000,
 	rootNote: 44,
 	scale: [0, 1, 3, 5, 7, 8, 10]
 },
@@ -65,9 +64,16 @@ return [
 	path:"enna-sona.mp3",
 	isFemale:false,
 	beatDuration: 1000,
-	beatDuration: 1000,
 	rootNote: 55,
 	scale: [0,2, 3, 5, 7, 8, 10]
+},
+{
+	name:"Tu Kisi Rail Si",
+	path:"Tu Kisi Rail Si.mp3",
+	isFemale:false,
+	beatDuration: 1000,
+	rootNote: 53,
+	scale: [0,2, 4, 5, 7, 9, 10]
 }
 ]
 });
