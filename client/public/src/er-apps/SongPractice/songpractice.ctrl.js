@@ -463,7 +463,9 @@ define(['./module', './sequencegen', './display', './songs', 'note', 'webaudiopl
 
             function calculateStretchedBuffer() {
                 display.setFlash(SLOWER_MSG);
-                var channels = songBuffer.numberOfChannels;
+                // var channels = songBuffer.numberOfChannels;
+                // calculate only one channel to speed up
+                var channels = 1;
                 var channelData = new Array(channels);
                 for (var i=0; i< channels;i++) {
                     channelData[i] = songBuffer.getChannelData(i);

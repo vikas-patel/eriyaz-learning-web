@@ -328,7 +328,6 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 				gBrush.call(brush);
 			}
 			display.createBeatAxis();
-    		dragCallback(t0 + tShift, t1 + tShift);
     	}
 
 		function mainBrushEnd() {
