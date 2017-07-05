@@ -21,6 +21,8 @@ function calculate(channelData, sampleRate, tempo, start, end) {
 		phasevocoder[i] = new PhaseVocoder(BUFFER_SIZE/2, sampleRate); 
 		phasevocoder[i].init();
 		phasevocoder[i].set_alpha(1/tempo);
+		// var pitch = phasevocoder[i].get_synthesis_hop()*tempo / phasevocoder[i].get_analysis_hop();
+  //   	phasevocoder[i].set_overlap_factor(pitch);
 		iList[i] = new Float32Array(Math.round(sampleRate *2* (end-start)));
 		for (var j = startIndex; j < endIndex; j++) {
 			iList[i][j - startIndex] = channelData[i][j];
