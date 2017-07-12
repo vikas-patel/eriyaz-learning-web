@@ -1,13 +1,63 @@
 define(['./module', './sequencegen', './display', './audioBufferToWav', './songs', 'note', 'webaudioplayer', './pitchshifter', 'currentaudiocontext',
-        'music-calc', 'mic-util', 'pitchdetector', 'stabilitydetector', 'audiobuffer', './scorer'
+        'music-calc', 'mic-util', 'pitchdetector', 'stabilitydetector', 'audiobuffer', './scorer','hopscotch'
     ],
-    function(app, sequenceGen, Display, audioBufferToWav, songs, Note, Player, PitchShifter, CurrentAudioContext, MusicCalc, MicUtil, PitchDetector, StabilityDetector, AudioBuffer, scorer) {
+    function(app, sequenceGen, Display, audioBufferToWav, songs, Note, Player, PitchShifter, CurrentAudioContext, MusicCalc, MicUtil, PitchDetector, StabilityDetector, AudioBuffer, scorer,hopscotch) {
         var sequence;
         var audioContext = CurrentAudioContext.getInstance();
         var player = new Player(audioContext);
 
+       
 
         app.controller('SongPracticeCtrl', function($scope, $rootScope, PitchModel) {
+
+            // Define the tour!
+            
+            var tour = {
+              id: "hello-hopscotch",
+              steps: [
+                {
+                  title: "Welome",
+                  content: "Click next to start the tour",
+                  target:document.querySelector("head"),
+                  placement: "bottom"
+                },
+                {
+                  title: "Songs",
+                  content: "Select the song you want to learn.",
+                  target: "song-select",
+                  placement: "right",
+                  yOffset : -20,
+                },
+                {
+                  content: "Drag this to where song starts.",
+                  target: "song-slider",
+                  placement: "right",
+                  xOffset : -900
+                },
+                {
+                  content: "select an area to select a small portion of song for practice.",
+                  target: "PlayButton",
+                  placement: "right",
+                  yOffset : -300,
+                },
+                {
+                  title: "Start Practice",
+                  content: "Start practicing by clicking this play button",
+                  target: "PlayButton",
+                  placement: "right"
+                }
+              ]
+            };
+
+             $scope.$watch('$viewContentLoaded', function(){
+                 //Here your view content is fully loaded !!
+                 // Start the tour!
+                 console.log("content loaded");
+            hopscotch.startTour(tour);
+                        console.log(hopscotch.getCurrTour());
+
+             });
+            
             $scope.score = 0;
             $scope.songs = songs;
             $scope.song = songs[0];
@@ -70,6 +120,7 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
             }
 
             $scope.$watch('song', function() {
+
                 // loadPitch();
                 // loadBeats();
                 // loadSound();

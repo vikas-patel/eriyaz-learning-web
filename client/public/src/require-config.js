@@ -18,6 +18,8 @@ requirejs.config({
         'order': 'ext-libs/requirejs-order.min',
         'ng-infinite-scroll': 'ext-libs/ng-infinite-scroll',
         'hot-keys': 'ext-libs/bower_components/angular-hotkeys/build/hotkeys',
+        'hopscotch': 'ext-libs/bower_components/hopscotch/dist/js/hopscotch.min',
+
 
         'music-calc' : 'er-libs/music-calc',
         'mic-util': 'er-libs/mic-util',

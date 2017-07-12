@@ -169,7 +169,8 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 			gBrush.call(brush);
 			// gBrush.on("mousedown", function() {console.log("centered")});
 			gBrush.selectAll("rect")
-      				.attr("height", miniHeight);
+      				.attr("height", miniHeight)
+      				.attr("id","song-slider");
       		gBrush.selectAll(".resize").remove();
 	    }
       	// gBrush.call(brush.move, [10, 50]);

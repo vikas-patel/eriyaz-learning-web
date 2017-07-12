@@ -2,11 +2,11 @@
     <!--div style="text-align: center">
     	<div id="score" style="display: inline-block;">{{score * 100 | number:0}}</div>
     </div-->
-    <div><select ng-model="song"
+    <div><select id="song-select" ng-model="song"
 				ng-options="song.name for song in songs">
 			    </select>
 			    <!-- <button ng-click="play()">Play</button> -->
-    		<button ng-click="playRecord()">Play Record</button>
+    		<button id="playrecord" ng-click="playRecord()">Play Record</button>
     		<select ng-model="sequence"
 				ng-options="sequence.name for sequence in sequences">
 			    </select>
