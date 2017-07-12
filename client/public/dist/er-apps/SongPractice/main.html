@@ -12,6 +12,9 @@
 			    </select>
 			    <label for="isLoop">Loop </label>
 					<input name="isLoop" ng-model="isLoop" type="checkbox" id="isLoop" />
+				<select ng-model="pitchShift" 
+					ng-options="pitchShift.name for pitchShift in pitchShifts">
+			    </select>
     </div>
     <div id="display"></div>
 
@@ -23,7 +26,7 @@
 			</div>
 				<div id="SliderContainer">
 					<div class="Slider">
-						<paper-slider style="height:20px" id="tempoSlider" pin ng-model="tempo" snaps step="0.1" min="0.30" max="1">
+						<paper-slider style="height:20px" id="tempoSlider" pin ng-model="tempo" snaps step="0.25" min="0.50" max="1">
 					</paper-slider>
 						<!-- <input type="range" id="Range" min="70" max="200"><div id="Rail"><div id="Fill" style="width: 14px;"></div></div>
 						<div id="Handle" style="left: 0px;"></div> -->
