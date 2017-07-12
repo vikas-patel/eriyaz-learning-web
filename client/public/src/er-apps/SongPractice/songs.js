@@ -74,6 +74,14 @@ return [
 	beatDuration: 1000,
 	rootNote: 53,
 	scale: [0,2, 4, 5, 7, 9, 10]
+},
+{
+	name:"Gulabi Aankhen",
+	path:"gulabi-aankhen.mp3",
+	isFemale:false,
+	beatDuration: 1000,
+	rootNote: 48,
+	scale: [0,2, 3, 5, 7, 8, 10]
 }
 ]
 });
