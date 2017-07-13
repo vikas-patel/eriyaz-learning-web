@@ -128,6 +128,13 @@ gulp.task('copy', function() {
     .pipe(gulp.dest('client/public/dist'));
 });
 
+gulp.task('copy-ext-libs', function() {
+  return gulp.src(['**/ext-libs/**/hopscotch/dist/**/*.{min.css,png}'], {
+      base: './client/public/src'
+    })
+    .pipe(gulp.dest('client/public/dist'));
+});
+
 gulp.task('js-clean', ['buildjs'], function(cb) {
   del(['client/public/dist/app.js'], cb);
 });
@@ -148,7 +155,7 @@ gulp.task('clean', function(cb) {
   del(['client/public/dist/*'], cb);
 });
 
-gulp.task('build', ['js-clean', 'vulcanize', 'htmlreplace', 'copy']);
+gulp.task('build', ['js-clean', 'vulcanize', 'htmlreplace', 'copy', 'copy-ext-libs']);
 
 
 gulp.task('default', ['compass', 'watch']);
