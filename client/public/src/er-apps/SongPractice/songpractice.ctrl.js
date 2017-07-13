@@ -322,8 +322,8 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
 
             function sliceAudioBuffer(buffer, begin, end) {
                 var rate = audioContext.sampleRate;
-                var startOffset = rate * begin;
-                var endOffset = rate * end;
+                var startOffset = Math.round(rate * begin);
+                var endOffset = Math.round(rate * end);
                 var frameCount = endOffset - startOffset;
                 var newArrayBuffer = audioContext.createBuffer(1, endOffset - startOffset, rate);
                 var anotherArray = new Float32Array(frameCount);

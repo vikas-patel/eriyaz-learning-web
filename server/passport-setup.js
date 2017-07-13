@@ -138,19 +138,19 @@ module.exports = function(passport) {
             // if (!user.isActive)
             //     return done(null, false,'Waiting for admin approval.');
 			
-            if (user.userType != "admin" && !user.subscription_end_date) {
-                var subscribeUrl = "/signup/payment.html?" + "name="+encodeURIComponent(user.name)+
-                                "&email="+encodeURIComponent(user.local.email)+
-                                "&phone="+encodeURIComponent(user.phone);
-                return done(null, false,"no subscription: <a href=" + subscribeUrl+">Subscribe Here</a>");
-            }
+            // if (user.userType != "admin" && !user.subscription_end_date) {
+            //     var subscribeUrl = "/signup/payment.html?" + "name="+encodeURIComponent(user.name)+
+            //                     "&email="+encodeURIComponent(user.local.email)+
+            //                     "&phone="+encodeURIComponent(user.phone);
+            //     return done(null, false,"no subscription: <a href=" + subscribeUrl+">Subscribe Here</a>");
+            // }
 
-            if (user.userType != "admin" && user.subscription_end_date < new Date()) {
-                var subscribeUrl = "/signup/payment.html?" + "name="+encodeURIComponent(user.name)+
-                                "&email="+encodeURIComponent(user.local.email)+
-                                "&phone="+encodeURIComponent(user.phone);
-                return done(null, false,"subscription expired: <a href=" + subscribeUrl+">Subscribe Here</a>");
-            }
+            // if (user.userType != "admin" && user.subscription_end_date < new Date()) {
+            //     var subscribeUrl = "/signup/payment.html?" + "name="+encodeURIComponent(user.name)+
+            //                     "&email="+encodeURIComponent(user.local.email)+
+            //                     "&phone="+encodeURIComponent(user.phone);
+            //     return done(null, false,"subscription expired: <a href=" + subscribeUrl+">Subscribe Here</a>");
+            // }
             
 			//if user is not created on NodeBB attempt to create one
 			// if(!user.nodebb.uid){
