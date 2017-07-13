@@ -112,7 +112,6 @@
   }  
 }
 
-
 #front #try, #try a {
   color : black;
   margin-top:10px;
@@ -168,10 +167,23 @@
   }
 }
 
-#front #signup-form {
+#front #signup-form,#login-container {
   display : block;
   // left: 50%;
   text-align : center;
+
+    h3 {
+      //color : #652218;
+      text-align:center;
+      font-weight: 400;
+      font-size:x-large;
+      width: 250px;
+    }
+
+  h5 {
+    color : #652218;
+    margin-top:30px;
+  } 
 
   h4 {
       color : #652218;
@@ -209,7 +221,7 @@
         background-color:#652218;
         color:white;
         border:none;
-        width : 150px;
+        padding:10px;
         text-decoration: none;
         border-radius: 10px;
         // border-color:#A53F26;

@@ -2,6 +2,19 @@
     app.factory('AppsInfoModel', function(ScoreService, $window) {
       var appsInfo = {};
       appsInfo.apps = [{
+        name: 'SongPractice',
+        thumb: 'er-shell/images/songpractice.jpg',
+        desc: 'Song Practice App',
+        href: '#songpractice',
+        appUrl: 'er-apps/SongPractice/main.html',
+        aspectRatio: 43 / 20,
+        hotkeys: [
+          ['space', 'playClicked()'],
+          ['r', 'playRecord()'],
+          ['p', 'play()']
+        ],
+        show: true
+      }, {
         name: 'FlappyBird',
         thumb: 'er-shell/images/flappybird.jpg',
         desc: 'Control your voice pitch.',
@@ -126,14 +139,6 @@
         appUrl: 'er-apps/MelodyGraph2/main.html',
         aspectRatio: 9 / 10,
         show: true
-      }, {
-        name: 'TimeTrainer',
-        thumb: 'er-shell/images/timetrainer.jpg',
-        desc: 'Basic rhythm training.',
-        href: '#timetrainer',
-        appUrl: 'er-apps/TimeTrainer/main.html',
-        aspectRatio: 9 / 10,
-        show: false
       }, {
         name: 'VoiceRange',
         thumb: 'er-shell/images/voicerange.jpg',
@@ -333,17 +338,12 @@
         show: false,
         aspectRatio: 3 / 4,
       }, {
-        name: 'SongPractice',
-        thumb: 'er-shell/images/songpractice.jpg',
-        desc: 'Sing a Song',
-        href: '#songpractice',
-        appUrl: 'er-apps/SongPractice/main.html',
-        aspectRatio: 43 / 20,
-        hotkeys: [
-          ['space', 'playClicked()'],
-          ['r', 'playRecord()'],
-          ['p', 'play()']
-        ],
+        name: 'TimeTrainer',
+        thumb: 'er-shell/images/timetrainer.jpg',
+        desc: 'Basic rhythm training.',
+        href: '#timetrainer',
+        appUrl: 'er-apps/TimeTrainer/main.html',
+        aspectRatio: 9 / 10,
         show: false
       }, {
         name: 'FastSinging',

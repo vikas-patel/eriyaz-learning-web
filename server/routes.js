@@ -72,6 +72,15 @@ module.exports = function(app, passport) {
 		})(req, res, next);
 	});
 
+	// facebook -------------------------------
+
+	// send to facebook to do the authentication
+	app.get('/auth/facebook', function(req, res, next) {
+		passport.authenticate('facebook-token', function(err, user, info) {
+			customJsonCalback(req, res, next, err, user, info);
+		})(req, res, next);
+	});
+
 	app.post('/register', function(req, res, next) {
 		request.post(
 			// Google Form: Learn to Sing (Web)
@@ -221,7 +230,7 @@ module.exports = function(app, passport) {
 			});
 		});
 	}
-
+ 
 	// route middleware to make sure
 	function isLoggedIn(req, res, next) {
 		// if user is authenticated in the session, carry on

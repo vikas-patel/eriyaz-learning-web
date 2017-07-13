@@ -12,6 +12,12 @@ var UserSchema = new mongoose.Schema({
         password     : String,
         
     },
+    facebook         : {
+        id           : String,
+        token        : String,
+        email        : String,
+        name         : String
+    },
 	join_date: { type : Date, default : Date.now },
     userType: { type : String, default : "student"},
     teacher: {type: mongoose.Schema.Types.ObjectId,
