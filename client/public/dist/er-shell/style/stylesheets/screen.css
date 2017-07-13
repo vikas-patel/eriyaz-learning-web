@@ -2,6 +2,7 @@
  * In this file you should write your main styles. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+@import url(../../../ext-libs/bower_components/hopscotch/dist/css/hopscotch.min.css);
 /* line 5, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -222,26 +223,26 @@ body #error dd {
   text-decoration: underline;
 }
 
-/* line 116, ../sass/pages/_front.scss */
+/* line 115, ../sass/pages/_front.scss */
 #front #try, #try a {
   color: black;
   margin-top: 10px;
 }
 
-/* line 122, ../sass/pages/_front.scss */
+/* line 121, ../sass/pages/_front.scss */
 #front #desc, #eriyaz, #join, #try {
   display: block;
   text-align: center;
   margin: 10px;
 }
 
-/* line 130, ../sass/pages/_front.scss */
+/* line 129, ../sass/pages/_front.scss */
 #front #desc {
   color: white;
   font-size: 90%;
 }
 
-/* line 135, ../sass/pages/_front.scss */
+/* line 134, ../sass/pages/_front.scss */
 #front #join {
   color: white;
   background-color: #652218;
@@ -257,57 +258,69 @@ body #error dd {
   box-shadow: 0 0 28px 5px #652218;
 }
 @media (max-width: 640px), (max-height: 420px) {
-  /* line 135, ../sass/pages/_front.scss */
+  /* line 134, ../sass/pages/_front.scss */
   #front #join {
     line-height: 40px;
     width: 150px;
   }
 }
 
-/* line 156, ../sass/pages/_front.scss */
+/* line 155, ../sass/pages/_front.scss */
 #front #join:hover {
   box-shadow: 0 0 28px 6px #652218;
   text-shadow: 0 0 15px #FFFFFF;
 }
 
-/* line 162, ../sass/pages/_front.scss */
+/* line 161, ../sass/pages/_front.scss */
 #front #eriyaz {
   font-size: 150%;
   color: white;
 }
 @media (max-width: 640px), (max-height: 420px) {
-  /* line 162, ../sass/pages/_front.scss */
+  /* line 161, ../sass/pages/_front.scss */
   #front #eriyaz {
     font-size: 200%;
   }
 }
 
-/* line 171, ../sass/pages/_front.scss */
-#front #signup-form {
+/* line 170, ../sass/pages/_front.scss */
+#front #signup-form, #login-container {
   display: block;
   text-align: center;
 }
-/* line 176, ../sass/pages/_front.scss */
-#front #signup-form h4 {
+/* line 175, ../sass/pages/_front.scss */
+#front #signup-form h3, #login-container h3 {
+  text-align: center;
+  font-weight: 400;
+  font-size: x-large;
+  width: 250px;
+}
+/* line 183, ../sass/pages/_front.scss */
+#front #signup-form h5, #login-container h5 {
+  color: #652218;
+  margin-top: 30px;
+}
+/* line 188, ../sass/pages/_front.scss */
+#front #signup-form h4, #login-container h4 {
   color: #652218;
   text-align: center;
   font-weight: 800;
   font-size: x-large;
   width: 250px;
 }
-/* line 184, ../sass/pages/_front.scss */
-#front #signup-form #scroller {
+/* line 196, ../sass/pages/_front.scss */
+#front #signup-form #scroller, #login-container #scroller {
   border-radius: 5px;
   margin: 0px;
   border: 0px;
 }
-/* line 190, ../sass/pages/_front.scss */
-#front #signup-form .error-container {
+/* line 202, ../sass/pages/_front.scss */
+#front #signup-form .error-container, #login-container .error-container {
   color: white;
   width: 250px;
 }
-/* line 195, ../sass/pages/_front.scss */
-#front #signup-form input {
+/* line 207, ../sass/pages/_front.scss */
+#front #signup-form input, #login-container input {
   height: 30px;
   margin-top: 10px;
   text-align: center;
@@ -316,16 +329,16 @@ body #error dd {
   border-width: 1px;
   border-style: solid;
 }
-/* line 204, ../sass/pages/_front.scss */
-#front #signup-form input .placeholder {
+/* line 216, ../sass/pages/_front.scss */
+#front #signup-form input .placeholder, #login-container input .placeholder {
   text-align: center;
 }
-/* line 208, ../sass/pages/_front.scss */
-#front #signup-form input[type="submit"] {
+/* line 220, ../sass/pages/_front.scss */
+#front #signup-form input[type="submit"], #login-container input[type="submit"] {
   background-color: #652218;
   color: white;
   border: none;
-  width: 150px;
+  padding: 10px;
   text-decoration: none;
   border-radius: 10px;
   border-color: #983923;
@@ -336,40 +349,40 @@ body #error dd {
   box-shadow: 0 0 28px 5px #652218;
 }
 @media (max-width: 640px), (max-height: 420px) {
-  /* line 208, ../sass/pages/_front.scss */
-  #front #signup-form input[type="submit"] {
+  /* line 220, ../sass/pages/_front.scss */
+  #front #signup-form input[type="submit"], #login-container input[type="submit"] {
     line-height: 40px;
     width: 150px;
   }
 }
-/* line 229, ../sass/pages/_front.scss */
-#front #signup-form input[type="submit"]:hover {
+/* line 241, ../sass/pages/_front.scss */
+#front #signup-form input[type="submit"]:hover, #login-container input[type="submit"]:hover {
   box-shadow: 0 0 28px 6px #652218;
   text-shadow: 0 0 15px #FFFFFF;
 }
-/* line 234, ../sass/pages/_front.scss */
-#front #signup-form input[type="radio"] {
+/* line 246, ../sass/pages/_front.scss */
+#front #signup-form input[type="radio"], #login-container input[type="radio"] {
   margin-right: 1px;
   vertical-align: middle;
   margin-top: -2px;
 }
-/* line 241, ../sass/pages/_front.scss */
-#front #signup-form input:-webkit-autofill {
+/* line 253, ../sass/pages/_front.scss */
+#front #signup-form input:-webkit-autofill, #login-container input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px white inset;
 }
 @media (max-height: 280px) {
-  /* line 195, ../sass/pages/_front.scss */
-  #front #signup-form input {
+  /* line 207, ../sass/pages/_front.scss */
+  #front #signup-form input, #login-container input {
     height: 20px;
     margin-top: none;
   }
-  /* line 248, ../sass/pages/_front.scss */
-  #front #signup-form input[type="submit"] {
+  /* line 260, ../sass/pages/_front.scss */
+  #front #signup-form input[type="submit"], #login-container input[type="submit"] {
     height: 40px;
   }
 }
-/* line 254, ../sass/pages/_front.scss */
-#front #signup-form a {
+/* line 266, ../sass/pages/_front.scss */
+#front #signup-form a, #login-container a {
   color: #652218;
 }
 
