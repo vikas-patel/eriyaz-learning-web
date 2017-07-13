@@ -2,6 +2,6 @@
 *soundfont
 *sublime-project
 *sublime-workspace
-*bower_components
+client/public/src/ext-libs/bower_components
 *log
 .sass-cache
