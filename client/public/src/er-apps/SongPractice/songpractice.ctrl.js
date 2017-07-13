@@ -52,18 +52,14 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
              $scope.$watch('$viewContentLoaded', function(){
                  //Here your view content is fully loaded !!
                  // Start the tour!
-                 console.log("content loaded");
             hopscotch.startTour(tour);
-                        console.log(hopscotch.getCurrTour());
-
              });
             
             $scope.score = 0;
             $scope.songs = songs;
             $scope.song = songs[0];
-            $scope.sequences = [{name:"sing with original", actions:[1, 3]},
-                                {name:"sing after original", actions:[1, 2]},
-                                {name:"combine above two", actions:[1, 3, 1, 2]},
+            $scope.sequences = [{name:"sing after original", actions:[1, 2]},
+                                {name:"sing with original", actions:[1, 3]},
                                 {name:"listen original only", actions:[1]}];
             $scope.pitchShifts = [{name:"original pitch", value: 0},
                                 {name:"1 seminote lower", value: 1},
