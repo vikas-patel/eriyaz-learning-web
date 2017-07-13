@@ -10,6 +10,7 @@ define([
     './front.ctrl',
     './login.ctrl',
     './signup.ctrl',
+    './facebook.ctrl',
     './profile.ctrl',
     './journal.ctrl',
     './mystudents.ctrl',

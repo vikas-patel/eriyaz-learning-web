@@ -189,12 +189,23 @@
                  resolve: {
                      onLoggedOutRedirect: checkLoginAndRedirect
                  }
+             }).state('songpractice', {
+                 url: '/songpractice',
+                 onEnter: function(UIModel, AppsInfoModel) {
+                     UIModel.uiModel.showLoginDialog = false;
+                     UIModel.uiModel.showMenu = true;
+                     AppsInfoModel.setSelected(0);
+                     UIModel.uiModel.showAppDialog = true;
+                 },
+                 resolve: {
+                     onLoggedOutRedirect: checkLoginAndRedirect
+                 }
              }).state('flappybird', {
                  url: '/flappybird',
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(0);
+                     AppsInfoModel.setSelected(1);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -206,7 +217,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(1);
+                     AppsInfoModel.setSelected(2);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -218,7 +229,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(2);
+                     AppsInfoModel.setSelected(3);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -230,7 +241,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(3);
+                     AppsInfoModel.setSelected(4);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -242,7 +253,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(4);
+                     AppsInfoModel.setSelected(5);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -254,7 +265,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(5);
+                     AppsInfoModel.setSelected(6);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -266,7 +277,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(6);
+                     AppsInfoModel.setSelected(7);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -278,7 +289,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(7);
+                     AppsInfoModel.setSelected(8);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -290,7 +301,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(8);
+                     AppsInfoModel.setSelected(9);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -302,7 +313,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(9);
+                     AppsInfoModel.setSelected(10);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -314,7 +325,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(10);
+                     AppsInfoModel.setSelected(11);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -323,18 +334,6 @@
              }).
              state('melodygraph2', {
                  url: '/melodygraph2',
-                 onEnter: function(UIModel, AppsInfoModel) {
-                     UIModel.uiModel.showLoginDialog = false;
-                     UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(11);
-                     UIModel.uiModel.showAppDialog = true;
-                 },
-                 resolve: {
-                     onLoggedOutRedirect: checkLoginAndRedirect
-                 }
-             }).
-             state('timetrainer', {
-                 url: '/timetrainer',
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
@@ -583,9 +582,8 @@
                  resolve: {
                      onLoggedOutRedirect: checkLoginAndRedirect
                  }
-             }).
-             state('songpractice', {
-                 url: '/songpractice',
+             }).state('timetrainer', {
+                 url: '/timetrainer',
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
