@@ -25,6 +25,17 @@ $sliderKnobHeight: 2vw;
       shape-rendering: crispEdges;
     }
 
+#seekbar {
+  width:100%;
+}
+
+#seekbarContainer {
+  position: absolute;
+  bottom: $bottomHeight;
+  height: 3vw;
+  width: 100%;
+}
+
 #Bottom {
   height: $bottomHeight;
   width: 100%;
@@ -99,28 +110,28 @@ $sliderKnobHeight: 2vw;
         left: -43px;
       }
     }
+
+    paper-slider::shadow #sliderBar {
+      height: $sliderBarHeight;
+    }
+
+      paper-slider::shadow #sliderKnobInner,
+      paper-slider::shadow #sliderKnobInner::before {
+        background-color: $blue;
+        width: $sliderKnobHeight;
+        height: $sliderKnobHeight;
+      }
+
+      paper-slider::shadow #sliderBar::shadow #activeProgress {
+        background-color: $blue;
+      }
+
+    paper-slider::shadow .slider-markers::after, paper-slider::shadow .slider-marker::after {
+        height: $sliderBarHeight;
+        background-color: white;
+    }
   }
 
-}
-
-paper-slider::shadow #sliderBar {
-  height: $sliderBarHeight;
-}
-
-  paper-slider::shadow #sliderKnobInner,
-  paper-slider::shadow #sliderKnobInner::before {
-    background-color: $blue;
-    width: $sliderKnobHeight;
-    height: $sliderKnobHeight;
-  }
-
-  paper-slider::shadow #sliderBar::shadow #activeProgress {
-    background-color: $blue;
-  }
-
-paper-slider::shadow .slider-markers::after, paper-slider::shadow .slider-marker::after {
-    height: $sliderBarHeight;
-    background-color: white;
 }
 
 .icon-svg_play:before {

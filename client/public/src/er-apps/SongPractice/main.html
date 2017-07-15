@@ -17,9 +17,14 @@
 			    </select>
     </div>
     <div id="display"></div>
-
+    <div horizontal layout center justified id="seekbarContainer">
+	    <span id="time-label">0.00</span><strong> / </strong><span id="duration-label">0.00</span>
+	    <div flex>
+	    	<paper-slider id="seekbar" value="0"></paper-slider>
+	    </div>
+	</div>
     <div id="Bottom">
-		<div id="Controls">
+		<div id="Controls" horizontal layout center justified>
 			
 			<div id="PlayButton" class="Button" ng-click="playClicked()">
 				<span id="play-icon" class="icon-svg_play"></span>

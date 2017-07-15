@@ -10,7 +10,7 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 		};
 
 		var chartWidth = 600, chartHeight = 206;
-		var miniWidth = chartWidth, miniHeight = 40;
+		var miniWidth = chartWidth, miniHeight = 0;
 
 		var refreshTime = 40;
 
@@ -159,20 +159,20 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 	    }
 	    var mini_xScale = d3.scale.linear().range([0, miniWidth]);
 	    var mini_yScale = d3.scale.linear().domain([yMin, yMax]).range([miniHeight, 0]);
-      	this.drawMiniBrush = function(duration) {
-      		mini_xScale.domain([0, duration - xDivs]);
-      		brush = d3.svg.brush()
-			        .x(mini_xScale)
-			        .extent([0, xDivs])
-			        .on("brush", brushmove)
-			        .on("brushend", brushend);
-			gBrush.call(brush);
-			// gBrush.on("mousedown", function() {console.log("centered")});
-			gBrush.selectAll("rect")
-      				.attr("height", miniHeight)
-      				.attr("id","song-slider");
-      		gBrush.selectAll(".resize").remove();
-	    }
+   //    	this.drawMiniBrush = function(duration) {
+   //    		mini_xScale.domain([0, duration - xDivs]);
+   //    		brush = d3.svg.brush()
+			//         .x(mini_xScale)
+			//         .extent([0, xDivs])
+			//         .on("brush", brushmove)
+			//         .on("brushend", brushend);
+			// gBrush.call(brush);
+			// // gBrush.on("mousedown", function() {console.log("centered")});
+			// gBrush.selectAll("rect")
+   //    				.attr("height", miniHeight)
+   //    				.attr("id","song-slider");
+   //    		gBrush.selectAll(".resize").remove();
+	  //   }
       	// gBrush.call(brush.move, [10, 50]);
       	display = this;
 
@@ -190,7 +190,7 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 			this.setDuration(aDuration);
 			scale = aScale;
 			this.createNoteAxis();
-			this.drawMiniBrush(aDuration);
+			// this.drawMiniBrush(aDuration);
 			this.drawMainBrush();
 			// this.plotMiniCurve();
 			this.plotExerciseData(tShift);
@@ -310,26 +310,44 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 			flash.text("");
 		};
 
-		function brushmove() {
-    		var extent = brush.extent();
-    		var shift = extent[0] - tShift;
-    		// tShift = (duration - xDivs)*(extent[1] - brushW)/(miniWidth - brushW);
+		// function brushmove() {
+  //   		var extent = brush.extent();
+  //   		var shift = extent[0] - tShift;
+  //   		// tShift = (duration - xDivs)*(extent[1] - brushW)/(miniWidth - brushW);
+  //   		mainBrush.extent([t0 - shift, t1 - shift]);
+  //   		gMainBrush.call(mainBrush);
+  //   		display.plotExerciseData(extent[0]);
+  //   	}
+
+		// function brushend() {
+  //   		tShift = brush.extent()[0];
+  //   		var extent = mainBrush.extent();
+		// 	t0 = extent[0];
+		// 	t1 = extent[1];
+		// 	if (brush.extent()[1] == tShift || brush.extent()[1] - tShift > xDivs) {
+		// 		brush.extent([tShift, tShift + xDivs]);
+		// 		gBrush.call(brush);
+		// 	}
+		// 	display.createBeatAxis();
+  //   	}
+    	this.seekbarMove = function(value) {
+    		var shift = value - tShift;
     		mainBrush.extent([t0 - shift, t1 - shift]);
     		gMainBrush.call(mainBrush);
-    		display.plotExerciseData(extent[0]);
-    	}
+    		display.plotExerciseData(value);
+    	};
 
-    	function brushend() {
-    		tShift = brush.extent()[0];
+    	this.seekbarEnd= function(value) {
+    		tShift = value;
     		var extent = mainBrush.extent();
 			t0 = extent[0];
 			t1 = extent[1];
-			if (brush.extent()[1] == tShift || brush.extent()[1] - tShift > xDivs) {
-				brush.extent([tShift, tShift + xDivs]);
-				gBrush.call(brush);
-			}
+			// if (brush.extent()[1] == tShift || brush.extent()[1] - tShift > xDivs) {
+			// 	brush.extent([tShift, tShift + xDivs]);
+			// 	gBrush.call(brush);
+			// }
 			display.createBeatAxis();
-    	}
+    	};
 
 		function mainBrushEnd() {
 			var extent = mainBrush.extent();
