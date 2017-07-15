@@ -29,9 +29,10 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                   yOffset : -20,
                 },
                 {
-                  content: "Drag this to where song starts.",
-                  target: "song-slider",
+                  content: "Drag slider to where song starts.",
+                  target: "seekbar",
                   placement: "right",
+                  yOffset : -20,
                   xOffset : -900
                 },
                 {
