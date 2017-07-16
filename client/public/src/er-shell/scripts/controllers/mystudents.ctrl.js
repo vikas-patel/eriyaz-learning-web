@@ -34,6 +34,14 @@
   		}
        $scope.sortType     = 'name';
       $scope.sortReverse  = false;
+
+      $scope.userName = function(user) {
+        if (user.name) {
+          return user.name
+        } else if (user.facebook)  {
+          return user.facebook.name + " (f)";
+        } else return "";
+      };
   		
       $scope.update = function(user) {
           user.$edit = false;

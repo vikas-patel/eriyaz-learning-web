@@ -218,10 +218,10 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 
 		this.clearUserPoints = function() {
 			svg.selectAll("rect.sing").remove();
+			svg.selectAll("line.indicator").remove();
 		};
 
 		this.drawIndicator = function(beatDuration) {
-			svg.selectAll("line.indicator").remove();
 			var singIndicator = svg.append("line")
 								 .attr("x1", timeScale(t0))
 								 .attr("y1", yScale(yMax))
@@ -236,7 +236,8 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 				.duration(beatDuration)
 				.ease("linear")
 				.attr("x1", timeScale(t1))
-				.attr("x2", timeScale(t1));
+				.attr("x2", timeScale(t1))
+				.each("end", function(){singIndicator.remove();});;
 		};
 
 		this.plotData = function(data, factor, delay) {

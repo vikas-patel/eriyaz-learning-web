@@ -29,7 +29,7 @@
                      UIModel.uiModel.showAppDialog = false;
                      LoginSignupDialogModel.loginSignupDialogModel.selection = 'login';
                      UIModel.uiModel.showFront = true;
-                     UIModel.uiModel.showLoginDialog = true;
+                     //UIModel.uiModel.showLoginDialog = true;
                  },
                  resolve: {
                      onLoggedInRedirect: function($q, $location, $window) {

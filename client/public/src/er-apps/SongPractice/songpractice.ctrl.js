@@ -503,7 +503,6 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
             // });
 
             $scope.$watch('tempo', function() {
-                console.log("tempo changed");
                 beatDuration = defaultBeatDurtion/$scope.tempo;
                 if ($("#PlayButton").hasClass("Playing")) {
                     restart();
@@ -519,14 +518,12 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
              $("#seekbar").bind("change", function(){
                 var seekbar = document.querySelector('#seekbar');
                 display.seekbarEnd(seekbar.value);
-                console.log(seekbar.value);
              });
 
             $("#seekbar").bind("immediate-value-change", function(){
                 var seekbar = document.querySelector('#seekbar');
                 var value = seekbar.immediateValue;
                 display.seekbarMove(value);
-                console.log(value);
                 $("#time-label").text(Math.floor(value/60) + "." + value%60);
              });
 
