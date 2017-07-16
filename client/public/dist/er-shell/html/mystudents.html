@@ -5,7 +5,7 @@
 		<table ng-table="tableParams" show-filter="true" class="table">
 			<tr ng-repeat="user in $data">
 				<td data-title="'Name'" sortable="'name'" filter="{ 'name': 'text' }">
-					<a ng-if="!user.$edit" href="#history/{{user._id}}">{{user.name}}</a>
+					<a ng-if="!user.$edit" href="#history/{{user._id}}">{{userName(user);}}</a>
 					<div ng-if="user.$edit"><input class="form-control" type="text" ng-model="user.name" /></div>
 				</td>
 				<td data-title="'Email'" sortable="'local.email'"">
