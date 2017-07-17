@@ -64,6 +64,11 @@ module.exports = function(app, passport) {
 		})(req, res, next);
 	});
 
+	// logout user
+	app.get('/logout', function(req, res){
+	  req.logout();
+	  res.redirect('/'); //Can fire before session is destroyed?
+	});
 
 	// process the signup form
 	app.post('/signup', function(req, res, next) {
@@ -237,7 +242,7 @@ module.exports = function(app, passport) {
 		if (req.isAuthenticated())
 		{
 			//update last_login every time server is accessed
-			userDao.updateLastLogin(req.user.local.email);
+			userDao.updateLastLogin(req.user);
 			return next();
 		}
 		// Unauthorized

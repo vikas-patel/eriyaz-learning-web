@@ -335,11 +335,15 @@ exports.findAllStudentsByTeacher = function(req, res) {
 		});
 }
 
-exports.updateLastLogin = function(email) {
+exports.updateLastLogin = function(user) {
+	var query;
+	if (user.local.email) {
+		query = {'local.email': user.local.email};
+	} else {
+		query = {'facebook.id': user.facebook.id};
+	}
 	User
-		.update({
-			'local.email': email
-		},{$set:{'last_login':new Date()}})
+		.update(query,{$set:{'last_login':new Date()}})
 		.exec(function(err, cnt) {
 			if (err) console.log("Error while updating last_login");
 		});

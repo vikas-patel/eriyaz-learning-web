@@ -152,8 +152,17 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 		        .x(timeScale)
 		        .extent([0, 1])
 		        .on("brushend", mainBrushEnd);
-		    
 			gMainBrush.call(mainBrush);
+			gMainBrush.selectAll(".resize")
+			      .append("line")
+			      .attr("y2", chartHeight);
+
+		    gMainBrush.selectAll(".resize")
+		      .append("path")
+		      .attr("d", d3.svg.symbol().type("triangle-up").size(20))
+		      .attr("transform", function(d,i) { 
+		        return i ? "translate(" + -4 + "," + (chartHeight/2) + ") rotate(-90)" : "translate(" + 4 + "," + (chartHeight/2) + ") rotate(90)"; 
+		      });
 	    	gMainBrush.selectAll("rect")
       			.attr("height", chartHeight);
 	    }

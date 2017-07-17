@@ -58,9 +58,12 @@
              }).
              state('logout', {
                  url: '/logout',
-                 onEnter: function(UIModel, $window) {
+                 onEnter: function(UIModel, $window, $http) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = false;
+                     $http.get('/logout').success(function(data) {
+                    }).error(function() {
+                    });
                      delete $window.localStorage.userId;
                      UIModel.uiModel.showFront = true;
                  }

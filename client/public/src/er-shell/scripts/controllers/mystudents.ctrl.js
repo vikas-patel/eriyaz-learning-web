@@ -35,17 +35,27 @@
        $scope.sortType     = 'name';
       $scope.sortReverse  = false;
 
-      $scope.userName = function(user) {
-        if (user.name) {
-          return user.name
-        } else if (user.facebook)  {
-          return user.facebook.name + " (f)";
-        } else return "";
-      };
+      // $scope.userName = function(user) {
+      //   if (user.name) {
+      //     return user.name
+      //   } else if (user.facebook)  {
+      //     return user.facebook.name + " (f)";
+      //   } else return "";
+      // };
   		
       $scope.update = function(user) {
           user.$edit = false;
           $http.put('/users/'+user._id, user).success(function(data) {
+              // do nothing
+            }).error(function(status, data) {
+                console.log("failed");
+                console.log(data);
+            });
+      };
+
+      $scope.delete = function(user) {
+          user.$edit = false;
+          $http.delete('/users/'+user._id).success(function(data) {
               // do nothing
             }).error(function(status, data) {
                 console.log("failed");
