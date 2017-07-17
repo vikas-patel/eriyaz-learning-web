@@ -5,7 +5,7 @@
 		<table ng-table="tableParams" show-filter="true" class="table">
 			<tr ng-repeat="user in $data">
 				<td data-title="'Name'" sortable="'name'" filter="{ 'name': 'text' }">
-					<a ng-if="!user.$edit" href="#history/{{user._id}}">{{userName(user);}}</a>
+					<a ng-if="!user.$edit" href="#history/{{user._id}}">{{user.name}}</a>
 					<div ng-if="user.$edit"><input class="form-control" type="text" ng-model="user.name" /></div>
 				</td>
 				<td data-title="'Email'" sortable="'local.email'"">
@@ -30,6 +30,7 @@
 				<td data-title="'Edit'" width="200">
 					<a ng-if="!user.$edit" href="" class="btn btn-default btn-xs" ng-click="user.$edit = true">Edit</a>
                 	<a ng-if="user.$edit" href="" class="btn btn-primary btn-xs" ng-click="update(user);">Save</a>
+                	<a ng-if="user.$edit" href="" class="btn btn-primary btn-xs" ng-click="delete(user);">Delete</a>
 				</td>
 			</tr>
 		</table>
