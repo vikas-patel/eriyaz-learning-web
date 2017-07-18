@@ -84,11 +84,11 @@ $sliderKnobHeight: 2vw;
       font-size: $playButtonSize;
       color: white;    }
 
-    $iconWidth : 0vw;
+    $iconWidth : 0.5vw;
     $totalButtonWidth : $buttonSize + $buttonMargin * 2 + vw;
 
     #SliderContainer {
-      width: calc(100% - #{$buttonSize + $buttonMargin * 2 + $iconWidth * 2});
+      // width: calc(100% - #{$buttonSize + $buttonMargin * 2 + $iconWidth * 2});
       position: absolute;
       right: $buttonMargin + $iconWidth;
       top: 1.2vw;
@@ -97,10 +97,10 @@ $sliderKnobHeight: 2vw;
 
       }
 
-      $iconHeight : 60px;
+      $iconHeight : 2vw;
 
       #Tortoise, #Hare {
-        top: -20px;
+        top: calc(50% - #{$iconHeight/2});
         position: absolute;
         height: $iconHeight;
         width: $iconWidth;
@@ -111,11 +111,11 @@ $sliderKnobHeight: 2vw;
       }
 
       #Hare {
-        right: 0px;
+        right: 10px;
       }
 
       #Tortoise {
-        left: -43px;
+        left: -30px;
       }
     }
 
