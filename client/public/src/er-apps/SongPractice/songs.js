@@ -37,6 +37,12 @@ return [
 		rootNote: 50,
 		scale: [0, 1, 3, 5, 6, 7, 8, 10],
 },
+{name: "saanson ki zaroorat",
+		path:"saanson ki zaroorat.mp3",
+		beatDuration: 1000,
+		rootNote: 48,
+		scale: [0, 2, 4, 5, 7, 9, 11],
+},
 {
 	name:"Pehla Pehla Pyar Hai",
 	path:"pehla-pehla-pyar-hai.mp3",
@@ -82,6 +88,13 @@ return [
 	beatDuration: 1000,
 	rootNote: 48,
 	scale: [0,2, 3, 5, 7, 8, 10]
+},{
+	name:"Kaun Tujhe",
+	path:"kaun tujhe.mp3",
+	isFemale:false,
+	beatDuration: 1000,
+	rootNote: 60,
+	scale: [0, 2, 4, 5, 7, 9, 10]
 },{
 	name:"Tu Tu Hai Wohi",
 	path:"tu-tu-hai-wohi.mp3",
