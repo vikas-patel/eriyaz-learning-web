@@ -1,10 +1,11 @@
-define(['./module', './sequencegen', './display', './audioBufferToWav', './songs', 'note', 'webaudioplayer', './pitchshifter', 'currentaudiocontext',
+define(['./module', './sequencegen', './display', './audioBufferToWav', './songs', 'lyrics', 'note', 'webaudioplayer', './pitchshifter', 'currentaudiocontext',
         'music-calc', 'mic-util', 'pitchdetector', 'stabilitydetector', 'audiobuffer', './scorer','hopscotch'
     ],
-    function(app, sequenceGen, Display, audioBufferToWav, songs, Note, Player, PitchShifter, CurrentAudioContext, MusicCalc, MicUtil, PitchDetector, StabilityDetector, AudioBuffer, scorer,hopscotch) {
+    function(app, sequenceGen, Display, audioBufferToWav, songs, Lyrics, Note, Player, PitchShifter, CurrentAudioContext, MusicCalc, MicUtil, PitchDetector, StabilityDetector, AudioBuffer, scorer,hopscotch) {
         var sequence;
         var audioContext = CurrentAudioContext.getInstance();
         var player = new Player(audioContext);
+        var lrc = new Lyrics();
 
        
 
@@ -97,7 +98,7 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
             var rawFreq = [];
             var recorderWorker = new Worker("/worker/pitchworker.js?v=1");
             // var stretchWorker = new Worker("/worker/timestretcher.js?v=1");
-            var actionMessage = ["Listen", "Sing", "Listen & Sing"];
+            var actionMessage = ["Listen Now", "Sing Now", "Listen & Sing"];
             var LOADING_MSG = "Wait... Loading Song's Audio";
             // var LOADING_MSG_BEATS = "Wait... Loading Song's Beats";
             // var LOADING_MSG_NOTES = "Wait... Loading Song's Notes";
@@ -125,7 +126,7 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 loadBeats();
                 PitchModel.rootFreq = MusicCalc.midiNumToFreq($scope.song.rootNote);
                 PitchModel.rootUserFreq = MusicCalc.midiNumToFreq($scope.song.rootNote-$scope.pitchShift.value);
-                $.when(loadPitch(), loadSound())
+                $.when(loadPitch(), loadSound(), loadLyrics())
                 .done(function() {
                     loadExercise();
                     display.clearFlash();
@@ -396,6 +397,18 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 return deferred.promise();
             }
 
+            function loadLyrics() {
+                var url = "er-shell/audio/"+$scope.song.path.split("\.")[0]+".lrc";
+                var request = new XMLHttpRequest();
+                request.open('GET', url, true);
+                // Decode asynchronously
+              request.onload = function() {
+                var text = request.responseText;
+                lrc.load(text);
+              }
+              request.send();
+            }
+
             function loadBeats() {
                 var url = "er-shell/audio/"+$scope.song.path.split("\.")[0]+"-beats.csv";
                 var request = new XMLHttpRequest();
@@ -580,7 +593,7 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                         arrayPitch.push(-100);
                     }
                 }
-                display.init(arrayPitch, arrayTime, songBuffer.duration, $scope.song.scale);
+                display.init(arrayPitch, arrayTime, lrc, songBuffer.duration, $scope.song.scale);
                 // if ($scope.tempo < 1) {
                 //     calculateStretchedBuffer();
                 // } else {

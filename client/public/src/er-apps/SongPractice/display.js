@@ -193,9 +193,10 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 			dragCallback(t0 + tShift, t1 + tShift);
 		}
 
-		this.init = function(arrayPitch, arrayTime, aDuration, aScale) {
+		this.init = function(arrayPitch, arrayTime, lrc, aDuration, aScale) {
 			pitchSeries = arrayPitch;
 			timeSeries = arrayTime;
+			this.lrc = lrc;
 			this.setDuration(aDuration);
 			scale = aScale;
 			this.createNoteAxis();
@@ -285,9 +286,9 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 			pointGroup.selectAll("rect").remove();
 			var ts = shift;
 			var te = shift + xDivs;
+			this.printLyrics(ts, te);
 			var i0 = getIndex(ts, timeSeries);
 			var i1 = getIndex(te, timeSeries);
-
 			var subTSeries = timeSeries.slice(i0-1, i1-1);
             var subPSeries = pitchSeries.slice(i0-1, i1-1);
 
@@ -305,11 +306,26 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 				.style("fill", "grey");
 		}
 
+		this.printLyrics = function(ts, te) {
+			svg.selectAll("text.lyrics").remove();
+			if (!this.lrc.getLyrics()) {
+				return;
+			}
+			var i1 = this.lrc.select(ts);
+			var i2 = this.lrc.select(te);
+			var text = [];
+			for (var i = i1; i<=i2; i++) {
+				if (i < 0) continue;
+				text.push(this.lrc.getLyric(i).text);
+			}
+			this.setLyricsText(text);
+		};
+
 		var flash = svg.append("text")
 				.attr("id", "flash")
 				.attr("font-size", 15)
 				.attr("x", chartWidth / 2)
-				.attr("y", chartHeight)
+				.attr("y", "1em")
 				.attr("fill", "#F16236")
 				.attr("text-anchor", "middle");
 		this.setFlash = function(message) {
@@ -318,6 +334,20 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 
 		this.clearFlash = function() {
 			flash.text("");
+		};
+
+		this.setLyricsText = function(lyrics) {
+			for (var i = 0; i < lyrics.length; i++){
+				svg.append("text")
+				.attr("class", "lyrics")
+				.attr("font-size", 12)
+				.attr("x", chartWidth / 2)
+				.attr("y", chartHeight - 5)
+				.attr("dy", function(){return (-lyrics.length+i+1) + "em";})
+				.attr("fill", "#16a8f0")
+				.attr("text-anchor", "middle")
+				.text(lyrics[i]);
+			}
 		};
 
 		// function brushmove() {
