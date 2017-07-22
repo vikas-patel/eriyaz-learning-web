@@ -261,8 +261,7 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 			}).attr("y", function(d) {
 				return yScale(d);
 			}).attr("width", 1)
-			.attr("height", 1)
-			.style("fill", "green");
+			.attr("height", 1);
 		};
 
 		// this.plotMiniCurve = function() {
@@ -302,8 +301,7 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 				}).attr("y", function(d, i) {
 					return yScale(subPSeries[i]);
 				}).attr("width", 1)
-				.attr("height", 1)
-				.style("fill", "grey");
+				.attr("height", 1);
 		}
 
 		this.printLyrics = function(ts, te) {
@@ -340,12 +338,9 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 			for (var i = 0; i < lyrics.length; i++){
 				svg.append("text")
 				.attr("class", "lyrics")
-				.attr("font-size", 12)
 				.attr("x", chartWidth / 2)
 				.attr("y", chartHeight - 5)
 				.attr("dy", function(){return (-lyrics.length+i+1) + "em";})
-				.attr("fill", "#16a8f0")
-				.attr("text-anchor", "middle")
 				.text(lyrics[i]);
 			}
 		};

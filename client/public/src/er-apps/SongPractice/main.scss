@@ -18,9 +18,9 @@ $sliderKnobHeight: 2vw;
 
 .resize {
   display: inline !important; /* show when empty */
-      fill: #7A7A7A;
+      fill: black;
       fill-opacity: 1;
-      stroke: #7A7A7A;
+      stroke: #eeeeee;
       stroke-width: 2px;
 }
 
@@ -29,7 +29,7 @@ $sliderKnobHeight: 2vw;
   }
 
 .brush .extent {
-      fill-opacity: .125;
+      fill-opacity: .04;
       shape-rendering: crispEdges;
     }
 
@@ -192,7 +192,7 @@ $sliderKnobHeight: 2vw;
     }
 
     .x.axis line {
-      stroke: #d1d1d1;
+      stroke: #f1f1f1;
       stroke-width: 1px;
     }
 
@@ -206,12 +206,12 @@ $sliderKnobHeight: 2vw;
     }
 
     .y.axis line {
-      stroke: #d1d1d1;
+      stroke: #f9f9f9;
       stroke-width: 1px;
     }
 
     .y.axis line.highlight {
-      stroke: #16a8f0;
+      stroke: #A1DFFF;
       stroke-width: 1px;
       opacity:0.5;
     }
@@ -223,6 +223,21 @@ $sliderKnobHeight: 2vw;
     .y.axis path {
       // display: none;
       fill:none;
+    }
+
+    .play {
+        fill: #cccccc;
+        /*fill: #666666;*/
+    }
+
+    .sing {
+      fill : #05496B;
+    }
+
+    .lyrics {
+      fill: #16a8f0;
+      font-size: 12px;
+      text-anchor : middle;
     }
 
 }
