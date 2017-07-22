@@ -9,6 +9,7 @@ $buttonMargin : 1vw;
 $playButtonSize: 1.6vw;
 $sliderBarHeight: 0.6vw;
 $sliderKnobHeight: 2vw;
+$seekbarHeight: 3vw;
 
 #score {
   font-family: Wide Latin;
@@ -40,9 +41,76 @@ $sliderKnobHeight: 2vw;
 #seekbarContainer {
   position: absolute;
   bottom: $bottomHeight;
-  height: 3vw;
+  height: $seekbarHeight;
   width: 100%;
 }
+
+$Margin: 12px;
+$PartMargin: 10px;
+$ButtonSize: 45px;
+$SmallButtonSize : 30px;
+$SmallScreen : 360px;
+
+  .Button{
+    width: $ButtonSize;
+    height: $ButtonSize;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.4);
+    line-height: $ButtonSize;
+    font-size: $ButtonSize;
+    text-align: center;
+    color: $darkGrey;
+    cursor: pointer;
+    transition: transform 0.05s ease-in;
+
+    @media screen and (max-width: $SmallScreen) {
+      width: $SmallButtonSize;
+      height: $SmallButtonSize;
+      line-height: $SmallButtonSize;
+      font-size: $SmallButtonSize;
+    }
+  }
+
+  .Button:active {
+    transform: scale(1.1);
+    // background-color: $orange;
+    // color: white;
+  }
+
+  .slick-arrow {
+    position: absolute;
+    top: calc(50% - 22px);
+    border: none;
+    color: $darkGrey;
+    font-size: 0px;
+  }
+
+  .slick-arrow:before {
+    top: 0px;
+    position: absolute;
+    left: 0px;
+    font-size: 30px;
+    width: 100%;
+    text-align: center;
+
+    @media screen and (max-width: $SmallScreen) {
+      font-size: $SmallButtonSize;
+    }
+  }
+
+  .slick-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .slick-prev {
+    left: $Margin + $PartMargin;
+  }
+
+  .slick-next {
+    right: $Margin;
+  }
 
 #Bottom {
   height: $bottomHeight;
@@ -147,9 +215,22 @@ $sliderKnobHeight: 2vw;
     margin-left: 5px;
 }
 
+.icon-svg_right_arrow:before {
+    content: "\2794";
+}
+
+.icon-svg_left_arrow:before {
+    content: "\2794";
+    transform: scaleX(-1);
+}
+
 .icon-svg_pause:before {
     content: "\275A\275A";
 }
+
+svg_right_arrow {
+    $char: "\E018";
+  }
 
 
     svg {

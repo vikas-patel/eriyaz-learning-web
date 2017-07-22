@@ -7,8 +7,6 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
         var player = new Player(audioContext);
         var lrc = new Lyrics();
 
-       
-
         app.controller('SongPracticeCtrl', function($scope, $rootScope, PitchModel) {
 
             // Define the tour!
@@ -92,7 +90,7 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
             var rEnd;
             var source;
             var rawTime, arrayPitch;
-            var t0, t1;
+            var t0, t1, delayLyrics;
             var beats;
             var rawTime = [];
             var rawFreq = [];
@@ -128,9 +126,16 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 PitchModel.rootUserFreq = MusicCalc.midiNumToFreq($scope.song.rootNote-$scope.pitchShift.value);
                 $.when(loadPitch(), loadSound(), loadLyrics())
                 .done(function() {
+                    if ($scope.song.delay) {
+                        delayLyrics = $scope.song.delay;
+                    } else {
+                        delayLyrics = 0;
+                    }
+                    console.log(delayLyrics);
                     loadExercise();
                     display.clearFlash();
                     initSeekbar(songBuffer.duration);
+                    movetoLyrics(0);
                 });
             });
 
@@ -140,6 +145,11 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 seekbar.value = 0;
                 seekbar.max = maxValue;
                 $("#duration-label").text(Math.floor(maxValue/60) + "." + maxValue%60);
+            }
+
+            function setSeekbarValue(value) {
+                var seekbar = document.querySelector('#seekbar');
+                seekbar.value = value;
             }
 
             var Clock = function(tickDuration) {
@@ -536,8 +546,10 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
             $("#seekbar").bind("immediate-value-change", function(){
                 var seekbar = document.querySelector('#seekbar');
                 var value = seekbar.immediateValue;
-                display.seekbarMove(value);
-                $("#time-label").text(Math.floor(value/60) + "." + value%60);
+                if (seekbar.dragging) {
+                    display.seekbarMove(value);
+                }
+                $("#time-label").text(Math.floor(value/60) + "." + Math.round(value%60));
              });
 
             $scope.$watch('pitchShift', function() {
@@ -645,6 +657,64 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
             //       break;
             //   }
             // };
+            // 1. get index
+            // disable enable next & previous button
+            // 2. get timestamp
+            // 3. get shift
+            // 4. set slider to shift
+            // 5. set brush extent
+            var lyricsIndex = 0;
+            var lyricsBuffer = 0.2;
+            var defaultBrushSpan = 5.8;
+
+            function movetoLyrics(index) {
+                lyricsIndex = index;
+                var lrcLength = lrc.getLyrics().length;
+                var tStart = lrc.getLyric(lyricsIndex).timestamp - lyricsBuffer - delayLyrics;
+                setSeekbarValue(tStart);
+                display.seekbarMove(tStart);
+                display.seekbarEnd(tStart);
+                console.log(tStart);
+                var span;
+                if (lyricsIndex < lrcLength -1) {
+                    span = lrc.getLyric(lyricsIndex+1).timestamp - lrc.getLyric(lyricsIndex).timestamp;
+                    if (span > defaultBrushSpan) {
+                        span = defaultBrushSpan;
+                    }
+                } else {
+                    span = lrc.getLyric(lyricsIndex).timestamp + defaultBrushSpan;
+                }
+                console.log(span);
+                display.setMainBrushExtent(lyricsBuffer, lyricsBuffer + span);
+            };
+
+            $( "#next-button" ).click(function() {
+                var lrcLength = lrc.getLyrics().length;
+                if (!lrc.getLyrics() || lrcLength == lyricsIndex -1) {
+                    return;
+                }
+                if (lyricsIndex == 0) {
+                    $("#previous-button").removeClass("slick-disabled");
+                }
+                movetoLyrics(++lyricsIndex);
+                if (lyricsIndex == lrcLength - 1) {
+                    $("#next-button").addClass("slick-disabled");
+                }
+            });
+
+            $( "#previous-button" ).click(function() {
+                var lrcLength = lrc.getLyrics().length;
+                if (!lrc.getLyrics() || lyricsIndex == 0) {
+                    return;
+                }
+                if (lyricsIndex == lrcLength - 1) {
+                    $("#next-button").removeClass("slick-disabled");
+                }
+                movetoLyrics(--lyricsIndex);
+                if (lyricsIndex == 0) {
+                    $("#previous-button").addClass("slick-disabled");
+                }
+            });
 
             function restart() {
                 $scope.score = 0;

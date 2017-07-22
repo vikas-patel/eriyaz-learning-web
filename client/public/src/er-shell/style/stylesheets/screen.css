@@ -2811,13 +2811,13 @@ core-drawer-panel:not([narrow]) #navicon {
   fill: none;
 }
 
-/* line 13, ../../../er-apps/SongPractice/main.scss */
+/* line 14, ../../../er-apps/SongPractice/main.scss */
 #songpractice #score {
   font-family: Wide Latin;
   font-size: 28px;
   color: #FFB729;
 }
-/* line 19, ../../../er-apps/SongPractice/main.scss */
+/* line 20, ../../../er-apps/SongPractice/main.scss */
 #songpractice .resize {
   display: inline !important;
   /* show when empty */
@@ -2826,27 +2826,90 @@ core-drawer-panel:not([narrow]) #navicon {
   stroke: #7A7A7A;
   stroke-width: 2px;
 }
-/* line 27, ../../../er-apps/SongPractice/main.scss */
+/* line 28, ../../../er-apps/SongPractice/main.scss */
 #songpractice .tick text {
   font-size: 0.5em;
 }
-/* line 31, ../../../er-apps/SongPractice/main.scss */
+/* line 32, ../../../er-apps/SongPractice/main.scss */
 #songpractice .brush .extent {
   fill-opacity: .125;
   shape-rendering: crispEdges;
 }
-/* line 36, ../../../er-apps/SongPractice/main.scss */
+/* line 37, ../../../er-apps/SongPractice/main.scss */
 #songpractice #seekbar {
   width: 100%;
 }
-/* line 40, ../../../er-apps/SongPractice/main.scss */
+/* line 41, ../../../er-apps/SongPractice/main.scss */
 #songpractice #seekbarContainer {
   position: absolute;
   bottom: 4.4vw;
   height: 3vw;
   width: 100%;
 }
-/* line 47, ../../../er-apps/SongPractice/main.scss */
+/* line 54, ../../../er-apps/SongPractice/main.scss */
+#songpractice .Button {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.4);
+  line-height: 45px;
+  font-size: 45px;
+  text-align: center;
+  color: #646464;
+  cursor: pointer;
+  transition: transform 0.05s ease-in;
+}
+@media screen and (max-width: 360px) {
+  /* line 54, ../../../er-apps/SongPractice/main.scss */
+  #songpractice .Button {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 30px;
+  }
+}
+/* line 75, ../../../er-apps/SongPractice/main.scss */
+#songpractice .Button:active {
+  transform: scale(1.1);
+}
+/* line 81, ../../../er-apps/SongPractice/main.scss */
+#songpractice .slick-arrow {
+  position: absolute;
+  top: calc(50% - 22px);
+  border: none;
+  color: #646464;
+  font-size: 0px;
+}
+/* line 89, ../../../er-apps/SongPractice/main.scss */
+#songpractice .slick-arrow:before {
+  top: 0px;
+  position: absolute;
+  left: 0px;
+  font-size: 30px;
+  width: 100%;
+  text-align: center;
+}
+@media screen and (max-width: 360px) {
+  /* line 89, ../../../er-apps/SongPractice/main.scss */
+  #songpractice .slick-arrow:before {
+    font-size: 30px;
+  }
+}
+/* line 102, ../../../er-apps/SongPractice/main.scss */
+#songpractice .slick-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+/* line 107, ../../../er-apps/SongPractice/main.scss */
+#songpractice .slick-prev {
+  left: 22px;
+}
+/* line 111, ../../../er-apps/SongPractice/main.scss */
+#songpractice .slick-next {
+  right: 12px;
+}
+/* line 115, ../../../er-apps/SongPractice/main.scss */
 #songpractice #Bottom {
   height: 4.4vw;
   width: 100%;
@@ -2856,7 +2919,7 @@ core-drawer-panel:not([narrow]) #navicon {
   background-color: #f2f2f2;
   box-shadow: inset 0 10px 10px -10px rgba(0, 0, 0, 0.4);
 }
-/* line 56, ../../../er-apps/SongPractice/main.scss */
+/* line 124, ../../../er-apps/SongPractice/main.scss */
 #songpractice #Bottom #Controls {
   max-width: 300px;
   width: 100%;
@@ -2865,7 +2928,7 @@ core-drawer-panel:not([narrow]) #navicon {
   margin-right: auto;
   height: 100%;
 }
-/* line 64, ../../../er-apps/SongPractice/main.scss */
+/* line 132, ../../../er-apps/SongPractice/main.scss */
 #songpractice #Bottom #Controls .Button {
   position: absolute;
   bottom: 0.2vw;
@@ -2878,24 +2941,24 @@ core-drawer-panel:not([narrow]) #navicon {
   box-shadow: 0 0px 3px 1px rgba(0, 0, 0, 0.2);
   transition: transform 0.05s;
 }
-/* line 77, ../../../er-apps/SongPractice/main.scss */
+/* line 145, ../../../er-apps/SongPractice/main.scss */
 #songpractice #Bottom #Controls .Button:active {
   transform: scale(1.1);
 }
-/* line 81, ../../../er-apps/SongPractice/main.scss */
+/* line 149, ../../../er-apps/SongPractice/main.scss */
 #songpractice #Bottom #Controls #PlayButton {
   left: 1vw;
   background-color: #16a8f0;
   font-size: 1.6vw;
   color: white;
 }
-/* line 90, ../../../er-apps/SongPractice/main.scss */
+/* line 158, ../../../er-apps/SongPractice/main.scss */
 #songpractice #Bottom #Controls #SliderContainer {
   position: absolute;
   right: 1.5vw;
   top: 1.2vw;
 }
-/* line 102, ../../../er-apps/SongPractice/main.scss */
+/* line 170, ../../../er-apps/SongPractice/main.scss */
 #songpractice #Bottom #Controls #SliderContainer #Tortoise, #songpractice #Bottom #Controls #SliderContainer #Hare {
   top: calc(50% - 1vw);
   position: absolute;
@@ -2906,58 +2969,67 @@ core-drawer-panel:not([narrow]) #navicon {
   pointer-events: none;
   color: #646464;
 }
-/* line 113, ../../../er-apps/SongPractice/main.scss */
+/* line 181, ../../../er-apps/SongPractice/main.scss */
 #songpractice #Bottom #Controls #SliderContainer #Hare {
   right: 10px;
 }
-/* line 117, ../../../er-apps/SongPractice/main.scss */
+/* line 185, ../../../er-apps/SongPractice/main.scss */
 #songpractice #Bottom #Controls #SliderContainer #Tortoise {
   left: -30px;
 }
-/* line 122, ../../../er-apps/SongPractice/main.scss */
+/* line 190, ../../../er-apps/SongPractice/main.scss */
 #songpractice #Bottom #Controls paper-slider::shadow #sliderBar {
   height: 0.6vw;
 }
-/* line 126, ../../../er-apps/SongPractice/main.scss */
+/* line 194, ../../../er-apps/SongPractice/main.scss */
 #songpractice #Bottom #Controls paper-slider::shadow #sliderKnobInner,
 #songpractice #Bottom #Controls paper-slider::shadow #sliderKnobInner::before {
   background-color: #16a8f0;
   width: 2vw;
   height: 2vw;
 }
-/* line 133, ../../../er-apps/SongPractice/main.scss */
+/* line 201, ../../../er-apps/SongPractice/main.scss */
 #songpractice #Bottom #Controls paper-slider::shadow #sliderBar::shadow #activeProgress {
   background-color: #16a8f0;
 }
-/* line 137, ../../../er-apps/SongPractice/main.scss */
+/* line 205, ../../../er-apps/SongPractice/main.scss */
 #songpractice #Bottom #Controls paper-slider::shadow .slider-markers::after, #songpractice #Bottom #Controls paper-slider::shadow .slider-marker::after {
   height: 0.6vw;
   background-color: white;
 }
-/* line 145, ../../../er-apps/SongPractice/main.scss */
+/* line 213, ../../../er-apps/SongPractice/main.scss */
 #songpractice .icon-svg_play:before {
   content: "\25BA";
   margin-left: 5px;
 }
-/* line 150, ../../../er-apps/SongPractice/main.scss */
+/* line 218, ../../../er-apps/SongPractice/main.scss */
+#songpractice .icon-svg_right_arrow:before {
+  content: "\2794";
+}
+/* line 222, ../../../er-apps/SongPractice/main.scss */
+#songpractice .icon-svg_left_arrow:before {
+  content: "\2794";
+  transform: scaleX(-1);
+}
+/* line 227, ../../../er-apps/SongPractice/main.scss */
 #songpractice .icon-svg_pause:before {
   content: "\275A\275A";
 }
-/* line 155, ../../../er-apps/SongPractice/main.scss */
+/* line 236, ../../../er-apps/SongPractice/main.scss */
 #songpractice svg {
   margin-top: 0px;
 }
-/* line 158, ../../../er-apps/SongPractice/main.scss */
+/* line 239, ../../../er-apps/SongPractice/main.scss */
 #songpractice ul {
   columns: 3;
   -webkit-columns: 3;
   -moz-columns: 3;
 }
-/* line 164, ../../../er-apps/SongPractice/main.scss */
+/* line 245, ../../../er-apps/SongPractice/main.scss */
 #songpractice li button {
   width: 60%;
 }
-/* line 177, ../../../er-apps/SongPractice/main.scss */
+/* line 258, ../../../er-apps/SongPractice/main.scss */
 #songpractice .container {
   box-sizing: border-box;
   width: 100%;
@@ -2966,35 +3038,35 @@ core-drawer-panel:not([narrow]) #navicon {
   border-width: 1px;
   border-color: #E3E3E3;
 }
-/* line 194, ../../../er-apps/SongPractice/main.scss */
+/* line 275, ../../../er-apps/SongPractice/main.scss */
 #songpractice .x.axis line {
   stroke: #d1d1d1;
   stroke-width: 1px;
 }
-/* line 199, ../../../er-apps/SongPractice/main.scss */
+/* line 280, ../../../er-apps/SongPractice/main.scss */
 #songpractice .x.axis .minor {
   stroke-opacity: .5;
 }
-/* line 203, ../../../er-apps/SongPractice/main.scss */
+/* line 284, ../../../er-apps/SongPractice/main.scss */
 #songpractice .x.axis path {
   fill: none;
 }
-/* line 208, ../../../er-apps/SongPractice/main.scss */
+/* line 289, ../../../er-apps/SongPractice/main.scss */
 #songpractice .y.axis line {
   stroke: #d1d1d1;
   stroke-width: 1px;
 }
-/* line 213, ../../../er-apps/SongPractice/main.scss */
+/* line 294, ../../../er-apps/SongPractice/main.scss */
 #songpractice .y.axis line.highlight {
   stroke: #16a8f0;
   stroke-width: 1px;
   opacity: 0.5;
 }
-/* line 219, ../../../er-apps/SongPractice/main.scss */
+/* line 300, ../../../er-apps/SongPractice/main.scss */
 #songpractice .y.axis .minor {
   stroke-opacity: .5;
 }
-/* line 223, ../../../er-apps/SongPractice/main.scss */
+/* line 304, ../../../er-apps/SongPractice/main.scss */
 #songpractice .y.axis path {
   fill: none;
 }
