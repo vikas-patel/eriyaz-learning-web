@@ -309,13 +309,9 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 			if (!this.lrc.getLyrics()) {
 				return;
 			}
-			var i1 = this.lrc.select(ts);
-			var i2 = this.lrc.select(te);
-			var text = [];
-			for (var i = i1; i<=i2; i++) {
-				if (i < 0) continue;
-				text.push(this.lrc.getLyric(i).text);
-			}
+			var i = this.lrc.select(ts/2 + te/2);
+			if (i < 0) return;
+			var text = this.lrc.getLyric(i).text;
 			this.setLyricsText(text);
 		};
 
@@ -335,14 +331,12 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 		};
 
 		this.setLyricsText = function(lyrics) {
-			for (var i = 0; i < lyrics.length; i++){
 				svg.append("text")
 				.attr("class", "lyrics")
 				.attr("x", chartWidth / 2)
 				.attr("y", chartHeight - 5)
-				.attr("dy", function(){return (-lyrics.length+i+1) + "em";})
-				.text(lyrics[i]);
-			}
+				// .attr("dy", function(){return (-lyrics.length+i+1) + "em";})
+				.text(lyrics);
 		};
 
 		// function brushmove() {
@@ -382,6 +376,14 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 			// 	gBrush.call(brush);
 			// }
 			display.createBeatAxis();
+    	};
+
+    	this.setMainBrushExtent = function(start, end) {
+    		t0 = start;
+    		t1 = end;
+    		mainBrush.extent([t0, t1]);
+    		gMainBrush.call(mainBrush);
+    		dragCallback(t0 + tShift, t1 + tShift);
     	};
 
 		function mainBrushEnd() {

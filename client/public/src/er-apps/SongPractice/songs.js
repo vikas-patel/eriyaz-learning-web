@@ -3,8 +3,9 @@ return [
 {
 	name:"humsafar (badrinath ki dulhaniya)",
 	path:"humsafar.mp3",
-	beatDuration: 1000,
 	rootNote: 48,
+	// negative means lrc time before audio
+	delay: -0.4,
 	scale: [0, 2, 4, 6, 7, 9, 11]
 },
 {
@@ -18,16 +19,15 @@ return [
 {
 	name:"Channa Mereya",
 	path:"channa-mereya.mp3",
-	isFemale:false,
-	beatDuration: 1000,
+	// poor lrc
+	delay: 0,
 	rootNote: 48,
 	scale: [0, 2, 4, 5, 7, 9, 11]
 },
 {
 	name:"Tum Hi Ho",
 	path:"tum-hi-ho.mp3",
-	isFemale:false,
-	beatDuration: 1000,
+	delay: 0.2,
 	rootNote: 53,
 	scale: [0, 2, 3, 5, 7, 8, 10]
 },
@@ -61,8 +61,8 @@ return [
 },
 {name: "pyaar deewana hota hai",
 		path:"pyar-deewana.mp3",
-		beatDuration: 1000,
 		rootNote: 53,
+		delay:0.6,
 		scale: [0, 2, 4, 5, 7, 9, 10]
 },
 {

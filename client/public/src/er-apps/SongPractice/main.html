@@ -17,10 +17,14 @@
 			    </select>
     </div>
     <div id="display"></div>
+    <!-- previous/next lyrics  navigation-->
+    <button id="previous-button" type="button" data-role="none" class="slick-prev slick-arrow Button icon-svg_left_arrow slick-disabled" aria-label="Previous" role="button" aria-disabled="true" style="display: block;"></button>
+    <button id="next-button" type="button" data-role="none" class="slick-next slick-arrow Button icon-svg_right_arrow" aria-label="Next" role="button" style="display: block;" aria-disabled="false"></button>
+    
     <div horizontal layout center justified id="seekbarContainer">
 	    <span id="time-label">0.00</span><strong> / </strong><span id="duration-label">0.00</span>
 	    <div flex>
-	    	<paper-slider id="seekbar" value="0"></paper-slider>
+	    	<paper-slider id="seekbar" step="0.1" value="0"></paper-slider>
 	    </div>
 	</div>
     <div id="Bottom">
