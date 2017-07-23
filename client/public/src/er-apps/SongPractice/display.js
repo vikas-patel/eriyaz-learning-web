@@ -285,12 +285,15 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 			pointGroup.selectAll("rect").remove();
 			var ts = shift;
 			var te = shift + xDivs;
+			
 			this.printLyrics(ts, te);
+			
 			var i0 = getIndex(ts, timeSeries);
 			var i1 = getIndex(te, timeSeries);
+			
 			var subTSeries = timeSeries.slice(i0-1, i1-1);
             var subPSeries = pitchSeries.slice(i0-1, i1-1);
-
+            
 			pointGroup.selectAll("rect")
 				.data(subTSeries)
 				.enter()
@@ -339,42 +342,21 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 				.text(lyrics);
 		};
 
-		// function brushmove() {
-  //   		var extent = brush.extent();
-  //   		var shift = extent[0] - tShift;
-  //   		// tShift = (duration - xDivs)*(extent[1] - brushW)/(miniWidth - brushW);
-  //   		mainBrush.extent([t0 - shift, t1 - shift]);
-  //   		gMainBrush.call(mainBrush);
-  //   		display.plotExerciseData(extent[0]);
-  //   	}
-
-		// function brushend() {
-  //   		tShift = brush.extent()[0];
-  //   		var extent = mainBrush.extent();
-		// 	t0 = extent[0];
-		// 	t1 = extent[1];
-		// 	if (brush.extent()[1] == tShift || brush.extent()[1] - tShift > xDivs) {
-		// 		brush.extent([tShift, tShift + xDivs]);
-		// 		gBrush.call(brush);
-		// 	}
-		// 	display.createBeatAxis();
-  //   	}
-    	this.seekbarMove = function(value) {
-    		var shift = value - tShift;
-    		mainBrush.extent([t0 - shift, t1 - shift]);
+    	this.seekbarMove = function(value, delta) {
+    		tShift = value;
+    		mainBrush.extent([t0 - delta, t1 - delta]);
     		gMainBrush.call(mainBrush);
     		display.plotExerciseData(value);
     	};
 
     	this.seekbarEnd= function(value) {
-    		tShift = value;
+    		if (value != tShift) {
+    			this.seekbarMove(value, value-tShift);
+    		}
+    		// tShift = value;
     		var extent = mainBrush.extent();
 			t0 = extent[0];
 			t1 = extent[1];
-			// if (brush.extent()[1] == tShift || brush.extent()[1] - tShift > xDivs) {
-			// 	brush.extent([tShift, tShift + xDivs]);
-			// 	gBrush.call(brush);
-			// }
 			display.createBeatAxis();
     	};
 

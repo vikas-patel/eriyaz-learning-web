@@ -131,7 +131,6 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                     } else {
                         delayLyrics = 0;
                     }
-                    console.log(delayLyrics);
                     loadExercise();
                     display.clearFlash();
                     initSeekbar(songBuffer.duration);
@@ -547,7 +546,7 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 var seekbar = document.querySelector('#seekbar');
                 var value = seekbar.immediateValue;
                 if (seekbar.dragging) {
-                    display.seekbarMove(value);
+                    display.seekbarMove(value, value - seekbar.value);
                 }
                 $("#time-label").text(Math.floor(value/60) + "." + Math.round(value%60));
              });
@@ -672,9 +671,8 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 var lrcLength = lrc.getLyrics().length;
                 var tStart = lrc.getLyric(lyricsIndex).timestamp - lyricsBuffer - delayLyrics;
                 setSeekbarValue(tStart);
-                display.seekbarMove(tStart);
+                display.seekbarMove(tStart, tStart);
                 display.seekbarEnd(tStart);
-                console.log(tStart);
                 var span;
                 if (lyricsIndex < lrcLength -1) {
                     span = lrc.getLyric(lyricsIndex+1).timestamp - lrc.getLyric(lyricsIndex).timestamp;
@@ -684,7 +682,6 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 } else {
                     span = lrc.getLyric(lyricsIndex).timestamp + defaultBrushSpan;
                 }
-                console.log(span);
                 display.setMainBrushExtent(lyricsBuffer, lyricsBuffer + span);
             };
 
