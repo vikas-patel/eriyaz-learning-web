@@ -21,7 +21,7 @@
     <!-- previous/next lyrics  navigation-->
     <button id="previous-button" type="button" data-role="none" class="slick-prev slick-arrow Button icon-svg_left_arrow slick-disabled" aria-label="Previous" role="button" aria-disabled="true" style="display: block;"></button>
     <button id="next-button" type="button" data-role="none" class="slick-next slick-arrow Button icon-svg_right_arrow slick-disabled" aria-label="Next" role="button" style="display: block;" aria-disabled="false"></button>
-    <div ng-if="progressBar && progressBar < 100" id="progress-container" class="Progress">
+    <div ng-if="progressLoad" id="progress-container" class="Progress">
 	    <div class="Progress-label">Loading: <strong>{{progressBar}}%</strong></div>
 	    <progress id="progress-bar"  max="100" value="{{progressBar}}" class="Progress-main">
 	        <div class="Progress-bar" role="presentation">

@@ -119,8 +119,11 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 if (!$scope.song) {
                     display.setFlash("Please Select a Song");
                     return;
+                } else {
+                    display.clearFlash();
+                    $scope.startMic();
                 }
-                display.setFlash(LOADING_MSG);
+                // display.setFlash(LOADING_MSG);
                 loadBeats();
                 PitchModel.rootFreq = MusicCalc.midiNumToFreq($scope.song.rootNote);
                 PitchModel.rootUserFreq = MusicCalc.midiNumToFreq($scope.song.rootNote-$scope.pitchShift.value);
@@ -133,9 +136,10 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                         delayLyrics = 0;
                     }
                     loadExercise();
-                    display.clearFlash();
                     initSeekbar(songBuffer.duration);
                     movetoLyrics(0);
+                    $scope.progressLoad = false;
+                    $scope.$apply();
                 });
             });
 
@@ -144,7 +148,7 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 var seekbar = document.querySelector('#seekbar');
                 seekbar.value = 0;
                 seekbar.max = maxValue;
-                $("#duration-label").text(Math.floor(maxValue/60) + "." + maxValue%60);
+                $("#duration-label").text(formatTime(maxValue));
             }
 
             function setSeekbarValue(value) {
@@ -171,7 +175,7 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                             player.scheduleNote(880, startTime1, 25);
                             nextTickCount = 0;
                         }
-                        nextTickCount++;
+                         nextTickCount++;
                         startTime1 = startTime1 + beatDuration / 1000;
                         local.callScheduledAction();
                         local.watcher.handleBeep();
@@ -346,6 +350,8 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                     // Unable to compute progress information since the total size is unknown
                   }
               }
+              $scope.progressBar = 0;
+              $scope.progressLoad = true; 
               request.send();
               return deferred.promise();
             }
@@ -560,8 +566,15 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 if (seekbar.dragging) {
                     display.seekbarMove(value, value - seekbar.value);
                 }
-                $("#time-label").text(Math.floor(value/60) + "." + Math.round(value%60));
+               
+                $("#time-label").text(formatTime(value));
              });
+
+            function formatTime(value) {
+                var seconds = Math.round(value%60);
+                if (seconds < 10) {seconds = "0"+seconds;}
+                return Math.floor(value/60) + ":" + seconds;
+            }
 
             $scope.$watch('pitchShift', function() {
                 if (!$scope.song) {
@@ -767,7 +780,6 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                     $("#PlayButton").addClass("Playing");
                     $("#play-icon").removeClass("icon-svg_play");
                     $("#play-icon").addClass("icon-svg_pause");
-                    $scope.startMic();
                 }
             };
 
