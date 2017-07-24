@@ -4,6 +4,7 @@
     </div-->
     <div><select id="song-select" ng-model="song"
 				ng-options="song.name for song in songs">
+					<option value="">-- Select a Song --</option>
 			    </select>
 			    <!-- <button ng-click="play()">Play</button> -->
     		<button id="playrecord" ng-click="playRecord()">Play Recorded</button>
@@ -19,8 +20,15 @@
     <div id="display"></div>
     <!-- previous/next lyrics  navigation-->
     <button id="previous-button" type="button" data-role="none" class="slick-prev slick-arrow Button icon-svg_left_arrow slick-disabled" aria-label="Previous" role="button" aria-disabled="true" style="display: block;"></button>
-    <button id="next-button" type="button" data-role="none" class="slick-next slick-arrow Button icon-svg_right_arrow" aria-label="Next" role="button" style="display: block;" aria-disabled="false"></button>
-    
+    <button id="next-button" type="button" data-role="none" class="slick-next slick-arrow Button icon-svg_right_arrow slick-disabled" aria-label="Next" role="button" style="display: block;" aria-disabled="false"></button>
+    <div ng-if="progressBar && progressBar < 100" id="progress-container" class="Progress">
+	    <div class="Progress-label">Loading: <strong>{{progressBar}}%</strong></div>
+	    <progress id="progress-bar"  max="100" value="{{progressBar}}" class="Progress-main">
+	        <div class="Progress-bar" role="presentation">
+	            <span class="Progress-value" style="width: 80%;"> </span>
+	        </div>
+	    </progress>
+	</div>
     <div horizontal layout center justified id="seekbarContainer">
 	    <span id="time-label">0.00</span><strong> / </strong><span id="duration-label">0.00</span>
 	    <div flex>

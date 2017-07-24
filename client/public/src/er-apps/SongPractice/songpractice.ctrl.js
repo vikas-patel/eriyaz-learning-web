@@ -57,7 +57,7 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
             
             $scope.score = 0;
             $scope.songs = songs;
-            $scope.song = songs[0];
+            // $scope.song = songs[0];
             $scope.sequences = [{name:"sing after original", actions:[1, 2]},
                                 {name:"sing with original", actions:[1, 3]},
                                 {name:"listen original only", actions:[1]}];
@@ -116,14 +116,15 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
             }
 
             $scope.$watch('song', function() {
-
-                // loadPitch();
-                // loadBeats();
-                // loadSound();
+                if (!$scope.song) {
+                    display.setFlash("Please Select a Song");
+                    return;
+                }
                 display.setFlash(LOADING_MSG);
                 loadBeats();
                 PitchModel.rootFreq = MusicCalc.midiNumToFreq($scope.song.rootNote);
                 PitchModel.rootUserFreq = MusicCalc.midiNumToFreq($scope.song.rootNote-$scope.pitchShift.value);
+                // execute when all files are loaded
                 $.when(loadPitch(), loadSound(), loadLyrics())
                 .done(function() {
                     if ($scope.song.delay) {
@@ -333,6 +334,17 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 // display.clearFlash();
                 deferred.resolve();
                 }, function() {console.log("error on loading audio file.")});
+              };
+
+              request.onprogress = function(oEvent) {
+                if (oEvent.lengthComputable) {
+                    var percentComplete = 100*oEvent.loaded / oEvent.total;
+                    $scope.progressBar = Math.floor(percentComplete);
+                    $scope.$apply();
+                    // ...
+                  } else {
+                    // Unable to compute progress information since the total size is unknown
+                  }
               }
               request.send();
               return deferred.promise();
@@ -552,6 +564,9 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
              });
 
             $scope.$watch('pitchShift', function() {
+                if (!$scope.song) {
+                    return;
+                }
                 if ($scope.pitchShift.value > 0) {
                     createAudio();
                 }
@@ -683,6 +698,17 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                     span = lrc.getLyric(lyricsIndex).timestamp + defaultBrushSpan;
                 }
                 display.setMainBrushExtent(lyricsBuffer, lyricsBuffer + span);
+                // button css
+                if (lyricsIndex == 0) {
+                    $("#previous-button").addClass("slick-disabled");
+                } else {
+                    $("#previous-button").removeClass("slick-disabled");
+                }
+                if (lyricsIndex == lrcLength - 1) {
+                    $("#next-button").addClass("slick-disabled");
+                } else {
+                    $("#next-button").removeClass("slick-disabled");
+                }
             };
 
             $( "#next-button" ).click(function() {
@@ -690,13 +716,7 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 if (!lrc.getLyrics() || lrcLength == lyricsIndex -1) {
                     return;
                 }
-                if (lyricsIndex == 0) {
-                    $("#previous-button").removeClass("slick-disabled");
-                }
                 movetoLyrics(++lyricsIndex);
-                if (lyricsIndex == lrcLength - 1) {
-                    $("#next-button").addClass("slick-disabled");
-                }
             });
 
             $( "#previous-button" ).click(function() {
@@ -704,13 +724,7 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 if (!lrc.getLyrics() || lyricsIndex == 0) {
                     return;
                 }
-                if (lyricsIndex == lrcLength - 1) {
-                    $("#next-button").removeClass("slick-disabled");
-                }
                 movetoLyrics(--lyricsIndex);
-                if (lyricsIndex == 0) {
-                    $("#previous-button").addClass("slick-disabled");
-                }
             });
 
             function restart() {
