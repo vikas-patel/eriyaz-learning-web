@@ -3,7 +3,7 @@
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 @import url(../../../ext-libs/bower_components/hopscotch/dist/css/hopscotch.min.css);
-/* line 5, C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 5, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -25,45 +25,45 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 22, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 24, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 26, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 28, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 30, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 103, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 32, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 116, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
   display: block;
 }
@@ -149,7 +149,7 @@ body #error dd {
 /* line 1, ../sass/pages/_front.scss */
 #front {
   font-family: sans-serif;
-  background-image: url('../../images/fort.jpg?1424756334'), radial-gradient(closest-side at 35% 45%, #e02006, #f16236, #e02006);
+  background-image: url('../../images/fort.jpg?1424883674'), radial-gradient(closest-side at 35% 45%, #e02006, #f16236, #e02006);
   /* Background image is centered vertically and horizontally at all times */
   background-position: center center;
   /* Background image doesn't tile */
@@ -1894,7 +1894,7 @@ core-drawer-panel:not([narrow]) #navicon {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 12, C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/susy-2.2.12/sass/susy/output/support/_clearfix.scss */
+/* line 12, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/susy-2.2.2/sass/susy/output/support/_clearfix.scss */
 #rapidintervals .controls:after {
   content: " ";
   display: block;
@@ -2264,7 +2264,7 @@ core-drawer-panel:not([narrow]) #navicon {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 12, C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/susy-2.2.12/sass/susy/output/support/_clearfix.scss */
+/* line 12, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/susy-2.2.2/sass/susy/output/support/_clearfix.scss */
 #rapidupdown .controls:after {
   content: " ";
   display: block;
@@ -2591,7 +2591,7 @@ core-drawer-panel:not([narrow]) #navicon {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 12, C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/susy-2.2.12/sass/susy/output/support/_clearfix.scss */
+/* line 12, ../../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/susy-2.2.2/sass/susy/output/support/_clearfix.scss */
 #phraseshape .controls:after {
   content: " ";
   display: block;
@@ -2811,6 +2811,13 @@ core-drawer-panel:not([narrow]) #navicon {
   fill: none;
 }
 
+/* line 1, ../../../er-apps/SongPractice/main.scss */
+#songpractice {
+  /*Variables for colours*/
+  /*The progress element*/
+  /*For firefox*/
+  /*For webkit browsers*/
+}
 /* line 14, ../../../er-apps/SongPractice/main.scss */
 #songpractice #score {
   font-family: Wide Latin;
@@ -3070,18 +3077,61 @@ core-drawer-panel:not([narrow]) #navicon {
 #songpractice .y.axis path {
   fill: none;
 }
-/* line 228, ../../../er-apps/SongPractice/main.scss */
+/* line 309, ../../../er-apps/SongPractice/main.scss */
 #songpractice .play {
   fill: #cccccc;
   /*fill: #666666;*/
 }
-/* line 233, ../../../er-apps/SongPractice/main.scss */
+/* line 314, ../../../er-apps/SongPractice/main.scss */
 #songpractice .sing {
   fill: #05496B;
 }
-/* line 237, ../../../er-apps/SongPractice/main.scss */
+/* line 318, ../../../er-apps/SongPractice/main.scss */
 #songpractice .lyrics {
   fill: #16a8f0;
   font-size: 12px;
   text-anchor: middle;
+}
+/* line 328, ../../../er-apps/SongPractice/main.scss */
+#songpractice .Progress-main {
+  background-color: #F2F2F2;
+  /*This could be any colour*/
+  width: 100%;
+  height: 0.3em;
+  margin-top: 0.75em;
+}
+/* line 335, ../../../er-apps/SongPractice/main.scss */
+#songpractice .Progress {
+  position: absolute;
+  width: 100%;
+  top: calc(50% - 2em);
+}
+/* line 341, ../../../er-apps/SongPractice/main.scss */
+#songpractice .Progress-label {
+  text-align: center;
+}
+/* line 346, ../../../er-apps/SongPractice/main.scss */
+#songpractice .Progress-main::-moz-progress-bar {
+  background: #17BAB3;
+}
+/* line 350, ../../../er-apps/SongPractice/main.scss */
+#songpractice .Progress-main::-webkit-progress-bar {
+  background: #F2F2F2;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) inset;
+}
+/* line 354, ../../../er-apps/SongPractice/main.scss */
+#songpractice .Progress-main::-webkit-progress-value {
+  background: #17BAB3;
+}
+/* line 358, ../../../er-apps/SongPractice/main.scss */
+#songpractice .Progress-bar {
+  margin-top: 0.95em;
+  background-color: #F2F2F2;
+  height: 0.3em;
+}
+/* line 363, ../../../er-apps/SongPractice/main.scss */
+#songpractice .Progress-value {
+  background-color: #17BAB3;
+  display: block;
+  height: 0.3em;
 }
