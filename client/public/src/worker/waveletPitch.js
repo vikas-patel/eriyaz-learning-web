@@ -421,7 +421,7 @@ var pitchtracker = {
 function dywapitch_computepitch(samples) {
 	var raw_pitch = _dywapitch_computeWaveletPitch(samples);
 	return _dywapitch_dynamicprocess(pitchtracker,raw_pitch);
-	// return raw_pitch;
+	//return raw_pitch;
 }
 
 

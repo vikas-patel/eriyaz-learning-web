@@ -361,7 +361,7 @@ function _dywapitch_dynamicprocess(pitchtracker, pitch) {
 			
 		} else if ((pitchtracker._pitchConfidence >= maxConfidence-2) && Math.abs(pitchtracker._prevPitch - 2*pitch)/(2*pitch) < acceptedError) { //dotwashere 2
 			// close to half the last pitch, which is trusted
-			estimatedPitch = 2*pitch; //dotwashere
+			estimatedPitch = 2*pitch; 
 			pitchtracker._prevPitch = estimatedPitch;
 			
 		} else if ((pitchtracker._pitchConfidence >= maxConfidence-2) && Math.abs(pitchtracker._prevPitch - 0.5*pitch)/(0.5*pitch) < acceptedError) {
@@ -393,7 +393,7 @@ function _dywapitch_dynamicprocess(pitchtracker, pitch) {
 				pitchtracker._pitchConfidence = Math.max(0, pitchtracker._pitchConfidence - 1);
 			} else {
 				pitchtracker._prevPitch = -1;
-				estimatedPitch = -1; //dotwashere
+				estimatedPitch = -1; 
 				pitchtracker._pitchConfidence = 0;
 			}
 		}
@@ -420,8 +420,9 @@ var pitchtracker = {
 
 function dywapitch_computepitch(samples) {
 	var raw_pitch = _dywapitch_computeWaveletPitch(samples);
-	return _dywapitch_dynamicprocess(pitchtracker,raw_pitch);
-	// return raw_pitch;
+	//return _dywapitch_dynamicprocess(pitchtracker,raw_pitch);
+	console.log('t');
+	 return raw_pitch;
 }
 
 

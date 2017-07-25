@@ -522,6 +522,7 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 var i1 = getIndex(rEnd, rawTime);
                 var subPSeries = arrayPitch.slice(i0, i1);
                 var delay = crossCorrelation(subPSeries, floatarray);
+                floatarray = correctPitches(subPSeries,floatarray);
                 display.plotData(floatarray, $scope.tempo, delay);
             };
 
@@ -538,6 +539,35 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                     
                 }
                 return j;
+            }
+
+
+            function correctPitches(aReference,aUser) {
+                stretchFactor = aUser.length/aReference.length;
+                console.log(stretchFactor)
+                for (var i=0;i<aUser.length;i++) {
+                    refIndex = Math.round(i/stretchFactor);
+                    if(aReference[refIndex] > 0)
+                        refPitch = aReference[refIndex];
+                    else {
+                        var j =0;
+                        while (aReference[refIndex-j] < 0)
+                            j--;
+                        refPitch = aReference[refIndex - j -1];
+                    }
+                    aUser[i] = closestCorrection(aUser[i],refPitch);
+                }
+                return aUser;
+            }
+
+            function closestCorrection(pUser,pReference) {
+                retPitch = pUser;
+                if(Math.abs(pUser-12 - pReference) < Math.abs(pUser - pReference)) {
+                    retPitch = pUser-12;
+                    if(Math.abs(pUser+12 - pReference) < Math.abs(pUser-12 - pReference))
+                        retPitch = pUser + 12;
+                }
+                return retPitch;
             }
 
             function crossCorrelation(aReference, aUser) {
