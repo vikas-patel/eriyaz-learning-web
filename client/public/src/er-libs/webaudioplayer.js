@@ -57,6 +57,7 @@ define([], function() {
 
 			osc.start(startTime);
 			osc.stop(startTime + duration/1000);
+			return osc;
 		};
 
 		this.playBeat = function(delay) {

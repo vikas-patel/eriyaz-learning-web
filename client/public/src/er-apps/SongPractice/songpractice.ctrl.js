@@ -52,7 +52,7 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
              $scope.$watch('$viewContentLoaded', function(){
                  //Here your view content is fully loaded !!
                  // Start the tour!
-            hopscotch.startTour(tour);
+            // hopscotch.startTour(tour);
              });
             
             $scope.score = 0;
@@ -84,14 +84,11 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
             var singTime = Date.now();
             var songBuffer;
             var wholeBeat = 1;
-            var totalBeats = 1;
-            var stretchedBuffer;
-            var rStart;
-            var rEnd;
+            var rStart, rEnd;
             var source;
             var rawTime, arrayPitch;
             var t0, t1, delayLyrics;
-            var beats;
+            var beatsAll, beats;
             var rawTime = [];
             var rawFreq = [];
             var recorderWorker = new Worker("/worker/pitchworker.js?v=3");
@@ -106,11 +103,11 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 rEnd = t1; 
                 defaultBeatDurtion = (rEnd - rStart)*1000;
                 beatDuration = parseInt(defaultBeatDurtion/$scope.tempo);
+                beats = beatsAll.filter(function (value) {
+                    return value >= rStart && value <= rEnd;
+                });
                 if ($scope.tempo < 1 || $scope.pitchShift.value > 0) {
-                    // calculateStretchedBuffer();
                     createAudio();
-                } else {
-                    stretchedBuffer = null;
                 }
             }
 
@@ -307,6 +304,7 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                         }
                     }
                     if (!isActionTrue(actions[count], ACTIONS.SILENCE)) {
+                        scheduleBeats();
                         display.drawIndicator(beatDuration);
                         display.setFlash(actionMessage[action-1]);
                     }
@@ -491,13 +489,13 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
               request.onload = function() {
                 var text = request.responseText;
                 var lines = text.split('\n');
-                beats = [];
+                beatsAll = [];
                 for (var i=0; i<lines.length; i++) {
                     var line = lines[i].split(",");
-                    beats.push(parseFloat(line[0]));
+                    beatsAll.push(parseFloat(line[0]));
                 }
                 // display.clearFlash();
-                display.setBeats(beats);
+                display.setBeats(beatsAll);
               }
               request.send();
             }
@@ -516,13 +514,23 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 source.start(time, rStart, beatDuration/1000);                           // play the source now
               }
             }
+            var beatSources = [];
+            function scheduleBeats() {
+                beatSources = [];
+                var currentTime = audioContext.currentTime;
+                for (var i = 0; i < beats.length; i++) {
+                    beatsource = player.scheduleNote(880, currentTime + (beats[i] - rStart)/$scope.tempo, 50);
+                    beatSources.push(beatsource);
+                }
+            }
 
             function computePitchGraph(floatarray) {
                 var i0 = getIndex(rStart, rawTime);
                 var i1 = getIndex(rEnd, rawTime);
                 var subPSeries = arrayPitch.slice(i0, i1);
-                var delay = crossCorrelation(subPSeries, floatarray);
-                floatarray = correctPitches(subPSeries,floatarray);
+                var delay = 0;
+                // var delay = crossCorrelation(subPSeries, floatarray);
+                // floatarray = correctPitches(subPSeries,floatarray);
                 display.plotData(floatarray, $scope.tempo, delay);
             };
 
@@ -626,8 +634,6 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 }
                 if ($scope.tempo < 1) {
                     createAudio();
-                } else {
-                    stretchedBuffer = null;
                 }
                 
             });
@@ -851,6 +857,10 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                     } else {
                         source.stop();    
                     }
+                    // clear scheduled beats
+                    beatSources.forEach(function(beatsource){
+                        beatsource.stop();
+                    });
                     
                     gameController.setIntervalHandler(function(data) {});
                 } else {

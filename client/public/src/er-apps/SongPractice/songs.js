@@ -1,6 +1,20 @@
 define([], function() {
 return [
 {
+	name:"Tum Hi Ho",
+	path:"tum-hi-ho.mp3",
+	delay: 0.2,
+	rootNote: 53,
+	scale: [0, 2, 3, 5, 7, 8, 10]
+},
+{
+	name:"Kaun Tujhe",
+	path:"kaun tujhe.mp3",
+	delay: 0,
+	rootNote: 60,
+	scale: [0, 2, 4, 5, 7, 9, 10]
+},
+{
 	name:"humsafar (badrinath ki dulhaniya)",
 	path:"humsafar.mp3",
 	rootNote: 48,
@@ -23,13 +37,6 @@ return [
 	delay: 0,
 	rootNote: 48,
 	scale: [0, 2, 4, 5, 7, 9, 11]
-},
-{
-	name:"Tum Hi Ho",
-	path:"tum-hi-ho.mp3",
-	delay: 0.2,
-	rootNote: 53,
-	scale: [0, 2, 3, 5, 7, 8, 10]
 },
 {name: "do dil mil rahe",
 		path:"do-dil-mil-rahe-hai.mp3",
@@ -88,13 +95,6 @@ return [
 	beatDuration: 1000,
 	rootNote: 48,
 	scale: [0,2, 3, 5, 7, 8, 10]
-},{
-	name:"Kaun Tujhe",
-	path:"kaun tujhe.mp3",
-	isFemale:false,
-	beatDuration: 1000,
-	rootNote: 60,
-	scale: [0, 2, 4, 5, 7, 9, 10]
 },{
 	name:"Tu Tu Hai Wohi",
 	path:"tu-tu-hai-wohi.mp3",
