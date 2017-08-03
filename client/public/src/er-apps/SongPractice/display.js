@@ -9,7 +9,7 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 			left: 10
 		};
 
-		var chartWidth = 600, chartHeight = 206;
+		 var chartWidth = 600, chartHeight = 206;
 		var miniWidth = chartWidth, miniHeight = 0;
 
 		var refreshTime = 40;
@@ -18,8 +18,8 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 		var labelsData = ["S", "r", "R", "g", "G", "m", "M", "P", "d", "D", "n", "N", "S'"];
 		var scale = [0, 2, 4, 5, 7, 9, 11];
 
-		var yMin = -5;
-		var yMax = 18;
+		var yMin = -17;
+		var yMax = 30;
 		var nYDivs = yMax - yMin;
 		var xDivs = 6;
 		var duration, brushW = miniWidth/4;
@@ -228,6 +228,7 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 
 		this.clearUserPoints = function() {
 			svg.selectAll("rect.sing").remove();
+			svg.selectAll("rect.debug").remove();
 			svg.selectAll("line.indicator").remove();
 		};
 
@@ -264,6 +265,20 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 			.attr("height", 1);
 		};
 
+		this.plotDebugData = function(data, factor, delay) {
+			pointGroup.selectAll("rect.debug")
+			.data(data)
+			.enter()
+			.append("rect")
+			.attr("class", "debug")
+			.attr("x", function(d, i) {
+				return timeScale((i-delay) * incr / audioContext.sampleRate)*factor + timeScale(t0);
+			}).attr("y", function(d) {
+				return yScale(d);
+			}).attr("width", 1)
+			.attr("height", 1)
+			.attr("fill","red");
+		};
 		// this.plotMiniCurve = function() {
 		// 	mini_xScale.domain([0, duration]);
 		// 	miniGroup.selectAll("rect.play")

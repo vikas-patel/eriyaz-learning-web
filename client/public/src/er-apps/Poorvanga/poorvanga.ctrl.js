@@ -107,6 +107,12 @@ define(['./module', 'note', 'webaudioplayer', 'currentaudiocontext','tanpura', '
             tanpura.stop();
         });
 
+        $scope.resetScore = function() {
+            $scope.total = 0;
+            $scope.correct = 0;
+        }
+
+
         $scope.newThat = function() {
             if(currThat)
                 currThat.correct = false;

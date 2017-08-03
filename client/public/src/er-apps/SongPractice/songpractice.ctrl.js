@@ -1,7 +1,7 @@
 define(['./module', './sequencegen', './display', './audioBufferToWav', './songs', 'lyrics', 'note', 'webaudioplayer', './pitchshifter', 'currentaudiocontext',
-        'music-calc', 'mic-util', 'pitchdetector', 'stabilitydetector', 'audiobuffer', './scorer','hopscotch'
+        'music-calc', 'mic-util', 'pitchdetector', 'stabilitydetector', 'audiobuffer', './scorer','hopscotch','./errorhandler'
     ],
-    function(app, sequenceGen, Display, audioBufferToWav, songs, Lyrics, Note, Player, PitchShifter, CurrentAudioContext, MusicCalc, MicUtil, PitchDetector, StabilityDetector, AudioBuffer, scorer,hopscotch) {
+    function(app, sequenceGen, Display, audioBufferToWav, songs, Lyrics, Note, Player, PitchShifter, CurrentAudioContext, MusicCalc, MicUtil, PitchDetector, StabilityDetector, AudioBuffer, scorer,hopscotch, ErrorHandler) {
         var sequence;
         var audioContext = CurrentAudioContext.getInstance();
         var player = new Player(audioContext);
@@ -15,7 +15,7 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
               id: "hello-hopscotch",
               steps: [
                 {
-                  title: "Welome",
+                  title: "Welcome",
                   content: "Click next to start the tour",
                   target:document.querySelector("head"),
                   placement: "bottom"
@@ -50,12 +50,13 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
             };
 
              $scope.$watch('$viewContentLoaded', function(){
+                $scope.song = songs[0];
+
                  //Here your view content is fully loaded !!
                  // Start the tour!
-            hopscotch.startTour(tour);
+            //hopscotch.startTour(tour);
              });
             
-            $scope.score = 0;
             $scope.songs = songs;
             // $scope.song = songs[0];
             $scope.sequences = [{name:"sing after original", actions:[1, 2]},
@@ -78,6 +79,7 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
             var micStream;
 
             $scope.tempo = 1;
+            $scope.song=1;
             var defaultBeatDurtion = 1000;
             var beatDuration = defaultBeatDurtion;
             var currActiveNote = 0;
@@ -469,8 +471,19 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 var i1 = getIndex(rEnd, rawTime);
                 var subPSeries = arrayPitch.slice(i0, i1);
                 var delay = crossCorrelation(subPSeries, floatarray);
-                floatarray = correctPitches(subPSeries,floatarray);
-                display.plotData(floatarray, $scope.tempo, delay);
+                display.plotDebugData(floatarray, $scope.tempo, 0);
+                //floatarray = ErrorHandler.correctPitchesUsingOriginal(subPSeries,floatarray);
+                //floatarray =  ErrorHandler.formPitchContours(floatarray,subPSeries,delay);
+                contours = ErrorHandler.detectContinuousContours(floatarray);
+                console.log(contours);
+                for (var i=0;i<contours.length;i++) {
+                    if(contours[0] == -100 || contours[0]==-200) {
+                        console.log(i);
+                        console.log(contours[i]);
+                    }
+                }
+                display.plotData(ErrorHandler.detectSilences(floatarray), $scope.tempo, 0);
+                //display.plotData(floatarray, $scope.tempo, delay);
             };
 
             function getIndex(t0, series) {
@@ -489,33 +502,7 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
             }
 
 
-            function correctPitches(aReference,aUser) {
-                stretchFactor = aUser.length/aReference.length;
-                console.log(stretchFactor)
-                for (var i=0;i<aUser.length;i++) {
-                    refIndex = Math.round(i/stretchFactor);
-                    if(aReference[refIndex] > 0)
-                        refPitch = aReference[refIndex];
-                    else {
-                        var j =0;
-                        while (aReference[refIndex-j] < 0)
-                            j--;
-                        refPitch = aReference[refIndex - j -1];
-                    }
-                    aUser[i] = closestCorrection(aUser[i],refPitch);
-                }
-                return aUser;
-            }
-
-            function closestCorrection(pUser,pReference) {
-                retPitch = pUser;
-                if(Math.abs(pUser-12 - pReference) < Math.abs(pUser - pReference)) {
-                    retPitch = pUser-12;
-                    if(Math.abs(pUser+12 - pReference) < Math.abs(pUser-12 - pReference))
-                        retPitch = pUser + 12;
-                }
-                return retPitch;
-            }
+            
 
             function crossCorrelation(aReference, aUser) {
                 var shifts = 20;
