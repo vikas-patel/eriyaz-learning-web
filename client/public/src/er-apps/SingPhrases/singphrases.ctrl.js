@@ -1,6 +1,6 @@
 define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'currentaudiocontext',
-        'music-calc', 'mic-util', 'pitchdetector', 'stabilitydetector', 'audiobuffer', 'tanpura', 'recorderworker',
-        'intensityfilter'
+    'music-calc', 'mic-util', 'pitchdetector', 'stabilitydetector', 'audiobuffer', 'tanpura', 'recorderworker',
+    'intensityfilter'
     ],
     function(app, sequenceGen, Display, Note, Player, CurrentAudioContext, MusicCalc, MicUtil, PitchDetector,
         StabilityDetector, AudioBuffer, Tanpura, recorderWorker, intensityFilter) {
@@ -172,8 +172,8 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
             recorderWorker.onmessage = function(e) {
                 switch (e.data.command) {
                     case 'concat':
-                        computePitchGraph(e.data.floatarray);
-                        break;
+                    computePitchGraph(e.data.floatarray);
+                    break;
                 }
             };
 
@@ -197,6 +197,8 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
                 }
                 display.plotData(pitchArray);
             }
+
+
             $scope.$watch('rootNote', function() {
                 currRoot = parseInt($scope.rootNote);
                 if (tanpura !== null)
@@ -217,6 +219,11 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
                 PitchModel.rootFreq = MusicCalc.midiNumToFreq(currRoot);
             });
 
+            $scope.$on("$destroy", function() {
+                cancelCurrentLoop();
+                tanpura.stop();
+            });
+            
             $scope.$watch('playTime', function() {
                 playTime = parseInt($scope.playTime);
                 display.setNoteDuration(playTime);
@@ -257,10 +264,10 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
                              buffer1.addProcessor(updatePitch);
                              buffer2 = new AudioBuffer(audioContext, stream, 16384);
                              buffer2.addProcessor(recorder);*/
-                            $scope.signalOn = true;
-                            $scope.$apply();
-                        }
-                    );
+                             $scope.signalOn = true;
+                             $scope.$apply();
+                         }
+                         );
                 }
                 display.setFlash("Click 'New' to hear Tones");
             };
@@ -270,4 +277,4 @@ define(['./module', './sequencegen', './display', 'note', 'webaudioplayer', 'cur
             }
 
         });
-    });
+});
