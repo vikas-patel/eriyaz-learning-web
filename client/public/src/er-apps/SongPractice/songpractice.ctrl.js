@@ -59,9 +59,9 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
             
             $scope.songs = songs;
             // $scope.song = songs[0];
-            $scope.sequences = [{name:"sing after original", actions:[1, 2]},
-                                {name:"sing with original", actions:[1, 3]},
-                                {name:"listen original only", actions:[1]}];
+            $scope.sequences = [{name:"sing after original", actions:[4, 1, 2]},
+                                {name:"sing with original", actions:[4, 3]},
+                                {name:"listen original only", actions:[4, 1]}];
             $scope.pitchShifts = [{name:"original pitch", value: 0},
                                 {name:"1 seminote lower", value: 1},
                                 {name:"2 seminote lower", value: 2},
@@ -86,19 +86,15 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
             var singTime = Date.now();
             var songBuffer;
             var wholeBeat = 1;
-            var totalBeats = 1;
-            var stretchedBuffer;
-            var rStart;
-            var rEnd;
+            var rStart, rEnd;
             var source;
             var rawTime, arrayPitch;
             var t0, t1, delayLyrics;
-            var beats;
+            var beatsAll, beats;
             var rawTime = [];
             var rawFreq = [];
-            var recorderWorker = new Worker("/worker/pitchworker.js?v=1");
-            // var stretchWorker = new Worker("/worker/timestretcher.js?v=1");
-            var actionMessage = ["Listen Now", "Sing Now", "Listen & Sing"];
+            var recorderWorker = new Worker("/worker/pitchworker.js?v=3");
+            var actionMessage = ["Listen Now", "Sing Now", "Listen & Sing", ""];
             var LOADING_MSG = "Wait... Loading Song's Audio";
             // var LOADING_MSG_BEATS = "Wait... Loading Song's Beats";
             // var LOADING_MSG_NOTES = "Wait... Loading Song's Notes";
@@ -109,11 +105,11 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 rEnd = t1; 
                 defaultBeatDurtion = (rEnd - rStart)*1000;
                 beatDuration = parseInt(defaultBeatDurtion/$scope.tempo);
+                beats = beatsAll.filter(function (value) {
+                    return value >= rStart && value <= rEnd;
+                });
                 if ($scope.tempo < 1 || $scope.pitchShift.value > 0) {
-                    // calculateStretchedBuffer();
                     createAudio();
-                } else {
-                    stretchedBuffer = null;
                 }
             }
 
@@ -121,8 +117,11 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 if (!$scope.song) {
                     display.setFlash("Please Select a Song");
                     return;
+                } else {
+                    display.clearFlash();
+                    $scope.startMic();
                 }
-                display.setFlash(LOADING_MSG);
+                // display.setFlash(LOADING_MSG);
                 loadBeats();
                 PitchModel.rootFreq = MusicCalc.midiNumToFreq($scope.song.rootNote);
                 PitchModel.rootUserFreq = MusicCalc.midiNumToFreq($scope.song.rootNote-$scope.pitchShift.value);
@@ -135,9 +134,10 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                         delayLyrics = 0;
                     }
                     loadExercise();
-                    display.clearFlash();
                     initSeekbar(songBuffer.duration);
                     movetoLyrics(0);
+                    $scope.progressLoad = false;
+                    $scope.$apply();
                 });
             });
 
@@ -146,7 +146,7 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 var seekbar = document.querySelector('#seekbar');
                 seekbar.value = 0;
                 seekbar.max = maxValue;
-                $("#duration-label").text(Math.floor(maxValue/60) + "." + maxValue%60);
+                $("#duration-label").text(formatTime(maxValue));
             }
 
             function setSeekbarValue(value) {
@@ -154,34 +154,79 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 seekbar.value = value;
             }
 
-            var Clock = function(tickDuration) {
+            var Clock = function(tickDuration, actions) {
                 var intervalId = 0;
-                var nextTickCount = wholeBeat;
+                this.count = 0;
+                // var nextTickCount = wholeBeat;
                 this.watcher = null;
                 var nullAction = function() {
                 };
+                // this.interval = tickDuration
+                // this.setInterval = function (interval) {
+                //     this.interval = interval;
+                // }
                 this.nextBeepAction = nullAction;
-                var startTime1 = audioContext.currentTime + beatDuration / 1000;
+                var startTime1 = audioContext.currentTime;
 
                 this.registerWatcher = function(watcher) {
                     this.watcher = watcher;
                 };
-                this.start = function() {
-                    var local = this;
-                    intervalId = setInterval(function repeatAction() {
-                        if (nextTickCount == wholeBeat) {
-                            player.scheduleNote(880, startTime1, 25);
-                            nextTickCount = 0;
-                        }
-                        nextTickCount++;
-                        startTime1 = startTime1 + beatDuration / 1000;
-                        local.callScheduledAction();
-                        local.watcher.handleBeep();
-                        return repeatAction;
-                    }(), tickDuration);
+                // this.start = function() {
+                //     var local = this;
+                //     intervalId = setInterval(function repeatAction() {
+                //         if (nextTickCount == wholeBeat) {
+                //             player.scheduleNote(880, startTime1, 25);
+                //             nextTickCount = 0;
+                //         }
+                //          nextTickCount++;
+                //         startTime1 = startTime1 + beatDuration / 1000;
+                //         local.callScheduledAction();
+                //         local.watcher.handleBeep();
+                //         return repeatAction;
+                //     }(), tickDuration);
+                // };
+
+                this.callScheduledAction = function() {
+                    this.nextBeepAction();
+                    this.nextBeepAction = nullAction;
                 };
+
+                this.start = function() {
+                    this.stopped = false;
+                    this.runLoop();
+                }
+
+                this.loop = function() {
+                    var bufferTime = 0;
+                    if (isActionTrue(actions[this.count % actions.length], ACTIONS.SILENCE)) {
+                        bufferTime = 250;
+                    } else if (isActionTrue(actions[this.count % actions.length], ACTIONS.SING)) {
+                        bufferTime = tickDuration + 750;
+                    } else {
+                        // extra 20ms buffer (min delay between schedule excecution)
+                        bufferTime = tickDuration + 130;
+                    }
+                    startTime1 = startTime1 + bufferTime / 1000;
+                    this.timeout = setTimeout(this.runLoop, bufferTime);
+                    this.count++;
+                };
+                local = this;
+                this.runLoop = function() {
+                    if (local.stopped) return;
+                    // if (nextTickCount == wholeBeat) {
+                    //     player.scheduleNote(880, startTime1, 25);
+                    //     nextTickCount = 0;
+                    // }
+                    // nextTickCount++;
+                    local.loop();
+                    local.callScheduledAction();
+                    local.watcher.handleBeep();
+                };
+
                 this.stop = function() {
-                    clearInterval(intervalId);
+                    this.stopped = true;
+                    clearTimeout(this.timeout);
+                    // clearInterval(intervalId);
                 };
 
                 this.scheduleNote = function() {
@@ -191,11 +236,6 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
 
                 this.scheduleAction = function(callback) {
                     this.nextBeepAction = callback;
-                };
-
-                this.callScheduledAction = function() {
-                    this.nextBeepAction();
-                    this.nextBeepAction = nullAction;
                 };
 
             };
@@ -216,10 +256,10 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
             };
 
             var clock = new Clock(beatDuration);
-            clock.registerWatcher(gameController);
+            // clock.registerWatcher(gameController);
 
             var ACTIONS = {
-              PLAY: 1, SING: 2
+              PLAY: 1, SING: 2, SILENCE: 4
             };
 
             var isActionTrue = function(number, action) {
@@ -232,9 +272,15 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 var count = 0;
 
                 this.handleBeep = function() {
+                    var actions = $scope.sequence.actions;
+                    // schedule note if next play
+                    // if (isActionTrue(actions[count+1], ACTIONS.PLAY)) {
+                    //     clock.scheduleNote();
+                    // }
                     if (count == 0) {
                          display.clearUserPoints();
                     }
+
                     var action = $scope.sequence.actions[count];
                     //Play now (listen first)
                     if (isActionTrue(action, ACTIONS.PLAY)) {
@@ -245,8 +291,9 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                             command: 'init',
                             rootFreq: PitchModel.rootUserFreq,
                             sampleRate: audioContext.sampleRate,
-                            time: (rEnd - rStart)/$scope.tempo
+                            time: (rEnd - rStart)/$scope.tempo + 0.75
                           });
+                        // clock.setInterval(beatDuration + 1000);
                     } else {
                         gameController.setIntervalHandler(function(data) {});
                     }
@@ -258,10 +305,12 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                             gameController.setState(new FeedbackState());
                         }
                     }
-                    display.drawIndicator(beatDuration);
-                    display.setFlash(actionMessage[action-1]);
+                    if (!isActionTrue(actions[count], ACTIONS.SILENCE)) {
+                        scheduleBeats();
+                        display.drawIndicator(beatDuration);
+                        display.setFlash(actionMessage[action-1]);
+                    }
                     count++;
-                    
                     clock.scheduleAction(function() {
                         if (isActionTrue($scope.sequence.actions[count], ACTIONS.SING)) {
                             display.clearUserPoints();
@@ -280,7 +329,7 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                                 command: 'init',
                                 rootFreq: PitchModel.rootUserFreq,
                                 sampleRate: audioContext.sampleRate,
-                                time: (rEnd - rStart)/$scope.tempo
+                                time: (rEnd - rStart)/$scope.tempo + 0.75
                               });
                         }
                     });
@@ -348,6 +397,8 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                     // Unable to compute progress information since the total size is unknown
                   }
               }
+              $scope.progressBar = 0;
+              $scope.progressLoad = true; 
               request.send();
               return deferred.promise();
             }
@@ -372,7 +423,7 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 buffer = sliceAudioBuffer(songBuffer, rStart, rEnd);
                 var shift = $scope.pitchShift.value;
                 if (shift > 0) {
-                    var pitchShifter = new PitchShifter(buffer, shift, 0, buffer.duration);
+                    var pitchShifter = new PitchShifter(buffer, shift);
                     buffer = pitchShifter.out();
                 }
                 var wav = audioBufferToWav(buffer);
@@ -440,13 +491,13 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
               request.onload = function() {
                 var text = request.responseText;
                 var lines = text.split('\n');
-                beats = [];
+                beatsAll = [];
                 for (var i=0; i<lines.length; i++) {
                     var line = lines[i].split(",");
-                    beats.push(parseFloat(line[0]));
+                    beatsAll.push(parseFloat(line[0]));
                 }
                 // display.clearFlash();
-                display.setBeats(beats);
+                display.setBeats(beatsAll);
               }
               request.send();
             }
@@ -462,28 +513,34 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 source = audioContext.createBufferSource(); // creates a sound source
                 source.connect(audioContext.destination);       // connect the source to the context's destination (the speakers)
                 source.buffer = songBuffer;                    // tell the source which sound to play
-                source.start(time, rStart, rEnd - rStart);                           // play the source now
+                source.start(time, rStart, beatDuration/1000);                           // play the source now
               }
+            }
+            var beatSources = [];
+            function scheduleBeats() {
+                beatSources = [];
+                var currentTime = audioContext.currentTime;
+                for (var i = 0; i < beats.length; i++) {
+                    beatsource = player.scheduleNote(880, currentTime + (beats[i] - rStart)/$scope.tempo, 50);
+                    beatSources.push(beatsource);
+                }
             }
 
             function computePitchGraph(floatarray) {
                 var i0 = getIndex(rStart, rawTime);
                 var i1 = getIndex(rEnd, rawTime);
                 var subPSeries = arrayPitch.slice(i0, i1);
-                var delay = crossCorrelation(subPSeries, floatarray);
-                display.plotDebugData(floatarray, $scope.tempo, 0);
+                //display.plotDebugData(floatarray, $scope.tempo, 0);
                 //floatarray = ErrorHandler.correctPitchesUsingOriginal(subPSeries,floatarray);
                 //floatarray =  ErrorHandler.formPitchContours(floatarray,subPSeries,delay);
-                contours = ErrorHandler.detectContinuousContours(floatarray);
-                console.log(contours);
-                for (var i=0;i<contours.length;i++) {
-                    if(contours[0] == -100 || contours[0]==-200) {
-                        console.log(i);
-                        console.log(contours[i]);
-                    }
-                }
-                display.plotData(ErrorHandler.detectSilences(floatarray), $scope.tempo, 0);
-                //display.plotData(floatarray, $scope.tempo, delay);
+                //contours = ErrorHandler.detectContinuousContours(floatarray);
+                
+                // ErrorHandler.simpleMerge(contours);
+                // display.plotData(ErrorHandler.detectSilences(floatarray), $scope.tempo, 0);
+                var delay = 0;
+                // var delay = crossCorrelation(subPSeries, floatarray);
+                // floatarray = correctPitches(subPSeries,floatarray);
+                display.plotData(floatarray, $scope.tempo, delay);
             };
 
             function getIndex(t0, series) {
@@ -560,8 +617,6 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 }
                 if ($scope.tempo < 1) {
                     createAudio();
-                } else {
-                    stretchedBuffer = null;
                 }
                 
             });
@@ -577,8 +632,15 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 if (seekbar.dragging) {
                     display.seekbarMove(value, value - seekbar.value);
                 }
-                $("#time-label").text(Math.floor(value/60) + "." + Math.round(value%60));
+               
+                $("#time-label").text(formatTime(value));
              });
+
+            function formatTime(value) {
+                var seconds = Math.round(value%60);
+                if (seconds < 10) {seconds = "0"+seconds;}
+                return Math.floor(value/60) + ":" + seconds;
+            }
 
             $scope.$watch('pitchShift', function() {
                 if (!$scope.song) {
@@ -699,6 +761,7 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
             var defaultBrushSpan = 5.8;
 
             function movetoLyrics(index) {
+                if (!lrc.getLyrics()) return;
                 lyricsIndex = index;
                 var lrcLength = lrc.getLyrics().length;
                 var tStart = lrc.getLyric(lyricsIndex).timestamp - lyricsBuffer - delayLyrics;
@@ -748,7 +811,7 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 $scope.score = 0;
                 singTime = Date.now();
                 clock.stop();
-                clock = new Clock(beatDuration);
+                clock = new Clock(beatDuration, $scope.sequence.actions);
                 clock.registerWatcher(gameController);
                 gameController.setState(new PlayState());
                 clock.start();
@@ -777,6 +840,10 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                     } else {
                         source.stop();    
                     }
+                    // clear scheduled beats
+                    beatSources.forEach(function(beatsource){
+                        beatsource.stop();
+                    });
                     
                     gameController.setIntervalHandler(function(data) {});
                 } else {
@@ -784,7 +851,6 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                     $("#PlayButton").addClass("Playing");
                     $("#play-icon").removeClass("icon-svg_play");
                     $("#play-icon").addClass("icon-svg_pause");
-                    $scope.startMic();
                 }
             };
 

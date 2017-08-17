@@ -1,7 +1,7 @@
 define([], function() {
 	var ErrorHandler = function() {
 
-
+		var MIN_CONTOUR_LENGTH = 3;
 		this.correctPitchesUsingOriginal = function(aReference,aUser) {
 			stretchFactor = aUser.length/aReference.length;
 			for (var i=0;i<aUser.length;i++) {
@@ -62,7 +62,31 @@ define([], function() {
 			return contours;
 		}
 
-	
+		this.simpleMerge = function(inContours) {
+			console.log("starting contours : " + inContours.length);
+
+			outCountours = [];
+			var mergeCount = 0;
+			longContoursIndices = [];
+			inContours.forEach(function(val,index) { 
+				if (val.length >= MIN_CONTOUR_LENGTH) 
+					longContoursIndices.push(index)
+			});
+			console.log(longContoursIndices.length);
+			for(var i =1; i < longContoursIndices.length; i++) {
+				currContour = inContours[longContoursIndices[i]];
+				prevContour = inContours[longContoursIndices[i-1]];
+				var pitchDiff =  - currContour[0] - prevContour[prevContour.length-1];
+				var remainder = Math.abs(pitchDiff) % 12;
+				if(remainder > 10 || remainder < 2) {
+					mergeCount ++;
+					mergeCount = mergeCount + longContoursIndices[i] - longContoursIndices[i-1] - 1;
+				}
+			}
+
+			console.log("merged contours : " + (inContours.length - mergeCount));
+		}
+
 		this.formPitchContours = function(aUser,aReference, delay) {
 			stretchFactor = aUser.length/aReference.length;
 

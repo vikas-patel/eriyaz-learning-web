@@ -18,8 +18,8 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 		var labelsData = ["S", "r", "R", "g", "G", "m", "M", "P", "d", "D", "n", "N", "S'"];
 		var scale = [0, 2, 4, 5, 7, 9, 11];
 
-		var yMin = -17;
-		var yMax = 30;
+		var yMin = -5;
+		var yMax = 18;
 		var nYDivs = yMax - yMin;
 		var xDivs = 6;
 		var duration, brushW = miniWidth/4;
@@ -44,15 +44,6 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 			.attr("viewBox", "0 0 " + (chartWidth + margin.left + margin.right) + " " + (chartHeight + miniHeight + margin.top + margin.bottom))
 			.append("g")
 			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-		var velocity = svg.append("g");
-		
-		// var rect = svg.append("rect")
-		// 	.attr("x",0)
-		// 	.attr("y",0)
-		// 	.attr("width",chartWidth)
-		// 	.attr("height",chartHeight)
-		// 	.attr("fill","none");// lightergrey F4F4F4
 
 		var tickValues = [0, 2, 4, 5, 7, 9, 11];
 		var beatValues = [];
@@ -127,26 +118,14 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 			.attr("class", "y axis")
 			.attr("transform", "translate(" + chartWidth + ",0)")
 			.call(yAxis);
-		var miniGroup = svg.append("g")
-            .attr("class","miniGroup")
-            .attr("transform","translate(" + 0 + "," + chartHeight + ")");
+		var velocity = svg.append("g");
 
         var mainBrushGroup = svg.append("g")
             .attr("class","mainBrushGroup");
         var gMainBrush = d3.select(".mainBrushGroup").append("g")
 			      .attr("class", "brush");
 
-    	var brushGroup = svg.append("g")
-            .attr("class","brushGroup")
-            .attr("transform","translate(" + 0 + "," + chartHeight + ")");
-
-        var mini_xScale, brush, mainBrush;
-
-	    //Set up the visual part of the brush
-	    var gBrush = d3.select(".brushGroup").append("g")
-	      .attr("class", "brush");
-
-
+        var mainBrush;
 	    this.drawMainBrush = function() {
 	    	mainBrush = d3.svg.brush()
 		        .x(timeScale)
@@ -166,23 +145,7 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 	    	gMainBrush.selectAll("rect")
       			.attr("height", chartHeight);
 	    }
-	    var mini_xScale = d3.scale.linear().range([0, miniWidth]);
-	    var mini_yScale = d3.scale.linear().domain([yMin, yMax]).range([miniHeight, 0]);
-   //    	this.drawMiniBrush = function(duration) {
-   //    		mini_xScale.domain([0, duration - xDivs]);
-   //    		brush = d3.svg.brush()
-			//         .x(mini_xScale)
-			//         .extent([0, xDivs])
-			//         .on("brush", brushmove)
-			//         .on("brushend", brushend);
-			// gBrush.call(brush);
-			// // gBrush.on("mousedown", function() {console.log("centered")});
-			// gBrush.selectAll("rect")
-   //    				.attr("height", miniHeight)
-   //    				.attr("id","song-slider");
-   //    		gBrush.selectAll(".resize").remove();
-	  //   }
-      	// gBrush.call(brush.move, [10, 50]);
+
       	display = this;
 
 		this.setDuration = function(d) {
@@ -200,9 +163,7 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 			this.setDuration(aDuration);
 			scale = aScale;
 			this.createNoteAxis();
-			// this.drawMiniBrush(aDuration);
 			this.drawMainBrush();
-			// this.plotMiniCurve();
 			this.plotExerciseData(tShift);
 		}
 

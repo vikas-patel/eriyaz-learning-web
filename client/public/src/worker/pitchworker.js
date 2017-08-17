@@ -4,6 +4,7 @@ var current = 0;
 var incr = 128;
 var buffsize = 2048;
 var pitchArray = [];
+var latency = 2048;
 var rootFreq = 123;
 var sampleRate;
 importScripts('/worker/waveletPitch.js');
@@ -13,11 +14,12 @@ self.onmessage = function(e) {
 		case 'init':
 		sampleRate = e.data.sampleRate;
 			// one extra buffer 2048
-			processArray = new Float32Array(Math.ceil(e.data.time*sampleRate) + 2048);
+			processArray = new Float32Array(Math.ceil(e.data.time*sampleRate) + buffsize);
 			rootFreq = e.data.rootFreq;
 			offset = 0;
 			current = 0;
 			pitchArray = [];
+			recordSize = 0;
 			break;
 			case 'record':
 			record(e.data.floatarray);
@@ -28,7 +30,12 @@ self.onmessage = function(e) {
 		}
 	};
 
+
 	function record(floatarray) {
+		if (recordSize <= latency) {
+			recordSize += floatarray.length;
+			return;
+		}
 		processArray.set(floatarray, offset);
 		offset += floatarray.length;
 		calcPitch();
