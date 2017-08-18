@@ -1,5 +1,5 @@
 define(['./module', './sequencegen', './display', './audioBufferToWav', './songs', 'lyrics', 'note', 'webaudioplayer', './pitchshifter', 'currentaudiocontext',
-        'music-calc', 'mic-util', 'pitchdetector', 'stabilitydetector', 'audiobuffer', './scorer','hopscotch','./errorhandler'
+    'music-calc', 'mic-util', 'pitchdetector', 'stabilitydetector', 'audiobuffer', './scorer','hopscotch','./errorhandler'
     ],
     function(app, sequenceGen, Display, audioBufferToWav, songs, Lyrics, Note, Player, PitchShifter, CurrentAudioContext, MusicCalc, MicUtil, PitchDetector, StabilityDetector, AudioBuffer, scorer,hopscotch, ErrorHandler) {
         var sequence;
@@ -14,59 +14,59 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
             var tour = {
               id: "hello-hopscotch",
               steps: [
-                {
+              {
                   title: "Welcome",
                   content: "Click next to start the tour",
                   target:document.querySelector("head"),
                   placement: "bottom"
-                },
-                {
+              },
+              {
                   title: "Songs",
                   content: "Select the song you want to learn.",
                   target: "song-select",
                   placement: "right",
                   yOffset : -20,
-                },
-                {
+              },
+              {
                   content: "Drag slider to where song starts.",
                   target: "seekbar",
                   placement: "right",
                   yOffset : -20,
                   xOffset : -900
-                },
-                {
+              },
+              {
                   content: "select an area to select a small portion of song for practice.",
                   target: "PlayButton",
                   placement: "right",
                   yOffset : -300,
-                },
-                {
+              },
+              {
                   title: "Start Practice",
                   content: "Start practicing by clicking this play button",
                   target: "PlayButton",
                   placement: "right"
-                }
+              }
               ]
-            };
+          };
 
-             $scope.$watch('$viewContentLoaded', function(){
-                $scope.song = songs[0];
+          $scope.$watch('$viewContentLoaded', function(){
+            $scope.song = songs[0];
 
                  //Here your view content is fully loaded !!
                  // Start the tour!
             //hopscotch.startTour(tour);
-             });
-            
-            $scope.songs = songs;
+        });
+
+          $scope.songs = songs;
             // $scope.song = songs[0];
             $scope.sequences = [{name:"sing after original", actions:[4, 1, 2]},
-                                {name:"sing with original", actions:[4, 3]},
-                                {name:"listen original only", actions:[4, 1]}];
+            {name:"sing with original", actions:[4, 3]},
+            {name:"listen original only", actions:[4, 1]}];
             $scope.pitchShifts = [{name:"original pitch", value: 0},
-                                {name:"1 seminote lower", value: 1},
-                                {name:"2 seminote lower", value: 2},
-                                {name:"3 seminote lower", value: 3},
-                                {name:"4 seminote lower", value: 4}];
+            {name:"1 seminote lower", value: 1},
+            {name:"2 seminote lower", value: 2},
+            {name:"3 seminote lower", value: 3},
+            {name:"4 seminote lower", value: 4}];
             $scope.sequence = $scope.sequences[0];
             $scope.pitchShift = $scope.pitchShifts[0];
             var display = new Display(setRange);
@@ -260,96 +260,110 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
 
             var ACTIONS = {
               PLAY: 1, SING: 2, SILENCE: 4
-            };
+          };
 
-            var isActionTrue = function(number, action) {
+          var isActionTrue = function(number, action) {
               return !!(number & action);
-            };
- 
-            var PlayState = function() {
-                var currentNoteIdx = 5;
-                var local = this;
-                var count = 0;
+          };
 
-                this.handleBeep = function() {
-                    var actions = $scope.sequence.actions;
+          var PlayState = function() {
+            var currentNoteIdx = 5;
+            var local = this;
+            var count = 0;
+            var singStartTime = 0;
+            this.handleBeep = function() {
+                var actions = $scope.sequence.actions;
                     // schedule note if next play
                     // if (isActionTrue(actions[count+1], ACTIONS.PLAY)) {
                     //     clock.scheduleNote();
                     // }
                     if (count == 0) {
-                         display.clearUserPoints();
-                    }
+                       display.clearUserPoints();
 
-                    var action = $scope.sequence.actions[count];
+                   }
+
+                   var action = $scope.sequence.actions[count];
                     //Play now (listen first)
                     if (isActionTrue(action, ACTIONS.PLAY)) {
                         playSound(0);
                     }
                     if (isActionTrue(action, ACTIONS.SING)) {
+                        singStartTime = Date.now();
+                        console.log(singStartTime);
                         recorderWorker.postMessage({
                             command: 'init',
                             rootFreq: PitchModel.rootUserFreq,
                             sampleRate: audioContext.sampleRate,
                             time: (rEnd - rStart)/$scope.tempo + 0.75
-                          });
+                        });
                         // clock.setInterval(beatDuration + 1000);
                     } else {
                         gameController.setIntervalHandler(function(data) {});
                     }
                     // end of sequence
                     if (count == $scope.sequence.actions.length-1) {
-                         if ($scope.isLoop) {
-                            gameController.setState(new PlayState());
-                        } else {
-                            gameController.setState(new FeedbackState());
-                        }
+                       if ($scope.isLoop) {
+                        gameController.setState(new PlayState());
+                    } else {
+                        gameController.setState(new FeedbackState());
                     }
-                    if (!isActionTrue(actions[count], ACTIONS.SILENCE)) {
-                        scheduleBeats();
-                        display.drawIndicator(beatDuration);
-                        display.setFlash(actionMessage[action-1]);
+                }
+                if (!isActionTrue(actions[count], ACTIONS.SILENCE)) {
+                    scheduleBeats();
+                    display.drawIndicator(beatDuration);
+                    display.setFlash(actionMessage[action-1]);
+                }
+                count++;
+                clock.scheduleAction(function() {
+                    if (isActionTrue($scope.sequence.actions[count], ACTIONS.SING)) {
+                        display.clearUserPoints();
+                        gameController.setIntervalHandler(function(data) {
+                            data1 = data;
+                            recorderWorker.postMessage({
+                              command: 'record',
+                              floatarray: data
+                          });
+                            var pitch = detector.findPitch(data1);
+                            if (pitch !== 0) {
+                                PitchModel.currentFreq = pitch;
+                                PitchModel.currentInterval = MusicCalc.getCents(PitchModel.rootFreq, PitchModel.currentFreq) / 100;
+                                display.markPitch(PitchModel.currentInterval, (Date.now() - singStartTime)/1000);
+                            }
+                            recorderWorker.postMessage({
+                              command: 'record',
+                              floatarray: data
+                          });
+                        });
                     }
-                    count++;
-                    clock.scheduleAction(function() {
-                        if (isActionTrue($scope.sequence.actions[count], ACTIONS.SING)) {
-                            display.clearUserPoints();
-                            gameController.setIntervalHandler(function(data) {
-                                recorderWorker.postMessage({
-                                  command: 'record',
-                                  floatarray: data
-                                });
-                            });
-                        }
-                        if (isActionTrue($scope.sequence.actions[count-1], ACTIONS.SING)) {
-                            recorderWorker.postMessage({
-                                    command: 'concat'
-                                  });
-                            recorderWorker.postMessage({
-                                command: 'init',
-                                rootFreq: PitchModel.rootUserFreq,
-                                sampleRate: audioContext.sampleRate,
-                                time: (rEnd - rStart)/$scope.tempo + 0.75
-                              });
-                        }
-                    });
-                };
+                    if (isActionTrue($scope.sequence.actions[count-1], ACTIONS.SING)) {
+                        recorderWorker.postMessage({
+                            command: 'concat'
+                        });
+                        recorderWorker.postMessage({
+                            command: 'init',
+                            rootFreq: PitchModel.rootUserFreq,
+                            sampleRate: audioContext.sampleRate,
+                            time: (rEnd - rStart)/$scope.tempo + 0.75
+                        });
+                    }
+                });
             };
+        };
 
-            var FeedbackState = function() {
-                var local = this;
-                var count = 0;
-                this.handleBeep = function() {
-                    gameController.setIntervalHandler(function(interval) {
+        var FeedbackState = function() {
+            var local = this;
+            var count = 0;
+            this.handleBeep = function() {
+                gameController.setIntervalHandler(function(interval) {
                         // empty, no action
                     });
-                    if (count == 0) {
-                        $scope.playClicked();
-                        display.clearFlash();
-                    }
-                    count++;
+                if (count == 0) {
+                    $scope.playClicked();
+                    display.clearFlash();
+                }
+                count++;
                     // clock.scheduleAction(function() {
-                        
+
                     //     count++;
                     // });
                 };
@@ -366,79 +380,79 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
             recorderWorker.onmessage = function(e) {
               switch (e.data.command) {
                 case 'concat':
-                  globalArray = e.data.recordedArray;
-                  computePitchGraph(e.data.pitchArray);
-                  break;
-              }
-            };
-            var blob;
-            function loadSound() {
-                var deferred = $.Deferred();
-              var url = "er-shell/audio/"+$scope.song.path;
-              var request = new XMLHttpRequest();
-              request.open('GET', url, true);
-              request.responseType = 'arraybuffer';
+                globalArray = e.data.recordedArray;
+                computePitchGraph(e.data.pitchArray);
+                break;
+            }
+        };
+        var blob;
+        function loadSound() {
+            var deferred = $.Deferred();
+            var url = "er-shell/audio/"+$scope.song.path;
+            var request = new XMLHttpRequest();
+            request.open('GET', url, true);
+            request.responseType = 'arraybuffer';
               // Decode asynchronously
               request.onload = function() {
                 audioContext.decodeAudioData(request.response, function(buffer) {
-                songBuffer = buffer;
+                    songBuffer = buffer;
                 // display.clearFlash();
                 deferred.resolve();
-                }, function() {console.log("error on loading audio file.")});
-              };
+            }, function() {console.log("error on loading audio file.")});
+            };
 
-              request.onprogress = function(oEvent) {
+            request.onprogress = function(oEvent) {
                 if (oEvent.lengthComputable) {
                     var percentComplete = 100*oEvent.loaded / oEvent.total;
                     $scope.progressBar = Math.floor(percentComplete);
                     $scope.$apply();
                     // ...
-                  } else {
-                    // Unable to compute progress information since the total size is unknown
-                  }
-              }
-              $scope.progressBar = 0;
-              $scope.progressLoad = true; 
-              request.send();
-              return deferred.promise();
-            }
-
-            var url, sound;
-
-            function sliceAudioBuffer(buffer, begin, end) {
-                var rate = audioContext.sampleRate;
-                var startOffset = Math.round(rate * begin);
-                var endOffset = Math.round(rate * end);
-                var frameCount = endOffset - startOffset;
-                var newArrayBuffer = audioContext.createBuffer(1, endOffset - startOffset, rate);
-                var anotherArray = new Float32Array(frameCount);
-                var offset = 0;
-                buffer.copyFromChannel(anotherArray, 0, startOffset);
-                newArrayBuffer.copyToChannel(anotherArray, 0, offset);
-                return newArrayBuffer;
-            }
-
-            function createAudio () {
-                display.setFlash(RECALCULATE_MSG);
-                buffer = sliceAudioBuffer(songBuffer, rStart, rEnd);
-                var shift = $scope.pitchShift.value;
-                if (shift > 0) {
-                    var pitchShifter = new PitchShifter(buffer, shift);
-                    buffer = pitchShifter.out();
-                }
-                var wav = audioBufferToWav(buffer);
-                var blob = new window.Blob([ new DataView(wav) ], {
-                  type: 'audio/wav'
-                });
-                if (url) {
-                    window.URL.revokeObjectURL(url)
-                }
-                url = window.URL.createObjectURL(blob);
-                if (sound) {
-                    sound.src      = url;
                 } else {
-                    sound      = document.createElement('audio');
-                    sound.id       = 'audio-player';
+                    // Unable to compute progress information since the total size is unknown
+                }
+            }
+            $scope.progressBar = 0;
+            $scope.progressLoad = true; 
+            request.send();
+            return deferred.promise();
+        }
+
+        var url, sound;
+
+        function sliceAudioBuffer(buffer, begin, end) {
+            var rate = audioContext.sampleRate;
+            var startOffset = Math.round(rate * begin);
+            var endOffset = Math.round(rate * end);
+            var frameCount = endOffset - startOffset;
+            var newArrayBuffer = audioContext.createBuffer(1, endOffset - startOffset, rate);
+            var anotherArray = new Float32Array(frameCount);
+            var offset = 0;
+            buffer.copyFromChannel(anotherArray, 0, startOffset);
+            newArrayBuffer.copyToChannel(anotherArray, 0, offset);
+            return newArrayBuffer;
+        }
+
+        function createAudio () {
+            display.setFlash(RECALCULATE_MSG);
+            buffer = sliceAudioBuffer(songBuffer, rStart, rEnd);
+            var shift = $scope.pitchShift.value;
+            if (shift > 0) {
+                var pitchShifter = new PitchShifter(buffer, shift);
+                buffer = pitchShifter.out();
+            }
+            var wav = audioBufferToWav(buffer);
+            var blob = new window.Blob([ new DataView(wav) ], {
+              type: 'audio/wav'
+          });
+            if (url) {
+                window.URL.revokeObjectURL(url)
+            }
+            url = window.URL.createObjectURL(blob);
+            if (sound) {
+                sound.src      = url;
+            } else {
+                sound      = document.createElement('audio');
+                sound.id       = 'audio-player';
                     // sound.controls = 'controls';
                     sound.src      = url;
                     sound.type     = 'audio/wav';
@@ -476,11 +490,11 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 var request = new XMLHttpRequest();
                 request.open('GET', url, true);
                 // Decode asynchronously
-              request.onload = function() {
-                var text = request.responseText;
-                lrc.load(text);
-              }
-              request.send();
+                request.onload = function() {
+                    var text = request.responseText;
+                    lrc.load(text);
+                }
+                request.send();
             }
 
             function loadBeats() {
@@ -488,48 +502,48 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 var request = new XMLHttpRequest();
                 request.open('GET', url, true);
                 // Decode asynchronously
-              request.onload = function() {
-                var text = request.responseText;
-                var lines = text.split('\n');
-                beatsAll = [];
-                for (var i=0; i<lines.length; i++) {
-                    var line = lines[i].split(",");
-                    beatsAll.push(parseFloat(line[0]));
-                }
+                request.onload = function() {
+                    var text = request.responseText;
+                    var lines = text.split('\n');
+                    beatsAll = [];
+                    for (var i=0; i<lines.length; i++) {
+                        var line = lines[i].split(",");
+                        beatsAll.push(parseFloat(line[0]));
+                    }
                 // display.clearFlash();
                 display.setBeats(beatsAll);
-              }
-              request.send();
             }
+            request.send();
+        }
 
-            function playSound(time) {
-              if ($scope.tempo < 1 || $scope.pitchShift.value > 0) {
+        function playSound(time) {
+          if ($scope.tempo < 1 || $scope.pitchShift.value > 0) {
                 // source.buffer = stretchedBuffer;
                 // source.start(time);
                 sound.playbackRate = $scope.tempo;
                 sound.currentTime = 0;
                 sound.play(time);
-              } else {
+            } else {
                 source = audioContext.createBufferSource(); // creates a sound source
                 source.connect(audioContext.destination);       // connect the source to the context's destination (the speakers)
                 source.buffer = songBuffer;                    // tell the source which sound to play
                 source.start(time, rStart, beatDuration/1000);                           // play the source now
-              }
             }
-            var beatSources = [];
-            function scheduleBeats() {
-                beatSources = [];
-                var currentTime = audioContext.currentTime;
-                for (var i = 0; i < beats.length; i++) {
-                    beatsource = player.scheduleNote(880, currentTime + (beats[i] - rStart)/$scope.tempo, 50);
-                    beatSources.push(beatsource);
-                }
+        }
+        var beatSources = [];
+        function scheduleBeats() {
+            beatSources = [];
+            var currentTime = audioContext.currentTime;
+            for (var i = 0; i < beats.length; i++) {
+                beatsource = player.scheduleNote(880, currentTime + (beats[i] - rStart)/$scope.tempo, 50);
+                beatSources.push(beatsource);
             }
+        }
 
-            function computePitchGraph(floatarray) {
-                var i0 = getIndex(rStart, rawTime);
-                var i1 = getIndex(rEnd, rawTime);
-                var subPSeries = arrayPitch.slice(i0, i1);
+        function computePitchGraph(floatarray) {
+            var i0 = getIndex(rStart, rawTime);
+            var i1 = getIndex(rEnd, rawTime);
+            var subPSeries = arrayPitch.slice(i0, i1);
                 //display.plotDebugData(floatarray, $scope.tempo, 0);
                 //floatarray = ErrorHandler.correctPitchesUsingOriginal(subPSeries,floatarray);
                 //floatarray =  ErrorHandler.formPitchContours(floatarray,subPSeries,delay);
@@ -621,10 +635,10 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 
             });
 
-             $("#seekbar").bind("change", function(){
+            $("#seekbar").bind("change", function(){
                 var seekbar = document.querySelector('#seekbar');
                 display.seekbarEnd(seekbar.value);
-             });
+            });
 
             $("#seekbar").bind("immediate-value-change", function(){
                 var seekbar = document.querySelector('#seekbar');
@@ -632,9 +646,9 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 if (seekbar.dragging) {
                     display.seekbarMove(value, value - seekbar.value);
                 }
-               
+
                 $("#time-label").text(formatTime(value));
-             });
+            });
 
             function formatTime(value) {
                 var seconds = Math.round(value%60);
@@ -657,7 +671,7 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 if (micStream)
                     micStream.stop();
             });
-          
+
             $scope.startMic = function() {
                 if (!$scope.signalOn) {
                     MicUtil.getMicAudioStream(
@@ -668,7 +682,7 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                             $scope.signalOn = true;
                             $scope.$apply();
                         }
-                    );
+                        );
                 }
             };
 
@@ -867,6 +881,6 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
               source.buffer = outBuffer;
               source.connect(audioContext.destination);
               source.start();
-            }
-        });
-    });
+          }
+      });
+});
