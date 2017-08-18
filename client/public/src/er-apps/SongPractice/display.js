@@ -189,6 +189,7 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 
 		this.clearUserPoints = function() {
 			svg.selectAll("rect.sing").remove();
+			svg.selectAll("rect.voiced").remove();
 			svg.selectAll("rect.debug").remove();
 			svg.selectAll("line.indicator").remove();
 		};
@@ -224,6 +225,22 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 				return yScale(d);
 			}).attr("width", 1)
 			.attr("height", 1);
+		};
+
+		this.plotVoiced = function(data) {
+			pointGroup.selectAll("rect.voiced")
+			.data(data)
+			.enter()
+			.append("rect")
+			.attr("class", "voiced")
+			.attr("x", function(d, i) {
+				// voiced frame size 44
+				return timeScale(i * 512/ audioContext.sampleRate) + timeScale(t0);
+			}).attr("y", function(d) {
+				return yScale(d);
+			}).attr("width", 1)
+			.attr("height", 1)
+			.attr("fill", "red");
 		};
 
 		this.plotDebugData = function(data, factor, delay) {

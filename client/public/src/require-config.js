@@ -8,7 +8,7 @@ requirejs.config({
     baseUrl: '/',
     paths: {
         'polymer-wecomponents': 'ext-libs/bower_components/webcomponentsjs/webcomponents.min',
-        'domReady': 'ext-libs/bower_components/requirejs-domready/domready',
+        'domReady': 'ext-libs/bower_components/requirejs-domready/domReady',
         'angular': 'ext-libs/bower_components/angular/angular',
         'angular-ui-router': 'ext-libs/bower_components/angular-ui-router/release/angular-ui-router.min',
         'angulartics': 'ext-libs/bower_components/angulartics/dist/angulartics.min',
@@ -153,7 +153,7 @@ requirejs.config({
         main: 'index'
     }, {
         name: 'voicerange',
-        location: 'er-apps/Voicerange',
+        location: 'er-apps/VoiceRange',
         main: 'index'
     }, {    
         name: 'freestylephrases',

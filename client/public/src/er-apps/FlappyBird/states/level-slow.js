@@ -1,4 +1,4 @@
-define(['./level', '../prefabs/PipeGroup', '../prefabs/starGroup', 'music-calc'], function (Level, PipeGroup, StarGroup, MusicCalc) {
+define(['./level', '../prefabs/pipeGroup', '../prefabs/starGroup', 'music-calc'], function (Level, PipeGroup, StarGroup, MusicCalc) {
 
 	function Level1() {
 	}

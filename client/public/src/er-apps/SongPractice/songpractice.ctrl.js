@@ -1,7 +1,7 @@
-define(['./module', './sequencegen', './display', './audioBufferToWav', './songs', 'lyrics', 'note', 'webaudioplayer', './pitchshifter', 'currentaudiocontext',
+define(['./module', './sequencegen', './display', './silencedetector', './audioBufferToWav', './songs', 'lyrics', 'note', 'webaudioplayer', './pitchshifter', 'currentaudiocontext',
         'music-calc', 'mic-util', 'pitchdetector', 'stabilitydetector', 'audiobuffer', './scorer','hopscotch','./errorhandler'
     ],
-    function(app, sequenceGen, Display, audioBufferToWav, songs, Lyrics, Note, Player, PitchShifter, CurrentAudioContext, MusicCalc, MicUtil, PitchDetector, StabilityDetector, AudioBuffer, scorer,hopscotch, ErrorHandler) {
+    function(app, sequenceGen, Display, SilenceDetector, audioBufferToWav, songs, Lyrics, Note, Player, PitchShifter, CurrentAudioContext, MusicCalc, MicUtil, PitchDetector, StabilityDetector, AudioBuffer, scorer,hopscotch, ErrorHandler) {
         var sequence;
         var audioContext = CurrentAudioContext.getInstance();
         var player = new Player(audioContext);
@@ -368,6 +368,7 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 case 'concat':
                   globalArray = e.data.recordedArray;
                   computePitchGraph(e.data.pitchArray);
+                  drawSilenceRegion(globalArray);
                   break;
               }
             };
@@ -524,6 +525,12 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                     beatsource = player.scheduleNote(880, currentTime + (beats[i] - rStart)/$scope.tempo, 50);
                     beatSources.push(beatsource);
                 }
+            }
+
+            function drawSilenceRegion(floatArray) {
+                voiced = new SilenceDetector(floatArray, audioContext.sampleRate);
+                console.log(voiced);
+                display.plotVoiced(voiced);
             }
 
             function computePitchGraph(floatarray) {
