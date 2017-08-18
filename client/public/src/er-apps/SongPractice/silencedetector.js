@@ -20,7 +20,6 @@ define([],function() {
             sum += Math.pow((originalSignal[i] - m), 2);
         }
         sd = Math.sqrt(sum / firstSamples);
-        console.log("mean:", m, " sd:", sd);
         // 3. identifying one-dimensional Mahalanobis distance function
         // i.e. |x-u|/s greater than ####3 or not,
         for (var i = 0; i < originalSignal.length; i++) {
@@ -37,7 +36,6 @@ define([],function() {
         var count_voiced = 0;
         var count_unvoiced = 0;
         var voicedFrame = new Array(Math.ceil(originalSignal.length / samplePerFrame));
-        console.log(originalSignal.length, samplePerFrame, Math.ceil(originalSignal.length / samplePerFrame));
         // the following calculation truncates the remainder
         var loopCount = originalSignal.length - (originalSignal.length % samplePerFrame);
         for (var i = 0; i < loopCount; i += samplePerFrame) {
@@ -50,7 +48,6 @@ define([],function() {
                     count_unvoiced++;
                 }
             }
-            console.log(count_voiced, count_unvoiced);
             if (count_voiced > count_unvoiced) {
                 usefulFramesCount++;
                 voicedFrame[frameCount++] = 1;
