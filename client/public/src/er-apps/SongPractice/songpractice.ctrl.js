@@ -318,21 +318,21 @@ define(['./module', './sequencegen', './display', './silencedetector', './audioB
                     if (isActionTrue($scope.sequence.actions[count], ACTIONS.SING)) {
                         display.clearUserPoints();
                         gameController.setIntervalHandler(function(data) {
-                            data1 = data;
+                            // data1 = data;
                             recorderWorker.postMessage({
                               command: 'record',
                               floatarray: data
                           });
-                            var pitch = detector.findPitch(data1);
-                            if (pitch !== 0) {
-                                PitchModel.currentFreq = pitch;
-                                PitchModel.currentInterval = MusicCalc.getCents(PitchModel.rootFreq, PitchModel.currentFreq) / 100;
-                                display.markPitch(PitchModel.currentInterval, (Date.now() - singStartTime)/1000);
-                            }
-                            recorderWorker.postMessage({
-                              command: 'record',
-                              floatarray: data
-                          });
+                          //   var pitch = detector.findPitch(data1);
+                          //   if (pitch !== 0) {
+                          //       PitchModel.currentFreq = pitch;
+                          //       PitchModel.currentInterval = MusicCalc.getCents(PitchModel.rootFreq, PitchModel.currentFreq) / 100;
+                          //       display.markPitch(PitchModel.currentInterval, (Date.now() - singStartTime)/1000);
+                          //   }
+                          //   recorderWorker.postMessage({
+                          //     command: 'record',
+                          //     floatarray: data
+                          // });
                         });
                     }
                     if (isActionTrue($scope.sequence.actions[count-1], ACTIONS.SING)) {
@@ -382,7 +382,7 @@ define(['./module', './sequencegen', './display', './silencedetector', './audioB
                 case 'concat':
                   globalArray = e.data.recordedArray;
                   computePitchGraph(e.data.pitchArray);
-                  drawSilenceRegion(globalArray);
+                  // drawSilenceRegion(globalArray);
                   break;
               }
             };
@@ -541,10 +541,10 @@ define(['./module', './sequencegen', './display', './silencedetector', './audioB
             }
         }
 
-            function drawSilenceRegion(floatArray) {
-                voiced = new SilenceDetector(floatArray, audioContext.sampleRate);
-                display.plotVoiced(voiced);
-            }
+            // function drawSilenceRegion(floatArray) {
+            //     voiced = new SilenceDetector(floatArray, audioContext.sampleRate);
+            //     display.plotVoiced(voiced);
+            // }
 
             function computePitchGraph(floatarray) {
                 var i0 = getIndex(rStart, rawTime);

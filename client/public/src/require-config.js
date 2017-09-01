@@ -39,6 +39,7 @@ requirejs.config({
         'melody': 'er-libs/melody',
         'note': 'er-libs/note',
         'wavelet-pitch': 'ext-libs/waveletPitch',
+        'yin-pitch': 'ext-libs/pitchfinder/src/detectors/yin',
         'd3': 'ext-libs/d3',
         'pitch-shift': 'ext-libs/pitch-shift',
         'ng-polymer-elements':'ext-libs/bower_components/ng-polymer-elements/ng-polymer-elements.min',

@@ -42,7 +42,7 @@
     "ifvisible.js": "master",
     "angular-hotkeys": "chieffancypants/angular-hotkeys#1.4.5",
     "ng-table": "~1.0.0",
-    "phaser": "~2.4.4",
+    "phaser": "2.6.2",
     "tone": "master",
     "hopscotch": "^0.3.1"
   },

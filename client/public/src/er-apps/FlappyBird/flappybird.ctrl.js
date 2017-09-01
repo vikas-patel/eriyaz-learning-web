@@ -9,7 +9,7 @@ define(['./module', './states/boot', './states/menu', './states/preload',
       LevelSlow, LevelNormalSpeed) {
         app.controller('FlappyBirdCtrl', function($scope, User, $window, $http, ScoreService) {
             
-            var game = new Phaser.Game(720, 505, Phaser.AUTO, 'flappyBird');
+            var game = new Phaser.Game(720, 505, Phaser.CANVAS, 'flappyBird');
             // Game States
             game.state.add('boot', Boot);
             game.state.add('menu', Menu);

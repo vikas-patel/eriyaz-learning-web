@@ -132,12 +132,12 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
 		this.rangeGraphics.lineStyle(1, 0x00CC00, 1);
 	  },
 	  markPitchFeedback: function(interval, time, status) {
-	  	if (status === scorer.statuses.SPOT_ON)
-			this.feedbackGraphics.beginFill(0x00FF00, 0.5);
-		else if (status === scorer.statuses.NEAR_MISS)
-			this.feedbackGraphics.beginFill(0xFFFF00, 0.5);
-		else 
-			this.feedbackGraphics.beginFill(0xFF0000, 0.5);
+	  	// if (status === scorer.statuses.SPOT_ON)
+		this.feedbackGraphics.beginFill(0x00FF00, 0.5);
+		// else if (status === scorer.statuses.NEAR_MISS)
+		// 	this.feedbackGraphics.beginFill(0xFFFF00, 0.5);
+		// else 
+		// 	this.feedbackGraphics.beginFill(0xFF0000, 0.5);
 		this.feedbackGraphics.drawRect(this.timeScale(time), this.yScale(interval+1), 5, this.chartHeight/this.yDivs);
 		this.feedbackGraphics.endFill();
 	  },
@@ -169,6 +169,21 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
       },
       failed: function() {
 	  	this.lostSound.play();
+	  },
+	  showLevelUp: function() {
+	  	var me = this;
+	  	var scoreFont = "30px Arial";
+	  	var scoreText = "Level Up";
+    	//Create a new label for the score
+    	var scoreAnimation = this.game.add.text(this.game.width/2, this.game.height - this.chartHeight/2, scoreText, {font: scoreFont, fill: "#39d179", stroke: "#ffffff", strokeThickness: 5}); 
+		scoreAnimation.anchor.setTo(0.5, 0);
+	    scoreAnimation.align = 'center';
+	    //Tween this score label to the total score label
+	    var scoreTween = this.game.add.tween(scoreAnimation).to({x:this.game.width/2, y: 10}, 800, Phaser.Easing.Exponential.In, true);
+	    //When the animation finishes, destroy this score label, trigger the total score labels animation and add the score
+	    scoreTween.onComplete.add(function(){
+	        scoreAnimation.destroy();
+	    }, me);
 	  },
 	  addScore: function(score) {
 	  	var me = this;
