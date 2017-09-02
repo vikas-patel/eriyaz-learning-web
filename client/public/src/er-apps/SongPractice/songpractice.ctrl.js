@@ -329,10 +329,6 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                                 PitchModel.currentInterval = MusicCalc.getCents(PitchModel.rootFreq, PitchModel.currentFreq) / 100;
                                 display.markPitch(PitchModel.currentInterval, (Date.now() - singStartTime)/1000);
                             }
-                            recorderWorker.postMessage({
-                              command: 'record',
-                              floatarray: data
-                          });
                         });
                     }
                     if (isActionTrue($scope.sequence.actions[count-1], ACTIONS.SING)) {

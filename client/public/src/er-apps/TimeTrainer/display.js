@@ -32,7 +32,7 @@ define([], function() {
 
 		var note = true;
 		var rest = false;
-		var bar = [note,1,rest,1, note,1/4,note,1/4,note,1/4,note,1/4, note,1];
+		var bar = [note,1,rest,1, note,1/4,note,2/4,note,2/4, note,3/4, note, 1];
 		for(var i=0;i<9;i++) {
 			svg.append("svg:line")
 			.attr("class", "tick")
