@@ -1,7 +1,7 @@
-define(['./module', './sequencegen', './display', './audioBufferToWav', './songs', 'lyrics', 'note', 'webaudioplayer', './pitchshifter', 'currentaudiocontext',
+define(['./module', './sequencegen', './display', './silencedetector', './audioBufferToWav', './songs', 'lyrics', 'note', 'webaudioplayer', './pitchshifter', 'currentaudiocontext',
     'music-calc', 'mic-util', 'pitchdetector', 'stabilitydetector', 'audiobuffer', './scorer','hopscotch','./errorhandler'
     ],
-    function(app, sequenceGen, Display, audioBufferToWav, songs, Lyrics, Note, Player, PitchShifter, CurrentAudioContext, MusicCalc, MicUtil, PitchDetector, StabilityDetector, AudioBuffer, scorer,hopscotch, ErrorHandler) {
+    function(app, sequenceGen, Display, SilenceDetector, audioBufferToWav, songs, Lyrics, Note, Player, PitchShifter, CurrentAudioContext, MusicCalc, MicUtil, PitchDetector, StabilityDetector, AudioBuffer, scorer,hopscotch, ErrorHandler) {
         var sequence;
         var audioContext = CurrentAudioContext.getInstance();
         var player = new Player(audioContext);
@@ -323,12 +323,13 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                               command: 'record',
                               floatarray: data
                           });
-                            var pitch = detector.findPitch(data1);
-                            if (pitch !== 0) {
-                                PitchModel.currentFreq = pitch;
-                                PitchModel.currentInterval = MusicCalc.getCents(PitchModel.rootFreq, PitchModel.currentFreq) / 100;
-                                display.markPitch(PitchModel.currentInterval, (Date.now() - singStartTime)/1000);
-                            }
+                            // var pitch = detector.findPitch(data1);
+                            // if (pitch !== 0) {
+                            //     PitchModel.currentFreq = pitch;
+                            //     PitchModel.currentInterval = MusicCalc.getCents(PitchModel.rootFreq, PitchModel.currentFreq) / 100;
+                            //     display.markPitch(PitchModel.currentInterval, (Date.now() - singStartTime)/1000);
+                            // }
+
                         });
                     }
                     if (isActionTrue($scope.sequence.actions[count-1], ACTIONS.SING)) {
@@ -378,11 +379,12 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
                 case 'concat':
                 globalArray = e.data.recordedArray;
                 computePitchGraph(e.data.pitchArray);
-                break;
-            }
-        };
-        var blob;
-        function loadSound() {
+                  // drawSilenceRegion(globalArray);
+                  break;
+              }
+          };
+          var blob;
+          function loadSound() {
             var deferred = $.Deferred();
             var url = "er-shell/audio/"+$scope.song.path;
             var request = new XMLHttpRequest();
@@ -536,10 +538,15 @@ define(['./module', './sequencegen', './display', './audioBufferToWav', './songs
             }
         }
 
-        function computePitchGraph(floatarray) {
-            var i0 = getIndex(rStart, rawTime);
-            var i1 = getIndex(rEnd, rawTime);
-            var subPSeries = arrayPitch.slice(i0, i1);
+            // function drawSilenceRegion(floatArray) {
+            //     voiced = new SilenceDetector(floatArray, audioContext.sampleRate);
+            //     display.plotVoiced(voiced);
+            // }
+
+            function computePitchGraph(floatarray) {
+                var i0 = getIndex(rStart, rawTime);
+                var i1 = getIndex(rEnd, rawTime);
+                var subPSeries = arrayPitch.slice(i0, i1);
                 //display.plotDebugData(floatarray, $scope.tempo, 0);
                 //floatarray = ErrorHandler.correctPitchesUsingOriginal(subPSeries,floatarray);
                 //floatarray =  ErrorHandler.formPitchContours(floatarray,subPSeries,delay);

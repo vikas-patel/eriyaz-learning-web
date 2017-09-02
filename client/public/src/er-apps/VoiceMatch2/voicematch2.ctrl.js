@@ -1,15 +1,15 @@
 define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontext',
-        'music-calc', 'mic-util', 'pitchdetector', 'stabilitydetector', 'audiobuffer', './scorer', './levels',
+        'music-calc', 'mic-util', 'pitchdetector', 'stabilitydetector', 'audiobuffer', 'tone', './scorer', './levels',
         './states/boot', './states/level', './states/preload', './states/levelboard'],
     function(app, Note, Player, VoicePlayer, CurrentAudioContext, MusicCalc, MicUtil, 
-        PitchDetector, StabilityDetector, AudioBuffer, scorer, Levels, Boot, Level, Preload, Levelboard) {
+        PitchDetector, StabilityDetector, AudioBuffer, Tone, scorer, Levels, Boot, Level, Preload, Levelboard) {
         var sequence;
         var audioContext = CurrentAudioContext.getInstance();
         var player = new Player(audioContext);
         var voicePlayer;
 
         app.controller('VoiceMatch2Ctrl', function($scope, $rootScope, PitchModel, User, $http, $window, ScoreService) {
-            var game = new Phaser.Game(654, 572, Phaser.AUTO, 'voicematch2');
+            var game = new Phaser.Game(654, 572, Phaser.CANVAS, 'voicematch2');
             // Game States
             game.state.add('boot', Boot);
             game.state.add('level', Level);
@@ -45,20 +45,21 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
 
             var currActiveNote = 0;
             var singTime = Date.now();
-            var synth = new Tone.PolySynth(3, Tone.SimpleSynth).set({
-                'volume' : 4,
-                'oscillator' : {
-                    'type' : 'triangle17',
-                    // 'partials' : [16, 8, 4, 2, 1, 0.5, 1, 2]
-                },
-                'envelope' : {
-                    'attack' : 0.01,
-                    'decay' : 0.1,
-                    'sustain' : 0.2,
-                    'release' : 1.7,
-                }
-            }).toMaster();
+            // var synth = new Tone.PolySynth(3, Tone.SimpleSynth).set({
+            //     'volume' : 4,
+            //     'oscillator' : {
+            //         'type' : 'triangle17',
+            //         // 'partials' : [16, 8, 4, 2, 1, 0.5, 1, 2]
+            //     },
+            //     'envelope' : {
+            //         'attack' : 0.01,
+            //         'decay' : 0.1,
+            //         'sustain' : 0.2,
+            //         'release' : 1.7,
+            //     }
+            // }).toMaster();
             // Load user medals
+            var synth = new Tone.Synth().toMaster();
             $http.get('/medal/' + $window.localStorage.userId + "/voicematch2")
               .success(function(data) {
                   game.starArray = data;
@@ -189,7 +190,7 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
                     this.state.handleBeep();
                 },
                 handleNewInterval: function(interval) {
-                    this.intervalHandler(interval);
+                    if (this.intervalHandler) this.intervalHandler(interval);
                 }
             };
 
@@ -212,9 +213,9 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
                     });
 
                 };
-                this.handleNewInterval = function() {
-                    // display.markPitch(interval, Date.now() - singTime);
-                };
+                // this.handleNewInterval = function() {
+                //     // display.markPitch(interval, Date.now() - singTime);
+                // };
             };
 
             var PlayState = function(exerciseIndex) {
@@ -381,6 +382,7 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
                 clock.stop();
                 if (micStream)
                     micStream.stop();
+                game.destroy();
             });
 
             function reset() {

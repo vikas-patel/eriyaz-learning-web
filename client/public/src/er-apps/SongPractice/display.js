@@ -189,7 +189,9 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 
 			this.clearUserPoints = function() {
 				svg.selectAll("rect.sing").remove();
+				svg.selectAll("line.notes").remove();
 				svg.selectAll("rect.realtime").remove();
+				svg.selectAll("rect.voiced").remove();
 				svg.selectAll("rect.debug").remove();
 				svg.selectAll("line.indicator").remove();
 			};
@@ -213,15 +215,40 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 				.each("end", function(){singIndicator.remove();});;
 			};
 
-			this.markPitch = function(interval, time) {
+			this.drawNotes = function(data) {
+				pointGroup.selectAll("line.notes")
+				.data(data)
+				.enter()
+				.append("line")
+				.attr("class", "notes")
+				.attr("x1", function(d, i) {
+					return timeScale(d[1] * incr / audioContext.sampleRate) + timeScale(t0);
+				}).attr("y1", function(d, i) {
+					return yScale(d[0]);
+				})
+				.attr("x2", function(d, i) {
+					return timeScale(d[2] * incr / audioContext.sampleRate) + timeScale(t0);
+				}).attr("y2", function(d, i) {
+					return yScale(d[0]);
+				}).attr("stroke-width", 1)
+				.attr("stroke", 'green');
+			};
+
+			this.markPitch = function(interval, time, width) {
 				pointGroup.append("rect")
 				.attr("class","realtime")
 				.attr("x", timeScale(time) + timeScale(t0))
-				.attr("y", yScale(interval))
+				.attr("y", yScale(width*10))
 				//.attr("y", yScale(currCents) - height / 19 / 2)
-				.attr("width", 1)
-				.attr("height", 1)
-				.attr("fill","red");;
+				.attr("width", 2)
+				.attr("height", 2);
+				// .attr("fill",function(){
+				// 	if (width > 0.9) {
+				// 		return "red";
+				// 	} else {
+				// 		return "green";
+				// 	}
+				// });
 			};
 
 			this.plotData = function(data, factor, delay) {
@@ -238,6 +265,22 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 				.attr("height", 1);
 			};
 
+		this.plotVoiced = function(data) {
+			pointGroup.selectAll("rect.voiced")
+			.data(data)
+			.enter()
+			.append("rect")
+			.attr("class", "voiced")
+			.attr("x", function(d, i) {
+				// voiced frame size 44
+				return timeScale(i * 512/ audioContext.sampleRate) + timeScale(t0);
+			}).attr("y", function(d) {
+				return yScale(d);
+			}).attr("width", 1)
+			.attr("height", 1)
+			.attr("fill", "red");
+		};
+
 			this.plotDebugData = function(data, factor, delay) {
 				pointGroup.selectAll("rect.debug")
 				.data(data)
@@ -252,6 +295,7 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 				.attr("height", 1)
 				.attr("fill","red");
 			};
+
 		// this.plotMiniCurve = function() {
 		// 	mini_xScale.domain([0, duration]);
 		// 	miniGroup.selectAll("rect.play")

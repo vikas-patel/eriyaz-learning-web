@@ -1,4 +1,4 @@
-define(['./level', '../prefabs/block', '../prefabs/PipeGroup', '../prefabs/starGroup'], function (Parent, Block, PipeGroup, StarGroup) {
+define(['./level', '../prefabs/block', '../prefabs/pipeGroup', '../prefabs/starGroup'], function (Parent, Block, PipeGroup, StarGroup) {
 
 	function Level() {
 	}

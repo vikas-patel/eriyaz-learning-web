@@ -8,7 +8,7 @@ requirejs.config({
     baseUrl: '/',
     paths: {
         'polymer-wecomponents': 'ext-libs/bower_components/webcomponentsjs/webcomponents.min',
-        'domReady': 'ext-libs/bower_components/requirejs-domready/domready',
+        'domReady': 'ext-libs/bower_components/requirejs-domready/domReady',
         'angular': 'ext-libs/bower_components/angular/angular',
         'angular-ui-router': 'ext-libs/bower_components/angular-ui-router/release/angular-ui-router.min',
         'angulartics': 'ext-libs/bower_components/angulartics/dist/angulartics.min',
@@ -39,6 +39,7 @@ requirejs.config({
         'melody': 'er-libs/melody',
         'note': 'er-libs/note',
         'wavelet-pitch': 'ext-libs/waveletPitch',
+        'yin-pitch': 'ext-libs/pitchfinder/src/detectors/yin',
         'd3': 'ext-libs/d3',
         'pitch-shift': 'ext-libs/pitch-shift',
         'ng-polymer-elements':'ext-libs/bower_components/ng-polymer-elements/ng-polymer-elements.min',
@@ -153,7 +154,7 @@ requirejs.config({
         main: 'index'
     }, {
         name: 'voicerange',
-        location: 'er-apps/Voicerange',
+        location: 'er-apps/VoiceRange',
         main: 'index'
     }, {    
         name: 'freestylephrases',
