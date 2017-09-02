@@ -8,10 +8,13 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
         var player = new Player(audioContext);
         var voicePlayer;
         //TODO:
-        // 1. marker green color
-        // 2. show level up
-        // 3. remove 0 marks
-        // 4. remove leader board
+        // 2. score->medal
+        // 3. more exercises
+        // 4. show messages: listen, get ready, sing 'aa'
+        // 5. sync voice with metronome
+        // 6. no pitch for a note leads to score failure
+        // 7. score animated text is stuck.
+        // 9. pitch display offset
 
         app.controller('SingingGame2Ctrl', function($scope, $rootScope, PitchModel, User, $http, $window, ScoreService) {
             var game = new Phaser.Game(654, 572, Phaser.CANVAS, 'singinggame2');
@@ -23,6 +26,7 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
 
             $scope.levels = levels;
             $scope.level = levels[0];
+            game.level = 1;
             exercises = $scope.level.exercises;
             $scope.rootNote = 47;
             $scope.score = 0;
@@ -116,7 +120,6 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
                       console.log(data);
                   });
             }
-
             var Clock = function(tickDuration) {
                 var intervalId = 0;
                 this.watcher = null;
@@ -172,8 +175,8 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
                 handleBeep: function() {
                     this.state.handleBeep();
                 },
-                handleNewInterval: function(interval) {
-                    if (this.intervalHandler)   this.intervalHandler(interval);
+                handleNewInterval: function(data) {
+                    if (this.intervalHandler)   this.intervalHandler(data);
                 }
             };
 
@@ -221,6 +224,7 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
                             gameController.setIntervalHandler(function(interval) {
                                 // game.state.getCurrentState().markPitch(interval, Date.now()-singTime);
                             });
+                            game.state.getCurrentState().showMessage("Listen Now");
                         }
                         game.state.getCurrentState().animateMarker(yRange, beatDuration, currentNoteIdx, beatDuration, 'Play');
                         if (currentNoteIdx < local.exercise.length - 1)
@@ -247,6 +251,7 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
                             if (exerciseIndex == exercises.length) {
                                 exerciseIndex = 0;
                             }
+                            game.state.getCurrentState().hideMessage();
                             // if (exerciseIndex == exercises.length) {
                             //     game.state.getCurrentState().levelCompleted();
                             //     return;
@@ -291,7 +296,8 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
                             singTime = Date.now() - beatDuration;
                         }
                         (function(noteIndex) {
-                            gameController.setIntervalHandler(function(interval) {
+                            gameController.setIntervalHandler(function(data) {
+                                interval = getInterval(data);
                                 interval = pitchCorrection(interval, local.exercise[noteIndex]);
                                 var roundedInterval = Math.round(interval);
                                 game.state.getCurrentState().markPitchFeedback(roundedInterval, Date.now() - singTime, scorer.scorePoint(roundedInterval, noteIndex));
@@ -299,6 +305,7 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
                             });
                         })(currentNoteIdx);
                         if (currentNoteIdx == 0) {
+                            game.state.getCurrentState().showMessage("Sing \"AA\" Now");
                             game.state.getCurrentState().animateMarker(yRange, beatDuration, currentNoteIdx, beatDuration, 'Sing');
                             currentNoteIdx++;
                             // do nothing
@@ -362,16 +369,8 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
 
 
             var updatePitch = function(data) {
-                var pitch = detector.findPitch(data);
-                if (pitch !== 0) {
-                    PitchModel.currentFreq = pitch;
-                    PitchModel.currentInterval = MusicCalc.getCents(PitchModel.rootFreq, PitchModel.currentFreq) / 100;
-                    // if ($scope.isPending) {
-                    gameController.handleNewInterval(PitchModel.currentInterval);
-                    // }
-                } else {
-                    // gameController.handleNewInterval(NaN);
-                }
+                gameController.handleNewInterval(data);
+                
             };
 
             $scope.$watch('rootNote', function() {
@@ -383,10 +382,24 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
 
             $scope.$on("$destroy", function() {
                 clock.stop();
-                if (micStream)
-                    micStream.stop();
+                if (micStream) MicUtil.stopStream(micStream);
                 game.destroy();
             });
+
+            function getInterval(data) {
+                var pitch = detector.findPitch(data);
+                if (pitch !== 0) {
+                    PitchModel.currentFreq = pitch;
+                    PitchModel.currentInterval = MusicCalc.getCents(PitchModel.rootFreq, PitchModel.currentFreq) / 100;
+                    return PitchModel.currentInterval;
+                    // if ($scope.isPending) {
+                    // gameController.handleNewInterval(PitchModel.currentInterval);
+                    // }
+                } else {
+                    return NaN;
+                    // gameController.handleNewInterval(NaN);
+                }
+            }
 
             function reset() {
                 $scope.score = 0;
@@ -402,6 +415,7 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
             function nextLevel() {
                 // level up
                 levelIndex++;
+                game.level++;
                 answers = [];
                 exercises = levels[levelIndex].exercises;
             }

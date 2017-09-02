@@ -17,6 +17,9 @@ define([], function() {
 			} catch (e) {
 				alert('getUserMedia threw exception :' + e);
 			}
+		},
+		stopStream: function(stream) {
+			stream.getTracks().forEach(function (track) { track.stop() });
 		}
 	};
 });

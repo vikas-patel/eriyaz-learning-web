@@ -671,8 +671,7 @@ define(['./module', './sequencegen', './display', './silencedetector', './audioB
 
             $scope.$on("$destroy", function() {
                 clock.stop();
-                if (micStream)
-                    micStream.stop();
+                if (micStream) MicUtil.stopStream(micStream);
             });
 
             $scope.startMic = function() {

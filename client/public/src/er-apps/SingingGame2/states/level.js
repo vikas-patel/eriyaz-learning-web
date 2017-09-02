@@ -15,6 +15,14 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
         this.scoreText = this.game.add.bitmapText(this.game.width/2, 10, 'flappyfont',this.score.toString(), 26);
         this.scoreText.anchor.setTo(0.5, 0);
 
+        this.messageText = this.game.add.text(this.game.width/2, this.background.height - 10, "", {
+	        font: "30px Arial",
+	        fill: "#ffff00",
+	        align: "center"
+	    });
+
+	    this.messageText.anchor.setTo(0.5, 0.5);
+
 	  	var yMin = -2;
 		var yMax = 12;
 		this.yDivs = yMax - yMin;
@@ -145,12 +153,12 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
 	  	if (state == 'Play') {
 	  		this.markLinePlay.visible = true;
 		  	this.animPlay = this.game.add.tween(this.markLinePlay);
-	    	this.animPlay.to({x: this.xScale(noteNum+1) + this.timeScale(offset)}, duration/2, 'Linear', true);
+	    	this.animPlay.to({x: this.xScale(noteNum+1) + this.timeScale(offset)}, duration, 'Linear', true);
 	    	// this.animPlay.start();
 	  	} else {
 	  		this.markLineSing.visible = true;
 	  		this.animSing = this.game.add.tween(this.markLineSing);
-	    	this.animSing.to({x: this.xScale(noteNum+1) + this.timeScale(offset)}, duration/2, 'Linear');
+	    	this.animSing.to({x: this.xScale(noteNum+1) + this.timeScale(offset)}, duration, 'Linear');
 	    	this.animSing.start();
 	  	}
 	  	
@@ -169,6 +177,12 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
       },
       failed: function() {
 	  	this.lostSound.play();
+	  },
+	  showMessage: function(msg) {
+	  	this.messageText.setText(msg);
+	  },
+	  hideMessage: function() {
+	  	this.messageText.setText("");
 	  },
 	  showLevelUp: function() {
 	  	var me = this;

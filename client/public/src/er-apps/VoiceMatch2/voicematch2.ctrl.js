@@ -380,8 +380,7 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
 
             $scope.$on("$destroy", function() {
                 clock.stop();
-                if (micStream)
-                    micStream.stop();
+                if (micStream) MicUtil.stopStream(micStream);
                 game.destroy();
             });
 

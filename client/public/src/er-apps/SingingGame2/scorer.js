@@ -70,7 +70,7 @@ define([],function() {
 			if (consecutives == 2) return 4;
 			if (consecutives >= 3) return 8;
 		},
-		getActualNotes : function(expNotes) {
+		getActualNotes : function() {
 			var actNotes = [];
 			for (var i=0; i<this.pointsByNote.length;i++) {
 				actNotes.push(this.mode(this.pointsByNote[i]));
