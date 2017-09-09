@@ -5,7 +5,7 @@ define([], function () {
       },
       create: function() {
         this.game.stage.backgroundColor = 0x000000;
-        var totalLevels = 10;
+        var totalLevels = 8;
         if (this.game.starArray.length == 0) {
             // default level 1 is unlocked
             this.game.starArray.push({

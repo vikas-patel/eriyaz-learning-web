@@ -1,4 +1,4 @@
-define([], function () {
+define(['../levels'], function (Levels) {
 
   var Scoreboard = function(game, isLevelCompleted) {
     
@@ -50,14 +50,17 @@ define([], function () {
 
     this.bestText.setText(bestScore.toString());
 
-    if(score >= 40 && score < 70)
+    var totalExercises = Levels[this.game.level-1].exercises.length;
+    var avgScore = score/totalExercises;
+
+    if(avgScore >= 4 && avgScore < 6)
     {
       medals = this.game.add.sprite(this.game.width/2 - this.scoreboard.width*0.4, 150,'levels-trans', 1);
       this.totalStars = 1;
-    } else if(score >= 70 && score < 90) {
+    } else if(avgScore >= 6 && avgScore < 8) {
       medals = this.game.add.sprite(this.game.width/2 - this.scoreboard.width*0.4, 150,'levels-trans', 2);
       this.totalStars = 2;
-    } else if (score >= 90) {
+    } else if (avgScore >= 8) {
       medals = this.game.add.sprite(this.game.width/2 - this.scoreboard.width*0.4, 150,'levels-trans', 3);
       this.totalStars = 3;
     }
