@@ -22,7 +22,7 @@ define(['./module', './problem-gen', './display', 'webaudioplayer', 'currentaudi
             $scope.levels = levels;
             $scope.level = levels[0];
             $scope.testNotes = [1,2];
-            var display = new Display();
+            var display = new Display($scope);
 
             $scope.right = 0;
             $scope.count = 0;
@@ -55,26 +55,44 @@ define(['./module', './problem-gen', './display', 'webaudioplayer', 'currentaudi
                 playProblem();
             };
 
-            $scope.isUp = function() {
+            // $scope.isUp = function() {
+            //     $scope.count++;
+            //     display.setFeedback("Wrong :(");
+            //     if (problem.isUp()) {
+            //         display.setFeedback("Right!");
+            //         $scope.right++;
+            //     }
+            //     $scope.repBtn=false;
+
+            // };
+
+            // $scope.isDown = function() {
+            //     $scope.count++;
+            //     display.setFeedback("Wrong :(");
+            //     if (problem.isDown()) {
+            //         display.setFeedback("Right!");
+            //         $scope.right++;
+            //     }
+            //     $scope.repBtn=false;
+
+            // };
+
+            $scope.answer = function(ans) {
                 $scope.count++;
-                display.setFeedback("Wrong :(");
+                var actual;
                 if (problem.isUp()) {
-                    display.setFeedback("Right!");
+                    actual = $scope.testNotes[1];
+                } else {
+                    actual = $scope.testNotes[0];
+                }
+                if (ans == actual) {
+                    display.setFeedback("Correct!");
                     $scope.right++;
+                } else {
+                    display.setFeedback("Sorry :(");
                 }
                 $scope.repBtn=false;
-
-            };
-
-            $scope.isDown = function() {
-                $scope.count++;
-                display.setFeedback("Wrong :(");
-                if (problem.isDown()) {
-                    display.setFeedback("Right!");
-                    $scope.right++;
-                }
-                $scope.repBtn=false;
-
+                $scope.$apply();
             };
 
             $scope.closeOverlay = function() {

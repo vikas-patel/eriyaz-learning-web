@@ -8,16 +8,11 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
         var player = new Player(audioContext);
         var voicePlayer;
         //TODO:
-        // 2. score->medal
-        // 3. more exercises
-        // 4. show messages: listen, get ready, sing 'aa'
-        // 5. sync voice with metronome
-        // 6. no pitch for a note leads to score failure
-        // 7. score animated text is stuck.
-        // 9. pitch display offset
+        // add paarth voice samples
+        // delay when played for long time
 
         app.controller('SingingGame2Ctrl', function($scope, $rootScope, PitchModel, User, $http, $window, ScoreService) {
-            var game = new Phaser.Game(654, 572, Phaser.CANVAS, 'singinggame2');
+            var game = new Phaser.Game(820, 572, Phaser.CANVAS, 'singinggame2');
             // Game States
             game.state.add('boot', Boot);
             game.state.add('level', Level);
@@ -221,7 +216,9 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
                             // }
                             game.state.getCurrentState().drawRange(yRange, local.exercise.length, beatDuration, false);
                             singTime = Date.now() + beatDuration;
-                            gameController.setIntervalHandler(function(interval) {
+                            gameController.setIntervalHandler(function(data) {
+                                // interval = getInterval(data);
+                                // interval = pitchCorrection(interval, local.exercise[currentNoteIdx]);
                                 // game.state.getCurrentState().markPitch(interval, Date.now()-singTime);
                             });
                             game.state.getCurrentState().showMessage("Listen Now");
@@ -248,14 +245,11 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
                     clock.scheduleAction(function() {
                         if (beatCount === 0) {
                             beatCount++;
-                            if (exerciseIndex == exercises.length) {
-                                exerciseIndex = 0;
-                            }
                             game.state.getCurrentState().hideMessage();
-                            // if (exerciseIndex == exercises.length) {
-                            //     game.state.getCurrentState().levelCompleted();
-                            //     return;
-                            // }
+                            if (exerciseIndex == exercises.length) {
+                                game.state.getCurrentState().levelCompleted();
+                                return;
+                            }
                             // if ($scope.attempt >= maxAttempt) {
                             //     game.state.getCurrentState().gameOver();
                             //     return;
@@ -265,16 +259,16 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
                                 game.state.getCurrentState().animateMarker(yRange, beatDuration, 0, 0, 'Sing');
                                 gameController.setState(new SingState(exerciseIndex));
                             } else {
-                                var consecutives = scorer.getConsecutiveCorrect(answers);
-                                if (consecutives > 2) {
-                                    if (levelIndex == levels.length - 1) {
-                                        game.state.getCurrentState().levelCompleted();
-                                        return;
-                                    }
-                                    nextLevel();
-                                    exerciseIndex = 0;
-                                    game.state.getCurrentState().showLevelUp();
-                                }
+                                // var consecutives = scorer.getConsecutiveCorrect(answers);
+                                // if (consecutives > 2) {
+                                //     if (levelIndex == levels.length - 1) {
+                                //         game.state.getCurrentState().levelCompleted();
+                                //         return;
+                                //     }
+                                //     nextLevel();
+                                //     exerciseIndex = 0;
+                                //     game.state.getCurrentState().showLevelUp();
+                                // }
                                 gameController.setState(new PlayState(exerciseIndex));
                             }
                         }
@@ -300,7 +294,7 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
                                 interval = getInterval(data);
                                 interval = pitchCorrection(interval, local.exercise[noteIndex]);
                                 var roundedInterval = Math.round(interval);
-                                game.state.getCurrentState().markPitchFeedback(roundedInterval, Date.now() - singTime, scorer.scorePoint(roundedInterval, noteIndex));
+                                game.state.getCurrentState().markPitchFeedback(roundedInterval, Date.now() - singTime, scorer.scorePoint(interval, noteIndex));
                                 game.state.getCurrentState().markPitch(interval, Date.now()-singTime);
                             });
                         })(currentNoteIdx);
@@ -323,15 +317,13 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
                             // $scope.score = Math.round(10*score);
                             var allCorrect = true;
                             actualNotes.forEach(function(interval, index) {
-                                if (index > 0) {
                                     game.state.getCurrentState().markAnswer(interval, index*1000 + 500, answersByNote[index] == 0, beatDuration);
                                     if (answersByNote[index] != 0) allCorrect = false;
-                                }
                             })
                             var consecutives = 0;
                             if (allCorrect) {
                                 answers.push(true);
-                                $scope.score = scorer.getScore(answers);
+                                $scope.score = scorer.getScore(actualNotes);
                                 if ($scope.score > 0) {
                                     game.state.getCurrentState().addScore($scope.score);
                                 } else {

@@ -10,7 +10,7 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
 	  create: function() {
 	  	this.game.stage.backgroundColor = 0x996E99;
 	  	this.background = this.game.add.sprite(0,0,'background');
-	  	this.background.scale.setTo(654/1000,0.6);
+	  	this.background.scale.setTo(820/1000,0.6);
 	  	this.score = 0;
         this.scoreText = this.game.add.bitmapText(this.game.width/2, 10, 'flappyfont',this.score.toString(), 26);
         this.scoreText.anchor.setTo(0.5, 0);
@@ -27,7 +27,7 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
 		var yMax = 12;
 		this.yDivs = yMax - yMin;
 		this.chartHeight = this.game.height - this.background.height;
-		this.xDivs = 5;
+		this.xDivs = 7;
 		this.yScale = d3.scale.linear()
 			.domain([yMin, yMax])
 			.range([this.game.height, this.background.height]);
@@ -47,9 +47,18 @@ define(['d3', '../scorer', '../prefabs/scoreboard', '../levels'], function (d3, 
     	graphics.drawRect(xWidth, this.background.height, xWidth*maxNotes, this.chartHeight);
     	graphics.endFill();
 	  	graphics.lineStyle(1, 0xd3d3d3, 1);
+	  	var labelsData = ["S", "", "R", "", "G", "m", "", "P", "", "D", "", "N", "S'"];
     	for (var i = yMin; i <= yMax; i++) {
     		graphics.moveTo(0, this.yScale(i));
     		graphics.lineTo(this.game.width, this.yScale(i));
+    		
+    		if (i >= 0 && i < 12) {
+    			var label = labelsData[(12 + i) % 12];
+    			var text = this.game.add.text(10, this.yScale(i+0.5), label, {
+						        font: "10px Arial",
+						        fill: "#ffffff"
+						    }).anchor.setTo(0,0.4);
+    		}
     	}
 
     	for (var j = 1; j < this.xDivs; j++) {

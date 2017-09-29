@@ -36,7 +36,7 @@
         desc: 'Extract notes from a fast melody.',
         href: '#singinggame2',
         appUrl: 'er-apps/SingingGame2/main.html',
-        aspectRatio: 8/7,
+        aspectRatio: 10/7,
         show: true
       }, {
         name: 'Alankars',
@@ -320,7 +320,7 @@
         href: '#singgraph',
         appUrl: 'er-apps/SingGraph/main.html',
         aspectRatio: 5 / 3,
-        show: false
+        show: true
       }, {
         name: 'FreestylePhrases',
         thumb: 'er-shell/images/freestylephrases.jpg',
@@ -328,7 +328,7 @@
         href: '#freestylephrases',
         appUrl: 'er-apps/FreestylePhrases/main.html',
         aspectRatio: 5 / 3,
-        show: false
+        show: true
       }, {
         name: 'SingingGame',
         thumb: 'er-shell/images/singinggame.jpg',
@@ -366,7 +366,8 @@
         hotkeys: [
           ['f', 'newSequence()'],
            ['m', 'startMic()']
-        ]
+        ],
+        show: false
       }];
       appsInfo.selectedIndex = -1;
       TimeMe.setIdleDurationInSeconds(60);

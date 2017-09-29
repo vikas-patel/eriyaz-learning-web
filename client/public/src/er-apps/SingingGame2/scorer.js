@@ -52,30 +52,44 @@ define([],function() {
 			}
 			return consecutives;
 		},
-		getScore : function(answers) {
-			var consecutives = this.getConsecutiveCorrect(answers);
-			if (consecutives == 0) return 0;
-			var consecutives2 = 0;
-			var maxConsecutive = 0;
-			for (var i = 0; i < answers.length - consecutives; i++) {
-				if (answers[i]) {
-					consecutives2++;
-					maxConsecutive = Math.max(consecutives2, maxConsecutive);
-				} else {
-					consecutives2 = 0;
+		getScore : function(actNotes) {
+			var diff = 0;
+			var count = 0;
+			for (var i = 0; i < actNotes.length; i++) {
+				var round = actNotes[i];
+				for (var j = 0; j < this.pointsByNote[i].length; j++) {
+					var point = this.pointsByNote[i][j];
+					if (round == Math.round(point)) {
+						diff += Math.abs(round - point);
+						count++;
+					}
 				}
 			}
-			if (maxConsecutive >= consecutives) return 0;
-			if (consecutives == 1) return 2;
-			if (consecutives == 2) return 4;
-			if (consecutives >= 3) return 8;
+			var avg = diff/count; // always less than 0.5
+			var score = 20 * (0.5 - avg);
+			return Math.ceil(score);
+			// var consecutives = this.getConsecutiveCorrect(answers);
+			// if (consecutives == 0) return 0;
+			// var consecutives2 = 0;
+			// var maxConsecutive = 0;
+			// for (var i = 0; i < answers.length - consecutives; i++) {
+			// 	if (answers[i]) {
+			// 		consecutives2++;
+			// 		maxConsecutive = Math.max(consecutives2, maxConsecutive);
+			// 	} else {
+			// 		consecutives2 = 0;
+			// 	}
+			// }
+			// if (maxConsecutive >= consecutives) return 0;
+			// if (consecutives == 1) return 2;
+			// if (consecutives == 2) return 4;
+			// if (consecutives >= 3) return 8;
 		},
 		getActualNotes : function() {
 			var actNotes = [];
 			for (var i=0; i<this.pointsByNote.length;i++) {
 				actNotes.push(this.mode(this.pointsByNote[i]));
 			}
-			
 			return actNotes;
 		},
 		getAnswer : function(expNotes, actNotes) {
@@ -97,7 +111,7 @@ define([],function() {
 			// }
 		},
 		mode : function(points) {
-			return _.chain(points).countBy().pairs().max(_.last).head().value();
+			return _.chain(points).map(function(point){return Math.round(point)}).countBy().pairs().max(_.last).head().value();
 		},
 		matchRatio : function(match) {
 			if (this.points.length == 0) return 0;
