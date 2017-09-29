@@ -217,9 +217,9 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
                             game.state.getCurrentState().drawRange(yRange, local.exercise.length, beatDuration, false);
                             singTime = Date.now() + beatDuration;
                             gameController.setIntervalHandler(function(data) {
-                                interval = getInterval(data);
-                                interval = pitchCorrection(interval, local.exercise[currentNoteIdx]);
-                                game.state.getCurrentState().markPitch(interval, Date.now()-singTime);
+                                // interval = getInterval(data);
+                                // interval = pitchCorrection(interval, local.exercise[currentNoteIdx]);
+                                // game.state.getCurrentState().markPitch(interval, Date.now()-singTime);
                             });
                             game.state.getCurrentState().showMessage("Listen Now");
                         }

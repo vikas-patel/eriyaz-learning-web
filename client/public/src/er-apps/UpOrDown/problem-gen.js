@@ -6,7 +6,12 @@ define(['music-calc','./problem'], function(MusicCalc,Problem) {
 
         this.getNewProblem = function(level) {
             var freqs = new Array(level.numNotes);
-            var mainFreq = MusicCalc.getFreq(middleCFreq, getRandomCents(0, 1200));
+            var mainFreq;
+            if (level.isFixed) {
+                mainFreq = 440;
+            } else {
+                mainFreq = MusicCalc.getFreq(middleCFreq, getRandomCents(0, 1200));
+            }
             for (var i = 0; i < freqs.length; i++) {
                 if (i === (level.testNotes[0] - 1)) {
                     freqs[i] = mainFreq;

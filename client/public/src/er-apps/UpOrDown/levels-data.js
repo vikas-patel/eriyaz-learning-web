@@ -7,6 +7,7 @@ define([], function() {
 	};
 
 	var intervals = {
+		xxlarge: [1220, 1550],
 		xlarge: [580, 1220],
 		large: [260, 580],
 		medium: [150, 260],
@@ -18,14 +19,23 @@ define([], function() {
 	return [{
 		desc: "extra large interval",
 		name:"level 1",
-		interval: intervals.xlarge,
+		interval: intervals.xxlarge,
+		numNotes: 2,
+		isFixed: true,
+		testNotes: [1, 2],
+		color: colors.blue,
+		total: 10
+	}, {
+		desc: "extra large interval",
+		name:"level 2",
+		interval: intervals.xxlarge,
 		numNotes: 2,
 		testNotes: [1, 2],
 		color: colors.blue,
 		total: 10
 	}, {
 		desc: "large interval",
-		name:"level 2",
+		name:"level 3",
 		interval: intervals.large,
 		numNotes: 2,
 		testNotes: [1, 2],
@@ -33,7 +43,7 @@ define([], function() {
 		total: 20
 	}, {
 		desc: "large interval between note2 & note3",
-		name:"level 3",
+		name:"level 4",
 		interval: intervals.large,
 		numNotes: 3,
 		testNotes: [2, 3],
@@ -41,7 +51,7 @@ define([], function() {
 		total: 10
 	}, {
 		desc: "large interval between note1 & note2",
-		name:"level 4",
+		name:"level 5",
 		interval: intervals.large,
 		numNotes: 3,
 		testNotes: [1, 2],
@@ -49,7 +59,7 @@ define([], function() {
 		total: 10
 	}, {
 		desc: "large interval between note1 & note3",
-		name:"level 5",
+		name:"level 6",
 		interval: intervals.large,
 		numNotes: 3,
 		testNotes: [1, 3],
@@ -57,7 +67,7 @@ define([], function() {
 		total: 10
 	}, {
 		desc: "medium interval",
-		name:"level 6",
+		name:"level 7",
 		interval: intervals.medium,
 		numNotes: 2,
 		testNotes: [1, 2],
@@ -65,7 +75,7 @@ define([], function() {
 		total: 20
 	}, {
 		desc: "small interval",
-		name:"level 7",
+		name:"level 8",
 		interval: intervals.small,
 		numNotes: 2,
 		testNotes: [1, 2],
@@ -73,7 +83,7 @@ define([], function() {
 		total: 20
 	},  {
 		desc: "small interval between note2 & note3",
-		name:"level 8",
+		name:"level 9",
 		interval: intervals.small,
 		numNotes: 3,
 		testNotes: [2, 3],
@@ -81,7 +91,7 @@ define([], function() {
 		total: 20
 	},  {
 		desc: "small interval between note1 & note2",
-		name:"level 9",
+		name:"level 10",
 		interval: intervals.small,
 		numNotes: 3,
 		testNotes: [1, 2],
@@ -89,7 +99,7 @@ define([], function() {
 		total: 20
 	},  {
 		desc: "small interval between note1 & note3",
-		name:"level 10",
+		name:"level 11",
 		interval: intervals.small,
 		numNotes: 3,
 		testNotes: [1, 3],
@@ -97,7 +107,7 @@ define([], function() {
 		total: 20
 	},  {
 		desc: "extra small interval",
-		name:"level 11",
+		name:"level 12",
 		interval: intervals.xsmall,
 		numNotes: 2,
 		testNotes: [1, 2],
@@ -105,7 +115,7 @@ define([], function() {
 		total: 20
 	},  {
 		desc: "extra extra small interval",
-		name:"level 12",
+		name:"level 13",
 		interval: intervals.xxsmall,
 		numNotes: 2,
 		testNotes: [1, 2],

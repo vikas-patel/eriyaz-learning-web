@@ -1,5 +1,6 @@
 define(['d3'], function(d3) {
-	var Display = function() {
+	var Display = function(scope) {
+		$scope = scope;
 		var getIntegerArray = function(start, end) {
 			var arr = [];
 			var j = start;
@@ -63,7 +64,10 @@ define(['d3'], function(d3) {
 				.attr("height", chartHeight)
 				.attr("width", slotWidth)
 				.attr("fill", level.color)
-				.attr("fill-opacity", 0.6);
+				.attr("fill-opacity", 0.6)
+				.on('click', function(d,i){
+					$scope.answer(i+1);
+				});
 
 			svg.selectAll("circle.button")
 				.data(level.testNotes)
