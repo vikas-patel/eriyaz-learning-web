@@ -1223,13 +1223,17 @@ core-drawer-panel:not([narrow]) #navicon {
   margin-bottom: 15px;
 }
 /* line 20, ../../../er-apps/UpOrDown/main.scss */
+#upordown .slot {
+  cursor: pointer;
+}
+/* line 24, ../../../er-apps/UpOrDown/main.scss */
 #upordown #display, #upordown #top-panel, #upordown #bottom-panel {
   width: 95%;
   margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
 }
-/* line 27, ../../../er-apps/UpOrDown/main.scss */
+/* line 31, ../../../er-apps/UpOrDown/main.scss */
 #upordown #score {
   float: right;
   margin-right: 5px;
