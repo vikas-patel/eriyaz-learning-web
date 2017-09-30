@@ -92,7 +92,8 @@ gulp.task('buildjs', function() {
       'client/public/src/ext-libs/bower_components/phaser/build/phaser.min.js',
       'client/public/src/ext-libs/bower_components/ifvisible.js/src/ifvisible.min.js',
       'client/public/src/ext-libs/require.min.js',
-      'client/public/dist/app.js'
+      'client/public/dist/app.js',
+      'client/public/src/ext-libs/tone.min.js',
     ])
     .pipe(concat('build.js'))
     .pipe(ngAnnotate())
