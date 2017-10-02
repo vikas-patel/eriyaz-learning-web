@@ -55,7 +55,7 @@ requirejs.config({
         'ng-table' : "ext-libs/bower_components/ng-table/dist/ng-table.min",
         'recorderworker' : 'er-libs/recorderworker',
         'phaser': 'ext-libs/bower_components/phaser/build/phaser.min',
-        'tone': 'ext-libs/tone.min', // version 0.12.0
+        // 'tone': 'ext-libs/tone.min', // version 0.12.0
         'lyrics' : 'ext-libs/lyrics.min'
     },
 
@@ -98,9 +98,9 @@ requirejs.config({
         'phaser': {
             exports: 'Phaser'
         },
-        'tone': {
-            exports: 'Tone'
-        },
+        // 'tone': {
+        //     exports: 'Tone'
+        // },
         'soundtouch' : {
             deps: ['underscore']
         },
