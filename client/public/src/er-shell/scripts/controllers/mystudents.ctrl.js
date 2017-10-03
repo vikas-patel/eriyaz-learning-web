@@ -1,9 +1,9 @@
   define(['./module'], function(app) {
-  	app.controller("MyStudentsCtrl", function($scope, $resource, $window, ngTableParams, $filter, $http) {
+  	app.controller("MyStudentsCtrl", function($scope, $resource, $window, NgTableParams, $filter, $http) {
   		if ($scope.uiModel.userType == 'admin') {
   			$resource('users').query({} , function(users) {
             $scope.students = users;
-            $scope.tableParams = new ngTableParams({
+            $scope.tableParams = new NgTableParams({
                 page: 1,            // show first page
                 count: 10,          // count per page
                 filter: {

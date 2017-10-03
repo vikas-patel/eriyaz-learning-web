@@ -143,7 +143,7 @@ define(['d3'], function(d3) {
 		var rectH = this.height/this.settings.yTicks;
 		this.svg.velocity.append("rect")
 			.attr("x", this.x(renderTime/1000))
-			.attr("y", this.y(currInterval.toFixed(this.settings.precision)) - rectH/2)
+			.attr("y", this.y(Math.round(currInterval)) - rectH/2)
 			.attr("width", rectW)
 			.attr("height", rectH)
 			.style("fill", function() {
@@ -151,6 +151,13 @@ define(['d3'], function(d3) {
 						if (diff==1) return "#FBD295";// almost
 						return "#E79797"; //red very far
 						});
+
+		this.svg.velocity.append("rect")
+			.attr("x", this.x(renderTime/1000))
+			.attr("y", this.y(currInterval.toFixed(2)))
+			.attr("width", 2)
+			.attr("height", 2)
+			.style("fill", "#000000");
 	};
 
 	Chart.prototype.drawIndicatorLine = function() {
