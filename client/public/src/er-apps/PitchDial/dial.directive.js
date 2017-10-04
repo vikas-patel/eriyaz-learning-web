@@ -1,4 +1,6 @@
 define(['angular', './module'], function(angular, app) {
+    var labelsHindustani = ["Sa", "", "Re", "", "Ga", "Ma", "", "Pa", "", "Dha", "", "Ni", "Sa"];
+    var labelsCarnatic = ["Sa", "Re", "", "", "Ga", "Ma", "", "Pa", "Dha", "", "", "Ni", "Sa"];
     var Dial = function(ngElement, labels) {
         this.labels = labels;
         this.value = 0;
@@ -142,7 +144,7 @@ define(['angular', './module'], function(angular, app) {
             link: function(scope, element) {
                 scope.model = DialModel;
 
-                var dial = new Dial(element, DialModel.labels);
+                var dial = new Dial(element, labelsHindustani);
                 dial.draw();
 
                 // scope.$watch('model.value', function(newValue, oldValue) {
@@ -150,9 +152,15 @@ define(['angular', './module'], function(angular, app) {
                 //     console.log(Date.now());
                 // }, true);
 
-                // scope.$on('newvalue',function() {
-                //     dial.setValue(DialModel.value);
-                // });
+                scope.$watch('genre', function(newValue, oldValue) {
+                    if (newValue == oldValue) return;
+                    if (newValue == "carnatic") {
+                        dial.labels = labelsCarnatic;
+                    } else {
+                        dial.labels = labelsHindustani;
+                    }
+                    dial.drawFrame();
+              });
 
                 setInterval(function(){ dial.setValue(DialModel.value); }, 10);
             }
