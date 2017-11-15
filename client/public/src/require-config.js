@@ -116,6 +116,10 @@ requirejs.config({
         name: 'pitch-dial',
         location: 'er-apps/PitchDial',
         main: 'index'
+    },{
+        name: 'pitch-dial2',
+        location: 'er-apps/PitchDial2',
+        main: 'index'
     }, {
         name: 'sing-alankars',
         location: 'er-apps/SingAlankars',

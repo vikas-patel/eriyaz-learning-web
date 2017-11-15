@@ -320,7 +320,7 @@
         href: '#singgraph',
         appUrl: 'er-apps/SingGraph/main.html',
         aspectRatio: 5 / 3,
-        show: true
+        show: false
       }, {
         name: 'FreestylePhrases',
         thumb: 'er-shell/images/freestylephrases.jpg',
@@ -328,7 +328,7 @@
         href: '#freestylephrases',
         appUrl: 'er-apps/FreestylePhrases/main.html',
         aspectRatio: 5 / 3,
-        show: true
+        show: false
       }, {
         name: 'SingingGame',
         thumb: 'er-shell/images/singinggame.jpg',
@@ -368,6 +368,14 @@
            ['m', 'startMic()']
         ],
         show: false
+      }, {
+        name: 'Freestyle2',
+        thumb: 'er-shell/images/dial-thumb.jpg',
+        desc: 'Practice free flow singing with immediate feedback on your pitch.',
+        href: '#freestyle2',
+        appUrl: 'er-apps/PitchDial2/main.html',
+        aspectRatio: 5 / 6,
+        show: true
       }];
       appsInfo.selectedIndex = -1;
       TimeMe.setIdleDurationInSeconds(60);
