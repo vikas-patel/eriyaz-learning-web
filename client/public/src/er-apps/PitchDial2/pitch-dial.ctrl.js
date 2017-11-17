@@ -1,11 +1,11 @@
   define(['./module', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'webaudioplayer', 'voiceplayer', './display', './levels', 'pitchdetector', 'music-calc', 'jquery', 'intensityfilter','./scorer'],
     function(app, MicUtil, CurrentAudioContext, AudioBuffer, WebAudioPlayer, VoicePlayer, Display,levels, PitchDetector, MusicCalc, $, IntensityFilter, scorer) {
       var audioContext = CurrentAudioContext.getInstance();
-      app.controller('PitchDialCtrl2', function($scope, PitchModel, User, $window, $rootScope) {
+      app.controller('PitchDialCtrl2', function($scope, PitchModel, User, $window) {
         var labelsHindustani = ["Sa", "", "Re", "", "Ga", "Ma", "", "Pa", "", "Dha", "", "Ni", ""];
         var labelsCarnatic = ["Sa", "Re", "", "", "Ga", "Ma", "", "Pa", "Dha", "", "", "Ni", ""];
         $scope.rootNote = 56;
-        $rootScope.genre  = "hindustani";
+        $scope.genre  = "hindustani";
         $scope.progress = 0;
         $scope.loading = false;
         var micStream;
@@ -47,9 +47,12 @@
               }
         });
 
-        
+        $scope.reward = function() {
+            display.reward();
+        };
+
         $scope.$on("$destroy", function() {
-              clock.stop();
+              // clock.stop();
               if(micStream) 
                 micStream.stop();
         });
@@ -79,10 +82,7 @@
           );
         };
 
-        $scope.reward = function() {
-            display.reward();
-        };
-
+        
         var Clock = function(tickDuration) {
                 var intervalId = 0;
                 this.watcher = null;

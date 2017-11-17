@@ -375,6 +375,10 @@
         href: '#freestyle2',
         appUrl: 'er-apps/PitchDial2/main.html',
         aspectRatio: 5 / 6,
+        hotkeys: [
+          ['r', 'reward()'],
+          ['m', 'startMic()']
+        ],
         show: true
       }];
       appsInfo.selectedIndex = -1;
