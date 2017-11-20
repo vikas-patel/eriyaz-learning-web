@@ -26,9 +26,9 @@
 const DEFAULT_THRESHOLD = 0.2;//0.10;
 const DEFAULT_SAMPLE_RATE = 44100;
 const DEFAULT_PROBABILITY_THRESHOLD = 0.01;//0.1;
-define([],function(config = {}) {
+define([],function() {
 // module.exports = function(config = {}) {
-
+  var config = {};
   const threshold = config.threshold || DEFAULT_THRESHOLD;
   const sampleRate = config.sampleRate || DEFAULT_SAMPLE_RATE;
   const probabilityThreshold = config.probabilityThreshold || DEFAULT_PROBABILITY_THRESHOLD;
@@ -37,7 +37,7 @@ define([],function(config = {}) {
     // "use strict";
 
     // Set buffer size to the highest power of two below the provided buffer's length.
-    let bufferSize;
+    var bufferSize;
     for (bufferSize = 1; bufferSize < float32AudioBuffer.length; bufferSize *= 2);
     bufferSize /= 2;
     
@@ -45,14 +45,14 @@ define([],function(config = {}) {
     const yinBufferLength = bufferSize / 2;
     const yinBuffer = new Float32Array(yinBufferLength);
 
-    let probability, tau;
+    var probability, tau;
 
     // Compute the difference function as described in step 2 of the YIN paper.
-    for (let t = 0; t < yinBufferLength; t++) {
+    for (var t = 0; t < yinBufferLength; t++) {
       yinBuffer[t] = 0;
     }
-    for (let t = 1; t < yinBufferLength; t++) {
-      for (let i = 0; i < yinBufferLength; i++) {
+    for (var t = 1; t < yinBufferLength; t++) {
+      for (var i = 0; i < yinBufferLength; i++) {
         const delta = float32AudioBuffer[i] - float32AudioBuffer[i + t];
         yinBuffer[t] += delta * delta;
       }
@@ -61,8 +61,8 @@ define([],function(config = {}) {
     // Compute the cumulative mean normalized difference as described in step 3 of the paper.
     yinBuffer[0] = 1;
     yinBuffer[1] = 1;
-    let runningSum = 0;
-    for (let t = 1; t < yinBufferLength; t++) {
+    var runningSum = 0;
+    for (var t = 1; t < yinBufferLength; t++) {
       runningSum += yinBuffer[t];
       yinBuffer[t] *= t / runningSum;
     }
@@ -107,7 +107,7 @@ define([],function(config = {}) {
      * for more background
      * http://fedc.wiwi.hu-berlin.de/xplore/tutorials/xegbohtmlnode62.html
      */
-    let betterTau, x0, x2;
+    var betterTau, x0, x2;
     if (tau < 1) {
       x0 = tau;
     } else {
