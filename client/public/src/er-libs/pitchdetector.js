@@ -1,4 +1,4 @@
-define(['intensityfilter','wavelet-pitch', 'fft-pitch'], function(IntensityFilter) {
+define(['intensityfilter', 'yin-pitch','wavelet-pitch', 'fft-pitch'], function(IntensityFilter, yinPitch) {
 	var WaveletAlgo = function(sampleRate) {
 		this.findPitch = function(data) {
 			var freq = 0;
@@ -26,11 +26,27 @@ define(['intensityfilter','wavelet-pitch', 'fft-pitch'], function(IntensityFilte
 		};
 	};
 
+	var yinAlgo = function(sampleRate) {
+		this.findPitch = function(data) {
+			if (IntensityFilter.rootMeanSquare(data) > 0.01) {
+				freqAndProb = yinPitch(data);
+				if (!freqAndProb) return null;
+				freqAndProb[0] = freqAndProb[0] * (sampleRate/44100);
+				// console.log(freqAndProb);
+				return freqAndProb;
+			}
+			return null;
+		}
+	};
+
 	return {
 		getDetector: function(algo, sampleRate) {
 			if (algo === 'wavelet') {
 				return new WaveletAlgo(sampleRate);
-			} else return new FftAlgo(sampleRate);
+			} else if (algo === 'yin') {
+				return new yinAlgo(sampleRate);
+			} 
+			else return new FftAlgo(sampleRate);
 		}
 	};
 });

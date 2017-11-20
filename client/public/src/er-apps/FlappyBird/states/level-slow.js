@@ -26,8 +26,9 @@ define(['./level', '../prefabs/pipeGroup', '../prefabs/starGroup', 'music-calc']
             .range([this.game.height - this.ground.height, 0]);
     };
 
-    Level1.prototype.updatePitch = function(pitch) {
+    Level1.prototype.updatePitch = function(pitch, prob) {
         currentNote = MusicCalc.freqToMidiNum(pitch);
+        console.log(currentNote, prob);
         // if (!this.gameover) console.log(Math.round(currentNote));
         this.bird.flap(this.yScale(currentNote));
     };

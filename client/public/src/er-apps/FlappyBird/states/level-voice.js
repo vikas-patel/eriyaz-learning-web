@@ -1,5 +1,5 @@
 define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/slider',
-    '../prefabs/voice-setting', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'pitchcustomdetector', 'music-calc', 'intensityfilter'], 
+    '../prefabs/voice-setting', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'pitchdetector', 'music-calc', 'intensityfilter'], 
     function (d3, Bird, Ground, Slider, Scoreboard, MicUtil, CurrentAudioContext, AudioBuffer, PitchDetector, 
         MusicCalc, IntensityFilter) {
     function Level() {
@@ -53,24 +53,31 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/slider',
         MicUtil.getMicAudioStream(
             function(stream) {
                 playObj.stream = stream;
-              buffer = new AudioBuffer(audioContext, stream, 1024);
+              buffer = new AudioBuffer(audioContext, stream, 2048);
               buffer.addProcessor(updatePitch);
             }
           );
         var audioContext = CurrentAudioContext.getInstance();
-        var detector = PitchDetector.getDetector(audioContext.sampleRate, this.game.isMan);
+        var detector = PitchDetector.getDetector('yin', audioContext.sampleRate);
 
         var updatePitch = function(data) {
-           
-            var pitch = detector.findPitch(data);
-             // range 0-1
+            // range 0-1
             var volume = 2*IntensityFilter.rootMeanSquare(data);
             playObj.slider.setVolume(volume);
             if (volume < playObj.game.noise/100) return;
-            if (pitch == 0) return;
+           
+            var pitchAndProb = detector.findPitch(data);
+            if (!pitchAndProb) return;
+            var probability = pitchAndProb[1];
+            var pitch = pitchAndProb[0];
+
+          if (pitch == 0) return;
             // can't be human voice
             if (pitch > 1400) return;
-            playObj.updatePitch(pitch);
+            if (probability < 0.95) return;
+
+            
+            playObj.updatePitch(pitch, probability);
         };
 
         this.gameover = false;
@@ -100,15 +107,16 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/slider',
             this.startGame();
         }
       },
-      updatePitch: function(pitch) {
+      updatePitch: function(pitch, prob) {
             currentNote = MusicCalc.freqToMidiNum(pitch);
+            console.log(currentNote);
             // if (!this.gameover) console.log(Math.round(currentNote));
-            if (currentNote >= this.lowerNoteLimit && currentNote <= this.upperNoteLimit) {
+            // if (currentNote >= this.lowerNoteLimit && currentNote <= this.upperNoteLimit) {
                 if (this.start) {
                     this.arrayPitch.push(Math.round(currentNote));
                     this.bird.x += 5;
                 }
-            }
+            // }
       },
       update: function() {
             // check if bird reached to end point
@@ -134,6 +142,7 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/slider',
             this.scoreboard = new Scoreboard(this.game, true);
             this.game.add.existing(this.scoreboard);
             var rootNote = this.mode(this.arrayPitch);
+            console.log("rootNote:"+rootNote);
             this.scoreboard.show(rootNote);
             this.gameover = true;
             // this.bird.kill();
