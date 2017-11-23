@@ -2,17 +2,17 @@ define([], function() {
 
 	var Chart = function() {
 		var margin = {
-			top: 10,
-			right: 30,
-			bottom: 10,
-			left: 10
+			top: 5,
+			right: 20,
+			bottom: 5,
+			left: 5
 		};
 
 		var width = 400;
 		var height = 200;
 
 		var refreshTime = 40;
-		var displayTimeRange = 5000;
+		var displayTimeRange = 8000;
 		var totalTimeRange = 30000;
 
 		var n = 40,
@@ -28,7 +28,7 @@ define([], function() {
 			.range([0, width]);
 
 		var y = d3.scale.linear()
-			.domain([-1200, 1200])
+			.domain([-200, 1400])
 			.range([height, 0]);
 
 		var xAxis = d3.svg.axis()
@@ -44,10 +44,11 @@ define([], function() {
 		var yAxis = d3.svg.axis()
 			.scale(y)
 			.orient("right")
-			.ticks(25)
+			.ticks(17)
 			.tickFormat(customYFormat)
-			.tickSize(-width)
-			.tickSubdivide(true);
+			.outerTickSize(-width)
+			.innerTickSize(-width);
+			// .tickSubdivide(true);
 
 		var line = d3.svg.line()
 			.x(function(d, i) {
@@ -55,7 +56,9 @@ define([], function() {
 			})
 			.y(function(d, i) {
 				return y(d);
-			}).interpolate("linear");
+			})
+			.defined(function(d) {	return !isNaN(d); }) 
+			.interpolate("linear");
 
 		function customYFormat(yValue) {
 			var labels = ['Sa', '', 'Re', '', 'Ga', 'Ma', '', 'Pa', '', 'Dha', '', 'Ni', 'Sa'];
@@ -84,12 +87,20 @@ define([], function() {
 			.attr("transform", "translate(" + width + ",0)")
 			.call(yAxis);
 
+		yAxisGroup.selectAll("line")
+				.filter(function(d, i) {
+					if (d==0) return false;
+					if (customYFormat(d)) return true;
+					return false;
+				})
+				.attr("class", "highlight");
+
 		svg.append("svg:line")
 			.attr("id", "center-line")
 			.attr("x1", 0)
-			.attr("y1", height / 2)
+			.attr("y1", y(0))
 			.attr("x2", width)
-			.attr("y2", height / 2);
+			.attr("y2", y(0));
 
 		svg.append("defs")
 			.append("clipPath")
@@ -108,65 +119,65 @@ define([], function() {
 			.attr("class", "line")
 			.attr("d", line);
 
-		var oldX;
-		var dragB = d3.behavior.drag()
-			// .origin(function(d) { return d; })
-			.on("dragstart", function() {
-				console.log(d3.mouse(this));
-				oldX = d3.mouse(this)[0];
-			})
-			.on("drag", plotDrag);
+		// var oldX;
+		// var dragB = d3.behavior.drag()
+		// 	// .origin(function(d) { return d; })
+		// 	.on("dragstart", function() {
+		// 		console.log(d3.mouse(this));
+		// 		oldX = d3.mouse(this)[0];
+		// 	})
+		// 	.on("drag", plotDrag);
 
-		var offset = 0;
+		// var offset = 0;
 
-		function plotDrag() {
-			offset += d3.event.x - oldX;
-			var panIndex = Math.round(offset * displayTimeRange / (refreshTime * width));
-			var displayIndex = Math.round(displayTimeRange / refreshTime);
-			// console.log(panIndex);
-			var lineData = dataCache.slice(dataCache.length - panIndex - 1, dataCache.length - panIndex - 1 + displayIndex);
-			path.attr("d", line(lineData));
-		}
+		// function plotDrag() {
+		// 	offset += d3.event.x - oldX;
+		// 	var panIndex = Math.round(offset * displayTimeRange / (refreshTime * width));
+		// 	var displayIndex = Math.round(displayTimeRange / refreshTime);
+		// 	// console.log(panIndex);
+		// 	var lineData = dataCache.slice(dataCache.length - panIndex - 1, dataCache.length - panIndex - 1 + displayIndex);
+		// 	path.attr("d", line(lineData));
+		// }
 
-		var zoomB = d3.behavior.zoom()
-			// .origin(Object)
-			.on("zoom", plotZoom);
+		// var zoomB = d3.behavior.zoom()
+		// 	// .origin(Object)
+		// 	.on("zoom", plotZoom);
 
-		function plotZoom() {
-			console.log('zoomed');
-			var panIndex = Math.round(d3.event.translate[0] * displayTimeRange / (refreshTime * width));
-			var displayIndex = Math.round(displayTimeRange / refreshTime);
-			// console.log(panIndex);
-			var lineData = dataCache.slice(dataCache.length - panIndex - 1, dataCache.length - panIndex - 1 + displayIndex);
-			path.attr("d", line(lineData));
-			// .attr("transform", "scale(" + d3.event.scale + ")");
-		}
+		// function plotZoom() {
+		// 	console.log('zoomed');
+		// 	var panIndex = Math.round(d3.event.translate[0] * displayTimeRange / (refreshTime * width));
+		// 	var displayIndex = Math.round(displayTimeRange / refreshTime);
+		// 	// console.log(panIndex);
+		// 	var lineData = dataCache.slice(dataCache.length - panIndex - 1, dataCache.length - panIndex - 1 + displayIndex);
+		// 	path.attr("d", line(lineData));
+		// 	// .attr("transform", "scale(" + d3.event.scale + ")");
+		// }
 
-		var eventsRect = svg.append("rect")
-			.attr("width", width)
-			.attr("height", height)
-			.style("fill", "#fff")
-			.attr("opacity", 0)
-			.attr("pointer-events", "all")
-			.call(dragB)
-			.call(zoomB);
+		// var eventsRect = svg.append("rect")
+		// 	.attr("width", width)
+		// 	.attr("height", height)
+		// 	.style("fill", "#fff")
+		// 	.attr("opacity", 0)
+		// 	.attr("pointer-events", "all")
+		// 	.call(dragB)
+		// 	.call(zoomB);
 
 
 
-		function zoomed() {
+		// function zoomed() {
 
-			var indexDelta = -d3.event.translate[0] / width * 100;
-			panOffset = indexDelta;
-			refreshData();
+		// 	var indexDelta = -d3.event.translate[0] / width * 100;
+		// 	panOffset = indexDelta;
+		// 	refreshData();
 
-			if (Math.abs(oldScale - d3.event.scale) > 1e-5) {
-				oldScale = d3.event.scale;
-				svg.select(".y.axis").call(yAxis);
-			}
+		// 	if (Math.abs(oldScale - d3.event.scale) > 1e-5) {
+		// 		oldScale = d3.event.scale;
+		// 		svg.select(".y.axis").call(yAxis);
+		// 	}
 
-			//panMeasure = d3.event.translate[0];
-			//console.log(panMeasure);
-		}
+		// 	//panMeasure = d3.event.translate[0];
+		// 	//console.log(panMeasure);
+		// }
 
 		var intervalValue = 0;
 		var play = true;
@@ -208,10 +219,15 @@ define([], function() {
 				}
 
 				svg.select("circle").remove();
+				var interval = data[data.length - 1];
+
+				if (!isNaN(interval)) lastValidValue = interval;
+				console.log(interval, lastValidValue);
 				svg.append("circle")
 					.attr("r", 3)
+					.attr("class", "marker")
 					.attr("cx", x(refreshTime * (data.length - 1)))
-					.attr("cy", y(data[data.length - 1]));
+					.attr("cy", y(lastValidValue ));
 			}
 
 		}
@@ -225,8 +241,11 @@ define([], function() {
 			play = false;
 		};
 
+		var lastValidValue = 0;
+
 		this.notify = function(newValue) {
 			// intervalValue = Math.round(newValue);
+
 			intervalValue = newValue;
 		};
 

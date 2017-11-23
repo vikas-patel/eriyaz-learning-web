@@ -54,13 +54,13 @@ define(['d3', './scorer', './songs', 'currentaudiocontext'], function(d3, scorer
 		.innerTickSize([chartHeight])
 		.outerTickSize([chartHeight])
 		.tickValues(beatValues)
-			// .ticks(xDivs)
-			// .outerTickSize([10])
-			// .outerTickSize([20])
-			.tickFormat('')
-			.tickSubdivide(true);
+		// .ticks(xDivs)
+		// .outerTickSize([10])
+		// .outerTickSize([20])
+		.tickFormat('')
+		.tickSubdivide(true);
 
-			var yAxis = d3.svg.axis()
+		var yAxis = d3.svg.axis()
 			.scale(yScale)
 			.orient("left")
 			.innerTickSize([chartWidth])

@@ -320,7 +320,7 @@
         href: '#singgraph',
         appUrl: 'er-apps/SingGraph/main.html',
         aspectRatio: 5 / 3,
-        show: false
+        show: true
       }, {
         name: 'FreestylePhrases',
         thumb: 'er-shell/images/freestylephrases.jpg',
