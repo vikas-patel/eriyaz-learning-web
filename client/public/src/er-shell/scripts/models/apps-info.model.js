@@ -315,7 +315,7 @@
         show: true
       }, {
         name: 'SingGraph',
-        thumb: 'er-shell/images/singgraph.jpg',
+        thumb: 'er-shell/images/singgraph.png',
         desc: 'Practice free flow singing with immediate feedback on your pitch.',
         href: '#singgraph',
         appUrl: 'er-apps/SingGraph/main.html',
