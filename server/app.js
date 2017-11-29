@@ -58,3 +58,18 @@ require('./routes')(app, passport); // load our routes and pass in our app and f
 var server = app.listen(port, function() {
 	console.log('Example app listening at http://%s:%s', server.address().address, server.address().port);
 });
+var io = require('socket.io')(server);
+
+io.on('connection', function (socket) {
+  console.log("connected");
+  // add handler for message type "draw_line".
+   socket.on('click', function (data) {
+	   	// sending to all clients except sender
+		socket.broadcast.emit('click', data);
+   });
+
+   socket.on('change', function (data) {
+	   	// sending to all clients except sender
+		socket.broadcast.emit('change', data);
+   });
+});
