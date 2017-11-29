@@ -56,7 +56,8 @@ requirejs.config({
         'recorderworker' : 'er-libs/recorderworker',
         'phaser': 'ext-libs/bower_components/phaser/build/phaser.min',
         // 'tone': 'ext-libs/tone.min', // version 0.12.0
-        'lyrics' : 'ext-libs/lyrics.min'
+        'lyrics' : 'ext-libs/lyrics.min',
+        'socketio-client' : 'ext-libs/socket.io-client'
     },
 
     // Add modules that do not support AMD

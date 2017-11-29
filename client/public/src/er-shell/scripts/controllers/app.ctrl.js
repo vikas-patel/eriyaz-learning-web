@@ -1,4 +1,4 @@
-  define(['./module'], function(app) {
+  define(['./module', 'socketio-client'], function(app, io) {
   	app.controller("AppCtrl", function($scope, $rootScope, UIModel, LoginSignupDialogModel,AppsInfoModel, hotkeys, $location) {
   		$scope.uiModel = UIModel.uiModel;
   		$scope.loginSignupDialogModel = LoginSignupDialogModel.loginSignupDialogModel;
