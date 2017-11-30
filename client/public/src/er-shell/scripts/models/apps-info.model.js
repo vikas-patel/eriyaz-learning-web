@@ -320,7 +320,12 @@
         href: '#singgraph',
         appUrl: 'er-apps/SingGraph/main.html',
         aspectRatio: 5 / 3,
-        show: true
+        show: true,
+        hotkeys: [
+          ['1', 'playSa()'],
+          ['2', 'playRe()'],
+          ['3', 'playGa()']
+        ]
       }, {
         name: 'FreestylePhrases',
         thumb: 'er-shell/images/freestylephrases.jpg',

@@ -1,11 +1,17 @@
-  define(['./module', './chart', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'webaudioplayer', 'pitchdetector', 'music-calc'],
-      function(app, Chart, MicUtil, CurrentAudioContext, AudioBuffer, WebAudioPlayer, PitchDetector, MusicCalc) {
+  define(['./module', './chart', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'webaudioplayer', 'pitchdetector', 'music-calc', 'voiceplayer'],
+      function(app, Chart, MicUtil, CurrentAudioContext, AudioBuffer, WebAudioPlayer, PitchDetector, MusicCalc, VoicePlayer) {
           var audioContext = CurrentAudioContext.getInstance();
           app.controller('SingGraphCtrl', function($scope, PitchModel, DialModel) {
               var chart = new Chart();
+              var beatDuration = 2000;
               $scope.rootNote = 48;
               $scope.state = "play";
               var detector = PitchDetector.getDetector('wavelet', audioContext.sampleRate);
+              voicePlayer = new VoicePlayer(audioContext, 'male');
+
+
+              
+
               var updatePitch = function(data) {
                   var pitch = detector.findPitch(data);
                   if (pitch !== 0) {
@@ -32,6 +38,7 @@
               };
 
               $scope.pause = function() {
+                
                   if ($scope.state == "play") {
                     $scope.state = "pause";
                     chart.pause();
@@ -45,13 +52,21 @@
                 PitchModel.rootFreq = MusicCalc.midiNumToFreq($scope.rootNote);
               });
 
-              // $scope.setRoot = function() {
-              //     PitchModel.rootFreq = PitchModel.currentFreq;
-              // };
+              $scope.playSa = function() {
+                  playNote(0);
+              };
 
-              // $scope.playRoot = function() {
-              //     var player = new WebAudioPlayer(audioContext);
-              //     player.playNote(PitchModel.rootFreq, 1000);
-              // };
+              $scope.playRe = function() {
+                  playNote(2);
+              };
+
+              $scope.playGa= function() {
+                  playNote(4);
+              };
+
+              function playNote(noteNum) {
+                var midi = $scope.rootNote + noteNum;
+                voicePlayer.play(midi, function(){}, beatDuration);   
+              }
           });
       });

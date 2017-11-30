@@ -6,14 +6,14 @@
       // socket operations
       var socket = io.connect();
       socket.on('connect', function(data) {
-          console.log("connected");
+          console.log("socket connected");
       });
         // register mouse event handlers
         document.onmousedown = function(e){
-          var xpath = getXPath(e.target);
-          if (!e.shiftKey) return true;
-          // if (!e.target.nodeName || e.target.nodeName.toLowerCase() == "SELECT".toLowerCase()) return true;
-          socket.emit('click', xpath);
+                if (!e.shiftKey) return true;
+                var xpath = getXPath(e.target);
+                var data = {type:"click", element: xpath};
+                socket.emit('event', data);
           return true;
         };
 
@@ -21,7 +21,11 @@
         document.onkeydown = function (e) {
             if (e.keyCode == 16) {
               isShiftKey = true;
+              return;
             }
+            if (!isShiftKey) return true;
+            var data = {type: "keydown", "keyCode": e.keyCode};
+            socket.emit('event', data);
         };
 
         document.onkeyup = function (e) {
@@ -34,17 +38,26 @@
           if (!isShiftKey) return true;
           var xpath = getXPath(event.target);
           var value = event.target.value;
-          socket.emit('change', [xpath, value]);
+          var data = {type:"change", element: xpath, value: value};
+          socket.emit('event', data);
         };
-
-      socket.on('change', function (data) {
-        var elem = lookupElementByXPath(data[0]);
-        elem.value = data[1];
-      });
        
-      socket.on('click', function (data) {
-        var elem = lookupElementByXPath(data);
-        elem.click();
+      socket.on('event', function (data) {
+        if (data.type == 'click') {
+            var elem = lookupElementByXPath(data.element);
+            elem.click();
+        } else if (data.type == 'change') {
+          var elem = lookupElementByXPath(data.element);
+          elem.value = data.value;
+        } else if (data.type == 'keydown') {
+            var keyCode = data.keyCode;
+            var keyEvent = new KeyboardEvent("keydown", {keyCode: keyCode, which: keyCode});
+            delete keyEvent.keyCode;
+            Object.defineProperty(keyEvent, "keyCode", {"value" : keyCode});
+            delete keyEvent.which;
+            Object.defineProperty(keyEvent, "which", {"value" : keyCode});
+            document.dispatchEvent(keyEvent);
+        }
      });
 
       function getXPath(node) {
@@ -130,6 +143,7 @@
                     combo: key[0],
                     description: '',
                     persistent: false,
+                    action: 'keydown',
                     callback: function() {
                         var scope = angular.element($('#selected-app').children().first()).scope();
                         scope.$eval(key[1]);

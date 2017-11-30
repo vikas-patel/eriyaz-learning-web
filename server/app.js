@@ -63,13 +63,13 @@ var io = require('socket.io')(server);
 io.on('connection', function (socket) {
   console.log("connected");
   // add handler for message type "draw_line".
-   socket.on('click', function (data) {
+   socket.on('event', function (data) {
 	   	// sending to all clients except sender
-		socket.broadcast.emit('click', data);
+		socket.broadcast.emit('event', data);
    });
 
-   socket.on('change', function (data) {
-	   	// sending to all clients except sender
-		socket.broadcast.emit('change', data);
-   });
+  //  socket.on('change', function (data) {
+	 //   	// sending to all clients except sender
+		// socket.broadcast.emit('change', data);
+  //  });
 });
