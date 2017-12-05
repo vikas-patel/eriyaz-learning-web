@@ -7,7 +7,7 @@
               $scope.rootNote = 48;
               $scope.state = "play";
               var detector = PitchDetector.getDetector('wavelet', audioContext.sampleRate);
-              voicePlayer = new VoicePlayer(audioContext, 'male');
+              voicePlayer = new VoicePlayer(audioContext, 'female');
 
 
               
@@ -17,6 +17,8 @@
                   if (pitch !== 0) {
                       PitchModel.currentFreq = pitch;
                       PitchModel.currentInterval = MusicCalc.getCents(PitchModel.rootFreq, PitchModel.currentFreq) / 100;
+                      PitchModel.currentInterval = PitchModel.currentInterval%12;
+                      if (PitchModel.currentInterval < -1) PitchModel.currentInterval += 12;
                       chart.notify(PitchModel.currentInterval);
                   } else {
                     chart.notify(Number.NaN);
@@ -64,8 +66,24 @@
                   playNote(4);
               };
 
+              $scope.playMa = function() {
+                  playNote(5);
+              };
+
+              $scope.playPa = function() {
+                  playNote(7);
+              };
+
+              $scope.playDha= function() {
+                  playNote(9);
+              };
+
+              $scope.playNi= function() {
+                  playNote(11);
+              };
+
               function playNote(noteNum) {
-                var midi = $scope.rootNote + noteNum;
+                var midi = Number($scope.rootNote) + noteNum;
                 voicePlayer.play(midi, function(){}, beatDuration);   
               }
           });

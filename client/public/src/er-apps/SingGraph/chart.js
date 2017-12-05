@@ -222,7 +222,6 @@ define([], function() {
 				var interval = data[data.length - 1];
 
 				if (!isNaN(interval)) lastValidValue = interval;
-				console.log(interval, lastValidValue);
 				svg.append("circle")
 					.attr("r", 3)
 					.attr("class", "marker")

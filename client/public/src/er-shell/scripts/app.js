@@ -46,12 +46,13 @@ define([
     'singinggame',
     'singinggame2',
     'flappybird',
-    'fruitninja',
+    // 'fruitninja',
     'voicematch2',
     'voicematch2',
     'fastsinging',
     'singphrases',
-    'songpractice'
+    'songpractice',
+    'monsterblaster'
 ], function(angular) {
     'use strict';
 
@@ -92,7 +93,7 @@ define([
         'tonesmemory',
         'poorvanga',
         'flappybird',
-        'fruitninja',
+        // 'fruitninja',
         'phraseshape',
         'singinggame',
         'singinggame2',
@@ -100,6 +101,7 @@ define([
         'fastsinging',
         'singphrases',
         'songpractice',
+        'monsterblaster',
         'ngResource',
         'angulartics',
         'angulartics.google.analytics',

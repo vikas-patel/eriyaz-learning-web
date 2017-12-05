@@ -234,10 +234,16 @@ requirejs.config({
         location: 'er-apps/FlappyBird',
         main: 'index'
     },{
-        name: 'fruitninja',
-        location: 'er-apps/FruitNinja',
+        name: 'monsterblaster',
+        location: 'er-apps/MonsterBlaster',
         main: 'index'
-    }, {
+    },
+    // {
+    //     name: 'fruitninja',
+    //     location: 'er-apps/FruitNinja',
+    //     main: 'index'
+    // }, 
+    {
         name: 'phraseshape',
         location: 'er-apps/PhraseShape',
         main: 'index'

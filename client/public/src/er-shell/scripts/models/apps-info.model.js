@@ -297,15 +297,17 @@
           ['d', 'repeat()'],
           ['s', 'repeatSlow()']
         ]
-      }, {
-        name: 'FruitNinja',
-        thumb: 'er-shell/images/fruitninja.png',
-        desc: 'Can you tell if the second node higher or lower than the first note?',
-        href: '#fruitninja',
-        appUrl: 'er-apps/FruitNinja/main.html',
-        aspectRatio: 8/7,
-        show: false
-      }, {
+      }, 
+      // {
+      //   name: 'FruitNinja',
+      //   thumb: 'er-shell/images/fruitninja.png',
+      //   desc: 'Can you tell if the second node higher or lower than the first note?',
+      //   href: '#fruitninja',
+      //   appUrl: 'er-apps/FruitNinja/main.html',
+      //   aspectRatio: 8/7,
+      //   show: false
+      // }, 
+      {
         name: 'ThatMemorizer',
         thumb: 'er-shell/images/thatmemorizer.jpg',
         desc: 'Learn to differentiate between Thats. Start with selecting just two of them and add more one by one.',
@@ -324,7 +326,11 @@
         hotkeys: [
           ['1', 'playSa()'],
           ['2', 'playRe()'],
-          ['3', 'playGa()']
+          ['3', 'playGa()'],
+          ['4', 'playMa()'],
+          ['5', 'playPa()'],
+          ['6', 'playDha()'],
+          ['7', 'playNi()']
         ]
       }, {
         name: 'FreestylePhrases',
@@ -385,6 +391,23 @@
           ['m', 'startMic()']
         ],
         show: true
+      }, {
+        name: 'MonsterBlaster',
+        thumb: 'er-shell/images/monsterblaster.jpg',
+        desc: 'Control your voice pitch.',
+        href: '#monsterblaster',
+        appUrl: 'er-apps/MonsterBlaster/main.html',
+        aspectRatio: 720/505,
+        show: true,
+        hotkeys: [
+          ['1', 'playSa()'],
+          ['2', 'playRe()'],
+          ['3', 'playGa()'],
+          ['4', 'playMa()'],
+          ['5', 'playPa()'],
+          ['6', 'playDha()'],
+          ['7', 'playNi()']
+        ]
       }];
       appsInfo.selectedIndex = -1;
       TimeMe.setIdleDurationInSeconds(60);
