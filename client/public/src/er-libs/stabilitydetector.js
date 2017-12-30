@@ -1,6 +1,6 @@
 define([], function() {
 	var StabilityDetector = function(unitStabilityCallback, aggStabilityCallback) {
-		var unitCacheMax = 10;
+		var unitCacheMax = 15;
 		var aggCacheMax = 50;
 		var unitCache = [];
 		var aggCache = [];

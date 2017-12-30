@@ -1,0 +1,45 @@
+<div id="pitch-dial2" ng-controller="PitchDialCtrl2 as ctrl">
+<div class="container-toplevel">
+
+    <div class="container">
+        <div horizontal layout center>
+	        <paper-icon-button icon="settings-voice" ng-click="startMic()"></paper-icon-button>
+	        <div id="scale" style="padding: 0 5px 0 0">
+		        Scale:
+		        <select ng-model="rootNote">
+					<option value="47">Safed 7 (B)</option>
+					<option value="48">Safed 1 (C)</option>
+					<option value="49">Kali 1 (C#)</option>
+					<option value="50">Safed 2 (D)</option>
+					<option value="51">Kali 2 (D#)</option>
+					<option value="52">Safed 3 (E)</option>
+					<option value="53">Safed 4 (F)</option>
+					<option value="54">Kali 3 (F#)</option>
+					<option value="55">Safed 5 (G)</option>
+					<option value="56">Kali 4 (G#)</option>
+					<option value="57">Safed 6 (A)</option>
+					<option value="58">Kali 5 (A#)</option>
+				</select>	
+			</div>	
+			<select ng-model="genre">
+				<option value="hindustani">Hindustani</option>
+				<option value="carnatic">Carnatic</option>
+			</select>
+		</div>
+        <div id="dial-container">
+        	<!-- <ng-dial2 ></ng-dial2> -->
+    	</div>
+    	<progress max="1" value="{{volume}}"></progress>
+    	<span class="volume">Volume</span>
+
+	    <!-- 
+	    <div id="progress-overlay" ng-show="loading">
+	    	<img src="er-apps/pitchdial/Orange-loader.gif" alt="Loading...">
+
+
+	    </div> 
+	    -->
+
+    </div>
+</div>
+</div>

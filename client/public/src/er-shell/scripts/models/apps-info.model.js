@@ -297,15 +297,17 @@
           ['d', 'repeat()'],
           ['s', 'repeatSlow()']
         ]
-      }, {
-        name: 'FruitNinja',
-        thumb: 'er-shell/images/fruitninja.png',
-        desc: 'Can you tell if the second node higher or lower than the first note?',
-        href: '#fruitninja',
-        appUrl: 'er-apps/FruitNinja/main.html',
-        aspectRatio: 8/7,
-        show: false
-      }, {
+      }, 
+      // {
+      //   name: 'FruitNinja',
+      //   thumb: 'er-shell/images/fruitninja.png',
+      //   desc: 'Can you tell if the second node higher or lower than the first note?',
+      //   href: '#fruitninja',
+      //   appUrl: 'er-apps/FruitNinja/main.html',
+      //   aspectRatio: 8/7,
+      //   show: false
+      // }, 
+      {
         name: 'ThatMemorizer',
         thumb: 'er-shell/images/thatmemorizer.jpg',
         desc: 'Learn to differentiate between Thats. Start with selecting just two of them and add more one by one.',
@@ -315,12 +317,21 @@
         show: true
       }, {
         name: 'SingGraph',
-        thumb: 'er-shell/images/singgraph.jpg',
+        thumb: 'er-shell/images/singgraph.png',
         desc: 'Practice free flow singing with immediate feedback on your pitch.',
         href: '#singgraph',
         appUrl: 'er-apps/SingGraph/main.html',
         aspectRatio: 5 / 3,
-        show: true
+        show: true,
+        hotkeys: [
+          ['1', 'playSa()'],
+          ['2', 'playRe()'],
+          ['3', 'playGa()'],
+          ['4', 'playMa()'],
+          ['5', 'playPa()'],
+          ['6', 'playDha()'],
+          ['7', 'playNi()']
+        ]
       }, {
         name: 'FreestylePhrases',
         thumb: 'er-shell/images/freestylephrases.jpg',
@@ -328,7 +339,7 @@
         href: '#freestylephrases',
         appUrl: 'er-apps/FreestylePhrases/main.html',
         aspectRatio: 5 / 3,
-        show: true
+        show: false
       }, {
         name: 'SingingGame',
         thumb: 'er-shell/images/singinggame.jpg',
@@ -379,6 +390,37 @@
           ['f', 'newThat()'],
           ['d','repeat()'],
           ['s','slowRepeat()']
+          ],
+        show: false
+      }, {
+        name: 'Freestyle2',
+        thumb: 'er-shell/images/dial-thumb.jpg',
+        desc: 'Practice free flow singing with immediate feedback on your pitch.',
+        href: '#freestyle2',
+        appUrl: 'er-apps/PitchDial2/main.html',
+        aspectRatio: 5 / 6,
+        hotkeys: [
+          ['r', 'reward()'],
+          ['m', 'startMic()']
+        ],
+        show: true
+      }, {
+        name: 'MonsterBlaster',
+        thumb: 'er-shell/images/monsterblaster.jpg',
+        desc: 'Control your voice pitch.',
+        href: '#monsterblaster',
+        appUrl: 'er-apps/MonsterBlaster/main.html',
+        aspectRatio: 720/505,
+        show: true,
+        hotkeys: [
+          ['1', 'playSa()'],
+          ['2', 'playRe()'],
+          ['3', 'playGa()'],
+          ['4', 'playMa()'],
+          ['5', 'playPa()'],
+          ['6', 'playDha()'],
+          ['7', 'playNi()']
+>>>>>>> fa948c0a92deff3cd2d1891a55ddc07ebac9c1d3
         ]
       }];
       appsInfo.selectedIndex = -1;

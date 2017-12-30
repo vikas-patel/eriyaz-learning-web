@@ -36,7 +36,14 @@ return [
 	// poor lrc
 	delay: 0,
 	rootNote: 48,
-	scale: [0, 2, 4, 5, 7, 9, 11]
+	scale: [0, 1, 3, 5, 7, 9, 11]
+},
+{
+	name:"Ae Dil Hai Mushkil",
+	path:"Ae-Dil-Hai-Mushkil.mp3",
+	delay: 0.5,
+	rootNote: 48,
+	scale: [0, 2, 5, 6, 8, 10, 11]
 },
 {name: "do dil mil rahe",
 		path:"do-dil-mil-rahe-hai.mp3",

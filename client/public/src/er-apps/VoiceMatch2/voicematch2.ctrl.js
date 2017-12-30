@@ -1,8 +1,8 @@
 define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontext',
-        'music-calc', 'mic-util', 'pitchdetector', 'stabilitydetector', 'audiobuffer', 'tone', './scorer', './levels',
+        'music-calc', 'mic-util', 'pitchdetector', 'stabilitydetector', 'audiobuffer', './scorer', './levels',
         './states/boot', './states/level', './states/preload', './states/levelboard'],
     function(app, Note, Player, VoicePlayer, CurrentAudioContext, MusicCalc, MicUtil, 
-        PitchDetector, StabilityDetector, AudioBuffer, Tone, scorer, Levels, Boot, Level, Preload, Levelboard) {
+        PitchDetector, StabilityDetector, AudioBuffer, scorer, Levels, Boot, Level, Preload, Levelboard) {
         var sequence;
         var audioContext = CurrentAudioContext.getInstance();
         var player = new Player(audioContext);
@@ -59,7 +59,7 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
             //     }
             // }).toMaster();
             // Load user medals
-            var synth = new Tone.Synth().toMaster();
+            // var synth = new Tone.Synth().toMaster();
             $http.get('/medal/' + $window.localStorage.userId + "/voicematch2")
               .success(function(data) {
                   game.starArray = data;
@@ -159,7 +159,8 @@ define(['./module', 'note', 'webaudioplayer', 'voiceplayer', 'currentaudiocontex
 
                 this.scheduleNote = function(noteNum) {
                     if (level.isInstrument) {
-                        synth.triggerAttackRelease(MusicCalc.midiNumToFreq(noteNum), level.duration/1000, '+'+(startTime1- audioContext.currentTime));
+                        player.scheduleNote(MusicCalc.midiNumToFreq(noteNum), startTime1, level.duration);
+                        // synth.triggerAttackRelease(MusicCalc.midiNumToFreq(noteNum), level.duration/1000, '+'+(startTime1- audioContext.currentTime));
                     } else {
                         //schedule note for next beep.
                         voicePlayer.schedule(noteNum, startTime1, level.duration);

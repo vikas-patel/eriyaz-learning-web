@@ -527,24 +527,24 @@
                      onLoggedOutRedirect: checkLoginAndRedirect
                  }
              }).
-             state('fruitninja', {
-                 url: '/fruitninja',
-                 onEnter: function(UIModel, AppsInfoModel) {
-                     UIModel.uiModel.showLoginDialog = false;
-                     UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(28);
-                     UIModel.uiModel.showAppDialog = true;
-                 },
-                 resolve: {
-                     onLoggedOutRedirect: checkLoginAndRedirect
-                 }
-             }).
+             // state('fruitninja', {
+             //     url: '/fruitninja',
+             //     onEnter: function(UIModel, AppsInfoModel) {
+             //         UIModel.uiModel.showLoginDialog = false;
+             //         UIModel.uiModel.showMenu = true;
+             //         AppsInfoModel.setSelected(28);
+             //         UIModel.uiModel.showAppDialog = true;
+             //     },
+             //     resolve: {
+             //         onLoggedOutRedirect: checkLoginAndRedirect
+             //     }
+             // }).
              state('thatmemorizer', {
                  url: '/thatmemorizer',
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(29);
+                     AppsInfoModel.setSelected(28);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -556,7 +556,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(30);
+                     AppsInfoModel.setSelected(29);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -568,7 +568,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(31);
+                     AppsInfoModel.setSelected(30);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -579,7 +579,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(32);
+                     AppsInfoModel.setSelected(31);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -590,7 +590,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(33);
+                     AppsInfoModel.setSelected(32);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -602,7 +602,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(34);
+                     AppsInfoModel.setSelected(33);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -614,7 +614,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(35);
+                     AppsInfoModel.setSelected(34);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -626,7 +626,30 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
+                     AppsInfoModel.setSelected(35);
+                     UIModel.uiModel.showAppDialog = true;
+                 },
+                 resolve: {
+                     onLoggedOutRedirect: checkLoginAndRedirect
+                 }
+             }).
+             state('freestyle2', {
+                 url: '/freestyle2',
+                 onEnter: function(UIModel, AppsInfoModel) {
+                     UIModel.uiModel.showLoginDialog = false;
+                     UIModel.uiModel.showMenu = true;
                      AppsInfoModel.setSelected(36);
+                     UIModel.uiModel.showAppDialog = true;
+                 },
+                 resolve: {
+                     onLoggedOutRedirect: checkLoginAndRedirect
+                 }
+             }).state('monsterblaster', {
+                 url: '/monsterblaster',
+                 onEnter: function(UIModel, AppsInfoModel) {
+                     UIModel.uiModel.showLoginDialog = false;
+                     UIModel.uiModel.showMenu = true;
+                     AppsInfoModel.setSelected(37);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {

@@ -1,0 +1,102 @@
+@import "breakpoint";
+$landscape : min-aspect-ratio 1/1;
+
+#pitch-dial2 {
+
+	.container-toplevel {
+		position:relative;
+    	// border-style:solid; 
+    	border-radius:5px;
+    	border-width:3px;
+    	border-color:#CCCCCC;
+    	// width:300px;
+    	width:100%;
+    	// height:100%;
+	}
+	.container-toplevel::before {
+		display:block;
+		padding-top:120%;
+		content:'';
+	}
+ 	.container {
+ 		position:absolute;
+    	top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+
+    	margin: 5px;
+
+    	// width:100%;
+    	// padding-bottom:100%;
+	}
+
+	#progress-overlay {
+		float:left;
+		margin-left:12px;
+		clear:both;
+		// line-height: 2.5%;
+		span {
+		  display: inline-block;
+		  vertical-align: text-top;
+		  margin-top:-5px;
+		}
+
+	}
+
+	#dial-container {
+		position:absolute;
+		top:10%;
+		width:100%;
+		canvas {
+
+			width:100%;
+			// @include breakpoint($landscape) {
+			// 	@media screen and (min-aspect-ratio: 1/1) {
+			// 	height:100%;
+			// 	width:auto;
+			// }
+			// height:100%;
+			// width:100%;
+			// max-height:100%;
+			// width:auto;
+			// height:700px;
+		}
+	}
+
+	.volume{
+		position: absolute;
+		top: 50%;
+		left: 93%;
+		transform: rotate(270deg);
+	}
+
+	progress {
+		position: absolute;
+		top:50%;
+		left:70%;
+	  color: #0063a6;
+	  font-size: .6em;
+	  line-height: 1.5em;
+	  text-indent: .5em;
+	  width: 50%;
+	  height: 1.8em;
+	  border: 1px solid #0063a6;
+	  background: #fff;
+	  transform: rotate(270deg);
+	}
+
+	progress::-webkit-progress-bar { 
+		background: #fff;
+		background: repeating-linear-gradient(
+		  to right,
+		  #B0C0E0 25%,
+		  #fff 25%,
+		  #fff 50%,
+		  #B0C0E0 50%,
+		  #B0C0E0 75%,
+		  #fff 75%
+		);
+	}
+	progress::-webkit-progress-value { background: #0063a6; }
+}

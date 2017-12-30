@@ -15,6 +15,7 @@ define([
     './filters/index',
     'hot-keys',
     'pitch-dial',
+    'pitch-dial2',
     'sing-alankars',
     'upordown',
     'melodygraph',
@@ -45,13 +46,15 @@ define([
     'singinggame',
     'singinggame2',
     'flappybird',
-    'fruitninja',
+    // 'fruitninja',
     'voicematch2',
     'voicematch2',
     'fastsinging',
     'singphrases',
     'songpractice',
-    'uttaranga'
+    'uttaranga',
+    'freestlye2',
+    'monsterblaster'
 ], function(angular) {
     'use strict';
 
@@ -64,6 +67,7 @@ define([
         'ui.router',
         'cfp.hotkeys',
         'pitch-dial',
+        'pitch-dial2',
         'sing-alankars',
         'upordown',
         'melodygraph',
@@ -91,7 +95,7 @@ define([
         'tonesmemory',
         'poorvanga',
         'flappybird',
-        'fruitninja',
+        // 'fruitninja',
         'phraseshape',
         'singinggame',
         'singinggame2',
@@ -100,6 +104,8 @@ define([
         'singphrases',
         'songpractice',
         'uttaranga',
+        'freestyle2',
+        'monsterblaster',
         'ngResource',
         'angulartics',
         'angulartics.google.analytics',

@@ -3,6 +3,7 @@
       var audioContext = CurrentAudioContext.getInstance();
       app.controller('PitchDialCtrl', function($scope, PitchModel, DialModel, $rootScope) {
         $scope.rootNote = 56;
+        $rootScope.genre  = "hindustani";
         $scope.progress = 0;
         $scope.isTanpuraEnabled = false;
         $scope.loading = false;

@@ -1,5 +1,5 @@
 define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../prefabs/slider', '../prefabs/pipeGroup', '../prefabs/starGroup', 
-    '../prefabs/scoreboard', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'pitchcustomdetector', 'music-calc', 'intensityfilter'], 
+    '../prefabs/scoreboard', 'mic-util', 'currentaudiocontext', 'audiobuffer', 'pitchdetector', 'music-calc', 'intensityfilter'], 
     function (d3, Bird, Ground, Pipe, Slider, PipeGroup, StarGroup, Scoreboard, MicUtil, CurrentAudioContext, AudioBuffer, PitchDetector, 
         MusicCalc, IntensityFilter) {
     function Level() {
@@ -58,12 +58,12 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         var playObj = this;
         MicUtil.getMicAudioStream(function(stream) {
               // playObj.stream = stream;
-              buffer = new AudioBuffer(audioContext, stream, 1024);
+              buffer = new AudioBuffer(audioContext, stream, 2048);
               buffer.addProcessor(updatePitch);
             }
         );
         var audioContext = CurrentAudioContext.getInstance();
-        var detector = PitchDetector.getDetector(audioContext.sampleRate, this.game.isMan);
+        var detector = PitchDetector.getDetector('yin', audioContext.sampleRate);
         if (this.game.gender == "man") {
             this.upperNoteLimit = 63;
             this.lowerNoteLimit = 43;
@@ -78,16 +78,24 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
             .domain([this.game.lowerNote+1, this.game.upperNote-1])
             .range([this.game.height - 124, 0]);
         var updatePitch = function(data) {
-            
-            var pitch = detector.findPitch(data);
+
+            var pitchAndProb = detector.findPitch(data);
+            if (!pitchAndProb) return;
+            var probability = pitchAndProb[1];
+            var pitch = pitchAndProb[0];
+
+          if (pitch == 0) return;
+            // can't be human voice
+            if (pitch > 1400) return;
+            if (probability < 0.95) return;
+
              // range 0-1
             var volume = 2*IntensityFilter.rootMeanSquare(data);
             playObj.slider.setVolume(volume);
             if (volume < playObj.game.noise/100) return;
-            if (pitch == 0) return;
-            // can't be human voice
-            if (pitch > 1400) return;
-            playObj.updatePitch(pitch);
+            
+            playObj.updatePitch(pitch, probability);
+            
         };
 
         this.score = 0;
@@ -131,12 +139,13 @@ define(['d3', '../prefabs/bird', '../prefabs/ground', '../prefabs/pipe', '../pre
         // Abstract method
         // Initialize level specific variables
       },
-      updatePitch: function(pitch) {
+      updatePitch: function(pitch, prob) {
             currentNote = MusicCalc.freqToMidiNum(pitch);
+            console.log(currentNote, prob);
             // if (!this.gameover) console.log(Math.round(currentNote));
-            if (currentNote >= this.game.lowerNote-1 && currentNote <= this.game.upperNote+1) {
+            // if (currentNote >= this.game.lowerNote-1 && currentNote <= this.game.upperNote+1) {
                 this.bird.flap(this.yScale(currentNote));
-            }
+            // }
       },
       update: function() {
         this.game.physics.arcade.collide(this.bird, this.ground);

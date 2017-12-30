@@ -55,8 +55,9 @@ requirejs.config({
         'ng-table' : "ext-libs/bower_components/ng-table/dist/ng-table.min",
         'recorderworker' : 'er-libs/recorderworker',
         'phaser': 'ext-libs/bower_components/phaser/build/phaser.min',
-        'tone': 'ext-libs/bower_components/tone/build/Tone.min',
-        'lyrics' : 'ext-libs/lyrics.min'
+        // 'tone': 'ext-libs/tone.min', // version 0.12.0
+        'lyrics' : 'ext-libs/lyrics.min',
+        'socketio-client' : 'ext-libs/socket.io-client'
     },
 
     // Add modules that do not support AMD
@@ -98,9 +99,9 @@ requirejs.config({
         'phaser': {
             exports: 'Phaser'
         },
-        'tone': {
-            exports: 'Tone'
-        },
+        // 'tone': {
+        //     exports: 'Tone'
+        // },
         'soundtouch' : {
             deps: ['underscore']
         },
@@ -115,6 +116,10 @@ requirejs.config({
     }, {
         name: 'pitch-dial',
         location: 'er-apps/PitchDial',
+        main: 'index'
+    },{
+        name: 'pitch-dial2',
+        location: 'er-apps/PitchDial2',
         main: 'index'
     }, {
         name: 'sing-alankars',
@@ -229,10 +234,16 @@ requirejs.config({
         location: 'er-apps/FlappyBird',
         main: 'index'
     },{
-        name: 'fruitninja',
-        location: 'er-apps/FruitNinja',
+        name: 'monsterblaster',
+        location: 'er-apps/MonsterBlaster',
         main: 'index'
-    }, {
+    },
+    // {
+    //     name: 'fruitninja',
+    //     location: 'er-apps/FruitNinja',
+    //     main: 'index'
+    // }, 
+    {
         name: 'phraseshape',
         location: 'er-apps/PhraseShape',
         main: 'index'

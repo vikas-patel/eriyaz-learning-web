@@ -169,8 +169,10 @@ define(['./module', 'jquery', './exercises', 'mic-util', 'currentaudiocontext', 
 				var expNote = $scope.chart.exerciseNote(renderedTime);
 				// don't update score; break, mid break or offset time.
 				if (expNote < 0) return;
-				currInterval = Math.round(1200 * (Math.log(waveletFreq/$scope.rootFreq) / Math.log(2)) / 100);
-				diff = (currInterval - expNote)%12;
+				currInterval = 1200 * (Math.log(waveletFreq/$scope.rootFreq) / Math.log(2)) / 100;
+				var round = Math.round(currInterval);
+				var fraction = currInterval - round;
+				diff = (round - expNote)%12;
 				if (diff == 7 || diff == -5) {
 					 diff = 0;
 				} else if (diff > 6) {
@@ -178,7 +180,7 @@ define(['./module', 'jquery', './exercises', 'mic-util', 'currentaudiocontext', 
 				} else if (diff < -6) {
 					diff = diff + 12;
 				}
-				currInterval = expNote + diff;
+				currInterval = expNote + diff + fraction;
 				$scope.chart.draw(currInterval, renderedTime);
 				updateScore(expNote, currInterval);
 			};

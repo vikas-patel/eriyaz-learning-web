@@ -3,7 +3,11 @@
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 @import url(../../../ext-libs/bower_components/hopscotch/dist/css/hopscotch.min.css);
+<<<<<<< HEAD
 /* line 5, C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+=======
+/* line 5, ../../../../../../../../../../var/lib/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+>>>>>>> fa948c0a92deff3cd2d1891a55ddc07ebac9c1d3
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -25,45 +29,77 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
+<<<<<<< HEAD
 /* line 22, C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+=======
+/* line 22, ../../../../../../../../../../var/lib/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+>>>>>>> fa948c0a92deff3cd2d1891a55ddc07ebac9c1d3
 html {
   line-height: 1;
 }
 
+<<<<<<< HEAD
 /* line 24, C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+=======
+/* line 24, ../../../../../../../../../../var/lib/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+>>>>>>> fa948c0a92deff3cd2d1891a55ddc07ebac9c1d3
 ol, ul {
   list-style: none;
 }
 
+<<<<<<< HEAD
 /* line 26, C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+=======
+/* line 26, ../../../../../../../../../../var/lib/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+>>>>>>> fa948c0a92deff3cd2d1891a55ddc07ebac9c1d3
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
+<<<<<<< HEAD
 /* line 28, C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+=======
+/* line 28, ../../../../../../../../../../var/lib/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+>>>>>>> fa948c0a92deff3cd2d1891a55ddc07ebac9c1d3
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
+<<<<<<< HEAD
 /* line 30, C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
 /* line 103, C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+=======
+/* line 30, ../../../../../../../../../../var/lib/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../../../../var/lib/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+>>>>>>> fa948c0a92deff3cd2d1891a55ddc07ebac9c1d3
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
+<<<<<<< HEAD
 /* line 32, C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+=======
+/* line 32, ../../../../../../../../../../var/lib/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+>>>>>>> fa948c0a92deff3cd2d1891a55ddc07ebac9c1d3
 a img {
   border: none;
 }
 
+<<<<<<< HEAD
 /* line 116, C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+=======
+/* line 116, ../../../../../../../../../../var/lib/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+>>>>>>> fa948c0a92deff3cd2d1891a55ddc07ebac9c1d3
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
   display: block;
 }
@@ -149,7 +185,11 @@ body #error dd {
 /* line 1, ../sass/pages/_front.scss */
 #front {
   font-family: sans-serif;
+<<<<<<< HEAD
   background-image: url('../../images/fort.jpg?1424756334'), radial-gradient(closest-side at 35% 45%, #e02006, #f16236, #e02006);
+=======
+  background-image: url('../../images/fort.jpg?1510650456'), radial-gradient(closest-side at 35% 45%, #e02006, #f16236, #e02006);
+>>>>>>> fa948c0a92deff3cd2d1891a55ddc07ebac9c1d3
   /* Background image is centered vertically and horizontally at all times */
   background-position: center center;
   /* Background image doesn't tile */
@@ -992,6 +1032,83 @@ core-drawer-panel:not([narrow]) #navicon {
   background: #0063a6;
 }
 
+/* line 6, ../../../er-apps/PitchDial2/main.scss */
+#pitch-dial2 .container-toplevel {
+  position: relative;
+  border-radius: 5px;
+  border-width: 3px;
+  border-color: #CCCCCC;
+  width: 100%;
+}
+/* line 16, ../../../er-apps/PitchDial2/main.scss */
+#pitch-dial2 .container-toplevel::before {
+  display: block;
+  padding-top: 120%;
+  content: '';
+}
+/* line 21, ../../../er-apps/PitchDial2/main.scss */
+#pitch-dial2 .container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: 5px;
+}
+/* line 34, ../../../er-apps/PitchDial2/main.scss */
+#pitch-dial2 #progress-overlay {
+  float: left;
+  margin-left: 12px;
+  clear: both;
+}
+/* line 39, ../../../er-apps/PitchDial2/main.scss */
+#pitch-dial2 #progress-overlay span {
+  display: inline-block;
+  vertical-align: text-top;
+  margin-top: -5px;
+}
+/* line 47, ../../../er-apps/PitchDial2/main.scss */
+#pitch-dial2 #dial-container {
+  position: absolute;
+  top: 10%;
+  width: 100%;
+}
+/* line 51, ../../../er-apps/PitchDial2/main.scss */
+#pitch-dial2 #dial-container canvas {
+  width: 100%;
+}
+/* line 67, ../../../er-apps/PitchDial2/main.scss */
+#pitch-dial2 .volume {
+  position: absolute;
+  top: 50%;
+  left: 93%;
+  transform: rotate(270deg);
+}
+/* line 74, ../../../er-apps/PitchDial2/main.scss */
+#pitch-dial2 progress {
+  position: absolute;
+  top: 50%;
+  left: 70%;
+  color: #0063a6;
+  font-size: .6em;
+  line-height: 1.5em;
+  text-indent: .5em;
+  width: 50%;
+  height: 1.8em;
+  border: 1px solid #0063a6;
+  background: #fff;
+  transform: rotate(270deg);
+}
+/* line 89, ../../../er-apps/PitchDial2/main.scss */
+#pitch-dial2 progress::-webkit-progress-bar {
+  background: #fff;
+  background: repeating-linear-gradient(to right, #B0C0E0 25%, #fff 25%, #fff 50%, #B0C0E0 50%, #B0C0E0 75%, #fff 75%);
+}
+/* line 101, ../../../er-apps/PitchDial2/main.scss */
+#pitch-dial2 progress::-webkit-progress-value {
+  background: #0063a6;
+}
+
 /* line 2, ../../../er-apps/SingAlankars/main.scss */
 #sing-alankars {
   /* Axis */
@@ -1483,39 +1600,46 @@ core-drawer-panel:not([narrow]) #navicon {
 #singgraph .container-toplevel {
   width: 100%;
 }
-/* line 14, ../../../er-apps/SingGraph/main.scss */
-#singgraph #chartdiv {
-  margin: 1% 0 0 0;
-}
 /* line 18, ../../../er-apps/SingGraph/main.scss */
 #singgraph .container.settings {
-  margin: 1% 0 0 5%;
+  margin: 5px 0 0 10px;
 }
 /* line 29, ../../../er-apps/SingGraph/main.scss */
 #singgraph .line {
   fill: none;
   stroke: #999;
-  stroke-width: 1.5px;
+  stroke-width: 0.5px;
 }
-/* line 35, ../../../er-apps/SingGraph/main.scss */
+/* line 36, ../../../er-apps/SingGraph/main.scss */
 #singgraph #mainline {
-  stroke: blue;
+  stroke: #FFBC00;
+  stroke-width: 1px;
 }
-/* line 39, ../../../er-apps/SingGraph/main.scss */
+/* line 42, ../../../er-apps/SingGraph/main.scss */
 #singgraph .axis path,
 #singgraph .axis line {
   fill: none;
-  stroke: #999;
-  shape-rendering: crispEdges;
+  stroke: black;
+  opacity: 0.2;
+  stroke-width: 0.5px;
 }
-/* line 46, ../../../er-apps/SingGraph/main.scss */
+/* line 50, ../../../er-apps/SingGraph/main.scss */
+#singgraph .axis line.highlight {
+  stroke: #45b5a1;
+  opacity: 1;
+}
+/* line 56, ../../../er-apps/SingGraph/main.scss */
 #singgraph #center-line {
-  stroke: #999;
-  stroke-width: 1px;
+  stroke: #16a8f0;
+  stroke-width: 0.5px;
 }
-/* line 51, ../../../er-apps/SingGraph/main.scss */
+/* line 61, ../../../er-apps/SingGraph/main.scss */
+#singgraph .marker {
+  fill: #FE632D;
+}
+/* line 65, ../../../er-apps/SingGraph/main.scss */
 #singgraph text {
-  font-size: 10px;
+  font-size: 0.5em;
 }
 
 /* line 2, ../../../er-apps/VoiceMatch/main.scss */
@@ -1898,7 +2022,11 @@ core-drawer-panel:not([narrow]) #navicon {
   overflow: hidden;
   *zoom: 1;
 }
+<<<<<<< HEAD
 /* line 12, C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/susy-2.2.12/sass/susy/output/support/_clearfix.scss */
+=======
+/* line 12, ../../../../../../../../../../var/lib/gems/2.3.0/gems/susy-2.2.12/sass/susy/output/support/_clearfix.scss */
+>>>>>>> fa948c0a92deff3cd2d1891a55ddc07ebac9c1d3
 #rapidintervals .controls:after {
   content: " ";
   display: block;
@@ -2268,7 +2396,11 @@ core-drawer-panel:not([narrow]) #navicon {
   overflow: hidden;
   *zoom: 1;
 }
+<<<<<<< HEAD
 /* line 12, C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/susy-2.2.12/sass/susy/output/support/_clearfix.scss */
+=======
+/* line 12, ../../../../../../../../../../var/lib/gems/2.3.0/gems/susy-2.2.12/sass/susy/output/support/_clearfix.scss */
+>>>>>>> fa948c0a92deff3cd2d1891a55ddc07ebac9c1d3
 #rapidupdown .controls:after {
   content: " ";
   display: block;
@@ -2595,7 +2727,11 @@ core-drawer-panel:not([narrow]) #navicon {
   overflow: hidden;
   *zoom: 1;
 }
+<<<<<<< HEAD
 /* line 12, C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/susy-2.2.12/sass/susy/output/support/_clearfix.scss */
+=======
+/* line 12, ../../../../../../../../../../var/lib/gems/2.3.0/gems/susy-2.2.12/sass/susy/output/support/_clearfix.scss */
+>>>>>>> fa948c0a92deff3cd2d1891a55ddc07ebac9c1d3
 #phraseshape .controls:after {
   content: " ";
   display: block;
