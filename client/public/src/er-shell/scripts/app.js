@@ -50,7 +50,8 @@ define([
     'voicematch2',
     'fastsinging',
     'singphrases',
-    'songpractice'
+    'songpractice',
+    'uttaranga'
 ], function(angular) {
     'use strict';
 
@@ -98,6 +99,7 @@ define([
         'fastsinging',
         'singphrases',
         'songpractice',
+        'uttaranga',
         'ngResource',
         'angulartics',
         'angulartics.google.analytics',

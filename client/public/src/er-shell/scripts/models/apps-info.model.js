@@ -368,6 +368,18 @@
            ['m', 'startMic()']
         ],
         show: false
+      }, {
+        name: 'Uttaranga',
+        thumb: 'er-shell/images/uttaranga.jpg',
+        desc: 'Practice recognizing among 12 possible first of the Thats.',
+        href: '#uttaranga',
+        appUrl: 'er-apps/Uttaranga/main.html',
+        aspectRatio: 3 / 4,
+        hotkeys: [
+          ['f', 'newThat()'],
+          ['d','repeat()'],
+          ['s','slowRepeat()']
+        ]
       }];
       appsInfo.selectedIndex = -1;
       TimeMe.setIdleDurationInSeconds(60);

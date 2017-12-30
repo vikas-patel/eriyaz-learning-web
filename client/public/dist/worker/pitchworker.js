@@ -12,7 +12,7 @@ importScripts('/worker/waveletPitch.js');
 self.onmessage = function(e) {
 	switch (e.data.command) {
 		case 'init':
-			sampleRate = e.data.sampleRate;
+		sampleRate = e.data.sampleRate;
 			// one extra buffer 2048
 			processArray = new Float32Array(Math.ceil(e.data.time*sampleRate) + buffsize);
 			rootFreq = e.data.rootFreq;
@@ -21,42 +21,48 @@ self.onmessage = function(e) {
 			pitchArray = [];
 			recordSize = 0;
 			break;
-		case 'record':
+			case 'record':
 			record(e.data.floatarray);
 			break;
-		case 'concat':
+			case 'concat':
 			concatBuffers();
 			break;
-	}
-};
+		}
+	};
 
-function record(floatarray) {
-	if (recordSize <= latency) {
-		recordSize += floatarray.length;
-		return;
-	}
-	processArray.set(floatarray, offset);
-	offset += floatarray.length;
-	calcPitch();
-}
 
-function calcPitch() {
-	while (current + buffsize < offset) {
-        var subarray = new Float32Array(buffsize);
-        for (var i = 0; i < buffsize; i++) {
-          subarray[i] = processArray[current + i];
-        }
+	function record(floatarray) {
+		if (recordSize <= latency) {
+			recordSize += floatarray.length;
+			return;
+		}
+		processArray.set(floatarray, offset);
+		offset += floatarray.length;
+		calcPitch();
+	}
+
+	function calcPitch() {
+		while (current + buffsize < offset) {
+			var subarray = new Float32Array(buffsize);
+			for (var i = 0; i < buffsize; i++) {
+				subarray[i] = processArray[current + i];
+			}
         // floatarray.subarray(offset,offset+buffsize);
         var pitch = findPitch(subarray);
-        if (pitch !== 0) {
-          var currentFreq = pitch;
-          var currentInterval = getCents(rootFreq, currentFreq) / 100;
-          pitchArray.push(currentInterval);
-        } else 
+        if (pitch == -1) {
         	pitchArray.push(-100);
+        } else if (pitch == 0) {
+        	pitchArray.push(-200);
+        } else {
+        	var currentFreq = pitch;
+        	var currentInterval = getCents(rootFreq, currentFreq) / 100;
+        	pitchArray.push(currentInterval);
+        }
+
         current = current + incr;
-     }
+    }
 }
+
 
 function concatBuffers() {
 	self.postMessage({
@@ -68,8 +74,8 @@ function concatBuffers() {
 
 // Helper functions
 function findPitch(data) {
-	var freq = 0;
-	if (rootMeanSquare(data) > 0.01) {
+	var freq = -1;
+	if (rootMeanSquare(data) > 0.005) {
 		freq = dywapitch_computepitch(data);
 		freq = freq * (sampleRate/44100);
 	}
