@@ -420,7 +420,6 @@
           ['5', 'playPa()'],
           ['6', 'playDha()'],
           ['7', 'playNi()']
->>>>>>> fa948c0a92deff3cd2d1891a55ddc07ebac9c1d3
         ]
       }];
       appsInfo.selectedIndex = -1;

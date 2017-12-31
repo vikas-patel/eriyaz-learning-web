@@ -53,7 +53,7 @@ define([
     'singphrases',
     'songpractice',
     'uttaranga',
-    'freestlye2',
+    // 'freestlye2',
     'monsterblaster'
 ], function(angular) {
     'use strict';
@@ -104,7 +104,7 @@ define([
         'singphrases',
         'songpractice',
         'uttaranga',
-        'freestyle2',
+        // 'freestyle2',
         'monsterblaster',
         'ngResource',
         'angulartics',
