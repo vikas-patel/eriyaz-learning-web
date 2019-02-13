@@ -298,15 +298,6 @@
           ['s', 'repeatSlow()']
         ]
       }, 
-      // {
-      //   name: 'FruitNinja',
-      //   thumb: 'er-shell/images/fruitninja.png',
-      //   desc: 'Can you tell if the second node higher or lower than the first note?',
-      //   href: '#fruitninja',
-      //   appUrl: 'er-apps/FruitNinja/main.html',
-      //   aspectRatio: 8/7,
-      //   show: false
-      // }, 
       {
         name: 'ThatMemorizer',
         thumb: 'er-shell/images/thatmemorizer.jpg',
@@ -408,7 +399,17 @@
           ['6', 'playDha()'],
           ['7', 'playNi()']
         ]
-      }];
+      } 
+      ,{
+        name: 'FruitNinja',
+        thumb: 'er-shell/images/fruitninja.png',
+        desc: 'Can you tell if the second node higher or lower than the first note?',
+        href: '#fruitninja',
+        appUrl: 'er-apps/FruitNinja/main.html',
+        aspectRatio: 8/7,
+        show: true
+      }
+      ];
       appsInfo.selectedIndex = -1;
       TimeMe.setIdleDurationInSeconds(60);
       appsInfo.setSelected = function(index) {

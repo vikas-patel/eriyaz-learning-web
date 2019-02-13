@@ -1,5 +1,5 @@
-define(['./module', 'd3', 'music-calc', 'mic-util', 'pitchdetector','currentaudiocontext', 'audiobuffer', 'stabilitydetector', 'voiceplayer'], 
-    function(app, d3, MusicCalc, MicUtil, PitchDetector, CurrentAudioContext, AudioBuffer, StabilityDetector, VoicePlayer) {
+define(['./module', 'd3', 'music-calc', 'mic-util', 'pitchdetector','currentaudiocontext', 'audiobuffer', 'stabilitydetector', 'voiceplayer', './prefabs/scoreboard'], 
+    function(app, d3, MusicCalc, MicUtil, PitchDetector, CurrentAudioContext, AudioBuffer, StabilityDetector, VoicePlayer, Scoreboard) {
         app.controller('MonsterBlasterCtrl', function($scope, User, $window, $http) {
             
             var stabilityDetector = new StabilityDetector(unitStabilityDetected, aggStabilityDetected);
@@ -14,7 +14,7 @@ define(['./module', 'd3', 'music-calc', 'mic-util', 'pitchdetector','currentaudi
             var isPlay = false;
 
             function unitStabilityDetected(interval) {
-              console.log("unit stable", interval);
+              // console.log("unit stable", interval);
               var radian = cannonAngle(interval-Number($scope.rootNote));
               local.gun.rotation = -Math.PI/2 + radian;
               if (!isPlay) {
@@ -23,7 +23,7 @@ define(['./module', 'd3', 'music-calc', 'mic-util', 'pitchdetector','currentaudi
             }
 
             function aggStabilityDetected(interval) {
-              console.log("agg stable", interval);
+              // console.log("agg stable", interval);
               local.shootBullet();
             }
 
@@ -47,7 +47,7 @@ define(['./module', 'd3', 'music-calc', 'mic-util', 'pitchdetector','currentaudi
 
             function cannonAngle(interval) {
                 var formula = (interval/18 + 1/3)*local.dmin*local.GRAVITY/(local.BULLET_SPEED*local.BULLET_SPEED);
-                console.log(formula, interval);
+                // console.log(formula, interval);
                 radian = Math.asin(formula)/2;
                 return radian;
             }
@@ -57,6 +57,33 @@ define(['./module', 'd3', 'music-calc', 'mic-util', 'pitchdetector','currentaudi
                 local = this;
             };
 
+             GameState.prototype.levelCompleted = function() {
+                  // this.gameOverSound.play();
+                  this.scoreboard = new Scoreboard(this.game, true);
+                  this.game.add.existing(this.scoreboard);
+                  this.scoreboard.show(this.score);
+            };
+
+            GameState.prototype.addScore = function(score, scoreX) {
+                var me = this;
+                // this.scoreSound.play();
+                this.score += score;
+                var scoreFont = "30px Arial";
+                var scoreText = score.toString();//score == 10 ? "Perfect 10": '+'+score.toString();
+                //Create a new label for the score
+                var scoreAnimation = this.game.add.text(scoreX, this.game.height - 64 - 64, scoreText, {font: scoreFont, fill: "#39d179", stroke: "#ffffff", strokeThickness: 5}); 
+                scoreAnimation.anchor.setTo(0.5, 0);
+                scoreAnimation.align = 'center';
+                //Tween this score label to the total score label
+                var scoreTween = this.game.add.tween(scoreAnimation).to({x:this.game.width/2, y: 10}, 800, Phaser.Easing.Exponential.In, true);
+                //When the animation finishes, destroy this score label, trigger the total score labels animation and add the score
+                scoreTween.onComplete.add(function(){
+                    scoreAnimation.destroy();
+                    me.scoreText.setText(me.score.toString());
+                    me.scoreTotalTween.start();
+                }, me);
+              };
+
             // Load images and sounds
             GameState.prototype.preload = function() {
                 this.game.load.image('bullet', 'er-apps/MonsterBlaster/assets/cannon.png');
@@ -65,7 +92,16 @@ define(['./module', 'd3', 'music-calc', 'mic-util', 'pitchdetector','currentaudi
                 this.game.load.image('ground', 'er-apps/MonsterBlaster/assets/ground.png');
                 this.game.load.spritesheet('explosion', 'er-apps/MonsterBlaster/assets/explosion.png', 128, 128);
                 this.game.load.spritesheet('monster', 'er-apps/MonsterBlaster/assets/monster.png', 64, 64);
+                this.game.load.image('scoreboard', 'er-apps/FlappyBird/assets/scoreboard.png');
+                this.game.load.image('gameover', 'er-apps/FlappyBird/assets/gameover.png');
+                this.game.load.image('levelup', 'er-apps/FlappyBird/assets/levelup.png');
+                this.load.image('startButton', 'er-apps/FlappyBird/assets/start-button.png');
+                this.load.spritesheet("levels-trans", "er-apps/FlappyBird/assets/levels-trans.gif", 64, 64, 5);
+                  // font
+                this.load.bitmapFont('flappyfont', 'er-apps/FlappyBird/assets/fonts/flappyfont/flappyfont.png', 
+                    'er-apps/FlappyBird/assets/fonts/flappyfont/flappyfont.fnt');
             };
+
 
             // Setup the example
             GameState.prototype.create = function() {
@@ -144,7 +180,14 @@ define(['./module', 'd3', 'music-calc', 'mic-util', 'pitchdetector','currentaudi
                 // when the example begins running.
                 this.game.input.activePointer.x = this.game.width/2;
                 this.game.input.activePointer.y = this.game.height/2 - 100;
-            };
+                this.score = 0;
+                this.scoreText = this.game.add.bitmapText(this.game.width/2, 10, 'flappyfont',this.score.toString(), 26);
+                this.scoreText.anchor.setTo(0.5, 0);
+                this.scoreTotalTween = this.game.add.tween(this.scoreText.scale).to({ x: 1.5, y: 1.5}, 
+                    200, Phaser.Easing.Linear.In).to({ x: 1, y: 1}, 200, Phaser.Easing.Linear.In);
+                // this.gameOver();
+                // this.addScore(5);
+            }; 
 
             GameState.prototype.shootBullet = function() {
                 // Enforce a short delay between shots by recording
@@ -194,11 +237,20 @@ define(['./module', 'd3', 'music-calc', 'mic-util', 'pitchdetector','currentaudi
 
                 this.monsterGroup.forEach(function(monster) {
                     this.game.physics.arcade.collide(this.bulletPool, monster, function(sprite, bullet) {
-                      // console.log(sprite);
-                      // console.log(bullet);
                       isJumping = sprite.animations.getAnimation('jump').isPlaying;
                       if (isJumping) {
-                        sprite.animations.play('death');  
+                        sprite.animations.play('death');
+                        var score = 10 - wastedShots;
+                        score = Math.max(score, 5);
+                        this.addScore(score, bullet.x);
+                        var totalAlive = this.monsterGroup.countLiving();
+                        // this monster yet to be dead
+                        if (totalAlive == 1) {
+                            this.levelCompleted();
+                        }
+                      } else {
+                        // wasted shot
+                        wastedShots++;
                       }
                       
                       bullet.kill();
@@ -302,12 +354,15 @@ define(['./module', 'd3', 'music-calc', 'mic-util', 'pitchdetector','currentaudi
               }
 
               function playNote(noteNum, noteIndex) {
+                wastedShots = 0;
                 var midi = Number($scope.rootNote) + noteNum;
                 animateJump(noteIndex);
-                console.log(midi);
+                // console.log(midi);
                 isPlay = true;
-                voicePlayer.play(midi, function(){ setTimeout(function(){isPlay = false;}, 1000); }, beatDuration);
+                voicePlayer.play(midi, function(){ setTimeout(function(){isPlay = false;}, 500); }, beatDuration);
               }
+
+              var wastedShots = 0;
             
         });
     });

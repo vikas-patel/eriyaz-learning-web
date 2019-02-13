@@ -527,18 +527,18 @@
                      onLoggedOutRedirect: checkLoginAndRedirect
                  }
              }).
-             // state('fruitninja', {
-             //     url: '/fruitninja',
-             //     onEnter: function(UIModel, AppsInfoModel) {
-             //         UIModel.uiModel.showLoginDialog = false;
-             //         UIModel.uiModel.showMenu = true;
-             //         AppsInfoModel.setSelected(28);
-             //         UIModel.uiModel.showAppDialog = true;
-             //     },
-             //     resolve: {
-             //         onLoggedOutRedirect: checkLoginAndRedirect
-             //     }
-             // }).
+             state('fruitninja', {
+                 url: '/fruitninja',
+                 onEnter: function(UIModel, AppsInfoModel) {
+                     UIModel.uiModel.showLoginDialog = false;
+                     UIModel.uiModel.showMenu = true;
+                     AppsInfoModel.setSelected(37);
+                     UIModel.uiModel.showAppDialog = true;
+                 },
+                 resolve: {
+                     onLoggedOutRedirect: checkLoginAndRedirect
+                 }
+             }).
              state('thatmemorizer', {
                  url: '/thatmemorizer',
                  onEnter: function(UIModel, AppsInfoModel) {
