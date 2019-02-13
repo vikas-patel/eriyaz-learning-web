@@ -54,6 +54,7 @@ define(['./module', './display', 'mic-util', 'currentaudiocontext', 'audiobuffer
     var intensityDisplay = new IntensityDisplay();
 
       var display = new Display(timeRange);
+      display.drawLevel(1);
       var micStream;
       var pulseStartDetector = new PulseStartDetector();
       var pulseEndDetector = new PulseEndDetector();

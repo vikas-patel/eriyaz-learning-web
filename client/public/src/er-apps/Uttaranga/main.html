@@ -1,0 +1,36 @@
+<div id="uttaranga" ng-controller='UttarangaCtrl as ctrl'>
+    <div>
+        <dl id="score">
+        	<dt>Total</dt>
+        	<dd>{{total}}</dd>
+
+        	<dt>Correct</dt> 
+        	<dd>{{correct}}</dd>
+	    </dl>
+        <button ng-click = "resetScore()">reset</button>
+    </div>
+    <div class="container">
+        <input type="checkbox" ng-model="avroh"> Avroh
+		<input type="checkbox" ng-model="shuffle"> Shuffle
+    </div>
+    
+    <div id="feedback" class="container">
+        {{feedback}}
+    </div>
+
+    <div class="container">
+        <button ng-click="newThat();">New</button>
+        <button ng-click="repeatPlay();">Repeat</button>
+        <input type="text" ng-model="playTime" name="playTime">
+    </div>
+    <div class="container">
+        <ul>
+            <li ng-repeat="that in thats">
+                <input type="checkbox" ng-model="that.enabled">
+                <button ng-disabled="!that.enabled" ng-click="checkAnswer(that.name)">{{that.name}}</button>
+                <div ng-show="that.correct">!</div>
+            </li>
+        </ul>
+    </div>
+    
+</div>

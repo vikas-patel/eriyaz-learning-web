@@ -621,12 +621,24 @@
                      onLoggedOutRedirect: checkLoginAndRedirect
                  }
              }).
+             state('uttaranga', {
+                 url: '/uttaranga',
+                 onEnter: function(UIModel, AppsInfoModel) {
+                     UIModel.uiModel.showLoginDialog = false;
+                     UIModel.uiModel.showMenu = true;
+                     AppsInfoModel.setSelected(35);
+                     UIModel.uiModel.showAppDialog = true;
+                 },
+                 resolve: {
+                     onLoggedOutRedirect: checkLoginAndRedirect
+                 }
+             }).
              state('freestyle2', {
                  url: '/freestyle2',
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(35);
+                     AppsInfoModel.setSelected(36);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {
@@ -637,7 +649,7 @@
                  onEnter: function(UIModel, AppsInfoModel) {
                      UIModel.uiModel.showLoginDialog = false;
                      UIModel.uiModel.showMenu = true;
-                     AppsInfoModel.setSelected(36);
+                     AppsInfoModel.setSelected(37);
                      UIModel.uiModel.showAppDialog = true;
                  },
                  resolve: {

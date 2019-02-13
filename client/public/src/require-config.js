@@ -268,6 +268,10 @@ requirejs.config({
         location: 'er-apps/SingPhrases',
         main: 'index'
     }, {
+        name: 'uttaranga',
+        location: 'er-apps/Uttaranga',
+        main: 'index'
+    }, {
         name: 'tanpura',
         location: 'er-libs/tanpura',
         main: 'tanpura'

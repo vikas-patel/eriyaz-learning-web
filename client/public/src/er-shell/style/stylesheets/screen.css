@@ -3,7 +3,7 @@
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 @import url(../../../ext-libs/bower_components/hopscotch/dist/css/hopscotch.min.css);
-/* line 5, ../../../../../../../../../../var/lib/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 5, C:/Ruby25-x64/lib/ruby/gems/2.5.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -25,45 +25,45 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, ../../../../../../../../../../var/lib/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 22, C:/Ruby25-x64/lib/ruby/gems/2.5.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, ../../../../../../../../../../var/lib/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 24, C:/Ruby25-x64/lib/ruby/gems/2.5.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, ../../../../../../../../../../var/lib/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 26, C:/Ruby25-x64/lib/ruby/gems/2.5.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, ../../../../../../../../../../var/lib/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 28, C:/Ruby25-x64/lib/ruby/gems/2.5.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, ../../../../../../../../../../var/lib/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 30, C:/Ruby25-x64/lib/ruby/gems/2.5.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, ../../../../../../../../../../var/lib/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 103, C:/Ruby25-x64/lib/ruby/gems/2.5.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, ../../../../../../../../../../var/lib/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 32, C:/Ruby25-x64/lib/ruby/gems/2.5.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, ../../../../../../../../../../var/lib/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 116, C:/Ruby25-x64/lib/ruby/gems/2.5.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
   display: block;
 }
@@ -149,7 +149,7 @@ body #error dd {
 /* line 1, ../sass/pages/_front.scss */
 #front {
   font-family: sans-serif;
-  background-image: url('../../images/fort.jpg?1510650456'), radial-gradient(closest-side at 35% 45%, #e02006, #f16236, #e02006);
+  background-image: url('../../images/fort.jpg?1424756334'), radial-gradient(closest-side at 35% 45%, #e02006, #f16236, #e02006);
   /* Background image is centered vertically and horizontally at all times */
   background-position: center center;
   /* Background image doesn't tile */
@@ -1982,7 +1982,7 @@ core-drawer-panel:not([narrow]) #navicon {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 12, ../../../../../../../../../../var/lib/gems/2.3.0/gems/susy-2.2.12/sass/susy/output/support/_clearfix.scss */
+/* line 12, C:/Ruby25-x64/lib/ruby/gems/2.5.0/gems/susy-2.2.12/sass/susy/output/support/_clearfix.scss */
 #rapidintervals .controls:after {
   content: " ";
   display: block;
@@ -2352,7 +2352,7 @@ core-drawer-panel:not([narrow]) #navicon {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 12, ../../../../../../../../../../var/lib/gems/2.3.0/gems/susy-2.2.12/sass/susy/output/support/_clearfix.scss */
+/* line 12, C:/Ruby25-x64/lib/ruby/gems/2.5.0/gems/susy-2.2.12/sass/susy/output/support/_clearfix.scss */
 #rapidupdown .controls:after {
   content: " ";
   display: block;
@@ -2679,7 +2679,7 @@ core-drawer-panel:not([narrow]) #navicon {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 12, ../../../../../../../../../../var/lib/gems/2.3.0/gems/susy-2.2.12/sass/susy/output/support/_clearfix.scss */
+/* line 12, C:/Ruby25-x64/lib/ruby/gems/2.5.0/gems/susy-2.2.12/sass/susy/output/support/_clearfix.scss */
 #phraseshape .controls:after {
   content: " ";
   display: block;
@@ -3222,4 +3222,60 @@ core-drawer-panel:not([narrow]) #navicon {
   background-color: #17BAB3;
   display: block;
   height: 0.3em;
+}
+
+/* line 2, ../../../er-apps/Uttaranga/main.scss */
+#uttaranga #score {
+  float: right;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+/* line 6, ../../../er-apps/Uttaranga/main.scss */
+#uttaranga #score dt {
+  float: left;
+  clear: left;
+  width: 100px;
+  text-align: left;
+}
+/* line 14, ../../../er-apps/Uttaranga/main.scss */
+#uttaranga #score dt:after {
+  content: ":";
+}
+/* line 17, ../../../er-apps/Uttaranga/main.scss */
+#uttaranga #score dd {
+  margin: 0 0 0 100px;
+}
+/* line 24, ../../../er-apps/Uttaranga/main.scss */
+#uttaranga svg {
+  margin-top: 10px;
+}
+/* line 27, ../../../er-apps/Uttaranga/main.scss */
+#uttaranga ul {
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+}
+/* line 33, ../../../er-apps/Uttaranga/main.scss */
+#uttaranga li button {
+  width: 60%;
+}
+/* line 46, ../../../er-apps/Uttaranga/main.scss */
+#uttaranga li div {
+  display: inline;
+  width: 2px;
+  background-color: green;
+}
+/* line 51, ../../../er-apps/Uttaranga/main.scss */
+#uttaranga .container {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 3%;
+  border-top: solid;
+  border-width: 1px;
+  border-color: #E3E3E3;
+}
+/* line 64, ../../../er-apps/Uttaranga/main.scss */
+#uttaranga #feedback {
+  font-weight: bold;
+  border: none;
 }

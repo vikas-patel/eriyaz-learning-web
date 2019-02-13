@@ -52,6 +52,8 @@ define([
     'fastsinging',
     'singphrases',
     'songpractice',
+    'uttaranga',
+    // 'freestlye2',
     'monsterblaster'
 ], function(angular) {
     'use strict';
@@ -101,6 +103,8 @@ define([
         'fastsinging',
         'singphrases',
         'songpractice',
+        'uttaranga',
+        // 'freestyle2',
         'monsterblaster',
         'ngResource',
         'angulartics',

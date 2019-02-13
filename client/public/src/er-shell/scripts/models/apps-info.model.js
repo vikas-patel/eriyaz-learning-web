@@ -371,6 +371,19 @@
         ],
         show: false
       }, {
+        name: 'Uttaranga',
+        thumb: 'er-shell/images/uttaranga.jpg',
+        desc: 'Practice recognizing among 12 possible first of the Thats.',
+        href: '#uttaranga',
+        appUrl: 'er-apps/Uttaranga/main.html',
+        aspectRatio: 3 / 4,
+        hotkeys: [
+          ['f', 'newThat()'],
+          ['d','repeat()'],
+          ['s','slowRepeat()']
+          ],
+        show: false
+      }, {
         name: 'Freestyle2',
         thumb: 'er-shell/images/dial-thumb.jpg',
         desc: 'Practice free flow singing with immediate feedback on your pitch.',
