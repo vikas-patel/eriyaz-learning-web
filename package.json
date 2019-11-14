@@ -24,7 +24,7 @@
     "instamojo-node": "^1.0.1",
     "mongoose": "4.6.2",
     "mongoose-schema-extend": "latest",
-    "morgan": "~1.0.0",
+    "morgan": "~1.9.1",
     "node-rest-client": "^1.5.1",
     "nodemailer": "latest",
     "nodemailer-mailgun-transport": "^1.0.1",
