@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "agenda": "latest",
-    "async": "^1.4.2",
+    "async": "^2.6.4",
     "bcrypt-nodejs": "latest",
     "body-parser": "~1.0.0",
     "compression": "^1.4.1",
