@@ -19,7 +19,7 @@
     "cookie-parser": "~1.0.1",
     "d3": "^4.9.1",
     "ejs": "latest",
-    "express": "~4.9.0",
+    "express": "~4.17.3",
     "express-session": "~1.0.3",
     "instamojo-node": "^1.0.1",
     "mongoose": "4.6.2",
