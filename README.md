@@ -1,8 +1,8 @@
 ---------------- Development Setup -------------------------------------
 Installations:
 	Download & Install "Git Bash".
-	Download MongoDB.
-	Install nodeJS (https://nodejs.org/#download)
+	Download MongoDB (8.0 or latest).
+	Install nodeJS (v14 or above)
 Get code in your local directory:
 	Open web page: https://bitbucket.org/eartonic/eriyaz-web
 	Click on 'Clone' (below header 'Actions')
